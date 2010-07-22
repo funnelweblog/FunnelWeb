@@ -9,6 +9,8 @@ using System.Linq;
 using FunnelWeb.Web.Application.Settings;
 using System;
 using FunnelWeb.Web.Application.Markup;
+using System.Xml;
+using System.Collections.Generic;
 
 namespace FunnelWeb.Web.Controllers
 {
@@ -24,6 +26,23 @@ namespace FunnelWeb.Web.Controllers
         private readonly IFeedRepository _feedRepository;
         private readonly ISettingsProvider _settings;
 
+        private FeedResult FeedResult(IEnumerable<SyndicationItem> items)
+        {
+            return new FeedResult(
+                new Atom10FeedFormatter(
+                    new SyndicationFeed(_settings.SiteTitle, _settings.SearchDescription, new Uri(Request.Url, Url.Action("Recent", "Wiki")), items)
+            {
+                Id = Request.Url.ToString(),
+                Links = 
+                { 
+                    new SyndicationLink(Request.Url) 
+                    { 
+                        RelationshipType = "self" 
+                    }
+                }
+            }));
+        }
+
         public ActionResult Feed(PageName feedName)
         {
             var entries = _feedRepository.GetFeed(feedName, 0, 20);
@@ -38,29 +57,45 @@ namespace FunnelWeb.Web.Controllers
                             Title = TextSyndicationContent.CreatePlaintextContent(e.Title),
                             Summary = TextSyndicationContent.CreateHtmlContent(
                                 markdown.Render(e.LatestRevision.Body) + String.Format("<img src=\"{0}\" />", itemUri + "/via-feed")),
-                            Links = { new SyndicationLink(itemUri) },
                             LastUpdatedTime = e.LatestRevision.Revised,
-                            Authors = { new SyndicationPerson { Name = _settings.Author } },
+                            Links = 
+                            {
+                                new SyndicationLink(itemUri) 
+                            },
+                            Authors = 
+                            {
+                                new SyndicationPerson { Name = _settings.Author } 
+                            },
                         };
 
-            var feedUrl = new Uri(Request.Url, Url.Action("Recent", "Wiki"));
-            var feed = new SyndicationFeed(_settings.SiteTitle, _settings.SearchDescription, feedUrl, items)
-            {
-                Id = Request.Url.ToString(),
-                Links = { new SyndicationLink(Request.Url) { RelationshipType = "self" } }
-            };
-
-            return new FeedResult(new Atom10FeedFormatter(feed)) 
-            { 
-                ContentType = "application/atom+xml",
-            };
+            return FeedResult(items);
         }
 
         public ActionResult CommentFeed()
         {
             var comments = _feedRepository.GetCommentFeed(0, 20);
-            ViewData.Model = new CommentFeedModel(comments);
-            return View();
+
+            var markdown = new MarkdownRenderer(false, HttpContext.Request.Url.GetLeftPart(UriPartial.Authority));
+
+            var items = from e in comments
+                        let itemUri = new Uri(Request.Url, Url.Action("Page", "Wiki", new { page = e.Entry.Name, comment = e.Id }))
+                        select new SyndicationItem
+                        {
+                            Id = itemUri.ToString(),
+                            Title = TextSyndicationContent.CreatePlaintextContent(e.AuthorName + " on " + e.Entry.Title),
+                            Summary = TextSyndicationContent.CreateHtmlContent(markdown.Render(e.Body)),
+                            LastUpdatedTime = e.Posted,
+                            Links = 
+                            {
+                                new SyndicationLink(itemUri) 
+                            },
+                            Authors = 
+                            {
+                                new SyndicationPerson { Name = e.AuthorName, Uri = e.AuthorUrl } 
+                            },
+                        };
+
+            return FeedResult(items);
         }
     }
 }

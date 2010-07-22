@@ -241,8 +241,6 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Views\Admin\Index.aspx" />
-    <Content Include="Views\Feed\CommentFeed.aspx" />
-    <Content Include="Views\Feed\Feed.aspx" />
     <Content Include="Views\Login\Index.aspx" />
     <Content Include="Views\Shared\Images\EditorButtons.png" />
     <Content Include="Views\Shared\Images\Emoticons\Cheeky.png" />
