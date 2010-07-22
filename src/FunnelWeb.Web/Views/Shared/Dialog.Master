@@ -1,0 +1,37 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" 
+%><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title><asp:ContentPlaceHolder ID="TitleContentPlaceHolder" runat="server" /></title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link href="/Views/Shared/Styles/Screen.css" type="text/css" rel="stylesheet" />
+    <link href="/Views/Shared/Styles/Editor.css" type="text/css" rel="stylesheet" />
+    <link href="/Views/Shared/Styles/Print.css" type="text/css" rel="stylesheet" media="print" />
+    <script type="text/javascript" src="/Views/Shared/Scripts/JQuery/jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" src="/Views/Shared/Scripts/JQuery/JQuery-FieldSelection.js"></script>
+    <script type="text/javascript" src="/Views/Shared/Scripts/JQuery/JQuery-ScrollTo.js"></script>
+    <script type="text/javascript" src="/Views/Shared/Scripts/JQuery/JQuery-Validation.js"></script>
+    <script type="text/javascript" src="/Views/Shared/Scripts/MD5/MD5.js"></script>
+    <script type="text/javascript" src="/Views/Shared/Scripts/Showdown/Showdown.js"></script>
+    <script type="text/javascript" src="/Views/Shared/Scripts/Prettify/Prettify.js"></script>
+    <script type="text/javascript" src="/Views/Shared/Scripts/Site/Site.js"></script>
+    <script type="text/javascript" src="/Views/Shared/Scripts/JQuery/JSDate.js"></script>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+</head>
+<body>
+  <div class="layout">
+    <div class="header">
+      <div class="header-in">
+      </div>
+    </div>
+    <div class="content">
+      <div class="content-in">
+        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+        </asp:ContentPlaceHolder>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="/Resources/Scripts/Showdown/wmd.js"></script>
+</body>
+</html>
