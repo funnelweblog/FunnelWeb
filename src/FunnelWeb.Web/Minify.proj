@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 
+Files like All.css and All.js are automatically generated from their whitespace-heavy sources. This build script invokes the YUI tasks to perform that minification 
+-->
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <UsingTask TaskName="CompressorTask" AssemblyFile="..\..\Lib\YUI\Yahoo.Yui.Compressor.dll" />
   <Target Name="Build">
