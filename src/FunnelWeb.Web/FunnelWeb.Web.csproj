@@ -97,6 +97,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -125,6 +126,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\ActionResults\FeedResult.cs" />
     <Compile Include="Application\ActionResults\XmlActionResult.cs" />
     <Compile Include="Application\Authentication\FormsAuthenticator.cs" />
     <Compile Include="Application\Authentication\IAuthenticator.cs" />
@@ -280,7 +282,7 @@
     <Content Include="Views\Shared\Images\Me.jpg" />
     <Content Include="Views\Shared\Images\NavBG.jpg" />
     <Content Include="Views\Shared\Images\NavBG.png" />
-    <Content Include="Views\Shared\Images\PaulStovell.png" />
+    <Content Include="Views\Shared\Images\Title.png" />
     <Content Include="Views\Shared\Images\Transparent.gif" />
     <Content Include="Views\Shared\Resources\favicon.ico" />
     <Content Include="Views\Shared\Resources\favicon.png" />
