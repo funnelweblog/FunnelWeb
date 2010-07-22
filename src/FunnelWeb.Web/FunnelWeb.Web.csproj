@@ -353,4 +353,9 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PreBuildEvent>pushd $(ProjectDir)
+.\Minify.bat
+popd</PreBuildEvent>
+  </PropertyGroup>
 </Project>
