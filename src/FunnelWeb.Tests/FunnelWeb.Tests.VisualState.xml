@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="false">
+  <TopNode>[0-1000]C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\FunnelWeb.Tests.nunit</TopNode>
+  <SelectedNode>[0-1000]C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\FunnelWeb.Tests.nunit</SelectedNode>
+  <ExcludeCategories>false</ExcludeCategories>
+  <Nodes>
+    <Node UniqueName="[0-1000]C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\FunnelWeb.Tests.nunit" Expanded="true" />
+    <Node UniqueName="[0-1029]C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\bin\Debug\FunnelWeb.Tests.dll" Expanded="true" />
+    <Node UniqueName="[0-1030]FunnelWeb" Expanded="true" />
+    <Node UniqueName="[0-1031]FunnelWeb.Tests" Expanded="true" />
+    <Node UniqueName="[0-1032]FunnelWeb.Tests.Web" Expanded="true" />
+    <Node UniqueName="[0-1035]FunnelWeb.Tests.Web.Application" Expanded="true" />
+    <Node UniqueName="[0-1040]FunnelWeb.Tests.Web.Application.ActionResults" Expanded="true" />
+    <Node UniqueName="[0-1036]FunnelWeb.Tests.Web.Application.Binders" Expanded="true" />
+    <Node UniqueName="[0-1038]FunnelWeb.Tests.Web.Application.Filters" Expanded="true" />
+    <Node UniqueName="[0-1039]FunnelWeb.Tests.Web.Application.Markup" Expanded="true" />
+    <Node UniqueName="[0-1037]FunnelWeb.Tests.Web.Application.Mime" Expanded="true" />
+    <Node UniqueName="[0-1033]FunnelWeb.Tests.Web.Model" Expanded="true" />
+    <Node UniqueName="[0-1034]FunnelWeb.Tests.Web.Model.Strings" Expanded="true" />
+  </Nodes>
+</VisualState>

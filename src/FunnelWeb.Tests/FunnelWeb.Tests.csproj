@@ -59,6 +59,7 @@
     <Compile Include="Helpers\Specification.cs" />
     <Compile Include="Helpers\ThenAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Web\Application\ActionResults\XmlActionResultTests.cs" />
     <Compile Include="Web\Application\Binders\ArrayBinderTests.cs" />
     <Compile Include="Web\Application\Binders\DictionaryBinderTests.cs" />
     <Compile Include="Web\Application\Filters\RequireLoginTests.cs" />
