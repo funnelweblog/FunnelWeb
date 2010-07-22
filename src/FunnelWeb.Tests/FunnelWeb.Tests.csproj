@@ -34,6 +34,9 @@
     <Reference Include="Autofac">
       <HintPath>..\..\lib\Autofac\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\..\lib\Moq\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="NSubstitute">
       <HintPath>..\..\lib\NSubstitute\NSubstitute.dll</HintPath>
     </Reference>
@@ -53,8 +56,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\RouteExtensions.cs" />
+    <Compile Include="Helpers\Specification.cs" />
+    <Compile Include="Helpers\ThenAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\Application\Binders\ArrayBinderTests.cs" />
+    <Compile Include="Web\Application\Binders\DictionaryBinderTests.cs" />
     <Compile Include="Web\Application\Filters\RequireLoginTests.cs" />
     <Compile Include="Web\Application\Markup\MarkdownTests.cs" />
     <Compile Include="Web\Application\Mime\RegistryMimeTypeLookupTests.cs" />

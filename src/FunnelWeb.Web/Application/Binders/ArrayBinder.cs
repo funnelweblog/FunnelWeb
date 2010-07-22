@@ -4,6 +4,11 @@ using System.Web.Mvc;
 
 namespace FunnelWeb.Web.Application.Binders
 {
+    /// <summary>
+    /// Lets us take an array of values (comma seperated) or duplicate values of the same name from HTTP input 
+    /// and convert it to an array of integers. For example, foo=1,2,3 or foo=1&foo=2&foo=3. Used for things like 
+    /// checkbox lists.
+    /// </summary>
     public class ArrayBinder : IModelBinder
     {
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
