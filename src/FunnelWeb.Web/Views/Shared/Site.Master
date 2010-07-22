@@ -13,7 +13,7 @@
 </head>
 <body>
   <div class="header">
-    <a class="logo" href="<%= Html.Qualify("/") %>" title="Paul Stovell"><%= Settings.SiteTitle %></a>
+    <a class="logo" href="<%= Html.Qualify("/") %>" title="<%= Settings.SiteTitle %>"><%= Settings.SiteTitle %></a>
   </div>
   <div class="nav">
     <ul>
