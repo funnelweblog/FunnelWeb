@@ -11,7 +11,11 @@
         To administer this site, please log in using the form below.
     </p>
     
-    <%= Html.Flashes() %>
+    <% if (Model.PreviousLoginFailed) { %>
+    <p class="message">
+    The username or password could not be authenticated. Please try again.
+    </p>
+    <% } %>
     
     <% using (Html.BeginForm("Login", "Login")) { %>
         

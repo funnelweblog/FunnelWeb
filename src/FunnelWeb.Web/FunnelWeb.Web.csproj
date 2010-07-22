@@ -133,12 +133,10 @@
     <Compile Include="Application\Binders\UploadBinder.cs" />
     <Compile Include="Application\Extensions\Builders\Builder.cs" />
     <Compile Include="Application\Extensions\Builders\DatePickerBuilder.cs" />
-    <Compile Include="Application\Extensions\Builders\FlashDataBuilder.cs" />
     <Compile Include="Application\Extensions\Builders\IFieldBuilder.cs" />
     <Compile Include="Application\Extensions\Builders\TextAreaBuilder.cs" />
     <Compile Include="Application\Extensions\Builders\TextBoxBuilder.cs" />
     <Compile Include="Application\Extensions\Builders\TextEditorBuilder.cs" />
-    <Compile Include="Application\Extensions\FlashData.cs" />
     <Compile Include="Application\Extensions\MarkupExtensions.cs" />
     <Compile Include="Application\Extensions\NumericExtensions.cs" />
     <Compile Include="Application\Extensions\ViewDataDictionaryExtensions.cs" />
