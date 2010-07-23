@@ -65,6 +65,7 @@
     <Compile Include="Web\Application\Filters\RequireLoginTests.cs" />
     <Compile Include="Web\Application\Markup\MarkdownTests.cs" />
     <Compile Include="Web\Application\Mime\RegistryMimeTypeLookupTests.cs" />
+    <Compile Include="Web\Model\Repositories\FileRepositoryTests.cs" />
     <Compile Include="Web\Model\Strings\PageNameTests.cs" />
     <Compile Include="Web\RoutingTests.cs" />
   </ItemGroup>

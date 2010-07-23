@@ -1,36 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!--This file represents the results of running a test suite-->
-<test-results name="C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\FunnelWeb.Tests.nunit" total="19" errors="5" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2010-07-22" time="20:01:50">
+<test-results name="C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\FunnelWeb.Tests.nunit" total="21" errors="5" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2010-07-23" time="17:30:06">
   <environment nunit-version="2.5.5.10112" clr-version="2.0.50727.4927" os-version="Microsoft Windows NT 6.1.7600.0" platform="Win32NT" cwd="C:\Program Files (x86)\NUnit 2.5.5\bin\net-2.0" machine-name="AZ-VAIO" user="AaronPowell" user-domain="thefarmcreative" />
   <culture-info current-culture="en-AU" current-uiculture="en-US" />
-  <test-suite type="Project" name="C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\FunnelWeb.Tests.nunit" executed="True" result="Failure" success="False" time="1.664" asserts="0">
+  <test-suite type="Project" name="C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\FunnelWeb.Tests.nunit" executed="True" result="Failure" success="False" time="1.862" asserts="0">
     <results>
-      <test-suite type="Assembly" name="C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\bin\Debug\FunnelWeb.Tests.dll" executed="True" result="Failure" success="False" time="1.654" asserts="0">
+      <test-suite type="Assembly" name="C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\bin\Debug\FunnelWeb.Tests.dll" executed="True" result="Failure" success="False" time="1.849" asserts="0">
         <results>
-          <test-suite type="Namespace" name="FunnelWeb" executed="True" result="Failure" success="False" time="1.654" asserts="0">
+          <test-suite type="Namespace" name="FunnelWeb" executed="True" result="Failure" success="False" time="1.848" asserts="0">
             <results>
-              <test-suite type="Namespace" name="Tests" executed="True" result="Failure" success="False" time="1.654" asserts="0">
+              <test-suite type="Namespace" name="Tests" executed="True" result="Failure" success="False" time="1.848" asserts="0">
                 <results>
-                  <test-suite type="Namespace" name="Web" executed="True" result="Failure" success="False" time="1.654" asserts="0">
+                  <test-suite type="Namespace" name="Web" executed="True" result="Failure" success="False" time="1.845" asserts="0">
                     <results>
-                      <test-suite type="Namespace" name="Application" executed="True" result="Failure" success="False" time="1.374" asserts="0">
+                      <test-suite type="Namespace" name="Application" executed="True" result="Failure" success="False" time="1.476" asserts="0">
                         <results>
-                          <test-suite type="Namespace" name="ActionResults" executed="True" result="Success" success="True" time="0.090" asserts="0">
+                          <test-suite type="Namespace" name="ActionResults" executed="True" result="Success" success="True" time="0.121" asserts="0">
                             <results>
-                              <test-suite type="TestFixture" name="XmlActionResultTests" executed="True" result="Success" success="True" time="0.090" asserts="0">
+                              <test-suite type="TestFixture" name="XmlActionResultTests" executed="True" result="Success" success="True" time="0.118" asserts="0">
                                 <results>
-                                  <test-case name="FunnelWeb.Tests.Web.Application.ActionResults.XmlActionResultTests.XmlActionResultTests_Cant_Pass_Null" executed="True" result="Success" success="True" time="0.050" asserts="1" />
+                                  <test-case name="FunnelWeb.Tests.Web.Application.ActionResults.XmlActionResultTests.XmlActionResultTests_Cant_Pass_Null" executed="True" result="Success" success="True" time="0.081" asserts="1" />
                                   <test-case name="FunnelWeb.Tests.Web.Application.ActionResults.XmlActionResultTests.XmlActionResultTests_Default_Encoding_UTF8" executed="True" result="Success" success="True" time="0.010" asserts="1" />
-                                  <test-case name="FunnelWeb.Tests.Web.Application.ActionResults.XmlActionResultTests.XmlActionResultTests_Result_Content_Type_Is_Xml" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="FunnelWeb.Tests.Web.Application.ActionResults.XmlActionResultTests.XmlActionResultTests_Result_Content_Type_Is_Xml" executed="True" result="Success" success="True" time="0.003" asserts="1" />
                                 </results>
                               </test-suite>
                             </results>
                           </test-suite>
-                          <test-suite type="Namespace" name="Binders" executed="True" result="Failure" success="False" time="0.430" asserts="0">
+                          <test-suite type="Namespace" name="Binders" executed="True" result="Failure" success="False" time="0.436" asserts="0">
                             <results>
-                              <test-suite type="TestFixture" name="ArrayBinderTests+Form_values_split_by_commas_will_be_arrayed" executed="True" result="Failure" success="False" time="0.400" asserts="0">
+                              <test-suite type="TestFixture" name="ArrayBinderTests+Form_values_split_by_commas_will_be_arrayed" executed="True" result="Failure" success="False" time="0.411" asserts="0">
                                 <results>
-                                  <test-case name="FunnelWeb.Tests.Web.Application.Binders.ArrayBinderTests+Form_values_split_by_commas_will_be_arrayed.ShouldRecogniseAllPostcodes" executed="True" result="Error" success="False" time="0.400" asserts="0">
+                                  <test-case name="FunnelWeb.Tests.Web.Application.Binders.ArrayBinderTests+Form_values_split_by_commas_will_be_arrayed.ShouldRecogniseAllPostcodes" executed="True" result="Error" success="False" time="0.409" asserts="0">
                                     <failure>
                                       <message><![CDATA[System.NullReferenceException : Object reference not set to an instance of an object.]]></message>
                                       <stack-trace><![CDATA[at FunnelWeb.Tests.Web.Application.Binders.ArrayBinderTests.Form_values_split_by_commas_will_be_arrayed.Given() in C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\Web\Application\Binders\ArrayBinderTests.cs:line 17
@@ -40,9 +40,9 @@ at FunnelWeb.Tests.Helpers.Specification`1.Initialize() in C:\_Projects\code.goo
                                   </test-case>
                                 </results>
                               </test-suite>
-                              <test-suite type="TestFixture" name="DictionaryBinderTests+Settings_posted_via_form_must_be_turned_into_dictionaries_by_prefix" executed="True" result="Failure" success="False" time="0.020" asserts="0">
+                              <test-suite type="TestFixture" name="DictionaryBinderTests+Settings_posted_via_form_must_be_turned_into_dictionaries_by_prefix" executed="True" result="Failure" success="False" time="0.005" asserts="0">
                                 <results>
-                                  <test-case name="FunnelWeb.Tests.Web.Application.Binders.DictionaryBinderTests+Settings_posted_via_form_must_be_turned_into_dictionaries_by_prefix.ShouldRecogniseAllPostcodes" executed="True" result="Error" success="False" time="0.010" asserts="0">
+                                  <test-case name="FunnelWeb.Tests.Web.Application.Binders.DictionaryBinderTests+Settings_posted_via_form_must_be_turned_into_dictionaries_by_prefix.ShouldRecogniseAllPostcodes" executed="True" result="Error" success="False" time="0.005" asserts="0">
                                     <failure>
                                       <message><![CDATA[System.NullReferenceException : Object reference not set to an instance of an object.]]></message>
                                       <stack-trace><![CDATA[at FunnelWeb.Tests.Web.Application.Binders.DictionaryBinderTests.Settings_posted_via_form_must_be_turned_into_dictionaries_by_prefix.Given() in C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\Web\Application\Binders\DictionaryBinderTests.cs:line 18
@@ -54,11 +54,11 @@ at FunnelWeb.Tests.Helpers.Specification`1.Initialize() in C:\_Projects\code.goo
                               </test-suite>
                             </results>
                           </test-suite>
-                          <test-suite type="Namespace" name="Filters" executed="True" result="Failure" success="False" time="0.094" asserts="0">
+                          <test-suite type="Namespace" name="Filters" executed="True" result="Failure" success="False" time="0.074" asserts="0">
                             <results>
-                              <test-suite type="TestFixture" name="RequireLoginTests+Already_logged_in_users_will_be_allowed_to_continue" executed="True" result="Failure" success="False" time="0.081" asserts="0">
+                              <test-suite type="TestFixture" name="RequireLoginTests+Already_logged_in_users_will_be_allowed_to_continue" executed="True" result="Failure" success="False" time="0.057" asserts="0">
                                 <results>
-                                  <test-case name="FunnelWeb.Tests.Web.Application.Filters.RequireLoginTests+Already_logged_in_users_will_be_allowed_to_continue.Should_allow_request_to_continue" executed="True" result="Error" success="False" time="0.081" asserts="0">
+                                  <test-case name="FunnelWeb.Tests.Web.Application.Filters.RequireLoginTests+Already_logged_in_users_will_be_allowed_to_continue.Should_allow_request_to_continue" executed="True" result="Error" success="False" time="0.046" asserts="0">
                                     <failure>
                                       <message><![CDATA[System.NullReferenceException : Object reference not set to an instance of an object.]]></message>
                                       <stack-trace><![CDATA[at FunnelWeb.Tests.Web.Application.Filters.RequireLoginTests.Already_logged_in_users_will_be_allowed_to_continue.Given() in C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\Web\Application\Filters\RequireLoginTests.cs:line 18
@@ -68,9 +68,9 @@ at FunnelWeb.Tests.Helpers.Specification`1.Initialize() in C:\_Projects\code.goo
                                   </test-case>
                                 </results>
                               </test-suite>
-                              <test-suite type="TestFixture" name="RequireLoginTests+Anonymous_users_will_be_redirected_to_login_page" executed="True" result="Failure" success="False" time="0.000" asserts="0">
+                              <test-suite type="TestFixture" name="RequireLoginTests+Anonymous_users_will_be_redirected_to_login_page" executed="True" result="Failure" success="False" time="0.003" asserts="0">
                                 <results>
-                                  <test-case name="FunnelWeb.Tests.Web.Application.Filters.RequireLoginTests+Anonymous_users_will_be_redirected_to_login_page.Should_allow_request_to_continue" executed="True" result="Error" success="False" time="0.000" asserts="0">
+                                  <test-case name="FunnelWeb.Tests.Web.Application.Filters.RequireLoginTests+Anonymous_users_will_be_redirected_to_login_page.Should_allow_request_to_continue" executed="True" result="Error" success="False" time="0.002" asserts="0">
                                     <failure>
                                       <message><![CDATA[System.NullReferenceException : Object reference not set to an instance of an object.]]></message>
                                       <stack-trace><![CDATA[at FunnelWeb.Tests.Web.Application.Filters.RequireLoginTests.Anonymous_users_will_be_redirected_to_login_page.Given() in C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\Web\Application\Filters\RequireLoginTests.cs:line 41
@@ -82,50 +82,60 @@ at FunnelWeb.Tests.Helpers.Specification`1.Initialize() in C:\_Projects\code.goo
                               </test-suite>
                             </results>
                           </test-suite>
-                          <test-suite type="Namespace" name="Markup" executed="True" result="Success" success="True" time="0.720" asserts="0">
+                          <test-suite type="Namespace" name="Markup" executed="True" result="Success" success="True" time="0.790" asserts="0">
                             <results>
-                              <test-suite type="TestFixture" name="MarkdownTests+WhenRenderingMarkdown" executed="True" result="Success" success="True" time="0.720" asserts="0">
+                              <test-suite type="TestFixture" name="MarkdownTests+WhenRenderingMarkdown" executed="True" result="Success" success="True" time="0.787" asserts="0">
                                 <results>
-                                  <test-case name="FunnelWeb.Tests.Web.Application.Markup.MarkdownTests+WhenRenderingMarkdown.ShouldFullyQualifyUrls" executed="True" result="Success" success="True" time="0.560" asserts="1" />
-                                  <test-case name="FunnelWeb.Tests.Web.Application.Markup.MarkdownTests+WhenRenderingMarkdown.ShouldProtectAgainstCrossSiteScripting" executed="True" result="Success" success="True" time="0.100" asserts="1" />
-                                  <test-case name="FunnelWeb.Tests.Web.Application.Markup.MarkdownTests+WhenRenderingMarkdown.ShouldSupportFormatting" executed="True" result="Success" success="True" time="0.010" asserts="3" />
+                                  <test-case name="FunnelWeb.Tests.Web.Application.Markup.MarkdownTests+WhenRenderingMarkdown.ShouldFullyQualifyUrls" executed="True" result="Success" success="True" time="0.625" asserts="1" />
+                                  <test-case name="FunnelWeb.Tests.Web.Application.Markup.MarkdownTests+WhenRenderingMarkdown.ShouldProtectAgainstCrossSiteScripting" executed="True" result="Success" success="True" time="0.099" asserts="1" />
+                                  <test-case name="FunnelWeb.Tests.Web.Application.Markup.MarkdownTests+WhenRenderingMarkdown.ShouldSupportFormatting" executed="True" result="Success" success="True" time="0.005" asserts="3" />
                                   <test-case name="FunnelWeb.Tests.Web.Application.Markup.MarkdownTests+WhenRenderingMarkdown.ShouldSupportHeaders" executed="True" result="Success" success="True" time="0.020" asserts="10" />
-                                  <test-case name="FunnelWeb.Tests.Web.Application.Markup.MarkdownTests+WhenRenderingMarkdown.ShouldSupportInlineHtml" executed="True" result="Success" success="True" time="0.010" asserts="1" />
-                                  <test-case name="FunnelWeb.Tests.Web.Application.Markup.MarkdownTests+WhenRenderingMarkdown.ShouldSupportLists" executed="True" result="Success" success="True" time="0.000" asserts="1" />
-                                  <test-case name="FunnelWeb.Tests.Web.Application.Markup.MarkdownTests+WhenRenderingMarkdown.ShouldSupportParagraphs" executed="True" result="Success" success="True" time="0.000" asserts="3" />
-                                  <test-case name="FunnelWeb.Tests.Web.Application.Markup.MarkdownTests+WhenRenderingMarkdown.ShouldSupportQuotes" executed="True" result="Success" success="True" time="0.010" asserts="2" />
+                                  <test-case name="FunnelWeb.Tests.Web.Application.Markup.MarkdownTests+WhenRenderingMarkdown.ShouldSupportInlineHtml" executed="True" result="Success" success="True" time="0.003" asserts="1" />
+                                  <test-case name="FunnelWeb.Tests.Web.Application.Markup.MarkdownTests+WhenRenderingMarkdown.ShouldSupportLists" executed="True" result="Success" success="True" time="0.004" asserts="1" />
+                                  <test-case name="FunnelWeb.Tests.Web.Application.Markup.MarkdownTests+WhenRenderingMarkdown.ShouldSupportParagraphs" executed="True" result="Success" success="True" time="0.004" asserts="3" />
+                                  <test-case name="FunnelWeb.Tests.Web.Application.Markup.MarkdownTests+WhenRenderingMarkdown.ShouldSupportQuotes" executed="True" result="Success" success="True" time="0.005" asserts="2" />
                                 </results>
                               </test-suite>
                             </results>
                           </test-suite>
-                          <test-suite type="Namespace" name="Mime" executed="True" result="Success" success="True" time="0.030" asserts="0">
+                          <test-suite type="Namespace" name="Mime" executed="True" result="Success" success="True" time="0.037" asserts="0">
                             <results>
-                              <test-suite type="TestFixture" name="RegistryMimeTypeLookupTests+WhenMimeTypeRequested" executed="True" result="Success" success="True" time="0.030" asserts="0">
+                              <test-suite type="TestFixture" name="RegistryMimeTypeLookupTests+WhenMimeTypeRequested" executed="True" result="Success" success="True" time="0.035" asserts="0">
                                 <results>
-                                  <test-case name="FunnelWeb.Tests.Web.Application.Mime.RegistryMimeTypeLookupTests+WhenMimeTypeRequested.ShouldReturnMimeTypeFromRegistry" executed="True" result="Success" success="True" time="0.030" asserts="4" />
+                                  <test-case name="FunnelWeb.Tests.Web.Application.Mime.RegistryMimeTypeLookupTests+WhenMimeTypeRequested.ShouldReturnMimeTypeFromRegistry" executed="True" result="Success" success="True" time="0.034" asserts="4" />
                                 </results>
                               </test-suite>
                             </results>
                           </test-suite>
                         </results>
                       </test-suite>
-                      <test-suite type="Namespace" name="Model" executed="True" result="Success" success="True" time="0.040" asserts="0">
+                      <test-suite type="Namespace" name="Model" executed="True" result="Success" success="True" time="0.116" asserts="0">
                         <results>
-                          <test-suite type="Namespace" name="Strings" executed="True" result="Success" success="True" time="0.040" asserts="0">
+                          <test-suite type="Namespace" name="Repositories" executed="True" result="Success" success="True" time="0.076" asserts="0">
                             <results>
-                              <test-suite type="TestFixture" name="PageNameTests+WhenNamingPages" executed="True" result="Success" success="True" time="0.040" asserts="0">
+                              <test-suite type="TestFixture" name="FileRepositoryTests" executed="True" result="Success" success="True" time="0.073" asserts="0">
+                                <results>
+                                  <test-case name="FunnelWeb.Tests.Web.Model.Repositories.FileRepositoryTests.FileRepositoryTests_File_System_Paths_Ignore_Server" executed="True" result="Success" success="True" time="0.050" asserts="0" />
+                                  <test-case name="FunnelWeb.Tests.Web.Model.Repositories.FileRepositoryTests.FileRepositoryTests_Relative_Paths_Resolved_From_Server" executed="True" result="Success" success="True" time="0.020" asserts="0" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                          <test-suite type="Namespace" name="Strings" executed="True" result="Success" success="True" time="0.035" asserts="0">
+                            <results>
+                              <test-suite type="TestFixture" name="PageNameTests+WhenNamingPages" executed="True" result="Success" success="True" time="0.029" asserts="0">
                                 <results>
                                   <test-case name="FunnelWeb.Tests.Web.Model.Strings.PageNameTests+WhenNamingPages.NullsShouldBeConvertedToEmptyWherePossible" executed="True" result="Success" success="True" time="0.020" asserts="2" />
-                                  <test-case name="FunnelWeb.Tests.Web.Model.Strings.PageNameTests+WhenNamingPages.PageNamesShouldBeCorrected" executed="True" result="Success" success="True" time="0.010" asserts="116" />
+                                  <test-case name="FunnelWeb.Tests.Web.Model.Strings.PageNameTests+WhenNamingPages.PageNamesShouldBeCorrected" executed="True" result="Success" success="True" time="0.005" asserts="116" />
                                 </results>
                               </test-suite>
                             </results>
                           </test-suite>
                         </results>
                       </test-suite>
-                      <test-suite type="TestFixture" name="RoutingTests+RoutingRules" executed="True" result="Failure" success="False" time="0.220" asserts="0">
+                      <test-suite type="TestFixture" name="RoutingTests+RoutingRules" executed="True" result="Failure" success="False" time="0.233" asserts="0">
                         <results>
-                          <test-case name="FunnelWeb.Tests.Web.RoutingTests+RoutingRules.ShouldMapRoutesAsSpecifiedInDocumentation" executed="True" result="Error" success="False" time="0.000" asserts="0">
+                          <test-case name="FunnelWeb.Tests.Web.RoutingTests+RoutingRules.ShouldMapRoutesAsSpecifiedInDocumentation" executed="True" result="Error" success="False" time="0.006" asserts="0">
                             <failure>
                               <message><![CDATA[System.NullReferenceException : Object reference not set to an instance of an object.]]></message>
                               <stack-trace><![CDATA[at FunnelWeb.Tests.Helpers.RouteExtensions.WillRoute(RouteCollection routes, String requestUrl, Object expectations) in C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\Helpers\RouteExtensions.cs:line 16
