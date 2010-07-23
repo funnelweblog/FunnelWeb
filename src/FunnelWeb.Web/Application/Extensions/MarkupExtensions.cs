@@ -4,7 +4,7 @@ using System.Text;
 using System.Web.Mvc;
 using FunnelWeb.Web.Application.Extensions.Builders;
 using System.Security.Cryptography;
-using FunnelWeb.Web.Application.Markup;
+using FunnelWeb.Web.Application.Views;
 using System.Reflection;
 using System.Globalization;
 
@@ -177,13 +177,13 @@ namespace FunnelWeb.Web.Application.Extensions
             return date.ToString("yyyy-MM-dd") + "T" + date.ToString("HH:mm:ss") + "Z";
         }
 
-        public static string Markdown(this HtmlHelper html, object content, bool sanitize)
-        {
-            var text = (content ?? string.Empty).ToString();
-            var markdown = new MarkdownRenderer(sanitize, html.ViewContext.RequestContext.HttpContext.Request.Url.GetLeftPart(UriPartial.Authority));
-            text = markdown.Render(text);
-            return text;
-        }
+        //public static string Markdown(this HtmlHelper html, object content, bool sanitize)
+        //{
+        //    var text = (content ?? string.Empty).ToString();
+        //    var markdown = new MarkdownRenderer(sanitize, html.ViewContext.RequestContext.HttpContext.Request.Url.GetLeftPart(UriPartial.Authority));
+        //    text = markdown.Render(text);
+        //    return text;
+        //}
 
         public static string TextilizeList(this HtmlHelper html, object content)
         {

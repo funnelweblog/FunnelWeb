@@ -8,7 +8,7 @@ using System.ServiceModel.Syndication;
 using System.Linq;
 using FunnelWeb.Web.Application.Settings;
 using System;
-using FunnelWeb.Web.Application.Markup;
+using FunnelWeb.Web.Application.Views;
 using System.Xml;
 using System.Collections.Generic;
 
@@ -17,13 +17,15 @@ namespace FunnelWeb.Web.Controllers
     [Transactional]
     public partial class FeedController : Controller
     {
-        public FeedController(IFeedRepository feedRepository, ISettingsProvider settings)
+        public FeedController(IFeedRepository feedRepository, IMarkdownProvider markdown, ISettingsProvider settings)
         {
             _feedRepository = feedRepository;
+            _markdown = markdown;
             _settings = settings;
         }
 
         private readonly IFeedRepository _feedRepository;
+        private readonly IMarkdownProvider _markdown;
         private readonly ISettingsProvider _settings;
 
         private FeedResult FeedResult(IEnumerable<SyndicationItem> items)
@@ -47,8 +49,6 @@ namespace FunnelWeb.Web.Controllers
         {
             var entries = _feedRepository.GetFeed(feedName, 0, 20);
 
-            var markdown = new MarkdownRenderer(false, HttpContext.Request.Url.GetLeftPart(UriPartial.Authority));
-
             var items = from e in entries
                         let itemUri = new Uri(Request.Url, Url.Action("Page", "Wiki", new { page = e.Name }))
                         select new SyndicationItem
@@ -56,7 +56,7 @@ namespace FunnelWeb.Web.Controllers
                             Id = itemUri.ToString(),
                             Title = TextSyndicationContent.CreatePlaintextContent(e.Title),
                             Summary = TextSyndicationContent.CreateHtmlContent(
-                                markdown.Render(e.LatestRevision.Body) + String.Format("<img src=\"{0}\" />", itemUri + "/via-feed")),
+                                _markdown.Render(e.LatestRevision.Body) + String.Format("<img src=\"{0}\" />", itemUri + "/via-feed")),
                             LastUpdatedTime = e.LatestRevision.Revised,
                             Links = 
                             {
@@ -75,15 +75,13 @@ namespace FunnelWeb.Web.Controllers
         {
             var comments = _feedRepository.GetCommentFeed(0, 20);
 
-            var markdown = new MarkdownRenderer(false, HttpContext.Request.Url.GetLeftPart(UriPartial.Authority));
-
             var items = from e in comments
                         let itemUri = new Uri(Request.Url, Url.Action("Page", "Wiki", new { page = e.Entry.Name, comment = e.Id }))
                         select new SyndicationItem
                         {
                             Id = itemUri.ToString(),
                             Title = TextSyndicationContent.CreatePlaintextContent(e.AuthorName + " on " + e.Entry.Title),
-                            Summary = TextSyndicationContent.CreateHtmlContent(markdown.Render(e.Body)),
+                            Summary = TextSyndicationContent.CreateHtmlContent(_markdown.Render(e.Body, true)),
                             LastUpdatedTime = e.Posted,
                             Links = 
                             {

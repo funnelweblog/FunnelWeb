@@ -7,7 +7,7 @@
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="SummaryContent" runat="server">
-<%= Html.Markdown(Settings.Introduction, false) %>
+<%= Markdown.Render(Settings.Introduction) %>
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="MainContent" runat="server"><h1>Recent Posts</h1>
