@@ -180,9 +180,6 @@
       <DependentUpon>AdminController.cs</DependentUpon>
     </Compile>
     <Compile Include="Controllers\FeedController.cs" />
-    <Compile Include="Controllers\FeedController.Models.cs">
-      <DependentUpon>FeedController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LoginController.Models.cs">
       <DependentUpon>LoginController.cs</DependentUpon>
