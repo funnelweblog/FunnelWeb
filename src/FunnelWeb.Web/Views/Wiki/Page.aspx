@@ -8,7 +8,7 @@
   <link rel="canonical" href="<%= Html.Qualify(Html.ActionUrl("Page", new { page = Model.Entry.Name })) %>" />
   <link rel="pingback" href="<%= Html.Qualify("/pingback") %>" />
 </asp:content>
-<asp:content contentplaceholderid="SummaryContent" runat="server"><%= Html.Markdown(Model.Entry.Summary, false) %></asp:content>
+<asp:content contentplaceholderid="SummaryContent" runat="server"><%= Markdown.Render(Model.Entry.Summary) %></asp:content>
 <asp:content contentplaceholderid="MainContent" runat="server">      
       <h1><%= Html.ActionLink(Model.Entry.Title, "Page", new { page = Model.Entry.Name })%></h1>
       <div class="entry-date">
@@ -24,7 +24,7 @@
         </div>
         <% } %>
         <div class='entry'>
-        <%= Html.Markdown(Model.Entry.LatestRevision.Body, false)%>
+        <%= Markdown.Render(Model.Entry.LatestRevision.Body) %>
         </div>  
         <div class='entry-tools'>
           <span>Last revised: <a href="<%= Html.ActionUrl("Page", new { page = Model.Page, revision = Model.Entry.LatestRevision.RevisionNumber }) %>"><%= Html.Date(Model.Entry.LatestRevision.Revised) %></a></span>
@@ -60,7 +60,7 @@
             </div>
             <div class="comment-body"> 
               <div class="comment-date"><%= Html.Date(comment.Posted) %></div>
-              <%= Html.Markdown(comment.Body, true) %>
+              <%= Markdown.Render(comment.Body, true) %>
             </div>
             <div class="clear">
             </div>

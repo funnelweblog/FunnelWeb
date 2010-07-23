@@ -73,7 +73,7 @@
     <tr>
         <td colspan="2" width="90%">
             <strong><%= Html.Encode(comment.Entry.Title) %></strong><br />
-            <%= Html.Markdown(comment.Body, true)%>
+            <%= Markdown.Render(comment.Body, true)%>
         </td>
     </tr>
     <tr>

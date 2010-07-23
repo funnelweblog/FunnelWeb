@@ -143,13 +143,15 @@
     <Compile Include="Application\HealthMonitoring\Events\EntryNotFoundEvent.cs" />
     <Compile Include="Application\HealthMonitoring\Events\PingbackPostedEvent.cs" />
     <Compile Include="Application\HealthMonitoring\SimpleMailWithSslWebEventProvider.cs" />
-    <Compile Include="Application\Markup\InputSanitizer.cs" />
-    <Compile Include="Application\Markup\Markdown.cs" />
+    <Compile Include="Application\Views\IMarkdownProvider.cs" />
+    <Compile Include="Application\Views\InputSanitizer.cs" />
+    <Compile Include="Application\Views\Markdown.cs" />
     <Compile Include="Application\Mime\IMimeTypeLookup.cs" />
     <Compile Include="Application\Mime\RegistryMimeTypeLookup.cs" />
     <Compile Include="Application\Authentication\AuthenticationModule.cs" />
     <Compile Include="Application\Binders\BindersModule.cs" />
     <Compile Include="Application\Mime\MimeSupport.cs" />
+    <Compile Include="Application\Views\MarkdownProvider.cs" />
     <Compile Include="Model\Repositories\RepositoriesModule.cs" />
     <Compile Include="RoutesModule.cs" />
     <Compile Include="Application\Spam\SpamModule.cs" />
@@ -322,6 +324,7 @@
     <Content Include="Views\Shared\Dialog.Master" />
     <Content Include="Views\Shared\Site.Master" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

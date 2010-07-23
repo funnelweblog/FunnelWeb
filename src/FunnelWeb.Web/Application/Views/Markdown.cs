@@ -3,8 +3,9 @@ using System.Collections;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 
-namespace FunnelWeb.Web.Application.Markup
+namespace FunnelWeb.Web.Application.Views
 {
     /// <summary>
     /// This markup renderer is courtesy Brian Jeremy.
