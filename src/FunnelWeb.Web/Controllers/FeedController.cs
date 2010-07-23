@@ -42,7 +42,10 @@ namespace FunnelWeb.Web.Controllers
                         RelationshipType = "self" 
                     }
                 }
-            }));
+            }))
+            {
+                ContentType = "application/atom+xml"
+            };
         }
 
         public ActionResult Feed(PageName feedName)
