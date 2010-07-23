@@ -39,15 +39,6 @@
     <Reference Include="Autofac">
       <HintPath>..\..\lib\Autofac\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac.Configuration">
-      <HintPath>..\..\lib\Autofac\Autofac.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Autofac.Integration.Mef">
-      <HintPath>..\..\lib\Autofac\Autofac.Integration.Mef.dll</HintPath>
-    </Reference>
-    <Reference Include="Autofac.Integration.Wcf">
-      <HintPath>..\..\lib\Autofac\Autofac.Integration.Wcf.dll</HintPath>
-    </Reference>
     <Reference Include="Autofac.Integration.Web">
       <HintPath>..\..\lib\Autofac\Autofac.Integration.Web.dll</HintPath>
     </Reference>
@@ -317,12 +308,6 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\FunnelWeb.DatabaseDeployer\FunnelWeb.DatabaseDeployer.csproj">
-      <Project>{D3182161-B0E5-47A7-8968-654489F0C60E}</Project>
-      <Name>FunnelWeb.DatabaseDeployer</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Dialog.Master" />

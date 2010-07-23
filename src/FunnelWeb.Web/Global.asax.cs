@@ -29,7 +29,6 @@ namespace FunnelWeb.Web
         protected void Application_Start()
         {
             var connectionString = WebConfigurationManager.ConnectionStrings["funnelweb.configuration.database.connection"].ConnectionString;
-            var automaticallyCreate = bool.Parse(WebConfigurationManager.AppSettings["funnelweb.configuration.database.autocreate"]);
 
             var containerBuilder = new ContainerBuilder();
 
@@ -41,7 +40,7 @@ namespace FunnelWeb.Web
             containerBuilder.RegisterModule(new BindersModule(ModelBinders.Binders));
             containerBuilder.RegisterModule(new ValidationModule());
             containerBuilder.RegisterModule(new MimeSupportModule());
-            containerBuilder.RegisterModule(new RepositoriesModule(automaticallyCreate, connectionString));
+            containerBuilder.RegisterModule(new RepositoriesModule(connectionString));
             containerBuilder.RegisterModule(new ViewsModule(ViewEngines.Engines));
             containerBuilder.RegisterModule(new SpamModule());
 
