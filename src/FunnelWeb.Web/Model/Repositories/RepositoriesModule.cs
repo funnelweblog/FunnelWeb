@@ -1,4 +1,5 @@
-﻿using System.Web.Configuration;
+﻿using System.Web;
+using System.Web.Configuration;
 using Autofac;
 using Autofac.Integration.Web;
 using FluentNHibernate.Cfg;
@@ -24,10 +25,13 @@ namespace FunnelWeb.Web.Model.Repositories
                 .Mappings(m => m.FluentMappings.AddFromAssembly(System.Reflection.Assembly.GetExecutingAssembly()))
                 .BuildSessionFactory();
 
-            builder.RegisterType<FileRepository>().As<IFileRepository>().HttpRequestScoped().WithParameter(new NamedParameter("root", WebConfigurationManager.AppSettings["FunnelWeb.configuration.uploadpath"]));
-            builder.RegisterType<FeedRepository>().As<IFeedRepository>().HttpRequestScoped();
+            builder.Register<IFileRepository>(x => new FileRepository(WebConfigurationManager.AppSettings["FunnelWeb.configuration.uploadpath"], x.Resolve<HttpServerUtilityBase>()))
+                .HttpRequestScoped();
+            builder.RegisterType<FeedRepository>().As<IFeedRepository>()
+                .HttpRequestScoped();
             builder.RegisterType<AdminRepository>().As<IAdminRepository>();
-            builder.RegisterType<EntryRepository>().As<IEntryRepository>().HttpRequestScoped();
+            builder.RegisterType<EntryRepository>().As<IEntryRepository>()
+                .HttpRequestScoped();
             builder.RegisterInstance(sessionFactory).As<ISessionFactory>();
             builder.Register(x =>
             {

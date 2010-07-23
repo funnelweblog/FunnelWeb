@@ -176,17 +176,29 @@
     <Compile Include="Application\Views\IInjectable.cs" />
     <Compile Include="Application\Views\AutofacWebFormView.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\AdminController.Models.cs" />
+    <Compile Include="Controllers\AdminController.Models.cs">
+      <DependentUpon>AdminController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\FeedController.cs" />
-    <Compile Include="Controllers\FeedController.Models.cs" />
+    <Compile Include="Controllers\FeedController.Models.cs">
+      <DependentUpon>FeedController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\LoginController.Models.cs" />
+    <Compile Include="Controllers\LoginController.Models.cs">
+      <DependentUpon>LoginController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\ResourceController.cs" />
-    <Compile Include="Controllers\ResourceController.Models.cs" />
+    <Compile Include="Controllers\ResourceController.Models.cs">
+      <DependentUpon>ResourceController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\UploadController.cs" />
-    <Compile Include="Controllers\UploadController.Models.cs" />
+    <Compile Include="Controllers\UploadController.Models.cs">
+      <DependentUpon>UploadController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\WikiController.cs" />
-    <Compile Include="Controllers\WikiController.Models.cs" />
+    <Compile Include="Controllers\WikiController.Models.cs">
+      <DependentUpon>WikiController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

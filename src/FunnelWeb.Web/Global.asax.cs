@@ -31,6 +31,8 @@ namespace FunnelWeb.Web
             var connectionString = WebConfigurationManager.ConnectionStrings["funnelweb.configuration.database.connection"].ConnectionString;
 
             var containerBuilder = new ContainerBuilder();
+            //there must be a better way to do this, shouldn't have to go to the static show you?
+            containerBuilder.Register<HttpServerUtilityBase>(x => new HttpServerUtilityWrapper(HttpContext.Current.Server));
 
             containerBuilder.RegisterModule(new RoutesModule(RouteTable.Routes));
 

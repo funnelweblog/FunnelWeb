@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using System.Linq;
 using System.Security;
@@ -12,8 +11,13 @@ namespace FunnelWeb.Web.Model.Repositories.Internal
     {
         private readonly string _root;
 
-        public FileRepository(string root)
+        public FileRepository(string root, HttpServerUtilityBase server)
         {
+            //if it's a virtual path then we can map it, otherwise we'll expect that it's a windows path
+            if (root.StartsWith("~"))
+            {
+                root = server.MapPath(root);
+            }
             _root = root;
         }
 
