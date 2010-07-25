@@ -538,9 +538,9 @@ h5 { font-size: 12pt; }
             pre 
             {
                 padding: 7px 12px; 
-                background: #E0EAF1;
+                background: #F0E8E8;/* #E0EAF1; */
                 margin: 10px 0px 10px 0px;
-                border: 1px dotted #7F9FB6;
+                border: 1px dotted #D0A090;
                 font-family: Consolas;
                 width: auto;
                 overflow: auto;
