@@ -48,10 +48,11 @@
         </div>
         <% } %>
       </div>
-      <% if (Model.Entry.IsDiscussionEnabled) { %>          
+      <% if (Model.Entry.IsDiscussionEnabled) { %>
       <div class="comments">
         <div class="comments-in">
-          <h2>Discussion</h2><% foreach (var comment in Model.Entry.Comments.Where(x => !x.IsSpam)) { %>
+        <a name="comments" />
+          </a><h2>Discussion</h2><% foreach (var comment in Model.Entry.Comments.Where(x => !x.IsSpam)) { %>
           <div class="comment">
             <div class="comment-author">
               <img class="gravatar" src="<%= Html.Gravatar(comment.AuthorEmail) %>" alt="<%= Html.Encode(comment.AuthorName) %>" />

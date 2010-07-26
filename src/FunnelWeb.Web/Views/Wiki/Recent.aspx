@@ -14,7 +14,12 @@
       <div class="post-list"><% foreach (var entry in Model.Entries) { %>
         <div class='post-line'>
           <div class='revised'><span class='month'><%= entry.FeedDate.ToString("MMM d")%></span> <span class='year'><%= entry.FeedDate.ToString("yyyy")%></span></div>
-          <div class='comments'><span class='comment-count'><%= entry.CommentCount %></span> <span>comments</span></div>
+          <div class='comments'>
+          <a href='<%= Url.Action("Page", new { page = entry.Name }) + "#comments" %>'>
+            <span class='comment-count'><%= entry.CommentCount %></span>
+            <span>comments</span> 
+          </a>
+          </div>
           <div class='summary'>
             <h2><%= Html.Qualify(Html.ActionLink(entry.Title, "Page", new { page = entry.Name }))%></h2><% if (!string.IsNullOrEmpty(entry.MetaDescription)) { %>
             <p><%= Html.Encode(entry.MetaDescription) %></p><% } %>
