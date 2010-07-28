@@ -13,22 +13,26 @@ namespace FunnelWeb.Web.Controllers
             _authenticator = authenticator;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(bool databaseIssue)
         {
-            ViewData.Model = new IndexModel();
+            ViewData.Model = new IndexModel(databaseIssue);
             return View();
         }
         
-        public ActionResult Login(string name, string password)
+        public ActionResult Login(bool databaseIssue, string name, string password)
         {
             var authenticated = _authenticator.AuthenticateAndLogin(name, password);
             if (authenticated)
             {
-                return Redirect("/");    
+                if (databaseIssue)
+                {
+                    return RedirectToAction("Index", "Install");
+                }
+                return Redirect("~/");    
             }
 
             ViewData.Flash("The username or password could not be authenticated. Please try again.");
-            ViewData.Model = new IndexModel();
+            ViewData.Model = new IndexModel(databaseIssue);
             return View("Index");
         }
 

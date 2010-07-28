@@ -1,9 +1,10 @@
-﻿using System.Reflection;
-using Bindable.DatabaseManagement;
-using Bindable.DatabaseManagement.Execution;
-using Bindable.DatabaseManagement.ScriptProviders;
-using Bindable.DatabaseManagement.VersionTrackers;
-using System.Transactions;
+﻿using System;
+using System.Data.SqlClient;
+using System.Reflection;
+using FunnelWeb.DatabaseDeployer.Infrastructure;
+using FunnelWeb.DatabaseDeployer.Infrastructure.Execution;
+using FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders;
+using FunnelWeb.DatabaseDeployer.Infrastructure.VersionTrackers;
 
 namespace FunnelWeb.DatabaseDeployer
 {
@@ -13,20 +14,15 @@ namespace FunnelWeb.DatabaseDeployer
     public class ApplicationDatabase : IApplicationDatabase
     {
         public const string DefaultConnectionString = "Server=(local)\\SQLEXPRESS;Database=FunnelWeb;Trusted_connection=true";
-
-        private readonly string _connectionString;
         private readonly IScriptExecutor _scriptExecutor;
         private readonly IVersionTracker _versionTracker;
         private readonly IScriptProvider _scriptProvider;
-        private readonly DatabaseUpgrader _upgrader;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationDatabase"/> class.
         /// </summary>
-        /// <param name="connectionString">The connection string.</param>
-        public ApplicationDatabase(string connectionString)
+        public ApplicationDatabase()
         {
-            _connectionString = connectionString;
             _scriptExecutor = new SqlScriptExecutor();
             _versionTracker = new SchemaVersionsTableSqlVersionTracker();
             _scriptProvider = new EmbeddedSqlScriptProvider(
@@ -34,80 +30,54 @@ namespace FunnelWeb.DatabaseDeployer
                 versionNumber => string.Format(
                                      "FunnelWeb.DatabaseDeployer.Scripts.Script{0}.sql",
                                      versionNumber.ToString().PadLeft(4, '0')));
-            _upgrader = new DatabaseUpgrader(connectionString, _scriptProvider, _versionTracker, _scriptExecutor);
-        }
-
-        /// <summary>
-        /// Gets the database name.
-        /// </summary>
-        /// <value></value>
-        public string DatabaseName
-        {
-            get { return SqlDatabaseHelper.GetDatabaseName(_connectionString); }
-        }
-
-        /// <summary>
-        /// Gets the server name.
-        /// </summary>
-        /// <value></value>
-        public string ServerName
-        {
-            get { return SqlDatabaseHelper.GetServerName(_connectionString); }
-        }
-
-        /// <summary>
-        /// Returns a value indicating whether the database can be found.
-        /// </summary>
-        /// <returns>
-        /// True if the database exists and can be contacted, otherwise false.
-        /// </returns>
-        public bool DoesDatabaseExist()
-        {
-            return SqlDatabaseHelper.Exists(_connectionString);
-        }
-
-        /// <summary>
-        /// Creates the database if it does not already exist.
-        /// </summary>
-        public void CreateDatabase()
-        {
-            SqlDatabaseHelper.CreateOrContinue(_connectionString);
-        }
-
-        /// <summary>
-        /// Destroys the database if it exists.
-        /// </summary>
-        public void DestroyDatabase()
-        {
-            SqlDatabaseHelper.DestroyOrContinue(_connectionString);
-        }
-
-        /// <summary>
-        /// Grants the given login membership of the DBO role.
-        /// </summary>
-        /// <param name="windowsUsername">The windows username.</param>
-        public void GrantAccessToLogin(string windowsUsername)
-        {
-            SqlDatabaseHelper.EnableServerLoginForWindowsUser(_connectionString, windowsUsername);
-            SqlDatabaseHelper.EnableDatabaseRoleForLogin(_connectionString, windowsUsername, "db_owner");
         }
 
         /// <summary>
         /// Gets the current schema version number of the database.
         /// </summary>
         /// <returns>The current version number.</returns>
-        public int GetCurrentVersion()
+        public int GetCurrentVersion(string connectionString)
         {
-            return _versionTracker.RecallVersionNumber(_connectionString);
+            return _versionTracker.RecallVersionNumber(connectionString, new Log());
         }
 
         /// <summary>
         /// Gets the current schema version number that the application requires.
         /// </summary>
         /// <returns>The application version number.</returns>
-        public int GetApplicationVersion()
+        public int GetApplicationVersion(string connectionString)
         {
             return _scriptProvider.GetHighestScriptVersion();
+        }
+
+        /// <summary>
+        /// Tries to connect to the database.
+        /// </summary>
+        /// <param name="connectionString">The connection string.</param>
+        /// <param name="errorMessage">Any error message encountered.</param>
+        /// <returns></returns>
+        public bool TryConnect(string connectionString, out string errorMessage)
+        {
+            try
+            {
+                var csb = new SqlConnectionStringBuilder(connectionString);
+                csb.Pooling = false;
+                csb.ConnectTimeout = 5;
+
+                errorMessage = "";
+                using (var connection = new SqlConnection(csb.ConnectionString))
+                {
+                    connection.Open();
+
+                    new SqlCommand("select 1", connection).ExecuteScalar();
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                return false;
+            }
         }
 
         /// <summary>
@@ -116,9 +86,10 @@ namespace FunnelWeb.DatabaseDeployer
         /// <returns>
         /// A container of information about the results of the database upgrade.
         /// </returns>
-        public DatabaseUpgradeResult PerformUpgrade()
+        public DatabaseUpgradeResult PerformUpgrade(string connectionString, ILog log)
         {
-            var result = _upgrader.PerformUpgrade();
+            var result = new DatabaseUpgrader(connectionString, _scriptProvider, _versionTracker, _scriptExecutor)
+                .PerformUpgrade(log);
             return result;
         }
     }

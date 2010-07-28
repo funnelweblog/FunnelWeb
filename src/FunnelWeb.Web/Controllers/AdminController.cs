@@ -8,7 +8,7 @@ using FunnelWeb.Web.Model;
 
 namespace FunnelWeb.Web.Controllers
 {
-    [ValidateInput(false), Transactional]
+    [ValidateInput(false), Transactional, RequiresUpdatedDatabase]
     public partial class AdminController : Controller
     {
         private readonly IAdminRepository _adminRepository;

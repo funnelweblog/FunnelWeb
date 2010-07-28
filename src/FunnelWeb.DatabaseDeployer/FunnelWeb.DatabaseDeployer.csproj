@@ -6,11 +6,11 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{D3182161-B0E5-47A7-8968-654489F0C60E}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FunnelWeb.DatabaseDeployer</RootNamespace>
     <AssemblyName>FunnelWeb.DatabaseDeployer</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -38,28 +38,28 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Bindable.Core">
-      <HintPath>..\..\lib\Bindable\Bindable.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Bindable.DatabaseManagement">
-      <HintPath>..\..\lib\Bindable\Bindable.DatabaseManagement.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDatabase.cs" />
-    <Compile Include="Commands\InstallCommand.cs" />
-    <Compile Include="Commands\MenuCommand.cs" />
-    <Compile Include="Commands\StatusCommand.cs" />
     <Compile Include="IApplicationDatabase.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Infrastructure\DatabaseUpgrader.cs" />
+    <Compile Include="Infrastructure\DatabaseUpgradeResult.cs" />
+    <Compile Include="Infrastructure\Execution\IScriptExecutor.cs" />
+    <Compile Include="Infrastructure\Execution\SqlScriptExecutor.cs" />
+    <Compile Include="Infrastructure\ILog.cs" />
+    <Compile Include="Infrastructure\ScriptProviders\EmbeddedScriptProvider.cs" />
+    <Compile Include="Infrastructure\ScriptProviders\EmbeddedSqlScript.cs" />
+    <Compile Include="Infrastructure\ScriptProviders\IScript.cs" />
+    <Compile Include="Infrastructure\ScriptProviders\IScriptProvider.cs" />
+    <Compile Include="Infrastructure\VersionTrackers\IVersionTracker.cs" />
+    <Compile Include="Infrastructure\VersionTrackers\SchemaVersionsTableSqlVersionTracker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

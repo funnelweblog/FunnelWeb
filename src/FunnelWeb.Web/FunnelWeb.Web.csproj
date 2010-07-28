@@ -137,12 +137,15 @@
     <Compile Include="Application\Extensions\NumericExtensions.cs" />
     <Compile Include="Application\Extensions\ViewDataDictionaryExtensions.cs" />
     <Compile Include="Application\Filters\RequireLoginAttribute.cs" />
+    <Compile Include="Application\Filters\RequiresUpdatedDatabaseAttribute.cs" />
     <Compile Include="Application\Filters\TransactionalAttribute.cs" />
     <Compile Include="Application\ForceLowercaseUrlHttpModule.cs" />
     <Compile Include="Application\HealthMonitoring\Events\CommentPostedEvent.cs" />
     <Compile Include="Application\HealthMonitoring\Events\EntryNotFoundEvent.cs" />
     <Compile Include="Application\HealthMonitoring\Events\PingbackPostedEvent.cs" />
     <Compile Include="Application\HealthMonitoring\SimpleMailWithSslWebEventProvider.cs" />
+    <Compile Include="Application\Installation\IConnectionStringProvider.cs" />
+    <Compile Include="Application\RequireUpdatedDatabaseHttpModule.cs" />
     <Compile Include="Application\Views\IMarkdownProvider.cs" />
     <Compile Include="Application\Views\InputSanitizer.cs" />
     <Compile Include="Application\Views\Markdown.cs" />
@@ -152,6 +155,10 @@
     <Compile Include="Application\Binders\BindersModule.cs" />
     <Compile Include="Application\Mime\MimeSupport.cs" />
     <Compile Include="Application\Views\MarkdownProvider.cs" />
+    <Compile Include="Controllers\InstallController.cs" />
+    <Compile Include="Controllers\InstallController.Models.cs">
+      <DependentUpon>InstallController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\Repositories\RepositoriesModule.cs" />
     <Compile Include="RoutesModule.cs" />
     <Compile Include="Application\Spam\SpamModule.cs" />
@@ -243,6 +250,8 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Views\Admin\Index.aspx" />
+    <Content Include="Views\Install\UpgradeReport.aspx" />
+    <Content Include="Views\Install\Index.aspx" />
     <Content Include="Views\Login\Index.aspx" />
     <Content Include="Views\Shared\Images\EditorButtons.png" />
     <Content Include="Views\Shared\Images\Emoticons\Cheeky.png" />
@@ -324,7 +333,15 @@
     <Content Include="Views\Shared\Dialog.Master" />
     <Content Include="Views\Shared\Site.Master" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\FunnelWeb.DatabaseDeployer\FunnelWeb.DatabaseDeployer.csproj">
+      <Project>{D3182161-B0E5-47A7-8968-654489F0C60E}</Project>
+      <Name>FunnelWeb.DatabaseDeployer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Safe.Master" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

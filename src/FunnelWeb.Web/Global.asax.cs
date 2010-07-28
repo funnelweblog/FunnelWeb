@@ -6,8 +6,10 @@ using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Web;
 using Autofac.Integration.Web.Mvc;
+using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.Web.Application.Authentication;
 using FunnelWeb.Web.Application.Binders;
+using FunnelWeb.Web.Application.Installation;
 using FunnelWeb.Web.Application.Mime;
 using FunnelWeb.Web.Application.Routes;
 using FunnelWeb.Web.Application.Spam;
@@ -28,8 +30,6 @@ namespace FunnelWeb.Web
 
         protected void Application_Start()
         {
-            var connectionString = WebConfigurationManager.ConnectionStrings["funnelweb.configuration.database.connection"].ConnectionString;
-
             var containerBuilder = new ContainerBuilder();
             //there must be a better way to do this, shouldn't have to go to the static show you?
             containerBuilder.Register<HttpServerUtilityBase>(x => new HttpServerUtilityWrapper(HttpContext.Current.Server));
@@ -42,7 +42,7 @@ namespace FunnelWeb.Web
             containerBuilder.RegisterModule(new BindersModule(ModelBinders.Binders));
             containerBuilder.RegisterModule(new ValidationModule());
             containerBuilder.RegisterModule(new MimeSupportModule());
-            containerBuilder.RegisterModule(new RepositoriesModule(connectionString));
+            containerBuilder.RegisterModule(new RepositoriesModule());
             containerBuilder.RegisterModule(new ViewsModule(ViewEngines.Engines));
             containerBuilder.RegisterModule(new SpamModule());
 
