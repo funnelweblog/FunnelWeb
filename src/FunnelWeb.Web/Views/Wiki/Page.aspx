@@ -48,6 +48,7 @@
         </div>
         <% } %>
       </div>
+      <div class="clear"></div>
       <% if (Model.Entry.IsDiscussionEnabled) { %>
       <div class="comments">
         <div class="comments-in">

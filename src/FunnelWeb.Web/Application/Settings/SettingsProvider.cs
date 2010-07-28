@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FunnelWeb.Web.Model.Repositories;
 using FunnelWeb.Web.Model;
+using FunnelWeb.Web.Model.Repositories;
 namespace FunnelWeb.Web.Application.Settings
 {
     public class SettingsProvider : ISettingsProvider
@@ -17,6 +17,8 @@ namespace FunnelWeb.Web.Application.Settings
         private string _searchKeywords;
         private bool _isInitialized;
         private string _spamWords;
+        private string _defaultPage;
+        private string _footer;
 
         public SettingsProvider(IAdminRepository repository)
         {
@@ -29,6 +31,15 @@ namespace FunnelWeb.Web.Application.Settings
             {
                 EnsureInitialized();
                 return _siteTitle;
+            }
+        }
+
+        public string DefaultPage
+        {
+            get
+            {
+                EnsureInitialized();
+                return _defaultPage;
             }
         }
 
@@ -86,6 +97,15 @@ namespace FunnelWeb.Web.Application.Settings
             }
         }
 
+        public string Footer
+        {
+            get
+            {
+                EnsureInitialized();
+                return _footer;
+            }
+        }
+
         private void EnsureInitialized()
         {
             if (_isInitialized) 
@@ -106,6 +126,8 @@ namespace FunnelWeb.Web.Application.Settings
                 _searchDescription = ReadSetting(settings, "search-description");
                 _searchKeywords = ReadSetting(settings, "search-keywords");
                 _spamWords = ReadSetting(settings, "spam-blacklist");
+                _footer = ReadSetting(settings, "ui.footer");
+                _defaultPage = ReadSetting(settings, "default-page");
             }
         }
 

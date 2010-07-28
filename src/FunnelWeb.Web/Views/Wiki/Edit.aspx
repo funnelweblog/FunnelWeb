@@ -23,13 +23,13 @@
     <h1>Edit: <%=Model.Entry.Title%></h1>
     <% } %>
     
-    <% using (Html.BeginForm("Save", "Wiki", new { page = Model.Page }, FormMethod.Post, new { @class = "promptBeforeUnload" })) { %>
+    <% using (Html.BeginForm("Save", "Wiki", FormMethod.Post, new { @class = "promptBeforeUnload" })) { %>
     
     <div class="form-body">
         <p>
-            <%= Html.Label("Name", "nameLabel")%>
-            <%= Html.InputTextBox("name").Default(Model.Page).Large().Max(50).IsRequired()%>
-            <span><%= Html.ActionLink(Model.Page, "Page", new{page = Model.Page}) %></span>
+            <%= Html.Label("Name", "page")%>
+            <%= Html.InputTextBox("page").Default(Model.Page).Large().Max(50).IsRequired()%>
+            <span><%= (Model.Page ?? string.Empty).ToString().Length == 0 ? string.Empty : Html.ActionLink(Model.Page, "Page", new{page = Model.Page}).ToString() %></span>
             <span class="hint">This will appear in the URL to the page.</span>
         </p>
         

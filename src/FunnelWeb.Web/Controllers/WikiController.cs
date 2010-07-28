@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using FunnelWeb.Web.Application;
 using FunnelWeb.Web.Application.Filters;
@@ -76,6 +77,15 @@ namespace FunnelWeb.Web.Controllers
         }
         
         [Authorize]
+        public ActionResult New()
+        {
+            var feeds = _feedRepository.GetFeeds();
+            var entry = new Entry() { Title = "Enter a Title", MetaTitle = "Enter a meta title", Name = "" };
+            ViewData.Model = new EditModel("", entry, true, feeds);
+            return View("Edit");
+        }
+
+        [Authorize]
         public ActionResult Edit(PageName page)
         {
             var entry = _entryRepository.GetEntry(page) ?? new Entry() { Title = page, MetaTitle = page, Name = page};
@@ -86,10 +96,10 @@ namespace FunnelWeb.Web.Controllers
 
         [AcceptVerbs(HttpVerbs.Post)]
         [Authorize]
-        public ActionResult Save(PageName page, string name, string title, string metaTitle, string summary, string body, string comment, string metaDescription, string metaKeywords, bool enableDiscussion, int[] feeds)
+        public ActionResult Save(PageName page, string title, string metaTitle, string summary, string body, string comment, string metaDescription, string metaKeywords, bool enableDiscussion, int[] feeds)
         {
             var entry = _entryRepository.GetEntry(page) ?? new Entry();
-            entry.Name = name;
+            entry.Name = page;
             entry.Title = title;
             entry.Summary = summary;
             entry.MetaTitle = metaTitle;
@@ -111,7 +121,7 @@ namespace FunnelWeb.Web.Controllers
                 _feedRepository.Save(feed);
             }
 
-            return RedirectToAction("Page", new { page = name });
+            return RedirectToAction("Page", new { page = page });
         }
 
         public ActionResult Comment(PageName page, string name, string url, string email, string comments)

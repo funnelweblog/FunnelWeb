@@ -371,6 +371,11 @@ h5 { font-size: 11pt; }
                 color: #000;
                 font-weight: bold;
             }
+            .form-body h3
+            {
+                margin-top: 30px;
+                border-bottom: 1px solid #ccc;
+            }
         
         /* 
         Tables 
@@ -654,6 +659,43 @@ h5 { font-size: 11pt; }
             {
                 color: #444;
                 margin-right: 10px;
+            }
+            p.good 
+            {
+                color: green;
+                font-weight: bold;
+            }
+            p.bad 
+            {
+                color: #cc0000;
+                font-weight: bold;
+            }
+            p.warning 
+            {
+                color: orange;
+                font-weight: bold;
+            }
+            p.important 
+            {
+                color: black;
+                font-weight: bold;
+            }
+            
+            
+            li.log-error 
+            {
+                color: #cc0000;
+                font-weight: bold;
+            }
+            li.log-warning 
+            {
+                color: orange;
+                font-weight: bold;
+            }
+            li.log-information 
+            {
+                color: black;
+                font-weight: bold;
             }
             
     /* 

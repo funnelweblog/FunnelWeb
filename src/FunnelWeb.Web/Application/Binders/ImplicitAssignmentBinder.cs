@@ -9,7 +9,7 @@ namespace FunnelWeb.Web.Application.Binders
     {
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
-            var value = bindingContext.ValueProvider.GetValue(bindingContext.ModelName).RawValue;
+            var value = bindingContext.ValueProvider.GetValue(bindingContext.ModelName).AttemptedValue;
 
             var implicitAssignment = bindingContext.ModelType.GetMethods(BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Static)
                 .Where(x => x.Name == "op_Implicit")
