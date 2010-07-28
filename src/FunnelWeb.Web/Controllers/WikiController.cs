@@ -28,8 +28,10 @@ namespace FunnelWeb.Web.Controllers
 
         public ActionResult Recent(int pageNumber)
         {
-            var entries = _feedRepository.GetFeed("rss", pageNumber * ItemsPerPage, ItemsPerPage);
-            var totalItems = _feedRepository.GetFeedCount("rss");
+            var feed = _feedRepository.GetFeeds().OrderBy(f => f.Id).First().Name;
+
+            var entries = _feedRepository.GetFeed(feed, pageNumber * ItemsPerPage, ItemsPerPage);
+            var totalItems = _feedRepository.GetFeedCount(feed);
             ViewData.Model = new RecentModel(entries, pageNumber, (int)((decimal)totalItems / ItemsPerPage + 1));
             return View();
         }
