@@ -6,12 +6,16 @@ namespace FunnelWeb.Web.Controllers
 	{
         public class IndexModel
         {
-            public bool DatabaseIssue { get; set; }
+            public bool DatabaseIssue { get; set; }            
+            public bool PreviousLoginFailed { get; set; }
 
-            public IndexModel(bool databaseIssue)
+            public IndexModel(bool databaseIssue, bool previousLoginFailed)
             {
                 DatabaseIssue = databaseIssue;
+                PreviousLoginFailed = previousLoginFailed;
             }
+
+ 
         }
-	}
+        }
 }

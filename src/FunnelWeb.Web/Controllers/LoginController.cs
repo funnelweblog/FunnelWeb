@@ -15,7 +15,7 @@ namespace FunnelWeb.Web.Controllers
 
         public ActionResult Index(bool? databaseIssue, string ReturnUrl)
         {
-            ViewData.Model = new IndexModel(databaseIssue ?? false);
+            ViewData.Model = new IndexModel(databaseIssue ?? false, false);
             return View();
         }
         
@@ -31,9 +31,7 @@ namespace FunnelWeb.Web.Controllers
                 }
                 return Redirect("~/");    
             }
-
-            ViewData.Flash("The username or password could not be authenticated. Please try again.");
-            ViewData.Model = new IndexModel(databaseIssue ?? false);
+            ViewData.Model = new IndexModel(databaseIssue ?? false, true);
             return View("Index");
         }
 

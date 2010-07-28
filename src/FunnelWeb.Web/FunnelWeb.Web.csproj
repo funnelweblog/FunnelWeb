@@ -127,12 +127,10 @@
     <Compile Include="Application\Binders\UploadBinder.cs" />
     <Compile Include="Application\Extensions\Builders\Builder.cs" />
     <Compile Include="Application\Extensions\Builders\DatePickerBuilder.cs" />
-    <Compile Include="Application\Extensions\Builders\FlashDataBuilder.cs" />
     <Compile Include="Application\Extensions\Builders\IFieldBuilder.cs" />
     <Compile Include="Application\Extensions\Builders\TextAreaBuilder.cs" />
     <Compile Include="Application\Extensions\Builders\TextBoxBuilder.cs" />
     <Compile Include="Application\Extensions\Builders\TextEditorBuilder.cs" />
-    <Compile Include="Application\Extensions\FlashData.cs" />
     <Compile Include="Application\Extensions\MarkupExtensions.cs" />
     <Compile Include="Application\Extensions\NumericExtensions.cs" />
     <Compile Include="Application\Extensions\ViewDataDictionaryExtensions.cs" />
@@ -188,6 +186,9 @@
       <DependentUpon>AdminController.cs</DependentUpon>
     </Compile>
     <Compile Include="Controllers\FeedController.cs" />
+    <Compile Include="Controllers\FeedController.Models.cs">
+      <DependentUpon>FeedController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LoginController.Models.cs">
       <DependentUpon>LoginController.cs</DependentUpon>

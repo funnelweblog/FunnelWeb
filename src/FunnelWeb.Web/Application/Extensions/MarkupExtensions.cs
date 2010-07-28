@@ -67,22 +67,6 @@ namespace FunnelWeb.Web.Application.Extensions
             return new DatePickerBuilder(html, name);
         }
 
-        public static MessageListBuilder Flashes(this HtmlHelper html)
-        {
-            if (!html.ViewData.ContainsKey("FlashData"))
-                return new MessageListBuilder(html);
-
-            var flashData = (FlashData)html.ViewData["FlashData"];
-            var messages = flashData.Messages.Distinct().ToList();
-            var result = new MessageListBuilder(html);
-            result.AddClass("flash");
-            foreach (var message in messages)
-            {
-                result.Append(message);
-            }
-            return result;
-        }
-
         #endregion
 
         #region URL's

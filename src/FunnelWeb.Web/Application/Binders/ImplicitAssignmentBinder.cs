@@ -2,9 +2,14 @@
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
+using FunnelWeb.Web.Model.Strings;
 
 namespace FunnelWeb.Web.Application.Binders
 {
+    /// <summary>
+    /// This binder lets us assign basic types (like a string) to a more complicated type if an implicit assignment 
+    /// operator exists. This is useful for <see cref="PageName"/>.
+    /// </summary>
     public class ImplicitAssignmentBinder : IModelBinder
     {
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)

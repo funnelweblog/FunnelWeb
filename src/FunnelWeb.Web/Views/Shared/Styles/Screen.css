@@ -660,6 +660,11 @@ h5 { font-size: 11pt; }
                 color: #444;
                 margin-right: 10px;
             }
+            .message 
+            {
+                color: #CC0000;
+                font-weight: bold;
+            }
             p.good 
             {
                 color: green;
