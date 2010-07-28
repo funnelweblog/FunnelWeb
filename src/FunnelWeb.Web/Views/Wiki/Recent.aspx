@@ -25,8 +25,6 @@
             <p><%= Html.Encode(entry.MetaDescription) %></p><% } %>
           </div>
         </div><% } %>
-          </div>
-        </div><% } %>
       </div>
       <% if (Model.TotalPages > 1) { %>
       <div class="paginator">
