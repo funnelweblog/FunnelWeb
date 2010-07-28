@@ -39,8 +39,8 @@ namespace FunnelWeb.DatabaseDeployer.Commands
         {
             ConnectionStringBuilder = new SqlConnectionStringBuilder(ApplicationDatabase.DefaultConnectionString);
 
-            OptionsPrompter.AddQuestion("Please enter the name of the machine running SQL Server, or hit enter to use the local machine:", value => ConnectionStringBuilder.DataSource = value);
-            OptionsPrompter.AddQuestion("Please enter the database name, or hit enter for 'FunnelWeb':", value => ConnectionStringBuilder.InitialCatalog = value);
+            OptionsPrompter.AddQuestion(string.Format("Please enter the name of the machine running SQL Server, or hit enter to use '{0}':", ConnectionStringBuilder.DataSource), value => ConnectionStringBuilder.DataSource = value);
+            OptionsPrompter.AddQuestion(string.Format("Please enter the database name, or hit enter for '{0}':", ConnectionStringBuilder.InitialCatalog), value => ConnectionStringBuilder.InitialCatalog = value);
         }
 
         protected override void Execute(CommandExecutionContext context)

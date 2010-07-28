@@ -5,6 +5,8 @@ namespace FunnelWeb.Web.Application.Settings
         string SiteTitle { get; }
         string Introduction { get; }
         string MainLinks { get; }
+        string Footer { get; }
+        string DefaultPage { get; }
         string Author { get; }
         string SearchDescription { get; }
         string SearchKeywords { get; }
