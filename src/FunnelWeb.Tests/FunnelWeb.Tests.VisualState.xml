@@ -5,17 +5,28 @@
   <ExcludeCategories>false</ExcludeCategories>
   <Nodes>
     <Node UniqueName="[0-1000]C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\FunnelWeb.Tests.nunit" Expanded="true" />
-    <Node UniqueName="[0-1029]C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\bin\Debug\FunnelWeb.Tests.dll" Expanded="true" />
-    <Node UniqueName="[0-1030]FunnelWeb" Expanded="true" />
-    <Node UniqueName="[0-1031]FunnelWeb.Tests" Expanded="true" />
-    <Node UniqueName="[0-1032]FunnelWeb.Tests.Web" Expanded="true" />
-    <Node UniqueName="[0-1035]FunnelWeb.Tests.Web.Application" Expanded="true" />
-    <Node UniqueName="[0-1040]FunnelWeb.Tests.Web.Application.ActionResults" Expanded="true" />
-    <Node UniqueName="[0-1036]FunnelWeb.Tests.Web.Application.Binders" Expanded="true" />
-    <Node UniqueName="[0-1038]FunnelWeb.Tests.Web.Application.Filters" Expanded="true" />
-    <Node UniqueName="[0-1039]FunnelWeb.Tests.Web.Application.Markup" Expanded="true" />
-    <Node UniqueName="[0-1037]FunnelWeb.Tests.Web.Application.Mime" Expanded="true" />
-    <Node UniqueName="[0-1033]FunnelWeb.Tests.Web.Model" Expanded="true" />
-    <Node UniqueName="[0-1034]FunnelWeb.Tests.Web.Model.Strings" Expanded="true" />
+    <Node UniqueName="[0-1032]C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\bin\Debug\FunnelWeb.Tests.dll" Expanded="true" />
+    <Node UniqueName="[0-1033]FunnelWeb" Expanded="true" />
+    <Node UniqueName="[0-1034]FunnelWeb.Tests" Expanded="true" />
+    <Node UniqueName="[0-1035]FunnelWeb.Tests.Web" Expanded="true" />
+    <Node UniqueName="[0-1038]FunnelWeb.Tests.Web.Application" Expanded="true" />
+    <Node UniqueName="[0-1041]FunnelWeb.Tests.Web.Application.ActionResults" Expanded="true" />
+    <Node UniqueName="[0-1010]FunnelWeb.Tests.Web.Application.ActionResults.XmlActionResultTests" Expanded="true" />
+    <Node UniqueName="[0-1039]FunnelWeb.Tests.Web.Application.Binders" Expanded="true" />
+    <Node UniqueName="[0-1006]FunnelWeb.Tests.Web.Application.Binders.ArrayBinderTests+Form_values_split_by_commas_will_be_arrayed" Expanded="true" />
+    <Node UniqueName="[0-1018]FunnelWeb.Tests.Web.Application.Binders.DictionaryBinderTests+Settings_posted_via_form_must_be_turned_into_dictionaries_by_prefix" Expanded="true" />
+    <Node UniqueName="[0-1042]FunnelWeb.Tests.Web.Application.Filters" Expanded="true" />
+    <Node UniqueName="[0-1014]FunnelWeb.Tests.Web.Application.Filters.RequireLoginTests+Already_logged_in_users_will_be_allowed_to_continue" Expanded="true" />
+    <Node UniqueName="[0-1016]FunnelWeb.Tests.Web.Application.Filters.RequireLoginTests+Anonymous_users_will_be_redirected_to_login_page" Expanded="true" />
+    <Node UniqueName="[0-1043]FunnelWeb.Tests.Web.Application.Markup" Expanded="true" />
+    <Node UniqueName="[0-1020]FunnelWeb.Tests.Web.Application.Markup.MarkdownTests+WhenRenderingMarkdown" Expanded="true" />
+    <Node UniqueName="[0-1040]FunnelWeb.Tests.Web.Application.Mime" Expanded="true" />
+    <Node UniqueName="[0-1008]FunnelWeb.Tests.Web.Application.Mime.RegistryMimeTypeLookupTests+WhenMimeTypeRequested" Expanded="true" />
+    <Node UniqueName="[0-1036]FunnelWeb.Tests.Web.Model" Expanded="true" />
+    <Node UniqueName="[0-1044]FunnelWeb.Tests.Web.Model.Repositories" Expanded="true" />
+    <Node UniqueName="[0-1029]FunnelWeb.Tests.Web.Model.Repositories.FileRepositoryTests" Expanded="true" />
+    <Node UniqueName="[0-1037]FunnelWeb.Tests.Web.Model.Strings" Expanded="true" />
+    <Node UniqueName="[0-1003]FunnelWeb.Tests.Web.Model.Strings.PageNameTests+WhenNamingPages" Expanded="true" />
+    <Node UniqueName="[0-1001]FunnelWeb.Tests.Web.RoutingTests+RoutingRules" Expanded="true" />
   </Nodes>
 </VisualState>
