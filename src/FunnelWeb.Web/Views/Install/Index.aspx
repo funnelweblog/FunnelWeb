@@ -64,6 +64,7 @@
 
       <% if (Model.CurrentVersion == Model.NewVersion) {%>
         <p class='good'>Your database is up to date. No <%= Model.IsInstall ? "install" : "upgrade" %> is necessary.</p>
+        <p class='important'><a href="~/" runat="server">Sweet!</a></p>
       <%} else {%>
       <p class='warning'>
         Reminder: make sure to perform a backup of your database before proceeding with this <%= Model.IsInstall ? "installation" : "upgrade" %>.

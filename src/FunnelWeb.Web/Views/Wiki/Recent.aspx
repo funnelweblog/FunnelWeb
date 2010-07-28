@@ -26,9 +26,11 @@
           </div>
         </div><% } %>
       </div>
+      <% if (Model.TotalPages > 1) { %>
       <div class="paginator">
         <span class="title">Page: </span><% for (var i = 0; i < Model.TotalPages; i++) { %>
         <span class="page"><% if (i == Model.PageNumber) { %><%= (i + 1).ToString()%><% } else if (i == 0) { %><%= Html.ActionLink((i + 1).ToString(), "Recent") %> <% } else { %> <%= Html.ActionLink((i + 1).ToString(), "Recent", new { pageNumber = i }) %> <% } %></span><% } %>
       </div>
+      <% } %>
 
 </asp:Content>

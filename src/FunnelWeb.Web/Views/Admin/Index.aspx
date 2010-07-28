@@ -1,7 +1,7 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="FunnelWeb.Web.Application.Views.ApplicationView<FunnelWeb.Web.Controllers.AdminController.IndexModel>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Safe.Master" Inherits="FunnelWeb.Web.Application.Views.ApplicationView<FunnelWeb.Web.Controllers.AdminController.IndexModel>" %>
 
 <asp:Content ContentPlaceHolderID="TitleContent" runat="server">
-	<%= Settings.SiteTitle %> - Administration
+	FunnelWeb Administration
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
@@ -145,4 +145,5 @@
         </p>
     </div>
     <% } %>
+
 </asp:Content>

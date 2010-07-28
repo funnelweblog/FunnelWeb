@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using FunnelWeb.Web.Application;
 using FunnelWeb.Web.Application.Filters;
@@ -73,6 +74,15 @@ namespace FunnelWeb.Web.Controllers
             return View();
         }
         
+        [Authorize]
+        public ActionResult New()
+        {
+            var feeds = _feedRepository.GetFeeds();
+            var entry = new Entry() { Title = "Enter a Title", MetaTitle = "Enter a meta title", Name = "" };
+            ViewData.Model = new EditModel("", entry, true, feeds);
+            return View("Edit");
+        }
+
         [Authorize]
         public ActionResult Edit(PageName page)
         {

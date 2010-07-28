@@ -8,14 +8,16 @@
 
     <% if (Model.DatabaseIssue) { %>
     <h1>Database Issue</h1>
-    <p>
+    <p class='bad'>
       The database used by your FunnelWeb installation is either offline, out of date or has not been 
-      configured correctly. To resolve this issue, you will need to log in.
+      configured correctly. To resolve this issue, you will need to log in with the username and password 
+      from your web.config file.
     </p>
     <%} else { %>
     <h1>Login</h1>
-    <p>
-        To administer this site, please log in using the form below.
+    <p class='good'>
+        To administer this site, please log in using the form below. The username and password are generally
+        stored in your web.config file.
     </p>
     <%} %>
     

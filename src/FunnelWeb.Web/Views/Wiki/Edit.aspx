@@ -29,7 +29,7 @@
         <p>
             <%= Html.Label("Name", "nameLabel")%>
             <%= Html.InputTextBox("name").Default(Model.Page).Large().Max(50).IsRequired()%>
-            <span><%= Html.ActionLink(Model.Page, "Page", new{page = Model.Page}) %></span>
+            <span><%= (Model.Page ?? string.Empty).ToString().Length == 0 ? string.Empty : Html.ActionLink(Model.Page, "Page", new{page = Model.Page}).ToString() %></span>
             <span class="hint">This will appear in the URL to the page.</span>
         </p>
         
