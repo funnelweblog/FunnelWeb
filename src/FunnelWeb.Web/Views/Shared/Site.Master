@@ -5,8 +5,8 @@
   <title><asp:contentplaceholder id="TitleContent" runat="server" /></title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <meta name="language" content="english" />
-  <meta name="author" content="<%= Settings.SiteTitle %>" /><asp:contentplaceholder id="MetaContent" runat="server" />  <link href="<%= Html.Qualify(Html.ActionUrl("Feed", "Feed", new {feedName = "rss"})) %>" type="application/rss+xml" rel="alternate" title="Blog RSS Feed" />
-  <link href="<%= Html.Qualify(Html.ActionUrl("CommentFeed", "Feed", null)) %>" type="application/rss+xml" rel="alternate" title="Comments RSS Feed" />
+  <meta name="author" content="<%= Settings.SiteTitle %>" /><asp:contentplaceholder id="MetaContent" runat="server" />  <link href="<%= Html.Qualify(Html.ActionUrl("Feed", "Feed", null)) %>" type="application/atom+xml" rel="alternate" title="Blog Feed" />
+  <link href="<%= Html.Qualify(Html.ActionUrl("CommentFeed", "Feed", null)) %>" type="application/atom+xml" rel="alternate" title="Comments Feed" />
   <link rel="icon" type="image/png" href="<%= Html.Qualify("/favicon.png") %>" />
   <link href="<%= Html.QualifyVersion("/Views/Shared/Styles/All.css") %>" type="text/css" rel="stylesheet" />
   <link href="<%= Html.QualifyVersion("/Views/Shared/Styles/Print-min.css") %>" type="text/css" rel="stylesheet" media="print" />

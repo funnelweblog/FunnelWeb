@@ -50,6 +50,10 @@ namespace FunnelWeb.Web.Controllers
 
         public ActionResult Feed(PageName feedName)
         {
+            if (String.IsNullOrWhiteSpace(feedName))
+            {
+                feedName = _feedRepository.GetFeeds().OrderBy(f => f.Id).First().Name;
+            }
             var entries = _feedRepository.GetFeed(feedName, 0, 20);
 
             var items = (from e in entries

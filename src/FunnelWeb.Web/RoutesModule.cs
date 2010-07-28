@@ -33,8 +33,9 @@ namespace FunnelWeb.Web.Application.Routes
             routes.MapRoute("81", "admin/delete-feed", new { controller = "Admin", action = "DeleteFeed" });
             
             // Feeds
-            routes.MapRoute("60", "feeds/{feedName}", new { controller = "Feed", action = "Feed", feedName = "recent" });
-            routes.MapRoute("61", "commentfeed", new { controller = "Feed", action = "CommentFeed" });
+            routes.MapRoute("60", "feed", new { controller = "Feed", action = "Feed", feedName = (string)null });
+            routes.MapRoute("61", "feeds/{*feedName}", new { controller = "Feed", action = "Feed" });
+            routes.MapRoute("62", "commentfeed", new { controller = "Feed", action = "CommentFeed" });
 
             // Login
             routes.MapRoute("90", "login", new { controller = "Login", action = "Index" });
