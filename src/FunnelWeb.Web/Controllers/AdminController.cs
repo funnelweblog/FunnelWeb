@@ -33,6 +33,25 @@ namespace FunnelWeb.Web.Controllers
         }
 
         [Authorize]
+        public ActionResult CreateFeed(string name, string title)
+        {
+            var feed = new Feed { Name = name, Title = title };
+            _feedRepository.Save(feed);
+            return RedirectToAction("Index");
+        }
+
+        [Authorize]
+        public ActionResult DeleteFeed(int feedId)
+        {
+            var feed = _feedRepository.GetFeeds().FirstOrDefault(x => x.Id == feedId);
+            if (feed != null)
+            {
+                _feedRepository.Delete(feed);
+            }
+            return RedirectToAction("Index");
+        }
+
+        [Authorize]
         public ActionResult DeleteRedirect(int redirectId)
         {
             var redirect = _adminRepository.GetRedirects().FirstOrDefault(x => x.Id == redirectId);

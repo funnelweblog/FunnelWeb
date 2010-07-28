@@ -11,6 +11,7 @@ namespace FunnelWeb.Web.Model.Repositories
         IEnumerable<Entry> GetFeed(PageName feed, int skip, int take);
         int GetFeedCount(PageName feed);
         ValidationResult Save(Feed feed);
+        void Delete(Feed feed);
         IEnumerable<Comment> GetCommentFeed(int skip, int take);
     }
 }

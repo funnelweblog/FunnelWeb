@@ -81,5 +81,10 @@ namespace FunnelWeb.Web.Model.Repositories.Internal
             }
             return results;
         }
+
+        public void Delete(Feed feed)
+        {
+            _session.Delete(feed);            
+        }
     }
 }

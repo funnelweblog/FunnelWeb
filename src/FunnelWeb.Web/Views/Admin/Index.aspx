@@ -35,16 +35,19 @@
         <tr>
             <td>Name</td>
             <td>Title</td>
+            <td>Entries</td>
+            <td>Actions</td>
         </tr>
         </thead>
         <% foreach (var item in Model.Feeds) { %>
         <tr>
             <td><%= item.Name %></td>
             <td><%= item.Title %></td>
+            <td><% = item.Items.Count %></td>
+            <td><%= Html.ActionLink("Delete", "DeleteFeed", new { feedId = item.Id }) %></td>
         </tr>
         <% } %>
     </table>
-        
         
     <div class="form-body">
         <p>
