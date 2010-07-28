@@ -94,10 +94,10 @@ namespace FunnelWeb.Web.Controllers
 
         [AcceptVerbs(HttpVerbs.Post)]
         [Authorize]
-        public ActionResult Save(PageName page, string name, string title, string metaTitle, string summary, string body, string comment, string metaDescription, string metaKeywords, bool enableDiscussion, int[] feeds)
+        public ActionResult Save(PageName page, string title, string metaTitle, string summary, string body, string comment, string metaDescription, string metaKeywords, bool enableDiscussion, int[] feeds)
         {
             var entry = _entryRepository.GetEntry(page) ?? new Entry();
-            entry.Name = name;
+            entry.Name = page;
             entry.Title = title;
             entry.Summary = summary;
             entry.MetaTitle = metaTitle;
@@ -119,7 +119,7 @@ namespace FunnelWeb.Web.Controllers
                 _feedRepository.Save(feed);
             }
 
-            return RedirectToAction("Page", new { page = name });
+            return RedirectToAction("Page", new { page = page });
         }
 
         public ActionResult Comment(PageName page, string name, string url, string email, string comments)

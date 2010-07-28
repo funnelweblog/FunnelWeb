@@ -74,11 +74,11 @@ namespace FunnelWeb.Web.Application.Routes
             routes.MapRoute(R(), "", new { controller = "Wiki", action = "Recent", pageNumber = "0" });
             routes.MapRoute(R(), "search", new { controller = "Wiki", action = "Search" });
             routes.MapRoute(R(), "new", new { controller = "Wiki", action = "New" });
+            routes.MapRoute(R(), "save", new { controller = "Wiki", action = "Save" });
             routes.MapRoute(R(), "{pageNumber}", new { controller = "Wiki", action = "Recent" }, new { pageNumber = "\\d+" });
             routes.MapRoute(R(), "{page}/via-feed", new { controller = "Resource", action = "Render", fileName = "/Views/Shared/Images/Transparent.gif", contentType = "image/gif" });
             routes.MapRoute(R(), "{page}/revisions", new { controller = "Wiki", action = "Revisions" });
             routes.MapRoute(R(), "{page}/edit", new { controller = "Wiki", action = "Edit" });
-            routes.MapRoute(R(), "{page}/save", new { controller = "Wiki", action = "Save" });
             routes.MapRoute(R(), "{page}/comment", new { controller = "Wiki", action = "Comment" });
             routes.MapRoute(R(), "{page}/{revision}", new { controller = "Wiki", action = "Page", revision = "0" }, new { revision = "\\d+" });
             routes.MapRoute(R(), "{page}/{*xyz}", new { controller = "Wiki", action = "NotFound" });
