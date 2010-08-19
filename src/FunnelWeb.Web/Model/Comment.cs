@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace FunnelWeb.Web.Model
 {
@@ -9,6 +10,8 @@ namespace FunnelWeb.Web.Model
         }
 
         public virtual int Id { get; set; }
+
+        [DataType("Markdown")]
         public virtual string Body { get; set; }
         public virtual string AuthorName { get; set; }
         public virtual string AuthorCompany { get; set; }

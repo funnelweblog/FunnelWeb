@@ -8,7 +8,7 @@
   <link rel="canonical" href="<%= Html.Qualify(Html.ActionUrl("Page", new { page = Model.Entry.Name })) %>" />
   <link rel="pingback" href="<%= Html.Qualify("/pingback") %>" />
 </asp:content>
-<asp:content contentplaceholderid="SummaryContent" runat="server"><%= Markdown.Render(Model.Entry.Summary) %></asp:content>
+<asp:content contentplaceholderid="SummaryContent" runat="server"><%= Html.DisplayFor(model => model.Entry.Summary) %></asp:content>
 <asp:content contentplaceholderid="MainContent" runat="server">      
       <h1><%= Html.ActionLink(Model.Entry.Title, "Page", new { page = Model.Entry.Name })%></h1>
       <div class="entry-date">
@@ -24,7 +24,7 @@
         </div>
         <% } %>
         <div class='entry'>
-        <%= Markdown.Render(Model.Entry.LatestRevision.Body) %>
+        <%= Html.DisplayFor(model => model.Entry.LatestRevision.Body) %>
         </div>  
         <div class='entry-tools'>
           <span>Last revised: <a href="<%= Html.ActionUrl("Page", new { page = Model.Page, revision = Model.Entry.LatestRevision.RevisionNumber }) %>"><%= Html.Date(Model.Entry.LatestRevision.Revised) %></a></span>
@@ -53,7 +53,7 @@
       <div class="comments">
         <div class="comments-in">
         <a name="comments" />
-          </a><h2>Discussion</h2><% foreach (var comment in Model.Entry.Comments.Where(x => !x.IsSpam)) { %>
+          <h2>Discussion</h2><% foreach (var comment in Model.Entry.Comments.Where(x => !x.IsSpam)) { %>
           <div class="comment">
             <div class="comment-author">
               <img class="gravatar" src="<%= Html.Gravatar(comment.AuthorEmail) %>" alt="<%= Html.Encode(comment.AuthorName) %>" />
@@ -62,7 +62,7 @@
             </div>
             <div class="comment-body"> 
               <div class="comment-date"><%= Html.Date(comment.Posted) %></div>
-              <%= Markdown.Render(comment.Body, true) %>
+              <%= Html.DisplayFor(_ => comment.Body, new { Sanitize = true }) %>
             </div>
             <div class="clear">
             </div>

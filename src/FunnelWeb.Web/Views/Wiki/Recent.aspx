@@ -7,9 +7,9 @@
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="SummaryContent" runat="server">
-<%= Markdown.Render(Settings.Introduction) %>
+<%= Html.DisplayFor(_ => Settings.Introduction)%>
 </asp:Content>
-
+ 
 <asp:Content ContentPlaceHolderID="MainContent" runat="server"><h1>Recent Posts</h1>
       <div class="post-list"><% foreach (var entry in Model.Entries) { %>
         <div class='post-line'>

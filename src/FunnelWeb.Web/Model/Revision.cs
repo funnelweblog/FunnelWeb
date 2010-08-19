@@ -1,5 +1,6 @@
 using System;
 using NHibernate.Validator.Constraints;
+using System.ComponentModel.DataAnnotations;
 
 namespace FunnelWeb.Web.Model
 {
@@ -18,6 +19,7 @@ namespace FunnelWeb.Web.Model
 
         public virtual int Id { get; private set; }
         
+        [DataType("Markdown")]
         [NotNullNotEmpty(Message = "Please provide a body for this wiki entry.")]
         public virtual string Body { get; set; }
         

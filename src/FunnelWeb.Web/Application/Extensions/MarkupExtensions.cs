@@ -155,19 +155,19 @@ namespace FunnelWeb.Web.Application.Extensions
                 date.ToString("dd MMM, yyyy hh:mm tt"));
         }
 
-        public static string DateRssFormat(this HtmlHelper html, object value)
-        {
-            var date = (DateTime)value;
-            return date.ToString("yyyy-MM-dd") + "T" + date.ToString("HH:mm:ss") + "Z";
-        }
-
-        //public static string Markdown(this HtmlHelper html, object content, bool sanitize)
+        //public static string DateRssFormat(this HtmlHelper html, object value)
         //{
-        //    var text = (content ?? string.Empty).ToString();
-        //    var markdown = new MarkdownRenderer(sanitize, html.ViewContext.RequestContext.HttpContext.Request.Url.GetLeftPart(UriPartial.Authority));
-        //    text = markdown.Render(text);
-        //    return text;
+        //    var date = (DateTime)value;
+        //    return date.ToString("yyyy-MM-dd") + "T" + date.ToString("HH:mm:ss") + "Z";
         //}
+
+        public static string Markdown(this HtmlHelper html, object content, bool sanitize)
+        {
+            var text = (content ?? string.Empty).ToString();
+            var markdown = new MarkdownRenderer(sanitize, html.ViewContext.RequestContext.HttpContext.Request.Url.GetLeftPart(UriPartial.Authority));
+            text = markdown.Render(text);
+            return text;
+        }
 
         public static string TextilizeList(this HtmlHelper html, object content)
         {

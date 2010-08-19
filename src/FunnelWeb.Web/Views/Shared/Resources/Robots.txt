@@ -1,3 +1,3 @@
 User-agent: *
 Disallow:
-Sitemap: http://www.paulstovell.com/sitemap
+Sitemap: /sitemap

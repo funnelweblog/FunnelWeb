@@ -186,9 +186,6 @@
       <DependentUpon>AdminController.cs</DependentUpon>
     </Compile>
     <Compile Include="Controllers\FeedController.cs" />
-    <Compile Include="Controllers\FeedController.Models.cs">
-      <DependentUpon>FeedController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LoginController.Models.cs">
       <DependentUpon>LoginController.cs</DependentUpon>
@@ -253,6 +250,7 @@
     <Content Include="Views\Install\UpgradeReport.aspx" />
     <Content Include="Views\Install\Index.aspx" />
     <Content Include="Views\Login\Index.aspx" />
+    <Content Include="Views\Shared\DisplayTemplates\Markdown.ascx" />
     <Content Include="Views\Shared\Images\EditorButtons.png" />
     <Content Include="Views\Shared\Images\Emoticons\Cheeky.png" />
     <Content Include="Views\Shared\Images\Emoticons\Happy.png" />

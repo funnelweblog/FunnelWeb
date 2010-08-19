@@ -3,6 +3,7 @@ using System.Linq;
 using Iesi.Collections.Generic;
 using NHibernate.Validator.Constraints;
 using FunnelWeb.Web.Model.Strings;
+using System.ComponentModel.DataAnnotations;
 
 namespace FunnelWeb.Web.Model
 {
@@ -26,7 +27,10 @@ namespace FunnelWeb.Web.Model
         public virtual int Id { get; private set; }
         public virtual string Title { get; set; }
         public virtual PageName Name { get; set; }
+
+        [DataType("Markdown")]
         public virtual string Summary { get; set; }
+
         public virtual bool IsVisible { get; set; }
         public virtual DateTime Published { get; set; }
         public virtual bool IsDiscussionEnabled { get; set; }

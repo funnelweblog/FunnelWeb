@@ -112,7 +112,7 @@
           <tr>
               <td colspan="2" width="90%">
                   <strong><%= Html.Encode(comment.Entry.Title) %></strong><br />
-                  <%= Markdown.Render(comment.Body, true)%>
+                  <%= Html.DisplayFor(_ => comment.Body, new { Sanitize = true })%>
               </td>
           </tr>
           <tr>
