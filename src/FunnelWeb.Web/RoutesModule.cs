@@ -21,6 +21,7 @@ namespace FunnelWeb.Web.Application.Routes
 
             var routes = _routes;
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("{*allaxd}", new { allaxd = @".*\.axd(/.*)?" });
             routes.IgnoreRoute("pingback");
 
             // Administration
