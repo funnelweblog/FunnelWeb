@@ -39,28 +39,24 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure.Execution
                 {
                     connection.Open();
 
-                    var transaction = connection.BeginTransaction(IsolationLevel.ReadUncommitted);
-
                     foreach (var statement in scriptStatements)
                     {
                         index++;
-                        var command = new SqlCommand(statement, connection, transaction);
+                        var command = new SqlCommand(statement, connection);
                         command.ExecuteNonQuery();
                     }
-
-                    transaction.Commit();
                 }
             }
             catch (SqlException sqlException)
             {
-                log.WriteInformation("SQL exception has occured. Transaction rolled back for script: '{0}'", script.Name);
+                log.WriteInformation("SQL exception has occured in script: '{0}'", script.Name);
                 log.WriteError("Script block number: {0}; Block line {1}; Message: {2}", index, sqlException.LineNumber, sqlException.Procedure, sqlException.Number, sqlException.Message);
                 log.WriteError(sqlException.ToString());
                 throw;
             }
             catch (Exception ex)
             {
-                log.WriteInformation("Exception has occured. Transaction rolled back for script: '{0}'", script.Name);
+                log.WriteInformation("Exception has occured in script: '{0}'", script.Name);
                 log.WriteError(ex.ToString());
                 throw;
             }
