@@ -74,6 +74,7 @@ namespace FunnelWeb.Web.Application.Routes
 
             // Wiki
             routes.MapRoute(R(), "", new { controller = "Wiki", action = "Recent", pageNumber = "0" });
+            routes.MapRoute(R(), "unpublished", new { controller = "Wiki", action = "Unpublished" });
             routes.MapRoute(R(), "search", new { controller = "Wiki", action = "Search" });
             routes.MapRoute(R(), "new", new { controller = "Wiki", action = "New" });
             routes.MapRoute(R(), "save", new { controller = "Wiki", action = "Save" });

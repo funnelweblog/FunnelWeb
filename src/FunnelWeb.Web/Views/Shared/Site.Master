@@ -22,12 +22,10 @@
     <% Html.RequiresCss("Editor.css", "Layout", 0); %>
     <% Html.RequiresCss("Prettify.css", "Layout", 0); %>
     <% Html.RequiresCss("Screen.css", "Layout", 0); %>
-
     <% Html.RequiresCss("Theme.css", "Theme", 10000); %>
     <%--<link href="<%= Html.RenderCssHere(new BasicPath("Print", "/Views/Shared/Styles/Layout"))%>" type="text/css" rel="stylesheet" media="print" />--%>
     <%--<% Html.RequiresCss("Print.css", "Print", 0); %>--%>
-    <link href="/Content/Styles/Layout/Print.css" type="text/css" rel="stylesheet"
-        media="print" />
+    <link href="/Content/Styles/Layout/Print.css" type="text/css" rel="stylesheet" media="print" />
 </head>
 <body>
     <div class="header">
@@ -44,6 +42,8 @@
                 <%= Html.ActionLink("New Post", "New", "Wiki") %></li>
             <li>
                 <%= Html.ActionLink("Admin", "Index", "Admin") %></li>
+            <li>
+                <%= Html.ActionLink("Unpublished Posts", "Unpublished", "Wiki")%></li>
             <li>
                 <%= Html.ActionLink("Logout", "Logout", "Login") %></li>
             <% } %>
