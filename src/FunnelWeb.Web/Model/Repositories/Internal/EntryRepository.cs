@@ -34,6 +34,7 @@ namespace FunnelWeb.Web.Model.Repositories.Internal
                 .SetProjection(Projections.Property("item.Entry.Id"));
             return _session.CreateCriteria<Entry>()
                 .Add(Subqueries.PropertyNotIn("Id", feedItemsCriteria))
+                .AddOrder(Order.Desc("Published"))
                 .List<Entry>();
         }
 
