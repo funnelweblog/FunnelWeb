@@ -19,7 +19,7 @@ syntax: glob
 *.obj
 *.patch
 *.pch
-*.pdb    
+*.pdb
 *.plg
 *.[Pp]ublish.xml
 *.rdl.data
@@ -54,3 +54,4 @@ hgignore[.-]*
 ignore[.-]*
 svnignore[.-]*
 lint.db
+glob:src/FunnelWeb.Web/App_Data/ClientDependency

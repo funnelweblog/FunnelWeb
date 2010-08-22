@@ -112,7 +112,7 @@ function enableChangeDetection() {
 
 $.expr[':'].external = function(obj) {
     return !obj.href.match(/^mailto\:/)
-            && !(obj.hostname == location.hostname || obj.hostname.match(/paulstovell/))
+            && !(obj.hostname == location.hostname)
 };
 
 function enableNewWindowLinks() {
