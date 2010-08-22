@@ -94,6 +94,14 @@ namespace FunnelWeb.Web.Controllers
             return View();
         }
 
+        [Authorize]
+        public ActionResult Unpublished()
+        {
+            var allPosts = _entryRepository.GetUnpublished();
+            ViewData.Model = new RecentModel(allPosts, 1, 1);
+            return View();
+        }
+
         [AcceptVerbs(HttpVerbs.Post)]
         [Authorize]
         public ActionResult Save(PageName page, string title, string metaTitle, string summary, string body, string comment, string metaDescription, string metaKeywords, bool enableDiscussion, int[] feeds)

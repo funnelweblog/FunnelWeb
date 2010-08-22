@@ -345,6 +345,7 @@
     <Content Include="Views\Wiki\Recent.aspx" />
     <Content Include="Views\Wiki\Revisions.aspx" />
     <Content Include="Views\Wiki\SiteMap.aspx" />
+    <Content Include="Views\Wiki\Unpublished.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
