@@ -52,7 +52,7 @@
       <% if (Model.Entry.IsDiscussionEnabled) { %>
       <div class="comments">
         <div class="comments-in">
-        <a name="comments" />
+        <a name="comments" style="display:none;">&nbsp;</a>
           <h2>Discussion</h2><% foreach (var comment in Model.Entry.Comments.Where(x => !x.IsSpam)) { %>
           <div class="comment">
             <div class="comment-author">

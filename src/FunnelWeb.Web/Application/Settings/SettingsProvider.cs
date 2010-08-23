@@ -19,6 +19,7 @@ namespace FunnelWeb.Web.Application.Settings
         private string _spamWords;
         private string _defaultPage;
         private string _footer;
+        private string _theme;
 
         public SettingsProvider(IAdminRepository repository)
         {
@@ -106,6 +107,15 @@ namespace FunnelWeb.Web.Application.Settings
             }
         }
 
+        public string Theme
+        {
+            get
+            {
+                EnsureInitialized();
+                return _theme;
+            }
+        }
+
         private void EnsureInitialized()
         {
             if (_isInitialized) 
@@ -128,6 +138,7 @@ namespace FunnelWeb.Web.Application.Settings
                 _spamWords = ReadSetting(settings, "spam-blacklist");
                 _footer = ReadSetting(settings, "ui.footer");
                 _defaultPage = ReadSetting(settings, "default-page");
+                _theme = ReadSetting(settings, "ui-theme");
             }
         }
 

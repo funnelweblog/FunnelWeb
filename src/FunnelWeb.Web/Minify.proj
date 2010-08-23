@@ -6,13 +6,13 @@ Files like All.css and All.js are automatically generated from their whitespace-
   <UsingTask TaskName="CompressorTask" AssemblyFile="..\..\Lib\YUI\Yahoo.Yui.Compressor.dll" />
   <Target Name="Build">
     <PropertyGroup>
-      <CssOutputFile Condition=" '$(CssOutputFile)'=='' ">Views\Shared\Styles\All.css</CssOutputFile>
+      <!--<CssOutputFile Condition=" '$(CssOutputFile)'=='' ">Views\Shared\Styles\All.css</CssOutputFile>-->
       <CssOutputFile2 Condition=" '$(CssOutputFile2)'=='' ">Views\Shared\Styles\Print-min.css</CssOutputFile2>
       <JavaScriptOutputFile Condition=" '$(JavaScriptOutputFile)'=='' ">Views\Shared\Scripts\All.js</JavaScriptOutputFile>
       <JavaScriptOutputFile2 Condition=" '$(JavaScriptOutputFile2)'=='' ">Views\Shared\Scripts\wmd-min.js</JavaScriptOutputFile2>
     </PropertyGroup>
     <ItemGroup>
-      <CssFilesForCompress Include="Views\Shared\Styles\Screen.css" />
+      <!--<CssFilesForCompress Include="Views\Shared\Styles\Screen.css" />
       <CssFilesForCompress Include="Views\Shared\Styles\Editor.css" />
       <CssFilesForCompress Include="Views\Shared\Styles\Prettify.css" />
       <CssFilesForCompress2 Include="Views\Shared\Styles\Print.css" />
@@ -23,9 +23,9 @@ Files like All.css and All.js are automatically generated from their whitespace-
       <JavaScriptFilesForCompress Include="Views\Shared\Scripts\Prettify\Prettify.js" />
       <JavaScriptFilesForCompress Include="Views\Shared\Scripts\Site\Site.js" />
       <JavaScriptFilesForCompress Include="Views\Shared\Scripts\JQuery\JSDate.js" />
-      <JavaScriptFilesForCompress2 Include="Views\Shared\Scripts\Showdown\wmd.js" />
+      <JavaScriptFilesForCompress2 Include="Views\Shared\Scripts\Showdown\wmd.js" />-->
     </ItemGroup>
-    <CompressorTask CssFiles="@(CssFilesForCompress)" DeleteCssFiles="false" CssOutputFile="$(CssOutputFile)" CssCompressionType="YuiStockCompression" JavaScriptFiles="@(JavaScriptFilesForCompress)" ObfuscateJavaScript="True" PreserveAllSemicolons="False" DisableOptimizations="Nope" EncodingType="Default" DeleteJavaScriptFiles="false" LineBreakPosition="-1" JavaScriptOutputFile="$(JavaScriptOutputFile)" LoggingType="ALittleBit" ThreadCulture="en-au" IsEvalIgnored="false" />
-    <CompressorTask CssFiles="@(CssFilesForCompress2)" DeleteCssFiles="false" CssOutputFile="$(CssOutputFile2)" CssCompressionType="YuiStockCompression" JavaScriptFiles="@(JavaScriptFilesForCompress2)" ObfuscateJavaScript="True" PreserveAllSemicolons="False" DisableOptimizations="Nope" EncodingType="Default" DeleteJavaScriptFiles="false" LineBreakPosition="-1" JavaScriptOutputFile="$(JavaScriptOutputFile2)" LoggingType="ALittleBit" ThreadCulture="en-au" IsEvalIgnored="false" />
+    <!--<CompressorTask CssFiles="@(CssFilesForCompress)" DeleteCssFiles="false" CssOutputFile="$(CssOutputFile)" CssCompressionType="YuiStockCompression" JavaScriptFiles="@(JavaScriptFilesForCompress)" ObfuscateJavaScript="True" PreserveAllSemicolons="False" DisableOptimizations="Nope" EncodingType="Default" DeleteJavaScriptFiles="false" LineBreakPosition="-1" JavaScriptOutputFile="$(JavaScriptOutputFile)" LoggingType="ALittleBit" ThreadCulture="en-au" IsEvalIgnored="false" />
+    <CompressorTask CssFiles="@(CssFilesForCompress2)" DeleteCssFiles="false" CssOutputFile="$(CssOutputFile2)" CssCompressionType="YuiStockCompression" JavaScriptFiles="@(JavaScriptFilesForCompress2)" ObfuscateJavaScript="True" PreserveAllSemicolons="False" DisableOptimizations="Nope" EncodingType="Default" DeleteJavaScriptFiles="false" LineBreakPosition="-1" JavaScriptOutputFile="$(JavaScriptOutputFile2)" LoggingType="ALittleBit" ThreadCulture="en-au" IsEvalIgnored="false" />-->
   </Target>
 </Project>

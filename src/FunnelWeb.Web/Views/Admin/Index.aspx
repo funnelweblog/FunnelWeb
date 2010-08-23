@@ -53,6 +53,14 @@
                 <span class="hint">This will appear at the bottom of the page - use it to add copyright information, links to any web hosts, people or technologies that helped you to build the site, and so on.</span>
             </p>
 
+            <p>
+                <%= Html.Label("Theme", "settings_ui-theme") %>
+                <%= Html.DropDownList("settings_ui-theme", Model.Themes.Select(x =>
+                    new SelectListItem { Text = x, Selected = Settings.Theme == x })
+                                    )%>
+                <span class="hint">The theme which will be used for this website</span>
+            </p>
+
             <h3>Metadata</h3>
             <p>
                 <%= Html.Label("Author", "settings_search-author")%>
@@ -229,13 +237,6 @@
       </div>
     </div>
 
-    <!-- Being a bit naughty, but hey, it's an admin page -->
-    <script type="text/javascript">
-      $(function () {
-          $('#tabs').tabs();
-      });
-    </script>
-    
-
+<% Html.RequiresJs("/Views/Admin/Scripts/Admin.js", 2); %>
 
 </asp:Content>

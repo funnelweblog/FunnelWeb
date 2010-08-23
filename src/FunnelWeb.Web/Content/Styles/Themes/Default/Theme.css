@@ -1,0 +1,99 @@
+﻿body
+{
+}
+
+a
+{
+	color: #3865C6;
+}
+a:hover
+{
+	color: #0489B7;
+}
+
+h1, h2, h3, h4, h5, h6
+{
+	color: #3865C6;
+}
+
+/* Header */
+
+.header
+{
+}
+
+.header a.logo
+{
+	background: transparent url(/Views/Shared/Images/Title.png) no-repeat scroll 0 20px;
+}
+
+.nav ul li
+{
+	color: #32A700;
+}
+
+.nav ul li a
+{
+	color: #32A700;
+}
+
+/* Introductions */
+
+.intro
+{
+	background: #FFFFC6;
+	border: 1px solid #D0D0D0;
+}
+
+.intro h1
+{
+	color: #32A700;
+}
+.intro p
+{
+}
+
+.post-line .revised
+{
+	background: #A0C390;
+}
+
+.post-line .revised .month
+{
+}
+
+.content h1, .content h2
+{
+	border-bottom: 1px solid #3865C6;
+}
+.comment
+{
+	border-bottom: 1px solid #CCCCCC;
+}
+
+pre
+{
+	background: #F0E8E8; /* #E0EAF1; */
+	border: 1px dotted #D0A090;
+}
+
+.entry h1, .entry h2, .entry h3, .entry h4, .entry h5, .entry h6
+{
+	border:0px;
+	color: #32A700;
+}
+
+.entry-date
+{
+	background: #A0C390;
+}
+
+.entry-tools
+{
+	background: #FFFFC6;
+}
+
+.message 
+{
+		color: #CC0000;
+}

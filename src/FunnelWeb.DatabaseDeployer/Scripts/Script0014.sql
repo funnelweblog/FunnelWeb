@@ -1,0 +1,1 @@
+﻿insert into Setting([Name], DisplayName, Value, Description) values ('ui-theme', 'Theme', 'Default', 'Theme being used by the blog at the moment');

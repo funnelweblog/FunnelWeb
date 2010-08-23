@@ -57,6 +57,12 @@
     <Reference Include="Castle.DynamicProxy2">
       <HintPath>..\..\lib\NHibernate\Castle.DynamicProxy2.dll</HintPath>
     </Reference>
+    <Reference Include="ClientDependency.Core">
+      <HintPath>..\..\lib\ClientDependency\ClientDependency.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ClientDependency.Core.Mvc">
+      <HintPath>..\..\lib\ClientDependency\ClientDependency.Core.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="FluentNHibernate">
       <HintPath>..\..\lib\NHibernate\FluentNHibernate.dll</HintPath>
     </Reference>
@@ -247,17 +253,14 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Views\Admin\Index.aspx" />
+    <Content Include="Views\Admin\Scripts\Admin.js" />
     <Content Include="Views\Install\UpgradeReport.aspx" />
     <Content Include="Views\Install\Index.aspx" />
     <Content Include="Views\Login\Index.aspx" />
     <Content Include="Views\Shared\DisplayTemplates\Markdown.ascx" />
-    <Content Include="Views\Shared\Images\EditorButtons.png" />
-    <Content Include="Views\Shared\Images\Emoticons\Cheeky.png" />
-    <Content Include="Views\Shared\Images\Emoticons\Happy.png" />
-    <Content Include="Views\Shared\Images\Emoticons\Sad.png" />
-    <Content Include="Views\Shared\Images\Emoticons\Wink.png" />
-    <Content Include="Views\Shared\Images\external.png" />
     <Content Include="Views\Shared\Images\favicon.ico" />
+    <Content Include="Views\Shared\Images\editorbuttons.png" />
+    <Content Include="Views\Shared\Images\external.png" />
     <Content Include="Views\Shared\Images\FileTypes\bmp.png" />
     <Content Include="Views\Shared\Images\FileTypes\cs.png" />
     <Content Include="Views\Shared\Images\FileTypes\csproj.png" />
@@ -281,21 +284,12 @@
     <Content Include="Views\Shared\Images\FileTypes\xls.png" />
     <Content Include="Views\Shared\Images\FileTypes\xlsx.png" />
     <Content Include="Views\Shared\Images\FileTypes\Zip.png" />
-    <Content Include="Views\Shared\Images\hCard.png" />
-    <Content Include="Views\Shared\Images\HeaderBG.jpg" />
-    <Content Include="Views\Shared\Images\LightBG.gif" />
-    <Content Include="Views\Shared\Images\line.jpg" />
-    <Content Include="Views\Shared\Images\Me-mo.jpg" />
-    <Content Include="Views\Shared\Images\Me.jpg" />
-    <Content Include="Views\Shared\Images\NavBG.jpg" />
-    <Content Include="Views\Shared\Images\NavBG.png" />
-    <Content Include="Views\Shared\Images\Title.png" />
-    <Content Include="Views\Shared\Images\Transparent.gif" />
-    <Content Include="Views\Shared\Resources\favicon.ico" />
+    <Content Include="Views\Shared\Images\title.png" />
+    <Content Include="Views\Shared\Images\transparent.gif" />
     <Content Include="Views\Shared\Resources\favicon.png" />
+    <Content Include="Views\Shared\Resources\favicon.ico" />
     <Content Include="Views\Shared\Resources\Robots.txt" />
     <Content Include="Views\Shared\Resources\Status.html" />
-    <Content Include="Views\Shared\Scripts\All.js" />
     <Content Include="Views\Shared\Scripts\JQuery\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="Views\Shared\Scripts\JQuery\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
     <Content Include="Views\Shared\Scripts\JQuery\images\ui-bg_flat_10_000000_40x100.png" />
@@ -325,13 +319,13 @@
     <Content Include="Views\Shared\Scripts\Showdown\showdown.js" />
     <Content Include="Views\Shared\Scripts\Showdown\wmd.js" />
     <Content Include="Views\Shared\Scripts\Site\Site.js" />
-    <Content Include="Views\Shared\Scripts\wmd-min.js" />
-    <Content Include="Views\Shared\Styles\All.css" />
-    <Content Include="Views\Shared\Styles\Editor.css" />
-    <Content Include="Views\Shared\Styles\Prettify.css" />
-    <Content Include="Views\Shared\Styles\Print-min.css" />
-    <Content Include="Views\Shared\Styles\Print.css" />
-    <Content Include="Views\Shared\Styles\Screen.css" />
+    <Content Include="Content\Styles\Layout\Editor.css" />
+    <Content Include="Content\Styles\Layout\Prettify.css" />
+    <Content Include="Content\Styles\Layout\Print-min.css" />
+    <Content Include="Content\Styles\Layout\Print.css" />
+    <Content Include="Content\Styles\Layout\Screen.css" />
+    <Content Include="Content\Styles\Themes\AaronPowell\Theme.css" />
+    <Content Include="Content\Styles\Themes\Default\Theme.css" />
     <Content Include="Views\Upload\Index.aspx" />
     <Content Include="Views\Wiki\Edit.aspx" />
     <Content Include="Views\Wiki\NotFound.aspx" />
@@ -339,6 +333,7 @@
     <Content Include="Views\Wiki\Recent.aspx" />
     <Content Include="Views\Wiki\Revisions.aspx" />
     <Content Include="Views\Wiki\SiteMap.aspx" />
+    <Content Include="Views\Wiki\Unpublished.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

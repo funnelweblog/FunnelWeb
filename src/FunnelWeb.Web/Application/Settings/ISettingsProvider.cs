@@ -14,5 +14,6 @@ namespace FunnelWeb.Web.Application.Settings
         string SearchDescription { get; }
         string SearchKeywords { get; }
         string SpamWords { get; }
+        string Theme { get; }
     }
 }

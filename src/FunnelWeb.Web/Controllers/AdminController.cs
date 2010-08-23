@@ -5,6 +5,7 @@ using FunnelWeb.Web.Application;
 using FunnelWeb.Web.Application.Filters;
 using FunnelWeb.Web.Model.Repositories;
 using FunnelWeb.Web.Model;
+using System.IO;
 
 namespace FunnelWeb.Web.Controllers
 {
@@ -28,7 +29,10 @@ namespace FunnelWeb.Web.Controllers
             var comments = _adminRepository.GetComments(0, 30);
             var redirects = _adminRepository.GetRedirects();
             var pingbacks = _adminRepository.GetPingbacks();
-            ViewData.Model = new IndexModel(settings, feeds, comments, pingbacks, redirects);
+
+            var themeFolder = new DirectoryInfo(Server.MapPath("~/Content/Styles/Themes"));
+            var themes = themeFolder.GetDirectories().Select(x => x.Name).OrderBy(x => x);
+            ViewData.Model = new IndexModel(settings, feeds, comments, pingbacks, redirects, themes);
             return View("Index");
         }
 

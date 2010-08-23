@@ -28,6 +28,16 @@ namespace FunnelWeb.Web.Model.Repositories.Internal
             return _session.Linq<Entry>();
         }
 
+        public IEnumerable<Entry> GetUnpublished()
+        {
+            var feedItemsCriteria = DetachedCriteria.For<FeedItem>("item")
+                .SetProjection(Projections.Property("item.Entry.Id"));
+            return _session.CreateCriteria<Entry>()
+                .Add(Subqueries.PropertyNotIn("Id", feedItemsCriteria))
+                .AddOrder(Order.Desc("Published"))
+                .List<Entry>();
+        }
+
         public Entry GetEntry(PageName name)
         {
             var entryQuery = (Hashtable)_session.CreateCriteria<Entry>("entry")
