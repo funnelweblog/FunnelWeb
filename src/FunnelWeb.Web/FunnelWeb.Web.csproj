@@ -251,6 +251,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Styles\Themes\MattHamilton\Theme.css" />
+    <Content Include="Content\Styles\Themes\MattHamilton\Title.png" />
     <Content Include="Global.asax" />
     <Content Include="Views\Admin\Index.aspx" />
     <Content Include="Views\Admin\Scripts\Admin.js" />
