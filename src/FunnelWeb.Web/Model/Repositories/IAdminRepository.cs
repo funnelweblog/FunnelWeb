@@ -6,6 +6,7 @@ namespace FunnelWeb.Web.Model.Repositories
     public interface IAdminRepository
     {
         IQueryable<Comment> GetComments(int skip, int take);
+        IQueryable<Comment> GetSpam();
         Comment GetComment(int commentId);
         Pingback GetPingback(int pingback);
         IQueryable<Setting> GetSettings();

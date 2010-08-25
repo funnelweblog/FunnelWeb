@@ -27,7 +27,7 @@ namespace FunnelWeb.Web.Controllers
             _spamChecker = spamChecker;
         }
 
-        public ActionResult Recent(int pageNumber)
+        public virtual ActionResult Recent(int pageNumber)
         {
             var feed = _feedRepository.GetFeeds().OrderBy(f => f.Id).First().Name;
 
@@ -37,14 +37,14 @@ namespace FunnelWeb.Web.Controllers
             return View();
         }
 
-        public ActionResult Search([Bind(Prefix="q")] string searchText)
+        public virtual ActionResult Search([Bind(Prefix = "q")] string searchText)
         {
             var results = _entryRepository.Search(searchText);
             ViewData.Model = new NotFoundModel(searchText, false, results);
             return View("NotFound");
         }
 
-        public ActionResult NotFound(string searchText)
+        public virtual ActionResult NotFound(string searchText)
         {
             var redirect = _entryRepository.GetClosestRedirect(HttpContext.Request.Url.AbsolutePath);
             if (redirect != null)
@@ -60,7 +60,7 @@ namespace FunnelWeb.Web.Controllers
             return View("NotFound");
         }
 
-        public ActionResult Page(PageName page, int revision)
+        public virtual ActionResult Page(PageName page, int revision)
         {
             var entry = _entryRepository.GetEntry(page, revision);
             if (entry == null)
@@ -77,7 +77,7 @@ namespace FunnelWeb.Web.Controllers
         }
         
         [Authorize]
-        public ActionResult New()
+        public virtual ActionResult New()
         {
             var feeds = _feedRepository.GetFeeds();
             var entry = new Entry() { Title = "Enter a Title", MetaTitle = "Enter a meta title", Name = "" };
@@ -86,7 +86,7 @@ namespace FunnelWeb.Web.Controllers
         }
 
         [Authorize]
-        public ActionResult Edit(PageName page)
+        public virtual ActionResult Edit(PageName page)
         {
             var entry = _entryRepository.GetEntry(page) ?? new Entry() { Title = page, MetaTitle = page, Name = page};
             var feeds = _feedRepository.GetFeeds();
@@ -95,7 +95,7 @@ namespace FunnelWeb.Web.Controllers
         }
 
         [Authorize]
-        public ActionResult Unpublished()
+        public virtual ActionResult Unpublished()
         {
             var allPosts = _entryRepository.GetUnpublished();
             ViewData.Model = new RecentModel(allPosts, 1, 1);
@@ -104,7 +104,7 @@ namespace FunnelWeb.Web.Controllers
 
         [AcceptVerbs(HttpVerbs.Post)]
         [Authorize]
-        public ActionResult Save(PageName page, string title, string metaTitle, string summary, string body, string comment, string metaDescription, string metaKeywords, bool enableDiscussion, int[] feeds)
+        public virtual ActionResult Save(PageName page, string title, string metaTitle, string summary, string body, string comment, string metaDescription, string metaKeywords, bool enableDiscussion, int[] feeds)
         {
             var entry = _entryRepository.GetEntry(page) ?? new Entry();
             entry.Name = page;
@@ -132,7 +132,7 @@ namespace FunnelWeb.Web.Controllers
             return RedirectToAction("Page", new { page = page });
         }
 
-        public ActionResult Comment(PageName page, string name, string url, string email, string comments)
+        public virtual ActionResult Comment(PageName page, string name, string url, string email, string comments)
         {
             var entry = _entryRepository.GetEntry(page);
             if (entry == null) return RedirectToAction("Recent");
@@ -150,7 +150,7 @@ namespace FunnelWeb.Web.Controllers
             return RedirectToAction("Page", new { page = page });
         }
 
-        public ActionResult Revisions(PageName page)
+        public virtual ActionResult Revisions(PageName page)
         {
             var entry = _entryRepository.GetEntry(page);
             if (entry == null)
@@ -162,7 +162,7 @@ namespace FunnelWeb.Web.Controllers
             return View();
         }
 
-        public ActionResult SiteMap()
+        public virtual ActionResult SiteMap()
         {
             var allPosts = _entryRepository.GetEntries().OrderBy(x => x.Published).ToList();
             ViewData.Model = new SiteMapModel(allPosts);

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
@@ -21,6 +20,12 @@ namespace FunnelWeb.Web.Model.Repositories.Internal
                 .OrderByDescending(x => x.Posted)
                 .Skip(skip)
                 .Take(take);
+        }
+
+        public IQueryable<Comment> GetSpam()
+        {
+            return _session.Linq<Comment>()
+                .Where(x => x.Status == 0);
         }
 
         public Comment GetComment(int commentId)

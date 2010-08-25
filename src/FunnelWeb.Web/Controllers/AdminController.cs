@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
-using FunnelWeb.Web.Application;
 using FunnelWeb.Web.Application.Filters;
-using FunnelWeb.Web.Model.Repositories;
 using FunnelWeb.Web.Model;
-using System.IO;
+using FunnelWeb.Web.Model.Repositories;
 
 namespace FunnelWeb.Web.Controllers
 {
@@ -22,7 +21,7 @@ namespace FunnelWeb.Web.Controllers
         }
 
         [Authorize]
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             var settings = _adminRepository.GetSettings();
             var feeds = _feedRepository.GetFeeds();
@@ -33,106 +32,110 @@ namespace FunnelWeb.Web.Controllers
             var themeFolder = new DirectoryInfo(Server.MapPath("~/Content/Styles/Themes"));
             var themes = themeFolder.GetDirectories().Select(x => x.Name).OrderBy(x => x);
             ViewData.Model = new IndexModel(settings, feeds, comments, pingbacks, redirects, themes);
-            return View("Index");
+            return View();
         }
 
         [Authorize]
-        public ActionResult CreateFeed(string name, string title)
+        public virtual ActionResult CreateFeed(string name, string title)
         {
             var feed = new Feed { Name = name, Title = title };
             _feedRepository.Save(feed);
-            return RedirectToAction("Index");
+            return RedirectToAction(FunnelWebMvc.Admin.Index());
         }
 
         [Authorize]
-        public ActionResult DeleteFeed(int feedId)
+        public virtual ActionResult DeleteFeed(int feedId)
         {
             var feed = _feedRepository.GetFeeds().FirstOrDefault(x => x.Id == feedId);
             if (feed != null)
             {
                 _feedRepository.Delete(feed);
             }
-            return RedirectToAction("Index");
+            return RedirectToAction(FunnelWebMvc.Admin.Index());
         }
 
         [Authorize]
-        public ActionResult DeleteRedirect(int redirectId)
+        public virtual ActionResult DeleteRedirect(int redirectId)
         {
             var redirect = _adminRepository.GetRedirects().FirstOrDefault(x => x.Id == redirectId);
             if (redirect != null)
             {
                 _adminRepository.Delete(redirect);
             }
-            return RedirectToAction("Index");
+            return RedirectToAction(FunnelWebMvc.Admin.Index());
         }
 
         [Authorize]
-        public ActionResult CreateRedirect(string from, string to)
+        public virtual ActionResult CreateRedirect(string from, string to)
         {
             var redirect = new Redirect();
             redirect.From = from;
             redirect.To = to;
             _adminRepository.Save(redirect);
-            return RedirectToAction("Index");
+            return RedirectToAction(FunnelWebMvc.Admin.Index());
         }
 
         [Authorize]
-        public ActionResult UpdateSettings(Dictionary<string, string> settings)
+        public virtual ActionResult UpdateSettings(Dictionary<string, string> settings)
         {
             var previousSettings = _adminRepository.GetSettings();
             foreach (var setting in previousSettings)
             {
                 if (settings.ContainsKey(setting.Name))
-                {
                     setting.Value = settings[setting.Name];
-                }
             }
             _adminRepository.Save(previousSettings);
 
-            return RedirectToAction("Index");
+            return RedirectToAction(FunnelWebMvc.Admin.Index());
         }
 
         [Authorize]
-        public ActionResult DeleteComment(int comment)
+        public virtual ActionResult DeleteComment(int comment)
         {
             var item = _adminRepository.GetComment(comment);
             _adminRepository.Delete(item);
-            return RedirectToAction("Index");
+            return RedirectToAction(FunnelWebMvc.Admin.Index());
         }
 
         [Authorize]
-        public ActionResult DeleteAllSpam()
+        public virtual ActionResult DeleteAllSpam()
         {
-            var comments = _adminRepository.GetComments(0, 30).ToList().Where(x => x.IsSpam);
+            var comments = _adminRepository.GetSpam().ToList();
             foreach (var comment in comments) _adminRepository.Delete(comment);
-            return RedirectToAction("Index");
+            return RedirectToAction(FunnelWebMvc.Admin.Index());
         }
 
         [Authorize]
-        public ActionResult DeletePingback(int pingback)
+        public virtual ActionResult DeletePingback(int pingback)
         {
             var item = _adminRepository.GetPingback(pingback);
             _adminRepository.Delete(item);
-            return RedirectToAction("Index");
+            return RedirectToAction(FunnelWebMvc.Admin.Index());
         }
 
 
         [Authorize]
-        public ActionResult ToggleSpam(int comment)
+        public virtual ActionResult ToggleSpam(int comment)
         {
             var item = _adminRepository.GetComment(comment);
-            item.IsSpam = !item.IsSpam;
-            _adminRepository.Save(item);
-            return RedirectToAction("Index");
+            if (item != null)
+            {
+                item.IsSpam = !item.IsSpam;
+                _adminRepository.Save(item); 
+            }
+            return RedirectToAction(FunnelWebMvc.Admin.Index());
         }
 
         [Authorize]
-        public ActionResult TogglePingbackSpam(int pingback)
+        public virtual ActionResult TogglePingbackSpam(int pingback)
         {
             var item = _adminRepository.GetPingback(pingback);
-            item.IsSpam = !item.IsSpam;
-            _adminRepository.Save(item);
-            return RedirectToAction("Index");
+            if (item != null)
+            {
+                item.IsSpam = !item.IsSpam;
+                _adminRepository.Save(item);
+            }
+            return RedirectToAction(FunnelWebMvc.Admin.Index());
         }
     }
 }

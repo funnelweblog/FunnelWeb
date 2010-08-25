@@ -48,7 +48,7 @@ namespace FunnelWeb.Web.Controllers
             };
         }
 
-        public ActionResult Feed(PageName feedName)
+        public virtual ActionResult Feed(PageName feedName)
         {
             if (String.IsNullOrWhiteSpace(feedName))
             {
@@ -90,7 +90,7 @@ namespace FunnelWeb.Web.Controllers
             return FeedResult(items.Select(i => i.Item));
         }
 
-        public ActionResult CommentFeed()
+        public virtual ActionResult CommentFeed()
         {
             var comments = _feedRepository.GetCommentFeed(0, 20);
 

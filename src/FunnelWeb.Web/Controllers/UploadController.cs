@@ -19,12 +19,12 @@ namespace FunnelWeb.Web.Controllers
         }
 
         [Authorize]
-        public ActionResult Index(string path)
+        public virtual ActionResult Index(string path)
         {
             path = path ?? string.Empty;
             if (_fileRepository.IsFile(path))
             {
-                return RedirectToAction("Index", new {path = Path.GetDirectoryName(path)});
+                return RedirectToAction(FunnelWebMvc.Upload.Index(Path.GetDirectoryName(path)));
             }
 
             ViewData.Model = new IndexModel(path, _fileRepository.GetItems(path));
@@ -32,34 +32,35 @@ namespace FunnelWeb.Web.Controllers
         }
 
         [Authorize]
-        public ActionResult Upload(string path, Upload upload)
+        public virtual ActionResult Upload(string path, Upload upload)
         {
             var fullPath = _fileRepository.MapPath(Path.Combine(path, upload.FileName));
             upload.SaveTo(fullPath);
-            return RedirectToAction("Index", new {path });
+            return RedirectToAction(FunnelWebMvc.Upload.Index(path));
         }
 
-        public ActionResult CreateDirectory(string path, string name)
+        [Authorize]
+        public virtual ActionResult CreateDirectory(string path, string name)
         {
             _fileRepository.CreateDirectory(path, name);
-            return RedirectToAction("Index", new { path });
+            return RedirectToAction(FunnelWebMvc.Upload.Index(path));
         }
 
         [Authorize]
-        public ActionResult Move(string path, string oldPath, string newPath)
+        public virtual ActionResult Move(string path, string oldPath, string newPath)
         {
             _fileRepository.Move(oldPath, newPath);
-            return RedirectToAction("Index", new {path});
+            return RedirectToAction(FunnelWebMvc.Upload.Index(path));
         }
 
         [Authorize]
-        public ActionResult Delete(string path, string filePath)
+        public virtual ActionResult Delete(string path, string filePath)
         {
             _fileRepository.Delete(filePath);
-            return RedirectToAction("Index", new { path });
+            return RedirectToAction(FunnelWebMvc.Upload.Index(path));
         }
 
-        public ActionResult Render(string path)
+        public virtual ActionResult Render(string path)
         {
             if (_fileRepository.IsFile(path))
             {

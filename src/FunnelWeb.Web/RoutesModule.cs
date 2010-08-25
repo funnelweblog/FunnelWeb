@@ -5,6 +5,21 @@ using Autofac;
 
 namespace FunnelWeb.Web.Application.Routes
 {
+    public static class RouteExtensions
+    {
+        public static Route MapHyphenatedRoute(this RouteCollection routes, string url, object defaults)
+        {
+            Route route = new Route(
+                                url,
+                                new RouteValueDictionary(defaults),
+                                new HyphenatedRouteHandler()
+                                );
+            routes.Add(route);
+
+            return route;
+        }
+    }
+
     public class RoutesModule : Module
     {
         private readonly RouteCollection _routes;
@@ -25,40 +40,27 @@ namespace FunnelWeb.Web.Application.Routes
             routes.IgnoreRoute("pingback");
 
             // Administration
-            routes.MapRoute(R(), "admin", new { controller = "Admin", action = "Index" });
-            routes.MapRoute(R(), "admin/delete-comment", new { controller = "Admin", action = "DeleteComment" });
-            routes.MapRoute(R(), "admin/update-settings", new { controller = "Admin", action = "UpdateSettings" });
-            routes.MapRoute(R(), "admin/add-redirect", new { controller = "Admin", action = "CreateRedirect" });
-            routes.MapRoute(R(), "admin/delete-redirect", new { controller = "Admin", action = "DeleteRedirect" });
-            routes.MapRoute(R(), "admin/delete-all-spam", new { controller = "Admin", action = "DeleteAllSpam" });
-            routes.MapRoute(R(), "admin/toggle-spam", new { controller = "Admin", action = "ToggleSpam" });
-            routes.MapRoute(R(), "admin/delete-pingback", new { controller = "Admin", action = "DeletePingback" });
-            routes.MapRoute(R(), "admin/toggle-pingback-spam", new { controller = "Admin", action = "TogglePingbackSpam" });
-            routes.MapRoute(R(), "admin/add-feed", new { controller = "Admin", action = "CreateFeed" });
-            routes.MapRoute(R(), "admin/delete-feed", new { controller = "Admin", action = "DeleteFeed" });
-            
+            routes.MapHyphenatedRoute("admin/{action}", new { controller = "Admin", action = "Index" });
+
             // Installation
-            routes.MapRoute(R(), "install", new { controller = "Install", action = "Index" });
-            routes.MapRoute(R(), "install/test", new { controller = "Install", action = "Test" });
-            routes.MapRoute(R(), "install/upgrade", new { controller = "Install", action = "Upgrade" });
-            
+            routes.MapRoute(R(), "install/{action}", new { controller = "Install", action = "Index" });
+
             // Feeds
             routes.MapRoute(R(), "feed", new { controller = "Feed", action = "Feed", feedName = (string)null });
             routes.MapRoute(R(), "feeds/{*feedName}", new { controller = "Feed", action = "Feed" });
             routes.MapRoute(R(), "commentfeed", new { controller = "Feed", action = "CommentFeed" });
-            
+
             // Login
-            routes.MapRoute(R(), "login", new { controller = "Login", action = "Index", databaseIssue = UrlParameter.Optional, ReturnUrl = UrlParameter.Optional });
-            routes.MapRoute(R(), "login/login", new { controller = "Login", action = "Login" });
-            routes.MapRoute(R(), "login/logout", new { controller = "Login", action = "Logout" });
+            routes.MapRoute(R(), "login/{action}", new { controller = "Login", action = "Index", databaseIssue = UrlParameter.Optional, ReturnUrl = UrlParameter.Optional });
 
             // Upload
-            routes.MapRoute(R(), "upload/create-directory", new { controller = "Upload", action = "CreateDirectory" });
-            routes.MapRoute(R(), "upload/upload", new { controller = "Upload", action = "Upload" });
-            routes.MapRoute(R(), "upload/move", new { controller = "Upload", action = "Move" });
-            routes.MapRoute(R(), "upload/delete", new { controller = "Upload", action = "Delete" });
-            routes.MapRoute(R(), "upload/{*path}", new { controller = "Upload", action = "Index", path = "/" });
             routes.MapRoute(R(), "get/{*path}", new { controller = "Upload", action = "Render" });
+            routes.MapHyphenatedRoute("upload/{action}/{*path}", new { controller = "Upload", action = "Index", path = "/" });
+            //routes.MapRoute(R(), "upload/create-directory", new { controller = "Upload", action = "CreateDirectory" });
+            //routes.MapRoute(R(), "upload/upload", new { controller = "Upload", action = "Upload" });
+            //routes.MapRoute(R(), "upload/move", new { controller = "Upload", action = "Move" });
+            //routes.MapRoute(R(), "upload/delete", new { controller = "Upload", action = "Delete" });
+            //routes.MapRoute(R(), "upload/{*path}", new { controller = "Upload", action = "Index", path = "/" });
             
             // Resources
             routes.MapRoute(R(), "robots", new { controller = "Resource", action = "Render", fileName = "/Views/Shared/Resources/Robots.txt", contentType = "text/plain" });
@@ -67,7 +69,7 @@ namespace FunnelWeb.Web.Application.Routes
             routes.MapRoute(R(), "favicon.ico", new { controller = "Resource", action = "Render", fileName = "/Views/Shared/Resources/favicon.ico", contentType = "image/vnd.microsoft.icon" });
             routes.MapRoute(R(), "favicon.png", new { controller = "Resource", action = "Render", fileName = "/Views/Shared/Resources/favicon.png", contentType = "image/png" });
             routes.MapRoute(R(), "status", new { controller = "Resource", action = "Render", fileName = "/Views/Shared/Resources/Status.html", contentType = "text/html" });
-            
+
             // Site Map
             routes.MapRoute(R(), "sitemap", new { controller = "Wiki", action = "SiteMap" });
             routes.MapRoute(R(), "sitemap.xml", new { controller = "Wiki", action = "SiteMap" });

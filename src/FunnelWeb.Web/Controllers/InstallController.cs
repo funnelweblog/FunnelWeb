@@ -20,7 +20,7 @@ namespace FunnelWeb.Web.Controllers
         }
 
         [Authorize]
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             var connectionString = _connectionStringProvider.ConnectionString;
 
@@ -41,7 +41,7 @@ namespace FunnelWeb.Web.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         [Authorize]
         [ActionName("test")]
-        public ActionResult Test(string connectionString)
+        public virtual ActionResult Test(string connectionString)
         {
             _connectionStringProvider.ConnectionString = connectionString;
             return RedirectToAction("Index");
@@ -49,7 +49,7 @@ namespace FunnelWeb.Web.Controllers
 
         [AcceptVerbs(HttpVerbs.Post)]
         [Authorize]
-        public ActionResult Upgrade()
+        public virtual ActionResult Upgrade()
         {
             var log = new Log();
             var result = _database.PerformUpgrade(_connectionStringProvider.ConnectionString, log);

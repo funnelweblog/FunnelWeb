@@ -13,14 +13,14 @@ namespace FunnelWeb.Web.Controllers
             _authenticator = authenticator;
         }
 
-        public ActionResult Index(bool? databaseIssue, string ReturnUrl)
+        public virtual ActionResult Index(bool? databaseIssue, string ReturnUrl)
         {
             ViewData.Model = new IndexModel(databaseIssue ?? false, false);
             return View();
         }
         
         [AcceptVerbs(HttpVerbs.Post | HttpVerbs.Get)]
-        public ActionResult Login(bool? databaseIssue, string name, string password)
+        public virtual ActionResult Login(bool? databaseIssue, string name, string password)
         {
             var authenticated = _authenticator.AuthenticateAndLogin(name, password);
             if (authenticated)
@@ -35,7 +35,7 @@ namespace FunnelWeb.Web.Controllers
             return View("Index");
         }
 
-        public ActionResult Logout()
+        public virtual ActionResult Logout()
         {
             _authenticator.Logout();
             return Redirect("/");  

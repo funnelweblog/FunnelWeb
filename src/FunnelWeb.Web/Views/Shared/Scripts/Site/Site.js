@@ -1,4 +1,4 @@
-﻿String.prototype.nl2br = function() {
+﻿String.prototype.nl2br = function () {
     var text = escape(this);
     if (text.indexOf('%0D%0A') > -1) {
         re_nlchar = /%0D%0A/g;
@@ -11,19 +11,19 @@
     return unescape(text.replace(re_nlchar, '<br />'));
 };
 
-String.prototype.trim = function() {
-    return this.replace(/^\s+|\s+$/, ''); 
+String.prototype.trim = function () {
+    return this.replace(/^\s+|\s+$/, '');
 };
 
-String.prototype.chop = function(limit) {
+String.prototype.chop = function (limit) {
     return (this.length > limit) ? (this.substring(0, limit) + "...") : this;
 };
 
-String.prototype.escapeAngles = function() {
+String.prototype.escapeAngles = function () {
     return this.replace(/>/g, '&gt;').replace(/</g, '&lt;');
 };
 
-String.prototype.coalesce = function(defaultValue) {
+String.prototype.coalesce = function (defaultValue) {
     return this == "" ? defaultValue : this;
 };
 
@@ -41,7 +41,7 @@ function refreshGravatar() {
 
 function enableGravatarLookup() {
     $("#email").blur(
-        function() {
+        function () {
             refreshGravatar();
         });
 }
@@ -54,7 +54,7 @@ function scrollToValidationFailure() {
 
 function enablePrettyPrinting() {
     $("pre").each(
-        function() {
+        function () {
             $(this).attr("class", "prettyprint");
         });
     prettyPrint();
@@ -62,13 +62,13 @@ function enablePrettyPrinting() {
 
 function enableValidation() {
     $("form").each(
-        function() {
+        function () {
             $(this).validate();
         });
 }
 
 function enablePrettyDates() {
-    $("span.date").each(function() {
+    $("span.date").each(function () {
         var utc = $(this).html();
         var utcDate = new Date(Date.parse(utc));
 
@@ -91,26 +91,26 @@ function enablePrettyDates() {
 
 var changes = 0;
 function enableChangeDetection() {
-    $(".promptBeforeUnload input").click(function() {
+    $(".promptBeforeUnload input").click(function () {
         changes++;
     });
 
-    $(".promptBeforeUnload textarea").click(function() {
+    $(".promptBeforeUnload textarea").click(function () {
         changes++;
     });
 
-    $("input[type=submit]").click(function() {
+    $("input[type=submit]").click(function () {
         changes = 0;
     });
 
-    window.onbeforeunload = function() {
+    window.onbeforeunload = function () {
         if (changes > 0) {
             return "Navigating away will lose the unsaved changes you have made.";
         }
     }
 }
 
-$.expr[':'].external = function(obj) {
+$.expr[':'].external = function (obj) {
     return !obj.href.match(/^mailto\:/)
             && !(obj.hostname == location.hostname)
 };
@@ -120,7 +120,7 @@ function enableNewWindowLinks() {
         .not(".comment-author a")
         .addClass("new-window");
 
-    $('a.new-window').click(function() {
+    $('a.new-window').click(function () {
         window.open(this.href);
         return false;
     });
@@ -128,11 +128,11 @@ function enableNewWindowLinks() {
 
 function enableTextLengthCounters() {
     $("input.restricted-length")
-        .each(function() {
+        .each(function () {
             $(this).after("<span class='counter'>" + ($(this).attr("maxlength") - $(this).attr("value").length) + "</span>")
         })
         .keyup(
-            function() {
+            function () {
                 var counter = $(this).next(".counter");
                 var remainder = $(this).attr("maxlength") - $(this).attr("value").length;
                 if (remainder <= 5) counter.addClass("close");
@@ -141,21 +141,19 @@ function enableTextLengthCounters() {
             });
 }
 
-$(document).ready(
-    function() {
-        scrollToValidationFailure();
-        enableGravatarLookup();
-        refreshGravatar();
-        enablePrettyPrinting();
-        enableValidation();
-        enablePrettyDates();
-        enableNewWindowLinks();
+$(function () {
+    scrollToValidationFailure();
+    enableGravatarLookup();
+    refreshGravatar();
+    enablePrettyPrinting();
+    enableValidation();
+    enablePrettyDates();
+    enableNewWindowLinks();
 
-        if ($("#wmd-input").size() > 0) {
-            initializeWmd();
-        }
-        enableChangeDetection();
-        enableTextLengthCounters();
+    if ($("#wmd-input").size() > 0) {
+        initializeWmd();
     }
-);
+    enableChangeDetection();
+    enableTextLengthCounters();
+});
 
