@@ -1,37 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="false">
-  <TopNode>[0-1020]FunnelWeb.Tests.Web.Application.Binders.DictionaryBinderTests+Settings_posted_via_form_must_be_turned_into_dictionaries_by_prefix</TopNode>
-  <SelectedNode>[0-1050]FunnelWeb.Tests.Web.Controllers.UploadControllerTests+ActionResultTests</SelectedNode>
+  <TopNode>[0-1064]FunnelWeb.Tests</TopNode>
+  <SelectedNode>[0-1058]FunnelWeb.Tests.Web.Controllers.WikiControllerTests</SelectedNode>
   <ExcludeCategories>false</ExcludeCategories>
   <Nodes>
     <Node UniqueName="[0-1000]C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\FunnelWeb.Tests.nunit" Expanded="true" />
-    <Node UniqueName="[0-1053]C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\bin\Debug\FunnelWeb.Tests.dll" Expanded="true" />
-    <Node UniqueName="[0-1054]FunnelWeb" Expanded="true" />
-    <Node UniqueName="[0-1055]FunnelWeb.Tests" Expanded="true" />
-    <Node UniqueName="[0-1056]FunnelWeb.Tests.Web" Expanded="true" />
-    <Node UniqueName="[0-1059]FunnelWeb.Tests.Web.Application" Expanded="true" />
-    <Node UniqueName="[0-1062]FunnelWeb.Tests.Web.Application.ActionResults" Expanded="true" />
+    <Node UniqueName="[0-1062]C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\bin\Debug\FunnelWeb.Tests.dll" Expanded="true" />
+    <Node UniqueName="[0-1063]FunnelWeb" Expanded="true" />
+    <Node UniqueName="[0-1064]FunnelWeb.Tests" Expanded="true" />
+    <Node UniqueName="[0-1065]FunnelWeb.Tests.Web" Expanded="true" />
+    <Node UniqueName="[0-1068]FunnelWeb.Tests.Web.Application" Expanded="true" />
+    <Node UniqueName="[0-1071]FunnelWeb.Tests.Web.Application.ActionResults" Expanded="true" />
     <Node UniqueName="[0-1012]FunnelWeb.Tests.Web.Application.ActionResults.XmlActionResultTests" Expanded="true" />
-    <Node UniqueName="[0-1060]FunnelWeb.Tests.Web.Application.Binders" Expanded="true" />
+    <Node UniqueName="[0-1069]FunnelWeb.Tests.Web.Application.Binders" Expanded="true" />
     <Node UniqueName="[0-1008]FunnelWeb.Tests.Web.Application.Binders.ArrayBinderTests+Form_values_split_by_commas_will_be_arrayed" Expanded="true" />
     <Node UniqueName="[0-1020]FunnelWeb.Tests.Web.Application.Binders.DictionaryBinderTests+Settings_posted_via_form_must_be_turned_into_dictionaries_by_prefix" Expanded="true" />
     <Node UniqueName="[0-1006]FunnelWeb.Tests.Web.Application.Binders.ImplicitAssignmentBinderTests+Types_supporting_implicit_conversion_should_be_mapped" Expanded="true" />
     <Node UniqueName="[0-1034]FunnelWeb.Tests.Web.Application.Binders.UploadBinderTests+Posted_files_should_turn_into_Upload_objects" Expanded="true" />
-    <Node UniqueName="[0-1063]FunnelWeb.Tests.Web.Application.Filters" Expanded="true" />
+    <Node UniqueName="[0-1072]FunnelWeb.Tests.Web.Application.Filters" Expanded="true" />
     <Node UniqueName="[0-1016]FunnelWeb.Tests.Web.Application.Filters.RequireLoginTests+Already_logged_in_users_will_be_allowed_to_continue" Expanded="true" />
     <Node UniqueName="[0-1018]FunnelWeb.Tests.Web.Application.Filters.RequireLoginTests+Anonymous_users_will_be_redirected_to_login_page" Expanded="true" />
-    <Node UniqueName="[0-1065]FunnelWeb.Tests.Web.Application.Markup" Expanded="true" />
+    <Node UniqueName="[0-1074]FunnelWeb.Tests.Web.Application.Markup" Expanded="true" />
     <Node UniqueName="[0-1025]FunnelWeb.Tests.Web.Application.Markup.MarkdownTests+WhenRenderingMarkdown" Expanded="true" />
-    <Node UniqueName="[0-1061]FunnelWeb.Tests.Web.Application.Mime" Expanded="true" />
+    <Node UniqueName="[0-1070]FunnelWeb.Tests.Web.Application.Mime" Expanded="true" />
     <Node UniqueName="[0-1010]FunnelWeb.Tests.Web.Application.Mime.RegistryMimeTypeLookupTests+WhenMimeTypeRequested" Expanded="true" />
-    <Node UniqueName="[0-1066]FunnelWeb.Tests.Web.Controllers" Expanded="true" />
-    <Node UniqueName="[0-1036]FunnelWeb.Tests.Web.Controllers.AdminControllerTests+ActionResultTests" Expanded="true" />
-    <Node UniqueName="[0-1048]FunnelWeb.Tests.Web.Controllers.AdminControllerTests+FeedsRepositoryTests" Expanded="true" />
+    <Node UniqueName="[0-1075]FunnelWeb.Tests.Web.Controllers" Expanded="true" />
     <Node UniqueName="[0-1050]FunnelWeb.Tests.Web.Controllers.UploadControllerTests+ActionResultTests" Expanded="true" />
-    <Node UniqueName="[0-1057]FunnelWeb.Tests.Web.Model" Expanded="true" />
-    <Node UniqueName="[0-1064]FunnelWeb.Tests.Web.Model.Repositories" Expanded="true" />
+    <Node UniqueName="[0-1058]FunnelWeb.Tests.Web.Controllers.WikiControllerTests" Expanded="true" />
+    <Node UniqueName="[0-1066]FunnelWeb.Tests.Web.Model" Expanded="true" />
+    <Node UniqueName="[0-1073]FunnelWeb.Tests.Web.Model.Repositories" Expanded="true" />
     <Node UniqueName="[0-1022]FunnelWeb.Tests.Web.Model.Repositories.FileRepositoryTests" Expanded="true" />
-    <Node UniqueName="[0-1058]FunnelWeb.Tests.Web.Model.Strings" Expanded="true" />
+    <Node UniqueName="[0-1067]FunnelWeb.Tests.Web.Model.Strings" Expanded="true" />
     <Node UniqueName="[0-1003]FunnelWeb.Tests.Web.Model.Strings.PageNameTests+WhenNamingPages" Expanded="true" />
     <Node UniqueName="[0-1001]FunnelWeb.Tests.Web.RoutingTests+RoutingRules" Expanded="true" />
   </Nodes>

@@ -1,11 +1,11 @@
 ﻿using System.Web;
 using System.Web.Mvc;
+using FunnelWeb.Web.Application;
+using FunnelWeb.Web.Application.Mime;
+using FunnelWeb.Web.Controllers;
+using FunnelWeb.Web.Model.Repositories;
 using NSubstitute;
 using NUnit.Framework;
-using FunnelWeb.Web.Model.Repositories;
-using FunnelWeb.Web.Controllers;
-using FunnelWeb.Web.Application.Mime;
-using FunnelWeb.Web.Application;
 
 namespace FunnelWeb.Tests.Web.Controllers
 {
@@ -29,7 +29,7 @@ namespace FunnelWeb.Tests.Web.Controllers
                 var controllerContext = CreateControllerContext();
 
                 var fileRepo = Substitute.For<IFileRepository>();
-                fileRepo.IsFile(Arg.Any<string>()).Returns(x => true);
+                fileRepo.IsFile(Arg.Any<string>()).Returns(true);
 
                 var controller = new UploadController(fileRepo, Substitute.For<IMimeTypeLookup>());
                 //Act
@@ -47,7 +47,7 @@ namespace FunnelWeb.Tests.Web.Controllers
                 var controllerContext = CreateControllerContext();
 
                 var fileRepo = Substitute.For<IFileRepository>();
-                fileRepo.IsFile(Arg.Any<string>()).Returns(x => false);
+                fileRepo.IsFile(Arg.Any<string>()).Returns(false);
 
                 var controller = new UploadController(fileRepo, Substitute.For<IMimeTypeLookup>());
                 //Act
@@ -79,7 +79,7 @@ namespace FunnelWeb.Tests.Web.Controllers
             }
 
             [Test]
-            public void ActionResultTests_CreateDirectory_Via_Repo_And_Return_Index()
+            public void UploadControllerTests_CreateDirectory_Via_Repo_And_Return_Index()
             {
                 //Arrange
                 var controllerContext = CreateControllerContext();
@@ -97,7 +97,7 @@ namespace FunnelWeb.Tests.Web.Controllers
             }
 
             [Test]
-            public void ActionResultTests_Delete_Via_Repo_And_Return_Index()
+            public void UploadControllerTests_Delete_Via_Repo_And_Return_Index()
             {
                 //Arrange
                 var controllerContext = CreateControllerContext();
@@ -112,6 +112,56 @@ namespace FunnelWeb.Tests.Web.Controllers
                 fileRepo.Received().Delete(Arg.Is<string>("file"));
                 Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
                 Assert.That(result.RouteValues["path"], Is.EqualTo("path"));
+            }
+
+            [Test]
+            public void UploadControllerTests_Render_With_Valid_File_Returns_File()
+            {
+                //Arrange
+                var controllerContext = CreateControllerContext();
+
+                var fileRepo = Substitute.For<IFileRepository>();
+                fileRepo.IsFile(Arg.Is<string>("file")).Returns(true);
+                fileRepo.MapPath(Arg.Is<string>("file")).Returns("file");
+
+                var mimeTypeLookup = Substitute.For<IMimeTypeLookup>();
+                mimeTypeLookup.GetMimeType(Arg.Any<string>()).Returns("mime-type");
+
+                var controller = new UploadController(fileRepo, mimeTypeLookup);
+
+                //Act
+                var result = (FilePathResult)controller.Render("file");
+
+                //Assert
+                fileRepo.Received().IsFile(Arg.Is<string>("file"));
+                mimeTypeLookup.Received().GetMimeType(Arg.Any<string>());
+
+                Assert.That(result.FileName, Is.EqualTo("file"));
+                Assert.That(result.ContentType, Is.EqualTo("mime-type"));
+            }
+
+            [Test]
+            public void UploadControllerTests_Render_With_Invalid_File_Returns_File()
+            {
+                //Arrange
+                var controllerContext = CreateControllerContext();
+
+                var fileRepo = Substitute.For<IFileRepository>();
+                fileRepo.IsFile(Arg.Is<string>("file")).Returns(false);
+
+                var mimeTypeLookup = Substitute.For<IMimeTypeLookup>();
+
+                var controller = new UploadController(fileRepo, mimeTypeLookup);
+
+                //Act
+                var result = (RedirectResult)controller.Render("file");
+
+                //Assert
+                fileRepo.Received().IsFile(Arg.Is<string>("file"));
+                fileRepo.DidNotReceive().MapPath(Arg.Any<string>());
+                mimeTypeLookup.DidNotReceive().GetMimeType(Arg.Any<string>());
+
+                Assert.That(result.Url, Is.EqualTo("/"));
             }
         }
     }

@@ -70,6 +70,7 @@
     <Compile Include="Web\Application\Mime\RegistryMimeTypeLookupTests.cs" />
     <Compile Include="Web\Controllers\AdminControllerTests.cs" />
     <Compile Include="Web\Controllers\UploadControllerTests.cs" />
+    <Compile Include="Web\Controllers\WikiControllerTests.cs" />
     <Compile Include="Web\Model\Repositories\FileRepositoryTests.cs" />
     <Compile Include="Web\Model\Strings\PageNameTests.cs" />
     <Compile Include="Web\RoutingTests.cs" />
