@@ -17,8 +17,18 @@ namespace FunnelWeb.Tests.Web.Application.Binders
                 var file = Substitute.For<HttpPostedFileBase>();
                 file.FileName.Returns("file1.png");
 
+                var httpFileCollection = Substitute.For<HttpFileCollectionBase>();
+                httpFileCollection.Get(Arg.Is<string>("file1")).Returns(file);
+                
+                var httpRequest = Substitute.For<HttpRequestBase>();
+                httpRequest.Files.Returns(httpFileCollection);
+                
+                var httpContext = Substitute.For<HttpContextBase>();
+                httpContext.Request.Returns(httpRequest);
+                
                 var controller = Substitute.For<ControllerContext>();
-                controller.HttpContext.Request.Files.Get("file1").Returns(file);
+                controller.HttpContext.Returns(httpContext);
+                
                 return controller;
             }
 

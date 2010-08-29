@@ -15,6 +15,11 @@ namespace FunnelWeb.Web.Application
         {
             var context = HttpContext.Current;
 
+            if (context.Request.Url.AbsolutePath.EndsWith(".axd"))
+            {
+                return;
+            }
+
             var idealUrl = context.Request.Url.GetLeftPart(UriPartial.Path).ToLower(CultureInfo.InvariantCulture);
             if (idealUrl.EndsWith("/") && context.Request.Url.AbsolutePath.LastIndexOf('/') > 0)
             {

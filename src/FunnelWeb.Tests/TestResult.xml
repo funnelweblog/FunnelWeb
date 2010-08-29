@@ -1,25 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!--This file represents the results of running a test suite-->
-<test-results name="C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\FunnelWeb.Tests.nunit" total="3" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2010-08-26" time="19:57:27">
+<test-results name="C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\FunnelWeb.Tests.nunit" total="1" errors="1" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2010-08-29" time="18:27:45">
   <environment nunit-version="2.5.5.10112" clr-version="2.0.50727.4927" os-version="Microsoft Windows NT 6.1.7600.0" platform="Win32NT" cwd="C:\Program Files (x86)\NUnit 2.5.5\bin\net-2.0" machine-name="AZ-VAIO" user="AaronPowell" user-domain="thefarmcreative" />
   <culture-info current-culture="en-AU" current-uiculture="en-US" />
-  <test-suite type="Project" name="C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\FunnelWeb.Tests.nunit" executed="True" result="Success" success="True" time="1.023" asserts="0">
+  <test-suite type="Project" name="C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\FunnelWeb.Tests.nunit" executed="True" result="Failure" success="False" time="29.153" asserts="0">
     <results>
-      <test-suite type="Assembly" name="C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\bin\Debug\FunnelWeb.Tests.dll" executed="True" result="Success" success="True" time="1.007" asserts="0">
+      <test-suite type="Assembly" name="C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\bin\Debug\FunnelWeb.Tests.dll" executed="True" result="Failure" success="False" time="29.141" asserts="0">
         <results>
-          <test-suite type="Namespace" name="FunnelWeb" executed="True" result="Success" success="True" time="1.005" asserts="0">
+          <test-suite type="Namespace" name="FunnelWeb" executed="True" result="Failure" success="False" time="29.138" asserts="0">
             <results>
-              <test-suite type="Namespace" name="Tests" executed="True" result="Success" success="True" time="1.002" asserts="0">
+              <test-suite type="Namespace" name="Tests" executed="True" result="Failure" success="False" time="29.136" asserts="0">
                 <results>
-                  <test-suite type="Namespace" name="Web" executed="True" result="Success" success="True" time="0.997" asserts="0">
+                  <test-suite type="Namespace" name="Web" executed="True" result="Failure" success="False" time="29.134" asserts="0">
                     <results>
-                      <test-suite type="Namespace" name="Controllers" executed="True" result="Success" success="True" time="0.994" asserts="0">
+                      <test-suite type="Namespace" name="Application" executed="True" result="Failure" success="False" time="29.131" asserts="0">
                         <results>
-                          <test-suite type="TestFixture" name="WikiControllerTests" executed="True" result="Success" success="True" time="0.991" asserts="0">
+                          <test-suite type="Namespace" name="Binders" executed="True" result="Failure" success="False" time="29.127" asserts="0">
                             <results>
-                              <test-case name="FunnelWeb.Tests.Web.Controllers.WikiControllerTests.WikiControllerTests_NotFound_Returns_Matched_Page_If_Found" executed="True" result="Success" success="True" time="0.906" asserts="1" />
-                              <test-case name="FunnelWeb.Tests.Web.Controllers.WikiControllerTests.WikiControllerTests_NotFound_Returns_Matched_Website_If_Found" executed="True" result="Success" success="True" time="0.005" asserts="1" />
-                              <test-case name="FunnelWeb.Tests.Web.Controllers.WikiControllerTests.WikiControllerTests_Search_Returns_NotFound_View" executed="True" result="Success" success="True" time="0.036" asserts="3" />
+                              <test-suite type="TestFixture" name="UploadBinderTests+Posted_files_should_turn_into_Upload_objects" executed="True" result="Failure" success="False" time="29.090" asserts="0">
+                                <results>
+                                  <test-case name="FunnelWeb.Tests.Web.Application.Binders.UploadBinderTests+Posted_files_should_turn_into_Upload_objects.ShouldCreateUpload" executed="True" result="Error" success="False" time="29.072" asserts="0">
+                                    <failure>
+                                      <message><![CDATA[Castle.DynamicProxy.ProxyGenerationException : Due to limitations in CLR, DynamicProxy was unable to successfully replicate non-inheritable attribute System.Security.Permissions.SecurityPermissionAttribute on System.Web.HttpFileCollectionBase.GetObjectData. To avoid this error you can chose not to replicate this attribute type by calling 'Castle.DynamicProxy.Generators.AttributesToAvoidReplicating.Add(typeof(System.Security.Permissions.SecurityPermissionAttribute))'.
+  ----> System.ArgumentException : Parameter count does not match passed in argument value count.]]></message>
+                                      <stack-trace><![CDATA[at Castle.DynamicProxy.AttributeUtil.<GetNonInheritableAttributes>d__0.MoveNext() in c:\TeamCity\buildAgent\work\f0c43d96621436a8\src\Castle.Core\DynamicProxy\AttributeUtil.cs:line 129
+at Castle.DynamicProxy.Contributors.CompositeTypeContributor.ImplementMethod(MetaMethod method, ClassEmitter class, ProxyGenerationOptions options, OverrideMethodDelegate overrideMethod) in c:\TeamCity\buildAgent\work\f0c43d96621436a8\src\Castle.Core\DynamicProxy\Contributors\CompositeTypeContributor.cs:line 143
+at Castle.DynamicProxy.Contributors.CompositeTypeContributor.Generate(ClassEmitter class, ProxyGenerationOptions options) in c:\TeamCity\buildAgent\work\f0c43d96621436a8\src\Castle.Core\DynamicProxy\Contributors\CompositeTypeContributor.cs:line 76
+at Castle.DynamicProxy.Generators.ClassProxyGenerator.GenerateType(String name, Type[] interfaces, INamingScope namingScope) in c:\TeamCity\buildAgent\work\f0c43d96621436a8\src\Castle.Core\DynamicProxy\Generators\ClassProxyGenerator.cs:line 125
+at Castle.DynamicProxy.Generators.ClassProxyGenerator.GenerateCode(Type[] interfaces, ProxyGenerationOptions options) in c:\TeamCity\buildAgent\work\f0c43d96621436a8\src\Castle.Core\DynamicProxy\Generators\ClassProxyGenerator.cs:line 88
+at Castle.DynamicProxy.DefaultProxyBuilder.CreateClassProxyType(Type classToProxy, Type[] additionalInterfacesToProxy, ProxyGenerationOptions options) in c:\TeamCity\buildAgent\work\f0c43d96621436a8\src\Castle.Core\DynamicProxy\DefaultProxyBuilder.cs:line 79
+at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyType(Type classToProxy, Type[] additionalInterfacesToProxy, ProxyGenerationOptions options) in c:\TeamCity\buildAgent\work\f0c43d96621436a8\src\Castle.Core\DynamicProxy\ProxyGenerator.cs:line 1360
+at Castle.DynamicProxy.ProxyGenerator.CreateClassProxy(Type classToProxy, Type[] additionalInterfacesToProxy, ProxyGenerationOptions options, Object[] constructorArguments, IInterceptor[] interceptors) in c:\TeamCity\buildAgent\work\f0c43d96621436a8\src\Castle.Core\DynamicProxy\ProxyGenerator.cs:line 1300
+at NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory.GenerateProxy(ICallRouter callRouter, Type typeToProxy, Type[] additionalInterfaces, Object[] constructorArguments) in c:\Development\Git\NSubstitute\Source\NSubstitute\Proxies\CastleDynamicProxy\CastleDynamicProxyFactory.cs:line 32
+at NSubstitute.Proxies.ProxyFactory.GenerateProxy(ICallRouter callRouter, Type typeToProxy, Type[] additionalInterfaces, Object[] constructorArguments) in c:\Development\Git\NSubstitute\Source\NSubstitute\Proxies\ProxyFactory.cs:line 20
+at NSubstitute.Core.SubstituteFactory.Create(Type[] typesToProxy, Object[] constructorArguments) in c:\Development\Git\NSubstitute\Source\NSubstitute\Core\SubstituteFactory.cs:line 26
+at NSubstitute.Substitute.For(Type[] typesToProxy, Object[] constructorArguments) in c:\Development\Git\NSubstitute\Source\NSubstitute\Substitute.cs:line 71
+at NSubstitute.Substitute.For[T](Object[] constructorArguments) in c:\Development\Git\NSubstitute\Source\NSubstitute\Substitute.cs:line 22
+at FunnelWeb.Tests.Web.Application.Binders.UploadBinderTests.Posted_files_should_turn_into_Upload_objects.Given() in C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\Web\Application\Binders\UploadBinderTests.cs:line 20
+at FunnelWeb.Tests.Helpers.Specification`1.Initialize() in C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\Helpers\Specification.cs:line 18
+--ArgumentException
+at System.Reflection.Emit.CustomAttributeBuilder.InitCustomAttributeBuilder(ConstructorInfo con, Object[] constructorArgs, PropertyInfo[] namedProperties, Object[] propertyValues, FieldInfo[] namedFields, Object[] fieldValues)
+at Castle.DynamicProxy.AttributeUtil.CreateBuilder(CustomAttributeData attribute) in c:\TeamCity\buildAgent\work\f0c43d96621436a8\src\Castle.Core\DynamicProxy\AttributeUtil.cs:line 63
+at Castle.DynamicProxy.AttributeUtil.<GetNonInheritableAttributes>d__0.MoveNext() in c:\TeamCity\buildAgent\work\f0c43d96621436a8\src\Castle.Core\DynamicProxy\AttributeUtil.cs:line 142
+]]></stack-trace>
+                                    </failure>
+                                  </test-case>
+                                </results>
+                              </test-suite>
                             </results>
                           </test-suite>
                         </results>

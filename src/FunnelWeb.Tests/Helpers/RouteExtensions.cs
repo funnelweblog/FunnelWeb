@@ -13,18 +13,23 @@ namespace FunnelWeb.Tests.Helpers
         public static void WillRoute(this RouteCollection routes, string requestUrl, object expectations)
         {
             var httpContextMock = Substitute.For<HttpContextBase>();
+            var httpRequest = Substitute.For<HttpRequestBase>();
+            httpContextMock.Request.Returns(httpRequest);
             httpContextMock.Request.AppRelativeCurrentExecutionFilePath.Returns(requestUrl);
 
             var routeData = routes.GetRouteData(httpContextMock);
             Assert.IsNotNull(routeData, "Should have found the route");
 
-            foreach (var property in GetProperties(expectations))
+            var properties = GetProperties(expectations);
+            foreach (var property in properties)
             {
-                Assert.IsTrue(string.Equals(property.Value.ToString(),
-                    routeData.Values[property.Name].ToString(),
-                    StringComparison.OrdinalIgnoreCase),
-                    string.Format("Expected '{0}', not '{1}' for '{2}'.",
-                    property.Value, routeData.Values[property.Name], property.Name));
+                Assert.AreEqual(
+                    routeData.Values[property.Name], 
+                    property.Value,
+                    string.Format(
+                        "Expected '{0}', not '{1}' for '{2}'.",
+                        property.Value, routeData.Values[property.Name], property.Name)
+                    );
             }
         }
 

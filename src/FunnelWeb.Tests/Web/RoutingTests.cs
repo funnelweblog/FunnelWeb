@@ -32,7 +32,7 @@ namespace FunnelWeb.Tests.Web
                 Routes.WillRoute("~/hello-world/edit", new { controller = "Wiki", action = "Edit", page = "hello-world" });
                 
                 // Feeds
-                Routes.WillRoute("~/feeds", new { controller = "Feed", action = "Feed", feedName = "recent" });
+                Routes.WillRoute("~/feeds", new { controller = "Feed", action = "Feed", feedName = (string)null });
                 Routes.WillRoute("~/feeds/foo", new { controller = "Feed", action = "Feed", feedName = "foo" });
 
                 // Login

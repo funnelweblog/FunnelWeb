@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Web;
 using System.Web.Mvc;
 using FunnelWeb.Tests.Helpers;
 using FunnelWeb.Web.Application.Binders;
@@ -15,6 +16,10 @@ namespace FunnelWeb.Tests.Web.Application.Binders
             public override ControllerContext Given()
             {
                 var controller = Substitute.For<ControllerContext>();
+                var httpContext = Substitute.For<HttpContextBase>();
+                var httpRequest = Substitute.For<HttpRequestBase>();
+                httpContext.Request.Returns(httpRequest);
+                controller.HttpContext.Returns(httpContext);
                 controller.HttpContext.Request.Form.Returns(new NameValueCollection()
                 {
                     { "setting_Title", "Paul's Blog" }, 
