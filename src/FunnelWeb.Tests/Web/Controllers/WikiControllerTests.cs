@@ -243,5 +243,29 @@ namespace FunnelWeb.Tests.Web.Controllers
             Assert.AreEqual(feeds, ((WikiController.EditModel)result.ViewData.Model).Feeds);
             feedRepo.Received().GetFeeds();
         }
+
+        [Test]
+        public void WikiControllerTests_Edit_Returns_Existing_Page_When_Found()
+        {
+            //Arrange
+            var entryRepo = Substitute.For<IEntryRepository>();
+            Entry entry = new Entry() { Name = "Awesome Post" };
+            entryRepo.GetEntry(Arg.Any<PageName>()).Returns(entry);
+            var feedRepo = Substitute.For<IFeedRepository>();
+            var feeds = new List<Feed>().AsQueryable();
+            feedRepo.GetFeeds().Returns(feeds);
+            var spamChecker = Substitute.For<ISpamChecker>();
+            var controller = new WikiController(entryRepo, feedRepo, spamChecker);
+
+            //Act
+            var result = (ViewResult)controller.Edit(entry.Name);
+
+            //Assert
+            Assert.IsTrue(string.IsNullOrEmpty(result.ViewName));
+            Assert.AreEqual(feeds, ((WikiController.EditModel)result.ViewData.Model).Feeds);
+            Assert.AreEqual(entry.Name, ((WikiController.EditModel)result.ViewData.Model).Entry.Name);
+            entryRepo.Received().GetEntry(Arg.Any<PageName>());
+            feedRepo.Received().GetFeeds();
+        }
     }
 }
