@@ -41,7 +41,7 @@ namespace FunnelWeb.Web.Controllers
         {
             var results = _entryRepository.Search(searchText);
             ViewData.Model = new NotFoundModel(searchText, false, results);
-            return View("NotFound");
+            return View(FunnelWebMvc.Wiki.Views.NotFound);
         }
 
         public virtual ActionResult NotFound(string searchText)
@@ -57,7 +57,7 @@ namespace FunnelWeb.Web.Controllers
             new EntryNotFoundEvent(HttpContext.Request.Url.OriginalString, this).Raise();
             var results = _entryRepository.Search(searchText);
             ViewData.Model = new NotFoundModel(searchText, true, results);
-            return View("NotFound");
+            return View(FunnelWebMvc.Wiki.Views.NotFound);
         }
 
         public virtual ActionResult Page(PageName page, int revision)
@@ -67,7 +67,7 @@ namespace FunnelWeb.Web.Controllers
             {
                 if (HttpContext.User.Identity.IsAuthenticated)
                 {
-                    return RedirectToAction("Edit", new { page = page });
+                    return RedirectToAction(FunnelWebMvc.Wiki.Actions.Edit(page));
                 }
                 return NotFound(page);
             }
@@ -82,7 +82,7 @@ namespace FunnelWeb.Web.Controllers
             var feeds = _feedRepository.GetFeeds();
             var entry = new Entry() { Title = "Enter a Title", MetaTitle = "Enter a meta title", Name = "" };
             ViewData.Model = new EditModel("", entry, true, feeds);
-            return View("Edit");
+            return View(FunnelWebMvc.Wiki.Views.Edit);
         }
 
         [Authorize]

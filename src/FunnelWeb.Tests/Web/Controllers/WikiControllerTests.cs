@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
@@ -44,7 +45,7 @@ namespace FunnelWeb.Tests.Web.Controllers
 
             //Assert
             entryRepo.Received().Search(Arg.Is<string>("search"));
-            Assert.That(result.ViewName, Is.EqualTo("NotFound"));
+            Assert.That(result.ViewName, Is.EqualTo(FunnelWebMvc.Wiki.Views.NotFound));
             Assert.IsInstanceOf<WikiController.NotFoundModel>(result.ViewData.Model);
             Assert.AreEqual(entries, ((WikiController.NotFoundModel)result.ViewData.Model).Results);
         }
@@ -113,7 +114,7 @@ namespace FunnelWeb.Tests.Web.Controllers
             var result = (ViewResult)controller.NotFound("search");
 
             //Assert
-            Assert.AreEqual("NotFound", result.ViewName);
+            Assert.AreEqual(FunnelWebMvc.Wiki.Views.NotFound, result.ViewName);
             Assert.IsNotNull(result.ViewData.Model);
             Assert.IsInstanceOf(typeof(WikiController.NotFoundModel), result.ViewData.Model);
 
@@ -180,7 +181,7 @@ namespace FunnelWeb.Tests.Web.Controllers
             var result = (ViewResult)controller.Page("page", 0);
 
             //Assert
-            Assert.AreEqual("NotFound", result.ViewName);
+            Assert.AreEqual(FunnelWebMvc.Wiki.Views.NotFound, result.ViewName);
             Assert.IsNotNull(result.ViewData.Model);
             Assert.IsInstanceOf(typeof(WikiController.NotFoundModel), result.ViewData.Model);
 
@@ -221,6 +222,26 @@ namespace FunnelWeb.Tests.Web.Controllers
 
             entryRepo.Received().GetEntry(Arg.Is<PageName>(entry.Name), Arg.Is<int>(0));
 
+        }
+
+        [Test]
+        public void WikiControllerTests_New_Returns_Edit_View_And_Default_Model()
+        {
+            //Arrange
+            var entryRepo = Substitute.For<IEntryRepository>();
+            var feedRepo = Substitute.For<IFeedRepository>();
+            var feeds = new List<Feed>().AsQueryable();
+            feedRepo.GetFeeds().Returns(feeds);
+            var spamChecker = Substitute.For<ISpamChecker>();
+            var controller = new WikiController(entryRepo, feedRepo, spamChecker);
+            
+            //Act
+            var result = (ViewResult)controller.New();
+
+            //Assert
+            Assert.AreEqual(FunnelWebMvc.Wiki.Views.Edit, result.ViewName);
+            Assert.AreEqual(feeds, ((WikiController.EditModel)result.ViewData.Model).Feeds);
+            feedRepo.Received().GetFeeds();
         }
     }
 }
