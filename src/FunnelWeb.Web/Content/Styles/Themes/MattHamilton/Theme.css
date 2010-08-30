@@ -1,0 +1,179 @@
+﻿body
+{
+    margin: 30px auto;
+}
+
+a
+{
+    color: #D0A090;
+}
+a:hover
+{
+    color: #D0A090;
+}
+
+h1, h2, h3, h4, h5, h6
+{
+    color: #A08070;
+    font-family: "Segoe UI", Sans-Serif; 
+    font-weight: normal;
+}
+
+h1
+{
+    font-size: 28pt;
+    font-weight: normal;
+}
+h2
+{
+    font-size: 18pt;
+}
+h3
+{
+    font-size: 16pt;
+}
+h4
+{
+    font-size: 14pt;
+}
+h5
+{
+    font-size: 12pt;
+}
+
+/* Header */
+
+.header
+{
+    font-size: 14pt;
+    height: 80px;
+    padding: 0;
+    margin: 0 0 10px 0;
+    float: left;
+    width: 360px;
+}
+.header a.logo
+{
+    text-decoration: none;
+    display: block;
+    background: transparent url(title.png) no-repeat scroll 0 0;
+    text-indent: -700em;
+    margin-left: 0px;
+    height: 80px;
+}
+
+.nav
+{
+    margin: 0 0 10px 0;
+    float: right;
+    text-align: right;
+    max-width: 580px;
+}
+.nav ul li
+{
+    font-size: 10pt;
+    font-weight: normal;
+    color: #A08070;
+}
+
+.nav ul li a
+{
+    color: #A08070;
+}
+
+/* Introductions */
+
+.intro
+{
+    border: 1px solid #D0D0D0;
+    padding: 10px 15px;
+    margin: 0 15px;
+    margin-top: 70px;
+    float: right;
+    width: 200px;
+}
+.intro h1
+{
+    margin: 0;
+    color: #32A700;
+    font-size: 14pt;
+}
+.intro p
+{
+    margin: 10px 0;
+    font-size: 10pt;
+    font-weight: normal;
+}
+
+.post-line .revised
+{
+    background: #D0A090;
+    color: #fff;
+    font-family: "Segoe UI", Sans-Serif; 
+    font-weight:normal;
+}
+
+.post-line .revised .month
+{
+}
+
+.post-line .comments 
+{
+    font-family: "Segoe UI", Sans-Serif; 
+    font-weight:normal;
+}
+
+.content h1, .content h2
+{
+    border-bottom: 1px solid #ccc;
+}
+
+.content h1 a
+{
+    border: 0px;
+    color: #A08070;
+}
+
+.comment
+{
+    border-bottom: 1px solid #ccc;
+}
+
+pre
+{
+    background: #FFF8E8;
+    border: 1px dotted #D0A090;
+}
+
+.entry h1, .entry h2, .entry h3, .entry h4, .entry h5, .entry h6
+{
+    border: 0px;
+    color: #A08070;
+}
+
+.entry-date
+{
+    background: #D0A090;
+    color: #fff;
+    font-family: "Segoe UI", Sans-Serif; 
+    font-weight:normal;
+}
+
+.entry-tools
+{
+    font-family: "Segoe UI", Sans-Serif;
+    font-weight: normal;
+    background: #FFE0D0;
+    color: #000;
+}
+
+.entry-tools a 
+{
+    color: #333;
+    text-decoration: none;
+}
+
+.message
+{
+    color: #CC0000;
+}
