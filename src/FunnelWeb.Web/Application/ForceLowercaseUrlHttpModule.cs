@@ -15,7 +15,7 @@ namespace FunnelWeb.Web.Application
         {
             var context = HttpContext.Current;
 
-            if (context.Request.Url.AbsolutePath.EndsWith(".axd"))
+            if (context.Request.Url.AbsolutePath.EndsWith(".axd") || context.Request.HttpMethod == "POST")
             {
                 return;
             }

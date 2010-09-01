@@ -55,3 +55,6 @@ ignore[.-]*
 svnignore[.-]*
 lint.db
 glob:src/FunnelWeb.Web/App_Data/ClientDependency
+glob:files\*
+glob:files/*
+glob:Files/*
