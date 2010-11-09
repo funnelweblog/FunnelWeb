@@ -32,7 +32,7 @@ namespace FunnelWeb.Web.Controllers
         {
             return new FeedResult(
                 new Atom10FeedFormatter(
-                    new SyndicationFeed(_settings.SiteTitle, _settings.SearchDescription, new Uri(Request.Url, Url.Action("Recent", "Wiki")), items)
+                    new SyndicationFeed(_settings.SiteTitle, _settings.SearchDescription, new Uri(Url.ActionAbsolute(FunnelWebMvc.Wiki.Recent())), items)
             {
                 Id = Request.Url.ToString(),
                 Links = 
