@@ -4,7 +4,7 @@ using System.Text;
 using System.Web.Mvc;
 using System.Xml;
 
-namespace FunnelWeb.Web.Application.ActionResults
+namespace FunnelWeb.Web.Application.Mvc.ActionResults
 {
     public class FeedResult : ActionResult
     {

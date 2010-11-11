@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Web.Mvc;
 using FunnelWeb.Web.Model.Strings;
 
-namespace FunnelWeb.Web.Application.Binders
+namespace FunnelWeb.Web.Application.Mvc.Binders
 {
     /// <summary>
     /// This binder lets us assign basic types (like a string) to a more complicated type if an implicit assignment 

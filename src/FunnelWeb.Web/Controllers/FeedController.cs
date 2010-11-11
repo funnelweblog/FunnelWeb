@@ -1,9 +1,9 @@
 using System.Web.Mvc;
 using FunnelWeb.Web.Application;
 using FunnelWeb.Web.Application.Filters;
+using FunnelWeb.Web.Application.Mvc.ActionResults;
 using FunnelWeb.Web.Model.Repositories;
 using FunnelWeb.Web.Model.Strings;
-using FunnelWeb.Web.Application.ActionResults;
 using System.ServiceModel.Syndication;
 using System.Linq;
 using FunnelWeb.Web.Application.Settings;

@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using FunnelWeb.Web.Model.Strings;
 using Autofac;
 
-namespace FunnelWeb.Web.Application.Binders
+namespace FunnelWeb.Web.Application.Mvc.Binders
 {
     public class BindersModule : Module
     {

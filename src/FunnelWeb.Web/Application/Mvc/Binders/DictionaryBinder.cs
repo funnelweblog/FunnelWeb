@@ -4,7 +4,7 @@ using System.Collections;
 using System.Linq;
 using FunnelWeb.Web.Controllers;
 
-namespace FunnelWeb.Web.Application.Binders
+namespace FunnelWeb.Web.Application.Mvc.Binders
 {
     /// <summary>
     /// This binder lets us use conventions when we have a dictionary of different values. For example, we have Settings

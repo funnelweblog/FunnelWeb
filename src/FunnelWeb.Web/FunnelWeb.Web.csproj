@@ -151,6 +151,8 @@
     <Compile Include="Application\HealthMonitoring\Events\PingbackPostedEvent.cs" />
     <Compile Include="Application\HealthMonitoring\SimpleMailWithSslWebEventProvider.cs" />
     <Compile Include="Application\Installation\IConnectionStringProvider.cs" />
+    <Compile Include="Application\Mvc\LowercaseRoute.cs" />
+    <Compile Include="Application\Mvc\RouteCollectionExtension.cs" />
     <Compile Include="Application\RequireUpdatedDatabaseHttpModule.cs" />
     <Compile Include="Application\Views\IMarkdownProvider.cs" />
     <Compile Include="Application\Views\InputSanitizer.cs" />
@@ -168,7 +170,7 @@
     <Compile Include="FeedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="HyphenatedRouteHandler.cs" />
+    <Compile Include="Application\Mvc\HyphenatedRouteHandler.cs" />
     <Compile Include="InstallController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>

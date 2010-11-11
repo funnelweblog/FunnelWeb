@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace FunnelWeb.Web
+namespace FunnelWeb.Web.Application.Mvc
 {
     public class HyphenatedRouteHandler : MvcRouteHandler
     {

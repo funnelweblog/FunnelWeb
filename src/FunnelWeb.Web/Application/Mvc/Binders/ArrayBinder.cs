@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
-namespace FunnelWeb.Web.Application.Binders
+namespace FunnelWeb.Web.Application.Mvc.Binders
 {
     /// <summary>
     /// Lets us take an array of values (comma seperated) or duplicate values of the same name from HTTP input 

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FunnelWeb.Web.Application.Mvc.ActionResults;
 using NUnit.Framework;
-using FunnelWeb.Web.Application.ActionResults;
 using System.Xml.Linq;
 
 namespace FunnelWeb.Tests.Web.Application.ActionResults

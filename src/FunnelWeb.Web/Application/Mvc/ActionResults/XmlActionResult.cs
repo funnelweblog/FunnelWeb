@@ -4,7 +4,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System;
 
-namespace FunnelWeb.Web.Application.ActionResults
+namespace FunnelWeb.Web.Application.Mvc.ActionResults
 {
     public class XmlActionResult : ActionResult
     {
