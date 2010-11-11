@@ -1,17 +1,13 @@
 ﻿using System.Reflection;
 using System.Web;
-using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Web;
 using Autofac.Integration.Web.Mvc;
-using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.Web.Application.Authentication;
 using FunnelWeb.Web.Application.Binders;
-using FunnelWeb.Web.Application.Installation;
 using FunnelWeb.Web.Application.Mime;
-using FunnelWeb.Web.Application.Routes;
 using FunnelWeb.Web.Application.Spam;
 using FunnelWeb.Web.Application.Validation;
 using FunnelWeb.Web.Application.Views;

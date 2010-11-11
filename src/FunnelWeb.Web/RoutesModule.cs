@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
 
-namespace FunnelWeb.Web.Application.Routes
+namespace FunnelWeb.Web
 {
     public static class RouteExtensions
     {
@@ -56,11 +56,6 @@ namespace FunnelWeb.Web.Application.Routes
             // Upload
             routes.MapRoute(R(), "get/{*path}", new { controller = "Upload", action = "Render" });
             routes.MapHyphenatedRoute("upload/{action}/{*path}", new { controller = "Upload", action = "Index", path = "/" });
-            //routes.MapRoute(R(), "upload/create-directory", new { controller = "Upload", action = "CreateDirectory" });
-            //routes.MapRoute(R(), "upload/upload", new { controller = "Upload", action = "Upload" });
-            //routes.MapRoute(R(), "upload/move", new { controller = "Upload", action = "Move" });
-            //routes.MapRoute(R(), "upload/delete", new { controller = "Upload", action = "Delete" });
-            //routes.MapRoute(R(), "upload/{*path}", new { controller = "Upload", action = "Index", path = "/" });
             
             // Resources
             routes.MapRoute(R(), "robots", new { controller = "Resource", action = "Render", fileName = "/Views/Shared/Resources/Robots.txt", contentType = "text/plain" });

@@ -1,7 +1,7 @@
 ﻿using System.Web.Routing;
 using Autofac;
 using FunnelWeb.Tests.Helpers;
-using FunnelWeb.Web.Application.Routes;
+using FunnelWeb.Web;
 using NUnit.Framework;
 
 namespace FunnelWeb.Tests.Web

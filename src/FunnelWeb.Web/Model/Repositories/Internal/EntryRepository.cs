@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Bindable.Core.Language;
@@ -119,6 +120,14 @@ namespace FunnelWeb.Web.Model.Repositories.Internal
                 return new Entry[0];
             }
 
+            var isFullTextEnabled = _session.CreateSQLQuery("SELECT FullTextServiceProperty('IsFullTextInstalled')").List()[0];
+            return (int) isFullTextEnabled == 0 
+                ? SearchUsingLike(searchText) 
+                : SearchUsingFullText(searchText);
+        }
+
+        private IEnumerable<Entry> SearchUsingFullText(string searchText)
+        {
             var searchTerms = searchText.Split(' ', '-', '_').Where(x => !string.IsNullOrEmpty(x)).Select(x => "\"" + x + "*\"");
             var searchQuery = string.Join(" OR ", searchTerms.ToArray());
             var query = _session.CreateSQLQuery(
@@ -133,12 +142,48 @@ namespace FunnelWeb.Web.Model.Repositories.Internal
                     ) as Entries on Entries.Id = e.Id
                     order by [Rank] desc",
                 "e",
-                typeof (Entry))
+                typeof(Entry))
                 .SetMaxResults(300)
                 .SetString("searchString", searchQuery)
+                .SetReadOnly(true)
                 .List()
                 .OfType<Entry>().Distinct().Take(15).ToList();
             return query;
+        }
+
+
+        public IEnumerable<Entry> SearchUsingLike(string searchText)
+        {
+            var searchTerms = "%" + new string(searchText.Where(x => char.IsLetterOrDigit(x) || x == ' ').ToArray()) + "%";
+            searchTerms.Replace(" ", "%");
+
+            var entryQuery = (ArrayList)_session.CreateCriteria<Entry>("entry")
+                .CreateCriteria("entry.Revisions", "rev")
+                .Add(Restrictions.EqProperty("rev.Id", Projections.SubQuery(
+                    DetachedCriteria.For<Revision>("rv")
+                        .SetProjection(Projections.Property("rv.Id"))
+                        .AddOrder(Order.Desc("rv.Revised"))
+                        .Add(Restrictions.EqProperty("rv.Entry.Id", "entry.Id"))
+                        .SetMaxResults(1))))
+                .Add(new OrExpression(
+                    Restrictions.Like("entry.Title", searchTerms),
+                    Restrictions.Like("rev.Body", searchTerms)
+                    ))
+                .SetFirstResult(0)
+                .SetMaxResults(15)
+                .SetResultTransformer(Transformers.AliasToEntityMap)
+                .List();
+
+            var results = new List<Entry>();
+            foreach (var record in entryQuery.Cast<Hashtable>())
+            {
+                var entry = (Entry)record["entry"];
+                var revision = (Revision)record["rev"];
+                entry.LatestRevision = revision;
+                results.Add(entry);
+            }
+
+            return results;
         }
 
         private void CaptureChangeSummary(Entry entry)
