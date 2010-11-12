@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 using FunnelWeb.Web.Controllers;
 using FunnelWeb.Web.Model.Repositories;
 using NSubstitute;
 using NUnit.Framework;
 using System.Collections.Generic;
 using FunnelWeb.Web.Model;
+using AdminController = FunnelWeb.Web.Features.Admin.AdminController;
 
 namespace FunnelWeb.Tests.Web.Controllers
 {

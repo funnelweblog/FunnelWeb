@@ -7,19 +7,10 @@
 #pragma warning disable 1591
 #region T4MVC
 
-using System;
 using System.Diagnostics;
 using System.CodeDom.Compiler;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Web;
-using System.Web.Hosting;
-using System.Web.Mvc;
-using System.Web.Mvc.Ajax;
-using System.Web.Mvc.Html;
-using System.Web.Routing;
-using T4MVC;
-namespace T4MVC {
+
+namespace FunnelWeb.Web {
     public class SharedController {
 
         static readonly ViewNames s_views = new ViewNames();

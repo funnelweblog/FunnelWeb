@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ServiceModel.Syndication;
 using System.Text;
-using System.Web.Mvc;
 using System.Xml;
 
 namespace FunnelWeb.Web.Application.Mvc.ActionResults

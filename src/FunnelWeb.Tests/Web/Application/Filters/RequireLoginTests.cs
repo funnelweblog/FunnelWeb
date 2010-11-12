@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Web;
-using System.Web.Mvc;
 using FunnelWeb.Web.Application.Filters;
 using NSubstitute;
 using NUnit.Framework;

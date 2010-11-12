@@ -163,10 +163,19 @@
     <Compile Include="Application\Mvc\Binders\BindersModule.cs" />
     <Compile Include="Application\Mime\MimeSupport.cs" />
     <Compile Include="Application\Views\MarkdownProvider.cs" />
-    <Compile Include="Controllers\InstallController.cs" />
-    <Compile Include="Controllers\InstallController.Models.cs">
-      <DependentUpon>InstallController.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Features\Admin\Views\IndexModel.cs" />
+    <Compile Include="Features\Installation\InstallController.cs" />
+    <Compile Include="Features\Installation\Views\IndexModel.cs" />
+    <Compile Include="Features\Installation\Views\UpgradeModel.cs" />
+    <Compile Include="Features\Login\Views\IndexModel.cs" />
+    <Compile Include="Features\Uploads\Views\IndexModel.cs" />
+    <Compile Include="Features\Wikis\Views\EditModel.cs" />
+    <Compile Include="Features\Wikis\Views\NotFoundModel.cs" />
+    <Compile Include="Features\Wikis\Views\PageModel.cs" />
+    <Compile Include="Features\Wikis\Views\RecentModel.cs" />
+    <Compile Include="Features\Wikis\Views\ReviseModel.cs" />
+    <Compile Include="Features\Wikis\Views\RevisionsModel.cs" />
+    <Compile Include="Features\Wikis\Views\SiteMapModel.cs" />
     <Compile Include="FeedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -198,34 +207,20 @@
     <Compile Include="Application\Validation\IEntityValidator.cs" />
     <Compile Include="Application\Validation\NHibernateValidator.cs" />
     <Compile Include="Application\Validation\ValidationResult.cs" />
-    <Compile Include="Application\Views\ApplicationView.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
+    <Compile Include="Application\Views\ApplicationView.cs" />
     <Compile Include="Application\Views\AutofacAwareViewEngine.cs" />
     <Compile Include="Application\Views\IApplicationView.cs" />
     <Compile Include="Application\Views\IInjectable.cs" />
     <Compile Include="Application\Views\AutofacWebFormView.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\AdminController.Models.cs">
-      <DependentUpon>AdminController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\FeedController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\LoginController.Models.cs">
-      <DependentUpon>LoginController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\ResourceController.cs" />
-    <Compile Include="Controllers\ResourceController.Models.cs">
-      <DependentUpon>ResourceController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\UploadController.cs" />
-    <Compile Include="Controllers\UploadController.Models.cs">
+    <Compile Include="Features\Admin\AdminController.cs" />
+    <Compile Include="Features\Feeds\FeedController.cs" />
+    <Compile Include="Features\Login\LoginController.cs" />
+    <Compile Include="Features\Resources\ResourceController.cs" />
+    <Compile Include="Features\Uploads\UploadController.cs" />
+    <Compile Include="Features\Uploads\UploadController.Models.cs">
       <DependentUpon>UploadController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\WikiController.cs" />
-    <Compile Include="Controllers\WikiController.Models.cs">
-      <DependentUpon>WikiController.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Features\Wikis\WikiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -277,7 +272,7 @@
     <Compile Include="UploadController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Site.Master.cs">
+    <Compile Include="Content\Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -289,73 +284,73 @@
     <Content Include="Content\Styles\Themes\MattHamilton\Theme.css" />
     <Content Include="Content\Styles\Themes\MattHamilton\Title.png" />
     <Content Include="Global.asax" />
-    <Content Include="Views\Admin\Index.aspx" />
-    <Content Include="Views\Admin\Scripts\Admin.js" />
-    <Content Include="Views\Install\UpgradeReport.aspx" />
-    <Content Include="Views\Install\Index.aspx" />
-    <Content Include="Views\Login\Index.aspx" />
-    <Content Include="Views\Shared\DisplayTemplates\Markdown.ascx" />
-    <Content Include="Views\Shared\Images\favicon.ico" />
-    <Content Include="Views\Shared\Images\editorbuttons.png" />
-    <Content Include="Views\Shared\Images\external.png" />
-    <Content Include="Views\Shared\Images\FileTypes\bmp.png" />
-    <Content Include="Views\Shared\Images\FileTypes\cs.png" />
-    <Content Include="Views\Shared\Images\FileTypes\csproj.png" />
-    <Content Include="Views\Shared\Images\FileTypes\default.png" />
-    <Content Include="Views\Shared\Images\FileTypes\dir.png" />
-    <Content Include="Views\Shared\Images\FileTypes\doc.png" />
-    <Content Include="Views\Shared\Images\FileTypes\Document.png" />
-    <Content Include="Views\Shared\Images\FileTypes\docx.png" />
-    <Content Include="Views\Shared\Images\FileTypes\gif.png" />
-    <Content Include="Views\Shared\Images\FileTypes\Installer.png" />
-    <Content Include="Views\Shared\Images\FileTypes\jpg.png" />
-    <Content Include="Views\Shared\Images\FileTypes\Link.png" />
-    <Content Include="Views\Shared\Images\FileTypes\png.png" />
-    <Content Include="Views\Shared\Images\FileTypes\pps.png" />
-    <Content Include="Views\Shared\Images\FileTypes\ppsx.png" />
-    <Content Include="Views\Shared\Images\FileTypes\ppt.png" />
-    <Content Include="Views\Shared\Images\FileTypes\pptx.png" />
-    <Content Include="Views\Shared\Images\FileTypes\rar.png" />
-    <Content Include="Views\Shared\Images\FileTypes\sln.png" />
-    <Content Include="Views\Shared\Images\FileTypes\tar.png" />
-    <Content Include="Views\Shared\Images\FileTypes\xls.png" />
-    <Content Include="Views\Shared\Images\FileTypes\xlsx.png" />
-    <Content Include="Views\Shared\Images\FileTypes\Zip.png" />
-    <Content Include="Views\Shared\Images\title.png" />
-    <Content Include="Views\Shared\Images\transparent.gif" />
-    <Content Include="Views\Shared\Resources\favicon.png" />
-    <Content Include="Views\Shared\Resources\favicon.ico" />
-    <Content Include="Views\Shared\Resources\Robots.txt" />
-    <Content Include="Views\Shared\Resources\Status.html" />
-    <Content Include="Views\Shared\Scripts\JQuery\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
-    <Content Include="Views\Shared\Scripts\JQuery\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
-    <Content Include="Views\Shared\Scripts\JQuery\images\ui-bg_flat_10_000000_40x100.png" />
-    <Content Include="Views\Shared\Scripts\JQuery\images\ui-bg_glass_100_f6f6f6_1x400.png" />
-    <Content Include="Views\Shared\Scripts\JQuery\images\ui-bg_glass_100_fdf5ce_1x400.png" />
-    <Content Include="Views\Shared\Scripts\JQuery\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Views\Shared\Scripts\JQuery\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
-    <Content Include="Views\Shared\Scripts\JQuery\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
-    <Content Include="Views\Shared\Scripts\JQuery\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
-    <Content Include="Views\Shared\Scripts\JQuery\images\ui-icons_222222_256x240.png" />
-    <Content Include="Views\Shared\Scripts\JQuery\images\ui-icons_228ef1_256x240.png" />
-    <Content Include="Views\Shared\Scripts\JQuery\images\ui-icons_ef8c08_256x240.png" />
-    <Content Include="Views\Shared\Scripts\JQuery\images\ui-icons_ffd27a_256x240.png" />
-    <Content Include="Views\Shared\Scripts\JQuery\images\ui-icons_ffffff_256x240.png" />
-    <Content Include="Views\Shared\Scripts\JQuery\jquery-1.3.2-vsdoc.js" />
-    <Content Include="Views\Shared\Scripts\JQuery\jquery-1.3.2.js" />
-    <Content Include="Views\Shared\Scripts\JQuery\jquery-1.3.2.min-vsdoc.js" />
-    <Content Include="Views\Shared\Scripts\JQuery\jquery-1.3.2.min.js" />
-    <Content Include="Views\Shared\Scripts\JQuery\jquery-fieldselection.js" />
-    <Content Include="Views\Shared\Scripts\JQuery\jquery-scrollto.js" />
-    <Content Include="Views\Shared\Scripts\JQuery\jquery-ui-1.7.3.custom.css" />
-    <Content Include="Views\Shared\Scripts\JQuery\jquery-ui-1.7.3.custom.min.js" />
-    <Content Include="Views\Shared\Scripts\JQuery\jquery-validation.js" />
-    <Content Include="Views\Shared\Scripts\JQuery\jsdate.js" />
-    <Content Include="Views\Shared\Scripts\MD5\MD5.js" />
-    <Content Include="Views\Shared\Scripts\Prettify\prettify.js" />
-    <Content Include="Views\Shared\Scripts\Showdown\showdown.js" />
-    <Content Include="Views\Shared\Scripts\Showdown\wmd.js" />
-    <Content Include="Views\Shared\Scripts\Site\Site.js" />
+    <Content Include="Features\Admin\Views\Index.aspx" />
+    <Content Include="Features\Admin\Scripts\Admin.js" />
+    <Content Include="Features\Installation\Views\UpgradeReport.aspx" />
+    <Content Include="Features\Installation\Views\Index.aspx" />
+    <Content Include="Features\Login\Views\Index.aspx" />
+    <Content Include="Content\DisplayTemplates\Markdown.ascx" />
+    <Content Include="Content\Images\favicon.ico" />
+    <Content Include="Content\Images\editorbuttons.png" />
+    <Content Include="Content\Images\external.png" />
+    <Content Include="Content\Images\FileTypes\bmp.png" />
+    <Content Include="Content\Images\FileTypes\cs.png" />
+    <Content Include="Content\Images\FileTypes\csproj.png" />
+    <Content Include="Content\Images\FileTypes\default.png" />
+    <Content Include="Content\Images\FileTypes\dir.png" />
+    <Content Include="Content\Images\FileTypes\doc.png" />
+    <Content Include="Content\Images\FileTypes\Document.png" />
+    <Content Include="Content\Images\FileTypes\docx.png" />
+    <Content Include="Content\Images\FileTypes\gif.png" />
+    <Content Include="Content\Images\FileTypes\Installer.png" />
+    <Content Include="Content\Images\FileTypes\jpg.png" />
+    <Content Include="Content\Images\FileTypes\Link.png" />
+    <Content Include="Content\Images\FileTypes\png.png" />
+    <Content Include="Content\Images\FileTypes\pps.png" />
+    <Content Include="Content\Images\FileTypes\ppsx.png" />
+    <Content Include="Content\Images\FileTypes\ppt.png" />
+    <Content Include="Content\Images\FileTypes\pptx.png" />
+    <Content Include="Content\Images\FileTypes\rar.png" />
+    <Content Include="Content\Images\FileTypes\sln.png" />
+    <Content Include="Content\Images\FileTypes\tar.png" />
+    <Content Include="Content\Images\FileTypes\xls.png" />
+    <Content Include="Content\Images\FileTypes\xlsx.png" />
+    <Content Include="Content\Images\FileTypes\Zip.png" />
+    <Content Include="Content\Images\title.png" />
+    <Content Include="Content\Images\transparent.gif" />
+    <Content Include="Content\Resources\favicon.png" />
+    <Content Include="Content\Resources\favicon.ico" />
+    <Content Include="Content\Resources\Robots.txt" />
+    <Content Include="Content\Resources\Status.html" />
+    <Content Include="Content\Scripts\JQuery\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="Content\Scripts\JQuery\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="Content\Scripts\JQuery\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="Content\Scripts\JQuery\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="Content\Scripts\JQuery\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="Content\Scripts\JQuery\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\Scripts\JQuery\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="Content\Scripts\JQuery\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="Content\Scripts\JQuery\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="Content\Scripts\JQuery\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\Scripts\JQuery\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="Content\Scripts\JQuery\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="Content\Scripts\JQuery\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="Content\Scripts\JQuery\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\Scripts\JQuery\jquery-1.3.2-vsdoc.js" />
+    <Content Include="Content\Scripts\JQuery\jquery-1.3.2.js" />
+    <Content Include="Content\Scripts\JQuery\jquery-1.3.2.min-vsdoc.js" />
+    <Content Include="Content\Scripts\JQuery\jquery-1.3.2.min.js" />
+    <Content Include="Content\Scripts\JQuery\jquery-fieldselection.js" />
+    <Content Include="Content\Scripts\JQuery\jquery-scrollto.js" />
+    <Content Include="Content\Scripts\JQuery\jquery-ui-1.7.3.custom.css" />
+    <Content Include="Content\Scripts\JQuery\jquery-ui-1.7.3.custom.min.js" />
+    <Content Include="Content\Scripts\JQuery\jquery-validation.js" />
+    <Content Include="Content\Scripts\JQuery\jsdate.js" />
+    <Content Include="Content\Scripts\MD5\MD5.js" />
+    <Content Include="Content\Scripts\Prettify\prettify.js" />
+    <Content Include="Content\Scripts\Showdown\showdown.js" />
+    <Content Include="Content\Scripts\Showdown\wmd.js" />
+    <Content Include="Content\Scripts\Site\Site.js" />
     <Content Include="Content\Styles\Layout\Editor.css" />
     <Content Include="Content\Styles\Layout\Prettify.css" />
     <Content Include="Content\Styles\Layout\Print-min.css" />
@@ -363,21 +358,21 @@
     <Content Include="Content\Styles\Layout\Screen.css" />
     <Content Include="Content\Styles\Themes\AaronPowell\Theme.css" />
     <Content Include="Content\Styles\Themes\Default\Theme.css" />
-    <Content Include="Views\Upload\Index.aspx" />
-    <Content Include="Views\Wiki\Edit.aspx" />
-    <Content Include="Views\Wiki\NotFound.aspx" />
-    <Content Include="Views\Wiki\Page.aspx" />
-    <Content Include="Views\Wiki\Recent.aspx" />
-    <Content Include="Views\Wiki\Revisions.aspx" />
-    <Content Include="Views\Wiki\SiteMap.aspx" />
-    <Content Include="Views\Wiki\Unpublished.aspx" />
+    <Content Include="Features\Uploads\Views\Index.aspx" />
+    <Content Include="Features\Wikis\Views\Edit.aspx" />
+    <Content Include="Features\Wikis\Views\NotFound.aspx" />
+    <Content Include="Features\Wikis\Views\Page.aspx" />
+    <Content Include="Features\Wikis\Views\Recent.aspx" />
+    <Content Include="Features\Wikis\Views\Revisions.aspx" />
+    <Content Include="Features\Wikis\Views\SiteMap.aspx" />
+    <Content Include="Features\Wikis\Views\Unpublished.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Dialog.Master" />
-    <Content Include="Views\Shared\Site.Master" />
+    <Content Include="Content\Dialog.Master" />
+    <Content Include="Content\Site.Master" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FunnelWeb.DatabaseDeployer\FunnelWeb.DatabaseDeployer.csproj">
@@ -386,7 +381,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Safe.Master" />
+    <Content Include="Content\Safe.Master" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

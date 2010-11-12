@@ -1,14 +1,14 @@
-﻿using System.Web.Mvc;
-using System;
+﻿using System;
 using System.Collections;
 using System.Linq;
 using FunnelWeb.Web.Controllers;
+using FunnelWeb.Web.Features.Admin;
 
 namespace FunnelWeb.Web.Application.Mvc.Binders
 {
     /// <summary>
     /// This binder lets us use conventions when we have a dictionary of different values. For example, we have Settings
-    /// in the database which are just key/value pairs. We render them onto a form (via the <see cref="AdminController"/>)
+    /// in the database which are just key/value pairs. We render them onto a form (via the <see cref="Features.Admin.AdminController"/>)
     /// as text boxes named with a prefix. When they are posted back, we receive something like: setting_Foo=1&setting_Bar=2. 
     /// This binder turns that into a dictionary of { Foo = 1, Bar = 2 }.
     /// </summary>

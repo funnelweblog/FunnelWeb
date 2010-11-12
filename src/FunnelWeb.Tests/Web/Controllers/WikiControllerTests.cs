@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Web;
-using System.Web.Mvc;
+using FunnelWeb.Web;
 using FunnelWeb.Web.Application.Spam;
 using FunnelWeb.Web.Controllers;
 using FunnelWeb.Web.Model;
@@ -11,6 +11,7 @@ using NSubstitute;
 using NUnit.Framework;
 using System.Security.Principal;
 using FunnelWeb.Web.Model.Strings;
+using WikiController = FunnelWeb.Web.WikiController;
 
 namespace FunnelWeb.Tests.Web.Controllers
 {

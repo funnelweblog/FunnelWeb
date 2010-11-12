@@ -1,11 +1,11 @@
 ﻿using System.Web;
-using System.Web.Mvc;
 using FunnelWeb.Web.Application;
 using FunnelWeb.Web.Application.Mime;
 using FunnelWeb.Web.Controllers;
 using FunnelWeb.Web.Model.Repositories;
 using NSubstitute;
 using NUnit.Framework;
+using UploadController = FunnelWeb.Web.UploadController;
 
 namespace FunnelWeb.Tests.Web.Controllers
 {

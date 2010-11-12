@@ -7,19 +7,11 @@
 #pragma warning disable 1591
 #region T4MVC
 
-using System;
 using System.Diagnostics;
 using System.CodeDom.Compiler;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Web;
-using System.Web.Hosting;
 using System.Web.Mvc;
-using System.Web.Mvc.Ajax;
-using System.Web.Mvc.Html;
-using System.Web.Routing;
-using T4MVC;
-namespace FunnelWeb.Web.Controllers {
+
+namespace FunnelWeb.Web {
     public partial class FeedController {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected FeedController(Dummy d) { }
@@ -62,7 +54,7 @@ namespace FunnelWeb.Web.Controllers {
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public class T4MVC_FeedController: FunnelWeb.Web.Controllers.FeedController {
+    public class T4MVC_FeedController: FeedController {
         public T4MVC_FeedController() : base(Dummy.Instance) { }
 
         public override System.Web.Mvc.ActionResult Feed(FunnelWeb.Web.Model.Strings.PageName feedName) {

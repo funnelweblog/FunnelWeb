@@ -1,5 +1,4 @@
 using System.Web;
-using System.Web.Mvc;
 using Autofac.Integration.Web;
 
 namespace FunnelWeb.Web.Application.Views

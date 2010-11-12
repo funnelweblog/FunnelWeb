@@ -18,24 +18,22 @@ using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
-using T4MVC;
+using FunnelWeb.Web.Features.Admin;
 
-[GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-public static class FunnelWebMvc {
-    public static FunnelWeb.Web.Controllers.AdminController Admin = new FunnelWeb.Web.Controllers.T4MVC_AdminController();
-    public static FunnelWeb.Web.Controllers.FeedController Feed = new FunnelWeb.Web.Controllers.T4MVC_FeedController();
-    public static FunnelWeb.Web.Controllers.InstallController Install = new FunnelWeb.Web.Controllers.T4MVC_InstallController();
-    public static FunnelWeb.Web.Controllers.LoginController Login = new FunnelWeb.Web.Controllers.T4MVC_LoginController();
-    public static FunnelWeb.Web.Controllers.ResourceController Resource = new FunnelWeb.Web.Controllers.T4MVC_ResourceController();
-    public static FunnelWeb.Web.Controllers.UploadController Upload = new FunnelWeb.Web.Controllers.T4MVC_UploadController();
-    public static FunnelWeb.Web.Controllers.WikiController Wiki = new FunnelWeb.Web.Controllers.T4MVC_WikiController();
-    public static T4MVC.SharedController Shared = new T4MVC.SharedController();
-}
+namespace FunnelWeb.Web
+{
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public static class FunnelWebMvc {
+        public static Features.Admin.AdminController Admin = new T4MVC_AdminController();
+        public static FeedController Feed = new T4MVC_FeedController();
+        public static InstallController Install = new T4MVC_InstallController();
+        public static LoginController Login = new T4MVC_LoginController();
+        public static ResourceController Resource = new T4MVC_ResourceController();
+        public static UploadController Upload = new T4MVC_UploadController();
+        public static WikiController Wiki = new T4MVC_WikiController();
+        public static SharedController Shared = new SharedController();
+    }
 
-namespace T4MVC {
-}
-
-namespace System.Web.Mvc {
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public static class T4Extensions {
         public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, string linkText, ActionResult result) {
@@ -78,7 +76,7 @@ namespace System.Web.Mvc {
 
         public static string ActionAbsolute(this UrlHelper urlHelper, ActionResult result) {
             return string.Format("{0}{1}",urlHelper.RequestContext.HttpContext.Request.Url.GetLeftPart(UriPartial.Authority),
-                urlHelper.RouteUrl(result.GetRouteValueDictionary()));
+                                 urlHelper.RouteUrl(result.GetRouteValueDictionary()));
         }
 
         public static MvcHtmlString ActionLink(this AjaxHelper ajaxHelper, string linkText, ActionResult result, AjaxOptions ajaxOptions) {
@@ -233,33 +231,30 @@ namespace System.Web.Mvc {
             return Convert.ToString((System.IO.File.GetLastWriteTimeUtc(filePath).Ticks-CenturyBegin.Ticks)/1000000000,16);            
         }
     }
-}
 
-   
-[GeneratedCode("T4MVC", "2.0")]   
-public interface IT4MVCActionResult {   
-    string Action { get; set; }   
-    string Controller { get; set; }   
-    RouteValueDictionary RouteValueDictionary { get; set; }   
-}   
+
+    [GeneratedCode("T4MVC", "2.0")]   
+    public interface IT4MVCActionResult {   
+        string Action { get; set; }   
+        string Controller { get; set; }   
+        RouteValueDictionary RouteValueDictionary { get; set; }   
+    }   
   
 
-[GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-public class T4MVC_ActionResult : System.Web.Mvc.ActionResult, IT4MVCActionResult {
-    public T4MVC_ActionResult(string area, string controller, string action): base()  {
-        this.InitMVCT4Result(area, controller, action);
-    }
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public class T4MVC_ActionResult : System.Web.Mvc.ActionResult, IT4MVCActionResult {
+        public T4MVC_ActionResult(string area, string controller, string action): base()  {
+            this.InitMVCT4Result(area, controller, action);
+        }
      
-    public override void ExecuteResult(System.Web.Mvc.ControllerContext context) { }
+        public override void ExecuteResult(System.Web.Mvc.ControllerContext context) { }
     
-    public string Controller { get; set; }
-    public string Action { get; set; }
-    public RouteValueDictionary RouteValueDictionary { get; set; }
-}
+        public string Controller { get; set; }
+        public string Action { get; set; }
+        public RouteValueDictionary RouteValueDictionary { get; set; }
+    }
 
 
-
-namespace Links {
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public static class Content {
         private const string URLPATH = "~/Content";
@@ -309,44 +304,35 @@ namespace Links {
     
     }
 
-}
-
-static class T4MVCHelpers {
-    // You can change the ProcessVirtualPath method to modify the path that gets returned to the client.
-    // e.g. you can prepend a domain, or append a query string:
-    //      return "http://localhost" + path + "?foo=bar";
-    private static string ProcessVirtualPathDefault(string virtualPath) {
-        // The path that comes in starts with ~/ and must first be made absolute
-        string path = VirtualPathUtility.ToAbsolute(virtualPath);
+    static class T4MVCHelpers {
+        // You can change the ProcessVirtualPath method to modify the path that gets returned to the client.
+        // e.g. you can prepend a domain, or append a query string:
+        //      return "http://localhost" + path + "?foo=bar";
+        private static string ProcessVirtualPathDefault(string virtualPath) {
+            // The path that comes in starts with ~/ and must first be made absolute
+            string path = VirtualPathUtility.ToAbsolute(virtualPath);
         
-        // Add your own modifications here before returning the path
-        return path;
+            // Add your own modifications here before returning the path
+            return path;
+        }
+
+        // Calling ProcessVirtualPath through delegate to allow it to be replaced for unit testing
+        public static Func<string, string> ProcessVirtualPath = ProcessVirtualPathDefault;
+
+
+        // Logic to determine if the app is running in production or dev environment
+        public static bool IsProduction() { 
+            return (HttpContext.Current != null && !HttpContext.Current.IsDebuggingEnabled); 
+        }
     }
 
-    // Calling ProcessVirtualPath through delegate to allow it to be replaced for unit testing
-    public static Func<string, string> ProcessVirtualPath = ProcessVirtualPathDefault;
 
-
-    // Logic to determine if the app is running in production or dev environment
-    public static bool IsProduction() { 
-        return (HttpContext.Current != null && !HttpContext.Current.IsDebuggingEnabled); 
-    }
-}
-
-
-
-
-namespace T4MVC {
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public class Dummy {
         private Dummy() { }
         public static Dummy Instance = new Dummy();
     }
-}
 
-	
-
-#endregion T4MVC
+    #endregion T4MVC
 #pragma warning restore 1591
-
-
+}

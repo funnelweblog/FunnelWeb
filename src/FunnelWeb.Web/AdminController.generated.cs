@@ -7,19 +7,11 @@
 #pragma warning disable 1591
 #region T4MVC
 
-using System;
 using System.Diagnostics;
 using System.CodeDom.Compiler;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Web;
-using System.Web.Hosting;
 using System.Web.Mvc;
-using System.Web.Mvc.Ajax;
-using System.Web.Mvc.Html;
-using System.Web.Routing;
-using T4MVC;
-namespace FunnelWeb.Web.Controllers {
+
+namespace FunnelWeb.Web {
     public partial class AdminController {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected AdminController(Dummy d) { }
@@ -77,7 +69,7 @@ namespace FunnelWeb.Web.Controllers {
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public AdminController Actions { get { return FunnelWebMvc.Admin; } }
+        public Features.Admin.AdminController Actions { get { return FunnelWebMvc.Admin; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "";
         [GeneratedCode("T4MVC", "2.0")]
@@ -117,7 +109,7 @@ namespace FunnelWeb.Web.Controllers {
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public class T4MVC_AdminController: FunnelWeb.Web.Controllers.AdminController {
+    public class T4MVC_AdminController: Features.Admin.AdminController {
         public T4MVC_AdminController() : base(Dummy.Instance) { }
 
         public override System.Web.Mvc.ActionResult Index() {

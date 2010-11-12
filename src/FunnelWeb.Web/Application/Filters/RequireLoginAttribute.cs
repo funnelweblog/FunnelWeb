@@ -1,5 +1,3 @@
-using System.Web.Mvc;
-
 namespace FunnelWeb.Web.Application.Filters
 {
     public class RequireLoginAttribute : ActionFilterAttribute

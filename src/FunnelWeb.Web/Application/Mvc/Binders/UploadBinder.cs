@@ -1,6 +1,4 @@
-﻿using System.Web.Mvc;
-
-namespace FunnelWeb.Web.Application.Mvc.Binders
+﻿namespace FunnelWeb.Web.Application.Mvc.Binders
 {
     public class UploadBinder : IModelBinder
     {
