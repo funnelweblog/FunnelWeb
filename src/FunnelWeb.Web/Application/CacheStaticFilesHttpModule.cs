@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web;
 
 namespace FunnelWeb.Web.Application
@@ -14,14 +15,9 @@ namespace FunnelWeb.Web.Application
         {
             var context = HttpContext.Current;
 
-            var path = context.Request.FilePath.ToLowerInvariant();
-            if (path.EndsWith(".js")
-                || path.ToLower().EndsWith(".css")
-                || path.ToLower().EndsWith(".jpg")
-                || path.ToLower().EndsWith(".jpeg")
-                || path.ToLower().EndsWith(".gif")
-                || path.ToLower().EndsWith(".ico")
-                || path.ToLower().EndsWith(".png"))
+            var path = context.Request.FilePath;
+            var extensions = new[] { ".js", ".css", ".jpg", ".jpeg", ".gif", ".ico", ".png" };
+            if (extensions.Any(ext => path.EndsWith(ext, StringComparison.InvariantCultureIgnoreCase)))
             {
                 context.Response.Cache.SetExpires(DateTime.Now.AddDays(90));
             }

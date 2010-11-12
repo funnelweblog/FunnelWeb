@@ -1,7 +1,6 @@
-﻿using System.Linq;
-using FunnelWeb.Web.Application.Validation;
+﻿using System.Collections.Generic;
+using System.Linq;
 using FunnelWeb.Web.Model.Strings;
-using System.Collections.Generic;
 
 namespace FunnelWeb.Web.Model.Repositories
 {
@@ -10,7 +9,7 @@ namespace FunnelWeb.Web.Model.Repositories
         IQueryable<Feed> GetFeeds();
         IEnumerable<Entry> GetFeed(PageName feed, int skip, int take);
         int GetFeedCount(PageName feed);
-        ValidationResult Save(Feed feed);
+        void Save(Feed feed);
         void Delete(Feed feed);
         IEnumerable<Comment> GetCommentFeed(int skip, int take);
     }

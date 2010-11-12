@@ -9,16 +9,16 @@ namespace FunnelWeb.Web.Model.Repositories.Internal
 {
     public class FileRepository : IFileRepository
     {
-        private readonly string _root;
+        private readonly string root;
 
         public FileRepository(string root, HttpServerUtilityBase server)
         {
-            //if it's a virtual path then we can map it, otherwise we'll expect that it's a windows path
+            // If it's a virtual path then we can map it, otherwise we'll expect that it's a windows path
             if (root.StartsWith("~"))
             {
                 root = server.MapPath(root);
             }
-            _root = root;
+            this.root = root;
         }
 
         public string MapPath(string path)
@@ -31,14 +31,14 @@ namespace FunnelWeb.Web.Model.Repositories.Internal
 
             if (path.Contains("..")) throw new SecurityException("The path contained '..', which indicates an attempt to access another directory.");
             if (Regex.IsMatch(path, "^[A-z]:")) throw new SecurityException("An attempt was made to access a different drive");
-            var fullPath = Path.GetFullPath(Path.Combine(_root, path));
-            if (!fullPath.StartsWith(_root)) throw new SecurityException("An attempt was made to access an alternative file path");
+            var fullPath = Path.GetFullPath(Path.Combine(root, path));
+            if (!fullPath.StartsWith(root)) throw new SecurityException("An attempt was made to access an alternative file path");
             return fullPath;
         }
 
         public string UnmapPath(string fullPath)
         {
-            var path = fullPath.Substring(_root.Length);
+            var path = fullPath.Substring(root.Length);
             path = path.Replace("\\", "/");
             return path;
         }

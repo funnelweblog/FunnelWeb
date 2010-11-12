@@ -1,26 +1,25 @@
-﻿using System;
+﻿using System.IO;
 using System.Web;
-using System.IO;
 
 namespace FunnelWeb.Web.Application
 {
     public class Upload
     {
-        private readonly HttpPostedFileBase _postedFile;
+        private readonly HttpPostedFileBase postedFile;
 
         public Upload(HttpPostedFileBase postedFile)
         {
-            _postedFile = postedFile;
+            this.postedFile = postedFile;
         }
 
         public string FileName
         {
-            get { return Path.GetFileName(_postedFile.FileName); }
+            get { return Path.GetFileName(postedFile.FileName); }
         }
 
         public void SaveTo(string fullPath)
         {
-            _postedFile.SaveAs(fullPath);
+            postedFile.SaveAs(fullPath);
         }
     }
 }

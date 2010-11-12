@@ -12,7 +12,7 @@ namespace FunnelWeb.Web.Application
             context.BeginRequest += ApplicationBeginRequest;
         }
 
-        private void ApplicationBeginRequest(object sender, EventArgs e)
+        private static void ApplicationBeginRequest(object sender, EventArgs e)
         {
             var path = HttpContext.Current.Request.Path;
             path = path.ToLowerInvariant();

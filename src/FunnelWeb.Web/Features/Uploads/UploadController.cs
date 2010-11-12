@@ -1,39 +1,34 @@
 ﻿using System.IO;
+using System.Web.Mvc;
 using FunnelWeb.Web.Application;
-using FunnelWeb.Web.Application.Filters;
+using FunnelWeb.Web.Features.Uploads.Views;
 using FunnelWeb.Web.Model.Repositories;
 using FunnelWeb.Web.Application.Mime;
 
-namespace FunnelWeb.Web.Controllers
+namespace FunnelWeb.Web.Features.Uploads
 {
     public partial class UploadController : Controller
     {
-        private readonly IFileRepository _fileRepository;
-        private readonly IMimeTypeLookup _mimeHelper;
-
-        public UploadController(IFileRepository fileRepository, IMimeTypeLookup mimeHelper)
-        {
-            _fileRepository = fileRepository;
-            _mimeHelper = mimeHelper;
-        }
+        public IFileRepository FileRepository { get; set; }
+        public IMimeTypeLookup MimeHelper { get; set; }
 
         [Authorize]
         public virtual ActionResult Index(string path)
         {
             path = path ?? string.Empty;
-            if (_fileRepository.IsFile(path))
+            if (FileRepository.IsFile(path))
             {
                 return RedirectToAction(FunnelWebMvc.Upload.Index(Path.GetDirectoryName(path)));
             }
 
-            ViewData.Model = new IndexModel(path, _fileRepository.GetItems(path));
+            ViewData.Model = new IndexModel(path, FileRepository.GetItems(path));
             return View();
         }
 
         [Authorize]
         public virtual ActionResult Upload(string path, Upload upload)
         {
-            var fullPath = _fileRepository.MapPath(Path.Combine(path, upload.FileName));
+            var fullPath = FileRepository.MapPath(Path.Combine(path, upload.FileName));
             upload.SaveTo(fullPath);
             return RedirectToAction(FunnelWebMvc.Upload.Index(path));
         }
@@ -41,30 +36,30 @@ namespace FunnelWeb.Web.Controllers
         [Authorize]
         public virtual ActionResult CreateDirectory(string path, string name)
         {
-            _fileRepository.CreateDirectory(path, name);
+            FileRepository.CreateDirectory(path, name);
             return RedirectToAction(FunnelWebMvc.Upload.Index(path));
         }
 
         [Authorize]
         public virtual ActionResult Move(string path, string oldPath, string newPath)
         {
-            _fileRepository.Move(oldPath, newPath);
+            FileRepository.Move(oldPath, newPath);
             return RedirectToAction(FunnelWebMvc.Upload.Index(path));
         }
 
         [Authorize]
         public virtual ActionResult Delete(string path, string filePath)
         {
-            _fileRepository.Delete(filePath);
+            FileRepository.Delete(filePath);
             return RedirectToAction(FunnelWebMvc.Upload.Index(path));
         }
 
         public virtual ActionResult Render(string path)
         {
-            if (_fileRepository.IsFile(path))
+            if (FileRepository.IsFile(path))
             {
-                var fullPath = _fileRepository.MapPath(path);
-                return File(fullPath, _mimeHelper.GetMimeType(fullPath));
+                var fullPath = FileRepository.MapPath(path);
+                return File(fullPath, MimeHelper.GetMimeType(fullPath));
             }
             return Redirect("/");
         }

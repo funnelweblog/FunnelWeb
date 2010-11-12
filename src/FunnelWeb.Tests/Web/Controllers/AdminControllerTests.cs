@@ -1,249 +1,136 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web;
-using FunnelWeb.Web.Controllers;
+using System.Web.Mvc;
+using FunnelWeb.Web.Features.Admin;
+using FunnelWeb.Web.Model;
 using FunnelWeb.Web.Model.Repositories;
 using NSubstitute;
 using NUnit.Framework;
-using System.Collections.Generic;
-using FunnelWeb.Web.Model;
-using AdminController = FunnelWeb.Web.Features.Admin.AdminController;
 
 namespace FunnelWeb.Tests.Web.Controllers
 {
+    [TestFixture]
     public class AdminControllerTests
     {
-        [TestFixture]
-        public class ActionResultTests
+        protected AdminController Controller { get; set; }
+        protected IAdminRepository AdminRepository { get; set; }
+        protected IFeedRepository FeedRepository { get; set; }
+
+        [SetUp]
+        public void SetUp()
         {
-
-            [Test]
-            public void AdminControllerTests_Index_Action_Returns_Index_View()
-            {
-                //Arrange
-                var controllerContext = CreateControllerContext();
-
-                var controller = new AdminController(Substitute.For<IAdminRepository>(), Substitute.For<IFeedRepository>())
-                {
-                    ControllerContext = controllerContext
-                };
-
-                //Act
-                var result = (ViewResult)controller.Index();
-
-                //Assert
-                Assert.That(result.ViewName, Is.EqualTo(string.Empty));
-            }
-
-            [Test]
-            public void AdminControllerTests_CreateFeed_Action_Returns_Index_View()
-            {
-                //Arrange
-                var controllerContext = CreateControllerContext();
-
-                var controller = new AdminController(Substitute.For<IAdminRepository>(), Substitute.For<IFeedRepository>())
-                {
-                    ControllerContext = controllerContext
-                };
-
-                //Act
-                var result = (RedirectToRouteResult)controller.CreateFeed(Arg.Any<string>(), Arg.Any<string>());
-
-                //Assert
-                Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
-            }
-
-            [Test]
-            public void AdminControllerTests_DeleteFeed_Action_Returns_Index_View()
-            {
-                //Arrange
-                var controllerContext = CreateControllerContext();
-
-                IFeedRepository feeds = Substitute.For<IFeedRepository>();
-                feeds.GetFeeds().Returns(new List<Feed>().AsQueryable());
-                var controller = new AdminController(Substitute.For<IAdminRepository>(), feeds)
-                {
-                    ControllerContext = controllerContext
-                };
-
-                //Act
-                var result = (RedirectToRouteResult)controller.DeleteFeed(0);
-
-                //Assert
-                Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
-            }
-
-            [Test]
-            public void AdminControllerTests_DeleteRedirect_Action_Returns_Index_View()
-            {
-                //Arrange
-                var controllerContext = CreateControllerContext();
-
-                IAdminRepository admin = Substitute.For<IAdminRepository>();
-                admin.GetRedirects().Returns(new List<Redirect>().AsQueryable());
-                var controller = new AdminController(admin, Substitute.For<IFeedRepository>())
-                {
-                    ControllerContext = controllerContext
-                };
-
-                //Act
-                var result = (RedirectToRouteResult)controller.DeleteRedirect(0);
-
-                //Assert
-                Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
-            }
-
-            [Test]
-            public void AdminControllerTests_CreateRedirect_Action_Returns_Index_View()
-            {
-                //Arrange
-                var controllerContext = CreateControllerContext();
-
-                var controller = new AdminController(Substitute.For<IAdminRepository>(), Substitute.For<IFeedRepository>())
-                {
-                    ControllerContext = controllerContext
-                };
-
-                //Act
-                var result = (RedirectToRouteResult)controller.CreateRedirect(Arg.Any<string>(), Arg.Any<string>());
-
-                //Assert
-                Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
-            }
-
-            [Test]
-            public void AdminControllerTests_UpdateSettings_Action_Returns_Index_View()
-            {
-                //Arrange
-                var controllerContext = CreateControllerContext();
-
-                var controller = new AdminController(Substitute.For<IAdminRepository>(), Substitute.For<IFeedRepository>())
-                {
-                    ControllerContext = controllerContext
-                };
-
-                //Act
-                var result = (RedirectToRouteResult)controller.UpdateSettings(Arg.Any<Dictionary<string, string>>());
-
-                //Assert
-                Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
-            }
-
-            [Test]
-            public void AdminControllerTests_DeleteComment_Action_Returns_Index_View()
-            {
-                //Arrange
-                var controllerContext = CreateControllerContext();
-
-                var controller = new AdminController(Substitute.For<IAdminRepository>(), Substitute.For<IFeedRepository>())
-                {
-                    ControllerContext = controllerContext
-                };
-
-                //Act
-                var result = (RedirectToRouteResult)controller.DeleteComment(0);
-
-                //Assert
-                Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
-            }
-
-            [Test]
-            public void AdminControllerTests_DeleteAllSpam_Returns_Index_View()
-            {
-                //Arrange
-                var controllerContext = CreateControllerContext();
-
-                var controller = new AdminController(Substitute.For<IAdminRepository>(), Substitute.For<IFeedRepository>())
-                {
-                    ControllerContext = controllerContext
-                };
-
-                //Act
-                var result = (RedirectToRouteResult)controller.DeleteAllSpam();
-
-                //Assert
-                Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
-            }
-
-            [Test]
-            public void AdminControllerTests_DeletePingback_Returns_Index_View()
-            {
-                //Arrange
-                var controllerContext = CreateControllerContext();
-
-                var controller = new AdminController(Substitute.For<IAdminRepository>(), Substitute.For<IFeedRepository>())
-                {
-                    ControllerContext = controllerContext
-                };
-
-                //Act
-                var result = (RedirectToRouteResult)controller.DeletePingback(0);
-
-                //Assert
-                Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
-            }
-
-            [Test]
-            public void AdminControllerTests_ToggleSpam_Returns_Index_View()
-            {
-                //Arrange
-                var controllerContext = CreateControllerContext();
-
-                var controller = new AdminController(Substitute.For<IAdminRepository>(), Substitute.For<IFeedRepository>())
-                {
-                    ControllerContext = controllerContext
-                };
-
-                //Act
-                var result = (RedirectToRouteResult)controller.ToggleSpam(0);
-
-                //Assert
-                Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
-            }
-
-            [Test]
-            public void AdminControllerTests_ToggePingbackSpam_Returns_Index_View()
-            {
-                //Arrange
-                var controllerContext = CreateControllerContext();
-
-                var controller = new AdminController(Substitute.For<IAdminRepository>(), Substitute.For<IFeedRepository>())
-                {
-                    ControllerContext = controllerContext
-                };
-
-                //Act
-                var result = (RedirectToRouteResult)controller.TogglePingbackSpam(0);
-
-                //Assert
-                Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
-            }
+            Controller = new AdminController();
+            Controller.AdminRepository = AdminRepository = Substitute.For<IAdminRepository>();
+            Controller.FeedRepository = FeedRepository = Substitute.For<IFeedRepository>();
+            Controller.ControllerContext = CreateControllerContext();
         }
 
-        [TestFixture]
-        public class FeedsRepositoryTests
+        [Test]
+        public void Index()
         {
-            [Test]
-            public void FeedsRepositoryTests_CreateFeed_Saved_To_Repo()
-            {
-                //Arrange
-                var controllerContext = CreateControllerContext();
+            var result = (ViewResult)Controller.Index();
+            
+            Assert.That(result.ViewName, Is.EqualTo(string.Empty));
+        }
 
-                var feedsRepo = Substitute.For<IFeedRepository>();
-                var controller = new AdminController(Substitute.For<IAdminRepository>(), feedsRepo);
+        [Test]
+        public void CreateFeed()
+        {
+            var result = (RedirectToRouteResult)Controller.CreateFeed(Arg.Any<string>(), Arg.Any<string>());
 
-                //Act
-                controller.CreateFeed("name", "title");
+            Assert.That(result.RouteValues["Action"], Is.EqualTo("Index"));
+        }
 
-                //Assert
-                feedsRepo.Received().Save(Arg.Is<Feed>(x => x.Name == "name"));
-            }
+        [Test]
+        public void DeleteFeed()
+        {
+            FeedRepository.GetFeeds().Returns(new List<Feed>().AsQueryable());
+            
+            var result = (RedirectToRouteResult)Controller.DeleteFeed(0);
+
+            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
+        }
+
+        [Test]
+        public void DeleteRedirect()
+        {
+            AdminRepository.GetRedirects().Returns(new List<Redirect>().AsQueryable());
+
+            var result = (RedirectToRouteResult)Controller.DeleteRedirect(0);
+
+            Assert.That(result.RouteValues["Action"], Is.EqualTo("Index"));
+        }
+
+        [Test]
+        public void CreateRedirect()
+        {
+            var result = (RedirectToRouteResult)Controller.CreateRedirect(Arg.Any<string>(), Arg.Any<string>());
+
+            Assert.That(result.RouteValues["Action"], Is.EqualTo("Index"));
+        }
+
+        [Test]
+        public void UpdateSettings()
+        {
+            var result = (RedirectToRouteResult)Controller.UpdateSettings(Arg.Any<Dictionary<string, string>>());
+
+            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
+        }
+
+        [Test]
+        public void DeleteComment()
+        {
+            var result = (RedirectToRouteResult)Controller.DeleteComment(0);
+
+            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
+        }
+
+        [Test]
+        public void DeleteAllSpam()
+        {
+            var result = (RedirectToRouteResult)Controller.DeleteAllSpam();
+
+            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
+        }
+
+        [Test]
+        public void DeletePingback()
+        {
+            var result = (RedirectToRouteResult)Controller.DeletePingback(0);
+
+            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
+        }
+
+        [Test]
+        public void ToggleSpam()
+        {
+            var result = (RedirectToRouteResult)Controller.ToggleSpam(0);
+
+            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
+        }
+
+        [Test]
+        public void ToggePingbackSpam()
+        {
+            var result = (RedirectToRouteResult)Controller.TogglePingbackSpam(0);
+
+            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
+        }
+
+        [Test]
+        public void CreateFeedIsSaved()
+        {
+            Controller.CreateFeed("name", "title");
+
+            FeedRepository.Received().Save(Arg.Is<Feed>(x => x.Name == "name"));
         }
 
         private static ControllerContext CreateControllerContext()
         {
             var controllerContext = new ControllerContext();
-            HttpContextBase httpContext = Substitute.For<HttpContextBase>();
-            HttpServerUtilityBase httpServer = Substitute.For<HttpServerUtilityBase>();
+            var httpContext = Substitute.For<HttpContextBase>();
+            var httpServer = Substitute.For<HttpServerUtilityBase>();
             httpServer.MapPath(Arg.Any<string>()).Returns(@"C:\Windows");
             httpContext.Server.Returns(httpServer);
             controllerContext.HttpContext = httpContext;

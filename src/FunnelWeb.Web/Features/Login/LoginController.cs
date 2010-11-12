@@ -1,8 +1,8 @@
 using System.Web.Mvc;
 using FunnelWeb.Web.Application.Authentication;
-using FunnelWeb.Web.Application.Extensions;
+using FunnelWeb.Web.Features.Login.Views;
 
-namespace FunnelWeb.Web.Controllers
+namespace FunnelWeb.Web.Features.Login
 {
     public partial class LoginController : Controller
     {

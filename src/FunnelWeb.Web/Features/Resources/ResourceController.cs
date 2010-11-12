@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 
-namespace FunnelWeb.Web.Controllers
+namespace FunnelWeb.Web.Features.Resources
 {
     public partial class ResourceController : Controller
     {

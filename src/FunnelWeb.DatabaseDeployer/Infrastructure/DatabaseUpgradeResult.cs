@@ -9,11 +9,11 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
     /// </summary>
     public sealed class DatabaseUpgradeResult
     {
-        private readonly List<IScript> _scripts;
-        private readonly int _originalVersion;
-        private readonly int _upgradedVersion;
-        private readonly bool _successful;
-        private readonly Exception _error;
+        private readonly List<IScript> scripts;
+        private readonly int originalVersion;
+        private readonly int upgradedVersion;
+        private readonly bool successful;
+        private readonly Exception error;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DatabaseUpgradeResult"/> class.
@@ -25,12 +25,12 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
         /// <param name="error">The error.</param>
         public DatabaseUpgradeResult(IEnumerable<IScript> scripts, int original, int upgraded, bool successful, Exception error)
         {
-            _scripts = new List<IScript>();
-            _scripts.AddRange(scripts);
-            _originalVersion = original;
-            _upgradedVersion = upgraded;
-            _successful = successful;
-            _error = error;
+            this.scripts = new List<IScript>();
+            this.scripts.AddRange(scripts);
+            originalVersion = original;
+            upgradedVersion = upgraded;
+            this.successful = successful;
+            this.error = error;
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
         /// </summary>
         public IEnumerable<IScript> Scripts
         {
-            get { return _scripts; }
+            get { return scripts; }
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
         /// </summary>
         public int OriginalVersion
         {
-            get { return _originalVersion; }
+            get { return originalVersion; }
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
         /// </summary>
         public int UpgradedVersion
         {
-            get { return _upgradedVersion; }
+            get { return upgradedVersion; }
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
         /// </summary>
         public bool Successful
         {
-            get { return _successful; }
+            get { return successful; }
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
         /// </summary>
         public Exception Error
         {
-            get { return _error; }
+            get { return error; }
         }
     }
 }

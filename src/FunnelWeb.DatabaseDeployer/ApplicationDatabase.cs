@@ -14,18 +14,18 @@ namespace FunnelWeb.DatabaseDeployer
     public class ApplicationDatabase : IApplicationDatabase
     {
         public const string DefaultConnectionString = "Server=(local)\\SQLEXPRESS;Database=FunnelWeb;Trusted_connection=true";
-        private readonly IScriptExecutor _scriptExecutor;
-        private readonly IVersionTracker _versionTracker;
-        private readonly IScriptProvider _scriptProvider;
+        private readonly IScriptExecutor scriptExecutor;
+        private readonly IVersionTracker versionTracker;
+        private readonly IScriptProvider scriptProvider;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationDatabase"/> class.
         /// </summary>
         public ApplicationDatabase()
         {
-            _scriptExecutor = new SqlScriptExecutor();
-            _versionTracker = new SchemaVersionsTableSqlVersionTracker();
-            _scriptProvider = new EmbeddedSqlScriptProvider(
+            scriptExecutor = new SqlScriptExecutor();
+            versionTracker = new SchemaVersionsTableSqlVersionTracker();
+            scriptProvider = new EmbeddedSqlScriptProvider(
                 Assembly.GetExecutingAssembly(),
                 versionNumber => string.Format(
                                      "FunnelWeb.DatabaseDeployer.Scripts.Script{0}.sql",
@@ -38,7 +38,7 @@ namespace FunnelWeb.DatabaseDeployer
         /// <returns>The current version number.</returns>
         public int GetCurrentVersion(string connectionString)
         {
-            return _versionTracker.RecallVersionNumber(connectionString, new Log());
+            return versionTracker.RecallVersionNumber(connectionString, new Log());
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace FunnelWeb.DatabaseDeployer
         /// <returns>The application version number.</returns>
         public int GetApplicationVersion(string connectionString)
         {
-            return _scriptProvider.GetHighestScriptVersion();
+            return scriptProvider.GetHighestScriptVersion();
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace FunnelWeb.DatabaseDeployer
         /// </returns>
         public DatabaseUpgradeResult PerformUpgrade(string connectionString, ILog log)
         {
-            var result = new DatabaseUpgrader(connectionString, _scriptProvider, _versionTracker, _scriptExecutor)
+            var result = new DatabaseUpgrader(connectionString, scriptProvider, versionTracker, scriptExecutor)
                 .PerformUpgrade(log);
             return result;
         }

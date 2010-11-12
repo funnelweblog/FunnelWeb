@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace FunnelWeb.Web.Application.Views
+﻿namespace FunnelWeb.Web.Application.Views
 {
     public class MarkdownProvider : IMarkdownProvider
     {
+        private readonly string baseUrl;
+
         public MarkdownProvider(string baseUrl)
         {
-            _baseUrl = baseUrl;
+            this.baseUrl = baseUrl;
         }
-
-        string _baseUrl;
 
         public string Render(string text, bool sanitize = false)
         {
-            return new MarkdownRenderer(sanitize, _baseUrl).Render(text);
+            return new MarkdownRenderer(sanitize, baseUrl).Render(text);
         }
     }
 }

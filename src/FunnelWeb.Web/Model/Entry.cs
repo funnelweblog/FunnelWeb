@@ -9,7 +9,7 @@ namespace FunnelWeb.Web.Model
 {
     public class Entry
     {
-        private Revision _revision;
+        private Revision revision;
 
         public Entry()
         {
@@ -45,9 +45,9 @@ namespace FunnelWeb.Web.Model
         { 
             get
             {
-                return _revision ?? Revisions.OrderByDescending(x => x.Revised).FirstOrDefault();
+                return revision ?? Revisions.OrderByDescending(x => x.Revised).FirstOrDefault();
             }
-            set { _revision = value; }
+            set { revision = value; }
         }
 
         public virtual ISet<Revision> Revisions { get; private set; }
@@ -67,7 +67,7 @@ namespace FunnelWeb.Web.Model
             }
             revision.Entry = this;
             revision.Revised = DateTime.UtcNow;
-            _revision = revision;
+            this.revision = revision;
             Revisions.Add(revision);
             return revision;
         }

@@ -18,22 +18,28 @@ using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
-using FunnelWeb.Web.Features.Admin;
+using T4MVC;
 
-namespace FunnelWeb.Web
-{
-    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public static class FunnelWebMvc {
-        public static Features.Admin.AdminController Admin = new T4MVC_AdminController();
-        public static FeedController Feed = new T4MVC_FeedController();
-        public static InstallController Install = new T4MVC_InstallController();
-        public static LoginController Login = new T4MVC_LoginController();
-        public static ResourceController Resource = new T4MVC_ResourceController();
-        public static UploadController Upload = new T4MVC_UploadController();
-        public static WikiController Wiki = new T4MVC_WikiController();
-        public static SharedController Shared = new SharedController();
-    }
+[GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+public static class FunnelWebMvc {
+    public static FunnelWeb.Web.Features.Admin.AdminController Admin = new FunnelWeb.Web.Features.Admin.T4MVC_AdminController();
+    public static FunnelWeb.Web.Features.Feeds.FeedController Feed = new FunnelWeb.Web.Features.Feeds.T4MVC_FeedController();
+    public static FunnelWeb.Web.Features.Installation.InstallController Install = new FunnelWeb.Web.Features.Installation.T4MVC_InstallController();
+    public static FunnelWeb.Web.Features.Login.LoginController Login = new FunnelWeb.Web.Features.Login.T4MVC_LoginController();
+    public static FunnelWeb.Web.Features.Resources.ResourceController Resource = new FunnelWeb.Web.Features.Resources.T4MVC_ResourceController();
+    public static FunnelWeb.Web.Features.Uploads.UploadController Upload = new FunnelWeb.Web.Features.Uploads.T4MVC_UploadController();
+    public static FunnelWeb.Web.Features.Wikis.WikiController Wiki = new FunnelWeb.Web.Features.Wikis.T4MVC_WikiController();
+    public static T4MVC.FeedsController Feeds = new T4MVC.FeedsController();
+    public static T4MVC.InstallationController Installation = new T4MVC.InstallationController();
+    public static T4MVC.ResourcesController Resources = new T4MVC.ResourcesController();
+    public static T4MVC.UploadsController Uploads = new T4MVC.UploadsController();
+    public static T4MVC.WikisController Wikis = new T4MVC.WikisController();
+}
 
+namespace T4MVC {
+}
+
+namespace System.Web.Mvc {
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public static class T4Extensions {
         public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, string linkText, ActionResult result) {
@@ -76,7 +82,7 @@ namespace FunnelWeb.Web
 
         public static string ActionAbsolute(this UrlHelper urlHelper, ActionResult result) {
             return string.Format("{0}{1}",urlHelper.RequestContext.HttpContext.Request.Url.GetLeftPart(UriPartial.Authority),
-                                 urlHelper.RouteUrl(result.GetRouteValueDictionary()));
+                urlHelper.RouteUrl(result.GetRouteValueDictionary()));
         }
 
         public static MvcHtmlString ActionLink(this AjaxHelper ajaxHelper, string linkText, ActionResult result, AjaxOptions ajaxOptions) {
@@ -231,35 +237,192 @@ namespace FunnelWeb.Web
             return Convert.ToString((System.IO.File.GetLastWriteTimeUtc(filePath).Ticks-CenturyBegin.Ticks)/1000000000,16);            
         }
     }
+}
 
-
-    [GeneratedCode("T4MVC", "2.0")]   
-    public interface IT4MVCActionResult {   
-        string Action { get; set; }   
-        string Controller { get; set; }   
-        RouteValueDictionary RouteValueDictionary { get; set; }   
-    }   
+   
+[GeneratedCode("T4MVC", "2.0")]   
+public interface IT4MVCActionResult {   
+    string Action { get; set; }   
+    string Controller { get; set; }   
+    RouteValueDictionary RouteValueDictionary { get; set; }   
+}   
   
 
-    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public class T4MVC_ActionResult : System.Web.Mvc.ActionResult, IT4MVCActionResult {
-        public T4MVC_ActionResult(string area, string controller, string action): base()  {
-            this.InitMVCT4Result(area, controller, action);
-        }
-     
-        public override void ExecuteResult(System.Web.Mvc.ControllerContext context) { }
-    
-        public string Controller { get; set; }
-        public string Action { get; set; }
-        public RouteValueDictionary RouteValueDictionary { get; set; }
+[GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+public class T4MVC_ActionResult : System.Web.Mvc.ActionResult, IT4MVCActionResult {
+    public T4MVC_ActionResult(string area, string controller, string action): base()  {
+        this.InitMVCT4Result(area, controller, action);
     }
+     
+    public override void ExecuteResult(System.Web.Mvc.ControllerContext context) { }
+    
+    public string Controller { get; set; }
+    public string Action { get; set; }
+    public RouteValueDictionary RouteValueDictionary { get; set; }
+}
 
 
+
+namespace Links {
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public static class Content {
         private const string URLPATH = "~/Content";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+        public static readonly string Dialog_Master = Url("Dialog.Master");
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class DisplayTemplates {
+            private const string URLPATH = "~/Content/DisplayTemplates";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string Markdown_ascx = Url("Markdown.ascx");
+        }
+    
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class Images {
+            private const string URLPATH = "~/Content/Images";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string editorbuttons_png = Url("editorbuttons.png");
+            public static readonly string external_png = Url("external.png");
+            public static readonly string favicon_ico = Url("favicon.ico");
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class FileTypes {
+                private const string URLPATH = "~/Content/Images/FileTypes";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string bmp_png = Url("bmp.png");
+                public static readonly string cs_png = Url("cs.png");
+                public static readonly string csproj_png = Url("csproj.png");
+                public static readonly string default_png = Url("default.png");
+                public static readonly string dir_png = Url("dir.png");
+                public static readonly string doc_png = Url("doc.png");
+                public static readonly string Document_png = Url("Document.png");
+                public static readonly string docx_png = Url("docx.png");
+                public static readonly string gif_png = Url("gif.png");
+                public static readonly string Installer_png = Url("Installer.png");
+                public static readonly string jpg_png = Url("jpg.png");
+                public static readonly string Link_png = Url("Link.png");
+                public static readonly string png_png = Url("png.png");
+                public static readonly string pps_png = Url("pps.png");
+                public static readonly string ppsx_png = Url("ppsx.png");
+                public static readonly string ppt_png = Url("ppt.png");
+                public static readonly string pptx_png = Url("pptx.png");
+                public static readonly string rar_png = Url("rar.png");
+                public static readonly string sln_png = Url("sln.png");
+                public static readonly string tar_png = Url("tar.png");
+                public static readonly string xls_png = Url("xls.png");
+                public static readonly string xlsx_png = Url("xlsx.png");
+                public static readonly string Zip_png = Url("Zip.png");
+            }
+        
+            public static readonly string title_png = Url("title.png");
+            public static readonly string transparent_gif = Url("transparent.gif");
+        }
+    
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class Resources {
+            private const string URLPATH = "~/Content/Resources";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string favicon_ico = Url("favicon.ico");
+            public static readonly string favicon_png = Url("favicon.png");
+            public static readonly string Robots_txt = Url("Robots.txt");
+            public static readonly string Status_html = Url("Status.html");
+        }
+    
+        public static readonly string Safe_Master = Url("Safe.Master");
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class Scripts {
+            private const string URLPATH = "~/Content/Scripts";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class JQuery {
+                private const string URLPATH = "~/Content/Scripts/JQuery";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                public static class images {
+                    private const string URLPATH = "~/Content/Scripts/JQuery/images";
+                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                    public static readonly string ui_bg_diagonals_thick_18_b81900_40x40_png = Url("ui-bg_diagonals-thick_18_b81900_40x40.png");
+                    public static readonly string ui_bg_diagonals_thick_20_666666_40x40_png = Url("ui-bg_diagonals-thick_20_666666_40x40.png");
+                    public static readonly string ui_bg_flat_10_000000_40x100_png = Url("ui-bg_flat_10_000000_40x100.png");
+                    public static readonly string ui_bg_glass_100_f6f6f6_1x400_png = Url("ui-bg_glass_100_f6f6f6_1x400.png");
+                    public static readonly string ui_bg_glass_100_fdf5ce_1x400_png = Url("ui-bg_glass_100_fdf5ce_1x400.png");
+                    public static readonly string ui_bg_glass_65_ffffff_1x400_png = Url("ui-bg_glass_65_ffffff_1x400.png");
+                    public static readonly string ui_bg_gloss_wave_35_f6a828_500x100_png = Url("ui-bg_gloss-wave_35_f6a828_500x100.png");
+                    public static readonly string ui_bg_highlight_soft_100_eeeeee_1x100_png = Url("ui-bg_highlight-soft_100_eeeeee_1x100.png");
+                    public static readonly string ui_bg_highlight_soft_75_ffe45c_1x100_png = Url("ui-bg_highlight-soft_75_ffe45c_1x100.png");
+                    public static readonly string ui_icons_222222_256x240_png = Url("ui-icons_222222_256x240.png");
+                    public static readonly string ui_icons_228ef1_256x240_png = Url("ui-icons_228ef1_256x240.png");
+                    public static readonly string ui_icons_ef8c08_256x240_png = Url("ui-icons_ef8c08_256x240.png");
+                    public static readonly string ui_icons_ffd27a_256x240_png = Url("ui-icons_ffd27a_256x240.png");
+                    public static readonly string ui_icons_ffffff_256x240_png = Url("ui-icons_ffffff_256x240.png");
+                }
+            
+                public static readonly string jquery_1_3_2_vsdoc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.3.2-vsdoc.min.js") ? Url("jquery-1.3.2-vsdoc.min.js") : Url("jquery-1.3.2-vsdoc.js");
+                              
+                public static readonly string jquery_1_3_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.3.2.min.js") ? Url("jquery-1.3.2.min.js") : Url("jquery-1.3.2.js");
+                              
+                public static readonly string jquery_1_3_2_min_vsdoc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.3.2.min-vsdoc.min.js") ? Url("jquery-1.3.2.min-vsdoc.min.js") : Url("jquery-1.3.2.min-vsdoc.js");
+                              
+                public static readonly string jquery_1_3_2_min_js = Url("jquery-1.3.2.min.js");
+                public static readonly string jquery_fieldselection_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-fieldselection.min.js") ? Url("jquery-fieldselection.min.js") : Url("jquery-fieldselection.js");
+                              
+                public static readonly string jquery_scrollto_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-scrollto.min.js") ? Url("jquery-scrollto.min.js") : Url("jquery-scrollto.js");
+                              
+                public static readonly string jquery_ui_1_7_3_custom_css = Url("jquery-ui-1.7.3.custom.css");
+                public static readonly string jquery_ui_1_7_3_custom_min_js = Url("jquery-ui-1.7.3.custom.min.js");
+                public static readonly string jquery_validation_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-validation.min.js") ? Url("jquery-validation.min.js") : Url("jquery-validation.js");
+                              
+                public static readonly string jsdate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jsdate.min.js") ? Url("jsdate.min.js") : Url("jsdate.js");
+                              
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class MD5 {
+                private const string URLPATH = "~/Content/Scripts/MD5";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string MD5_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/MD5.min.js") ? Url("MD5.min.js") : Url("MD5.js");
+                              
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class Prettify {
+                private const string URLPATH = "~/Content/Scripts/Prettify";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string prettify_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/prettify.min.js") ? Url("prettify.min.js") : Url("prettify.js");
+                              
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class Showdown {
+                private const string URLPATH = "~/Content/Scripts/Showdown";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string showdown_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/showdown.min.js") ? Url("showdown.min.js") : Url("showdown.js");
+                              
+                public static readonly string wmd_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/wmd.min.js") ? Url("wmd.min.js") : Url("wmd.js");
+                              
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class Site {
+                private const string URLPATH = "~/Content/Scripts/Site";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string Site_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Site.min.js") ? Url("Site.min.js") : Url("Site.js");
+                              
+            }
+        
+        }
+    
+        public static readonly string Site_Master = Url("Site.Master");
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class Styles {
             private const string URLPATH = "~/Content/Styles";
@@ -298,41 +461,59 @@ namespace FunnelWeb.Web
                     public static readonly string Theme_css = Url("Theme.css");
                 }
             
+                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                public static class MattHamilton {
+                    private const string URLPATH = "~/Content/Styles/Themes/MattHamilton";
+                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                    public static readonly string Theme_css = Url("Theme.css");
+                    public static readonly string Title_png = Url("Title.png");
+                }
+            
             }
         
         }
     
     }
 
-    static class T4MVCHelpers {
-        // You can change the ProcessVirtualPath method to modify the path that gets returned to the client.
-        // e.g. you can prepend a domain, or append a query string:
-        //      return "http://localhost" + path + "?foo=bar";
-        private static string ProcessVirtualPathDefault(string virtualPath) {
-            // The path that comes in starts with ~/ and must first be made absolute
-            string path = VirtualPathUtility.ToAbsolute(virtualPath);
+}
+
+static class T4MVCHelpers {
+    // You can change the ProcessVirtualPath method to modify the path that gets returned to the client.
+    // e.g. you can prepend a domain, or append a query string:
+    //      return "http://localhost" + path + "?foo=bar";
+    private static string ProcessVirtualPathDefault(string virtualPath) {
+        // The path that comes in starts with ~/ and must first be made absolute
+        string path = VirtualPathUtility.ToAbsolute(virtualPath);
         
-            // Add your own modifications here before returning the path
-            return path;
-        }
-
-        // Calling ProcessVirtualPath through delegate to allow it to be replaced for unit testing
-        public static Func<string, string> ProcessVirtualPath = ProcessVirtualPathDefault;
-
-
-        // Logic to determine if the app is running in production or dev environment
-        public static bool IsProduction() { 
-            return (HttpContext.Current != null && !HttpContext.Current.IsDebuggingEnabled); 
-        }
+        // Add your own modifications here before returning the path
+        return path;
     }
 
+    // Calling ProcessVirtualPath through delegate to allow it to be replaced for unit testing
+    public static Func<string, string> ProcessVirtualPath = ProcessVirtualPathDefault;
 
+
+    // Logic to determine if the app is running in production or dev environment
+    public static bool IsProduction() { 
+        return (HttpContext.Current != null && !HttpContext.Current.IsDebuggingEnabled); 
+    }
+}
+
+
+
+
+namespace T4MVC {
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public class Dummy {
         private Dummy() { }
         public static Dummy Instance = new Dummy();
     }
-
-    #endregion T4MVC
-#pragma warning restore 1591
 }
+
+	
+
+#endregion T4MVC
+#pragma warning restore 1591
+
+

@@ -1,7 +1,8 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
+using System.Web.Mvc;
 using System.Xml;
 using System.Xml.Linq;
-using System;
 
 namespace FunnelWeb.Web.Application.Mvc.ActionResults
 {
@@ -15,9 +16,10 @@ namespace FunnelWeb.Web.Application.Mvc.ActionResults
         {
             if (xml == null)
                 throw new ArgumentNullException("xml", "XML must be provided for this feed to use");
-            this.Xml = xml;
-            this.ContentType = "text/xml";
-            this.Encoding = Encoding.UTF8;
+            
+            Xml = xml;
+            ContentType = "text/xml";
+            Encoding = Encoding.UTF8;
         }
 
         public override void ExecuteResult(ControllerContext context)
@@ -25,7 +27,8 @@ namespace FunnelWeb.Web.Application.Mvc.ActionResults
             var response = context.HttpContext.Response;
             response.ContentType = this.ContentType;
             response.HeaderEncoding = this.Encoding;
-            XmlTextWriter writer = new XmlTextWriter(response.OutputStream, this.Encoding);
+            
+            var writer = new XmlTextWriter(response.OutputStream, this.Encoding);
             Xml.WriteTo(writer);
             writer.Close();
         }

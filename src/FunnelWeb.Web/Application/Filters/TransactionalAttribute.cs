@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Web;
+using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Web;
 using NHibernate;

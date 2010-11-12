@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace FunnelWeb.Web.Application.Views
+﻿namespace FunnelWeb.Web.Application.Views
 {
     public interface IMarkdownProvider
     {

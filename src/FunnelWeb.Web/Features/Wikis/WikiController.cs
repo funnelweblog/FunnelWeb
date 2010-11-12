@@ -1,51 +1,43 @@
-﻿using System;
-using System.Linq;
-using FunnelWeb.Web.Application;
+﻿using System.Linq;
+using System.Web.Mvc;
 using FunnelWeb.Web.Application.Filters;
-using FunnelWeb.Web.Application.HealthMonitoring.Events;
 using FunnelWeb.Web.Application.Spam;
+using FunnelWeb.Web.Features.Wikis.Views;
 using FunnelWeb.Web.Model;
 using FunnelWeb.Web.Model.Repositories;
 using FunnelWeb.Web.Model.Strings;
 
-namespace FunnelWeb.Web.Controllers
+namespace FunnelWeb.Web.Features.Wikis
 {
-    [ValidateInput(false), Transactional]
+    [Transactional]
     [HandleError]
     public partial class WikiController : Controller
     {
         private const int ItemsPerPage = 30;
-        private readonly IEntryRepository _entryRepository;
-        private readonly IFeedRepository _feedRepository;
-        private readonly ISpamChecker _spamChecker;
-
-        public WikiController(IEntryRepository entryRepository, IFeedRepository feedRepository, ISpamChecker spamChecker)
-        {
-            _entryRepository = entryRepository;
-            _feedRepository = feedRepository;
-            _spamChecker = spamChecker;
-        }
+        public IEntryRepository EntryRepository { get; set; }
+        public IFeedRepository FeedRepository { get; set; }
+        public ISpamChecker SpamChecker { get; set; }
 
         public virtual ActionResult Recent(int pageNumber)
         {
-            var feed = _feedRepository.GetFeeds().OrderBy(f => f.Id).First().Name;
+            var feed = FeedRepository.GetFeeds().OrderBy(f => f.Id).First().Name;
 
-            var entries = _feedRepository.GetFeed(feed, pageNumber * ItemsPerPage, ItemsPerPage);
-            var totalItems = _feedRepository.GetFeedCount(feed);
+            var entries = FeedRepository.GetFeed(feed, pageNumber * ItemsPerPage, ItemsPerPage);
+            var totalItems = FeedRepository.GetFeedCount(feed);
             ViewData.Model = new RecentModel(entries, pageNumber, (int)((decimal)totalItems / ItemsPerPage + 1));
             return View();
         }
 
         public virtual ActionResult Search([Bind(Prefix = "q")] string searchText)
         {
-            var results = _entryRepository.Search(searchText);
+            var results = EntryRepository.Search(searchText);
             ViewData.Model = new NotFoundModel(searchText, false, results);
-            return View(FunnelWebMvc.Wiki.Views.NotFound);
+            return View("NotFound");
         }
 
         public virtual ActionResult NotFound(string searchText)
         {
-            var redirect = _entryRepository.GetClosestRedirect(HttpContext.Request.Url.AbsolutePath);
+            var redirect = EntryRepository.GetClosestRedirect(HttpContext.Request.Url.AbsolutePath);
             if (redirect != null)
             {
                 return redirect.To.StartsWith("http") 
@@ -53,15 +45,14 @@ namespace FunnelWeb.Web.Controllers
                     : Redirect("~/" + redirect.To);
             }
 
-            new EntryNotFoundEvent(HttpContext.Request.Url.OriginalString, this).Raise();
-            var results = _entryRepository.Search(searchText);
+            var results = EntryRepository.Search(searchText);
             ViewData.Model = new NotFoundModel(searchText, true, results);
-            return View(FunnelWebMvc.Wiki.Views.NotFound);
+            return View("NotFound");
         }
 
         public virtual ActionResult Page(PageName page, int revision)
         {
-            var entry = _entryRepository.GetEntry(page, revision);
+            var entry = EntryRepository.GetEntry(page, revision);
             if (entry == null)
             {
                 if (HttpContext.User.Identity.IsAuthenticated)
@@ -78,17 +69,17 @@ namespace FunnelWeb.Web.Controllers
         [Authorize]
         public virtual ActionResult New()
         {
-            var feeds = _feedRepository.GetFeeds();
+            var feeds = FeedRepository.GetFeeds();
             var entry = new Entry() { Title = "Enter a Title", MetaTitle = "Enter a meta title", Name = "" };
             ViewData.Model = new EditModel("", entry, true, feeds);
-            return View(FunnelWebMvc.Wiki.Views.Edit);
+            return View("Edit");
         }
 
         [Authorize]
         public virtual ActionResult Edit(PageName page)
         {
-            var entry = _entryRepository.GetEntry(page) ?? new Entry() { Title = page, MetaTitle = page, Name = page};
-            var feeds = _feedRepository.GetFeeds();
+            var entry = EntryRepository.GetEntry(page) ?? new Entry() { Title = page, MetaTitle = page, Name = page};
+            var feeds = FeedRepository.GetFeeds();
             ViewData.Model = new EditModel(page, entry, entry.Id == 0, feeds);
             return View();
         }
@@ -96,16 +87,16 @@ namespace FunnelWeb.Web.Controllers
         [Authorize]
         public virtual ActionResult Unpublished()
         {
-            var allPosts = _entryRepository.GetUnpublished();
+            var allPosts = EntryRepository.GetUnpublished();
             ViewData.Model = new RecentModel(allPosts, 1, 1);
             return View();
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [HttpPost]
         [Authorize]
         public virtual ActionResult Save(PageName page, string title, string metaTitle, string summary, string body, string comment, string metaDescription, string metaKeywords, bool enableDiscussion, int[] feeds)
         {
-            var entry = _entryRepository.GetEntry(page) ?? new Entry();
+            var entry = EntryRepository.GetEntry(page) ?? new Entry();
             entry.Name = page;
             entry.Title = title;
             entry.Summary = summary;
@@ -118,14 +109,14 @@ namespace FunnelWeb.Web.Controllers
             revision.Body = body;
             revision.Reason = comment;
 
-            _entryRepository.Save(entry);
+            EntryRepository.Save(entry);
 
-            foreach (var feed in _feedRepository.GetFeeds())
+            foreach (var feed in FeedRepository.GetFeeds())
             {
                 if (!feeds.Contains(feed.Id)) continue;
 
                 feed.Publish(entry);
-                _feedRepository.Save(feed);
+                FeedRepository.Save(feed);
             }
 
             return RedirectToAction("Page", new { page = page });
@@ -133,7 +124,7 @@ namespace FunnelWeb.Web.Controllers
 
         public virtual ActionResult Comment(PageName page, string name, string url, string email, string comments)
         {
-            var entry = _entryRepository.GetEntry(page);
+            var entry = EntryRepository.GetEntry(page);
             if (entry == null) return RedirectToAction("Recent");
 
             var comment = entry.Comment();
@@ -142,16 +133,15 @@ namespace FunnelWeb.Web.Controllers
             comment.AuthorName = name;
             comment.AuthorUrl = url;
             comment.Body = comments;
-            _spamChecker.Verify(comment);
-            _entryRepository.Save(entry);
-            new CommentPostedEvent(page, comment.IsSpam, comment.Body, this).Raise();
-
+            SpamChecker.Verify(comment);
+            EntryRepository.Save(entry);
+            
             return RedirectToAction("Page", new { page = page });
         }
 
         public virtual ActionResult Revisions(PageName page)
         {
-            var entry = _entryRepository.GetEntry(page);
+            var entry = EntryRepository.GetEntry(page);
             if (entry == null)
             {
                 return RedirectToAction("Edit", new { page = page });
@@ -163,7 +153,7 @@ namespace FunnelWeb.Web.Controllers
 
         public virtual ActionResult SiteMap()
         {
-            var allPosts = _entryRepository.GetEntries().OrderBy(x => x.Published).ToList();
+            var allPosts = EntryRepository.GetEntries().OrderBy(x => x.Published).ToList();
             ViewData.Model = new SiteMapModel(allPosts);
             return View();
         }

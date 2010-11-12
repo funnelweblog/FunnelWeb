@@ -1,57 +1,51 @@
-﻿using System.Web.Configuration;
+﻿using System.Web.Mvc;
 using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.DatabaseDeployer.Infrastructure;
-using FunnelWeb.Web.Application.Filters;
 using FunnelWeb.Web.Application.Installation;
+using FunnelWeb.Web.Features.Installation.Views;
 
-namespace FunnelWeb.Web.Controllers
+namespace FunnelWeb.Web.Features.Installation
 {
     [ValidateInput(false)]
     public partial class InstallController : Controller
     {
-        private readonly IApplicationDatabase _database;
-        private readonly IConnectionStringProvider _connectionStringProvider;
-
-        public InstallController(IApplicationDatabase database, IConnectionStringProvider connectionStringProvider)
-        {
-            _database = database;
-            _connectionStringProvider = connectionStringProvider;
-        }
+        public IApplicationDatabase Database { get; set; }
+        public IConnectionStringProvider ConnectionStringProvider { get; set; }
 
         [Authorize]
         public virtual ActionResult Index()
         {
-            var connectionString = _connectionStringProvider.ConnectionString;
+            var connectionString = ConnectionStringProvider.ConnectionString;
 
             string error;
             var model = new IndexModel();
-            model.CanConnect = _database.TryConnect(connectionString, out error);
+            model.CanConnect = Database.TryConnect(connectionString, out error);
             model.ConnectionError = error;
             model.ConnectionString = connectionString;
             if (model.CanConnect)
             {
-                model.CurrentVersion = _database.GetCurrentVersion(connectionString);
-                model.NewVersion = _database.GetApplicationVersion(connectionString);
+                model.CurrentVersion = Database.GetCurrentVersion(connectionString);
+                model.NewVersion = Database.GetApplicationVersion(connectionString);
             }
 
             return View("Index", model);
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [HttpPost]
         [Authorize]
         [ActionName("test")]
         public virtual ActionResult Test(string connectionString)
         {
-            _connectionStringProvider.ConnectionString = connectionString;
+            ConnectionStringProvider.ConnectionString = connectionString;
             return RedirectToAction("Index");
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [HttpPost]
         [Authorize]
         public virtual ActionResult Upgrade()
         {
             var log = new Log();
-            var result = _database.PerformUpgrade(_connectionStringProvider.ConnectionString, log);
+            var result = Database.PerformUpgrade(ConnectionStringProvider.ConnectionString, log);
             return View("UpgradeReport", new UpgradeModel(result, log));
         }
     }

@@ -6,10 +6,10 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders
     /// </summary>
     public sealed class EmbeddedSqlScript : IScript
     {
-        private readonly string _contents;
-        private readonly string _name;
-        private readonly int _versionNumber;
-        private readonly string _sourceIdentifier;
+        private readonly string contents;
+        private readonly string name;
+        private readonly int versionNumber;
+        private readonly string sourceIdentifier;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EmbeddedSqlScript"/> class.
@@ -20,10 +20,10 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders
         /// <param name="sourceIdentifier">The source identifier.</param>
         public EmbeddedSqlScript(string name, string contents, int versionNumber, string sourceIdentifier)
         {
-            _name = name;
-            _contents = contents;
-            _versionNumber = versionNumber;
-            _sourceIdentifier = sourceIdentifier;
+            this.name = name;
+            this.contents = contents;
+            this.versionNumber = versionNumber;
+            this.sourceIdentifier = sourceIdentifier;
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders
         /// <value></value>
         public string Contents
         {
-            get { return _contents; }
+            get { return contents; }
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders
         /// <value></value>
         public string Name
         {
-            get { return _name; }
+            get { return name; }
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders
         /// <value></value>
         public int VersionNumber
         {
-            get { return _versionNumber; }
+            get { return versionNumber; }
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders
         /// <value></value>
         public string SourceIdentifier
         {
-            get { return _sourceIdentifier; }
+            get { return sourceIdentifier; }
         }
     }
 }

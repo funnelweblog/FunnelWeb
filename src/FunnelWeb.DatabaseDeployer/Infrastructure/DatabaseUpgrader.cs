@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using FunnelWeb.DatabaseDeployer.Infrastructure.Execution;
 using FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders;
 using FunnelWeb.DatabaseDeployer.Infrastructure.VersionTrackers;
@@ -12,20 +11,20 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
     /// </summary>
     public class DatabaseUpgrader
     {
-        private readonly string _connectionString;
-        private readonly IScriptProvider _scriptProvider;
-        private readonly IVersionTracker _versionTracker;
-        private readonly IScriptExecutor _scriptExecutor;
+        private readonly string connectionString;
+        private readonly IScriptProvider scriptProvider;
+        private readonly IVersionTracker versionTracker;
+        private readonly IScriptExecutor scriptExecutor;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DatabaseUpgrader"/> class.
         /// </summary>
         public DatabaseUpgrader(string connectionString, IScriptProvider scriptProvider, IVersionTracker versionTracker, IScriptExecutor scriptExecutor)
         {
-            _connectionString = connectionString;
-            _scriptExecutor = scriptExecutor;
-            _versionTracker = versionTracker;
-            _scriptProvider = scriptProvider;
+            this.connectionString = connectionString;
+            this.scriptExecutor = scriptExecutor;
+            this.versionTracker = versionTracker;
+            this.scriptProvider = scriptProvider;
         }
 
         /// <summary>
@@ -39,10 +38,10 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
             var scripts = new List<IScript>();
             try
             {
-                log.WriteInformation("Beginning database upgrade. Connection string is: '{0}'", _connectionString);
+                log.WriteInformation("Beginning database upgrade. Connection string is: '{0}'", connectionString);
 
-                originalVersion = _versionTracker.RecallVersionNumber(_connectionString, log);
-                maximumVersion = _scriptProvider.GetHighestScriptVersion();
+                originalVersion = versionTracker.RecallVersionNumber(connectionString, log);
+                maximumVersion = scriptProvider.GetHighestScriptVersion();
 
                 currentVersion = originalVersion;
                 while (currentVersion < maximumVersion)
@@ -51,9 +50,9 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
                     log.WriteInformation("Upgrading to version: '{0}'", currentVersion);
                     using (log.Indent())
                     {
-                        var script = _scriptProvider.GetScript(currentVersion);
-                        _scriptExecutor.Execute(_connectionString, script, log);
-                        _versionTracker.StoreUpgrade(_connectionString, script, log);
+                        var script = scriptProvider.GetScript(currentVersion);
+                        scriptExecutor.Execute(connectionString, script, log);
+                        versionTracker.StoreUpgrade(connectionString, script, log);
                         scripts.Add(script);
                     }
                 }

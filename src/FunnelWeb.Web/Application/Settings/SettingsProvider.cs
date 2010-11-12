@@ -1,29 +1,29 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using FunnelWeb.Web.Model;
 using FunnelWeb.Web.Model.Repositories;
+
 namespace FunnelWeb.Web.Application.Settings
 {
     public class SettingsProvider : ISettingsProvider
     {
-        private readonly object _lock = new object();
-        private readonly IAdminRepository _repository;
-        private string _siteTitle;
-        private string _introduction;
-        private string _mainLinks;
-        private string _author;
-        private string _searchDescription;
-        private string _searchKeywords;
-        private bool _isInitialized;
-        private string _spamWords;
-        private string _defaultPage;
-        private string _footer;
-        private string _theme;
+        private readonly object @lock = new object();
+        private readonly IAdminRepository repository;
+        private string siteTitle;
+        private string introduction;
+        private string mainLinks;
+        private string author;
+        private string searchDescription;
+        private string searchKeywords;
+        private bool isInitialized;
+        private string spamWords;
+        private string defaultPage;
+        private string footer;
+        private string theme;
 
         public SettingsProvider(IAdminRepository repository)
         {
-            _repository = repository;
+            this.repository = repository;
         }
 
         public string SiteTitle
@@ -31,7 +31,7 @@ namespace FunnelWeb.Web.Application.Settings
             get
             {
                 EnsureInitialized();
-                return _siteTitle;
+                return siteTitle;
             }
         }
 
@@ -40,7 +40,7 @@ namespace FunnelWeb.Web.Application.Settings
             get
             {
                 EnsureInitialized();
-                return _defaultPage;
+                return defaultPage;
             }
         }
 
@@ -49,7 +49,7 @@ namespace FunnelWeb.Web.Application.Settings
             get
             {
                 EnsureInitialized();
-                return _author;
+                return author;
             }
         }
 
@@ -58,7 +58,7 @@ namespace FunnelWeb.Web.Application.Settings
             get
             {
                 EnsureInitialized();
-                return _searchDescription;
+                return searchDescription;
             }
         }
 
@@ -67,7 +67,7 @@ namespace FunnelWeb.Web.Application.Settings
             get
             {
                 EnsureInitialized();
-                return _searchKeywords;
+                return searchKeywords;
             }
         }
 
@@ -76,7 +76,7 @@ namespace FunnelWeb.Web.Application.Settings
             get 
             { 
                 EnsureInitialized();
-                return _spamWords;
+                return spamWords;
             }
         }
 
@@ -85,7 +85,7 @@ namespace FunnelWeb.Web.Application.Settings
             get
             {
                 EnsureInitialized(); 
-                return _introduction;
+                return introduction;
             }
         }
 
@@ -94,7 +94,7 @@ namespace FunnelWeb.Web.Application.Settings
             get
             {
                 EnsureInitialized(); 
-                return _mainLinks;
+                return mainLinks;
             }
         }
 
@@ -103,7 +103,7 @@ namespace FunnelWeb.Web.Application.Settings
             get
             {
                 EnsureInitialized();
-                return _footer;
+                return footer;
             }
         }
 
@@ -112,33 +112,33 @@ namespace FunnelWeb.Web.Application.Settings
             get
             {
                 EnsureInitialized();
-                return _theme;
+                return theme;
             }
         }
 
         private void EnsureInitialized()
         {
-            if (_isInitialized) 
+            if (isInitialized) 
                 return;
 
-            lock (_lock)
+            lock (@lock)
             {
-                if (_isInitialized)
+                if (isInitialized)
                     return;
                 
-                _isInitialized = true;
+                isInitialized = true;
 
-                var settings = _repository.GetSettings().ToList();
-                _siteTitle = ReadSetting(settings, "ui-title");
-                _introduction = ReadSetting(settings, "ui-introduction");
-                _mainLinks = ReadSetting(settings, "ui-links");
-                _author = ReadSetting(settings, "search-author");
-                _searchDescription = ReadSetting(settings, "search-description");
-                _searchKeywords = ReadSetting(settings, "search-keywords");
-                _spamWords = ReadSetting(settings, "spam-blacklist");
-                _footer = ReadSetting(settings, "ui.footer");
-                _defaultPage = ReadSetting(settings, "default-page");
-                _theme = ReadSetting(settings, "ui-theme");
+                var settings = repository.GetSettings().ToList();
+                siteTitle = ReadSetting(settings, "ui-title");
+                introduction = ReadSetting(settings, "ui-introduction");
+                mainLinks = ReadSetting(settings, "ui-links");
+                author = ReadSetting(settings, "search-author");
+                searchDescription = ReadSetting(settings, "search-description");
+                searchKeywords = ReadSetting(settings, "search-keywords");
+                spamWords = ReadSetting(settings, "spam-blacklist");
+                footer = ReadSetting(settings, "ui.footer");
+                defaultPage = ReadSetting(settings, "default-page");
+                theme = ReadSetting(settings, "ui-theme");
             }
         }
 

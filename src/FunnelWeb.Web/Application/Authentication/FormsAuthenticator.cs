@@ -1,4 +1,3 @@
-using System;
 using System.Web.Security;
 
 namespace FunnelWeb.Web.Application.Authentication

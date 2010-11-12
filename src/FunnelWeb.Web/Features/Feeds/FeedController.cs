@@ -15,22 +15,15 @@ namespace FunnelWeb.Web.Features.Feeds
     [Transactional]
     public partial class FeedController : Controller
     {
-        public FeedController(IFeedRepository feedRepository, IMarkdownProvider markdown, ISettingsProvider settings)
-        {
-            _feedRepository = feedRepository;
-            _markdown = markdown;
-            _settings = settings;
-        }
-
-        private readonly IFeedRepository _feedRepository;
-        private readonly IMarkdownProvider _markdown;
-        private readonly ISettingsProvider _settings;
+        public IFeedRepository FeedRepository { get; set; }
+        public IMarkdownProvider Markdown { get; set; }
+        public ISettingsProvider Settings { get; set; }
 
         private FeedResult FeedResult(IEnumerable<SyndicationItem> items)
         {
             return new FeedResult(
                 new Atom10FeedFormatter(
-                    new SyndicationFeed(_settings.SiteTitle, _settings.SearchDescription, new Uri(Url.ActionAbsolute(FunnelWebMvc.Wiki.Recent())), items)
+                    new SyndicationFeed(Settings.SiteTitle, Settings.SearchDescription, new Uri(Url.ActionAbsolute(FunnelWebMvc.Wiki.Recent())), items)
             {
                 Id = Request.Url.ToString(),
                 Links = 
@@ -50,9 +43,9 @@ namespace FunnelWeb.Web.Features.Feeds
         {
             if (String.IsNullOrWhiteSpace(feedName))
             {
-                feedName = _feedRepository.GetFeeds().OrderBy(f => f.Id).First().Name;
+                feedName = FeedRepository.GetFeeds().OrderBy(f => f.Id).First().Name;
             }
-            var entries = _feedRepository.GetFeed(feedName, 0, 20);
+            var entries = FeedRepository.GetFeed(feedName, 0, 20);
 
             var items = (from e in entries
                          let itemUri = new Uri(Request.Url, Url.Action("Page", "Wiki", new { page = e.Name }))
@@ -63,7 +56,7 @@ namespace FunnelWeb.Web.Features.Feeds
                                  Id = itemUri.ToString(),
                                  Title = TextSyndicationContent.CreatePlaintextContent(e.Title),
                                  Summary = TextSyndicationContent.CreateHtmlContent(
-                                     _markdown.Render(e.LatestRevision.Body) + String.Format("<img src=\"{0}\" />", itemUri + "/via-feed")),
+                                     Markdown.Render(e.LatestRevision.Body) + String.Format("<img src=\"{0}\" />", itemUri + "/via-feed")),
                                  LastUpdatedTime = e.LatestRevision.Revised,
                                  Links = 
                                 {
@@ -71,7 +64,7 @@ namespace FunnelWeb.Web.Features.Feeds
                                 },
                                  Authors = 
                                 {
-                                    new SyndicationPerson { Name = _settings.Author } 
+                                    new SyndicationPerson { Name = Settings.Author } 
                                 },
                              },
                              Keywords = e.MetaKeywords.Split(',')
@@ -90,7 +83,7 @@ namespace FunnelWeb.Web.Features.Feeds
 
         public virtual ActionResult CommentFeed()
         {
-            var comments = _feedRepository.GetCommentFeed(0, 20);
+            var comments = FeedRepository.GetCommentFeed(0, 20);
 
             var items = from e in comments
                         let itemUri = new Uri(Request.Url, Url.Action("Page", "Wiki", new { page = e.Entry.Name, comment = e.Id }))
@@ -98,7 +91,7 @@ namespace FunnelWeb.Web.Features.Feeds
                         {
                             Id = itemUri.ToString(),
                             Title = TextSyndicationContent.CreatePlaintextContent(e.AuthorName + " on " + e.Entry.Title),
-                            Summary = TextSyndicationContent.CreateHtmlContent(_markdown.Render(e.Body, true)),
+                            Summary = TextSyndicationContent.CreateHtmlContent(Markdown.Render(e.Body, true)),
                             LastUpdatedTime = e.Posted,
                             Links = 
                             {

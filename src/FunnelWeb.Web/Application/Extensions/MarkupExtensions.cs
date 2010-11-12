@@ -1,73 +1,16 @@
 ﻿using System;
-using System.Linq;
-using System.Text;
-using FunnelWeb.Web.Application.Extensions.Builders;
-using System.Security.Cryptography;
-using FunnelWeb.Web.Application.Views;
-using System.Reflection;
 using System.Globalization;
+using System.Linq;
+using System.Reflection;
+using System.Security.Cryptography;
+using System.Text;
+using System.Web.Mvc;
+using FunnelWeb.Web.Application.Views;
 
 namespace FunnelWeb.Web.Application.Extensions
 {
     public static class MarkupExtensions
     {
-        #region Labels
-
-        public static string Label(this HtmlHelper html, string displayName, string forName)
-        {
-            var result = "<label class=\"required\" for=\"{0}\">{1}:</label>";
-            result = string.Format(
-                result,
-                forName,
-                html.Encode(displayName)
-                );
-            return result;
-        }
-
-        public static string LabelOptional(this HtmlHelper html, string displayName, string forName)
-        {
-            var result = "<label for=\"{0}\">{1}:</label>";
-            result = string.Format(
-                result,
-                forName,
-                html.Encode(displayName)
-                );
-            return result;
-        }
-
-        #endregion
-
-        #region Input
-
-        public static TextBoxBuilder InputTextBox(this HtmlHelper html, string name)
-        {
-            return new TextBoxBuilder(html, name);
-        }
-
-        public static TextAreaBuilder InputTextArea(this HtmlHelper html, string name)
-        {
-            return new TextAreaBuilder(html, name);
-        }
-
-        public static string InputCheckBox(this HtmlHelper html, string name, object value)
-        {
-            return string.Format("<input type='checkbox' name='{0}' value='{1}' />",
-                name, html.Encode(value)
-                );
-        }
-
-        public static TextEditorBuilder InputTextEditor(this HtmlHelper html, string name)
-        {
-            return new TextEditorBuilder(html, name);
-        }
-
-        public static DatePickerBuilder InputDatePicker(this HtmlHelper html, string name)
-        {
-            return new DatePickerBuilder(html, name);
-        }
-
-        #endregion
-
         #region URL's
 
         public static string Qualify(this HtmlHelper html, MvcHtmlString url)

@@ -1,6 +1,5 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders;
 
 namespace FunnelWeb.DatabaseDeployer.Infrastructure.VersionTrackers

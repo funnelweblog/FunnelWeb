@@ -13,8 +13,8 @@ namespace FunnelWeb.Web.Model.Repositories
 {
     public class RepositoriesModule : Module
     {
-        private static ISessionFactory _sessionFactory;
-        private static readonly object _lock = new object();
+        private static ISessionFactory sessionFactory;
+        private static readonly object Lock = new object();
         
         public RepositoriesModule()
         {
@@ -31,13 +31,13 @@ namespace FunnelWeb.Web.Model.Repositories
             builder.RegisterType<EntryRepository>().As<IEntryRepository>().HttpRequestScoped();
             builder.Register(x =>
             {
-                if (_sessionFactory == null)
+                if (sessionFactory == null)
                 {
-                    lock (_lock)
+                    lock (Lock)
                     {
-                        if (_sessionFactory == null)
+                        if (sessionFactory == null)
                         {
-                            _sessionFactory = Fluently.Configure()
+                            sessionFactory = Fluently.Configure()
                                 .Database(MsSqlConfiguration.MsSql2008.ConnectionString(new ConnectionStringProvider().ConnectionString))
                                 .Mappings(m => m.FluentMappings.AddFromAssembly(System.Reflection.Assembly.GetExecutingAssembly()))
                                 .BuildSessionFactory();
@@ -45,7 +45,7 @@ namespace FunnelWeb.Web.Model.Repositories
                     }
                 }
 
-                var session = _sessionFactory.OpenSession();
+                var session = sessionFactory.OpenSession();
                 return session;
             }).As<ISession>().InstancePerLifetimeScope();
         }

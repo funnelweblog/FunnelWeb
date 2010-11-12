@@ -30,13 +30,13 @@ namespace FunnelWeb.Web.Application
                 idealUrl += context.Request.Url.Query;
             }
 
-            if (context.Request.Url.ToString() != idealUrl)
-            {
-                HttpContext.Current.Response.Clear();
-                HttpContext.Current.Response.Status = "301 Moved Permanently";
-                HttpContext.Current.Response.AddHeader("Location", idealUrl);
-                HttpContext.Current.Response.End();
-            }
+            if (context.Request.Url.ToString() == idealUrl) 
+                return;
+            
+            HttpContext.Current.Response.Clear();
+            HttpContext.Current.Response.Status = "301 Moved Permanently";
+            HttpContext.Current.Response.AddHeader("Location", idealUrl);
+            HttpContext.Current.Response.End();
         }
 
         public void Dispose()

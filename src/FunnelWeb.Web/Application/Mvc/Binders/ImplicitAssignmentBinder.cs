@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using System.Web.Mvc;
 using FunnelWeb.Web.Model.Strings;
 
 namespace FunnelWeb.Web.Application.Mvc.Binders

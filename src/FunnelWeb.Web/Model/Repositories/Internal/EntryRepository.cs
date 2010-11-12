@@ -1,39 +1,35 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Bindable.Core.Language;
+using FunnelWeb.Web.Model.Strings;
 using Iesi.Collections.Generic;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Linq;
 using NHibernate.Transform;
-using FunnelWeb.Web.Application.Validation;
-using FunnelWeb.Web.Model.Strings;
 
 namespace FunnelWeb.Web.Model.Repositories.Internal
 {
     public class EntryRepository : IEntryRepository
     {
-        private readonly ISession _session;
-        private readonly IEntityValidator _validator;
+        private readonly ISession session;
         
-        public EntryRepository(ISession session, IEntityValidator validator)
+        public EntryRepository(ISession session)
         {
-            _session = session;
-            _validator = validator;
+            this.session = session;
         }
 
         public IQueryable<Entry> GetEntries()
         {
-            return _session.Linq<Entry>();
+            return session.Linq<Entry>();
         }
 
         public IEnumerable<Entry> GetUnpublished()
         {
             var feedItemsCriteria = DetachedCriteria.For<FeedItem>("item")
                 .SetProjection(Projections.Property("item.Entry.Id"));
-            return _session.CreateCriteria<Entry>()
+            return session.CreateCriteria<Entry>()
                 .Add(Subqueries.PropertyNotIn("Id", feedItemsCriteria))
                 .AddOrder(Order.Desc("Published"))
                 .List<Entry>();
@@ -41,7 +37,7 @@ namespace FunnelWeb.Web.Model.Repositories.Internal
 
         public Entry GetEntry(PageName name)
         {
-            var entryQuery = (Hashtable)_session.CreateCriteria<Entry>("entry")
+            var entryQuery = (Hashtable)session.CreateCriteria<Entry>("entry")
                 .Add(Restrictions.Eq("entry.Name", name))
                 .CreateCriteria("Revisions", "rev")
                     .AddOrder(Order.Desc("rev.Revised"))
@@ -54,7 +50,7 @@ namespace FunnelWeb.Web.Model.Repositories.Internal
             var entry = (Entry)entryQuery["entry"];
             entry.LatestRevision = (Revision)entryQuery["rev"];
 
-            var comments = _session.CreateFilter(entry.Comments, "")
+            var comments = session.CreateFilter(entry.Comments, "")
                 .SetFirstResult(0)
                 .SetMaxResults(500)
                 .List();
@@ -68,7 +64,7 @@ namespace FunnelWeb.Web.Model.Repositories.Internal
             if (revisionNumber <= 0) 
                 return GetEntry(name);
 
-            var entryQuery = (Hashtable)_session.CreateCriteria<Entry>("entry")
+            var entryQuery = (Hashtable)session.CreateCriteria<Entry>("entry")
                 .Add(Restrictions.Eq("entry.Name", name))
                 .CreateCriteria("Revisions", "rev")
                     .Add(Restrictions.Eq("rev.RevisionNumber", revisionNumber))
@@ -80,7 +76,7 @@ namespace FunnelWeb.Web.Model.Repositories.Internal
             var entry = (Entry)entryQuery["entry"];
             entry.LatestRevision = (Revision)entryQuery["rev"];
 
-            var comments = _session.CreateFilter(entry.Comments, "")
+            var comments = session.CreateFilter(entry.Comments, "")
                 .SetFirstResult(0)
                 .SetMaxResults(500)
                 .List();
@@ -91,26 +87,20 @@ namespace FunnelWeb.Web.Model.Repositories.Internal
         public Redirect GetClosestRedirect(PageName name)
         {
             var nameSoundEx = SoundEx.Evaluate(name);
-            var redirects = _session.Linq<Redirect>()
+            var redirects = session.Linq<Redirect>()
                 .ToList();
             return redirects.Where(x => SoundEx.Evaluate(x.From) == nameSoundEx).FirstOrDefault();
         }
 
-        public ValidationResult Save(Entry entry)
+        public void Save(Entry entry)
         {
-            var results = _validator.Validate(entry);
-            if (results.IsValid)
+            session.SaveOrUpdate(entry);
+            entry.LatestRevision.ChangeSummary = string.Empty;
+            if (entry.LatestRevision.RevisionNumber == 0)
             {
-                _session.SaveOrUpdate(entry);
-
-                CaptureChangeSummary(entry);
-                if (entry.LatestRevision.RevisionNumber == 0)
-                {
-                    entry.LatestRevision.RevisionNumber = _session.Linq<Revision>().Where(x => x.Entry.Id == entry.Id).Count();
-                }
-                _session.Update(entry.LatestRevision);
+                entry.LatestRevision.RevisionNumber = session.Linq<Revision>().Where(x => x.Entry.Id == entry.Id).Count();
             }
-            return results;
+            session.Update(entry.LatestRevision);
         }
 
         public IEnumerable<Entry> Search(string searchText)
@@ -120,7 +110,7 @@ namespace FunnelWeb.Web.Model.Repositories.Internal
                 return new Entry[0];
             }
 
-            var isFullTextEnabled = _session.CreateSQLQuery("SELECT FullTextServiceProperty('IsFullTextInstalled')").List()[0];
+            var isFullTextEnabled = session.CreateSQLQuery("SELECT FullTextServiceProperty('IsFullTextInstalled')").List()[0];
             return (int) isFullTextEnabled == 0 
                 ? SearchUsingLike(searchText) 
                 : SearchUsingFullText(searchText);
@@ -130,7 +120,7 @@ namespace FunnelWeb.Web.Model.Repositories.Internal
         {
             var searchTerms = searchText.Split(' ', '-', '_').Where(x => !string.IsNullOrEmpty(x)).Select(x => "\"" + x + "*\"");
             var searchQuery = string.Join(" OR ", searchTerms.ToArray());
-            var query = _session.CreateSQLQuery(
+            var query = session.CreateSQLQuery(
                 @"select {e.*} from [Entry] {e}
                     inner join (
                         select z.*, [Rank] from [Entry] z
@@ -151,13 +141,12 @@ namespace FunnelWeb.Web.Model.Repositories.Internal
             return query;
         }
 
-
         public IEnumerable<Entry> SearchUsingLike(string searchText)
         {
             var searchTerms = "%" + new string(searchText.Where(x => char.IsLetterOrDigit(x) || x == ' ').ToArray()) + "%";
             searchTerms.Replace(" ", "%");
 
-            var entryQuery = (ArrayList)_session.CreateCriteria<Entry>("entry")
+            var entryQuery = (ArrayList)session.CreateCriteria<Entry>("entry")
                 .CreateCriteria("entry.Revisions", "rev")
                 .Add(Restrictions.EqProperty("rev.Id", Projections.SubQuery(
                     DetachedCriteria.For<Revision>("rv")
@@ -184,12 +173,6 @@ namespace FunnelWeb.Web.Model.Repositories.Internal
             }
 
             return results;
-        }
-
-        private void CaptureChangeSummary(Entry entry)
-        {
-            var original = entry.Revisions.Skip(1).FirstOrDefault();
-            entry.LatestRevision.ChangeSummary = string.Empty;
         }
     }
 }

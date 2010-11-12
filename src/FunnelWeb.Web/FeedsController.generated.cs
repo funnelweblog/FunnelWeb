@@ -19,14 +19,19 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-	
-		
-namespace System.Web.Mvc {
-    [GeneratedCode("T4MVC", "2.0")]
-    public static class HtmlHelpersForExplicitPartials {
-    	 
+namespace T4MVC {
+    public class FeedsController {
+
+        static readonly ViewNames s_views = new ViewNames();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewNames Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewNames {
+            public readonly string FeedController = "~/Features/Feeds/FeedController.cs";
+        }
     }
-	
+
 }
+
 #endregion T4MVC
 #pragma warning restore 1591

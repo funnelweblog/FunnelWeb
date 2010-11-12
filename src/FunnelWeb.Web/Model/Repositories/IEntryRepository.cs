@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using FunnelWeb.Web.Model.Strings;
-using FunnelWeb.Web.Application.Validation;
 
 namespace FunnelWeb.Web.Model.Repositories
 {
@@ -12,7 +11,7 @@ namespace FunnelWeb.Web.Model.Repositories
         Entry GetEntry(PageName name);
         Entry GetEntry(PageName name, int revision);
         Redirect GetClosestRedirect(PageName name);
-        ValidationResult Save(Entry entry);
+        void Save(Entry entry);
         IEnumerable<Entry> Search(string searchText);
     }
 }

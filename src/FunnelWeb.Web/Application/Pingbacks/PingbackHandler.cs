@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using FunnelWeb.Web.Model.Repositories;
-using FunnelWeb.Web.Model;
-using FunnelWeb.Web.Application.Spam;
-using NHibernate;
-using FunnelWeb.Web.Application.HealthMonitoring.Events;
-using System.Net;
 using System.IO;
+using System.Linq;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Web;
 using Autofac;
+using FunnelWeb.Web.Application.Spam;
+using FunnelWeb.Web.Model;
+using FunnelWeb.Web.Model.Repositories;
+using NHibernate;
 
 namespace FunnelWeb.Web.Application.Pingbacks
 {
@@ -84,8 +83,6 @@ namespace FunnelWeb.Web.Application.Pingbacks
                 // Save the pingback
                 spamChecker.Verify(pingback);
                 entry.Pingbacks.Add(pingback);
-
-                new PingbackPostedEvent(entry.Name, pingback.IsSpam, pingback.TargetUri, this).Raise();
 
                 session.Flush();
                 transaction.Commit();

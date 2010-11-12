@@ -1,19 +1,19 @@
 using System;
 using System.Linq;
 using System.Web.Configuration;
-using Joel.Net;
 using FunnelWeb.Web.Application.Settings;
 using FunnelWeb.Web.Model;
+using Joel.Net;
 
 namespace FunnelWeb.Web.Application.Spam
 {
     public class AkismetSpamChecker : ISpamChecker
     {
-        private readonly ISettingsProvider _settingsProvider;
+        private readonly ISettingsProvider settingsProvider;
 
         public AkismetSpamChecker(ISettingsProvider settingsProvider)
         {
-            _settingsProvider = settingsProvider;
+            this.settingsProvider = settingsProvider;
         }
 
         private Akismet Connect()
@@ -43,7 +43,7 @@ namespace FunnelWeb.Web.Application.Spam
             if (comment.IsSpam) 
                 return;
 
-            var naughtyWords = _settingsProvider.SpamWords.Split('\n').Select(x => x.Trim()).Where(x => x.Length > 0).ToArray();
+            var naughtyWords = settingsProvider.SpamWords.Split('\n').Select(x => x.Trim()).Where(x => x.Length > 0).ToArray();
             comment.IsSpam = naughtyWords.Length > 0 && naughtyWords.Any(x => comment.Body.IndexOf(x, StringComparison.InvariantCultureIgnoreCase) >= 0);
         }
 
@@ -58,7 +58,5 @@ namespace FunnelWeb.Web.Application.Spam
 
             pingback.IsSpam = akismet.CommentCheck(akismetComment);
         }
-
-
     }
 }

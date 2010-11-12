@@ -24,10 +24,10 @@ const string AreasFolder = "Areas";
 static bool IncludeAreasToken = false;
 
 // The folder under the project that contains the controllers
-const string ControllersFolder = "Controllers";
+const string ControllersFolder = "Features";
 
 // The folder under the project that contains the views
-const string ViewsRootFolder = "Views";
+const string ViewsRootFolder = "Features";
 
 // The name of the interface that all T4MVC action results will implement
 const string ActionResultInterfaceName = "IT4MVCActionResult";

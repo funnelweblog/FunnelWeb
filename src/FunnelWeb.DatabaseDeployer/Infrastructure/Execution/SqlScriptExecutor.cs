@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Data;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -13,7 +13,7 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure.Execution
     /// </summary>
     public sealed class SqlScriptExecutor : IScriptExecutor
     {
-        private static string[] SplitByGoStatements(string script)
+        private static IEnumerable<string> SplitByGoStatements(string script)
         {
             var scriptStatements = Regex.Split(script, "^\\s*GO\\s*$", RegexOptions.IgnoreCase | RegexOptions.Multiline)
                                        .Select(x => x.Trim())

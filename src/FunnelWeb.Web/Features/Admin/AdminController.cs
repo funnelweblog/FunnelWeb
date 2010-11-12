@@ -1,32 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Web.Mvc;
 using FunnelWeb.Web.Application.Filters;
+using FunnelWeb.Web.Features.Admin.Views;
 using FunnelWeb.Web.Model;
 using FunnelWeb.Web.Model.Repositories;
 
 namespace FunnelWeb.Web.Features.Admin
 {
-    [ValidateInput(false), Transactional]
+    [Transactional]
     public partial class AdminController : Controller
     {
-        private readonly IAdminRepository _adminRepository;
-        private readonly IFeedRepository _feedRepository;
-
-        public AdminController(IAdminRepository adminRepository, IFeedRepository feedRepository)
-        {
-            _adminRepository = adminRepository;
-            _feedRepository = feedRepository;
-        }
+        public IAdminRepository AdminRepository { get; set; }
+        public IFeedRepository FeedRepository { get; set; }
 
         [Authorize]
         public virtual ActionResult Index()
         {
-            var settings = _adminRepository.GetSettings();
-            var feeds = _feedRepository.GetFeeds();
-            var comments = _adminRepository.GetComments(0, 30);
-            var redirects = _adminRepository.GetRedirects();
-            var pingbacks = _adminRepository.GetPingbacks();
+            var settings = AdminRepository.GetSettings();
+            var feeds = FeedRepository.GetFeeds();
+            var comments = AdminRepository.GetComments(0, 30);
+            var redirects = AdminRepository.GetRedirects();
+            var pingbacks = AdminRepository.GetPingbacks();
 
             var themeFolder = new DirectoryInfo(Server.MapPath("~/Content/Styles/Themes"));
             var themes = themeFolder.GetDirectories().Select(x => x.Name).OrderBy(x => x);
@@ -38,17 +34,17 @@ namespace FunnelWeb.Web.Features.Admin
         public virtual ActionResult CreateFeed(string name, string title)
         {
             var feed = new Feed { Name = name, Title = title };
-            _feedRepository.Save(feed);
+            FeedRepository.Save(feed);
             return RedirectToAction(FunnelWebMvc.Admin.Index());
         }
 
         [Authorize]
         public virtual ActionResult DeleteFeed(int feedId)
         {
-            var feed = _feedRepository.GetFeeds().FirstOrDefault(x => x.Id == feedId);
+            var feed = FeedRepository.GetFeeds().FirstOrDefault(x => x.Id == feedId);
             if (feed != null)
             {
-                _feedRepository.Delete(feed);
+                FeedRepository.Delete(feed);
             }
             return RedirectToAction(FunnelWebMvc.Admin.Index());
         }
@@ -56,10 +52,10 @@ namespace FunnelWeb.Web.Features.Admin
         [Authorize]
         public virtual ActionResult DeleteRedirect(int redirectId)
         {
-            var redirect = _adminRepository.GetRedirects().FirstOrDefault(x => x.Id == redirectId);
+            var redirect = AdminRepository.GetRedirects().FirstOrDefault(x => x.Id == redirectId);
             if (redirect != null)
             {
-                _adminRepository.Delete(redirect);
+                AdminRepository.Delete(redirect);
             }
             return RedirectToAction(FunnelWebMvc.Admin.Index());
         }
@@ -70,20 +66,20 @@ namespace FunnelWeb.Web.Features.Admin
             var redirect = new Redirect();
             redirect.From = from;
             redirect.To = to;
-            _adminRepository.Save(redirect);
+            AdminRepository.Save(redirect);
             return RedirectToAction(FunnelWebMvc.Admin.Index());
         }
 
         [Authorize]
         public virtual ActionResult UpdateSettings(Dictionary<string, string> settings)
         {
-            var previousSettings = _adminRepository.GetSettings();
+            var previousSettings = AdminRepository.GetSettings();
             foreach (var setting in previousSettings)
             {
                 if (settings.ContainsKey(setting.Name))
                     setting.Value = settings[setting.Name];
             }
-            _adminRepository.Save(previousSettings);
+            AdminRepository.Save(previousSettings);
 
             return RedirectToAction(FunnelWebMvc.Admin.Index());
         }
@@ -91,24 +87,25 @@ namespace FunnelWeb.Web.Features.Admin
         [Authorize]
         public virtual ActionResult DeleteComment(int comment)
         {
-            var item = _adminRepository.GetComment(comment);
-            _adminRepository.Delete(item);
+            var item = AdminRepository.GetComment(comment);
+            AdminRepository.Delete(item);
             return RedirectToAction(FunnelWebMvc.Admin.Index());
         }
 
         [Authorize]
         public virtual ActionResult DeleteAllSpam()
         {
-            var comments = _adminRepository.GetSpam().ToList();
-            foreach (var comment in comments) _adminRepository.Delete(comment);
+            var comments = AdminRepository.GetSpam().ToList();
+            foreach (var comment in comments) 
+                AdminRepository.Delete(comment);
             return RedirectToAction(FunnelWebMvc.Admin.Index());
         }
 
         [Authorize]
         public virtual ActionResult DeletePingback(int pingback)
         {
-            var item = _adminRepository.GetPingback(pingback);
-            _adminRepository.Delete(item);
+            var item = AdminRepository.GetPingback(pingback);
+            AdminRepository.Delete(item);
             return RedirectToAction(FunnelWebMvc.Admin.Index());
         }
 
@@ -116,11 +113,11 @@ namespace FunnelWeb.Web.Features.Admin
         [Authorize]
         public virtual ActionResult ToggleSpam(int comment)
         {
-            var item = _adminRepository.GetComment(comment);
+            var item = AdminRepository.GetComment(comment);
             if (item != null)
             {
                 item.IsSpam = !item.IsSpam;
-                _adminRepository.Save(item); 
+                AdminRepository.Save(item); 
             }
             return RedirectToAction(FunnelWebMvc.Admin.Index());
         }
@@ -128,11 +125,11 @@ namespace FunnelWeb.Web.Features.Admin
         [Authorize]
         public virtual ActionResult TogglePingbackSpam(int pingback)
         {
-            var item = _adminRepository.GetPingback(pingback);
+            var item = AdminRepository.GetPingback(pingback);
             if (item != null)
             {
                 item.IsSpam = !item.IsSpam;
-                _adminRepository.Save(item);
+                AdminRepository.Save(item);
             }
             return RedirectToAction(FunnelWebMvc.Admin.Index());
         }

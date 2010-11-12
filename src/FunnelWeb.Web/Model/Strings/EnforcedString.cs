@@ -4,11 +4,11 @@ namespace FunnelWeb.Web.Model.Strings
 {
     public abstract class EnforcedString : IEquatable<EnforcedString>, IEquatable<string>
     {
-        private readonly string _value;
+        private readonly string value;
 
         protected EnforcedString(string value)
         {
-            _value = Correct(value);
+            this.value = Correct(value);
         }
 
         protected abstract string Correct(string value);
@@ -16,12 +16,12 @@ namespace FunnelWeb.Web.Model.Strings
         public bool Equals(EnforcedString other)
         {
             if (other == null) return false;
-            return Equals(other._value);
+            return Equals(other.value);
         }
 
         public bool Equals(string other)
         {
-            return string.Equals(_value, other, StringComparison.CurrentCultureIgnoreCase);
+            return string.Equals(value, other, StringComparison.CurrentCultureIgnoreCase);
         }
 
         public override bool Equals(object obj)
@@ -34,12 +34,12 @@ namespace FunnelWeb.Web.Model.Strings
 
         public override int GetHashCode()
         {
-            return (_value != null ? _value.GetHashCode() : 0);
+            return (value != null ? value.GetHashCode() : 0);
         }
 
         public override string ToString()
         {
-            return _value;
+            return value;
         }
     }
 }

@@ -13,8 +13,8 @@ namespace FunnelWeb.Web.Application.Views
 	/// </summary>
 	public class MarkdownRenderer
 	{
-		private readonly bool _sanitize;
-		private readonly string _relativePathUrlPrefix;
+		private readonly bool sanitize;
+		private readonly string relativePathUrlPrefix;
 
 		static MarkdownRenderer()
 		{
@@ -54,8 +54,8 @@ namespace FunnelWeb.Web.Application.Views
 
 		public MarkdownRenderer(bool sanitize, string relativePathUrlPrefix)
 		{
-			_sanitize = sanitize;
-			_relativePathUrlPrefix = relativePathUrlPrefix;
+			this.sanitize = sanitize;
+			this.relativePathUrlPrefix = relativePathUrlPrefix;
 			urls = new Hashtable();
 			titles = new Hashtable();
 			htmlBlocks = new Hashtable();
@@ -95,9 +95,9 @@ namespace FunnelWeb.Web.Application.Views
 
 			text = UnescapeSpecialChars(text);
 
-			text = text.Replace("href=\"/", "href=\"" + _relativePathUrlPrefix + "/");
+			text = text.Replace("href=\"/", "href=\"" + relativePathUrlPrefix + "/");
 
-			if (_sanitize)
+			if (sanitize)
 			{
 				text = InputSanitizer.Sanitize(text);
 			}
@@ -653,7 +653,7 @@ namespace FunnelWeb.Web.Application.Views
 				url = url.Replace("*", escapeTable["*"].ToString()).Replace("_", escapeTable["_"].ToString());
 				//qualify the URL with the prefix so it can be complete from feeds
 				if (!url.StartsWith("http"))
-					url = _relativePathUrlPrefix + url;
+					url = relativePathUrlPrefix + url;
 				res = string.Format("<img src=\"{0}\" alt=\"{1}\"",  url, altText);
 
 				if (titles[linkID] != null)
@@ -690,7 +690,7 @@ namespace FunnelWeb.Web.Application.Views
 			url = url.Replace("*", escapeTable["*"].ToString()).Replace("_", escapeTable["_"].ToString());
 			//qualify the URL with the prefix so it can be complete from feeds
 			if (!url.StartsWith("http"))
-				url = _relativePathUrlPrefix + url;
+				url = relativePathUrlPrefix + url;
 			res = string.Format("<img src=\"{0}\" alt=\"{1}\"", url, altText);
 
 			title = title.Replace("*", escapeTable["*"].ToString()).Replace("_", escapeTable["_"].ToString());

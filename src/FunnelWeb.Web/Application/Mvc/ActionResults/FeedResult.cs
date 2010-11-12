@@ -1,24 +1,26 @@
 ﻿using System;
 using System.ServiceModel.Syndication;
 using System.Text;
+using System.Web.Mvc;
 using System.Xml;
 
 namespace FunnelWeb.Web.Application.Mvc.ActionResults
 {
     public class FeedResult : ActionResult
     {
+        private readonly SyndicationFeedFormatter feed;
+
         public FeedResult(SyndicationFeedFormatter feed)
         {
-            this._feed = feed;
+            this.feed = feed;
         }
 
         public Encoding ContentEncoding { get; set; }
         public string ContentType { get; set; }
 
-        private readonly SyndicationFeedFormatter _feed;
         public SyndicationFeedFormatter Feed
         {
-            get { return _feed; }
+            get { return feed; }
         }
 
         public override void ExecuteResult(ControllerContext context)
@@ -32,13 +34,13 @@ namespace FunnelWeb.Web.Application.Mvc.ActionResults
             if (ContentEncoding != null)
                 response.ContentEncoding = ContentEncoding;
 
-            if (_feed != null)
+            if (feed == null) 
+                return;
+
+            using (var xmlWriter = new XmlTextWriter(response.Output))
             {
-                using (var xmlWriter = new XmlTextWriter(response.Output))
-                {
-                    xmlWriter.Formatting = Formatting.Indented;
-                    _feed.WriteTo(xmlWriter);
-                }
+                xmlWriter.Formatting = Formatting.Indented;
+                feed.WriteTo(xmlWriter);
             }
         }
     }

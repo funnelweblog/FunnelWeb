@@ -11,8 +11,8 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders
     /// </summary>
     public sealed class EmbeddedSqlScriptProvider : IScriptProvider
     {
-        private readonly Assembly _assembly;
-        private readonly GetEmbeddedScriptNameCallback _mapFileNameCallback;
+        private readonly Assembly assembly;
+        private readonly GetEmbeddedScriptNameCallback mapFileNameCallback;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EmbeddedSqlScriptProvider"/> class.
@@ -21,8 +21,8 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders
         /// <param name="mapFileNameCallback">The map file name callback.</param>
         public EmbeddedSqlScriptProvider(Assembly assembly, GetEmbeddedScriptNameCallback mapFileNameCallback)
         {
-            _assembly = assembly;
-            _mapFileNameCallback = mapFileNameCallback;
+            this.assembly = assembly;
+            this.mapFileNameCallback = mapFileNameCallback;
         }
 
         /// <summary>
@@ -32,12 +32,12 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders
         public int GetHighestScriptVersion()
         {
             var resourceNames = new List<string>();
-            resourceNames.AddRange(_assembly.GetManifestResourceNames());
+            resourceNames.AddRange(assembly.GetManifestResourceNames());
             var highestVersionNumber = 0;
             while (true)
             {
                 var nextVersionNumber = highestVersionNumber + 1;
-                var nextFileName = _mapFileNameCallback(nextVersionNumber);
+                var nextFileName = mapFileNameCallback(nextVersionNumber);
                 if (!resourceNames.Contains(nextFileName))
                 {
                     break;
@@ -54,15 +54,15 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders
         /// <returns></returns>
         public IScript GetScript(int versionNumber)
         {
-            var scriptName = _mapFileNameCallback(versionNumber);
+            var scriptName = mapFileNameCallback(versionNumber);
             var contents = null as string;
-            var resourceStream = _assembly.GetManifestResourceStream(scriptName);
+            var resourceStream = assembly.GetManifestResourceStream(scriptName);
             using (var resourceStreamReader = new StreamReader(resourceStream))
             {
                 contents = resourceStreamReader.ReadToEnd();
             }
 
-            return new EmbeddedSqlScript(scriptName, contents, versionNumber, _assembly.FullName);
+            return new EmbeddedSqlScript(scriptName, contents, versionNumber, assembly.FullName);
         }
     }
 }
