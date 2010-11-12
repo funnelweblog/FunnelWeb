@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Safe.Master" Inherits="System.Web.Mvc.ViewPage<FunnelWeb.Web.LoginController.IndexModel>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Content/Safe.Master" Inherits="System.Web.Mvc.ViewPage<FunnelWeb.Web.Features.Login.Views.IndexModel>" %>
 
 <asp:Content ContentPlaceHolderID="TitleContent" runat="server">
 	Login

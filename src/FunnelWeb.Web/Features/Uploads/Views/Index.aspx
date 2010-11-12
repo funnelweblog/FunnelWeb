@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Dialog.Master" Inherits="System.Web.Mvc.ViewPage<FunnelWeb.Web.UploadController.IndexModel>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Content/Dialog.Master" Inherits="System.Web.Mvc.ViewPage<FunnelWeb.Web.Features.Uploads.Views.IndexModel>" %>
 
 <asp:Content ContentPlaceHolderID="TitleContentPlaceHolder" runat="server">Uploads</asp:Content>
 

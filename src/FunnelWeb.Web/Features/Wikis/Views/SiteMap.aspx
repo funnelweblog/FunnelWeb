@@ -1,4 +1,4 @@
-<%@ Page Language="C#" ContentType="text/xml" Inherits="System.Web.Mvc.ViewPage<FunnelWeb.Web.WikiController.SiteMapModel>" %><?xml version="1.0" encoding="UTF-8"?>
+<%@ Page Language="C#" ContentType="text/xml" Inherits="System.Web.Mvc.ViewPage<FunnelWeb.Web.Features.Wikis.Views.SiteMapModel>" %><?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
       <loc><%= Html.Qualify("/") %></loc>

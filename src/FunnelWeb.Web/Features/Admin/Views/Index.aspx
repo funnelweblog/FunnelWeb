@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Safe.Master" Inherits="FunnelWeb.Web.Application.Views.ApplicationView<FunnelWeb.Web.Features.Admin.AdminController.IndexModel>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Content/Safe.Master" Inherits="System.Web.Mvc.ViewPage<FunnelWeb.Web.Features.Admin.Views.IndexModel>" %>
 
 <asp:Content ContentPlaceHolderID="TitleContent" runat="server">
 	FunnelWeb Administration
