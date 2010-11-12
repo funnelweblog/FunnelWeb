@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using NHibernate;
@@ -39,6 +40,7 @@ namespace FunnelWeb.Web.Model.Repositories.Internal
                         .Add(Restrictions.EqProperty("rv.Entry.Id", "entry.Id"))
                         .SetMaxResults(1))))
                 .Add(Restrictions.Eq("feed.Name", feed))
+                .Add(Restrictions.Le("entry.Published", DateTime.UtcNow.Date.AddDays(1)))
                 .AddOrder(Order.Desc("it.SortDate"))
                 .SetFirstResult(skip)
                 .SetMaxResults(take)
