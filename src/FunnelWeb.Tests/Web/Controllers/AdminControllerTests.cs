@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FunnelWeb.Web.Features.Admin;
+using FunnelWeb.Web.Features.Admin.Views;
 using FunnelWeb.Web.Model;
 using FunnelWeb.Web.Model.Repositories;
 using NSubstitute;
@@ -37,7 +38,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         [Test]
         public void CreateFeed()
         {
-            var result = (RedirectToRouteResult)Controller.CreateFeed(Arg.Any<string>(), Arg.Any<string>());
+            var result = (RedirectToRouteResult)Controller.Feeds(new FeedsModel());
 
             Assert.That(result.RouteValues["Action"], Is.EqualTo("Index"));
         }
@@ -50,24 +51,6 @@ namespace FunnelWeb.Tests.Web.Controllers
             var result = (RedirectToRouteResult)Controller.DeleteFeed(0);
 
             Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
-        }
-
-        [Test]
-        public void DeleteRedirect()
-        {
-            AdminRepository.GetRedirects().Returns(new List<Redirect>().AsQueryable());
-
-            var result = (RedirectToRouteResult)Controller.DeleteRedirect(0);
-
-            Assert.That(result.RouteValues["Action"], Is.EqualTo("Index"));
-        }
-
-        [Test]
-        public void CreateRedirect()
-        {
-            var result = (RedirectToRouteResult)Controller.CreateRedirect(Arg.Any<string>(), Arg.Any<string>());
-
-            Assert.That(result.RouteValues["Action"], Is.EqualTo("Index"));
         }
 
         [Test]
@@ -113,7 +96,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         [Test]
         public void CreateFeedIsSaved()
         {
-            Controller.CreateFeed("name", "title");
+            Controller.Feeds(new FeedsModel {FeedName = "name", FeedTitle = "title"});
 
             FeedRepository.Received().Save(Arg.Is<Feed>(x => x.Name == "name"));
         }

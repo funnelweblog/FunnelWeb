@@ -80,8 +80,8 @@ namespace FunnelWeb.Web.Features.Wiki {
             public readonly string Search = "Search";
             public readonly string NotFound = "NotFound";
             public readonly string Page = "Page";
-            public readonly string New = "New";
             public readonly string Unpublished = "Unpublished";
+            public readonly string New = "New";
             public readonly string Edit = "Edit";
             public readonly string Revisions = "Revisions";
             public readonly string SiteMap = "SiteMap";
@@ -144,13 +144,13 @@ namespace FunnelWeb.Web.Features.Wiki {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult New() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.New);
+        public override System.Web.Mvc.ActionResult Unpublished() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Unpublished);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Unpublished() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Unpublished);
+        public override System.Web.Mvc.ActionResult New() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.New);
             return callInfo;
         }
 

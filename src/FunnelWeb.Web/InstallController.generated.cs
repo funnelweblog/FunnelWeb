@@ -62,6 +62,15 @@ namespace FunnelWeb.Web.Features.Install {
         public ViewNames Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
+            public readonly string InstallController = "~/Features/Install/InstallController.cs";
+            static readonly _Views s_Views = new _Views();
+            public _Views Views { get { return s_Views; } }
+            public partial class _Views{
+                public readonly string Index = "~/Features/Install/Views/Index.aspx";
+                public readonly string IndexModel = "~/Features/Install/Views/IndexModel.cs";
+                public readonly string UpgradeModel = "~/Features/Install/Views/UpgradeModel.cs";
+                public readonly string UpgradeReport = "~/Features/Install/Views/UpgradeReport.aspx";
+            }
         }
     }
 

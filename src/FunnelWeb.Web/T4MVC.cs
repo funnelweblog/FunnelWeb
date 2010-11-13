@@ -31,7 +31,6 @@ public static class FunnelWebMvc {
     public static FunnelWeb.Web.Features.Upload.UploadController Upload = new FunnelWeb.Web.Features.Upload.T4MVC_UploadController();
     public static FunnelWeb.Web.Features.Wiki.WikiController Wiki = new FunnelWeb.Web.Features.Wiki.T4MVC_WikiController();
     public static T4MVC.FeedsController Feeds = new T4MVC.FeedsController();
-    public static T4MVC.InstallationController Installation = new T4MVC.InstallationController();
     public static T4MVC.ResourcesController Resources = new T4MVC.ResourcesController();
 }
 

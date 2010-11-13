@@ -8,7 +8,7 @@
     <h1>Feeds</h1>
 
     <!-- Feeds -->
-    <% using (Html.BeginForm("CreateFeed", "Admin", FormMethod.Post, new { @class = "promptBeforeUnload" })) { %>    
+    <% using (Html.BeginForm("Feeds", "Admin", FormMethod.Post, new { @class = "promptBeforeUnload" })) { %>    
     <table>
         <thead>
         <tr>
@@ -29,18 +29,29 @@
     </table>
         
     <div class="form-body">
-        <p>
-            <%= Html.Label("Name")%>
-            <%= Html.TextBox("name")%>
-        </p>
-        <p>
-            <%= Html.Label("Title")%>
-            <%= Html.TextBox("title")%>
-        </p>
+        <div class="editor-label">
+          <%: Html.LabelFor(m => m.FeedName)%>
+        </div>
+        <div class="editor-field">
+          <%: Html.TextBoxFor(m => m.FeedName, Html.AttributesFor(m => m.FeedName))%>
+          <%: Html.ValidationMessageFor(m => m.FeedName)%>
+          <%: Html.HintFor(m => m.FeedName)%>
+        </div>
         
-        <p>
+        <div class="editor-label">
+          <%: Html.LabelFor(m => m.FeedTitle)%>
+        </div>
+        <div class="editor-field">
+          <%: Html.TextBoxFor(m => m.FeedTitle, Html.AttributesFor(m => m.FeedTitle))%>
+          <%: Html.ValidationMessageFor(m => m.FeedTitle)%>
+          <%: Html.HintFor(m => m.FeedTitle)%>
+        </div>
+        
+        <div class="editor-label">
+        </div>
+        <div class="editor-field">
             <input type="submit" id="submit1" class="submit" value="Create this Feed" />
-        </p>
+        </div>
     </div>
     <% } %>
 

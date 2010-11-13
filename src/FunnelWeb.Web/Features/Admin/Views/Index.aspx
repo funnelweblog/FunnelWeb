@@ -15,7 +15,7 @@
     </div>
 
     <div class="admin-link">
-      <h3><%: Html.ActionLink("Manage Comments", "Comments") %></h3>
+      <h3><%: Html.ActionLink("Comments", "Comments") %></h3>
       <p>
         This page allows you to delete and mark comments as spam.
       </p>

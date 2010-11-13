@@ -184,9 +184,6 @@
     <Compile Include="FeedsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="InstallationController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="InstallController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>

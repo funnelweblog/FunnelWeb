@@ -35,23 +35,8 @@ namespace FunnelWeb.Web.Features.Admin {
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult CreateFeed() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.CreateFeed);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public System.Web.Mvc.ActionResult DeleteFeed() {
             return new T4MVC_ActionResult(Area, Name, ActionNames.DeleteFeed);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult DeleteRedirect() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.DeleteRedirect);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult CreateRedirect() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.CreateRedirect);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -60,13 +45,13 @@ namespace FunnelWeb.Web.Features.Admin {
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult DeletePingback() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.DeletePingback);
+        public System.Web.Mvc.ActionResult ToggleSpam() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.ToggleSpam);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult ToggleSpam() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.ToggleSpam);
+        public System.Web.Mvc.ActionResult DeletePingback() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.DeletePingback);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -88,14 +73,14 @@ namespace FunnelWeb.Web.Features.Admin {
         public class ActionNamesClass {
             public readonly string Index = "Index";
             public readonly string Settings = "Settings";
-            public readonly string CreateFeed = "CreateFeed";
+            public readonly string Feeds = "Feeds";
             public readonly string DeleteFeed = "DeleteFeed";
-            public readonly string DeleteRedirect = "DeleteRedirect";
-            public readonly string CreateRedirect = "CreateRedirect";
+            public readonly string Comments = "Comments";
             public readonly string DeleteComment = "DeleteComment";
             public readonly string DeleteAllSpam = "DeleteAllSpam";
-            public readonly string DeletePingback = "DeletePingback";
             public readonly string ToggleSpam = "ToggleSpam";
+            public readonly string Pingbacks = "Pingbacks";
+            public readonly string DeletePingback = "DeletePingback";
             public readonly string TogglePingbackSpam = "TogglePingbackSpam";
         }
 
@@ -147,10 +132,14 @@ namespace FunnelWeb.Web.Features.Admin {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult CreateFeed(string name, string title) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.CreateFeed);
-            callInfo.RouteValueDictionary.Add("name", name);
-            callInfo.RouteValueDictionary.Add("title", title);
+        public override System.Web.Mvc.ActionResult Feeds() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Feeds);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult Feeds(FunnelWeb.Web.Features.Admin.Views.FeedsModel model) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Feeds);
+            callInfo.RouteValueDictionary.Add("model", model);
             return callInfo;
         }
 
@@ -160,16 +149,8 @@ namespace FunnelWeb.Web.Features.Admin {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult DeleteRedirect(int redirectId) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.DeleteRedirect);
-            callInfo.RouteValueDictionary.Add("redirectId", redirectId);
-            return callInfo;
-        }
-
-        public override System.Web.Mvc.ActionResult CreateRedirect(string from, string to) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.CreateRedirect);
-            callInfo.RouteValueDictionary.Add("from", from);
-            callInfo.RouteValueDictionary.Add("to", to);
+        public override System.Web.Mvc.ActionResult Comments() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Comments);
             return callInfo;
         }
 
@@ -184,15 +165,20 @@ namespace FunnelWeb.Web.Features.Admin {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult DeletePingback(int pingback) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.DeletePingback);
-            callInfo.RouteValueDictionary.Add("pingback", pingback);
-            return callInfo;
-        }
-
         public override System.Web.Mvc.ActionResult ToggleSpam(int comment) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ToggleSpam);
             callInfo.RouteValueDictionary.Add("comment", comment);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult Pingbacks() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Pingbacks);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult DeletePingback(int pingback) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.DeletePingback);
+            callInfo.RouteValueDictionary.Add("pingback", pingback);
             return callInfo;
         }
 

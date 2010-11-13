@@ -23,6 +23,8 @@ namespace FunnelWeb.Web.Features.Admin
             return View(new IndexModel());
         }
 
+        #region Settings
+
         [Authorize]
         public virtual ActionResult Settings()
         {
@@ -43,17 +45,38 @@ namespace FunnelWeb.Web.Features.Admin
             
             SettingsProvider.SaveSettings(settings);
             
-            return RedirectToAction(FunnelWebMvc.Admin.Index())
+            return RedirectToAction(FunnelWebMvc.Admin.Settings())
                 .AndFlash("Your changes have been saved");
+        }
+
+        #endregion
+
+        #region Feeds
+
+        [Authorize]
+        public virtual ActionResult Feeds()
+        {
+            var feeds = FeedRepository.GetFeeds().ToList();
+            return View(new FeedsModel(feeds));
         }
 
         [Authorize]
         [HttpPost]
-        public virtual ActionResult CreateFeed(string name, string title)
+        public virtual ActionResult Feeds(FeedsModel model)
         {
-            var feed = new Feed { Name = name, Title = title };
+            var feeds = FeedRepository.GetFeeds().ToList();
+            model.Feeds = feeds;
+            
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var feed = new Feed();
+            feed.Name = model.FeedName;
+            feed.Title = model.FeedTitle;
             FeedRepository.Save(feed);
-            return RedirectToAction(FunnelWebMvc.Admin.Index());
+            return RedirectToAction(FunnelWebMvc.Admin.Feeds());
         }
 
         [Authorize]
@@ -65,30 +88,18 @@ namespace FunnelWeb.Web.Features.Admin
             {
                 FeedRepository.Delete(feed);
             }
-            return RedirectToAction(FunnelWebMvc.Admin.Index());
+            return RedirectToAction(FunnelWebMvc.Admin.Feeds());
         }
 
-        [Authorize]
-        [HttpPost]
-        public virtual ActionResult DeleteRedirect(int redirectId)
-        {
-            var redirect = AdminRepository.GetRedirects().FirstOrDefault(x => x.Id == redirectId);
-            if (redirect != null)
-            {
-                AdminRepository.Delete(redirect);
-            }
-            return RedirectToAction(FunnelWebMvc.Admin.Index());
-        }
+        #endregion
+
+        #region Comments
 
         [Authorize]
-        [HttpPost]
-        public virtual ActionResult CreateRedirect(string from, string to)
+        public virtual ActionResult Comments()
         {
-            var redirect = new Redirect();
-            redirect.From = from;
-            redirect.To = to;
-            AdminRepository.Save(redirect);
-            return RedirectToAction(FunnelWebMvc.Admin.Index());
+            var comments = AdminRepository.GetComments(0, 50);
+            return View(new CommentsModel(comments));
         }
 
         [Authorize]
@@ -96,7 +107,7 @@ namespace FunnelWeb.Web.Features.Admin
         {
             var item = AdminRepository.GetComment(comment);
             AdminRepository.Delete(item);
-            return RedirectToAction(FunnelWebMvc.Admin.Index());
+            return RedirectToAction(FunnelWebMvc.Admin.Comments());
         }
 
         [Authorize]
@@ -105,15 +116,7 @@ namespace FunnelWeb.Web.Features.Admin
             var comments = AdminRepository.GetSpam().ToList();
             foreach (var comment in comments) 
                 AdminRepository.Delete(comment);
-            return RedirectToAction(FunnelWebMvc.Admin.Index());
-        }
-
-        [Authorize]
-        public virtual ActionResult DeletePingback(int pingback)
-        {
-            var item = AdminRepository.GetPingback(pingback);
-            AdminRepository.Delete(item);
-            return RedirectToAction(FunnelWebMvc.Admin.Index());
+            return RedirectToAction(FunnelWebMvc.Admin.Comments());
         }
 
         [Authorize]
@@ -123,9 +126,28 @@ namespace FunnelWeb.Web.Features.Admin
             if (item != null)
             {
                 item.IsSpam = !item.IsSpam;
-                AdminRepository.Save(item); 
+                AdminRepository.Save(item);
             }
-            return RedirectToAction(FunnelWebMvc.Admin.Index());
+            return RedirectToAction(FunnelWebMvc.Admin.Comments());
+        }
+
+        #endregion
+
+        #region Pingbacks
+
+        [Authorize]
+        public virtual ActionResult Pingbacks()
+        {
+            var pingbacks = AdminRepository.GetPingbacks();
+            return View(new PingbacksModel(pingbacks));
+        }
+
+        [Authorize]
+        public virtual ActionResult DeletePingback(int pingback)
+        {
+            var item = AdminRepository.GetPingback(pingback);
+            AdminRepository.Delete(item);
+            return RedirectToAction(FunnelWebMvc.Admin.Pingbacks());
         }
 
         [Authorize]
@@ -137,7 +159,9 @@ namespace FunnelWeb.Web.Features.Admin
                 item.IsSpam = !item.IsSpam;
                 AdminRepository.Save(item);
             }
-            return RedirectToAction(FunnelWebMvc.Admin.Index());
+            return RedirectToAction(FunnelWebMvc.Admin.Pingbacks());
         }
+
+        #endregion
     }
 }
