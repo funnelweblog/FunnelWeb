@@ -168,7 +168,7 @@ namespace FunnelWeb.Tests.Web.Controllers
 
             Assert.IsTrue(string.IsNullOrEmpty(result.ViewName));
             Assert.AreEqual(feeds, ((EditModel)result.ViewData.Model).Feeds);
-            Assert.AreEqual(entry.Name, ((EditModel)result.ViewData.Model).Entry.Name);
+            Assert.AreEqual(entry.Name, ((EditModel)result.ViewData.Model).Page);
             EntryRepository.Received().GetEntry(Arg.Any<PageName>());
             FeedRepository.Received().GetFeeds();
         }

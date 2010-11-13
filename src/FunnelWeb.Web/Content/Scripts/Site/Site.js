@@ -146,7 +146,6 @@ function hideFlashes() {
 }
 
 $(function () {
-    hideFlashes();
     scrollToValidationFailure();
     enableGravatarLookup();
     refreshGravatar();

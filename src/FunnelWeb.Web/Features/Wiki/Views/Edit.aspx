@@ -1,6 +1,6 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Content/Site.Master" Inherits="System.Web.Mvc.ViewPage<FunnelWeb.Web.Features.Wiki.Views.EditModel>" %>
 
-<asp:Content ContentPlaceHolderID="TitleContent" runat="server"><%= Settings.SiteTitle %> - Edit - <%=Model.Entry.Title%></asp:Content>
+<asp:Content ContentPlaceHolderID="TitleContent" runat="server"><%: Html.Settings().SiteTitle %> - Edit - <%: Model.Title %></asp:Content>
 <asp:Content ContentPlaceHolderID="MetaContent" runat="server">
 </asp:Content>
 
@@ -17,94 +17,130 @@
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
 
     <% if (Model.IsNew) { %>     
-    <h1>Create: <%=Model.Entry.Title%></h1>
+    <h1>Create: <%: Model.Title%></h1>
     <% } %>
     <% else { %>     
-    <h1>Edit: <%=Model.Entry.Title%></h1>
+    <h1>Edit: <%: Model.Title%></h1>
     <% } %>
     
-    <% using (Html.BeginForm("Save", "Wiki", FormMethod.Post, new { @class = "promptBeforeUnload" })) { %>
+    <%: Html.ValidationSummary("Edit unsuccessful. Please correct the errors below.") %>
+
+    <% using (Html.BeginForm()) { %>
     
     <div class="form-body">
-        <p>
-            <%= Html.Label("Name", "page")%>
-            <%= Html.InputTextBox("page").Default(Model.Page).Large().Max(50).IsRequired()%>
-            <span><%= (Model.Page ?? string.Empty).ToString().Length == 0 ? string.Empty : Html.ActionLink(Model.Page, "Page", new{page = Model.Page}).ToString() %></span>
-            <span class="hint">This will appear in the URL to the page.</span>
-        </p>
+      <div class="editor-label">
+        <%: Html.LabelFor(m => m.Page)%>
+      </div>
+      <div class="editor-field">
+        <%: Html.TextBoxFor(m => m.Page, Html.AttributesFor(m => m.Page))%>
+        <span><%= (Model.Page ?? string.Empty).ToString().Length == 0 ? string.Empty : Html.ActionLink(Model.Page, "Page", new{page = Model.Page}).ToString() %></span>
+        <%: Html.ValidationMessageFor(m => m.Page)%>
+        <%: Html.HintFor(m => m.Page)%>
+      </div>
+
+      <div class="editor-label">
+        <%: Html.LabelFor(m => m.Title)%>
+      </div>
+      <div class="editor-field">
+        <%: Html.TextBoxFor(m => m.Title, Html.AttributesFor(m => m.Title))%>
+        <%: Html.ValidationMessageFor(m => m.Title)%>
+        <%: Html.HintFor(m => m.Title)%>
+      </div>
+
+      <div class="editor-label">
+        <%: Html.LabelFor(m => m.MetaTitle)%>
+      </div>
+      <div class="editor-field">
+        <%: Html.TextBoxFor(m => m.MetaTitle, Html.AttributesFor(m => m.MetaTitle))%>
+        <%: Html.ValidationMessageFor(m => m.MetaTitle)%>
+        <%: Html.HintFor(m => m.MetaTitle)%>
+      </div>
+      
+      <div class="editor-label">
+        <%: Html.LabelFor(m => m.PublishDate)%>
+      </div>
+      <div class="editor-field">
+        <%: Html.TextBoxFor(m => m.PublishDate, Html.AttributesFor(m => m.PublishDate))%>
+        <%: Html.ValidationMessageFor(m => m.PublishDate)%>
+        <%: Html.HintFor(m => m.PublishDate)%>
+      </div>
+      
+      <div class="editor-label">
+        <%: Html.LabelFor(m => m.MetaDescription)%>
+      </div>
+      <div class="editor-field">
+        <%: Html.TextAreaFor(m => m.MetaDescription, Html.AttributesFor(m => m.MetaDescription))%>
+        <%: Html.ValidationMessageFor(m => m.MetaDescription)%>
+        <%: Html.HintFor(m => m.MetaDescription)%>
+      </div>
+
+      <div class="editor-label">
+        <%: Html.LabelFor(m => m.Sidebar)%>
+      </div>
+      <div class="editor-field">
+        <%: Html.TextAreaFor(m => m.Sidebar, Html.AttributesFor(m => m.Sidebar))%>
+        <%: Html.ValidationMessageFor(m => m.Sidebar)%>
+        <%: Html.HintFor(m => m.Sidebar)%>
+      </div>
+      
+      <div class="editor-label">
+        <%: Html.LabelFor(m => m.Keywords)%>
+      </div>
+      <div class="editor-field">
+        <%: Html.TextBoxFor(m => m.Keywords, Html.AttributesFor(m => m.Keywords))%>
+        <%: Html.ValidationMessageFor(m => m.Keywords)%>
+        <%: Html.HintFor(m => m.Keywords)%>
+      </div>
+      
+      <div class="editor-label">
+        <%: Html.Label("Upload")%>
+      </div>
+      <div class="editor-field">
+        <span><%=Html.ActionLink("Click here to upload files...", "Index", "Upload", null, new{target = "_blank"}) %></span>
+      </div>
+
+      <div class="editor-label">
+        <%: Html.LabelFor(m => m.Content)%>
+      </div>
+      <div class="editor-field">
+        <%: Html.EditorFor(m => m.Content, Html.AttributesFor(m => m.Content))%>
+        <%: Html.ValidationMessageFor(m => m.Content)%>
+        <%: Html.HintFor(m => m.Content)%>
+      </div>
+    
+      <div class="editor-label">
+        <%: Html.Label("Feeds") %>        
+      </div>
+      <div class="editor-field">
+          <% foreach (var feed in Model.Feeds) { %>
+          <input type="checkbox" name="FeedIds" id="feedIds" value="<%: feed.Id %>" <%= Model.FeedIds != null && Model.FeedIds.Contains(feed.Id) ? "checked='checked'" : "" %> /> <%= feed.Title %>
+          <% } %>
+          <span class="hint">When you save this entry, it will appear in the feeds above.</span>
+      </div>
         
-        <p>
-            <%= Html.Label("Title", "title") %>
-            <%= Html.InputTextBox("title").Default(Model.Entry.Title).Large().Max(200).IsRequired()%>
-            <span class="hint">This appears at the top of this page and on the home page.</span>
-        </p>
-        
-        <p>
-            <%= Html.Label("Meta Title", "metaTitle") %>
-            <%= Html.InputTextBox("metaTitle").Default(Model.Entry.MetaTitle).Large().Max(65).IsRequired()%>
-            <span class="hint">This appears at the top of the browser and is used by search engines.</span>
-        </p>
-        
-        <p>
-            <%= Html.Label("Publish", "published") %>
-            <%= Html.InputDatePicker("published").Default(Model.Entry.Published).IsRequired()%>
-            <span class="hint">This page will not be published until after the date above.</span>
-        </p>
-        
-        <p>
-            <%= Html.Label("Brief", "metaDescription") %>
-            <%= Html.InputTextBox("metaDescription").Large().Max(150).Default(Model.Entry.MetaDescription).IsRequired()%>
-            <span class="hint">A short description that will appear in the &lt;meta&gt; tags of the page.</span>
-        </p>
-        
-        <p>
-            <%= Html.Label("Sidebar", "summary") %>
-            <%= Html.InputTextArea("summary").Default(Model.Entry.Summary)%>
-            <span class="hint">This will appear at the right of the page. Use it to provide a quick description of the page to users.</span>
-        </p>
-        
-        <p>
-            <%= Html.Label("Keywords", "metaKeywords") %>
-            <%= Html.InputTextBox("metaKeywords").Max(100).Large().Default(Model.Entry.MetaKeywords).IsRequired()%>
-            <span class="hint">Comma-seperated keywords that will appear in the &lt;meta&gt; tags of the page.</span>
-        </p>
-        
-        <p>
-            <%= Html.Label("Upload", "upload") %>
-            <span><%=Html.ActionLink("Click here to upload files...", "Index", "Upload", null, new{target = "_blank"}) %></span>
-        </p>
-        
-        <p>
-            <%= Html.Label("Content", "wmd-input") %>
-            <%= Html.InputTextEditor("body").Default(ViewData.Eval("Entry.LatestRevision.Body")).IsRequired()%>
-        </p>
-        
-        <p>
-            <%= Html.Label("Feeds", "") %>
-            <% foreach (var feed in Model.Feeds) { %>
-            <%= Html.InputCheckBox("feeds", feed.Id) %> <%= feed.Title %>
-            <% } %>
-            <span class="hint">When you save this entry, it will appear in the feeds above.</span>
-        </p>
-        
-        <p>
-            <%= Html.Label("Comments", "comment") %>
-            <%= Html.InputTextArea("comment").Default(Model.IsNew ? "Initial creation." : "").IsRequired() %>
-            <span class="hint">A breif overview of what was changed and why. This will appear on the page history.</span>
-        </p>
-        
-        <p>
-            <%= Html.Label("Comments", "enableDiscussion")%>
-            <%= Html.CheckBox("enableDiscussion", Model.Entry.IsDiscussionEnabled) %> Allowed
-            <span class="hint">If checked, allows users to post comments on this page.</span>
-        </p>
-        
-        <p>
-            <input type="submit" id="submit" class="submit" value="Submit" />
-        </p>
-        <p>
-            <span class="notification-wait" id="submitnotification"></span>
-        </p>
+      <div class="editor-label">
+        <%: Html.LabelFor(m => m.ChangeSummary)%>
+      </div>
+      <div class="editor-field">
+        <%: Html.TextAreaFor(m => m.ChangeSummary, Html.AttributesFor(m => m.ChangeSummary))%>
+        <%: Html.ValidationMessageFor(m => m.ChangeSummary)%>
+        <%: Html.HintFor(m => m.ChangeSummary)%>
+      </div>
+
+      <div class="editor-label">
+        <%: Html.LabelFor(m => m.AllowComments)%>
+      </div>
+      <div class="editor-field">
+        <%: Html.CheckBoxFor(m => m.AllowComments, Html.AttributesFor(m => m.AllowComments))%>
+        <%: Html.ValidationMessageFor(m => m.AllowComments)%>
+        <%: Html.HintFor(m => m.AllowComments)%>
+      </div>
+
+      <div class="editor-label">
+      </div>
+      <div class="editor-field">
+        <input type="submit" id="submit" class="submit" value="Save" />
+      </div>
     </div>
     
     <% } %>

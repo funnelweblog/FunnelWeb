@@ -168,7 +168,15 @@ namespace FunnelWeb.Web.Application.Extensions
 
         private static void WhenEncountering<TAttribute>(LambdaExpression expression, Action<TAttribute> callback)
         {
-            var member = (MemberExpression)expression.Body;
+            var member = expression.Body as MemberExpression;
+            if (member == null)
+            {
+                var unary = expression.Body as UnaryExpression;
+                if (unary == null)
+                    return;
+
+                member = unary.Operand as MemberExpression;
+            }
             foreach (var instance in member.Member.GetCustomAttributes(true).OfType<TAttribute>())
             {
                 callback(instance);

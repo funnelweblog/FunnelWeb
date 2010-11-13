@@ -72,18 +72,11 @@ namespace FunnelWeb.Web.Features.Wiki
         public virtual ActionResult New()
         {
             var feeds = FeedRepository.GetFeeds();
-            var entry = new Entry() { Title = "Enter a Title", MetaTitle = "Enter a meta title", Name = "" };
-            ViewData.Model = new EditModel("", entry, true, feeds);
-            return View("Edit");
-        }
-
-        [Authorize]
-        public virtual ActionResult Edit(PageName page)
-        {
-            var entry = EntryRepository.GetEntry(page) ?? new Entry() { Title = page, MetaTitle = page, Name = page};
-            var feeds = FeedRepository.GetFeeds();
-            ViewData.Model = new EditModel(page, entry, entry.Id == 0, feeds);
-            return View();
+            var model = new EditModel("", true, feeds);
+            model.Title = "Enter a title";
+            model.AllowComments = true;
+            model.MetaTitle = "Enter a meta title";
+            return View("Edit", model);
         }
 
         [Authorize]
@@ -94,34 +87,62 @@ namespace FunnelWeb.Web.Features.Wiki
             return View();
         }
 
+        [Authorize]
+        public virtual ActionResult Edit(PageName page)
+        {
+            var entry = EntryRepository.GetEntry(page) ?? new Entry() { Title = page, MetaTitle = page, Name = page};
+            var feeds = FeedRepository.GetFeeds();
+            var model = new EditModel(page, entry.Id == 0, feeds);
+            model.AllowComments = entry.IsDiscussionEnabled;
+            model.ChangeSummary = entry.Id == 0 ? "Initial create" : "";
+            model.Content = entry.LatestRevision.Body;
+            model.Keywords = entry.MetaKeywords;
+            model.MetaDescription = entry.MetaDescription;
+            model.MetaTitle = entry.MetaTitle;
+            model.PublishDate = entry.Published;
+            model.Sidebar = entry.Summary;
+            model.Title = entry.Title;
+            return View(model);
+        }
+
         [HttpPost]
         [Authorize]
-        public virtual ActionResult Save(PageName page, string title, string metaTitle, string summary, string body, string comment, string metaDescription, string metaKeywords, bool enableDiscussion, int[] feeds)
+        public virtual ActionResult Edit(EditModel model)
         {
-            var entry = EntryRepository.GetEntry(page) ?? new Entry();
-            entry.Name = page;
-            entry.Title = title;
-            entry.Summary = summary;
-            entry.MetaTitle = metaTitle;
-            entry.IsDiscussionEnabled = enableDiscussion;
-            entry.MetaDescription = metaDescription;
-            entry.MetaKeywords = metaKeywords;
+            var feeds = FeedRepository.GetFeeds();
+            model.Feeds = feeds;
+                
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var entry = EntryRepository.GetEntry(model.Page) ?? new Entry();
+            entry.Name = model.Page;
+            entry.Title = model.Title ?? string.Empty;
+            entry.Summary = model.Sidebar ?? string.Empty;
+            entry.MetaTitle = model.MetaTitle ?? string.Empty;
+            entry.IsDiscussionEnabled = model.AllowComments;
+            entry.MetaDescription = model.MetaDescription ?? string.Empty;
+            entry.MetaKeywords = model.Keywords ?? string.Empty;
+            entry.Published = (model.PublishDate ?? DateTime.Now).ToUniversalTime();
 
             var revision = entry.Revise();
-            revision.Body = body;
-            revision.Reason = comment;
+            revision.Body = model.Content;
+            revision.Reason = model.ChangeSummary;
 
             EntryRepository.Save(entry);
 
             foreach (var feed in FeedRepository.GetFeeds())
             {
-                if (!feeds.Contains(feed.Id)) continue;
+                if (model.FeedIds == null || model.FeedIds.Contains(feed.Id) == false) 
+                    continue;
 
                 feed.Publish(entry);
                 FeedRepository.Save(feed);
             }
 
-            return RedirectToAction("Page", new { page = page });
+            return RedirectToAction("Page", new { page = model.Page });
         }
 
         [HttpPost]

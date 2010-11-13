@@ -333,6 +333,7 @@ div.nav div.search
 {
     margin-left: 140px;
     margin-bottom: 10px;
+    min-height: 30px;
 }
 .form-body span.hint
 {
@@ -432,7 +433,7 @@ input, textarea
 	border: 1px solid #cfcfcf;
 	padding: 4px;
 	font-size: 100%;
-	width: 100px;
+	width: auto;
 }
 textarea
 {
@@ -834,4 +835,3 @@ span.close
     color: #CC3954;
     display: block;
 }
-

@@ -60,11 +60,6 @@ namespace FunnelWeb.Web.Features.Wiki {
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult Save() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.Save);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public System.Web.Mvc.ActionResult Revisions() {
             return new T4MVC_ActionResult(Area, Name, ActionNames.Revisions);
         }
@@ -86,9 +81,8 @@ namespace FunnelWeb.Web.Features.Wiki {
             public readonly string NotFound = "NotFound";
             public readonly string Page = "Page";
             public readonly string New = "New";
-            public readonly string Edit = "Edit";
             public readonly string Unpublished = "Unpublished";
-            public readonly string Save = "Save";
+            public readonly string Edit = "Edit";
             public readonly string Revisions = "Revisions";
             public readonly string SiteMap = "SiteMap";
         }
@@ -155,29 +149,20 @@ namespace FunnelWeb.Web.Features.Wiki {
             return callInfo;
         }
 
+        public override System.Web.Mvc.ActionResult Unpublished() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Unpublished);
+            return callInfo;
+        }
+
         public override System.Web.Mvc.ActionResult Edit(FunnelWeb.Web.Model.Strings.PageName page) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Edit);
             callInfo.RouteValueDictionary.Add("page", page);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Unpublished() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Unpublished);
-            return callInfo;
-        }
-
-        public override System.Web.Mvc.ActionResult Save(FunnelWeb.Web.Model.Strings.PageName page, string title, string metaTitle, string summary, string body, string comment, string metaDescription, string metaKeywords, bool enableDiscussion, int[] feeds) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Save);
-            callInfo.RouteValueDictionary.Add("page", page);
-            callInfo.RouteValueDictionary.Add("title", title);
-            callInfo.RouteValueDictionary.Add("metaTitle", metaTitle);
-            callInfo.RouteValueDictionary.Add("summary", summary);
-            callInfo.RouteValueDictionary.Add("body", body);
-            callInfo.RouteValueDictionary.Add("comment", comment);
-            callInfo.RouteValueDictionary.Add("metaDescription", metaDescription);
-            callInfo.RouteValueDictionary.Add("metaKeywords", metaKeywords);
-            callInfo.RouteValueDictionary.Add("enableDiscussion", enableDiscussion);
-            callInfo.RouteValueDictionary.Add("feeds", feeds);
+        public override System.Web.Mvc.ActionResult Edit(FunnelWeb.Web.Features.Wiki.Views.EditModel model) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Edit);
+            callInfo.RouteValueDictionary.Add("model", model);
             return callInfo;
         }
 
