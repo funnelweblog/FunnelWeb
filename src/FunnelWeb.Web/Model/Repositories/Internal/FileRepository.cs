@@ -4,6 +4,7 @@ using System.Security;
 using System.Text.RegularExpressions;
 using System.Web;
 using FunnelWeb.Web.Application.Extensions;
+using FunnelWeb.Web.Application.Settings;
 
 namespace FunnelWeb.Web.Model.Repositories.Internal
 {
@@ -11,14 +12,14 @@ namespace FunnelWeb.Web.Model.Repositories.Internal
     {
         private readonly string root;
 
-        public FileRepository(string root, HttpServerUtilityBase server)
+        public FileRepository(ISettingsProvider settingsProvider, HttpServerUtilityBase server)
         {
+            root = settingsProvider.GetSettings().UploadPath;
             // If it's a virtual path then we can map it, otherwise we'll expect that it's a windows path
             if (root.StartsWith("~"))
             {
                 root = server.MapPath(root);
             }
-            this.root = root;
         }
 
         public string MapPath(string path)

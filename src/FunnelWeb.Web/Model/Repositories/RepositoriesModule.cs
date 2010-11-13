@@ -6,6 +6,7 @@ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.Web.Application.Installation;
+using FunnelWeb.Web.Application.Settings;
 using FunnelWeb.Web.Model.Repositories.Internal;
 using NHibernate;
 
@@ -25,7 +26,7 @@ namespace FunnelWeb.Web.Model.Repositories
             builder.RegisterType<ApplicationDatabase>().As<IApplicationDatabase>();
             builder.RegisterType<ConnectionStringProvider>().As<IConnectionStringProvider>();
 
-            builder.Register<IFileRepository>(x => new FileRepository(WebConfigurationManager.AppSettings["FunnelWeb.configuration.uploadpath"], x.Resolve<HttpServerUtilityBase>())).HttpRequestScoped();
+            builder.Register<IFileRepository>(x => new FileRepository(x.Resolve<ISettingsProvider>(), x.Resolve<HttpServerUtilityBase>())).HttpRequestScoped();
             builder.RegisterType<FeedRepository>().As<IFeedRepository>().HttpRequestScoped();
             builder.RegisterType<AdminRepository>().As<IAdminRepository>();
             builder.RegisterType<EntryRepository>().As<IEntryRepository>().HttpRequestScoped();

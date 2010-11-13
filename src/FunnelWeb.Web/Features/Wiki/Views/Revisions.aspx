@@ -1,6 +1,6 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Content/Site.Master" Inherits="System.Web.Mvc.ViewPage<FunnelWeb.Web.Features.Wiki.Views.RevisionsModel>" %>
 
-<asp:Content ContentPlaceHolderID="TitleContent" runat="server"><%= Settings.SiteTitle %> - <%= Model.Entry.Title %> - History</asp:Content>
+<asp:Content ContentPlaceHolderID="TitleContent" runat="server"><%= Html.Settings().SiteTitle %> - <%= Model.Entry.Title %> - History</asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="MetaContent" runat="server">
   <meta name="description" content="Revision History of <%= Model.Entry.Title %>" />
   <meta name="robots" content="noindex, nofollow" />
@@ -24,7 +24,6 @@
             <tr>
                 <td></td>
                 <td><abbr title="When the change was made">Revised</abbr></td>
-                <td><abbr title="An automatically-generated difference between this and the previous page version">Changes</abbr></td>
                 <td><abbr title="Reasons explaining why the page was changed">Comments</abbr></td>
             </tr>
         </thead>
@@ -33,7 +32,6 @@
             <tr>
                 <td valign="top"><%= revision.RevisionNumber %></td>
                 <td valign="top" align="right"><a href="<%= Html.ActionUrl("Page", new { page = Model.Page, revision = revision.RevisionNumber })%>"><%=Html.Date(revision.Revised)%></a></td>
-                <td valign="top"><%= Html.TextilizeList(revision.ChangeSummary)%></td>
                 <td valign="top"><%= Html.TextilizeList(revision.Reason)%></td>
             </tr>
     <% } %>

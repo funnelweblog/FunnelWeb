@@ -5,6 +5,7 @@
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
     <h2>Directory Listing: <% foreach (var part in ViewData.Model.Path) {%>/<%= Html.ActionLink(part.Name, "Index", new { path = part.Path })%><% } %></h2>
     
+    <div>
     <table>
         <thead>
             <tr>
@@ -36,7 +37,9 @@
             </tr>
         <% } %>    
     </table>
+    </div>
     
+    <div>
     <h2>Upload</h2>
     
     <% using (Html.BeginForm("Upload", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" })) {%>
@@ -44,6 +47,7 @@
         <input type="file" name="upload" />
         <input type="submit" value="Submit" />
     <%} %>
+    </div>
     
     <h2>Create Directory</h2>
     
