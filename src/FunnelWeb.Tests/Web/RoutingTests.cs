@@ -29,14 +29,14 @@ namespace FunnelWeb.Tests.Web
                 Routes.WillRoute("~/hello-world", new { controller = "Wiki", action = "Page", page = "hello-world", revision = "0" });
                 Routes.WillRoute("~/hello-world/2", new { controller = "Wiki", action = "Page", page = "hello-world", revision = "2" });
                 Routes.WillRoute("~/hello-world/revisions", new { controller = "Wiki", action = "Revisions", page = "hello-world" });
-                Routes.WillRoute("~/hello-world/edit", new { controller = "Wiki", action = "Edit", page = "hello-world" });
+                Routes.WillRoute("~/edit/hello-world", new { controller = "Wiki", action = "Edit", page = "hello-world" });
                 
                 // Feeds
                 Routes.WillRoute("~/feeds", new { controller = "Feed", action = "Feed", feedName = (string)null });
                 Routes.WillRoute("~/feeds/foo", new { controller = "Feed", action = "Feed", feedName = "foo" });
 
                 // Login
-                Routes.WillRoute("~/login", new { controller = "Login", action = "Index" });
+                Routes.WillRoute("~/login", new { controller = "Login", action = "Login" });
             }
         }
     }

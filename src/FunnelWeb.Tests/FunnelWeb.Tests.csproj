@@ -62,8 +62,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\Application\ActionResults\XmlActionResultTests.cs" />
     <Compile Include="Web\Application\Binders\ArrayBinderTests.cs" />
-    <Compile Include="Web\Application\Binders\UploadBinderTests.cs" />
-    <Compile Include="Web\Application\Binders\DictionaryBinderTests.cs" />
     <Compile Include="Web\Application\Binders\ImplicitAssignmentBinderTests.cs" />
     <Compile Include="Web\Application\Filters\RequireLoginTests.cs" />
     <Compile Include="Web\Application\Markup\MarkdownTests.cs" />

@@ -133,7 +133,6 @@
     <Compile Include="Application\Authentication\IAuthenticator.cs" />
     <Compile Include="Application\Mvc\HintSize.cs" />
     <Compile Include="Application\Mvc\Binders\ArrayBinder.cs" />
-    <Compile Include="Application\Mvc\Binders\DictionaryBinder.cs" />
     <Compile Include="Application\Mvc\Binders\ImplicitAssignmentBinder.cs" />
     <Compile Include="Application\Mvc\Binders\UploadBinder.cs" />
     <Compile Include="Application\Extensions\MarkupExtensions.cs" />

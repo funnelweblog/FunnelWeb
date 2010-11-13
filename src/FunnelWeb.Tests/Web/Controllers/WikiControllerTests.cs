@@ -30,9 +30,9 @@ namespace FunnelWeb.Tests.Web.Controllers
         public void SetUp()
         {
             Controller = new WikiController();
-            Controller.EntryRepository = Substitute.For<IEntryRepository>();
-            Controller.FeedRepository = Substitute.For<IFeedRepository>();
-            Controller.SpamChecker = Substitute.For<ISpamChecker>();
+            Controller.EntryRepository = EntryRepository = Substitute.For<IEntryRepository>();
+            Controller.FeedRepository = FeedRepository = Substitute.For<IFeedRepository>();
+            Controller.SpamChecker = SpamChecker = Substitute.For<ISpamChecker>();
             Controller.ControllerContext = ControllerContext = CreateControllerContext();
             Identity = Substitute.For<IIdentity>();
             User = Substitute.For<IPrincipal>();
@@ -144,7 +144,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         }
 
         [Test]
-        public void WikiControllerTests_New_Returns_Edit_View_And_Default_Model()
+        public void New()
         {
             var feeds = new List<Feed>().AsQueryable();
             FeedRepository.GetFeeds().Returns(feeds);
@@ -157,9 +157,9 @@ namespace FunnelWeb.Tests.Web.Controllers
         }
 
         [Test]
-        public void WikiControllerTests_Edit_Returns_Existing_Page_When_Found()
+        public void EditReturnsExistingPageWhenFound()
         {
-            var entry = new Entry() { Name = "Awesome Post" };
+            var entry = new Entry() { Name = "Awesome Post", LatestRevision = new Revision() };
             EntryRepository.GetEntry(Arg.Any<PageName>()).Returns(entry);
             var feeds = new List<Feed>().AsQueryable();
             FeedRepository.GetFeeds().Returns(feeds);
@@ -168,7 +168,7 @@ namespace FunnelWeb.Tests.Web.Controllers
 
             Assert.IsTrue(string.IsNullOrEmpty(result.ViewName));
             Assert.AreEqual(feeds, ((EditModel)result.ViewData.Model).Feeds);
-            Assert.AreEqual(entry.Name, ((EditModel)result.ViewData.Model).Page);
+            Assert.AreEqual(entry.Name.ToString(), ((EditModel)result.ViewData.Model).Page);
             EntryRepository.Received().GetEntry(Arg.Any<PageName>());
             FeedRepository.Received().GetFeeds();
         }

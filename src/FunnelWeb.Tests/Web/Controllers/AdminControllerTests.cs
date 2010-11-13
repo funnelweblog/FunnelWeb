@@ -40,7 +40,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         {
             var result = (RedirectToRouteResult)Controller.Feeds(new FeedsModel());
 
-            Assert.That(result.RouteValues["Action"], Is.EqualTo("Index"));
+            Assert.That(result.RouteValues["Action"], Is.EqualTo("Feeds"));
         }
 
         [Test]
@@ -50,7 +50,7 @@ namespace FunnelWeb.Tests.Web.Controllers
             
             var result = (RedirectToRouteResult)Controller.DeleteFeed(0);
 
-            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
+            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Feeds"));
         }
 
         [Test]
@@ -58,7 +58,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         {
             var result = (RedirectToRouteResult)Controller.DeleteComment(0);
 
-            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
+            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Comments"));
         }
 
         [Test]
@@ -66,7 +66,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         {
             var result = (RedirectToRouteResult)Controller.DeleteAllSpam();
 
-            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
+            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Comments"));
         }
 
         [Test]
@@ -74,7 +74,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         {
             var result = (RedirectToRouteResult)Controller.DeletePingback(0);
 
-            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
+            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Pingbacks"));
         }
 
         [Test]
@@ -82,7 +82,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         {
             var result = (RedirectToRouteResult)Controller.ToggleSpam(0);
 
-            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
+            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Comments"));
         }
 
         [Test]
@@ -90,7 +90,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         {
             var result = (RedirectToRouteResult)Controller.TogglePingbackSpam(0);
 
-            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
+            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Pingbacks"));
         }
 
         [Test]

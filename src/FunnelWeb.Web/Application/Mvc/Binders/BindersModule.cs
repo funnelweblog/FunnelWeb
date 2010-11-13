@@ -17,7 +17,6 @@ namespace FunnelWeb.Web.Application.Mvc.Binders
         protected override void Load(ContainerBuilder builder)
         {
             binders.Add(typeof(PageName), new ImplicitAssignmentBinder());
-            binders.Add(typeof(Dictionary<string, string>), new DictionaryBinder());
             binders.Add(typeof(int[]), new ArrayBinder());
             binders.Add(typeof(FileUpload), new UploadBinder());
         }

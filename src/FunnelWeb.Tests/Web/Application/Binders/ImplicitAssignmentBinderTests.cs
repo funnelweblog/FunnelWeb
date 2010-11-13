@@ -33,7 +33,8 @@ namespace FunnelWeb.Tests.Web.Application.Binders
                     new ModelBindingContext
                     {
                         ModelName = "foo",
-                        ModelType = typeof(PageName)
+                        ModelMetadata = ModelMetadataProviders.Current.GetMetadataForType(null, typeof(PageName)),
+                        ValueProvider = new NameValueCollectionValueProvider(Subject.HttpContext.Request.Form, null)
                     });
             }
 
@@ -42,7 +43,7 @@ namespace FunnelWeb.Tests.Web.Application.Binders
             [Then]
             public void ShouldConvertFromStringToPageName()
             {
-                Assert.AreEqual("paul-blog", Result);
+                Assert.AreEqual((PageName)"paul-blog", Result);
             }
         }
     }
