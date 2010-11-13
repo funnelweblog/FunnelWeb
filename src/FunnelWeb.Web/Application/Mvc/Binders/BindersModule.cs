@@ -19,7 +19,7 @@ namespace FunnelWeb.Web.Application.Mvc.Binders
             binders.Add(typeof(PageName), new ImplicitAssignmentBinder());
             binders.Add(typeof(Dictionary<string, string>), new DictionaryBinder());
             binders.Add(typeof(int[]), new ArrayBinder());
-            binders.Add(typeof(Upload), new UploadBinder());
+            binders.Add(typeof(FileUpload), new UploadBinder());
         }
     }
 }

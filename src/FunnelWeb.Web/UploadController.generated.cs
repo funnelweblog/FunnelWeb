@@ -19,7 +19,7 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace FunnelWeb.Web.Features.Uploads {
+namespace FunnelWeb.Web.Features.Upload {
     public partial class UploadController {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public UploadController() { }
@@ -94,7 +94,7 @@ namespace FunnelWeb.Web.Features.Uploads {
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public class T4MVC_UploadController: FunnelWeb.Web.Features.Uploads.UploadController {
+    public class T4MVC_UploadController: FunnelWeb.Web.Features.Upload.UploadController {
         public T4MVC_UploadController() : base(Dummy.Instance) { }
 
         public override System.Web.Mvc.ActionResult Index(string path) {
@@ -103,7 +103,7 @@ namespace FunnelWeb.Web.Features.Uploads {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Upload(string path, FunnelWeb.Web.Application.Upload upload) {
+        public override System.Web.Mvc.ActionResult Upload(string path, FunnelWeb.Web.Application.FileUpload upload) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Upload);
             callInfo.RouteValueDictionary.Add("path", path);
             callInfo.RouteValueDictionary.Add("upload", upload);

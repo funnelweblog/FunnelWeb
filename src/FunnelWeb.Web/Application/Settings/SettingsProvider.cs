@@ -72,7 +72,7 @@ namespace FunnelWeb.Web.Application.Settings
                         if (setting.Property.Name == "Themes")
                         {
                             var themeFolder = new DirectoryInfo(themesDirectoryPath());
-                            var themes = themeFolder.GetDirectories().Select(x => x.Name).OrderBy(x => x).ToList();
+                            var themes = themeFolder.GetDirectories().Select(x => x.Name).OrderBy(x => x).ToArray();
                             setting.Write(settings, themes);
                         }
                         else

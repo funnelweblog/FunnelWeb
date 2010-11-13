@@ -2,7 +2,7 @@
 using System.Web.Configuration;
 using FunnelWeb.Web.Model;
 
-namespace FunnelWeb.Web.Features.Uploads.Views
+namespace FunnelWeb.Web.Features.Upload.Views
 {
     public class IndexModel
     {

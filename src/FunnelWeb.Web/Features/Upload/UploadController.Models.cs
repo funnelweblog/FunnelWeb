@@ -1,4 +1,4 @@
-﻿namespace FunnelWeb.Web.Features.Uploads
+﻿namespace FunnelWeb.Web.Features.Upload
 {
     public partial class UploadController
     {

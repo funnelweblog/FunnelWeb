@@ -1,7 +1,7 @@
 ﻿using FunnelWeb.Web.Model;
 using FunnelWeb.Web.Model.Strings;
 
-namespace FunnelWeb.Web.Features.Wikis.Views
+namespace FunnelWeb.Web.Features.Wiki.Views
 {
     public class RevisionsModel
     {

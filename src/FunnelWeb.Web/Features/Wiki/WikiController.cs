@@ -2,12 +2,12 @@
 using System.Web.Mvc;
 using FunnelWeb.Web.Application.Filters;
 using FunnelWeb.Web.Application.Spam;
-using FunnelWeb.Web.Features.Wikis.Views;
+using FunnelWeb.Web.Features.Wiki.Views;
 using FunnelWeb.Web.Model;
 using FunnelWeb.Web.Model.Repositories;
 using FunnelWeb.Web.Model.Strings;
 
-namespace FunnelWeb.Web.Features.Wikis
+namespace FunnelWeb.Web.Features.Wiki
 {
     [Transactional]
     [HandleError]

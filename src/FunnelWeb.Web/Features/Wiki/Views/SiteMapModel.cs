@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FunnelWeb.Web.Model;
 
-namespace FunnelWeb.Web.Features.Wikis.Views
+namespace FunnelWeb.Web.Features.Wiki.Views
 {
     public class SiteMapModel
     {

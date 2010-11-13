@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace FunnelWeb.Web.Features.Wikis.Views
+namespace FunnelWeb.Web.Features.Wiki.Views
 {
     public class ReviseModel
     {

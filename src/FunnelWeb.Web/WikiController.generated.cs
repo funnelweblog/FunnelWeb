@@ -19,7 +19,7 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace FunnelWeb.Web.Features.Wikis {
+namespace FunnelWeb.Web.Features.Wiki {
     public partial class WikiController {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public WikiController() { }
@@ -105,11 +105,30 @@ namespace FunnelWeb.Web.Features.Wikis {
         public ViewNames Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
+            public readonly string WikiController = "~/Features/Wiki/WikiController.cs";
+            static readonly _Views s_Views = new _Views();
+            public _Views Views { get { return s_Views; } }
+            public partial class _Views{
+                public readonly string Edit = "~/Features/Wiki/Views/Edit.aspx";
+                public readonly string EditModel = "~/Features/Wiki/Views/EditModel.cs";
+                public readonly string NotFound = "~/Features/Wiki/Views/NotFound.aspx";
+                public readonly string NotFoundModel = "~/Features/Wiki/Views/NotFoundModel.cs";
+                public readonly string Page = "~/Features/Wiki/Views/Page.aspx";
+                public readonly string PageModel = "~/Features/Wiki/Views/PageModel.cs";
+                public readonly string Recent = "~/Features/Wiki/Views/Recent.aspx";
+                public readonly string RecentModel = "~/Features/Wiki/Views/RecentModel.cs";
+                public readonly string ReviseModel = "~/Features/Wiki/Views/ReviseModel.cs";
+                public readonly string Revisions = "~/Features/Wiki/Views/Revisions.aspx";
+                public readonly string RevisionsModel = "~/Features/Wiki/Views/RevisionsModel.cs";
+                public readonly string SiteMap = "~/Features/Wiki/Views/SiteMap.aspx";
+                public readonly string SiteMapModel = "~/Features/Wiki/Views/SiteMapModel.cs";
+                public readonly string Unpublished = "~/Features/Wiki/Views/Unpublished.aspx";
+            }
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public class T4MVC_WikiController: FunnelWeb.Web.Features.Wikis.WikiController {
+    public class T4MVC_WikiController: FunnelWeb.Web.Features.Wiki.WikiController {
         public T4MVC_WikiController() : base(Dummy.Instance) { }
 
         public override System.Web.Mvc.ActionResult Recent(int pageNumber) {

@@ -144,10 +144,10 @@ namespace FunnelWeb.Web.Application.Extensions
 
         #region Settings
 
-        public static ISettingsProvider Settings(this HtmlHelper helper)
+        public static Settings.Settings Settings(this HtmlHelper helper)
         {
             var application = (IContainerProviderAccessor)HttpContext.Current.ApplicationInstance;
-            return application.ContainerProvider.RequestLifetime.Resolve<ISettingsProvider>();
+            return application.ContainerProvider.RequestLifetime.Resolve<ISettingsProvider>().GetSettings();
         }
 
         #endregion

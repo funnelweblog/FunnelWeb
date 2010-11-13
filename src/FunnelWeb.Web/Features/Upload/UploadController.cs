@@ -1,11 +1,11 @@
 ﻿using System.IO;
 using System.Web.Mvc;
 using FunnelWeb.Web.Application;
-using FunnelWeb.Web.Features.Uploads.Views;
-using FunnelWeb.Web.Model.Repositories;
 using FunnelWeb.Web.Application.Mime;
+using FunnelWeb.Web.Features.Upload.Views;
+using FunnelWeb.Web.Model.Repositories;
 
-namespace FunnelWeb.Web.Features.Uploads
+namespace FunnelWeb.Web.Features.Upload
 {
     public partial class UploadController : Controller
     {
@@ -26,7 +26,7 @@ namespace FunnelWeb.Web.Features.Uploads
         }
 
         [Authorize]
-        public virtual ActionResult Upload(string path, Upload upload)
+        public virtual ActionResult Upload(string path, FileUpload upload)
         {
             var fullPath = FileRepository.MapPath(Path.Combine(path, upload.FileName));
             upload.SaveTo(fullPath);

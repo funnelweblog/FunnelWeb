@@ -1,9 +1,8 @@
-﻿using System.Web.Mvc;
-using Autofac.Core;
-using FunnelWeb.Web.Application.Settings;
-using Autofac;
+﻿using System;
 using System.Web;
-using System;
+using System.Web.Mvc;
+using Autofac;
+using FunnelWeb.Web.Application.Settings;
 using FunnelWeb.Web.Model.Repositories;
 
 namespace FunnelWeb.Web.Application.Views
@@ -34,8 +33,11 @@ namespace FunnelWeb.Web.Application.Views
             engine.PartialViewLocationFormats = new[]
                 {
                     "~/Content/Shared/{0}.ascx",
+                    "~/Content/{0}.ascx",
+                    "~/Content/DisplayTemplates/{0}.ascx",
                     "~/Features/{1}/Views/{0}.ascx",
                 };
+
             engines.Clear();
             engines.Add(engine);
         }

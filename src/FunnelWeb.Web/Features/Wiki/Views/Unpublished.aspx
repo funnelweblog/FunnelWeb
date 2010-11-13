@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Content/Site.Master" Inherits="System.Web.Mvc.ViewPage<FunnelWeb.Web.Features.Wikis.Views.RecentModel>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Content/Site.Master" Inherits="System.Web.Mvc.ViewPage<FunnelWeb.Web.Features.Wiki.Views.RecentModel>" %>
 
 <asp:Content ContentPlaceHolderID="TitleContent" runat="server"><%= Settings.SiteTitle %></asp:Content>
 <asp:Content ContentPlaceHolderID="MetaContent" runat="server">

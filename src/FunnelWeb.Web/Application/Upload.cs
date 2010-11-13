@@ -3,11 +3,11 @@ using System.Web;
 
 namespace FunnelWeb.Web.Application
 {
-    public class Upload
+    public class FileUpload
     {
         private readonly HttpPostedFileBase postedFile;
 
-        public Upload(HttpPostedFileBase postedFile)
+        public FileUpload(HttpPostedFileBase postedFile)
         {
             this.postedFile = postedFile;
         }

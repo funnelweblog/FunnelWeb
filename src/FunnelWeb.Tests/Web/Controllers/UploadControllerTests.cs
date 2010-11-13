@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using FunnelWeb.Web.Application;
 using FunnelWeb.Web.Application.Mime;
-using FunnelWeb.Web.Features.Uploads;
+using FunnelWeb.Web.Features.Upload;
 using FunnelWeb.Web.Model.Repositories;
 using NSubstitute;
 using NUnit.Framework;
@@ -51,7 +51,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         public void Upload()
         {
             var file = Substitute.For<HttpPostedFileBase>();
-            var upload = new Upload(file);
+            var upload = new FileUpload(file);
             
             var result = (RedirectToRouteResult)Controller.Upload("path", upload);
 

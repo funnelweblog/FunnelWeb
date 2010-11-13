@@ -1,13 +1,13 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Content/Site.Master" Inherits="System.Web.Mvc.ViewPage<FunnelWeb.Web.Features.Wikis.Views.RecentModel>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Content/Site.Master" Inherits="System.Web.Mvc.ViewPage<FunnelWeb.Web.Features.Wiki.Views.RecentModel>" %>
 
-<asp:Content ContentPlaceHolderID="TitleContent" runat="server"><%= Settings.SiteTitle %></asp:Content>
+<asp:Content ContentPlaceHolderID="TitleContent" runat="server"><%= Html.Settings().SiteTitle %></asp:Content>
 <asp:Content ContentPlaceHolderID="MetaContent" runat="server">
-  <meta name="description" content="<%= Settings.SearchDescription %>" />
-  <meta name="keywords" content="<%= Settings.SearchKeywords %>" />
+  <meta name="description" content="<%= Html.Settings().SearchDescription %>" />
+  <meta name="keywords" content="<%= Html.Settings().SearchKeywords %>" />
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="SummaryContent" runat="server">
-<%= Html.DisplayFor(_ => Settings.Introduction)%>
+<%= Html.DisplayFor(_ => Html.Settings().Introduction)%>
 </asp:Content>
  
 <asp:Content ContentPlaceHolderID="MainContent" runat="server"><h1>Recent Posts</h1>

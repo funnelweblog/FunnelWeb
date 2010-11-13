@@ -11,7 +11,7 @@ namespace FunnelWeb.Web.Application.Mvc.Binders
 
             if (file == null)
                 return null;
-            return new Upload(file);
+            return new FileUpload(file);
         }
     }
 }

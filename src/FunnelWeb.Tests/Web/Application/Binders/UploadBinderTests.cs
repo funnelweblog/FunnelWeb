@@ -34,14 +34,14 @@ namespace FunnelWeb.Tests.Web.Application.Binders
 
             public override void When()
             {
-                Result = (Upload)new UploadBinder().BindModel(Subject,
+                Result = (FileUpload)new UploadBinder().BindModel(Subject,
                     new ModelBindingContext
                     {
                         ModelName = "file1"
                     });
             }
 
-            protected Upload Result { get; set; }
+            protected FileUpload Result { get; set; }
 
             [Then]
             public void ShouldCreateUpload()
