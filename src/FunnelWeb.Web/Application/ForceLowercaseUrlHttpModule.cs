@@ -33,7 +33,7 @@ namespace FunnelWeb.Web.Application
                 idealUrl += context.Request.Url.Query;
             }
 
-            if (context.Request.Url.AbsoluteUri == idealUrl) 
+            if (context.Request.Url.AbsoluteUri == idealUrl || context.Request.Url.AbsoluteUri == idealUrl + "/") 
                 return;
             
             HttpContext.Current.Response.Clear();
