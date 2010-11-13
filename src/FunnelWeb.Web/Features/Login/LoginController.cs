@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using FunnelWeb.Web.Application.Authentication;
+using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Features.Login.Views;
 
 namespace FunnelWeb.Web.Features.Login
@@ -32,7 +33,8 @@ namespace FunnelWeb.Web.Features.Login
                 return Redirect("~/");    
             }
             ViewData.Model = new IndexModel(databaseIssue ?? false, true);
-            return View("Index");
+            return View("Index")
+                .AndFlash("Username or password was incorrect. Please try again");
         }
 
         public virtual ActionResult Logout()
