@@ -53,6 +53,11 @@
         </div>
     </div>
     <div class="body">
+      <% if (TempData.ContainsKey("Flash")) { %>  
+        <div class="flash">
+          <p><%= Html.Encode(TempData["Flash"]) %></p>
+        </div>
+      <% }%>
         <div class="intro" runat="server" id="_summary">
             <asp:ContentPlaceHolder ID="SummaryContent" runat="server">
             </asp:ContentPlaceHolder>
@@ -81,6 +86,6 @@
     <% Html.RequiresJs("Showdown/Showdown.js", "Scripts", 1); %>
     <% Html.RequiresJs("Showdown/wmd.js", "Scripts", 1); %>
     <% Html.RequiresJs("Site/Site.js", "Scripts", 1); %>
-    <%= Html.RenderJsHere(new BasicPath("Scripts", "/Views/Shared/Scripts")) %>
+    <%= Html.RenderJsHere(new BasicPath("Scripts", "/Content/Scripts")) %>
 </body>
 </html>

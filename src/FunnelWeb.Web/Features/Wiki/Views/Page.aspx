@@ -53,7 +53,13 @@
       <div class="comments">
         <div class="comments-in">
         <a name="comments" style="display:none;">&nbsp;</a>
-          <h2>Discussion</h2><% foreach (var comment in Model.Entry.Comments.Where(x => !x.IsSpam)) { %>
+          <h2>Discussion</h2>
+          <% if (Model.Entry.Comments.Count == 0) { %>
+          <div class="empty">
+            <p>No comments yet. Be the first!</p>
+          </div>
+          <%} %>
+          <% foreach (var comment in Model.Entry.Comments.Where(x => !x.IsSpam)) { %>
           <div class="comment">
             <div class="comment-author">
               <img class="gravatar" src="<%= Html.Gravatar(comment.AuthorEmail) %>" alt="<%= Html.Encode(comment.AuthorName) %>" />
@@ -70,36 +76,54 @@
           <% } %>
         </div>
       </div>
+
       <h2>Your Comments</h2>
+      
+      <%: Html.ValidationSummary("Comment unsuccessful. Please correct the errors below.") %>
+
       <div class='entry-comment'>
-      <% using (var form = Html.BeginForm("Comment", "Wiki", new { page = Model.Page }, FormMethod.Post, new { @class = "promptBeforeUnload" })) { %>
+      <% using (Html.BeginForm("Page", "Wiki", new { page = Model.Page }, FormMethod.Post, new { @class = "promptBeforeUnload" })) { %>
         <div class="form-body">
-          <p>
-            <%= Html.Label("Name", "name") %>
-            <%= Html.InputTextBox("name").Default("").Medium().IsRequired()%>
-          </p>
-          <p>
-            <%= Html.LabelOptional("URL", "url") %>
-            <%= Html.InputTextBox("url").Default("http://").Large()%>
-          </p>
-          <p>
-            <%= Html.LabelOptional("E-mail", "email") %>
-            <%= Html.InputTextBox("email").Default("").Medium()%>
-            <span class="hint">Used for your <a href="http://en.gravatar.com/">gravatar</a>. Will not be public.</span>
-          </p>
-          <p>
-            <%= Html.Label("Comment", "wmd-input") %>
-          </p>
-            <%= Html.InputTextEditor("comments").IsRequired()%>
-          <p>
-            <span class="hint">Posting code? Indent it by four spaces to make it look nice. Learn more about <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a>.</span>
-          </p>
-          <p>
+          
+          <div class="editor-label">
+            <%: Html.LabelFor(m => m.CommenterName)%>
+          </div>
+          <div class="editor-field">
+            <%: Html.TextBoxFor(m => m.CommenterName, Html.AttributesFor(m => m.CommenterName))%>
+            <%: Html.ValidationMessageFor(m => m.CommenterName)%>
+            <%: Html.HintFor(m => m.CommenterName)%>
+          </div>
+          
+          <div class="editor-label">
+            <%: Html.LabelFor(m => m.CommenterBlog)%>
+          </div>
+          <div class="editor-field">
+            <%: Html.TextBoxFor(m => m.CommenterBlog, Html.AttributesFor(m => m.CommenterBlog))%>
+            <%: Html.ValidationMessageFor(m => m.CommenterBlog)%>
+            <%: Html.HintFor(m => m.CommenterBlog)%>
+          </div>
+          
+          <div class="editor-label">
+            <%: Html.LabelFor(m => m.CommenterEmail)%>
+          </div>
+          <div class="editor-field">
+            <%: Html.TextBoxFor(m => m.CommenterEmail, Html.AttributesFor(m => m.CommenterEmail))%>
+            <%: Html.ValidationMessageFor(m => m.CommenterEmail)%>
+            <%: Html.HintFor(m => m.CommenterEmail)%>
+          </div>
+          
+          <div class="editor-label">
+            <%: Html.LabelFor(m => m.Comments)%>
+          </div>
+          <div class="editor-field">
+            <%: Html.EditorFor(m => m.Comments, Html.AttributesFor(m => m.Comments))%>
+            <%: Html.ValidationMessageFor(m => m.Comments)%>
+            <%: Html.HintFor(m => m.Comments)%>
+          </div>
+          
+          <div class="editor-field">
             <input type="submit" id="submit" class="submit" value="Submit" />
-          </p>
-          <p>
-            <span class="notification-wait" id="submitnotification"></span>
-          </p>
+          </div>
         </div>
         <% } %>
       </div>

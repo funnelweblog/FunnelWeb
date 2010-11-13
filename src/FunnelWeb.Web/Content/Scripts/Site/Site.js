@@ -141,7 +141,12 @@ function enableTextLengthCounters() {
             });
 }
 
+function hideFlashes() {
+    $(".flash").delay(3000).fadeOut('slow');
+}
+
 $(function () {
+    hideFlashes();
     scrollToValidationFailure();
     enableGravatarLookup();
     refreshGravatar();

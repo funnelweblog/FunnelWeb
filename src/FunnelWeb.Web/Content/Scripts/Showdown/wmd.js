@@ -45,7 +45,7 @@ Attacklab.wmdBase = function() {
     var linkDefaultText = "";
 
     // The location of your button images relative to the base directory.
-    var imageDirectory = "/Views/Shared/Images/";
+    var imageDirectory = "/Content/Images/";
 
     // Some intervals in ms.  These can be adjusted to reduce the control's load.
     var previewPollInterval = 500;

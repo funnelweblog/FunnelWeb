@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using FunnelWeb.Web.Application.Filters;
+using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Application.Spam;
 using FunnelWeb.Web.Features.Wiki.Views;
 using FunnelWeb.Web.Model;
@@ -122,21 +124,42 @@ namespace FunnelWeb.Web.Features.Wiki
             return RedirectToAction("Page", new { page = page });
         }
 
-        public virtual ActionResult Comment(PageName page, string name, string url, string email, string comments)
+        [HttpPost]
+        public virtual ActionResult Page(PageName page, PageModel model)
         {
             var entry = EntryRepository.GetEntry(page);
-            if (entry == null) return RedirectToAction("Recent");
+            if (entry == null) 
+                return RedirectToAction("Recent");
+
+            if (!ModelState.IsValid)
+            {
+                model.Entry = entry;
+                model.IsPriorVersion = false;
+                model.Page = page;
+                return View("Page", model)
+                    .AndFlash("Your comment was not posted - please check the validation errors below.");
+            }
 
             var comment = entry.Comment();
             comment.AuthorCompany = string.Empty;
-            comment.AuthorEmail = email;
-            comment.AuthorName = name;
-            comment.AuthorUrl = url;
-            comment.Body = comments;
-            SpamChecker.Verify(comment);
+            comment.AuthorEmail = model.CommenterEmail ?? string.Empty;
+            comment.AuthorName = model.CommenterName ?? string.Empty;
+            comment.AuthorUrl = model.CommenterBlog ?? string.Empty;
+            comment.Body = model.Comments;
+
+            try
+            {
+                SpamChecker.Verify(comment);
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Trace.Warn("Akismet is offline, comment cannot be validated: " + ex);
+            }
+
             EntryRepository.Save(entry);
-            
-            return RedirectToAction("Page", new { page = page });
+
+            return RedirectToAction("Page", new {page = page})
+                .AndFlash("Thanks, your comment has been posted.");
         }
 
         public virtual ActionResult Revisions(PageName page)

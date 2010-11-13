@@ -147,6 +147,7 @@
     <Compile Include="Application\Mvc\LowercaseRoute.cs" />
     <Compile Include="Application\Mvc\MvcExtensions.cs" />
     <Compile Include="Application\Mvc\RouteCollectionExtension.cs" />
+    <Compile Include="Application\Mvc\ValidUrlAttribute.cs" />
     <Compile Include="Application\RequireUpdatedDatabaseHttpModule.cs" />
     <Compile Include="Application\Settings\SettingStorageAttribute.cs" />
     <Compile Include="Application\Settings\StorageLocation.cs" />
@@ -277,6 +278,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\EditorTemplates\Markdown.ascx" />
     <Content Include="Content\Styles\Themes\MattHamilton\Theme.css" />
     <Content Include="Content\Styles\Themes\MattHamilton\Title.png" />
     <Content Include="Features\Admin\Views\Comments.aspx" />

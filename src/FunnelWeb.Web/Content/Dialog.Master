@@ -7,11 +7,11 @@
         <asp:ContentPlaceHolder ID="TitleContentPlaceHolder" runat="server" />
     </title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <%= Html.RenderCssHere(new BasicPath("Layout", "/Views/Shared/Styles/Layout"))%>
+    <%= Html.RenderCssHere(new BasicPath("Layout", "/Content/Styles/Layout"))%>
     <% Html.RequiresCss("Editor.css", "Layout", 0); %>
     <% Html.RequiresCss("Prettify.css", "Layout", 0); %>
     <% Html.RequiresCss("Screen.css", "Layout", 0); %>
-    <link href="/Views/Shared/Styles/Layout/Print.css" type="text/css" rel="stylesheet" media="print" />
+    <link href="/Content/Styles/Layout/Print.css" type="text/css" rel="stylesheet" media="print" />
     <link rel="icon" type="image/png" href="/favicon.png" />
 </head>
 <body>
@@ -37,6 +37,6 @@
     <% Html.RequiresJs("Showdown/Showdown.js", "Scripts", 1); %>
     <% Html.RequiresJs("Showdown/wmd.js", "Scripts", 1); %>
     <% Html.RequiresJs("Site/Site.js", "Scripts", 1); %>
-    <%= Html.RenderJsHere(new BasicPath("Scripts", "/Views/Shared/Scripts")) %>
+    <%= Html.RenderJsHere(new BasicPath("Scripts", "/Content/Scripts")) %>
 </body>
 </html>

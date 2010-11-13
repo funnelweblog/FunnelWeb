@@ -336,7 +336,6 @@ div.nav div.search
 }
 .form-body span.hint
 {
-	padding-left: 104px;
 	color: #666;
 	font-family: Segoe UI;
 	display: block;
@@ -433,6 +432,7 @@ input, textarea
 	border: 1px solid #cfcfcf;
 	padding: 4px;
 	font-size: 100%;
+	width: 100px;
 }
 textarea
 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
@@ -141,8 +142,16 @@ namespace FunnelWeb.Web.Application.Extensions
 
         public static IHtmlString HintFor<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, object>> property)
         {
-            var result = ExpressionHelper.GetExpressionText(property);
-            return new HtmlString(result);
+            var message = "";
+            WhenEncountering<DescriptionAttribute>(property, d => message = d.Description);
+
+            message = (message ?? string.Empty).Trim();
+            if (message.Length == 0)
+            {
+                return new HtmlString(string.Empty);                
+            }
+
+            return new HtmlString("<span class='hint'>" + message + "</span>");
         }
 
         #endregion

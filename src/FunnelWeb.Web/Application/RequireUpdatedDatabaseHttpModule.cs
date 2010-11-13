@@ -16,7 +16,7 @@ namespace FunnelWeb.Web.Application
         {
             var path = HttpContext.Current.Request.Path;
             path = path.ToLowerInvariant();
-            if (path.Contains("/login") || path.Contains("/install") || path.Contains("/content") || path.Contains("/views/shared"))
+            if (path.Contains("/login") || path.Contains("/install") || path.Contains("/content"))
             {
                 return;
             }

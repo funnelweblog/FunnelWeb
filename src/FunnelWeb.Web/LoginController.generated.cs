@@ -38,6 +38,11 @@ namespace FunnelWeb.Web.Features.Login {
         public System.Web.Mvc.ActionResult Login() {
             return new T4MVC_ActionResult(Area, Name, ActionNames.Login);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult LoginPost() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.LoginPost);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public LoginController Actions { get { return FunnelWebMvc.Login; } }
@@ -52,6 +57,7 @@ namespace FunnelWeb.Web.Features.Login {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass {
             public readonly string Login = "Login";
+            public readonly string LoginPost = "Login";
             public readonly string Logout = "Logout";
         }
 
@@ -77,6 +83,12 @@ namespace FunnelWeb.Web.Features.Login {
 
         public override System.Web.Mvc.ActionResult Login(FunnelWeb.Web.Features.Login.Views.LoginModel model) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Login);
+            callInfo.RouteValueDictionary.Add("model", model);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult LoginPost(FunnelWeb.Web.Features.Login.Views.LoginModel model) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.LoginPost);
             callInfo.RouteValueDictionary.Add("model", model);
             return callInfo;
         }

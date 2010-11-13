@@ -24,7 +24,7 @@ h1, h2, h3, h4, h5, h6
 
 .header a.logo
 {
-	background: transparent url(/Views/Shared/Images/Title.png) no-repeat scroll 0 20px;
+	background: transparent url(/Content/Images/Title.png) no-repeat scroll 0 20px;
 }
 
 .nav ul li
@@ -96,4 +96,22 @@ pre
 .message 
 {
 		color: #CC0000;
+}
+.flash 
+{
+    background: #FCFFCE;
+    border: 1px solid #F9DD24;
+}
+.flash p 
+{
+    color: #A57100;
+    font-weight: bold;
+    text-align: center;
+    margin: 5px 10px 5px 10px; 
+    padding: 0;
+}
+.empty 
+{
+    color: #555;
+    margin: 20px 0 20px 0;
 }

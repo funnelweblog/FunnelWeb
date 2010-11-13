@@ -65,11 +65,6 @@ namespace FunnelWeb.Web.Features.Wiki {
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult Comment() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.Comment);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public System.Web.Mvc.ActionResult Revisions() {
             return new T4MVC_ActionResult(Area, Name, ActionNames.Revisions);
         }
@@ -94,7 +89,6 @@ namespace FunnelWeb.Web.Features.Wiki {
             public readonly string Edit = "Edit";
             public readonly string Unpublished = "Unpublished";
             public readonly string Save = "Save";
-            public readonly string Comment = "Comment";
             public readonly string Revisions = "Revisions";
             public readonly string SiteMap = "SiteMap";
         }
@@ -187,13 +181,10 @@ namespace FunnelWeb.Web.Features.Wiki {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Comment(FunnelWeb.Web.Model.Strings.PageName page, string name, string url, string email, string comments) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Comment);
+        public override System.Web.Mvc.ActionResult Page(FunnelWeb.Web.Model.Strings.PageName page, FunnelWeb.Web.Features.Wiki.Views.PageModel model) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Page);
             callInfo.RouteValueDictionary.Add("page", page);
-            callInfo.RouteValueDictionary.Add("name", name);
-            callInfo.RouteValueDictionary.Add("url", url);
-            callInfo.RouteValueDictionary.Add("email", email);
-            callInfo.RouteValueDictionary.Add("comments", comments);
+            callInfo.RouteValueDictionary.Add("model", model);
             return callInfo;
         }
 
