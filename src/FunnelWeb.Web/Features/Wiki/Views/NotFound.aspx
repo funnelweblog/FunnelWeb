@@ -30,7 +30,7 @@
       
       <div class="search-input">
         <% using (Html.BeginForm("Search", "Wiki", FormMethod.Get)) { %>
-        <label for="q">Search again:</label> <%= Html.InputTextBox("q").Default(Model.SearchText).Large() %>
+        <label for="q">Search again:</label> <%= Html.TextBox("q", Model.SearchText, new { @class="large" }) %>
         <input type="submit" id="research" class="submit" value="Search" />
         <% } %>
       </div>
