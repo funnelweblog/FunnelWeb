@@ -1,6 +1,5 @@
 using System.Web.Mvc;
 using FunnelWeb.Web.Application.Authentication;
-using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Features.Login.Views;
 
 namespace FunnelWeb.Web.Features.Login
@@ -30,7 +29,7 @@ namespace FunnelWeb.Web.Features.Login
             {
                 return (model.DatabaseIssue ?? false)
                     ? (ActionResult)RedirectToAction("Index", "Install")
-                    : Redirect("~/");
+                    : Redirect(string.IsNullOrWhiteSpace(model.ReturnUrl) ? "~/" : model.ReturnUrl);
             }
 
             ModelState.AddModelError("", "Invalid username or password. Please try again.");
