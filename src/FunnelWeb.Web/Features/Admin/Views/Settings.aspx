@@ -1,11 +1,11 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Content/Safe.Master" Inherits="System.Web.Mvc.ViewPage<FunnelWeb.Web.Application.Settings.SettingsModel>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Content/Safe.Master" Inherits="System.Web.Mvc.ViewPage<FunnelWeb.Web.Application.Settings.Settings>" %>
 
 <asp:Content ContentPlaceHolderID="TitleContent" runat="server">FunnelWeb Administration - Settings</asp:Content>
 
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
     <h1>Settings</h1>
 
-    <% using (Html.BeginForm("UpdateSettings", "Admin", FormMethod.Post, new { @class = "promptBeforeUnload" })) { %>
+    <% using (Html.BeginForm("Settings", "Admin", FormMethod.Post, new { @class = "promptBeforeUnload" })) { %>
     <div class="form-body">
             
         <h3>Site Information</h3>
@@ -52,7 +52,7 @@
           <%: Html.LabelFor(m => m.Theme)%>
         </div>
         <div class="editor-field">
-          <%= Html.DropDownList("settings_ui-theme", Model.Themes.Select(x =>
+          <%= Html.DropDownList("Theme", Model.Themes.Select(x =>
                 new SelectListItem { Text = x, Selected = Theme == x })
                 )%>
           <%: Html.ValidationMessageFor(m => m.Theme)%>

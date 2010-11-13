@@ -10,6 +10,7 @@ using FunnelWeb.Web.Model.Repositories;
 namespace FunnelWeb.Web.Features.Admin
 {
     [Transactional]
+    [ValidateInput(false)]
     public partial class AdminController : Controller
     {
         public IAdminRepository AdminRepository { get; set; }
@@ -33,6 +34,7 @@ namespace FunnelWeb.Web.Features.Admin
         [HttpPost]
         public virtual ActionResult Settings(Settings settings)
         {
+            settings.Themes = SettingsProvider.GetSettings().Themes;
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Your settings could not be saved. Please fix the errors shown below.");

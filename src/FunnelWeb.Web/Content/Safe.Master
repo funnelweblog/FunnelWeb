@@ -31,6 +31,11 @@
     </ul>
   </div>
   <div class="body">
+  <% if (TempData.ContainsKey("Flash")) { %>  
+    <div class="flash">
+      <p><%= Html.Encode(TempData["Flash"]) %></p>
+    </div>
+  <% }%>
     <div class="content"><asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>    </div>
   </div>
   <div class="footer">

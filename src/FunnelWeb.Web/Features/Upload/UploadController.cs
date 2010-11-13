@@ -7,6 +7,7 @@ using FunnelWeb.Web.Model.Repositories;
 
 namespace FunnelWeb.Web.Features.Upload
 {
+    [ValidateInput(false)]
     public partial class UploadController : Controller
     {
         public IFileRepository FileRepository { get; set; }

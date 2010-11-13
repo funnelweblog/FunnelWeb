@@ -165,9 +165,9 @@
     <Compile Include="Features\Admin\Views\PingbacksModel.cs" />
     <Compile Include="Features\Admin\Views\IndexModel.cs" />
     <Compile Include="Application\Settings\Settings.cs" />
-    <Compile Include="Features\Installation\InstallController.cs" />
-    <Compile Include="Features\Installation\Views\IndexModel.cs" />
-    <Compile Include="Features\Installation\Views\UpgradeModel.cs" />
+    <Compile Include="Features\Install\InstallController.cs" />
+    <Compile Include="Features\Install\Views\IndexModel.cs" />
+    <Compile Include="Features\Install\Views\UpgradeModel.cs" />
     <Compile Include="Features\Login\Views\LoginModel.cs" />
     <Compile Include="Features\Upload\Views\IndexModel.cs" />
     <Compile Include="Features\Wiki\Views\EditModel.cs" />
@@ -288,8 +288,8 @@
     <Content Include="Global.asax" />
     <Content Include="Features\Admin\Views\Index.aspx" />
     <Content Include="Features\Admin\Scripts\Admin.js" />
-    <Content Include="Features\Installation\Views\UpgradeReport.aspx" />
-    <Content Include="Features\Installation\Views\Index.aspx" />
+    <Content Include="Features\Install\Views\UpgradeReport.aspx" />
+    <Content Include="Features\Install\Views\Index.aspx" />
     <Content Include="Features\Login\Views\Login.aspx" />
     <Content Include="Content\DisplayTemplates\Markdown.ascx" />
     <Content Include="Content\Images\favicon.ico" />

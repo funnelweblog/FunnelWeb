@@ -17,6 +17,7 @@ body
 }
 a
 {
+    color: #3865C6;
 }
 a:hover
 {
@@ -834,4 +835,19 @@ span.close
     font-weight: bold;
     color: #CC3954;
     display: block;
+}
+.admin-link 
+{
+    padding: 10px 0;
+}
+.admin-link h3
+{
+    font-size: 12pt;
+    margin: 0;
+    padding: 0;
+}
+.admin-link p 
+{
+    margin: 0;
+    padding: 0;
 }

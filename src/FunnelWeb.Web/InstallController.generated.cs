@@ -19,7 +19,7 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace FunnelWeb.Web.Features.Installation {
+namespace FunnelWeb.Web.Features.Install {
     public partial class InstallController {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public InstallController() { }
@@ -66,7 +66,7 @@ namespace FunnelWeb.Web.Features.Installation {
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public class T4MVC_InstallController: FunnelWeb.Web.Features.Installation.InstallController {
+    public class T4MVC_InstallController: FunnelWeb.Web.Features.Install.InstallController {
         public T4MVC_InstallController() : base(Dummy.Instance) { }
 
         public override System.Web.Mvc.ActionResult Index() {

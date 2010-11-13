@@ -7,7 +7,7 @@ namespace FunnelWeb.Web.Features.Resources
     {
         public virtual ActionResult Render(string fileName, string contentType)
         {
-            Response.Cache.SetExpires(DateTime.Now.AddDays(10));
+            Response.Cache.SetExpires(DateTime.UtcNow.AddDays(10));
             return File(fileName, contentType);
         }
     }

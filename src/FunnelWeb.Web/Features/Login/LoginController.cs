@@ -4,6 +4,7 @@ using FunnelWeb.Web.Features.Login.Views;
 
 namespace FunnelWeb.Web.Features.Login
 {
+    [ValidateInput(false)]
     public partial class LoginController : Controller
     {
         public IAuthenticator Authenticator { get; set; }

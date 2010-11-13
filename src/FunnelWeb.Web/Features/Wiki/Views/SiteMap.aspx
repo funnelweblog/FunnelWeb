@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
       <loc><%= Html.Qualify("/") %></loc>
-      <lastmod><%= DateTime.Now.ToString("yyyy-MM-dd") %></lastmod>
+      <lastmod><%= DateTime.UtcNow.ToString("yyyy-MM-dd") %></lastmod>
       <changefreq>daily</changefreq>
       <priority>1.0</priority>
    </url>

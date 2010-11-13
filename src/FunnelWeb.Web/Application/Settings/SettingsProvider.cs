@@ -55,12 +55,6 @@ namespace FunnelWeb.Web.Application.Settings
                 // Write over it using the stored value
                 switch (setting.Storage.Location)
                 {
-                    case StorageLocation.WebConfig:
-                        if (webConfigSettings.AllKeys.Contains(setting.Storage.Key))
-                        {
-                            setting.Write(settings, webConfigSettings[setting.Storage.Key]);
-                        }
-                        break;
                     case StorageLocation.Database:
                         var dbSetting = databaseSettings.FirstOrDefault(x => x.Name == setting.Storage.Key);
                         if (dbSetting != null)
@@ -94,25 +88,19 @@ namespace FunnelWeb.Web.Application.Settings
 
             foreach (var setting in settingsMetadata)
             {
-                var value = setting.Read(settings);
-
                 // Write over it using the stored value
                 switch (setting.Storage.Location)
                 {
-                    case StorageLocation.WebConfig:
-                        var config = WebConfigurationManager.OpenWebConfiguration(HttpContext.Current.Request.ApplicationPath);
-                        config.ConnectionStrings.ConnectionStrings["funnelweb.configuration.database.connection"].ConnectionString = value;
-                        config.Save(ConfigurationSaveMode.Modified);
-                        break;
                     case StorageLocation.Database:
+                        var value = setting.Read(settings);
                         var dbSetting = databaseSettings.FirstOrDefault(x => x.Name == setting.Storage.Key);
                         if (dbSetting != null)
                         {
-                            setting.Write(settings, dbSetting.Value);
+                            dbSetting.Value = value ?? setting.DefaultValue as string ?? string.Empty;
                         }
                         else
                         {
-                            databaseSettings.Add(new Setting { Description = setting.Description, DisplayName = setting.DisplayName, Name = setting.Storage.Key, Value = value });
+                            databaseSettings.Add(new Setting { Description = setting.Description, DisplayName = setting.DisplayName, Name = setting.Storage.Key, Value = value ?? setting.DefaultValue as string ?? string.Empty });
                         }
                         break;
                     case StorageLocation.Custom:

@@ -65,7 +65,7 @@ namespace FunnelWeb.Web.Model.Repositories.Internal
         {
             foreach (var setting in settings)
             {
-                session.Update(setting);
+                session.SaveOrUpdate(setting);
             }
         }
 

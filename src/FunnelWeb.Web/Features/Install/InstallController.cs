@@ -2,9 +2,9 @@
 using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.DatabaseDeployer.Infrastructure;
 using FunnelWeb.Web.Application.Installation;
-using FunnelWeb.Web.Features.Installation.Views;
+using FunnelWeb.Web.Features.Install.Views;
 
-namespace FunnelWeb.Web.Features.Installation
+namespace FunnelWeb.Web.Features.Install
 {
     [ValidateInput(false)]
     public partial class InstallController : Controller

@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Content/Safe.Master" Inherits="System.Web.Mvc.ViewPage<FunnelWeb.Web.Features.Installation.Views.IndexModel>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Content/Safe.Master" Inherits="System.Web.Mvc.ViewPage<FunnelWeb.Web.Features.Install.Views.IndexModel>" %>
 
 <asp:Content ContentPlaceHolderID="TitleContent" runat="server">
 	FunnelWeb Installation
@@ -28,14 +28,21 @@
     
     <% using (Html.BeginForm("Test", "Install", FormMethod.Post)) { %>
     <div class="form-body">
-        <p>
-          <%= Html.Label("Connection", "connectionString")%>
-          <%= Html.InputTextArea("connectionString").Default(Model.ConnectionString).IsRequired()%>
-          <span class="hint">Enter the connection string to the Microsoft SQL Server database given to you by your web host.</span>
-        </p>
-        <p>
-            <input type="submit" id="submit" class="submit" value="Save and Test" />
-        </p>
+        
+      <div class="editor-label">
+        <%: Html.LabelFor(m => m.ConnectionString)%>
+      </div>
+      <div class="editor-field">
+        <%: Html.TextAreaFor(m => m.ConnectionString, Html.AttributesFor(m => m.ConnectionString))%>
+        <%: Html.ValidationMessageFor(m => m.ConnectionString)%>
+        <%: Html.HintFor(m => m.ConnectionString)%>
+      </div>
+      
+      <div class="editor-label">
+      </div>
+      <div class="editor-field">
+        <input type="submit" id="submit" class="submit" value="Save and Test" />
+      </div>
     </div>
     <%} %>
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using FunnelWeb.Web.Application.Filters;
@@ -13,6 +14,7 @@ namespace FunnelWeb.Web.Features.Wiki
 {
     [Transactional]
     [HandleError]
+    [ValidateInput(false)]
     public partial class WikiController : Controller
     {
         private const int ItemsPerPage = 30;
@@ -67,17 +69,6 @@ namespace FunnelWeb.Web.Features.Wiki
             ViewData.Model = new PageModel(page, entry, revision > 0);
             return View();
         }
-        
-        [Authorize]
-        public virtual ActionResult New()
-        {
-            var feeds = FeedRepository.GetFeeds();
-            var model = new EditModel("", true, feeds);
-            model.Title = "Enter a title";
-            model.AllowComments = true;
-            model.MetaTitle = "Enter a meta title";
-            return View("Edit", model);
-        }
 
         [Authorize]
         public virtual ActionResult Unpublished()
@@ -88,9 +79,21 @@ namespace FunnelWeb.Web.Features.Wiki
         }
 
         [Authorize]
+        public virtual ActionResult New()
+        {
+            var feeds = FeedRepository.GetFeeds();
+            var model = new EditModel("", true, feeds);
+            model.Title = "Enter a title";
+            model.AllowComments = true;
+            model.MetaTitle = "Enter a meta title";
+            model.PublishDate = DateTime.Today.Date.ToString("yyyy-MM-dd");
+            return View("Edit", model);
+        }
+
+        [Authorize]
         public virtual ActionResult Edit(PageName page)
         {
-            var entry = EntryRepository.GetEntry(page) ?? new Entry() { Title = page, MetaTitle = page, Name = page};
+            var entry = EntryRepository.GetEntry(page) ?? new Entry() { Title = page, MetaTitle = page, Name = page, LatestRevision = new Revision()};
             var feeds = FeedRepository.GetFeeds();
             var model = new EditModel(page, entry.Id == 0, feeds);
             model.AllowComments = entry.IsDiscussionEnabled;
@@ -99,7 +102,7 @@ namespace FunnelWeb.Web.Features.Wiki
             model.Keywords = entry.MetaKeywords;
             model.MetaDescription = entry.MetaDescription;
             model.MetaTitle = entry.MetaTitle;
-            model.PublishDate = entry.Published;
+            model.PublishDate = entry.Published.ToString("yyyy-MM-dd");
             model.Sidebar = entry.Summary;
             model.Title = entry.Title;
             return View(model);
@@ -125,7 +128,7 @@ namespace FunnelWeb.Web.Features.Wiki
             entry.IsDiscussionEnabled = model.AllowComments;
             entry.MetaDescription = model.MetaDescription ?? string.Empty;
             entry.MetaKeywords = model.Keywords ?? string.Empty;
-            entry.Published = (model.PublishDate ?? DateTime.Now).ToUniversalTime();
+            entry.Published = DateTime.Parse(model.PublishDate, CultureInfo.InvariantCulture).ToUniversalTime();
 
             var revision = entry.Revise();
             revision.Body = model.Content;

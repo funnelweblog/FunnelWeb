@@ -52,8 +52,8 @@ namespace FunnelWeb.Web.Features.Wiki.Views
         [Description("This page will not appear in any feeds until after the date above.")]
         [HintSize(HintSize.Medium)]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true)]
-        public DateTime? PublishDate { get; set; }
+        [RegularExpression("[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}", ErrorMessage = "Please enter a date in YYYY-MM-DD format.")]
+        public string PublishDate { get; set; }
 
         [Required]
         [DisplayName("Description")]

@@ -25,8 +25,7 @@
     
     <%: Html.ValidationSummary("Edit unsuccessful. Please correct the errors below.") %>
 
-    <% using (Html.BeginForm()) { %>
-    
+    <% using (Html.BeginForm("Edit", "Wiki", FormMethod.Post)) { %>
     <div class="form-body">
       <div class="editor-label">
         <%: Html.LabelFor(m => m.Page)%>

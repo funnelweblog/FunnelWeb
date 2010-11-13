@@ -1,6 +1,6 @@
 ﻿using FunnelWeb.DatabaseDeployer.Infrastructure;
 
-namespace FunnelWeb.Web.Features.Installation.Views
+namespace FunnelWeb.Web.Features.Install.Views
 {
     public class UpgradeModel
     {

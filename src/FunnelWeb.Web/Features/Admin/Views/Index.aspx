@@ -5,9 +5,35 @@
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
-    <h1>Administration</h1>
+    <h1>Blog Administration</h1>
 
-    TODO: list of admin links
+    <div class="admin-link">
+      <h3><%: Html.ActionLink("General settings", "Settings") %></h3>
+      <p>
+        Configure site-wide settings, such as the blog title and introduction text, page headers and footers, and so on.
+      </p>
+    </div>
+
+    <div class="admin-link">
+      <h3><%: Html.ActionLink("Manage Comments", "Comments") %></h3>
+      <p>
+        This page allows you to delete and mark comments as spam.
+      </p>
+    </div>
+    
+    <div class="admin-link">
+      <h3><%: Html.ActionLink("Pingbacks", "Pingbacks") %></h3>
+      <p>
+        Pingbacks are created when other blogs link to your blog. This page allows to you delete pingbacks if they are spam.
+      </p>
+    </div>
+    
+    <div class="admin-link">
+      <h3><%: Html.ActionLink("RSS Feeds", "Feeds") %></h3>
+      <p>
+        FunnelWeb allows you to set up multiple RSS feeds. Use this page to manage them.
+      </p>
+    </div>
 
 <% Html.RequiresJs("/Views/Admin/Scripts/Admin.js", 2); %>
 

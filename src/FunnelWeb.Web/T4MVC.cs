@@ -25,7 +25,7 @@ using T4MVC;
 public static class FunnelWebMvc {
     public static FunnelWeb.Web.Features.Admin.AdminController Admin = new FunnelWeb.Web.Features.Admin.T4MVC_AdminController();
     public static FunnelWeb.Web.Features.Feeds.FeedController Feed = new FunnelWeb.Web.Features.Feeds.T4MVC_FeedController();
-    public static FunnelWeb.Web.Features.Installation.InstallController Install = new FunnelWeb.Web.Features.Installation.T4MVC_InstallController();
+    public static FunnelWeb.Web.Features.Install.InstallController Install = new FunnelWeb.Web.Features.Install.T4MVC_InstallController();
     public static FunnelWeb.Web.Features.Login.LoginController Login = new FunnelWeb.Web.Features.Login.T4MVC_LoginController();
     public static FunnelWeb.Web.Features.Resources.ResourceController Resource = new FunnelWeb.Web.Features.Resources.T4MVC_ResourceController();
     public static FunnelWeb.Web.Features.Upload.UploadController Upload = new FunnelWeb.Web.Features.Upload.T4MVC_UploadController();

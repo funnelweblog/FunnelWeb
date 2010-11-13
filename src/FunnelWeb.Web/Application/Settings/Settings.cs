@@ -5,12 +5,6 @@ namespace FunnelWeb.Web.Application.Settings
 {
     public class Settings
     {
-        [StringLength(400)]
-        [DefaultValue("database=FunnelWeb;server=(local)\\SQLEXPRESS;trusted_connection=true;")]
-        [Description("The connection string used for the FunnelWeb SQL Server database")]
-        [SettingStorage(StorageLocation.WebConfig, "funnelweb.configuration.database.connection")]
-        public string ConnectionString { get; set; }
-
         [DisplayName("File Upload Path")]
         [StringLength(300)]
         [DefaultValue("~/files")]
@@ -26,14 +20,14 @@ namespace FunnelWeb.Web.Application.Settings
         public string AkismetApiKey { get; set; }
 
         [DisplayName("Title")]
-        [StringLength(100)]
+        [StringLength(200)]
         [Description("The title shown at the top in the browser")]
         [DefaultValue("My FunnelWeb Site")]
         [SettingStorage(StorageLocation.Database, "ui-title")]
         public string SiteTitle { get; set; }
 
         [DisplayName("Introduction")]
-        [StringLength(100)]
+        [StringLength(5000)]
         [DataType("Markdown")]
         [Description("The welcome text that is shown on the home page. You can use markdown.")]
         [DefaultValue("Welcome to your FunnelWeb blog. You can <a href=\"/login\">login</a> and edit this message in the administration section. The default username and password is <code>test/test</code>.")]
@@ -41,7 +35,7 @@ namespace FunnelWeb.Web.Application.Settings
         public string Introduction { get; set; }
 
         [DisplayName("Main Links")]
-        [StringLength(100)]
+        [StringLength(5000)]
         [DataType("HTML")]
         [Description("A list of links shown at the top of each page. Use HTML for this.")]
         [DefaultValue("<li><a href=\"/about\">About</a></li>")]
@@ -71,14 +65,14 @@ namespace FunnelWeb.Web.Application.Settings
         public string Author { get; set; }
 
         [DisplayName("Meta-Description")]
-        [StringLength(100)]
+        [StringLength(150)]
         [Description("The description shown to search engines in the meta description tag.")]
         [DefaultValue("My website.")]
         [SettingStorage(StorageLocation.Database, "search-description")]
         public string SearchDescription { get; set; }
 
         [DisplayName("Meta-Keywords")]
-        [StringLength(200)]
+        [StringLength(100)]
         [Description("Keywords shown to search engines in the meta-keywords tag (comma-separated text).")]
         [DefaultValue(".net, c#, test")]
         [SettingStorage(StorageLocation.Database, "search-keywords")]

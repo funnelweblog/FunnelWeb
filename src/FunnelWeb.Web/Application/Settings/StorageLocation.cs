@@ -2,7 +2,6 @@
 {
     public enum StorageLocation
     {
-        WebConfig,
         Database, 
         Custom
     }
