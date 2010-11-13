@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Web;
 
 namespace FunnelWeb.Web.Application
 {
     public class ForceLowercaseUrlHttpModule : IHttpModule
     {
+        private static readonly string[] extensions = new[] { ".js", ".css", ".jpg", ".jpeg", ".gif", ".ico", ".png" };
+
         public void Init(HttpApplication context)
         {
             context.BeginRequest += BeginRequest;
@@ -15,7 +18,7 @@ namespace FunnelWeb.Web.Application
         {
             var context = HttpContext.Current;
 
-            if (context.Request.Url.AbsolutePath.EndsWith(".axd") || context.Request.HttpMethod == "POST")
+            if (context.Request.Url.AbsolutePath.EndsWith(".axd") || context.Request.HttpMethod == "POST" || extensions.Any(x => context.Request.Url.AbsolutePath.EndsWith(x, StringComparison.InvariantCultureIgnoreCase)))
             {
                 return;
             }
