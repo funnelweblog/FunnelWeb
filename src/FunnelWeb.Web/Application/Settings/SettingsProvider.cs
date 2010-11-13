@@ -1,5 +1,11 @@
-using System.Collections.Generic;
+using System;
+using System.ComponentModel;
+using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Web;
+using System.Web.Configuration;
 using FunnelWeb.Web.Model;
 using FunnelWeb.Web.Model.Repositories;
 
@@ -9,144 +15,190 @@ namespace FunnelWeb.Web.Application.Settings
     {
         private readonly object @lock = new object();
         private readonly IAdminRepository repository;
-        private string siteTitle;
-        private string introduction;
-        private string mainLinks;
-        private string author;
-        private string searchDescription;
-        private string searchKeywords;
-        private bool isInitialized;
-        private string spamWords;
-        private string defaultPage;
-        private string footer;
-        private string theme;
+        private readonly Func<string> themesDirectoryPath;
+        private Settings settings;
 
-        public SettingsProvider(IAdminRepository repository)
+        public SettingsProvider(IAdminRepository repository, Func<string> themesDirectoryPath)
         {
             this.repository = repository;
+            this.themesDirectoryPath = themesDirectoryPath;
         }
 
-        public string SiteTitle
+        public Settings GetSettings()
         {
-            get
+            if (settings == null)
             {
-                EnsureInitialized();
-                return siteTitle;
+                lock (@lock)
+                {
+                    if (settings == null)
+                    {
+                        LoadSettings();
+                    }
+                }
             }
+
+            return settings;
         }
 
-        public string DefaultPage
+        private void LoadSettings()
         {
-            get
+            settings = new Settings();
+            var settingMetadata = ReadSettingMetadata();
+            var databaseSettings = repository.GetSettings().ToList();
+            var webConfigSettings = WebConfigurationManager.AppSettings;
+
+            foreach (var setting in settingMetadata)
             {
-                EnsureInitialized();
-                return defaultPage;
+                // Initialize with default values
+                setting.Write(settings, setting.DefaultValue);
+
+                // Write over it using the stored value
+                switch (setting.Storage.Location)
+                {
+                    case StorageLocation.WebConfig:
+                        if (webConfigSettings.AllKeys.Contains(setting.Storage.Key))
+                        {
+                            setting.Write(settings, webConfigSettings[setting.Storage.Key]);
+                        }
+                        break;
+                    case StorageLocation.Database:
+                        var dbSetting = databaseSettings.FirstOrDefault(x => x.Name == setting.Storage.Key);
+                        if (dbSetting != null)
+                        {
+                            setting.Write(settings, dbSetting.Value);
+                        }
+                        break;
+                    case StorageLocation.Custom:
+                        if (setting.Property.Name == "Themes")
+                        {
+                            var themeFolder = new DirectoryInfo(themesDirectoryPath());
+                            var themes = themeFolder.GetDirectories().Select(x => x.Name).OrderBy(x => x).ToList();
+                            setting.Write(settings, themes);
+                        }
+                        else
+                        {
+                            throw new NotSupportedException(string.Format("Could not read the custom setting '{0}'", setting.Property.Name));
+                        }
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
         }
 
-        public string Author
+        public void SaveSettings(Settings settingsToSave)
         {
-            get
+            settings = settingsToSave;
+            var settingsMetadata = ReadSettingMetadata();
+            var databaseSettings = repository.GetSettings().ToList();
+
+            foreach (var setting in settingsMetadata)
             {
-                EnsureInitialized();
-                return author;
+                var value = setting.Read(settings);
+
+                // Write over it using the stored value
+                switch (setting.Storage.Location)
+                {
+                    case StorageLocation.WebConfig:
+                        var config = WebConfigurationManager.OpenWebConfiguration(HttpContext.Current.Request.ApplicationPath);
+                        config.ConnectionStrings.ConnectionStrings["funnelweb.configuration.database.connection"].ConnectionString = value;
+                        config.Save(ConfigurationSaveMode.Modified);
+                        break;
+                    case StorageLocation.Database:
+                        var dbSetting = databaseSettings.FirstOrDefault(x => x.Name == setting.Storage.Key);
+                        if (dbSetting != null)
+                        {
+                            setting.Write(settings, dbSetting.Value);
+                        }
+                        else
+                        {
+                            databaseSettings.Add(new Setting { Description = setting.Description, DisplayName = setting.DisplayName, Name = setting.Storage.Key, Value = value });
+                        }
+                        break;
+                    case StorageLocation.Custom:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
+
+            repository.Save(databaseSettings);
         }
 
-        public string SearchDescription
+        private static SettingDescriptor[] ReadSettingMetadata()
         {
-            get
+            return typeof (Settings).GetProperties()
+                .OfType<PropertyInfo>()
+                .Where(x => x.GetCustomAttributes(true).OfType<SettingStorageAttribute>().Any())
+                .Select(x => new SettingDescriptor(x))
+                .ToArray();
+        }
+
+        private class SettingDescriptor
+        {
+            private readonly PropertyInfo property;
+            private object defaultValue;
+            private string description;
+            private string displayName;
+            private SettingStorageAttribute storage;
+
+            public SettingDescriptor(PropertyInfo property)
             {
-                EnsureInitialized();
-                return searchDescription;
-            }
-        }
+                this.property = property;
+                displayName = property.Name;
 
-        public string SearchKeywords
-        {
-            get
+                ReadAttribute<DefaultValueAttribute>(d => defaultValue = d.Value);
+                ReadAttribute<DescriptionAttribute>(d => description = d.Description);
+                ReadAttribute<DisplayNameAttribute>(d => displayName = d.DisplayName);
+                ReadAttribute<SettingStorageAttribute>(d => storage = d);
+            }
+
+            private void ReadAttribute<TAttribute>(Action<TAttribute> callback)
             {
-                EnsureInitialized();
-                return searchKeywords;
+                var instances = property.GetCustomAttributes(typeof (TAttribute), true).OfType<TAttribute>();
+                foreach (var instance in instances)
+                {
+                    callback(instance);
+                }
             }
-        }
 
-        public string SpamWords
-        {
-            get 
-            { 
-                EnsureInitialized();
-                return spamWords;
-            }
-        }
-
-        public string Introduction
-        {
-            get
+            public PropertyInfo Property
             {
-                EnsureInitialized(); 
-                return introduction;
+                get { return property; }
             }
-        }
 
-        public string MainLinks
-        {
-            get
+            public object DefaultValue
             {
-                EnsureInitialized(); 
-                return mainLinks;
+                get { return defaultValue; }
             }
-        }
 
-        public string Footer
-        {
-            get
+            public string Description
             {
-                EnsureInitialized();
-                return footer;
+                get { return description; }
             }
-        }
 
-        public string Theme
-        {
-            get
+            public string DisplayName
             {
-                EnsureInitialized();
-                return theme;
+                get { return displayName; }
             }
-        }
 
-        private void EnsureInitialized()
-        {
-            if (isInitialized) 
-                return;
-
-            lock (@lock)
+            public SettingStorageAttribute Storage
             {
-                if (isInitialized)
-                    return;
-                
-                isInitialized = true;
-
-                var settings = repository.GetSettings().ToList();
-                siteTitle = ReadSetting(settings, "ui-title");
-                introduction = ReadSetting(settings, "ui-introduction");
-                mainLinks = ReadSetting(settings, "ui-links");
-                author = ReadSetting(settings, "search-author");
-                searchDescription = ReadSetting(settings, "search-description");
-                searchKeywords = ReadSetting(settings, "search-keywords");
-                spamWords = ReadSetting(settings, "spam-blacklist");
-                footer = ReadSetting(settings, "ui.footer");
-                defaultPage = ReadSetting(settings, "default-page");
-                theme = ReadSetting(settings, "ui-theme");
+                get { return storage; }
             }
-        }
 
-        private static string ReadSetting(IEnumerable<Setting> settings, string name)
-        {
-            var setting = settings.FirstOrDefault(x => x.Name == name);
-            if (setting == null) return string.Empty;
-            return setting.Value;
+            public void Write(Settings settings, object value)
+            {
+                if (value != null)
+                {
+                    property.SetValue(settings, value, null);
+                }
+            }
+
+            public string Read(Settings settings)
+            {
+                return (string)property.GetValue(settings, null);
+            }
         }
     }
 }

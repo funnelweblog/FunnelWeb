@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using FunnelWeb.Web.Application.Filters;
+using FunnelWeb.Web.Application.Mvc;
+using FunnelWeb.Web.Application.Settings;
 using FunnelWeb.Web.Features.Admin.Views;
 using FunnelWeb.Web.Model;
 using FunnelWeb.Web.Model.Repositories;
@@ -14,23 +14,39 @@ namespace FunnelWeb.Web.Features.Admin
     {
         public IAdminRepository AdminRepository { get; set; }
         public IFeedRepository FeedRepository { get; set; }
+        public ISettingsProvider SettingsProvider { get; set; }
 
         [Authorize]
         public virtual ActionResult Index()
         {
-            var settings = AdminRepository.GetSettings();
-            var feeds = FeedRepository.GetFeeds();
-            var comments = AdminRepository.GetComments(0, 30);
-            var redirects = AdminRepository.GetRedirects();
-            var pingbacks = AdminRepository.GetPingbacks();
-
-            var themeFolder = new DirectoryInfo(Server.MapPath("~/Content/Styles/Themes"));
-            var themes = themeFolder.GetDirectories().Select(x => x.Name).OrderBy(x => x);
-            ViewData.Model = new IndexModel(settings, feeds, comments, pingbacks, redirects, themes);
-            return View();
+            return View(new IndexModel());
         }
 
         [Authorize]
+        public virtual ActionResult Settings()
+        {
+            var settings = SettingsProvider.GetSettings();
+            return View(settings);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public virtual ActionResult Settings(Settings settings)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Your settings could not be saved. Please fix the errors shown below.");
+                return View(settings);
+            }
+            
+            SettingsProvider.SaveSettings(settings);
+            
+            return RedirectToAction(FunnelWebMvc.Admin.Index())
+                .AndFlash("Your changes have been saved");
+        }
+
+        [Authorize]
+        [HttpPost]
         public virtual ActionResult CreateFeed(string name, string title)
         {
             var feed = new Feed { Name = name, Title = title };
@@ -39,6 +55,7 @@ namespace FunnelWeb.Web.Features.Admin
         }
 
         [Authorize]
+        [HttpPost]
         public virtual ActionResult DeleteFeed(int feedId)
         {
             var feed = FeedRepository.GetFeeds().FirstOrDefault(x => x.Id == feedId);
@@ -50,6 +67,7 @@ namespace FunnelWeb.Web.Features.Admin
         }
 
         [Authorize]
+        [HttpPost]
         public virtual ActionResult DeleteRedirect(int redirectId)
         {
             var redirect = AdminRepository.GetRedirects().FirstOrDefault(x => x.Id == redirectId);
@@ -61,26 +79,13 @@ namespace FunnelWeb.Web.Features.Admin
         }
 
         [Authorize]
+        [HttpPost]
         public virtual ActionResult CreateRedirect(string from, string to)
         {
             var redirect = new Redirect();
             redirect.From = from;
             redirect.To = to;
             AdminRepository.Save(redirect);
-            return RedirectToAction(FunnelWebMvc.Admin.Index());
-        }
-
-        [Authorize]
-        public virtual ActionResult UpdateSettings(Dictionary<string, string> settings)
-        {
-            var previousSettings = AdminRepository.GetSettings();
-            foreach (var setting in previousSettings)
-            {
-                if (settings.ContainsKey(setting.Name))
-                    setting.Value = settings[setting.Name];
-            }
-            AdminRepository.Save(previousSettings);
-
             return RedirectToAction(FunnelWebMvc.Admin.Index());
         }
 
@@ -108,7 +113,6 @@ namespace FunnelWeb.Web.Features.Admin
             AdminRepository.Delete(item);
             return RedirectToAction(FunnelWebMvc.Admin.Index());
         }
-
 
         [Authorize]
         public virtual ActionResult ToggleSpam(int comment)

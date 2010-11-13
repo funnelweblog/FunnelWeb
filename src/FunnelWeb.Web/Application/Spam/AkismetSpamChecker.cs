@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Web.Configuration;
 using FunnelWeb.Web.Application.Settings;
 using FunnelWeb.Web.Model;
 using Joel.Net;
@@ -18,10 +17,11 @@ namespace FunnelWeb.Web.Application.Spam
 
         private Akismet Connect()
         {
+            var settings = settingsProvider.GetSettings();
             var akismet = new Akismet(
-                WebConfigurationManager.AppSettings["FunnelWeb.configuration.akismet.apiKey"],
-                WebConfigurationManager.AppSettings["FunnelWeb.configuration.akismet.url"],
-                WebConfigurationManager.AppSettings["FunnelWeb.configuration.akismet.userAgent"]
+                settings.AkismetApiKey,
+                "http://www.funnelweblog.com",
+                "FunnelWeb/1.0"
                 );
             akismet.VerifyKey();
             return akismet;
@@ -29,9 +29,10 @@ namespace FunnelWeb.Web.Application.Spam
 
         public void Verify(Comment comment)
         {
+            var settings = settingsProvider.GetSettings();
             var akismet = Connect();
             var akismetComment = new AkismetComment();
-            akismetComment.Blog = WebConfigurationManager.AppSettings["FunnelWeb.configuration.akismet.url"];
+            akismetComment.Blog = "http://www.funnelweblog.com";
             akismetComment.CommentAuthor = comment.AuthorName;
             akismetComment.CommentAuthorEmail = comment.AuthorEmail;
             akismetComment.CommentAuthorUrl = comment.AuthorUrl;
@@ -43,7 +44,7 @@ namespace FunnelWeb.Web.Application.Spam
             if (comment.IsSpam) 
                 return;
 
-            var naughtyWords = settingsProvider.SpamWords.Split('\n').Select(x => x.Trim()).Where(x => x.Length > 0).ToArray();
+            var naughtyWords = settings.SpamWords.Split('\n').Select(x => x.Trim()).Where(x => x.Length > 0).ToArray();
             comment.IsSpam = naughtyWords.Length > 0 && naughtyWords.Any(x => comment.Body.IndexOf(x, StringComparison.InvariantCultureIgnoreCase) >= 0);
         }
 
@@ -51,7 +52,7 @@ namespace FunnelWeb.Web.Application.Spam
         {
             var akismet = Connect();
             var akismetComment = new AkismetComment();
-            akismetComment.Blog = WebConfigurationManager.AppSettings["FunnelWeb.configuration.akismet.url"];
+            akismetComment.Blog = "http://www.funnelweblog.com";
             akismetComment.CommentAuthorUrl = pingback.TargetUri;
             akismetComment.CommentContent = pingback.TargetUri;
             akismetComment.CommentType = "pingback";

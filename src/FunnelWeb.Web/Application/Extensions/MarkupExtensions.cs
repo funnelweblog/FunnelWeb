@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web;
 using System.Web.Mvc;
+using Autofac;
+using Autofac.Integration.Web;
+using FunnelWeb.Web.Application.Settings;
 using FunnelWeb.Web.Application.Views;
 
 namespace FunnelWeb.Web.Application.Extensions
@@ -123,6 +128,26 @@ namespace FunnelWeb.Web.Application.Extensions
                 );
             text = text.Replace("\n", "<br />\n");
             return text;
+        }
+
+        #endregion
+
+        #region Hint
+
+        public static IHtmlString HintFor<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, object>> property)
+        {
+            var result = ExpressionHelper.GetExpressionText(property);
+            return new HtmlString(result);
+        }
+
+        #endregion
+
+        #region Settings
+
+        public static ISettingsProvider Settings(this HtmlHelper helper)
+        {
+            var application = (IContainerProviderAccessor)HttpContext.Current.ApplicationInstance;
+            return application.ContainerProvider.RequestLifetime.Resolve<ISettingsProvider>();
         }
 
         #endregion

@@ -71,14 +71,6 @@ namespace FunnelWeb.Tests.Web.Controllers
         }
 
         [Test]
-        public void UpdateSettings()
-        {
-            var result = (RedirectToRouteResult)Controller.UpdateSettings(Arg.Any<Dictionary<string, string>>());
-
-            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
-        }
-
-        [Test]
         public void DeleteComment()
         {
             var result = (RedirectToRouteResult)Controller.DeleteComment(0);

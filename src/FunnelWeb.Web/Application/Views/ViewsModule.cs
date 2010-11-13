@@ -1,8 +1,10 @@
 ﻿using System.Web.Mvc;
+using Autofac.Core;
 using FunnelWeb.Web.Application.Settings;
 using Autofac;
 using System.Web;
 using System;
+using FunnelWeb.Web.Model.Repositories;
 
 namespace FunnelWeb.Web.Application.Views
 {
@@ -17,7 +19,10 @@ namespace FunnelWeb.Web.Application.Views
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<SettingsProvider>().As<ISettingsProvider>().InstancePerLifetimeScope();
+            builder.Register(c => new SettingsProvider(c.Resolve<IAdminRepository>(), () => HttpContext.Current.Server.MapPath("~/Content/Styles/Themes")))
+                .As<ISettingsProvider>()
+                .InstancePerLifetimeScope();
+
             builder.Register(c => new MarkdownProvider(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority))).As<IMarkdownProvider>().InstancePerLifetimeScope();
 
             var engine = new WebFormViewEngine();

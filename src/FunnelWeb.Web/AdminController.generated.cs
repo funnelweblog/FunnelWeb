@@ -55,11 +55,6 @@ namespace FunnelWeb.Web.Features.Admin {
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult UpdateSettings() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.UpdateSettings);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public System.Web.Mvc.ActionResult DeleteComment() {
             return new T4MVC_ActionResult(Area, Name, ActionNames.DeleteComment);
         }
@@ -92,11 +87,11 @@ namespace FunnelWeb.Web.Features.Admin {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass {
             public readonly string Index = "Index";
+            public readonly string Settings = "Settings";
             public readonly string CreateFeed = "CreateFeed";
             public readonly string DeleteFeed = "DeleteFeed";
             public readonly string DeleteRedirect = "DeleteRedirect";
             public readonly string CreateRedirect = "CreateRedirect";
-            public readonly string UpdateSettings = "UpdateSettings";
             public readonly string DeleteComment = "DeleteComment";
             public readonly string DeleteAllSpam = "DeleteAllSpam";
             public readonly string DeletePingback = "DeletePingback";
@@ -119,8 +114,15 @@ namespace FunnelWeb.Web.Features.Admin {
             static readonly _Views s_Views = new _Views();
             public _Views Views { get { return s_Views; } }
             public partial class _Views{
+                public readonly string Comments = "~/Features/Admin/Views/Comments.aspx";
+                public readonly string CommentsModel = "~/Features/Admin/Views/CommentsModel.cs";
+                public readonly string Feeds = "~/Features/Admin/Views/Feeds.aspx";
+                public readonly string FeedsModel = "~/Features/Admin/Views/FeedsModel.cs";
                 public readonly string Index = "~/Features/Admin/Views/Index.aspx";
                 public readonly string IndexModel = "~/Features/Admin/Views/IndexModel.cs";
+                public readonly string Pingbacks = "~/Features/Admin/Views/Pingbacks.aspx";
+                public readonly string PingbacksModel = "~/Features/Admin/Views/PingbacksModel.cs";
+                public readonly string Settings = "~/Features/Admin/Views/Settings.aspx";
             }
         }
     }
@@ -131,6 +133,17 @@ namespace FunnelWeb.Web.Features.Admin {
 
         public override System.Web.Mvc.ActionResult Index() {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult Settings() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Settings);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult Settings(FunnelWeb.Web.Application.Settings.Settings settings) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Settings);
+            callInfo.RouteValueDictionary.Add("settings", settings);
             return callInfo;
         }
 
@@ -157,12 +170,6 @@ namespace FunnelWeb.Web.Features.Admin {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.CreateRedirect);
             callInfo.RouteValueDictionary.Add("from", from);
             callInfo.RouteValueDictionary.Add("to", to);
-            return callInfo;
-        }
-
-        public override System.Web.Mvc.ActionResult UpdateSettings(System.Collections.Generic.Dictionary<string,string> settings) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UpdateSettings);
-            callInfo.RouteValueDictionary.Add("settings", settings);
             return callInfo;
         }
 

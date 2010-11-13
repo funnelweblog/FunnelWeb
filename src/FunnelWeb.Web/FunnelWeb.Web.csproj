@@ -143,8 +143,11 @@
     <Compile Include="Application\ForceLowercaseUrlHttpModule.cs" />
     <Compile Include="Application\Installation\IConnectionStringProvider.cs" />
     <Compile Include="Application\Mvc\LowercaseRoute.cs" />
+    <Compile Include="Application\Mvc\MvcExtensions.cs" />
     <Compile Include="Application\Mvc\RouteCollectionExtension.cs" />
     <Compile Include="Application\RequireUpdatedDatabaseHttpModule.cs" />
+    <Compile Include="Application\Settings\SettingStorageAttribute.cs" />
+    <Compile Include="Application\Settings\StorageLocation.cs" />
     <Compile Include="Application\Views\IMarkdownProvider.cs" />
     <Compile Include="Application\Views\InputSanitizer.cs" />
     <Compile Include="Application\Views\Markdown.cs" />
@@ -154,19 +157,23 @@
     <Compile Include="Application\Mvc\Binders\BindersModule.cs" />
     <Compile Include="Application\Mime\MimeSupport.cs" />
     <Compile Include="Application\Views\MarkdownProvider.cs" />
+    <Compile Include="Features\Admin\Views\CommentsModel.cs" />
+    <Compile Include="Features\Admin\Views\FeedsModel.cs" />
+    <Compile Include="Features\Admin\Views\PingbacksModel.cs" />
     <Compile Include="Features\Admin\Views\IndexModel.cs" />
+    <Compile Include="Application\Settings\Settings.cs" />
     <Compile Include="Features\Installation\InstallController.cs" />
     <Compile Include="Features\Installation\Views\IndexModel.cs" />
     <Compile Include="Features\Installation\Views\UpgradeModel.cs" />
     <Compile Include="Features\Login\Views\IndexModel.cs" />
-    <Compile Include="Features\Uploads\Views\IndexModel.cs" />
-    <Compile Include="Features\Wikis\Views\EditModel.cs" />
-    <Compile Include="Features\Wikis\Views\NotFoundModel.cs" />
-    <Compile Include="Features\Wikis\Views\PageModel.cs" />
-    <Compile Include="Features\Wikis\Views\RecentModel.cs" />
-    <Compile Include="Features\Wikis\Views\ReviseModel.cs" />
-    <Compile Include="Features\Wikis\Views\RevisionsModel.cs" />
-    <Compile Include="Features\Wikis\Views\SiteMapModel.cs" />
+    <Compile Include="Features\Upload\Views\IndexModel.cs" />
+    <Compile Include="Features\Wiki\Views\EditModel.cs" />
+    <Compile Include="Features\Wiki\Views\NotFoundModel.cs" />
+    <Compile Include="Features\Wiki\Views\PageModel.cs" />
+    <Compile Include="Features\Wiki\Views\RecentModel.cs" />
+    <Compile Include="Features\Wiki\Views\ReviseModel.cs" />
+    <Compile Include="Features\Wiki\Views\RevisionsModel.cs" />
+    <Compile Include="Features\Wiki\Views\SiteMapModel.cs" />
     <Compile Include="Application\Mvc\HyphenatedRouteHandler.cs" />
     <Compile Include="FeedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -206,11 +213,11 @@
     <Compile Include="Features\Feeds\FeedController.cs" />
     <Compile Include="Features\Login\LoginController.cs" />
     <Compile Include="Features\Resources\ResourceController.cs" />
-    <Compile Include="Features\Uploads\UploadController.cs" />
-    <Compile Include="Features\Uploads\UploadController.Models.cs">
+    <Compile Include="Features\Upload\UploadController.cs" />
+    <Compile Include="Features\Upload\UploadController.Models.cs">
       <DependentUpon>UploadController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Features\Wikis\WikiController.cs" />
+    <Compile Include="Features\Wiki\WikiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -276,6 +283,10 @@
   <ItemGroup>
     <Content Include="Content\Styles\Themes\MattHamilton\Theme.css" />
     <Content Include="Content\Styles\Themes\MattHamilton\Title.png" />
+    <Content Include="Features\Admin\Views\Comments.aspx" />
+    <Content Include="Features\Admin\Views\Feeds.aspx" />
+    <Content Include="Features\Admin\Views\Pingbacks.aspx" />
+    <Content Include="Features\Admin\Views\Settings.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Features\Admin\Views\Index.aspx" />
     <Content Include="Features\Admin\Scripts\Admin.js" />
@@ -351,14 +362,14 @@
     <Content Include="Content\Styles\Layout\Screen.css" />
     <Content Include="Content\Styles\Themes\AaronPowell\Theme.css" />
     <Content Include="Content\Styles\Themes\Default\Theme.css" />
-    <Content Include="Features\Uploads\Views\Index.aspx" />
-    <Content Include="Features\Wikis\Views\Edit.aspx" />
-    <Content Include="Features\Wikis\Views\NotFound.aspx" />
-    <Content Include="Features\Wikis\Views\Page.aspx" />
-    <Content Include="Features\Wikis\Views\Recent.aspx" />
-    <Content Include="Features\Wikis\Views\Revisions.aspx" />
-    <Content Include="Features\Wikis\Views\SiteMap.aspx" />
-    <Content Include="Features\Wikis\Views\Unpublished.aspx" />
+    <Content Include="Features\Upload\Views\Index.aspx" />
+    <Content Include="Features\Wiki\Views\Edit.aspx" />
+    <Content Include="Features\Wiki\Views\NotFound.aspx" />
+    <Content Include="Features\Wiki\Views\Page.aspx" />
+    <Content Include="Features\Wiki\Views\Recent.aspx" />
+    <Content Include="Features\Wiki\Views\Revisions.aspx" />
+    <Content Include="Features\Wiki\Views\SiteMap.aspx" />
+    <Content Include="Features\Wiki\Views\Unpublished.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
