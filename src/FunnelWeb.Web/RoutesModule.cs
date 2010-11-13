@@ -36,7 +36,7 @@ namespace FunnelWeb.Web
             routes.MapLowerCaseRoute(r(), "commentfeed", new { controller = "Feed", action = "CommentFeed" });
 
             // Login
-            routes.MapLowerCaseRoute(r(), "login/{action}", new { controller = "Login", action = "Index", databaseIssue = UrlParameter.Optional, ReturnUrl = UrlParameter.Optional });
+            routes.MapLowerCaseRoute(r(), "login/{action}", new { controller = "Login", action = "Login", databaseIssue = UrlParameter.Optional, ReturnUrl = UrlParameter.Optional });
 
             // Upload
             routes.MapLowerCaseRoute(r(), "get/{*path}", new { controller = "Upload", action = "Render" });

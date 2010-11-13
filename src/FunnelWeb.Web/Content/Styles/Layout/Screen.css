@@ -320,13 +320,19 @@ div.nav div.search
 	margin-top: 20px;
 	max-width: 700px;
 }
-.form-body p
+.form-body .editor-label
 {
-	margin: 12px 0px 0px 0px;
+    float: left;
+    font-weight: bold;
+    padding-top: 6px;
+	display: inline-block;
+	width: 120px;
+    margin-bottom: 10px;
 }
-.form-body span
+.form-body .editor-field 
 {
-	font-family: Consolas;
+    margin-left: 140px;
+    margin-bottom: 10px;
 }
 .form-body span.hint
 {
@@ -335,24 +341,11 @@ div.nav div.search
 	font-family: Segoe UI;
 	display: block;
 }
-.form-body label
-{
-	width: 100px;
-	display: inline-block;
-}
-.form-body label.required
-{
-	font-weight: bold;
-}
 .form-body textarea
 {
 	margin-top: 5px;
 	margin-bottom: 5px;
 	vertical-align: top;
-}
-.form-body input.submit
-{
-	margin-left: 104px;
 }
 .form-body .notification-wait
 {
@@ -816,3 +809,29 @@ span.close
 {
 	clear: both;
 }
+
+.validation-summary-errors 
+{
+    background: #FFEEF2;
+    border: 1px solid #CC3954;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+.validation-summary-errors span 
+{
+    font-weight: bold;
+    color: #CC3954;
+}
+.validation-summary-errors ul li 
+{
+    list-style-type: none;   
+}
+.field-validation-error 
+{
+    font-weight: bold;
+    color: #CC3954;
+    display: block;
+}
+

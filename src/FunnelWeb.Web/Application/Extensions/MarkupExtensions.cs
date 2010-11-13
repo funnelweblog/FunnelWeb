@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
@@ -7,8 +9,11 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
+using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Web;
+using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Application.Settings;
 using FunnelWeb.Web.Application.Views;
 
@@ -151,5 +156,29 @@ namespace FunnelWeb.Web.Application.Extensions
         }
 
         #endregion
+
+        private static void WhenEncountering<TAttribute>(LambdaExpression expression, Action<TAttribute> callback)
+        {
+            var member = (MemberExpression)expression.Body;
+            foreach (var instance in member.Member.GetCustomAttributes(true).OfType<TAttribute>())
+            {
+                callback(instance);
+            }
+        }
+
+        public static IDictionary<string, object> AttributesFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
+        {
+            var attributes = new RouteValueDictionary();
+            attributes.Add("class", "");
+
+            WhenEncountering<StringLengthAttribute>(expression, att => attributes["maxlength"] = att.MaximumLength);
+            WhenEncountering<HintSizeAttribute>(expression, att =>
+                {
+                    attributes["class"] += att.Size.ToString().ToLowerInvariant() + " ";
+                });
+
+            attributes["class"] = attributes["class"].ToString().Trim();
+            return attributes;
+        }
     }
 }

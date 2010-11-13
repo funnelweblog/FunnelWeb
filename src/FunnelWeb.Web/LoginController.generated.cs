@@ -22,6 +22,9 @@ using T4MVC;
 namespace FunnelWeb.Web.Features.Login {
     public partial class LoginController {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public LoginController() { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected LoginController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -30,11 +33,6 @@ namespace FunnelWeb.Web.Features.Login {
             return RedirectToRoute(callInfo.RouteValueDictionary);
         }
 
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult Index() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.Index);
-        }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public System.Web.Mvc.ActionResult Login() {
@@ -53,7 +51,6 @@ namespace FunnelWeb.Web.Features.Login {
         public ActionNamesClass ActionNames { get { return s_actions; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass {
-            public readonly string Index = "Index";
             public readonly string Login = "Login";
             public readonly string Logout = "Logout";
         }
@@ -68,8 +65,8 @@ namespace FunnelWeb.Web.Features.Login {
             static readonly _Views s_Views = new _Views();
             public _Views Views { get { return s_Views; } }
             public partial class _Views{
-                public readonly string Index = "~/Features/Login/Views/Index.aspx";
-                public readonly string IndexModel = "~/Features/Login/Views/IndexModel.cs";
+                public readonly string Login = "~/Features/Login/Views/Login.aspx";
+                public readonly string LoginModel = "~/Features/Login/Views/LoginModel.cs";
             }
         }
     }
@@ -78,18 +75,9 @@ namespace FunnelWeb.Web.Features.Login {
     public class T4MVC_LoginController: FunnelWeb.Web.Features.Login.LoginController {
         public T4MVC_LoginController() : base(Dummy.Instance) { }
 
-        public override System.Web.Mvc.ActionResult Index(bool? databaseIssue, string ReturnUrl) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
-            callInfo.RouteValueDictionary.Add("databaseIssue", databaseIssue);
-            callInfo.RouteValueDictionary.Add("ReturnUrl", ReturnUrl);
-            return callInfo;
-        }
-
-        public override System.Web.Mvc.ActionResult Login(bool? databaseIssue, string name, string password) {
+        public override System.Web.Mvc.ActionResult Login(FunnelWeb.Web.Features.Login.Views.LoginModel model) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Login);
-            callInfo.RouteValueDictionary.Add("databaseIssue", databaseIssue);
-            callInfo.RouteValueDictionary.Add("name", name);
-            callInfo.RouteValueDictionary.Add("password", password);
+            callInfo.RouteValueDictionary.Add("model", model);
             return callInfo;
         }
 

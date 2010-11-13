@@ -7,39 +7,39 @@ namespace FunnelWeb.Web.Features.Login
 {
     public partial class LoginController : Controller
     {
-        private readonly IAuthenticator _authenticator;
+        public IAuthenticator Authenticator { get; set; }
 
-        public LoginController(IAuthenticator authenticator)
+        [HttpGet]
+        public virtual ActionResult Login(LoginModel model)
         {
-            _authenticator = authenticator;
-        }
-
-        public virtual ActionResult Index(bool? databaseIssue, string ReturnUrl)
-        {
-            ViewData.Model = new IndexModel(databaseIssue ?? false, false);
-            return View();
+            ModelState.Clear();
+            return View(model);
         }
         
-        [AcceptVerbs(HttpVerbs.Post | HttpVerbs.Get)]
-        public virtual ActionResult Login(bool? databaseIssue, string name, string password)
+        [ActionName("Login")]
+        [HttpPost]
+        public virtual ActionResult LoginPost(LoginModel model)
         {
-            var authenticated = _authenticator.AuthenticateAndLogin(name, password);
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            
+            var authenticated = Authenticator.AuthenticateAndLogin(model.Username, model.Password);
             if (authenticated)
             {
-                if (databaseIssue ?? false)
-                {
-                    return RedirectToAction("Index", "Install");
-                }
-                return Redirect("~/");    
+                return (model.DatabaseIssue ?? false)
+                    ? (ActionResult)RedirectToAction("Index", "Install")
+                    : Redirect("~/");
             }
-            ViewData.Model = new IndexModel(databaseIssue ?? false, true);
-            return View("Index")
-                .AndFlash("Username or password was incorrect. Please try again");
-        }
 
+            ModelState.AddModelError("", "Invalid username or password. Please try again.");
+            return View(model);
+        }
+        
         public virtual ActionResult Logout()
         {
-            _authenticator.Logout();
+            Authenticator.Logout();
             return Redirect("/");  
         }
     }

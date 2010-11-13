@@ -131,6 +131,7 @@
     <Compile Include="Application\Mvc\ActionResults\XmlActionResult.cs" />
     <Compile Include="Application\Authentication\FormsAuthenticator.cs" />
     <Compile Include="Application\Authentication\IAuthenticator.cs" />
+    <Compile Include="Application\Mvc\HintSize.cs" />
     <Compile Include="Application\Mvc\Binders\ArrayBinder.cs" />
     <Compile Include="Application\Mvc\Binders\DictionaryBinder.cs" />
     <Compile Include="Application\Mvc\Binders\ImplicitAssignmentBinder.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="Application\Filters\TransactionalAttribute.cs" />
     <Compile Include="Application\ForceLowercaseUrlHttpModule.cs" />
     <Compile Include="Application\Installation\IConnectionStringProvider.cs" />
+    <Compile Include="Application\Mvc\HintSizeAttribute.cs" />
     <Compile Include="Application\Mvc\LowercaseRoute.cs" />
     <Compile Include="Application\Mvc\MvcExtensions.cs" />
     <Compile Include="Application\Mvc\RouteCollectionExtension.cs" />
@@ -165,7 +167,7 @@
     <Compile Include="Features\Installation\InstallController.cs" />
     <Compile Include="Features\Installation\Views\IndexModel.cs" />
     <Compile Include="Features\Installation\Views\UpgradeModel.cs" />
-    <Compile Include="Features\Login\Views\IndexModel.cs" />
+    <Compile Include="Features\Login\Views\LoginModel.cs" />
     <Compile Include="Features\Upload\Views\IndexModel.cs" />
     <Compile Include="Features\Wiki\Views\EditModel.cs" />
     <Compile Include="Features\Wiki\Views\NotFoundModel.cs" />
@@ -286,7 +288,7 @@
     <Content Include="Features\Admin\Scripts\Admin.js" />
     <Content Include="Features\Installation\Views\UpgradeReport.aspx" />
     <Content Include="Features\Installation\Views\Index.aspx" />
-    <Content Include="Features\Login\Views\Index.aspx" />
+    <Content Include="Features\Login\Views\Login.aspx" />
     <Content Include="Content\DisplayTemplates\Markdown.ascx" />
     <Content Include="Content\Images\favicon.ico" />
     <Content Include="Content\Images\editorbuttons.png" />
