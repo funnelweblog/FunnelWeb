@@ -114,12 +114,10 @@ namespace FunnelWeb.Web.Application.Settings
         public string SmtpServer { get; set; }
 
         [DisplayName("Port")]
-        [StringLength(6)]
         [DefaultValue("21")]
-        [RegularExpression("[0-9]{1,6}", ErrorMessage = "Please enter a valid port number")]
         [Description("The port that your SMTP server listens on.")]
         [SettingStorage(StorageLocation.Database, "smtp-port")]
-        public string SmtpPort { get; set; }
+        public int SmtpPort { get; set; }
 
         [DisplayName("From")]
         [StringLength(200)]
@@ -129,12 +127,19 @@ namespace FunnelWeb.Web.Application.Settings
         [SettingStorage(StorageLocation.Database, "smtp-from")]
         public string SmtpFromEmailAddress { get; set; }
 
+        [DisplayName("Username")]
+        [StringLength(100)]
+        [DefaultValue("")]
+        [Description("If your SMTP server requires authentication, enter your username here, or leave it empty.")]
+        [SettingStorage(StorageLocation.Database, "smtp-auth-username")]
+        public string SmtpUsername { get; set; }
+
         [DisplayName("Password")]
         [StringLength(100)]
         [DefaultValue("")]
-        [Description("If your SMTP server requires a password, enter it here.")]
-        [SettingStorage(StorageLocation.Database, "smtp-password")]
-        public string SmtpFromPassword { get; set; }
+        [Description("If your SMTP server requires authentication, enter your password here, or leave it empty.")]
+        [SettingStorage(StorageLocation.Database, "smtp-auth-password")]
+        public string SmtpPassword { get; set; }
 
         [DisplayName("To")]
         [StringLength(200)]

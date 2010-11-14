@@ -185,21 +185,30 @@
         </div>
         
         <div class="editor-label">
-          <%: Html.LabelFor(m => m.SmtpFromPassword)%>
-        </div>
-        <div class="editor-field">
-          <%: Html.TextBoxFor(m => m.SmtpFromPassword, new { @class = "medium" })%>
-          <%: Html.ValidationMessageFor(m => m.SmtpFromPassword)%>
-          <%: Html.HintFor(m => m.SmtpFromPassword)%>
-        </div>
-        
-        <div class="editor-label">
           <%: Html.LabelFor(m => m.SmtpToEmailAddress)%>
         </div>
         <div class="editor-field">
           <%: Html.TextBoxFor(m => m.SmtpToEmailAddress, new { @class = "large" })%>
           <%: Html.ValidationMessageFor(m => m.SmtpToEmailAddress)%>
           <%: Html.HintFor(m => m.SmtpToEmailAddress)%>
+        </div>
+        
+        <div class="editor-label">
+          <%: Html.LabelFor(m => m.SmtpUsername)%>
+        </div>
+        <div class="editor-field">
+          <%: Html.TextBoxFor(m => m.SmtpUsername, new { @class = "medium" })%>
+          <%: Html.ValidationMessageFor(m => m.SmtpUsername)%>
+          <%: Html.HintFor(m => m.SmtpUsername)%>
+        </div>
+        
+        <div class="editor-label">
+          <%: Html.LabelFor(m => m.SmtpPassword)%>
+        </div>
+        <div class="editor-field">
+          <%: Html.TextBoxFor(m => m.SmtpPassword, new { @class = "medium" })%>
+          <%: Html.ValidationMessageFor(m => m.SmtpPassword)%>
+          <%: Html.HintFor(m => m.SmtpPassword)%>
         </div>
 
         <h3>Save</h3>
