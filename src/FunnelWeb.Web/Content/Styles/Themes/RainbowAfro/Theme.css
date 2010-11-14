@@ -229,8 +229,8 @@ h1, h2, h3, h4, h5, h6
 
 pre
 {
-	background: #F0E8E8; /* #E0EAF1; */
-	border: 1px dotted #D0A090;
+	background: #E0EAF1;
+	border: none;
 }
 
 .entry h1, .entry h2, .entry h3, .entry h4, .entry h5, .entry h6

@@ -277,6 +277,7 @@
     <Content Include="Content\EditorTemplates\Markdown.ascx" />
     <Content Include="Content\Styles\Themes\MattHamilton\Theme.css" />
     <Content Include="Content\Styles\Themes\MattHamilton\Title.png" />
+    <Content Include="Content\Styles\Themes\RainbowAfro\Bar.png" />
     <Content Include="Content\Styles\Themes\RainbowAfro\Header.jpg" />
     <Content Include="Content\Styles\Themes\RainbowAfro\Theme.css" />
     <Content Include="Features\Admin\Views\Comments.aspx" />
