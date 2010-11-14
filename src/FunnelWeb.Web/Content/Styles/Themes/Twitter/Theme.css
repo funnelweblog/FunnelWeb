@@ -289,7 +289,7 @@ pre
     float: none;
     margin: 0;
     padding: 0;
-    color: #999;
+    color: #fff;
     font-weight: normal;
     border-bottom: 1px solid #f0f0f0;
     margin-bottom: 10px;
@@ -297,5 +297,6 @@ pre
 
 .footer, .footer a 
 {
-    color: #aaa;
+    border: 0;
+    color: #fff;
 }

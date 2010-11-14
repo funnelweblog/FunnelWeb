@@ -120,6 +120,8 @@ h1, h2, h3, h4, h5, h6
     font-size: 20pt;
     color: #0079b4;
     width: 300px;
+    font-family: Trebuchet MS, Segoe UI, Arial, Sans-Serif;
+    margin-bottom: 10px;
 }
 
 .nav 
