@@ -24,7 +24,7 @@ a:hover
 }
 a.new-window
 {
-	background: transparent url('/Views/Shared/Images/external.png') no-repeat scroll right center;
+	background: transparent url('/Content/Images/external.png') no-repeat scroll right center;
 	padding: 0 13px 0 0;
 }
 p
@@ -489,7 +489,7 @@ input.large
 
 .vcard .vcard-in
 {
-	background: url('/Views/Shared/Images/hCard.png') no-repeat right top;
+	background: url('/Content/Images/hCard.png') no-repeat right top;
 	padding-left: 90px;
 }
 

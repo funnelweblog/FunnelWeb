@@ -27,8 +27,8 @@ h1, h2, h3, h4, h5, h6
 
 .header a.logo
 {
-	background: transparent url(/Views/Shared/Images/title.png) no-repeat scroll 0 0;
-	background: transparent url(/Views/Shared/Images/banner.gif) no-repeat scroll 0 20px;
+	background: transparent url(/Content/Images/title.png) no-repeat scroll 0 0;
+	background: transparent url(/Content/Images/banner.gif) no-repeat scroll 0 20px;
 	text-indent: -1700em;
 	height: 90px;
 }
