@@ -312,3 +312,10 @@ pre
     color: #aaa;
     border: 0;
 }
+
+h2, h3, h4, h5, h6 
+{
+    font-family: Cambria, Georgia;
+    margin-top: 40px;
+    font-weight: normal;
+}
