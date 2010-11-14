@@ -319,3 +319,14 @@ h2, h3, h4, h5, h6
     margin-top: 40px;
     font-weight: normal;
 }
+.entry-tools 
+{
+    background: #fafafa;
+    font-weight: normal;
+    text-align: right;
+    color: #999;
+}
+.entry-tools a 
+{
+    color: #999;
+}
