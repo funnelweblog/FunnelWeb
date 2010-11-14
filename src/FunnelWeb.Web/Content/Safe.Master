@@ -5,15 +5,14 @@
   <title><asp:contentplaceholder id="TitleContent" runat="server" /></title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <meta name="language" content="english" />
-      <%= Html.RenderCssHere(new List<IClientDependencyPath> {
-        new BasicPath("Layout", "/Content/Styles/Layout")
-    })%>
-    <% Html.RequiresCss("Editor.css", "Layout", 0); %>
-    <% Html.RequiresCss("Prettify.css", "Layout", 0); %>
-    <% Html.RequiresCss("Screen.css", "Layout", 0); %>
-
+  <%= Html.RenderCssHere(new List<IClientDependencyPath> {
+      new BasicPath("Layout", "/Content/Styles/Layout")
+  })%>
+  <% Html.RequiresCss("Editor.css", "Layout", 0); %>
+  <% Html.RequiresCss("Prettify.css", "Layout", 0); %>
+  <% Html.RequiresCss("Screen.css", "Layout", 0); %>
+  <% Html.RequiresCss("Admin.css", "Layout", 0); %>
   <% Html.RequiresCss("/Content/Scripts/JQuery/jquery-ui-1.7.3.custom.css", 0); %>
-
   <link href="<%= Html.QualifyVersion("/Content/Styles/Print-min.css") %>" type="text/css" rel="stylesheet" media="print" />
 </head>
 <body>
@@ -22,11 +21,11 @@
   </div>
   <div class="nav">
     <ul>
-      <li><%= Html.Qualify(Html.ActionLink("Home", "Recent", "Wiki")) %></li>
+      <li><%: Html.Qualify(Html.ActionLink("Home", "Recent", "Wiki")) %></li>
       <% if (ViewData.IsLoggedIn()) { %>
-      <li><%= Html.ActionLink("New Post", "New", "Wiki") %></li>
-      <li><%= Html.ActionLink("Admin", "Index", "Admin") %></li>
-      <li><%= Html.ActionLink("Logout", "Logout", "Login") %></li>
+      <li><%: Html.ActionLink("New Post", "New", "Wiki") %></li>
+      <li><%: Html.ActionLink("Admin", "Index", "Admin") %></li>
+      <li><%: Html.ActionLink("Logout", "Logout", "Login") %></li>
       <% } %>
     </ul>
   </div>

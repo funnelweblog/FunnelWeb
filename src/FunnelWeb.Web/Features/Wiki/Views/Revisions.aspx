@@ -30,9 +30,9 @@
         <tbody>
     <% foreach (var revision in Model.Entry.Revisions) { %>
             <tr>
-                <td valign="top"><%= revision.RevisionNumber %></td>
-                <td valign="top" align="right"><a href="<%= Html.ActionUrl("Page", new { page = Model.Page, revision = revision.RevisionNumber })%>"><%=Html.Date(revision.Revised)%></a></td>
-                <td valign="top"><%= Html.TextilizeList(revision.Reason)%></td>
+                <td valign="top"><%: revision.RevisionNumber %></td>
+                <td valign="top" align="right"><a href="<%: Html.ActionUrl("Page", new { page = Model.Page, revision = revision.RevisionNumber })%>"><%=Html.Date(revision.Revised)%></a></td>
+                <td valign="top"><%: Html.TextilizeList(revision.Reason)%></td>
             </tr>
     <% } %>
         </tbody>

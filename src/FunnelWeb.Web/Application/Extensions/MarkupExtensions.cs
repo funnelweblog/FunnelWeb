@@ -24,12 +24,12 @@ namespace FunnelWeb.Web.Application.Extensions
     {
         #region URL's
 
-        public static string Qualify(this HtmlHelper html, MvcHtmlString url)
+        public static MvcHtmlString Qualify(this HtmlHelper html, MvcHtmlString url)
         {
             return Qualify(html, url.ToHtmlString());
         }
 
-        public static string Qualify(this HtmlHelper html, string url)
+        public static MvcHtmlString Qualify(this HtmlHelper html, string url)
         {
             var requestUrl = html.ViewContext.HttpContext.Request.Url;
             var prefix = requestUrl.GetLeftPart(UriPartial.Authority);
@@ -42,27 +42,27 @@ namespace FunnelWeb.Web.Application.Extensions
                 url = !url.StartsWith("/") ? prefix + "/" + url : prefix + url;
                 url = url.ToLower(CultureInfo.InvariantCulture);
             }
-            return url;
+            return MvcHtmlString.Create(url);
         }
 
-        public static string QualifyVersion(this HtmlHelper html, string url)
+        public static MvcHtmlString QualifyVersion(this HtmlHelper html, string url)
         {
             var result = html.Qualify(url);
-            return result + "?r=" + Assembly.GetExecutingAssembly().GetName().Version.Build;
+            return MvcHtmlString.Create(result + "?r=" + Assembly.GetExecutingAssembly().GetName().Version.Build);
         }
 
-        public static string ActionUrl(this HtmlHelper html, string actionName, object values)
+        public static MvcHtmlString ActionUrl(this HtmlHelper html, string actionName, object values)
         {
             var url = new UrlHelper(html.ViewContext.RequestContext, html.RouteCollection);
             var result = url.Action(actionName, values);
-            return result.ToLower(CultureInfo.InvariantCulture);
+            return MvcHtmlString.Create(result.ToLower(CultureInfo.InvariantCulture));
         }
 
-        public static string ActionUrl(this HtmlHelper html, string actionName, string controllerName, object values)
+        public static MvcHtmlString ActionUrl(this HtmlHelper html, string actionName, string controllerName, object values)
         {
             var url = new UrlHelper(html.ViewContext.RequestContext, html.RouteCollection);
             var result = url.Action(actionName, controllerName, values);
-            return result.ToLower(CultureInfo.InvariantCulture);
+            return MvcHtmlString.Create(result.ToLower(CultureInfo.InvariantCulture));
         }
 
         public static string Gravatar(this HtmlHelper html, string emailAddress)
@@ -114,15 +114,15 @@ namespace FunnelWeb.Web.Application.Extensions
         //    return date.ToString("yyyy-MM-dd") + "T" + date.ToString("HH:mm:ss") + "Z";
         //}
 
-        public static string Markdown(this HtmlHelper html, object content, bool sanitize)
+        public static MvcHtmlString Markdown(this HtmlHelper html, object content, bool sanitize)
         {
             var text = (content ?? string.Empty).ToString();
             var markdown = new MarkdownRenderer(sanitize, html.ViewContext.RequestContext.HttpContext.Request.Url.GetLeftPart(UriPartial.Authority));
             text = markdown.Render(text);
-            return text;
+            return MvcHtmlString.Create(text);
         }
 
-        public static string TextilizeList(this HtmlHelper html, object content)
+        public static MvcHtmlString TextilizeList(this HtmlHelper html, object content)
         {
             var text = (content ?? string.Empty).ToString();
             text = string.Join("\n",
@@ -133,7 +133,7 @@ namespace FunnelWeb.Web.Application.Extensions
                     .ToArray()
                 );
             text = text.Replace("\n", "<br />\n");
-            return text;
+            return MvcHtmlString.Create(text);
         }
 
         #endregion

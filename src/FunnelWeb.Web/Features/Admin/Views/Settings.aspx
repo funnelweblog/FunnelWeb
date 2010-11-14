@@ -117,6 +117,25 @@
           <%: Html.HintFor(m => m.SpamWords)%>
         </div>
 
+        <h3>HTML</h3>
+        <div class="editor-label">
+          <%: Html.LabelFor(m => m.HtmlHead)%>
+        </div>
+        <div class="editor-field">
+          <%: Html.TextAreaFor(m => m.HtmlHead, new { @class = "large" })%>
+          <%: Html.ValidationMessageFor(m => m.HtmlHead)%>
+          <%: Html.HintFor(m => m.HtmlHead)%>
+        </div>
+
+        <div class="editor-label">
+          <%: Html.LabelFor(m => m.HtmlFooter)%>
+        </div>
+        <div class="editor-field">
+          <%: Html.TextAreaFor(m => m.HtmlFooter, new { @class = "large" })%>
+          <%: Html.ValidationMessageFor(m => m.HtmlFooter)%>
+          <%: Html.HintFor(m => m.HtmlFooter)%>
+        </div>
+
         <h3>Save</h3>
         <p>
             <input type="submit" id="submit" class="submit" value="Save" />

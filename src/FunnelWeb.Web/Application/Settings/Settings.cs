@@ -85,6 +85,20 @@ namespace FunnelWeb.Web.Application.Settings
         [SettingStorage(StorageLocation.Database, "spam-blacklist")]
         public string SpamWords { get; set; }
 
+        [DisplayName("HTML Head")]
+        [StringLength(2000)]
+        [DefaultValue("")]
+        [Description("Custom HTML that will appear just before the &lt;/head&gt; tag")]
+        [SettingStorage(StorageLocation.Database, "ui-html-head")]
+        public string HtmlHead { get; set; }
+
+        [DisplayName("HTML Footer")]
+        [StringLength(2000)]
+        [DefaultValue("")]
+        [Description("Custom HTML that will appear just before the &lt;/body&gt; tag")]
+        [SettingStorage(StorageLocation.Database, "ui-html-foot")]
+        public string HtmlFooter { get; set; }
+
         [DisplayName("Theme")]
         [StringLength(100)]
         [DefaultValue("Default")]
