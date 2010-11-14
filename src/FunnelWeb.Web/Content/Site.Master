@@ -18,7 +18,7 @@
   <% Html.RequiresCss("Prettify.css", "Layout", 0); %>
   <% Html.RequiresCss("Screen.css", "Layout", 0); %>
   <% Html.RequiresCss("Theme.css", "Theme", 10000); %>
-  <link href="<%= Html.QualifyVersion("/Content/Styles/Print-min.css") %>" type="text/css" rel="stylesheet" media="print" />
+  <link href="<%= Html.QualifyVersion("/Content/Styles/Layout/Print-min.css") %>" type="text/css" rel="stylesheet" media="print" />
   <%= Html.Settings().HtmlHead %>
 </head>
 <body>
