@@ -2,17 +2,18 @@
 using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
+using FunnelWeb.Eventing;
+using FunnelWeb.Model;
+using FunnelWeb.Model.Repositories;
+using FunnelWeb.Model.Strings;
 using FunnelWeb.Web.Application.Filters;
 using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Application.Spam;
 using FunnelWeb.Web.Features.Wiki.Views;
-using FunnelWeb.Web.Model;
-using FunnelWeb.Web.Model.Repositories;
-using FunnelWeb.Web.Model.Strings;
 
 namespace FunnelWeb.Web.Features.Wiki
 {
-    [Transactional]
+    [FunnelWebRequest]
     [HandleError]
     [ValidateInput(false)]
     public partial class WikiController : Controller
@@ -21,6 +22,7 @@ namespace FunnelWeb.Web.Features.Wiki
         public IEntryRepository EntryRepository { get; set; }
         public IFeedRepository FeedRepository { get; set; }
         public ISpamChecker SpamChecker { get; set; }
+        public IEventPublisher EventPublisher { get; set; }
 
         public virtual ActionResult Recent(int pageNumber)
         {
@@ -181,6 +183,8 @@ namespace FunnelWeb.Web.Features.Wiki
             }
 
             EntryRepository.Save(entry);
+
+            EventPublisher.Publish(new CommentPostedEvent(entry, comment));
 
             return RedirectToAction("Page", new {page = page})
                 .AndFlash("Thanks, your comment has been posted.");

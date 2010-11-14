@@ -1,15 +1,15 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using FunnelWeb.Model;
+using FunnelWeb.Model.Repositories;
+using FunnelWeb.Settings;
 using FunnelWeb.Web.Application.Filters;
 using FunnelWeb.Web.Application.Mvc;
-using FunnelWeb.Web.Application.Settings;
 using FunnelWeb.Web.Features.Admin.Views;
-using FunnelWeb.Web.Model;
-using FunnelWeb.Web.Model.Repositories;
 
 namespace FunnelWeb.Web.Features.Admin
 {
-    [Transactional]
+    [FunnelWebRequest]
     [ValidateInput(false)]
     public partial class AdminController : Controller
     {
@@ -34,7 +34,7 @@ namespace FunnelWeb.Web.Features.Admin
 
         [Authorize]
         [HttpPost]
-        public virtual ActionResult Settings(Settings settings)
+        public virtual ActionResult Settings(Settings.Settings settings)
         {
             settings.Themes = SettingsProvider.GetSettings().Themes;
             if (!ModelState.IsValid)

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web;
-using FunnelWeb.Web.Application.Settings;
-using FunnelWeb.Web.Model.Repositories.Internal;
+using FunnelWeb.Model.Repositories.Internal;
+using FunnelWeb.Settings;
 using NSubstitute;
 using NSubstitute.Core;
 using NUnit.Framework;
@@ -17,7 +17,7 @@ namespace FunnelWeb.Tests.Web.Model.Repositories
             var server = Substitute.For<HttpServerUtilityBase>();
             server.MapPath(Arg.Is<string>("~/Temp")).Returns("C:\\Temp");
             var settings = Substitute.For<ISettingsProvider>();
-            settings.GetSettings().Returns(new Settings { UploadPath = "~/Temp" });
+            settings.GetSettings().Returns(new Settings.Settings { UploadPath = "~/Temp" });
 
             var fileRepo = new FileRepository(settings, server);
 
@@ -33,7 +33,7 @@ namespace FunnelWeb.Tests.Web.Model.Repositories
             //Arrange
             var server = Substitute.For<HttpServerUtilityBase>();
             var settings = Substitute.For<ISettingsProvider>();
-            settings.GetSettings().Returns(new Settings { UploadPath = "C:\\Temp"});
+            settings.GetSettings().Returns(new Settings.Settings { UploadPath = "C:\\Temp"});
             
             var fileRepo = new FileRepository(settings, server);
 

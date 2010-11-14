@@ -126,7 +126,7 @@ namespace FunnelWeb.Web.Features.Admin {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Settings(FunnelWeb.Web.Application.Settings.Settings settings) {
+        public override System.Web.Mvc.ActionResult Settings(Settings.Settings settings) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Settings);
             callInfo.RouteValueDictionary.Add("settings", settings);
             return callInfo;

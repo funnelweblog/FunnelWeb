@@ -1,4 +1,4 @@
-﻿using FunnelWeb.Web.Model;
+﻿using FunnelWeb.Model;
 
 namespace FunnelWeb.Web.Application.Spam
 {

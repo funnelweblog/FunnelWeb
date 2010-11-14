@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web;
 using FunnelWeb.DatabaseDeployer;
-using FunnelWeb.Web.Application.Installation;
+using FunnelWeb.Settings;
 
 namespace FunnelWeb.Web.Application
 {

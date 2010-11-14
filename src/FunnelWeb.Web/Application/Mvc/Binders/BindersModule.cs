@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using FunnelWeb.Web.Model.Strings;
 using Autofac;
+using FunnelWeb.Model.Strings;
 
 namespace FunnelWeb.Web.Application.Mvc.Binders
 {

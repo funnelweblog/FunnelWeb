@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Web.Mvc;
+using FunnelWeb.Model.Repositories;
+using FunnelWeb.Model.Strings;
+using FunnelWeb.Settings;
 using FunnelWeb.Web.Application.Filters;
 using FunnelWeb.Web.Application.Mvc.ActionResults;
-using FunnelWeb.Web.Application.Settings;
 using FunnelWeb.Web.Application.Views;
-using FunnelWeb.Web.Model.Repositories;
-using FunnelWeb.Web.Model.Strings;
 
 namespace FunnelWeb.Web.Features.Feeds
 {
-    [Transactional]
+    [FunnelWebRequest]
     public partial class FeedController : Controller
     {
         public IFeedRepository FeedRepository { get; set; }

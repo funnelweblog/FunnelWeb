@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using FunnelWeb.Web.Model;
+using FunnelWeb.Model;
 
 namespace FunnelWeb.Web.Features.Admin.Views
 {

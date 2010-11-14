@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Content/Safe.Master" Inherits="System.Web.Mvc.ViewPage<FunnelWeb.Web.Application.Settings.Settings>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Content/Safe.Master" Inherits="System.Web.Mvc.ViewPage<FunnelWeb.Settings.Settings>" %>
 
 <asp:Content ContentPlaceHolderID="TitleContent" runat="server">FunnelWeb Administration - Settings</asp:Content>
 

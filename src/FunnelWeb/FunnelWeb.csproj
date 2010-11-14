@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3E448C45-F459-45D7-950C-5ABEF926513D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FunnelWeb</RootNamespace>
+    <AssemblyName>FunnelWeb</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\..\lib\NHibernate\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac">
+      <HintPath>..\..\lib\Autofac\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Web">
+      <HintPath>..\..\lib\Autofac\Autofac.Integration.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Bindable.Core">
+      <HintPath>..\..\lib\Bindable\Bindable.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\lib\NHibernate\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.DynamicProxy2">
+      <HintPath>..\..\lib\NHibernate\Castle.DynamicProxy2.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\..\lib\NHibernate\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\..\lib\NHibernate\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\lib\NHibernate\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\..\lib\NHibernate\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.ByteCode.Castle">
+      <HintPath>..\..\lib\NHibernate\NHibernate.ByteCode.Castle.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.Linq">
+      <HintPath>..\..\lib\NHibernate\NHibernate.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.Validator">
+      <HintPath>..\..\lib\NHibernate\NHibernate.Validator.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.Validator.Specific">
+      <HintPath>..\..\lib\NHibernate\NHibernate.Validator.Specific.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Eventing\EventingModule.cs" />
+    <Compile Include="Eventing\INotifier.cs" />
+    <Compile Include="IFunnelWebExtension.cs" />
+    <Compile Include="Model\Comment.cs" />
+    <Compile Include="Model\Comparers\CommentComparer.cs" />
+    <Compile Include="Model\Comparers\PingbackComparer.cs" />
+    <Compile Include="Model\Comparers\RevisionComparer.cs" />
+    <Compile Include="Model\Comparers\RevisionWithSameEntityComparer.cs" />
+    <Compile Include="Model\Entry.cs" />
+    <Compile Include="Model\Feed.cs" />
+    <Compile Include="Model\FeedItem.cs" />
+    <Compile Include="Model\FileItem.cs" />
+    <Compile Include="Model\Mappings\CommentMapping.cs" />
+    <Compile Include="Model\Mappings\EntryMapping.cs" />
+    <Compile Include="Model\Mappings\FeedItemMapping.cs" />
+    <Compile Include="Model\Mappings\FeedMapping.cs" />
+    <Compile Include="Model\Mappings\PingbackMapping.cs" />
+    <Compile Include="Model\Mappings\RedirectMapping.cs" />
+    <Compile Include="Model\Mappings\RevisionMapping.cs" />
+    <Compile Include="Model\Mappings\SettingMapping.cs" />
+    <Compile Include="Model\Mappings\UserTypes\PageNameUserType.cs" />
+    <Compile Include="Model\Pingback.cs" />
+    <Compile Include="Model\Redirect.cs" />
+    <Compile Include="Model\ReferenceData\Settings.cs" />
+    <Compile Include="Model\Repositories\IAdminRepository.cs" />
+    <Compile Include="Model\Repositories\IEntryRepository.cs" />
+    <Compile Include="Model\Repositories\IFeedRepository.cs" />
+    <Compile Include="Model\Repositories\IFileRepository.cs" />
+    <Compile Include="Model\Repositories\Internal\AdminRepository.cs" />
+    <Compile Include="Model\Repositories\Internal\EntryRepository.cs" />
+    <Compile Include="Model\Repositories\Internal\FeedRepository.cs" />
+    <Compile Include="Model\Repositories\Internal\FileRepository.cs" />
+    <Compile Include="Model\Repositories\RepositoriesModule.cs" />
+    <Compile Include="Model\Revision.cs" />
+    <Compile Include="Model\Setting.cs" />
+    <Compile Include="Model\Strings\EnforcedString.cs" />
+    <Compile Include="Model\Strings\PageName.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\ConnectionStringProvider.cs" />
+    <Compile Include="Settings\IConnectionStringProvider.cs" />
+    <Compile Include="Settings\ISettingsProvider.cs" />
+    <Compile Include="Settings\Settings.cs" />
+    <Compile Include="Settings\SettingsProvider.cs" />
+    <Compile Include="Settings\SettingStorageAttribute.cs" />
+    <Compile Include="Settings\StorageLocation.cs" />
+    <Compile Include="Utilities\NumericExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FunnelWeb.DatabaseDeployer\FunnelWeb.DatabaseDeployer.csproj">
+      <Project>{D3182161-B0E5-47A7-8968-654489F0C60E}</Project>
+      <Name>FunnelWeb.DatabaseDeployer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -14,8 +14,8 @@ using System.Web.Mvc.Html;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Web;
+using FunnelWeb.Settings;
 using FunnelWeb.Web.Application.Mvc;
-using FunnelWeb.Web.Application.Settings;
 using FunnelWeb.Web.Application.Views;
 
 namespace FunnelWeb.Web.Application.Extensions

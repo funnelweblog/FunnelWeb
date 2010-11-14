@@ -4,12 +4,12 @@ using System.Linq;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
+using FunnelWeb.Model;
+using FunnelWeb.Model.Repositories;
+using FunnelWeb.Model.Strings;
 using FunnelWeb.Web.Application.Spam;
 using FunnelWeb.Web.Features.Wiki;
 using FunnelWeb.Web.Features.Wiki.Views;
-using FunnelWeb.Web.Model;
-using FunnelWeb.Web.Model.Repositories;
-using FunnelWeb.Web.Model.Strings;
 using NSubstitute;
 using NUnit.Framework;
 

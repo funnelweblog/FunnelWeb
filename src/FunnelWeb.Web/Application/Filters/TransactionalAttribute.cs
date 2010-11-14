@@ -9,9 +9,9 @@ using NHibernate;
 namespace FunnelWeb.Web.Application.Filters
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-    public class TransactionalAttribute : ActionFilterAttribute
+    public class FunnelWebRequestAttribute : ActionFilterAttribute
     {
-        public TransactionalAttribute()
+        public FunnelWebRequestAttribute()
         {
         }
 

@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
-using FunnelWeb.Web.Application.Settings;
-using FunnelWeb.Web.Model;
+using FunnelWeb.Model;
+using FunnelWeb.Settings;
 using Joel.Net;
 
 namespace FunnelWeb.Web.Application.Spam

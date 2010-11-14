@@ -18,6 +18,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
+using FunnelWeb.Model.Strings;
 using T4MVC;
 namespace FunnelWeb.Web.Features.Wiki {
     public partial class WikiController {
@@ -137,7 +138,7 @@ namespace FunnelWeb.Web.Features.Wiki {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Page(FunnelWeb.Web.Model.Strings.PageName page, int revision) {
+        public override System.Web.Mvc.ActionResult Page(PageName page, int revision) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Page);
             callInfo.RouteValueDictionary.Add("page", page);
             callInfo.RouteValueDictionary.Add("revision", revision);
@@ -154,7 +155,7 @@ namespace FunnelWeb.Web.Features.Wiki {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Edit(FunnelWeb.Web.Model.Strings.PageName page) {
+        public override System.Web.Mvc.ActionResult Edit(PageName page) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Edit);
             callInfo.RouteValueDictionary.Add("page", page);
             return callInfo;
@@ -166,14 +167,14 @@ namespace FunnelWeb.Web.Features.Wiki {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Page(FunnelWeb.Web.Model.Strings.PageName page, FunnelWeb.Web.Features.Wiki.Views.PageModel model) {
+        public override System.Web.Mvc.ActionResult Page(PageName page, FunnelWeb.Web.Features.Wiki.Views.PageModel model) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Page);
             callInfo.RouteValueDictionary.Add("page", page);
             callInfo.RouteValueDictionary.Add("model", model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Revisions(FunnelWeb.Web.Model.Strings.PageName page) {
+        public override System.Web.Mvc.ActionResult Revisions(PageName page) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Revisions);
             callInfo.RouteValueDictionary.Add("page", page);
             return callInfo;

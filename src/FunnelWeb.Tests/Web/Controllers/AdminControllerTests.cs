@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using FunnelWeb.Model;
+using FunnelWeb.Model.Repositories;
 using FunnelWeb.Web.Features.Admin;
 using FunnelWeb.Web.Features.Admin.Views;
-using FunnelWeb.Web.Model;
-using FunnelWeb.Web.Model.Repositories;
 using NSubstitute;
 using NUnit.Framework;
 

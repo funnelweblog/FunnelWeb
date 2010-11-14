@@ -1,9 +1,9 @@
 ﻿using System.Web;
 using System.Web.Mvc;
+using FunnelWeb.Model.Repositories;
 using FunnelWeb.Web.Application;
 using FunnelWeb.Web.Application.Mime;
 using FunnelWeb.Web.Features.Upload;
-using FunnelWeb.Web.Model.Repositories;
 using NSubstitute;
 using NUnit.Framework;
 

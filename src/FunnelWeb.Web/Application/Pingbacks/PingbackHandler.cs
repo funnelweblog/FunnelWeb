@@ -7,9 +7,9 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Web;
 using Autofac;
+using FunnelWeb.Model;
+using FunnelWeb.Model.Repositories;
 using FunnelWeb.Web.Application.Spam;
-using FunnelWeb.Web.Model;
-using FunnelWeb.Web.Model.Repositories;
 using NHibernate;
 
 namespace FunnelWeb.Web.Application.Pingbacks

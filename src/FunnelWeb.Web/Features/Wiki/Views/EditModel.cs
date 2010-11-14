@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using FunnelWeb.Model;
+using FunnelWeb.Model.Strings;
 using FunnelWeb.Web.Application.Mvc;
-using FunnelWeb.Web.Model;
-using FunnelWeb.Web.Model.Strings;
 
 namespace FunnelWeb.Web.Features.Wiki.Views
 {

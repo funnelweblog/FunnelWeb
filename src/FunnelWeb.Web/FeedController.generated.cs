@@ -18,6 +18,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
+using FunnelWeb.Model.Strings;
 using T4MVC;
 namespace FunnelWeb.Web.Features.Feeds {
     public partial class FeedController {
@@ -68,7 +69,7 @@ namespace FunnelWeb.Web.Features.Feeds {
     public class T4MVC_FeedController: FunnelWeb.Web.Features.Feeds.FeedController {
         public T4MVC_FeedController() : base(Dummy.Instance) { }
 
-        public override System.Web.Mvc.ActionResult Feed(FunnelWeb.Web.Model.Strings.PageName feedName) {
+        public override System.Web.Mvc.ActionResult Feed(PageName feedName) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Feed);
             callInfo.RouteValueDictionary.Add("feedName", feedName);
             return callInfo;

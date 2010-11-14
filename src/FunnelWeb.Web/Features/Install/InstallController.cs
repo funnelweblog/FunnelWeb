@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.DatabaseDeployer.Infrastructure;
-using FunnelWeb.Web.Application.Installation;
+using FunnelWeb.Settings;
 using FunnelWeb.Web.Features.Install.Views;
 
 namespace FunnelWeb.Web.Features.Install

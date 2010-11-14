@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using System.Web.Mvc;
+using FunnelWeb.Model.Repositories;
 using FunnelWeb.Web.Application;
 using FunnelWeb.Web.Application.Mime;
 using FunnelWeb.Web.Features.Upload.Views;
-using FunnelWeb.Web.Model.Repositories;
 
 namespace FunnelWeb.Web.Features.Upload
 {

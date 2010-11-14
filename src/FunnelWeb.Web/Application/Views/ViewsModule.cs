@@ -2,8 +2,8 @@
 using System.Web;
 using System.Web.Mvc;
 using Autofac;
-using FunnelWeb.Web.Application.Settings;
-using FunnelWeb.Web.Model.Repositories;
+using FunnelWeb.Model.Repositories;
+using FunnelWeb.Settings;
 
 namespace FunnelWeb.Web.Application.Views
 {

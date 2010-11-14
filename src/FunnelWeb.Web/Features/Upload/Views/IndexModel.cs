@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Configuration;
-using FunnelWeb.Web.Model;
+using FunnelWeb.Model;
 
 namespace FunnelWeb.Web.Features.Upload.Views
 {

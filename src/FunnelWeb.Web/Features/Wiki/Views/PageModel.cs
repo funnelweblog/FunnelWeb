@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using FunnelWeb.Model;
+using FunnelWeb.Model.Strings;
 using FunnelWeb.Web.Application.Mvc;
-using FunnelWeb.Web.Model;
-using FunnelWeb.Web.Model.Strings;
 
 namespace FunnelWeb.Web.Features.Wiki.Views
 {

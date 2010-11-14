@@ -1,4 +1,4 @@
-﻿using FunnelWeb.Web.Model.Strings;
+﻿using FunnelWeb.Model.Strings;
 using NUnit.Framework;
 
 namespace FunnelWeb.Tests.Web.Model.Strings

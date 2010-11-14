@@ -5,12 +5,13 @@ using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Web;
 using Autofac.Integration.Web.Mvc;
+using FunnelWeb.Eventing;
+using FunnelWeb.Model.Repositories;
 using FunnelWeb.Web.Application.Authentication;
 using FunnelWeb.Web.Application.Mime;
 using FunnelWeb.Web.Application.Mvc.Binders;
 using FunnelWeb.Web.Application.Spam;
 using FunnelWeb.Web.Application.Views;
-using FunnelWeb.Web.Model.Repositories;
 
 namespace FunnelWeb.Web
 {
@@ -40,6 +41,8 @@ namespace FunnelWeb.Web
             builder.RegisterModule(new RepositoriesModule());
             builder.RegisterModule(new ViewsModule(ViewEngines.Engines));
             builder.RegisterModule(new SpamModule());
+            builder.RegisterModule(new EventingModule());
+            builder.RegisterModule(new ExtensionsModule(Server.MapPath("~/bin/Extensions")));
 
             containerProvider = new ContainerProvider(builder.Build());
 
