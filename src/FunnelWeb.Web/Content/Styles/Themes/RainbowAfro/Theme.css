@@ -42,6 +42,9 @@ p
     border: 1px solid #fff;
     background: #fff;
     margin: 0;
+    -moz-border-radius: 0 0 10px 10px;
+	border-radius: 0 0 10px 10px;
+	-webkit-border-radius: 0 0 10px 10px;
 }
 .content h1
 {
@@ -192,14 +195,17 @@ h1, h2, h3, h4, h5, h6
 	background: transparent;
 	margin-left: 7px;
 	color: #999;
-	font-family: Trebuchet MS;
-	font-weight: bold;
+	font-family: Cambria, Georgia;
+	font-weight: normal;
 	height: auto;
 	vertical-align: middle;
 }
 .post-line .comments a 
 {
 	color: #999;
+}
+.post-line .comments span 
+{
 }
 .post-line .summary 
 {
