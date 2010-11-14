@@ -24,7 +24,12 @@ h1, h2, h3, h4, h5, h6
 
 .header a.logo
 {
-	background: transparent url(/Content/Images/Title.png) no-repeat scroll 0 20px;
+    text-shadow: #f0f0f0 0px 3px 3px;
+    text-indent: 0;
+    font-size: 20pt;
+    color: #000;
+    width: 300px;
+    margin-top: 35px;
 }
 
 .nav ul li
