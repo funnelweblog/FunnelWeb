@@ -96,6 +96,7 @@ h5
 {
 	list-style: none;
 	display: inline;
+	float: right;
 	margin: 0;
 	padding: 0;
 }
@@ -157,7 +158,6 @@ div.nav div.search
 .intro p
 {
 	margin: 10px 0;
-	font-size: 10pt;
 	font-weight: bold;
 }
 
@@ -285,7 +285,6 @@ div.nav div.search
 }
 .comment .comment-body
 {
-	font-size: 10pt;
 	margin-left: 90px;
 	margin-top: 5px;
 }
@@ -593,7 +592,6 @@ pre code
 }
 .entry
 {
-	font-size: 10pt;
 }
 .entry img
 {
