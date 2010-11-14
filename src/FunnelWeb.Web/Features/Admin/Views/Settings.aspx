@@ -88,7 +88,26 @@
           <%: Html.HintFor(m => m.SearchDescription)%>
         </div>
 
+        <h3>File Uploads</h3>
+        <div class="editor-label">
+          <%: Html.LabelFor(m => m.UploadPath)%>
+        </div>
+        <div class="editor-field">
+          <%: Html.TextBoxFor(m => m.UploadPath, new { @class = "large" })%>
+          <%: Html.ValidationMessageFor(m => m.UploadPath)%>
+          <%: Html.HintFor(m => m.UploadPath)%>
+        </div>
+
         <h3>Spam</h3>
+        <div class="editor-label">
+          <%: Html.LabelFor(m => m.AkismetApiKey)%>
+        </div>
+        <div class="editor-field">
+          <%: Html.TextBoxFor(m => m.AkismetApiKey, new { @class = "medium" })%>
+          <%: Html.ValidationMessageFor(m => m.AkismetApiKey)%>
+          <%: Html.HintFor(m => m.AkismetApiKey)%>
+        </div>
+
         <div class="editor-label">
           <%: Html.LabelFor(m => m.SpamWords)%>
         </div>
