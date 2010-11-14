@@ -11,7 +11,7 @@
 }
 .body .intro 
 {
-    background: #d0d0d0;
+    background: #fafafa;
 }
 .body .intro 
 {
@@ -305,3 +305,7 @@ pre
     margin-bottom: 10px;
 }
 
+.footer, .footer a 
+{
+    color: #aaa;
+}
