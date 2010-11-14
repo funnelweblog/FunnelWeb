@@ -1,10 +1,8 @@
 using System;
 using System.ComponentModel;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.Configuration;
 using FunnelWeb.Web.Model;
 using FunnelWeb.Web.Model.Repositories;
@@ -179,13 +177,14 @@ namespace FunnelWeb.Web.Application.Settings
             {
                 if (value != null)
                 {
-                    property.SetValue(settings, value, null);
+                    var converted = Convert.ChangeType(value, property.PropertyType);
+                    property.SetValue(settings, converted, null);
                 }
             }
 
             public string Read(Settings settings)
             {
-                return (string)property.GetValue(settings, null);
+                return (property.GetValue(settings, null) ?? string.Empty).ToString();
             }
         }
     }

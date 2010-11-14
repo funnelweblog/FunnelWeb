@@ -106,6 +106,56 @@ namespace FunnelWeb.Web.Application.Settings
         [SettingStorage(StorageLocation.Database, "ui-theme")]
         public string Theme { get; set; }
 
+        [DisplayName("Server")]
+        [StringLength(100)]
+        [DefaultValue("")]
+        [Description("The server name for your SMTP server.")]
+        [SettingStorage(StorageLocation.Database, "smtp-server")]
+        public string SmtpServer { get; set; }
+
+        [DisplayName("Port")]
+        [StringLength(6)]
+        [DefaultValue("21")]
+        [RegularExpression("[0-9]{1,6}", ErrorMessage = "Please enter a valid port number")]
+        [Description("The port that your SMTP server listens on.")]
+        [SettingStorage(StorageLocation.Database, "smtp-port")]
+        public string SmtpPort { get; set; }
+
+        [DisplayName("From")]
+        [StringLength(200)]
+        [DefaultValue("funnelweb@your-site.com")]
+        [RegularExpression("^[A-Za-z0-9._%+-]+@([A-Za-z0-9-]+\\.)+([A-Za-z0-9]{2,4}|museum)$", ErrorMessage = "Please enter a valid email address")]
+        [Description("The email address from which emails will be sent.")]
+        [SettingStorage(StorageLocation.Database, "smtp-from")]
+        public string SmtpFromEmailAddress { get; set; }
+
+        [DisplayName("Password")]
+        [StringLength(100)]
+        [DefaultValue("")]
+        [Description("If your SMTP server requires a password, enter it here.")]
+        [SettingStorage(StorageLocation.Database, "smtp-password")]
+        public string SmtpFromPassword { get; set; }
+
+        [DisplayName("To")]
+        [StringLength(200)]
+        [DefaultValue("you@your-site.com")]
+        [RegularExpression("^[A-Za-z0-9._%+-]+@([A-Za-z0-9-]+\\.)+([A-Za-z0-9]{2,4}|museum)$", ErrorMessage = "Please enter a valid email address")]
+        [Description("The email address you want comment notification emails to be sent to.")]
+        [SettingStorage(StorageLocation.Database, "smtp-to")]
+        public string SmtpToEmailAddress { get; set; }
+
+        [DisplayName("Use SSL")]
+        [DefaultValue(false)]
+        [Description("Whether SSL should be used when sending emails")]
+        [SettingStorage(StorageLocation.Database, "smtp-ssl")]
+        public bool SmtpUseSsl { get; set; }
+
+        [DisplayName("Notify me")]
+        [DefaultValue(true)]
+        [Description("Notify me when comments are posted")]
+        [SettingStorage(StorageLocation.Database, "smtp-comments-on")]
+        public bool CommentNotification { get; set; }
+
         [SettingStorage(StorageLocation.Custom)]
         public string[] Themes { get; set; }
     }
