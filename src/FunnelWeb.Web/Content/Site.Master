@@ -63,7 +63,7 @@
     <%= Html.Settings().Footer%>
     <% if (!ViewData.IsLoggedIn()) { %>
     <p>
-      Is this your blog? <%= Html.ActionLink("Log in and update it", "Index", "Login")%>.
+      Is this your blog? <%= Html.ActionLink("Log in and update it", "Login", "Login")%>.
     </p>
     <% } %>
   </div>
