@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
@@ -7,9 +7,9 @@ namespace FunnelWeb.Web.Application.Authentication
 {
     //Installation steps:
     //1. Run InstallSqlAuthentication.sql against your funnelweb database
-    //2. Change which IAuthenticator is being registered in AuthenticationModule.cs
-    //3. Create 'Admin' role using membership utility
-    //4. Create user account
+    //2. Create 'Admin' role using membership utility
+    //3. Create user account
+    //4. Set funnelweb.configuration.useSqlMembership appSetting in web.config to 'true'
     public class SqlAuthenticator : IAuthenticator
     {
         public bool AuthenticateAndLogin(string username, string password)
