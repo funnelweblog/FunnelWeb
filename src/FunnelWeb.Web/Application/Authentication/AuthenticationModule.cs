@@ -8,6 +8,8 @@ namespace FunnelWeb.Web.Application.Authentication
         {
             base.Load(builder);
             builder.RegisterType<FormsAuthenticator>().As<IAuthenticator>().SingleInstance();
+            //Uncomment to enable sql authentication
+            //builder.RegisterType<SqlAuthenticator>().As<IAuthenticator>().SingleInstance();
         }
     }
 }

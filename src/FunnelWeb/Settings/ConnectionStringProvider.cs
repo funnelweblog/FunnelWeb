@@ -11,12 +11,12 @@ namespace FunnelWeb.Settings
             get
             {
                 var config = WebConfigurationManager.OpenWebConfiguration(HttpContext.Current.Request.ApplicationPath);
-                return config.AppSettings.Settings["funnelweb.configuration.database.connection"].Value;
+                return config.ConnectionStrings.ConnectionStrings["funnelweb.configuration.database.connection"].ConnectionString;
             }
             set
             {
                 var config = WebConfigurationManager.OpenWebConfiguration(HttpContext.Current.Request.ApplicationPath);
-                config.AppSettings.Settings["funnelweb.configuration.database.connection"].Value = value;
+                config.ConnectionStrings.ConnectionStrings["funnelweb.configuration.database.connection"].ConnectionString = value;
                 config.Save(ConfigurationSaveMode.Modified);
             }
         }

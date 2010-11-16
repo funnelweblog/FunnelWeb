@@ -126,6 +126,7 @@
     <Compile Include="AdminController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Application\Authentication\SqlAuthenticator.cs" />
     <Compile Include="Application\Mvc\ActionResults\FeedResult.cs" />
     <Compile Include="Application\Mvc\ActionResults\XmlActionResult.cs" />
     <Compile Include="Application\Authentication\FormsAuthenticator.cs" />
@@ -232,6 +233,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Application\Authentication\InstallSqlAuthentication.sql" />
     <Content Include="Content\EditorTemplates\Markdown.ascx" />
     <Content Include="Content\Styles\Layout\Admin.css" />
     <Content Include="Content\Styles\Themes\Pastel\Bar.png" />
