@@ -17,7 +17,7 @@ namespace FunnelWeb.Web.Features.Admin
         public IFeedRepository FeedRepository { get; set; }
         public ISettingsProvider SettingsProvider { get; set; }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public virtual ActionResult Index()
         {
             return View(new IndexModel());
@@ -25,14 +25,14 @@ namespace FunnelWeb.Web.Features.Admin
 
         #region Settings
 
-        [Authorize]
+        [Authorize(Roles="Admin")]
         public virtual ActionResult Settings()
         {
             var settings = SettingsProvider.GetSettings();
             return View(settings);
         }
 
-        [Authorize]
+        [Authorize(Roles="Admin")]
         [HttpPost]
         public virtual ActionResult Settings(Settings.Settings settings)
         {
@@ -53,14 +53,14 @@ namespace FunnelWeb.Web.Features.Admin
 
         #region Feeds
 
-        [Authorize]
+        [Authorize(Roles="Admin")]
         public virtual ActionResult Feeds()
         {
             var feeds = FeedRepository.GetFeeds().ToList();
             return View(new FeedsModel(feeds));
         }
 
-        [Authorize]
+        [Authorize(Roles="Admin")]
         [HttpPost]
         public virtual ActionResult Feeds(FeedsModel model)
         {
@@ -79,7 +79,7 @@ namespace FunnelWeb.Web.Features.Admin
             return RedirectToAction(FunnelWebMvc.Admin.Feeds());
         }
 
-        [Authorize]
+        [Authorize(Roles="Admin")]
         [HttpPost]
         public virtual ActionResult DeleteFeed(int feedId)
         {
@@ -95,14 +95,14 @@ namespace FunnelWeb.Web.Features.Admin
 
         #region Comments
 
-        [Authorize]
+        [Authorize(Roles="Admin")]
         public virtual ActionResult Comments()
         {
             var comments = AdminRepository.GetComments(0, 50);
             return View(new CommentsModel(comments));
         }
 
-        [Authorize]
+        [Authorize(Roles="Admin")]
         public virtual ActionResult DeleteComment(int comment)
         {
             var item = AdminRepository.GetComment(comment);
@@ -110,7 +110,7 @@ namespace FunnelWeb.Web.Features.Admin
             return RedirectToAction(FunnelWebMvc.Admin.Comments());
         }
 
-        [Authorize]
+        [Authorize(Roles="Admin")]
         public virtual ActionResult DeleteAllSpam()
         {
             var comments = AdminRepository.GetSpam().ToList();
@@ -119,7 +119,7 @@ namespace FunnelWeb.Web.Features.Admin
             return RedirectToAction(FunnelWebMvc.Admin.Comments());
         }
 
-        [Authorize]
+        [Authorize(Roles="Admin")]
         public virtual ActionResult ToggleSpam(int comment)
         {
             var item = AdminRepository.GetComment(comment);
@@ -135,14 +135,14 @@ namespace FunnelWeb.Web.Features.Admin
 
         #region Pingbacks
 
-        [Authorize]
+        [Authorize(Roles="Admin")]
         public virtual ActionResult Pingbacks()
         {
             var pingbacks = AdminRepository.GetPingbacks();
             return View(new PingbacksModel(pingbacks));
         }
 
-        [Authorize]
+        [Authorize(Roles="Admin")]
         public virtual ActionResult DeletePingback(int pingback)
         {
             var item = AdminRepository.GetPingback(pingback);
@@ -150,7 +150,7 @@ namespace FunnelWeb.Web.Features.Admin
             return RedirectToAction(FunnelWebMvc.Admin.Pingbacks());
         }
 
-        [Authorize]
+        [Authorize(Roles="Admin")]
         public virtual ActionResult TogglePingbackSpam(int pingback)
         {
             var item = AdminRepository.GetPingback(pingback);
