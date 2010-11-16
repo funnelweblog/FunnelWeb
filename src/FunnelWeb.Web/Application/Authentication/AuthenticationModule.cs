@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System.Configuration;
+using Autofac;
 
 namespace FunnelWeb.Web.Application.Authentication
 {
@@ -7,9 +8,13 @@ namespace FunnelWeb.Web.Application.Authentication
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            builder.RegisterType<FormsAuthenticator>().As<IAuthenticator>().SingleInstance();
-            //Uncomment to enable sql authentication
-            //builder.RegisterType<SqlAuthenticator>().As<IAuthenticator>().SingleInstance();
+            var useSqlMembershipSetting = ConfigurationManager.AppSettings["funnelweb.configuration.useSqlMembership"];
+
+            bool useSqlMembership;
+            if (bool.TryParse(useSqlMembershipSetting, out useSqlMembership) && useSqlMembership)
+                builder.RegisterType<SqlAuthenticator>().As<IAuthenticator>().SingleInstance();
+            else
+                builder.RegisterType<FormsAuthenticator>().As<IAuthenticator>().SingleInstance();
         }
     }
 }
