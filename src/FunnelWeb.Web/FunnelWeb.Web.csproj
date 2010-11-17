@@ -106,9 +106,25 @@
     <Reference Include="System.Data.DataSetExtensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.Helpers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -190,10 +206,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\Shared\Site.Master.cs">
-      <DependentUpon>Site.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\EditorTemplates\Markdown.ascx" />
@@ -218,7 +230,6 @@
     <Content Include="Views\Install\UpgradeReport.aspx" />
     <Content Include="Views\Install\Index.aspx" />
     <Content Include="Views\Login\Login.aspx" />
-    <Content Include="Views\Shared\DisplayTemplates\Markdown.ascx" />
     <Content Include="Content\Images\favicon.ico" />
     <Content Include="Content\Images\editorbuttons.png" />
     <Content Include="Content\Images\external.png" />
@@ -265,20 +276,23 @@
     <Content Include="Content\Styles\Themes\AaronPowell\Theme.css" />
     <Content Include="Content\Styles\Themes\Default\Theme.css" />
     <Content Include="Views\Upload\Index.aspx" />
-    <Content Include="Views\Wiki\Edit.aspx" />
-    <Content Include="Views\Wiki\NotFound.aspx" />
-    <Content Include="Views\Wiki\Page.aspx" />
-    <Content Include="Views\Wiki\Recent.aspx" />
-    <Content Include="Views\Wiki\Revisions.aspx" />
-    <Content Include="Views\Wiki\SiteMap.aspx" />
-    <Content Include="Views\Wiki\Unpublished.aspx" />
+    <None Include="Views\Wiki\Edit.cshtml" />
+    <None Include="Views\Wiki\NotFound.cshtml" />
+    <None Include="Views\Wiki\Page.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\Shared\DisplayTemplates\Markdown.cshtml" />
+    <None Include="Views\Wiki\Recent.cshtml" />
+    <None Include="Views\Wiki\Revisions.cshtml" />
+    <None Include="Views\Wiki\SiteMap.cshtml" />
+    <None Include="Views\Wiki\Unpublished.cshtml" />
+    <None Include="Views\_ViewStart.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Dialog.Master" />
-    <Content Include="Views\Shared\Site.Master" />
+    <None Include="Views\Shared\_Public.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FunnelWeb.DatabaseDeployer\FunnelWeb.DatabaseDeployer.csproj">
@@ -326,8 +340,7 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PreBuildEvent>pushd $(ProjectDir)
-.\Minify.bat
-popd</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
 </Project>
