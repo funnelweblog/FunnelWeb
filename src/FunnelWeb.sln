@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+# Visual Web Developer Express 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunnelWeb.Web", "FunnelWeb.Web\FunnelWeb.Web.csproj", "{64FAABD6-F45B-4ED1-A3AD-6989C1934405}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunnelWeb.Tests", "FunnelWeb.Tests\FunnelWeb.Tests.csproj", "{D9FD02F0-96B4-43EE-8FD9-455658B00EE5}"
@@ -10,8 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunnelWeb", "FunnelWeb\FunnelWeb.csproj", "{3E448C45-F459-45D7-950C-5ABEF926513D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunnelWeb.Extensions.CommentNotification", "FunnelWeb.Extensions.CommentNotification\FunnelWeb.Extensions.CommentNotification.csproj", "{5C5EFCF0-454D-42E0-AA89-7F69FB5457BA}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{A45A4C2A-9268-48F2-B813-43975E7080EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
