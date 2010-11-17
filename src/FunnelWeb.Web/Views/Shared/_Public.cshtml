@@ -54,9 +54,11 @@
       <p>@TempData["Flash"]</p>
     </div>
     }
+    @if (IsSectionDefined("Summary")) {
     <div class="intro" runat="server" id="_summary">
       @RenderSection("Summary", required: false)
     </div>
+    }
     <div class="content">
       @RenderBody()
     </div>

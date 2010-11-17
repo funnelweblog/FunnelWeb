@@ -208,7 +208,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\EditorTemplates\Markdown.ascx" />
+    <None Include="Views\Shared\EditorTemplates\Markdown.cshtml" />
     <Content Include="Content\Styles\Layout\Admin.css" />
     <Content Include="Content\Styles\Themes\Pastel\Bar.png" />
     <Content Include="Content\Styles\Themes\Pastel\Theme.css" />
@@ -220,16 +220,15 @@
     <Content Include="Content\Styles\Themes\RainbowAfro\Bar.png" />
     <Content Include="Content\Styles\Themes\RainbowAfro\Header.jpg" />
     <Content Include="Content\Styles\Themes\RainbowAfro\Theme.css" />
-    <Content Include="Views\Admin\Comments.aspx" />
-    <Content Include="Views\Admin\Feeds.aspx" />
-    <Content Include="Views\Admin\Pingbacks.aspx" />
-    <Content Include="Views\Admin\Settings.aspx" />
+    <None Include="Views\Admin\Comments.cshtml" />
+    <None Include="Views\Admin\Feeds.cshtml" />
+    <None Include="Views\Admin\Pingbacks.cshtml" />
+    <None Include="Views\Admin\Settings.cshtml" />
     <Content Include="Global.asax" />
-    <Content Include="Views\Admin\Index.aspx" />
-    <Content Include="Views\Admin\Scripts\Admin.js" />
-    <Content Include="Views\Install\UpgradeReport.aspx" />
-    <Content Include="Views\Install\Index.aspx" />
-    <Content Include="Views\Login\Login.aspx" />
+    <None Include="Views\Admin\Index.cshtml" />
+    <None Include="Views\Install\UpgradeReport.cshtml" />
+    <None Include="Views\Install\Index.cshtml" />
+    <None Include="Views\Login\Login.cshtml" />
     <Content Include="Content\Images\favicon.ico" />
     <Content Include="Content\Images\editorbuttons.png" />
     <Content Include="Content\Images\external.png" />
@@ -275,7 +274,7 @@
     <Content Include="Content\Styles\Layout\Screen.css" />
     <Content Include="Content\Styles\Themes\AaronPowell\Theme.css" />
     <Content Include="Content\Styles\Themes\Default\Theme.css" />
-    <Content Include="Views\Upload\Index.aspx" />
+    <None Include="Views\Upload\Index.cshtml" />
     <None Include="Views\Wiki\Edit.cshtml" />
     <None Include="Views\Wiki\NotFound.cshtml" />
     <None Include="Views\Wiki\Page.cshtml" />
@@ -291,7 +290,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Dialog.Master" />
     <None Include="Views\Shared\_Public.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -305,7 +303,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Safe.Master" />
+    <None Include="Views\Shared\_Private.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

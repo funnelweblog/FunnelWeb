@@ -1,0 +1,54 @@
+@model FunnelWeb.Web.Views.Admin.FeedsModel
+@{
+  View.Title = "FunnelWeb Administration - Feeds";
+  Layout = "~/Views/Shared/_Private.cshtml";
+}
+
+<h1>Feeds</h1>
+
+@using (Html.BeginForm("Feeds", "Admin", FormMethod.Post, new { @class = "promptBeforeUnload" })) {    
+<table>
+    <thead>
+    <tr>
+        <td>Name</td>
+        <td>Title</td>
+        <td>Entries</td>
+        <td>Actions</td>
+    </tr>
+    </thead>
+    @foreach (var item in Model.Feeds) {
+    <tr>
+        <td>@item.Name</td>
+        <td>@item.Title</td>
+        <td>@item.Items.Count</td>
+        <td>@Html.ActionLink("Delete", "DeleteFeed", new { feedId = item.Id })</td>
+    </tr>
+    }
+</table>
+        
+<div class="form-body">
+    <div class="editor-label">
+      @Html.LabelFor(m => m.FeedName)
+    </div>
+    <div class="editor-field">
+      @Html.TextBoxFor(m => m.FeedName, Html.AttributesFor(m => m.FeedName))
+      @Html.ValidationMessageFor(m => m.FeedName)
+      @Html.HintFor(m => m.FeedName)
+    </div>
+        
+    <div class="editor-label">
+      @Html.LabelFor(m => m.FeedTitle)
+    </div>
+    <div class="editor-field">
+      @Html.TextBoxFor(m => m.FeedTitle, Html.AttributesFor(m => m.FeedTitle))
+      @Html.ValidationMessageFor(m => m.FeedTitle)
+      @Html.HintFor(m => m.FeedTitle)
+    </div>
+        
+    <div class="editor-label">
+    </div>
+    <div class="editor-field">
+        <input type="submit" id="submit1" class="submit" value="Create this Feed" />
+    </div>
+</div>
+}
