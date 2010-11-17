@@ -15,14 +15,9 @@ namespace FunnelWeb.Web.Application.Filters
         {
         }
 
-        protected ILifetimeScope Container
-        {
-            get { return ((IContainerProviderAccessor)HttpContext.Current.ApplicationInstance).ContainerProvider.RequestLifetime; }
-        }
-
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var session = Container.Resolve<ISession>();
+            var session = DependencyResolver.Current.GetService<ISession>();
             session.BeginTransaction(IsolationLevel.Serializable);
         }
 
@@ -30,13 +25,13 @@ namespace FunnelWeb.Web.Application.Filters
         {
             if (filterContext.Exception == null)
             {
-                var session = Container.Resolve<ISession>();
+                var session = DependencyResolver.Current.GetService<ISession>();
                 session.Flush();
                 session.Transaction.Commit();
             }
             else
             {
-                var session = Container.Resolve<ISession>();
+                var session = DependencyResolver.Current.GetService<ISession>();
                 session.Clear();
                 session.Transaction.Rollback();
             }

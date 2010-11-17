@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Web.Mvc;
 using Autofac;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
@@ -16,6 +17,8 @@ namespace FunnelWeb.Web.Application.Pingbacks
 {
     public class PingbackHandler : XmlRpcHandler
     {
+        
+
         protected override string ProcessRequest(string methodName, List<string> parameters)
         {
             Uri sourceUri;
@@ -32,9 +35,9 @@ namespace FunnelWeb.Web.Application.Pingbacks
                 pageName = pageName.Substring(0, pageName.LastIndexOf('/'));
             }
 
-            var session = Container.Resolve<ISession>();
-            var entryRepository = Container.Resolve<IEntryRepository>();
-            var spamChecker = Container.Resolve<ISpamChecker>();
+            var session = DependencyResolver.Current.GetService<ISession>();
+            var entryRepository = DependencyResolver.Current.GetService<IEntryRepository>();
+            var spamChecker = DependencyResolver.Current.GetService<ISpamChecker>();
             var transaction = session.BeginTransaction(IsolationLevel.Serializable);
             try
             {

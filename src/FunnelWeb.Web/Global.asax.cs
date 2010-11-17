@@ -3,7 +3,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
-using Autofac.Integration.Web;
 using Autofac.Integration.Web.Mvc;
 using FunnelWeb.Eventing;
 using FunnelWeb.Model.Repositories;
@@ -18,22 +17,13 @@ namespace FunnelWeb.Web
     /// <summary>
     /// Entry point for the FunnelWeb application.
     /// </summary>
-    public class MvcApplication : HttpApplication, IContainerProviderAccessor
+    public class MvcApplication : HttpApplication
     {
-        private static IContainerProvider containerProvider;
-
-        IContainerProvider IContainerProviderAccessor.ContainerProvider
-        {
-            get { return containerProvider; }
-        }
-
         protected void Application_Start()
         {
             var builder = new ContainerBuilder();
-            builder.Register<HttpServerUtilityBase>(x => new HttpServerUtilityWrapper(HttpContext.Current.Server));
-
             builder.RegisterControllers(Assembly.GetExecutingAssembly()).PropertiesAutowired();
-            builder.RegisterModelBinders(Assembly.GetExecutingAssembly()).PropertiesAutowired();
+            builder.Register<HttpServerUtilityBase>(x => new HttpServerUtilityWrapper(HttpContext.Current.Server));
             builder.RegisterModule(new RoutesModule(RouteTable.Routes));
             builder.RegisterModule(new AuthenticationModule());
             builder.RegisterModule(new BindersModule(ModelBinders.Binders));
@@ -44,9 +34,9 @@ namespace FunnelWeb.Web
             builder.RegisterModule(new EventingModule());
             builder.RegisterModule(new ExtensionsModule(Server.MapPath("~/bin/Extensions")));
 
-            containerProvider = new ContainerProvider(builder.Build());
+            var container = builder.Build();
 
-            ControllerBuilder.Current.SetControllerFactory(new AutofacControllerFactory(containerProvider));
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
     }
 }

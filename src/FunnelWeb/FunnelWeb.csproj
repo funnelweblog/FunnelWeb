@@ -34,11 +34,12 @@
     <Reference Include="Antlr3.Runtime">
       <HintPath>..\..\lib\NHibernate\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac">
+    <Reference Include="Autofac, Version=2.2.4.900, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\Autofac\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac.Integration.Web">
-      <HintPath>..\..\lib\Autofac\Autofac.Integration.Web.dll</HintPath>
+    <Reference Include="Autofac.Integration.Web.Mvc3">
+      <HintPath>..\..\lib\Autofac\Autofac.Integration.Web.Mvc3.dll</HintPath>
     </Reference>
     <Reference Include="Bindable.Core">
       <HintPath>..\..\lib\Bindable\Bindable.Core.dll</HintPath>
