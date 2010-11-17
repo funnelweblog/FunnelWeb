@@ -1,0 +1,79 @@
+﻿<%@ Master Language="C#" Inherits="FunnelWeb.Web.Views.Shared.SiteMaster"
+%><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="language" content="english" />
+  <meta name="author" content="<%= Html.Settings().SiteTitle %>" />
+  <asp:ContentPlaceHolder ID="MetaContent" runat="server" />
+  <link href="<%= Html.Qualify(Html.ActionUrl("Feed", "Feed", null)) %>" type="application/atom+xml" rel="alternate" title="Blog Feed" />
+  <link href="<%= Html.Qualify(Html.ActionUrl("CommentFeed", "Feed", null)) %>" type="application/atom+xml" rel="alternate" title="Comments Feed" />
+  <link rel="icon" type="image/png" href="<%= Html.Qualify("/favicon.png") %>" />
+    <%= Html.RenderCssHere(new List<IClientDependencyPath> {
+        new BasicPath("Layout", "/Content/Styles/Layout"),
+        new BasicPath("Theme", "/Content/Styles/Themes/" + Html.Settings().Theme)
+    })%>
+  <% Html.RequiresCss("Editor.css", "Layout", 0); %>
+  <% Html.RequiresCss("Prettify.css", "Layout", 0); %>
+  <% Html.RequiresCss("Screen.css", "Layout", 0); %>
+  <% Html.RequiresCss("Theme.css", "Theme", 10000); %>
+  <link href="<%= Html.QualifyVersion("/Content/Styles/Layout/Print-min.css") %>" type="text/css" rel="stylesheet" media="print" />
+  <%= Html.Settings().HtmlHead %>
+</head>
+<body>
+  <div class="top">
+    <div class="header">
+      <a class="logo" href="<%= Html.Qualify("/") %>" title="<%= Html.Settings().SiteTitle %>"><%= Html.Settings().SiteTitle%></a>
+    </div>
+    <div class="nav">
+      <ul>
+        <li><%= Html.Qualify(Html.ActionLink("Home", "Recent", "Wiki")) %></li>
+        <%= Html.Settings().MainLinks%><% if (ViewData.IsLoggedIn()) { %>
+        <li><%= Html.ActionLink("New Post", "New", "Wiki") %></li>
+        <li><%= Html.ActionLink("Admin", "Index", "Admin") %></li>
+        <li><%= Html.ActionLink("Unpublished Posts", "Unpublished", "Wiki")%></li>
+        <li><%= Html.ActionLink("Logout", "Logout", "Login") %></li>
+        <% } %>
+      </ul>
+      <div class="search">
+        <% using (Html.BeginForm("Search", "Wiki", FormMethod.Get)){ %>
+        <p>
+          <%= Html.TextBox("q", Request.QueryString["q"], new { alt = "Search", @class="medium" })%>
+          <input type="submit" id="search" class="submit" value="Search" />
+        </p>
+        <% } %>
+      </div>
+    </div>
+  </div>
+  <div class="body">
+    <% if (TempData.ContainsKey("Flash")) { %>  
+    <div class="flash">
+      <p><%= Html.Encode(TempData["Flash"]) %></p>
+    </div>
+    <% }%>
+    <div class="intro" runat="server" id="_summary">
+      <asp:ContentPlaceHolder ID="SummaryContent" runat="server"></asp:ContentPlaceHolder>
+    </div>
+    <div class="content">
+      <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
+    </div>
+  </div>
+  <div class="footer">
+    <%= Html.Settings().Footer%>
+    <% if (!ViewData.IsLoggedIn()) { %>
+    <p>
+      Is this your blog? <%= Html.ActionLink("Log in and update it", "Login", "Login")%>.
+    </p>
+    <% } %>
+  </div>
+  <% Html.RequiresJs("JQuery/jquery-1.3.2.min.js", "Scripts", 0); %>
+  <% Html.RequiresJs("JQuery/jsdate.js", "Scripts", 1); %>
+  <% Html.RequiresJs("Prettify/Prettify.js", "Scripts", 1); %>
+  <% Html.RequiresJs("Showdown/Showdown.js", "Scripts", 1); %>
+  <% Html.RequiresJs("Showdown/wmd.js", "Scripts", 1); %>
+  <% Html.RequiresJs("Site/Site.js", "Scripts", 1); %>
+  <%= Html.RenderJsHere(new BasicPath("Scripts", "/Content/Scripts")) %>
+  <%= Html.Settings().HtmlFooter %>
+</body>
+</html>
