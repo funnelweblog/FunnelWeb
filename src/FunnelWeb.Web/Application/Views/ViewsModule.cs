@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Autofac;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Settings;
+using FunnelWeb.Web.Application.Mvc;
 
 namespace FunnelWeb.Web.Application.Views
 {
@@ -23,6 +24,10 @@ namespace FunnelWeb.Web.Application.Views
                 .InstancePerLifetimeScope();
 
             builder.Register(c => new MarkdownProvider(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority))).As<IMarkdownProvider>().InstancePerLifetimeScope();
+
+            ViewEngines.Engines.Clear();
+            ViewEngines.Engines.AddGenericMobile<RazorViewEngine>();
+            ViewEngines.Engines.Add(new RazorViewEngine());
         }
     }
 }

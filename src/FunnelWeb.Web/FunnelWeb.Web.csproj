@@ -145,6 +145,7 @@
     <Compile Include="Application\Mvc\ActionResults\XmlActionResult.cs" />
     <Compile Include="Application\Authentication\FormsAuthenticator.cs" />
     <Compile Include="Application\Authentication\IAuthenticator.cs" />
+    <Compile Include="Application\Mvc\CustomMobileViewEngine.cs" />
     <Compile Include="Application\Mvc\HintSize.cs" />
     <Compile Include="Application\Mvc\Binders\ArrayBinder.cs" />
     <Compile Include="Application\Mvc\Binders\ImplicitAssignmentBinder.cs" />
@@ -156,6 +157,7 @@
     <Compile Include="Application\ForceLowercaseUrlHttpModule.cs" />
     <Compile Include="Application\Mvc\HintSizeAttribute.cs" />
     <Compile Include="Application\Mvc\LowercaseRoute.cs" />
+    <Compile Include="Application\Mvc\MobileHelpers.cs" />
     <Compile Include="Application\Mvc\MvcExtensions.cs" />
     <Compile Include="Application\Mvc\RouteCollectionExtension.cs" />
     <Compile Include="Application\Mvc\ValidUrlAttribute.cs" />
@@ -208,6 +210,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Styles\Layout\Mobile.css" />
+    <Content Include="Views\Wiki\Mobile\NotFound.cshtml" />
+    <Content Include="Views\Wiki\Mobile\Page.cshtml" />
+    <Content Include="Views\Wiki\Mobile\Recent.cshtml" />
+    <Content Include="Views\Shared\_Mobile.cshtml" />
     <None Include="Views\Shared\EditorTemplates\Markdown.cshtml" />
     <Content Include="Content\Styles\Layout\Admin.css" />
     <Content Include="Content\Styles\Themes\Pastel\Bar.png" />
@@ -267,11 +274,7 @@
     <Content Include="Content\Scripts\Showdown\showdown.js" />
     <Content Include="Content\Scripts\Showdown\wmd.js" />
     <Content Include="Content\Scripts\Site\Site.js" />
-    <Content Include="Content\Styles\Layout\Editor.css" />
-    <Content Include="Content\Styles\Layout\Prettify.css" />
-    <Content Include="Content\Styles\Layout\Print-min.css" />
-    <Content Include="Content\Styles\Layout\Print.css" />
-    <Content Include="Content\Styles\Layout\Screen.css" />
+    <Content Include="Content\Styles\Layout\Base.css" />
     <Content Include="Content\Styles\Themes\AaronPowell\Theme.css" />
     <Content Include="Content\Styles\Themes\Default\Theme.css" />
     <None Include="Views\Upload\Index.cshtml" />
