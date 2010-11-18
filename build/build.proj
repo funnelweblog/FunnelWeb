@@ -78,6 +78,12 @@
       <PublishedFilesToDelete Include="$(Root)\build\Published\**\bin\**\*.config" />
     </ItemGroup>
     <Delete Files="@(PublishedFilesToDelete)" ContinueOnError="true" />
+    <!-- Rename web.config -->
+    <Copy 
+    	SourceFiles="$(Root)\build\Published\web.config" 
+		DestinationFiles="$(Root)\build\Published\web.config.sample">
+	</Copy>
+	<Delete Files="$(Root)\build\Published\web.config"></Delete>
     <!-- Zip the Published folder -->
     <ItemGroup>
       <PublishedFilesToZip Include="$(Root)\build\Published\**\*.*" />
