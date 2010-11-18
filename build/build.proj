@@ -64,7 +64,21 @@
     <MSBuild 
       Projects="$(Root)\src\FunnelWeb.Web\FunnelWeb.Web.csproj"
       Targets="ResolveReferences;_CopyWebApplication"
-      Properties="Configuration=Release;WebProjectOutputDir=$(Root)\build\Published\;OutDir=$(Root)\build\Published\bin\" />
+      Properties="Configuration=Release;WebProjectOutputDir=$(Root)\build\Published\;OutDir=$(Root)\build\Published\bin\" 
+      />
+    <!-- Also copy extensions -->
+    <ItemGroup>
+      <ExtensionsToPublish Include="$(Root)\src\*Extension*\bin\Release\*Extension*.dll" />
+    </ItemGroup>
+    <Copy SourceFiles="@(ExtensionsToPublish)" DestinationFolder="$(Root)\build\Published\bin\Extensions" />
+    <!-- And delete PDBs/XML to keep the upload small -->
+    <ItemGroup>
+      <PublishedFilesToDelete Include="$(Root)\build\Published\**\bin\**\*.pdb" />
+      <PublishedFilesToDelete Include="$(Root)\build\Published\**\bin\**\*.xml" />
+      <PublishedFilesToDelete Include="$(Root)\build\Published\**\bin\**\*.config" />
+    </ItemGroup>
+    <Delete Files="@(PublishedFilesToDelete)" ContinueOnError="true" />
+    <!-- Zip the Published folder -->
     <ItemGroup>
       <PublishedFilesToZip Include="$(Root)\build\Published\**\*.*" />
     </ItemGroup>
