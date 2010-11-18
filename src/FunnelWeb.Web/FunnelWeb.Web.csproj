@@ -75,6 +75,11 @@
       <HintPath>..\..\lib\NHibernate\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NHibernate">
       <HintPath>..\..\lib\NHibernate\NHibernate.dll</HintPath>
     </Reference>
@@ -232,15 +237,15 @@
     <Content Include="Content\Styles\Themes\RainbowAfro\Bar.png" />
     <Content Include="Content\Styles\Themes\RainbowAfro\Header.jpg" />
     <Content Include="Content\Styles\Themes\RainbowAfro\Theme.css" />
-    <None Include="Views\Admin\Comments.cshtml" />
-    <None Include="Views\Admin\Feeds.cshtml" />
-    <None Include="Views\Admin\Pingbacks.cshtml" />
-    <None Include="Views\Admin\Settings.cshtml" />
+    <Content Include="Views\Admin\Comments.cshtml" />
+    <Content Include="Views\Admin\Feeds.cshtml" />
+    <Content Include="Views\Admin\Pingbacks.cshtml" />
+    <Content Include="Views\Admin\Settings.cshtml" />
     <Content Include="Global.asax" />
-    <None Include="Views\Admin\Index.cshtml" />
-    <None Include="Views\Install\UpgradeReport.cshtml" />
-    <None Include="Views\Install\Index.cshtml" />
-    <None Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Install\UpgradeReport.cshtml" />
+    <Content Include="Views\Install\Index.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Content\Images\favicon.ico" />
     <Content Include="Content\Images\editorbuttons.png" />
     <Content Include="Content\Images\external.png" />
@@ -282,23 +287,23 @@
     <Content Include="Content\Styles\Layout\Base.css" />
     <Content Include="Content\Styles\Themes\AaronPowell\Theme.css" />
     <Content Include="Content\Styles\Themes\Default\Theme.css" />
-    <None Include="Views\Upload\Index.cshtml" />
-    <None Include="Views\Wiki\Edit.cshtml" />
-    <None Include="Views\Wiki\NotFound.cshtml" />
-    <None Include="Views\Wiki\Page.cshtml" />
+    <Content Include="Views\Upload\Index.cshtml" />
+    <Content Include="Views\Wiki\Edit.cshtml" />
+    <Content Include="Views\Wiki\NotFound.cshtml" />
+    <Content Include="Views\Wiki\Page.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\DisplayTemplates\Markdown.cshtml" />
-    <None Include="Views\Wiki\Recent.cshtml" />
-    <None Include="Views\Wiki\Revisions.cshtml" />
-    <None Include="Views\Wiki\SiteMap.cshtml" />
-    <None Include="Views\Wiki\Unpublished.cshtml" />
-    <None Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Wiki\Recent.cshtml" />
+    <Content Include="Views\Wiki\Revisions.cshtml" />
+    <Content Include="Views\Wiki\SiteMap.cshtml" />
+    <Content Include="Views\Wiki\Unpublished.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\Shared\_Public.cshtml" />
+    <Content Include="Views\Shared\_Public.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FunnelWeb.DatabaseDeployer\FunnelWeb.DatabaseDeployer.csproj">
@@ -311,7 +316,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\Shared\_Private.cshtml" />
+    <Content Include="Views\Shared\_Private.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
