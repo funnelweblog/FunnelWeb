@@ -5,7 +5,6 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <meta name="language" content="english" />
   @{ 
-    Html.RequiresCss("Base.css", "Layout", 0);
     Html.RequiresCss("Mobile.css", "Layout", 0);
   }
   @MvcHtmlString.Create(Html.RenderCssHere(new List<IClientDependencyPath> {
@@ -18,6 +17,18 @@
   <div class="top">
     <div class="header">
       <a class="logo" href="@Html.Qualify("/")" title="@Html.Settings().SiteTitle">@Html.Settings().SiteTitle</a>
+    </div>
+    <div class="nav">
+      <ul>
+        <li>@Html.Qualify(Html.ActionLink("Home", "Recent", "Wiki"))</li>
+        @MvcHtmlString.Create(Html.Settings().MainLinks)
+        @if (ViewData.IsLoggedIn()) {
+        <li>@Html.ActionLink("New Post", "New", "Wiki")</li>
+        <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
+        <li>@Html.ActionLink("Unpublished Posts", "Unpublished", "Wiki")</li>
+        <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
+        }
+      </ul>
     </div>
   </div>
   <div class="body">
@@ -35,33 +46,8 @@
       @RenderBody()
     </div>
   </div>
-  <div class="nav">
-    <ul>
-      <li>@Html.Qualify(Html.ActionLink("Home", "Recent", "Wiki"))</li>
-      @MvcHtmlString.Create(Html.Settings().MainLinks)
-      @if (ViewData.IsLoggedIn()) {
-      <li>@Html.ActionLink("New Post", "New", "Wiki")</li>
-      <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
-      <li>@Html.ActionLink("Unpublished Posts", "Unpublished", "Wiki")</li>
-      <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
-      }
-    </ul>
-    <div class="search">
-      @using (Html.BeginForm("Search", "Wiki", FormMethod.Get)) {
-      <p>
-        @Html.TextBox("q", Request.QueryString["q"], new { alt = "Search", @class="medium" })
-        <input type="submit" id="search" class="submit" value="Search" />
-      </p>
-      }
-    </div>
-  </div>
   <div class="footer">
     @MvcHtmlString.Create(Html.Settings().Footer)
-    @if (!ViewData.IsLoggedIn()) {
-    <p>
-      Is this your blog? @Html.ActionLink("Log in and update it", "Login", "Login").
-    </p>
-    }
   </div>
   @{ 
     Html.RequiresJs("JQuery/jquery-1.3.2.min.js", "Scripts", 0);

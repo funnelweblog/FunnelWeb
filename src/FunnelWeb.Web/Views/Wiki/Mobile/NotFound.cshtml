@@ -1,7 +1,7 @@
 @model FunnelWeb.Web.Views.Wiki.NotFoundModel
 @{
   if (Model.Is404) {
-    Response.Status = "404";
+    Response.StatusCode = 404;
   }
   View.Title = "Search: " + Model.SearchText;
 }
