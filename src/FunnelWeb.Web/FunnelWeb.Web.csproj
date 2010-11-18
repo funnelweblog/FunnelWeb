@@ -151,6 +151,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Information\SolutionInfo.cs">
+      <Link>Properties\SolutionInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Information\VersionInfo.cs">
+      <Link>Properties\VersionInfo.cs</Link>
+    </Compile>
     <Compile Include="Application\Mvc\ActionResults\FeedResult.cs" />
     <Compile Include="Application\Mvc\ActionResults\XmlActionResult.cs" />
     <Compile Include="Application\Authentication\FormsAuthenticator.cs" />
