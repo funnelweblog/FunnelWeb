@@ -18,7 +18,12 @@ namespace FunnelWeb.Web.Application.Mvc
         public static void AddGenericMobile<T>(this ViewEngineCollection ves)
             where T : IViewEngine, new()
         {
-            ves.Add(new CustomMobileViewEngine(c => c.IsMobileDevice(), "Mobile", new T()));
+            ves.Add(new CustomMobileViewEngine(
+                c => c.IsMobileDevice()
+                || c.UserAgentContains("Android")                
+                || c.UserAgentContains("iPhone")
+                || c.UserAgentContains("Windows Phone"),
+                "Mobile", new T()));
         }
     }
 }
