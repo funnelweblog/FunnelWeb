@@ -79,6 +79,7 @@ namespace FunnelWeb.Web.Views.Wiki
         [DisplayName("Content")]
         [DataType("Markdown")]
         [HintSize(HintSize.Large)]
+        [System.Web.Mvc.SkipRequestValidation]
         public string Content { get; set; }
 
         [Required]

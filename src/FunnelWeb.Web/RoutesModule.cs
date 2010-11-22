@@ -60,6 +60,7 @@ namespace FunnelWeb.Web
             routes.MapLowerCaseRoute(r(), "search", new { controller = "Wiki", action = "Search" });
             routes.MapLowerCaseRoute(r(), "new", new { controller = "Wiki", action = "New" });
             routes.MapLowerCaseRoute(r(), "edit/{page}", new { controller = "Wiki", action = "Edit", page = UrlParameter.Optional });
+            routes.MapLowerCaseRoute(r(), "revert/{page}/{revision}", new { controller = "Wiki", action = "Revert" }, new { revision = "\\d+" });
             routes.MapLowerCaseRoute(r(), "{pageNumber}", new { controller = "Wiki", action = "Recent" }, new { pageNumber = "\\d+" });
             routes.MapLowerCaseRoute(r(), "{page}/via-feed", new { controller = "Resource", action = "Render", fileName = "/Views/Shared/Images/Transparent.gif", contentType = "image/gif" });
             routes.MapLowerCaseRoute(r(), "{page}/revisions", new { controller = "Wiki", action = "Revisions" });
