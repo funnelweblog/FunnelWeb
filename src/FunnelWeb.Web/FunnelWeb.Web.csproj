@@ -231,7 +231,7 @@
     <Content Include="Views\Wiki\Mobile\Page.cshtml" />
     <Content Include="Views\Wiki\Mobile\Recent.cshtml" />
     <Content Include="Views\Shared\_Mobile.cshtml" />
-    <None Include="Views\Shared\EditorTemplates\Markdown.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Markdown.cshtml" />
     <Content Include="Content\Styles\Layout\Admin.css" />
     <Content Include="Content\Styles\Themes\Pastel\Bar.png" />
     <Content Include="Content\Styles\Themes\Pastel\Theme.css" />
