@@ -1,6 +1,7 @@
 ﻿body
 {
     margin: 30px auto;
+    background: white url(backgnd.png) repeat-x scroll 0 0;
 }
 
 a
@@ -48,7 +49,7 @@ h5
     font-size: 14pt;
     height: 80px;
     padding: 0;
-    margin: 0 0 10px 0;
+    margin: 0 0 20px 0;
     float: left;
     width: 360px;
 }
