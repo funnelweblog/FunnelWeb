@@ -227,6 +227,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Styles\Layout\Mobile.css" />
+    <Content Include="Content\Styles\Themes\MattHamilton\backgnd.png" />
     <Content Include="Views\Wiki\Mobile\NotFound.cshtml" />
     <Content Include="Views\Wiki\Mobile\Page.cshtml" />
     <Content Include="Views\Wiki\Mobile\Recent.cshtml" />
