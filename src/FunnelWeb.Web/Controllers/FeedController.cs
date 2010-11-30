@@ -35,7 +35,8 @@ namespace FunnelWeb.Web.Controllers
                             { 
                                 RelationshipType = "self" 
                             }
-                        }
+                        },
+                        LastUpdatedTime = items.First().LastUpdatedTime
                     }))
             {
                 ContentType = "application/atom+xml"
@@ -53,6 +54,7 @@ namespace FunnelWeb.Web.Controllers
             var items =
                 from e in entries
                 let itemUri = new Uri(Request.Url, Url.Action("Page", "Wiki", new { page = e.Name }))
+                orderby e.LatestRevision.Revised descending
                 select new
                 {
                     Item = new SyndicationItem
@@ -66,6 +68,7 @@ namespace FunnelWeb.Web.Controllers
                             Markdown.Render(e.LatestRevision.Body) +
                             String.Format("<img src=\"{0}\" />", itemUri + "/via-feed")),
                         LastUpdatedTime = e.LatestRevision.Revised,
+                        PublishDate = e.Published,
                         Links =
                             {
                                 new SyndicationLink(itemUri)
