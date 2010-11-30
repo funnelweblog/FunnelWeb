@@ -37,23 +37,22 @@ namespace FunnelWeb.Web.Controllers
                             }
                         }
                     }))
-                {
-                    ContentType = "application/atom+xml"
-                };
+            {
+                ContentType = "application/atom+xml"
+            };
         }
 
         public virtual ActionResult Feed(PageName feedName)
         {
             var settings = Settings.GetSettings();
             if (String.IsNullOrWhiteSpace(feedName))
-            {
                 feedName = FeedRepository.GetFeeds().OrderBy(f => f.Id).First().Name;
-            }
+
             var entries = FeedRepository.GetFeed(feedName, 0, 20);
 
-            var items = 
+            var items =
                 from e in entries
-                let itemUri = new Uri(Request.Url, Url.Action("Page", "Wiki", new {page = e.Name}))
+                let itemUri = new Uri(Request.Url, Url.Action("Page", "Wiki", new { page = e.Name }))
                 select new
                 {
                     Item = new SyndicationItem
@@ -61,6 +60,9 @@ namespace FunnelWeb.Web.Controllers
                         Id = itemUri.ToString(),
                         Title = TextSyndicationContent.CreatePlaintextContent(e.Title),
                         Summary = TextSyndicationContent.CreateHtmlContent(
+                            Markdown.Render(e.LatestRevision.Body) +
+                            String.Format("<img src=\"{0}\" />", itemUri + "/via-feed")),
+                        Content = TextSyndicationContent.CreateHtmlContent(
                             Markdown.Render(e.LatestRevision.Body) +
                             String.Format("<img src=\"{0}\" />", itemUri + "/via-feed")),
                         LastUpdatedTime = e.LatestRevision.Revised,
@@ -76,22 +78,20 @@ namespace FunnelWeb.Web.Controllers
                     Keywords = e.MetaKeywords.Split(',')
                 };
 
-            foreach (var item in items.ToList())
+            return FeedResult(items.Select(i =>
             {
-                foreach (var keyword in item.Keywords)
-                {
-                    item.Item.Categories.Add(new SyndicationCategory(keyword));
-                }
-            }
-
-            return FeedResult(items.Select(i => i.Item));
+                var item = i.Item;
+                foreach (var k in i.Keywords)
+                    item.Categories.Add(new SyndicationCategory(k.Trim()));
+                return item;
+            }));
         }
 
         public virtual ActionResult CommentFeed()
         {
             var comments = FeedRepository.GetCommentFeed(0, 20);
 
-            var items = 
+            var items =
                 from e in comments
                 let itemUri = new Uri(Request.Url, Url.Action("Page", "Wiki", new { page = e.Entry.Name, comment = e.Id }))
                 select new SyndicationItem
@@ -99,6 +99,7 @@ namespace FunnelWeb.Web.Controllers
                     Id = itemUri.ToString(),
                     Title = SyndicationContent.CreatePlaintextContent(e.AuthorName + " on " + e.Entry.Title),
                     Summary = SyndicationContent.CreateHtmlContent(Markdown.Render(e.Body, true)),
+                    Content = SyndicationContent.CreateHtmlContent(Markdown.Render(e.Body, true)),
                     LastUpdatedTime = e.Posted,
                     Links = 
                     {
