@@ -72,7 +72,7 @@ h5
 }
 .nav ul li
 {
-    font-size: 10pt;
+    font-size: 11pt;
     font-weight: normal;
     color: #A08070;
 }
@@ -80,18 +80,19 @@ h5
 .nav ul li a
 {
     color: #A08070;
+    text-decoration: none;
 }
 
 .content h1
 {
-    border-bottom: 1px solid #A08070;
+    border-bottom: 1px solid #93AD8A;
 }
 
 /* Introductions */
 
 .intro
 {
-    border-left: 1px solid #A08070;
+    border-left: 1px solid #93AD8A;
     border-radius: 0;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
@@ -127,10 +128,13 @@ h5
 
 .post-line .revised
 {
-    background: #D0A090;
+    background: #A08070;
     color: #fff;
     font-family: "Segoe UI", Sans-Serif; 
     font-weight:normal;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
 }
 
 .post-line .revised .month
@@ -139,8 +143,18 @@ h5
 
 .post-line .comments 
 {
+    background: #93AD8A;
+    color: #fff;
     font-family: "Segoe UI", Sans-Serif; 
     font-weight:normal;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+}
+
+.post-line .comments a
+{
+    color: #fff;
 }
 
 .content h1 a
@@ -156,7 +170,7 @@ h5
 
 pre
 {
-    background: #FFFAEA;
+    background: #FFFCF4;
     border: 1px dotted #D0A090;
     /* 
     SUPER nasty IE8 hack to deal with this bug 
@@ -172,10 +186,13 @@ pre
 
 .entry-date
 {
-    background: #D0A090;
+    background: #A08070;
     color: #fff;
     font-family: "Segoe UI", Sans-Serif; 
     font-weight:normal;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
 }
 
 .entry-tools
