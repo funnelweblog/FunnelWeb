@@ -86,7 +86,7 @@ namespace FunnelWeb.Web.Application.Extensions
         {
             if (string.IsNullOrEmpty(url) || (url.StartsWith("http") && url.Length < 8))
             {
-                return MvcHtmlString.Create(string.Format("<span class\"{0}\"){1}</span>",
+                return MvcHtmlString.Create(string.Format("<span class\"{0}\">{1}</span>",
                     @class,
                     html.Encode(text ?? string.Empty).Trim())
                 );
