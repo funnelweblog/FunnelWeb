@@ -36,7 +36,7 @@ namespace FunnelWeb.Web.Controllers
                                 RelationshipType = "self" 
                             }
                         },
-                        LastUpdatedTime = items.First().LastUpdatedTime
+                        LastUpdatedTime = items.Count() == 0 ? DateTime.Now : items.First().LastUpdatedTime
                     }))
             {
                 ContentType = "application/atom+xml"
@@ -54,20 +54,19 @@ namespace FunnelWeb.Web.Controllers
             var items =
                 from e in entries
                 let itemUri = new Uri(Request.Url, Url.Action("Page", "Wiki", new { page = e.Name }))
-                orderby e.LatestRevision.Revised descending
+                orderby e.FeedDate descending
+                let content = TextSyndicationContent.CreateHtmlContent(
+                            Markdown.Render(e.LatestRevision.Body) +
+                            String.Format("<img src=\"{0}\" />", itemUri + "/via-feed"))
                 select new
                 {
                     Item = new SyndicationItem
                     {
                         Id = itemUri.ToString(),
                         Title = TextSyndicationContent.CreatePlaintextContent(e.Title),
-                        Summary = TextSyndicationContent.CreateHtmlContent(
-                            Markdown.Render(e.LatestRevision.Body) +
-                            String.Format("<img src=\"{0}\" />", itemUri + "/via-feed")),
-                        Content = TextSyndicationContent.CreateHtmlContent(
-                            Markdown.Render(e.LatestRevision.Body) +
-                            String.Format("<img src=\"{0}\" />", itemUri + "/via-feed")),
-                        LastUpdatedTime = e.LatestRevision.Revised,
+                        Summary = content,
+                        Content = content,
+                        LastUpdatedTime = e.FeedDate,
                         PublishDate = e.Published,
                         Links =
                             {
