@@ -22,7 +22,7 @@
 
 <h2>Log</h2>
 <ol>
-  @Model.Log.ToString()
+  @MvcHtmlString.Create(Model.Log)
 </ol>
 
 @if (Model.Result.Successful == false && Model.Result.Error != null) {
