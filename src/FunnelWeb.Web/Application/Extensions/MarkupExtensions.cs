@@ -80,18 +80,22 @@ namespace FunnelWeb.Web.Application.Extensions
                 ));
         }
 
-        public static IHtmlString UrlLink(this HtmlHelper html, string url, string text)
+        public static IHtmlString UrlLink(this HtmlHelper html, string url, string text, string @class = "")
         {
             if (string.IsNullOrEmpty(url) || (url.StartsWith("http") && url.Length < 8))
             {
-                return MvcHtmlString.Create(html.Encode(text ?? string.Empty).Trim());
+                return MvcHtmlString.Create(string.Format("<span class\"{0}\"){1}</span>",
+                    @class,
+                    html.Encode(text ?? string.Empty).Trim())
+                );
             }
             if (!url.StartsWith("http"))
             {
                 url = "http://" + url;
             }
-            return MvcHtmlString.Create(string.Format("<a href=\"{0}\">{1}</a>",
+            return MvcHtmlString.Create(string.Format("<a href=\"{0}\" class=\"{1}\">{2}</a>",
                 html.AttributeEncode(url),
+                @class,
                 html.Encode(text ?? string.Empty).Trim()
                 ));
         }

@@ -76,10 +76,10 @@
     }
     @foreach (var comment in Model.Entry.Comments.Where(x => !x.IsSpam)) {
     <div class="comment">
-      <div class="comment-author">
-        <img class="gravatar" src="@Html.Gravatar(comment.AuthorEmail)" alt="@Html.Encode(comment.AuthorName)" />
+      <div class="comment-author vcard">
+        <img class="gravatar photo" src="@Html.Gravatar(comment.AuthorEmail)" alt="@Html.Encode(comment.AuthorName)" />
         <br />
-        @Html.UrlLink(comment.AuthorUrl, comment.AuthorName)
+        @Html.UrlLink(comment.AuthorUrl, comment.AuthorName, "fn url")
       </div>
       <div class="comment-body"> 
         <div class="comment-date">@Html.Date(comment.Posted)</div>
