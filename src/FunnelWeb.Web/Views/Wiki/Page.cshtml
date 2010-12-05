@@ -37,7 +37,7 @@
     </div>
   </div>
   }
-  <div class='entry'>
+  <div class='entry @String.Join(" ", Html.CssKeywordsFor(Model.Entry))'>
   @Html.DisplayFor(model => model.Entry.LatestRevision.Body)
   </div>  
   <div class='entry-tools'>
