@@ -17,6 +17,8 @@ using Autofac.Integration.Web;
 using FunnelWeb.Settings;
 using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Application.Views;
+using FunnelWeb.Model;
+using System.Text.RegularExpressions;
 
 namespace FunnelWeb.Web.Application.Extensions
 {
@@ -138,6 +140,14 @@ namespace FunnelWeb.Web.Application.Extensions
                 );
             text = text.Replace("\n", "<br />\n");
             return MvcHtmlString.Create(text);
+        }
+
+        static Regex keyword = new Regex("^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$", RegexOptions.Compiled);
+        public static IEnumerable<MvcHtmlString> CssKeywordsFor(this HtmlHelper html, Entry entry)
+        {
+            return from k in entry.MetaKeywords.Split(',')
+                   where keyword.IsMatch(k)
+                   select MvcHtmlString.Create("keyword-" + k.Trim());
         }
 
         #endregion

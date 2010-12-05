@@ -50,7 +50,8 @@ function enableChangeDetection() {
 }
 
 $.expr[':'].external = function (obj) {
-    return !obj.href.match(/^mailto\:/)
+    return !(obj.href == "")
+            && !obj.href.match(/^mailto\:/)
             && !(obj.hostname == location.hostname)
 };
 

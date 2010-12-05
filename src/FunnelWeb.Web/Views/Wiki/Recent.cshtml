@@ -12,7 +12,8 @@
 <h1>Recent Posts</h1>
 <div class="post-list">
   @foreach (var entry in Model.Entries) {
-  <div class='post-line'>
+      
+  <div class='post-line @String.Join(" ", Html.CssKeywordsFor(entry))'>
     <div class='revised'>
       <span class='month'>@entry.FeedDate.ToString("MMM d")</span> 
       <span class='year'>@entry.FeedDate.ToString("yyyy")</span>
