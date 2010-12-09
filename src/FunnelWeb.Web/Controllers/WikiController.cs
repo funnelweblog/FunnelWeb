@@ -104,7 +104,7 @@ namespace FunnelWeb.Web.Controllers
             model.Keywords = entry.MetaKeywords;
             model.MetaDescription = entry.MetaDescription;
             model.MetaTitle = entry.MetaTitle;
-            model.PublishDate = entry.Published.ToString("yyyy-MM-dd");
+            model.PublishDate = entry.Published.ToLocalTime().ToString("yyyy-MM-dd");
             model.Sidebar = entry.Summary;
             model.Title = entry.Title;
             return View(model);
@@ -122,7 +122,7 @@ namespace FunnelWeb.Web.Controllers
             model.Keywords = entry.MetaKeywords;
             model.MetaDescription = entry.MetaDescription;
             model.MetaTitle = entry.MetaTitle;
-            model.PublishDate = entry.Published.ToString("yyyy-MM-dd");
+            model.PublishDate = entry.Published.ToLocalTime().ToString("yyyy-MM-dd");
             model.Sidebar = entry.Summary;
             model.Title = entry.Title;
             return View("Edit", model).AndFlash("You are editing an old version of this page. This will become the current version when you save.");
