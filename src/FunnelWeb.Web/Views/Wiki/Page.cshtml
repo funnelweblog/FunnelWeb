@@ -21,8 +21,8 @@
   @Html.ActionLink(Model.Entry.Title, "Page", new { page = Model.Entry.Name })
 </h1>
 <div class="entry-date">
-  <span class='month'>@Model.Entry.FeedDate.ToString("MMM d")</span>
-  <span class='year'>@Model.Entry.FeedDate.ToString("yyyy")</span>
+  <span class='month'>@Model.Entry.FeedDate.ToLocalTime().ToString("MMM d")</span>
+  <span class='year'>@Model.Entry.FeedDate.ToLocalTime().ToString("yyyy")</span>
 </div>
 <div class="entry-container">
   @if (Model.IsPriorVersion) {
