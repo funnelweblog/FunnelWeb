@@ -13,8 +13,8 @@
       Html.RequiresCss("Theme.css", "Theme", 10000);
   }
   @MvcHtmlString.Create(Html.RenderCssHere(new List<IClientDependencyPath> {
-      new BasicPath("Layout", "/Content/Styles/Layout"),
-      new BasicPath("Theme", "/Content/Styles/Themes/" + Html.Settings().Theme)
+      new BasicPath("Layout", "~/Content/Styles/Layout"),
+      new BasicPath("Theme", "~/Content/Styles/Themes/" + Html.Settings().Theme)
     }))
   @RenderSection("Meta", required: false)
   @MvcHtmlString.Create(Html.Settings().HtmlHead)
@@ -22,7 +22,7 @@
 <body>
   <div class="top">
     <div class="header">
-      <a class="logo" href="@Html.Qualify("/")" title="@Html.Settings().SiteTitle">@Html.Settings().SiteTitle</a>
+      <a class="logo" href="@Url.Content("~/")" title="@Html.Settings().SiteTitle">@Html.Settings().SiteTitle</a>
     </div>
     <div class="nav">
       <ul>
