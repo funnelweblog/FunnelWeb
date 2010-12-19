@@ -95,7 +95,7 @@ namespace FunnelWeb.Web.Controllers
 
             var items =
                 from e in comments
-                let itemUri = new Uri(Request.Url, Url.Action("Page", "Wiki", new { page = e.Entry.Name, comment = e.Id }))
+                let itemUri = new Uri(Request.Url, Url.Action("Page", "Wiki", new { page = e.Entry.Name }) + "#comment-" + e.Id)
                 select new SyndicationItem
                 {
                     Id = itemUri.ToString(),

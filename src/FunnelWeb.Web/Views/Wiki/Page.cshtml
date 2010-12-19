@@ -75,7 +75,7 @@
     </div>
     }
     @foreach (var comment in Model.Entry.Comments.Where(x => !x.IsSpam)) {
-    <div class="comment">
+    <div class="comment"><a href="#" name="comment-@comment.Id" />
       <div class="comment-author vcard">
         <img class="gravatar photo" src="@Html.Gravatar(comment.AuthorEmail)" alt="@Html.Encode(comment.AuthorName)" />
         <br />
