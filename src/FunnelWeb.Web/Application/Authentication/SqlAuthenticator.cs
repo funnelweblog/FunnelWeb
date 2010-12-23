@@ -1,5 +1,4 @@
-﻿using System;
-using System.Security.Principal;
+﻿using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
 
@@ -12,8 +11,14 @@ namespace FunnelWeb.Web.Application.Authentication
     //4. Set funnelweb.configuration.useSqlMembership appSetting in web.config to 'true'
     public class SqlAuthenticator : IAuthenticator
     {
-        public bool AuthenticateAndLogin(string username, string password)
+        private readonly IAuthenticator _fallback = new FormsAuthenticator();
+
+        public bool AuthenticateAndLogin(string username, string password, bool databaseIssue)
         {
+            //Fall back to forms authentication if there is a database issue
+            if (databaseIssue)
+                return _fallback.AuthenticateAndLogin(username, password, true);
+
             var authenticated = Membership.ValidateUser(username, password);
 
             if (authenticated)

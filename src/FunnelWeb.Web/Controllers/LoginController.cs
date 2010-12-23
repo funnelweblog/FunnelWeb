@@ -24,11 +24,12 @@ namespace FunnelWeb.Web.Controllers
             {
                 return View(model);
             }
-            
-            var authenticated = Authenticator.AuthenticateAndLogin(model.Username, model.Password);
+
+            var databaseIssue = model.DatabaseIssue ?? false;
+            var authenticated = Authenticator.AuthenticateAndLogin(model.Username, model.Password, databaseIssue);
             if (authenticated)
             {
-                return (model.DatabaseIssue ?? false)
+                return databaseIssue
                     ? (ActionResult)RedirectToAction("Index", "Install")
                     : Redirect(string.IsNullOrWhiteSpace(model.ReturnUrl) ? "~/" : model.ReturnUrl);
             }
