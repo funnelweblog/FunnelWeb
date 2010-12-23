@@ -12,7 +12,7 @@ namespace FunnelWeb.Web.Controllers
         public IApplicationDatabase Database { get; set; }
         public IConnectionStringProvider ConnectionStringProvider { get; set; }
 
-        [Authorize]
+        [Authorize(Roles="Admin")]
         public virtual ActionResult Index()
         {
             var connectionString = ConnectionStringProvider.ConnectionString;
@@ -32,7 +32,7 @@ namespace FunnelWeb.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [ActionName("test")]
         public virtual ActionResult Test(string connectionString)
         {
@@ -41,7 +41,7 @@ namespace FunnelWeb.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public virtual ActionResult Upgrade()
         {
             var log = new Log();

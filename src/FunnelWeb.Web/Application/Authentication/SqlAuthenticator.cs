@@ -6,8 +6,8 @@ namespace FunnelWeb.Web.Application.Authentication
 {
     //Installation steps:
     //1. Run InstallSqlAuthentication.sql against your funnelweb database
-    //2. Create 'Admin' role using membership utility
-    //3. Create user account
+    //2. Create 'Admin' and 'Moderator' role using asp.net membership utility
+    //3. Create user account, and add to Admin and Moderator roles
     //4. Set funnelweb.configuration.useSqlMembership appSetting in web.config to 'true'
     public class SqlAuthenticator : IAuthenticator
     {

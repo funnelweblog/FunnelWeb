@@ -72,7 +72,7 @@ namespace FunnelWeb.Web.Controllers
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles = "Moderator")]
         public virtual ActionResult Unpublished()
         {
             var allPosts = EntryRepository.GetUnpublished();
@@ -80,7 +80,7 @@ namespace FunnelWeb.Web.Controllers
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles = "Moderator")]
         public virtual ActionResult New()
         {
             var feeds = FeedRepository.GetFeeds();
@@ -92,7 +92,7 @@ namespace FunnelWeb.Web.Controllers
             return View("Edit", model);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Moderator")]
         public virtual ActionResult Edit(PageName page)
         {
             var entry = EntryRepository.GetEntry(page) ?? new Entry() { Title = page, MetaTitle = page, Name = page, LatestRevision = new Revision()};
@@ -110,7 +110,7 @@ namespace FunnelWeb.Web.Controllers
             return View(model);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Moderator")]
         public virtual ActionResult Revert(PageName page, int revision)
         {
             var entry = EntryRepository.GetEntry(page, revision) ?? new Entry() { Title = page, MetaTitle = page, Name = page, LatestRevision = new Revision() };
@@ -129,7 +129,7 @@ namespace FunnelWeb.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Moderator")]
         public virtual ActionResult Edit(EditModel model)
         {
             var feeds = FeedRepository.GetFeeds();

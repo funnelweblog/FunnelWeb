@@ -15,7 +15,7 @@ namespace FunnelWeb.Web.Application.Authentication
                 var genericIdentity = new GenericIdentity(username);
 
                 // Create generic principal.
-                var principal = new GenericPrincipal(genericIdentity, new[]{"Admin"});
+                var principal = new GenericPrincipal(genericIdentity, new[]{"Admin", "Moderator"});
                 HttpContext.Current.User = principal;
                 FormsAuthentication.SetAuthCookie(username, true);
             }
