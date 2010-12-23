@@ -1,6 +1,0 @@
-﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<String>" %>
-
-<div id="wmd-button-bar" class="wmd-panel">
-</div>
-
-<textarea id="wmd-input" name="<%: ViewData.TemplateInfo.GetFullHtmlFieldName(string.Empty) %>" cols="80" rows="18" class="wmd-panel"><%= Model %></textarea>

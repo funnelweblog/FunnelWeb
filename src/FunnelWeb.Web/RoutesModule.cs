@@ -43,12 +43,12 @@ namespace FunnelWeb.Web
             routes.MapHyphenatedRoute("upload/{action}/{*path}", new { controller = "Upload", action = "Index", path = "/" });
             
             // Resources
-            routes.MapLowerCaseRoute(r(), "robots", new { controller = "Resource", action = "Render", fileName = "/Views/Shared/Resources/Robots.txt", contentType = "text/plain" });
-            routes.MapLowerCaseRoute(r(), "robots.txt", new { controller = "Resource", action = "Render", fileName = "/Views/Shared/Resources/Robots.txt", contentType = "text/plain" });
-            routes.MapLowerCaseRoute(r(), "favicon", new { controller = "Resource", action = "Render", fileName = "/Views/Shared/Resources/favicon.ico", contentType = "image/vnd.microsoft.icon" });
-            routes.MapLowerCaseRoute(r(), "favicon.ico", new { controller = "Resource", action = "Render", fileName = "/Views/Shared/Resources/favicon.ico", contentType = "image/vnd.microsoft.icon" });
-            routes.MapLowerCaseRoute(r(), "favicon.png", new { controller = "Resource", action = "Render", fileName = "/Views/Shared/Resources/favicon.png", contentType = "image/png" });
-            routes.MapLowerCaseRoute(r(), "status", new { controller = "Resource", action = "Render", fileName = "/Views/Shared/Resources/Status.html", contentType = "text/html" });
+            routes.MapLowerCaseRoute(r(), "robots", new { controller = "Resource", action = "Render", fileName = "/Content/Resources/Robots.txt", contentType = "text/plain" });
+            routes.MapLowerCaseRoute(r(), "robots.txt", new { controller = "Resource", action = "Render", fileName = "Content/Resources/Robots.txt", contentType = "text/plain" });
+            routes.MapLowerCaseRoute(r(), "favicon", new { controller = "Resource", action = "Render", fileName = "/Content/Resources/favicon.ico", contentType = "image/vnd.microsoft.icon" });
+            routes.MapLowerCaseRoute(r(), "favicon.ico", new { controller = "Resource", action = "Render", fileName = "/Content/Resources/favicon.ico", contentType = "image/vnd.microsoft.icon" });
+            routes.MapLowerCaseRoute(r(), "favicon.png", new { controller = "Resource", action = "Render", fileName = "/Content/Resources/favicon.png", contentType = "image/png" });
+            routes.MapLowerCaseRoute(r(), "status", new { controller = "Resource", action = "Render", fileName = "/Content/Resources/Status.html", contentType = "text/html" });
 
             // Site Map
             routes.MapLowerCaseRoute(r(), "sitemap", new { controller = "Wiki", action = "SiteMap" });
@@ -60,8 +60,9 @@ namespace FunnelWeb.Web
             routes.MapLowerCaseRoute(r(), "search", new { controller = "Wiki", action = "Search" });
             routes.MapLowerCaseRoute(r(), "new", new { controller = "Wiki", action = "New" });
             routes.MapLowerCaseRoute(r(), "edit/{page}", new { controller = "Wiki", action = "Edit", page = UrlParameter.Optional });
+            routes.MapLowerCaseRoute(r(), "revert/{page}/{revision}", new { controller = "Wiki", action = "Revert" }, new { revision = "\\d+" });
             routes.MapLowerCaseRoute(r(), "{pageNumber}", new { controller = "Wiki", action = "Recent" }, new { pageNumber = "\\d+" });
-            routes.MapLowerCaseRoute(r(), "{page}/via-feed", new { controller = "Resource", action = "Render", fileName = "/Views/Shared/Images/Transparent.gif", contentType = "image/gif" });
+            routes.MapLowerCaseRoute(r(), "{page}/via-feed", new { controller = "Resource", action = "Render", fileName = "/Content/Images/Transparent.gif", contentType = "image/gif" });
             routes.MapLowerCaseRoute(r(), "{page}/revisions", new { controller = "Wiki", action = "Revisions" });
             routes.MapLowerCaseRoute(r(), "{page}/{revision}", new { controller = "Wiki", action = "Page", revision = "0" }, new { revision = "\\d+" });
             routes.MapLowerCaseRoute(r(), "{page}/{*xyz}", new { controller = "Wiki", action = "NotFound" });

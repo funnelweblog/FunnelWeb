@@ -3,18 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Xml.XPath;
-using Autofac;
-using Autofac.Integration.Web;
 
 namespace FunnelWeb.Web.Application.Pingbacks
 {
     public abstract class XmlRpcHandler : IHttpHandler
     {
-        public IContainer Container
-        {
-            get { return ((IContainerProviderAccessor)HttpContext.Current.ApplicationInstance).ContainerProvider.ApplicationContainer; }
-        }
-
         public void ProcessRequest(HttpContext context)
         {
             try

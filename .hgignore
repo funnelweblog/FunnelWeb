@@ -58,3 +58,8 @@ glob:src/FunnelWeb.Web/App_Data/ClientDependency
 glob:files\*
 glob:files/*
 glob:Files/*
+glob:Temp/*
+glob:build/Artifacts/
+glob:build/Published/
+glob:build/TestResult.xml
+[pP]ublish

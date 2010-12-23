@@ -17,6 +17,8 @@ using Autofac.Integration.Web;
 using FunnelWeb.Settings;
 using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Application.Views;
+using FunnelWeb.Model;
+using System.Text.RegularExpressions;
 
 namespace FunnelWeb.Web.Application.Extensions
 {
@@ -65,7 +67,7 @@ namespace FunnelWeb.Web.Application.Extensions
             return MvcHtmlString.Create(result.ToLower(CultureInfo.InvariantCulture));
         }
 
-        public static string Gravatar(this HtmlHelper html, string emailAddress)
+        public static IHtmlString Gravatar(this HtmlHelper html, string emailAddress)
         {
             var md5Hasher = MD5.Create();
             var data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(emailAddress));
@@ -75,37 +77,41 @@ namespace FunnelWeb.Web.Application.Extensions
                 sBuilder.Append(data[i].ToString("x2"));
             }
             var id = sBuilder.ToString();
-            return string.Format("http://www.gravatar.com/avatar.php?gravatar_id={0}&amp;rating=PG&amp;size=50&amp;default=identicon", 
+            return MvcHtmlString.Create(string.Format("http://www.gravatar.com/avatar.php?gravatar_id={0}&amp;rating=PG&amp;size=50&amp;default=identicon", 
                 id
-                );
+                ));
         }
 
-        public static string UrlLink(this HtmlHelper html, string url, string text)
+        public static IHtmlString UrlLink(this HtmlHelper html, string url, string text, string @class = "")
         {
             if (string.IsNullOrEmpty(url) || (url.StartsWith("http") && url.Length < 8))
             {
-                return html.Encode(text ?? string.Empty).Trim();
+                return MvcHtmlString.Create(string.Format("<span class\"{0}\">{1}</span>",
+                    @class,
+                    html.Encode(text ?? string.Empty).Trim())
+                );
             }
             if (!url.StartsWith("http"))
             {
                 url = "http://" + url;
             }
-            return string.Format("<a href=\"{0}\">{1}</a>",
+            return MvcHtmlString.Create(string.Format("<a href=\"{0}\" class=\"{1}\">{2}</a>",
                 html.AttributeEncode(url),
+                @class,
                 html.Encode(text ?? string.Empty).Trim()
-                );
+                ));
         }
 
         #endregion
 
         #region Text
 
-        public static string Date(this HtmlHelper html, object value)
+        public static IHtmlString Date(this HtmlHelper html, object value)
         {
             var date = (DateTime)value;
-            return string.Format("<span class=\"date\" title=\"{0}\">{1}</span>",
+            return MvcHtmlString.Create(string.Format("<span class=\"date\" title=\"{0}\">{1}</span>",
                 date.ToString("dd MMM, yyyy HH:mm"),
-                date.ToString("dd MMM, yyyy hh:mm tt"));
+                date.ToString("dd MMM, yyyy hh:mm tt")));
         }
 
         //public static string DateRssFormat(this HtmlHelper html, object value)
@@ -136,6 +142,14 @@ namespace FunnelWeb.Web.Application.Extensions
             return MvcHtmlString.Create(text);
         }
 
+        static Regex keyword = new Regex("^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$", RegexOptions.Compiled);
+        public static IEnumerable<MvcHtmlString> CssKeywordsFor(this HtmlHelper html, Entry entry)
+        {
+            return from k in entry.MetaKeywords.Split(',')
+                   where keyword.IsMatch(k)
+                   select MvcHtmlString.Create("keyword-" + k.Trim());
+        }
+
         #endregion
 
         #region Hint
@@ -160,8 +174,7 @@ namespace FunnelWeb.Web.Application.Extensions
 
         public static Settings.Settings Settings(this HtmlHelper helper)
         {
-            var application = (IContainerProviderAccessor)HttpContext.Current.ApplicationInstance;
-            return application.ContainerProvider.RequestLifetime.Resolve<ISettingsProvider>().GetSettings();
+            return DependencyResolver.Current.GetService<ISettingsProvider>().GetSettings();
         }
 
         #endregion

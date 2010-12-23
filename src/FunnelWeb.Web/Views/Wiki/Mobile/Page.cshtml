@@ -1,0 +1,88 @@
+@model FunnelWeb.Web.Views.Wiki.PageModel
+@{
+    ViewBag.Title = Model.Entry.MetaTitle;
+  Layout = "~/Views/Shared/_Mobile.cshtml";
+}
+
+@section Meta {
+  <meta name="description" content="@Model.Entry.MetaDescription" />
+  <meta name="keywords" content="@Model.Entry.MetaKeywords" />
+  <link rel="canonical" href="@Html.Qualify(Html.ActionUrl("Page", new { page = Model.Entry.Name }))" />
+  <link rel="pingback" href="@Html.Qualify("/pingback")" />
+  @if (Model.IsPriorVersion) {
+  <meta name="robots" content="noindex, nofollow" />
+  }
+}
+
+@section Summary {
+  @Html.DisplayFor(model => model.Entry.Summary)
+}
+
+<h1>
+  @Html.ActionLink(Model.Entry.Title, "Page", new { page = Model.Entry.Name })
+</h1>
+<div class="entry-date">
+  <span class='month'>@Model.Entry.FeedDate.ToString("MMM d")</span>
+  <span class='year'>@Model.Entry.FeedDate.ToString("yyyy")</span>
+</div>
+<div class="entry-container">
+  @if (Model.IsPriorVersion) {
+  <div class='entry-tools'>
+    <div>
+      <span>You are looking at revision @Model.Entry.LatestRevision.RevisionNumber of this page, which may be out of date. @Html.ActionLink("View the latest version.", "Page", new { page = Model.Entry.Name })</span>
+    </div>
+  </div>
+  }
+  <div class='entry'>
+  @Html.DisplayFor(model => model.Entry.LatestRevision.Body)
+  </div>  
+  <div class='entry-tools'>
+    <span>Last revised: <a href="@Html.ActionUrl("Page", new { page = Model.Page, revision = Model.Entry.LatestRevision.RevisionNumber })">@Html.Date(Model.Entry.LatestRevision.Revised)</a></span>
+    <span>@Html.ActionLink("History", "Revisions", new { page = Model.Page })</span>
+    @if (ViewData.IsLoggedIn()) {
+    <span>@Html.ActionLink("Edit", "Edit", new { page = Model.Page })</span>
+    }
+    @if (Model.IsPriorVersion) {
+    <div>
+      <span>You are looking at revision @Model.Entry.LatestRevision.RevisionNumber of this page, which may be out of date. @Html.ActionLink("View the latest version.", "Page", new { page = Model.Entry.Name })</span>
+    </div>
+    }
+  </div>
+  @if (Model.Entry.Pingbacks.Count > 0) {
+  <div class="trackbacks">
+    <h2>Trackbacks</h2>
+    <ul>
+      @foreach (var pingback in Model.Entry.Pingbacks.Where(x => !x.IsSpam)) {
+      <li>@Html.Encode(pingback.TargetTitle) | <a href="@Html.AttributeEncode(pingback.TargetUri)">@Html.Encode(pingback.TargetUri)</a></li>
+      }
+    </ul>
+  </div>
+  }
+</div>
+
+<div class="clear"></div>
+@if (Model.Entry.IsDiscussionEnabled) {
+<div class="comments">
+  <div class="comments-in">
+    <h2><a name="comments">Discussion</a></h2>
+    @if (Model.Entry.Comments.Count == 0) {
+    <div class="empty">
+      <p>No comments yet. Be the first!</p>
+    </div>
+    }
+    @foreach (var comment in Model.Entry.Comments.Where(x => !x.IsSpam)) {
+    <div class="comment vcard">
+      <div class="comment-author">
+        @Html.UrlLink(comment.AuthorUrl, comment.AuthorName, "fn url")
+      </div>
+      <div class="comment-body"> 
+        <div class="comment-date">@Html.Date(comment.Posted)</div>
+        @Html.DisplayFor(_ => comment.Body, new { Sanitize = true })
+      </div>
+      <div class="clear">
+      </div>
+    </div>
+    }
+  </div>
+</div>
+}

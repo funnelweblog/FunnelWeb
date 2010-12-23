@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="lib\MSBuild.Community.Tasks.Targets" />
+  <Import Project="lib\MSBuild.Deployment.Tasks.Targets" />
+
+  <PropertyGroup>
+    <Root>$(MSBuildStartupDirectory)</Root>
+    <nunitconsoleexe>$(Root)\lib\NUnit\exe\nunit-console-x86.exe</nunitconsoleexe>
+  </PropertyGroup>
+
+  <Target Name="Build">
+    <!-- Diagnostics -->
+    <Message Text="Diagnostics:"/>
+    <Message Text="Build Number:    $(build_number)" />
+    <Message Text="Build dir:       $(MSBuildProjectDirectory)" />
+    <Message Text="Project root:    $(Root)" />
+    <Message Text="NUnit Console:   $(nunitconsoleexe)" />
+    <Message Text="Publish path:    $(publish_path)" />
+    <Message Text="Integ. tests:    $(enable_integration)" />
+    <Message Text="Drop path:       $(drop_path)" />
+
+    <!-- Clean up -->
+    <ItemGroup>
+      <FilesToDelete Include="$(Root)\src\**\bin\**\*.*" />
+      <FilesToDelete Include="$(Root)\src\**\obj\**\*.*" />
+      <FilesToDelete Include="$(Root)\build\Published\**\*.*" />
+      <FilesToDelete Include="$(Root)\build\Artifacts\**\*.*" />
+    </ItemGroup>
+    <Delete Files="@(FilesToDelete)" ContinueOnError="true" />
+
+    <!-- Ensure directories exists -->
+    <MakeDir Directories="$(MSBuildProjectDirectory)\Artifacts" Condition="!Exists('$(MSBuildProjectDirectory)\Artifacts')" />
+    <MakeDir Directories="$(MSBuildProjectDirectory)\Published" Condition="!Exists('$(MSBuildProjectDirectory)\Artifacts')" />
+    <MakeDir Directories="$(MSBuildProjectDirectory)\Published\Files" Condition="!Exists('$(MSBuildProjectDirectory)\Artifacts\Files')" />
+
+    <!-- Version Info -->
+    <AssemblyInfo
+      CodeLanguage="CS"
+      OutputFile="$(Root)\src\Information\VersionInfo.cs"
+      AssemblyVersion="$(build_number)"
+      AssemblyFileVersion="$(build_number)"
+      />
+    
+    <!-- Zip source -->
+    <ItemGroup>
+      <SourceFilesToZip Include="$(Root)\src\**\*.*" />
+      <SourceFilesToZip Include="$(Root)\lib\**\*.dll" Exclude="$(Root)\lib\NUnit\Exe\**\*.*" />
+    </ItemGroup>
+    <Zip Files="@(SourceFilesToZip)"
+      WorkingDirectory="$(Root)"
+      ZipFileName="$(MSBuildProjectDirectory)\Artifacts\FunnelWeb-$(build_number)-source.zip"
+      ZipLevel="9"
+      />
+    
+    <!-- Compile -->
+    <ItemGroup>
+      <ProjectToBuild Include="$(Root)\src\FunnelWeb.sln" />
+    </ItemGroup>
+    <MSBuild Projects="@(ProjectToBuild)" Targets="Build" Properties="Configuration=Release">
+      <Output TaskParameter="TargetOutputs" ItemName="AssembliesBuiltByChildProjects" />
+    </MSBuild>
+
+    <!-- Publish -->
+    <MSBuild 
+      Projects="$(Root)\src\FunnelWeb.Web\FunnelWeb.Web.csproj"
+      Targets="ResolveReferences;_CopyWebApplication"
+      Properties="Configuration=Release;WebProjectOutputDir=$(Root)\build\Published\;OutDir=$(Root)\build\Published\bin\" 
+      />
+    <!-- Also copy extensions -->
+    <ItemGroup>
+      <ExtensionsToPublish Include="$(Root)\src\*Extension*\bin\Release\*Extension*.dll" />
+    </ItemGroup>
+    <Copy SourceFiles="@(ExtensionsToPublish)" DestinationFolder="$(Root)\build\Published\bin\Extensions" />
+    <!-- And delete PDBs/XML to keep the upload small -->
+    <ItemGroup>
+      <PublishedFilesToDelete Include="$(Root)\build\Published\**\bin\**\*.pdb" />
+      <PublishedFilesToDelete Include="$(Root)\build\Published\**\bin\**\*.xml" />
+      <PublishedFilesToDelete Include="$(Root)\build\Published\**\bin\**\*.config" />
+    </ItemGroup>
+    <Delete Files="@(PublishedFilesToDelete)" ContinueOnError="true" />
+    <!-- Rename web.config -->
+    <Copy 
+    	SourceFiles="$(Root)\build\Published\web.config" 
+		DestinationFiles="$(Root)\build\Published\web.config.sample">
+	</Copy>
+	<Delete Files="$(Root)\build\Published\web.config"></Delete>
+    <!-- Zip the Published folder -->
+    <ItemGroup>
+      <PublishedFilesToZip Include="$(Root)\build\Published\**\*.*" />
+    </ItemGroup>
+    <Zip Files="@(PublishedFilesToZip)"
+      WorkingDirectory="$(Root)\build\Published"
+      ZipFileName="$(MSBuildProjectDirectory)\Artifacts\FunnelWeb-$(build_number).zip"
+      ZipLevel="9"
+      />
+
+    <!-- Test -->
+    <ItemGroup>
+      <TestAssemblies Include="$(Root)\src\FunnelWeb.Tests\bin\Release\FunnelWeb.Tests.dll"/>
+    </ItemGroup>
+    <Exec Condition="$(teamcity_dotnet_nunitlauncher) != ''" Command="$(teamcity_dotnet_nunitlauncher) v4.0 x86 NUnit-2.5.0 @(TestAssemblies->'%(FullPath)', '%20')" />
+    <Exec Condition="$(teamcity_dotnet_nunitlauncher) == ''" Command="$(nunitconsoleexe) @(TestAssemblies->'%(FullPath)', '%20')" />
+
+  </Target>
+</Project>

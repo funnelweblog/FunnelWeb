@@ -1,6 +1,7 @@
 ﻿using System.Web;
 using Autofac;
 using Autofac.Integration.Web;
+using Autofac.Integration.Web.Mvc;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using FunnelWeb.DatabaseDeployer;
@@ -24,10 +25,10 @@ namespace FunnelWeb.Model.Repositories
             builder.RegisterType<ApplicationDatabase>().As<IApplicationDatabase>();
             builder.RegisterType<ConnectionStringProvider>().As<IConnectionStringProvider>();
 
-            builder.Register<IFileRepository>(x => new FileRepository(x.Resolve<ISettingsProvider>(), x.Resolve<HttpServerUtilityBase>())).HttpRequestScoped();
-            builder.RegisterType<FeedRepository>().As<IFeedRepository>().HttpRequestScoped();
+            builder.Register<IFileRepository>(x => new FileRepository(x.Resolve<ISettingsProvider>(), x.Resolve<HttpServerUtilityBase>())).InstancePerHttpRequest();
+            builder.RegisterType<FeedRepository>().As<IFeedRepository>().InstancePerHttpRequest();
             builder.RegisterType<AdminRepository>().As<IAdminRepository>();
-            builder.RegisterType<EntryRepository>().As<IEntryRepository>().HttpRequestScoped();
+            builder.RegisterType<EntryRepository>().As<IEntryRepository>().InstancePerHttpRequest();
             builder.Register(x =>
             {
                 if (sessionFactory == null)

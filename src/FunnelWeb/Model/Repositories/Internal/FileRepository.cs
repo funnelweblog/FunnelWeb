@@ -81,7 +81,7 @@ namespace FunnelWeb.Model.Repositories.Internal
             if (string.IsNullOrEmpty(extension) || extension == ".") return "default.png";
             if (extension.StartsWith(".")) extension = extension.Substring(1);
             extension = extension.ToLowerInvariant();
-            if (File.Exists(HttpContext.Current.Server.MapPath("/Views/Shared/Images/FileTypes/" + extension + ".png")))
+            if (File.Exists(HttpContext.Current.Server.MapPath("/Content/Images/FileTypes/" + extension + ".png")))
             {
                 return extension + ".png";
             }

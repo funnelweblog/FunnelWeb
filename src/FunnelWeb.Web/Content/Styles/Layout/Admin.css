@@ -107,16 +107,23 @@ pre
     background: #FCFFCE;
     border: 1px solid #F9DD24;
 }
-.flash p 
-{
-    color: #A57100;
-    font-weight: bold;
-    text-align: center;
-    margin: 5px 10px 5px 10px; 
-    padding: 0;
-}
 .empty 
 {
     color: #555;
     margin: 20px 0 20px 0;
+}
+.admin-link 
+{
+    padding: 10px 0;
+}
+.admin-link h3
+{
+    font-size: 12pt;
+    margin: 0;
+    padding: 0;
+}
+.admin-link p 
+{
+    margin: 0;
+    padding: 0;
 }

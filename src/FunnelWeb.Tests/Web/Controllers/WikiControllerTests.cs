@@ -8,8 +8,8 @@ using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Model.Strings;
 using FunnelWeb.Web.Application.Spam;
-using FunnelWeb.Web.Features.Wiki;
-using FunnelWeb.Web.Features.Wiki.Views;
+using FunnelWeb.Web.Controllers;
+using FunnelWeb.Web.Views.Wiki;
 using NSubstitute;
 using NUnit.Framework;
 

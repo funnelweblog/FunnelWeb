@@ -1,6 +1,7 @@
 ﻿body
 {
     margin: 30px auto;
+    background: white url(backgnd.png) repeat-x scroll 0 0;
 }
 
 a
@@ -48,7 +49,7 @@ h5
     font-size: 14pt;
     height: 80px;
     padding: 0;
-    margin: 0 0 10px 0;
+    margin: 0 0 20px 0;
     float: left;
     width: 360px;
 }
@@ -71,7 +72,7 @@ h5
 }
 .nav ul li
 {
-    font-size: 10pt;
+    font-size: 11pt;
     font-weight: normal;
     color: #A08070;
 }
@@ -79,38 +80,61 @@ h5
 .nav ul li a
 {
     color: #A08070;
+    text-decoration: none;
+}
+
+.content h1
+{
+    border-bottom: 1px solid #93AD8A;
 }
 
 /* Introductions */
 
 .intro
 {
-    border: 1px solid #D0D0D0;
-    padding: 10px 15px;
+    border-left: 1px solid #93AD8A;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    
+    padding: 0 15px;
     margin: 0 15px;
     margin-top: 70px;
     float: right;
-    width: 200px;
+    width: 220px;
 }
 .intro h1
 {
-    margin: 0;
+    margin: 0 0 10px 0;
     color: #32A700;
     font-size: 14pt;
 }
 .intro p
 {
-    margin: 10px 0;
+    margin: 0 0 10px 0;
     font-size: 10pt;
     font-weight: normal;
 }
 
+.post-list
+{
+    width: 660px;
+}
+
+.post-line
+{
+    border: 0 none;
+}
+
 .post-line .revised
 {
-    background: #D0A090;
+    background: #A08070;
     color: #fff;
     font-family: "Segoe UI", Sans-Serif; 
     font-weight:normal;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
 }
 
 .post-line .revised .month
@@ -119,19 +143,24 @@ h5
 
 .post-line .comments 
 {
+    background: #93AD8A;
+    color: #fff;
     font-family: "Segoe UI", Sans-Serif; 
     font-weight:normal;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
 }
 
-.content h1, .content h2
+.post-line .comments a
 {
-    border-bottom: 1px solid #ccc;
+    color: #fff;
 }
 
 .content h1 a
 {
     border: 0px;
-    color: #A08070;
+    color: #A08070; 
 }
 
 .comment
@@ -141,8 +170,12 @@ h5
 
 pre
 {
-    background: #FFF8E8;
+    background: #FFFCF4;
     border: 1px dotted #D0A090;
+    /* 
+    SUPER nasty IE8 hack to deal with this bug 
+    */ 
+    max-height: none\9  
 }
 
 .entry h1, .entry h2, .entry h3, .entry h4, .entry h5, .entry h6
@@ -153,10 +186,13 @@ pre
 
 .entry-date
 {
-    background: #D0A090;
+    background: #A08070;
     color: #fff;
     font-family: "Segoe UI", Sans-Serif; 
     font-weight:normal;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
 }
 
 .entry-tools

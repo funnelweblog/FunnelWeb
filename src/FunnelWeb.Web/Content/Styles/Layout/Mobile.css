@@ -1,0 +1,104 @@
+﻿body 
+{
+	color: #333;
+	font: 80% "Segoe UI", Arial, Verdana, Sans-Serif;
+	margin: 0;
+	padding: 0;
+	background: #fafafa;
+}
+
+.header
+{
+    font-size: 14pt;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+.header a 
+{
+    color: #32A700;
+    text-decoration: none;
+}
+h1, h2, h3, h4, h5, h6
+{
+	color: #3865C6;
+	font-family: Trebuchet MS, Arial, Sans-Serif;
+	margin-top: 20px;
+}
+a 
+{
+	color: #3865C6;
+}
+.intro 
+{
+    background: #fafafa;
+    padding: 5px 10px 5px 10px;
+    color: #666;
+}
+
+.content 
+{
+    background: #fff;
+    padding: 5px 10px 5px 10px;
+    border: 1px solid #e0e0e0;
+    margin: 5px 10px 5px 10px;
+}
+
+.comment 
+{
+    border-top: 1px dashed #c0c0c0;
+    margin-top: 10px;
+    padding-top: 10px;
+    margin-bottom: 30px;
+}
+.comment .comment-author 
+{
+    font-weight: bold;
+}
+
+.nav ul li 
+{
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.nav ul 
+{
+    margin: 0;
+    padding: 0;
+}
+
+.nav 
+{
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+    background: #f0f0f0;
+    padding: 10px;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.entry-date 
+{
+    color: #aaa;
+    text-align: right;
+}
+
+.footer 
+{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.pre 
+{
+    min-width: 500px;
+    overflow: auto;
+}
+.content h1 
+{
+    margin-top: 0;
+}

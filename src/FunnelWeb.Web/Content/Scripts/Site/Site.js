@@ -15,6 +15,7 @@ function enablePrettyDates() {
         var localTimeOffset = utcDate.getTimezoneOffset() * 60000;
 
         var localDate = new Date(utcDateValue - (localTimeOffset));
+        $(this).attr("title", Date.Format(localDate, "dd MMM, yyyy hh:nn"));
 
         var pretty = prettyDate(localDate);
         if (pretty == undefined) {
@@ -50,7 +51,8 @@ function enableChangeDetection() {
 }
 
 $.expr[':'].external = function (obj) {
-    return !obj.href.match(/^mailto\:/)
+    return !(obj.href == "")
+            && !obj.href.match(/^mailto\:/)
             && !(obj.hostname == location.hostname)
 };
 
