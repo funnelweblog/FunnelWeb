@@ -168,6 +168,13 @@ h5
     border-bottom: 1px solid #ccc;
 }
 
+.comment .comment-author
+{
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+}
+
 pre
 {
     background: #FFFCF4;

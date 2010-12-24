@@ -75,7 +75,8 @@
     </div>
     }
     @foreach (var comment in Model.Entry.Comments.Where(x => !x.IsSpam)) {
-    <div class="comment"><a href="#" name="comment-@comment.Id" />
+    <div class="comment">
+      <a name="comment-@comment.Id"></a>
       <div class="comment-author vcard">
         <img class="gravatar photo" src="@Html.Gravatar(comment.AuthorEmail)" alt="@Html.Encode(comment.AuthorName)" />
         <br />
@@ -97,7 +98,8 @@
 @Html.ValidationSummary("Comment unsuccessful. Please correct the errors below.")
 
 <div class='entry-comment'>
-@using (Html.BeginForm("Page", "Wiki", new { page = Model.Page }, FormMethod.Post, new { @class = "promptBeforeUnload" })) {
+@using (Html.BeginForm("Page", "Wiki", new { page = Model.Page }, FormMethod.Post, new { @class = "promptBeforeUnload" }))
+{
   <div class="form-body">
           
     <div class="editor-label">
@@ -140,7 +142,7 @@
       <input type="submit" id="submit" class="submit" value="Submit" />
     </div>
   </div>
-  }
+}
 </div>
 <h3>Preview</h3>
 <div id="wmd-preview" class="wmd-panel"></div>
