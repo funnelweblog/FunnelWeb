@@ -146,8 +146,9 @@ namespace FunnelWeb.Web.Application.Extensions
         public static IEnumerable<MvcHtmlString> CssKeywordsFor(this HtmlHelper html, Entry entry)
         {
             return from k in entry.MetaKeywords.Split(',')
-                   where keyword.IsMatch(k)
-                   select MvcHtmlString.Create("keyword-" + k.Trim());
+                   let w = k.Trim()
+                   where keyword.IsMatch(w)
+                   select MvcHtmlString.Create("keyword-" + w);
         }
 
         #endregion
