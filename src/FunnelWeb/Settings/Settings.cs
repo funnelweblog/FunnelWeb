@@ -161,6 +161,12 @@ namespace FunnelWeb.Settings
         [SettingStorage(StorageLocation.Database, "smtp-comments-on")]
         public bool CommentNotification { get; set; }
 
+        [DisplayName("Facebook Like")]
+        [DefaultValue(true)]
+        [Description("Show a Facebook 'Like' button under each page")]
+        [SettingStorage(StorageLocation.Database, "facebook-like")]
+        public bool FacebookLike { get; set; }
+
         [SettingStorage(StorageLocation.Custom)]
         public string[] Themes { get; set; }
     }

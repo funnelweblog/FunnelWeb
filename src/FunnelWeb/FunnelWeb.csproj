@@ -116,7 +116,6 @@
     <Compile Include="Model\Mappings\UserTypes\PageNameUserType.cs" />
     <Compile Include="Model\Pingback.cs" />
     <Compile Include="Model\Redirect.cs" />
-    <Compile Include="Model\ReferenceData\Settings.cs" />
     <Compile Include="Model\Repositories\IAdminRepository.cs" />
     <Compile Include="Model\Repositories\IEntryRepository.cs" />
     <Compile Include="Model\Repositories\IFeedRepository.cs" />

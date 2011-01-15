@@ -40,6 +40,11 @@
   <div class='entry @String.Join(" ", Html.CssKeywordsFor(Model.Entry))'>
   @Html.DisplayFor(model => model.Entry.LatestRevision.Body)
   </div>  
+  @if (Html.Settings().FacebookLike) {
+  <div class="facebook">
+    <iframe src="http://www.facebook.com/plugins/like.php?href=@Url.Encode(Request.Url.AbsoluteUri)&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe>
+  </div>
+  }
   <div class='entry-tools'>
     <span>Last revised: <a href="@Html.ActionUrl("Page", new { page = Model.Page, revision = Model.Entry.LatestRevision.RevisionNumber })">@Html.Date(Model.Entry.LatestRevision.Revised)</a></span>
     <span>@Html.ActionLink("History", "Revisions", new { page = Model.Page })</span>

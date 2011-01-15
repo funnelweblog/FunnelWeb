@@ -136,7 +136,17 @@
     @Html.ValidationMessageFor(m => m.HtmlFooter)
     @Html.HintFor(m => m.HtmlFooter)
   </div>
-        
+
+
+  <h3>Social</h3>        
+  <div class="editor-label">
+    @Html.LabelFor(m => m.FacebookLike)
+  </div>
+  <div class="editor-field">
+    @Html.CheckBoxFor(m => m.FacebookLike)
+    @Html.ValidationMessageFor(m => m.FacebookLike)
+    @Html.HintFor(m => m.FacebookLike)
+  </div>
 
   <h3>Email notifications</h3>
 
