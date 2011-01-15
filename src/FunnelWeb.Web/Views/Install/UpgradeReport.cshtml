@@ -1,6 +1,6 @@
 @model FunnelWeb.Web.Views.Install.UpgradeModel
 @{
-  View.Title = "FunnelWeb Installation Report";
+    ViewBag.Title = "FunnelWeb Installation Report";
   Layout = "~/Views/Shared/_Private.cshtml";
 }
 
@@ -22,7 +22,7 @@
 
 <h2>Log</h2>
 <ol>
-  @MvcHtmlString.Create(Model.Log.ToString())
+  @MvcHtmlString.Create(Model.Log)
 </ol>
 
 @if (Model.Result.Successful == false && Model.Result.Error != null) {

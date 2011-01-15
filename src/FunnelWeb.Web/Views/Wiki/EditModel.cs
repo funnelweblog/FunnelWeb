@@ -6,6 +6,7 @@ using System.Linq;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Strings;
 using FunnelWeb.Web.Application.Mvc;
+using System.Web.Mvc;
 
 namespace FunnelWeb.Web.Views.Wiki
 {
@@ -29,7 +30,7 @@ namespace FunnelWeb.Web.Views.Wiki
         [DisplayName("Name")]
         [StringLength(50)]
         [Description("This will appear in the URL to the page.")]
-        [RegularExpression("[a-z0-9\\-]+", ErrorMessage = "Page names can only include lowecase alpha characters, numbers and dashes")]
+        [RegularExpression("[a-z0-9\\-]+", ErrorMessage = "Page names can only include lowercase alpha characters, numbers and dashes")]
         [HintSize(HintSize.Medium)]
         public string Page { get; set; }
 
@@ -71,7 +72,7 @@ namespace FunnelWeb.Web.Views.Wiki
         [Required]
         [DisplayName("Keywords")]
         [StringLength(100)]
-        [Description("Comma-seperated keywords that will appear in the &lt;meta&gt; tags of the page.")]
+        [Description("Comma-separated keywords that will appear in the &lt;meta&gt; tags of the page.")]
         [HintSize(HintSize.Large)]
         public string Keywords { get; set; }
 
@@ -79,6 +80,7 @@ namespace FunnelWeb.Web.Views.Wiki
         [DisplayName("Content")]
         [DataType("Markdown")]
         [HintSize(HintSize.Large)]
+        [AllowHtml]
         public string Content { get; set; }
 
         [Required]

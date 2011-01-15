@@ -1,25 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!--This file represents the results of running a test suite-->
-<test-results name="C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\FunnelWeb.Tests.nunit" total="1" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2010-08-30" time="19:49:10">
-  <environment nunit-version="2.5.5.10112" clr-version="2.0.50727.4927" os-version="Microsoft Windows NT 6.1.7600.0" platform="Win32NT" cwd="C:\Program Files (x86)\NUnit 2.5.5\bin\net-2.0" machine-name="AZ-VAIO" user="AaronPowell" user-domain="thefarmcreative" />
+<test-results name="C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\FunnelWeb.Tests.nunit" total="1" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2010-11-23" time="22:23:06">
+  <environment nunit-version="2.5.8.10295" clr-version="2.0.50727.4952" os-version="Microsoft Windows NT 6.1.7600.0" platform="Win32NT" cwd="C:\Program Files (x86)\NUnit 2.5.8\bin\net-2.0" machine-name="SLACEBOX" user="Az" user-domain="slacebox" />
   <culture-info current-culture="en-AU" current-uiculture="en-US" />
-  <test-suite type="Project" name="C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\FunnelWeb.Tests.nunit" executed="True" result="Success" success="True" time="0.822" asserts="0">
+  <test-suite type="Project" name="C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\FunnelWeb.Tests.nunit" executed="True" result="Success" success="True" time="105.480" asserts="0">
     <results>
-      <test-suite type="Assembly" name="C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\bin\Debug\FunnelWeb.Tests.dll" executed="True" result="Success" success="True" time="0.811" asserts="0">
+      <test-suite type="Assembly" name="C:\_Projects\code.google.com\funnelweb\src\FunnelWeb.Tests\bin\Debug\FunnelWeb.Tests.dll" executed="True" result="Success" success="True" time="105.462" asserts="0">
         <results>
-          <test-suite type="Namespace" name="FunnelWeb" executed="True" result="Success" success="True" time="0.809" asserts="0">
+          <test-suite type="Namespace" name="FunnelWeb" executed="True" result="Success" success="True" time="105.460" asserts="0">
             <results>
-              <test-suite type="Namespace" name="Tests" executed="True" result="Success" success="True" time="0.806" asserts="0">
+              <test-suite type="Namespace" name="Tests" executed="True" result="Success" success="True" time="105.458" asserts="0">
                 <results>
-                  <test-suite type="Namespace" name="Web" executed="True" result="Success" success="True" time="0.803" asserts="0">
+                  <test-suite type="Namespace" name="Web" executed="True" result="Success" success="True" time="105.452" asserts="0">
                     <results>
-                      <test-suite type="Namespace" name="Controllers" executed="True" result="Success" success="True" time="0.801" asserts="0">
+                      <test-suite type="TestFixture" name="RoutingTests+RoutingRules" executed="True" result="Success" success="True" time="105.437" asserts="0">
                         <results>
-                          <test-suite type="TestFixture" name="WikiControllerTests" executed="True" result="Success" success="True" time="0.798" asserts="0">
-                            <results>
-                              <test-case name="FunnelWeb.Tests.Web.Controllers.WikiControllerTests.WikiControllerTests_Edit_Returns_Existing_Page_When_Found" executed="True" result="Success" success="True" time="0.781" asserts="3" />
-                            </results>
-                          </test-suite>
+                          <test-case name="FunnelWeb.Tests.Web.RoutingTests+RoutingRules.ShouldMapRoutesAsSpecifiedInDocumentation" executed="True" result="Success" success="True" time="102.781" asserts="32" />
                         </results>
                       </test-suite>
                     </results>

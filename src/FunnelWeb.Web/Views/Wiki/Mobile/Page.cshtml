@@ -1,6 +1,6 @@
 @model FunnelWeb.Web.Views.Wiki.PageModel
 @{
-  View.Title = Model.Entry.MetaTitle;
+    ViewBag.Title = Model.Entry.MetaTitle;
   Layout = "~/Views/Shared/_Mobile.cshtml";
 }
 
@@ -71,9 +71,9 @@
     </div>
     }
     @foreach (var comment in Model.Entry.Comments.Where(x => !x.IsSpam)) {
-    <div class="comment">
+    <div class="comment vcard">
       <div class="comment-author">
-        @Html.UrlLink(comment.AuthorUrl, comment.AuthorName)
+        @Html.UrlLink(comment.AuthorUrl, comment.AuthorName, "fn url")
       </div>
       <div class="comment-body"> 
         <div class="comment-date">@Html.Date(comment.Posted)</div>

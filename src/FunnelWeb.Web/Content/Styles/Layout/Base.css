@@ -307,9 +307,11 @@ div.nav div.search
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 }
-.comment .comment-author a
+.comment .comment-author .fn
 {
 	color: #555;
+	font-size:13px;
+	border:none;
 }
 
 /* Posting comments */

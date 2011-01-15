@@ -1,6 +1,6 @@
 @model FunnelWeb.Web.Views.Wiki.PageModel
 @{
-  View.Title = Model.Entry.MetaTitle;
+    ViewBag.Title = Model.Entry.MetaTitle;
 }
 
 @section Meta {
@@ -21,18 +21,23 @@
   @Html.ActionLink(Model.Entry.Title, "Page", new { page = Model.Entry.Name })
 </h1>
 <div class="entry-date">
-  <span class='month'>@Model.Entry.FeedDate.ToString("MMM d")</span>
-  <span class='year'>@Model.Entry.FeedDate.ToString("yyyy")</span>
+  <span class='month'>@Model.Entry.FeedDate.ToLocalTime().ToString("MMM d")</span>
+  <span class='year'>@Model.Entry.FeedDate.ToLocalTime().ToString("yyyy")</span>
 </div>
 <div class="entry-container">
   @if (Model.IsPriorVersion) {
   <div class='entry-tools'>
     <div>
       <span>You are looking at revision @Model.Entry.LatestRevision.RevisionNumber of this page, which may be out of date. @Html.ActionLink("View the latest version.", "Page", new { page = Model.Entry.Name })</span>
+          @if (ViewData.IsLoggedIn()) {
+            <span> @Html.ActionLink("Revert to this version.", "Revert", new { page = Model.Page, revision = Model.Entry.LatestRevision.RevisionNumber })</span>
+          }
+
+      <span></span>
     </div>
   </div>
   }
-  <div class='entry'>
+  <div class='entry @String.Join(" ", Html.CssKeywordsFor(Model.Entry))'>
   @Html.DisplayFor(model => model.Entry.LatestRevision.Body)
   </div>  
   <div class='entry-tools'>
@@ -63,7 +68,7 @@
 @if (Model.Entry.IsDiscussionEnabled) {
 <div class="comments">
   <div class="comments-in">
-    <h2><a name="comments">Discussion</a></h2>
+    <a name="comments"></a><h2>Discussion</h2>
     @if (Model.Entry.Comments.Count == 0) {
     <div class="empty">
       <p>No comments yet. Be the first!</p>
@@ -71,10 +76,11 @@
     }
     @foreach (var comment in Model.Entry.Comments.Where(x => !x.IsSpam)) {
     <div class="comment">
-      <div class="comment-author">
-        <img class="gravatar" src="@Html.Gravatar(comment.AuthorEmail)" alt="@Html.Encode(comment.AuthorName)" />
+      <a name="comment-@comment.Id"></a>
+      <div class="comment-author vcard">
+        <img class="gravatar photo" src="@Html.Gravatar(comment.AuthorEmail)" alt="@Html.Encode(comment.AuthorName)" />
         <br />
-        @Html.UrlLink(comment.AuthorUrl, comment.AuthorName)
+        @Html.UrlLink(comment.AuthorUrl, comment.AuthorName, "fn url")
       </div>
       <div class="comment-body"> 
         <div class="comment-date">@Html.Date(comment.Posted)</div>
@@ -92,7 +98,8 @@
 @Html.ValidationSummary("Comment unsuccessful. Please correct the errors below.")
 
 <div class='entry-comment'>
-@using (Html.BeginForm("Page", "Wiki", new { page = Model.Page }, FormMethod.Post, new { @class = "promptBeforeUnload" })) {
+@using (Html.BeginForm("Page", "Wiki", new { page = Model.Page }, FormMethod.Post, new { @class = "promptBeforeUnload" }))
+{
   <div class="form-body">
           
     <div class="editor-label">
@@ -135,7 +142,7 @@
       <input type="submit" id="submit" class="submit" value="Submit" />
     </div>
   </div>
-  }
+}
 </div>
 <h3>Preview</h3>
 <div id="wmd-preview" class="wmd-panel"></div>

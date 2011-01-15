@@ -53,6 +53,11 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
         {
             return _writer.ToString();
         }
+
+        public static implicit operator string(Log l)
+        {
+            return l.ToString();
+        }
     }
 
     public interface ILog

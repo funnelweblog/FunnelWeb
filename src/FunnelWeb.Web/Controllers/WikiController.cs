@@ -104,10 +104,28 @@ namespace FunnelWeb.Web.Controllers
             model.Keywords = entry.MetaKeywords;
             model.MetaDescription = entry.MetaDescription;
             model.MetaTitle = entry.MetaTitle;
-            model.PublishDate = entry.Published.ToString("yyyy-MM-dd");
+            model.PublishDate = entry.Published.ToLocalTime().ToString("yyyy-MM-dd");
             model.Sidebar = entry.Summary;
             model.Title = entry.Title;
             return View(model);
+        }
+
+        [Authorize]
+        public virtual ActionResult Revert(PageName page, int revision)
+        {
+            var entry = EntryRepository.GetEntry(page, revision) ?? new Entry() { Title = page, MetaTitle = page, Name = page, LatestRevision = new Revision() };
+            var feeds = FeedRepository.GetFeeds();
+            var model = new EditModel(page, entry.Id == 0, feeds);
+            model.AllowComments = entry.IsDiscussionEnabled;
+            model.ChangeSummary = "Reverted to version " + revision;
+            model.Content = entry.LatestRevision.Body;
+            model.Keywords = entry.MetaKeywords;
+            model.MetaDescription = entry.MetaDescription;
+            model.MetaTitle = entry.MetaTitle;
+            model.PublishDate = entry.Published.ToLocalTime().ToString("yyyy-MM-dd");
+            model.Sidebar = entry.Summary;
+            model.Title = entry.Title;
+            return View("Edit", model).AndFlash("You are editing an old version of this page. This will become the current version when you save.");
         }
 
         [HttpPost]
