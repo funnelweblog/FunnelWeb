@@ -4,12 +4,12 @@
     font-family: Segoe UI;
     color: #111;
     max-width: none;
-    background: #f4f2e5;
+    background: #ddd5b1;
 }
 
 .body
 {
-    
+    background: #f4f2e5;
 }
 .body .intro p 
 {
@@ -23,7 +23,6 @@ p
 .body .content 
 {
     padding: 10px 30px;
-    background: #f4f2e5;
     margin: 0;
 }
 .content h1
@@ -211,6 +210,7 @@ h1, h2, h3, h4, h5, h6
     height: auto;
     min-height: 0;
     float: none;
+    background: #eee9cc;
 }
 
 .post-line .revised, .post-line .comments
@@ -225,10 +225,13 @@ h1, h2, h3, h4, h5, h6
 	background: transparent;
 	margin-left: 7px;
 	color: #999;
-	font-family: Cambria, Georgia;
 	font-weight: normal;
 	height: auto;
 	vertical-align: middle;
+}
+.post-line p 
+{
+    color: #000;
 }
 .post-line .comments a 
 {
@@ -348,7 +351,6 @@ pre
 
 .footer 
 {
-    background: #ddd5b1;
     padding-top: 20px;
     padding-bottom: 20px;
     border-top: 2px solid #cac29e;
@@ -390,4 +392,14 @@ input, textarea, input:focus, textarea:focus
     padding: 1px;
     padding-left: 3px;
     border: 1px solid #CFCFCF;
+}
+
+.entry-tools 
+{
+    background: none;
+}
+
+pre 
+{
+    background: #eeecdd;
 }
