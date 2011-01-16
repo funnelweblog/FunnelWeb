@@ -46,7 +46,7 @@
   </div>
   }
   <div class='entry-tools'>
-    <span>Last revised: <a href="@Html.ActionUrl("Page", new { page = Model.Page, revision = Model.Entry.LatestRevision.RevisionNumber })">@Html.Date(Model.Entry.LatestRevision.Revised)</a></span>
+    <span>Last revised: <a href="@Html.ActionUrl("Page", new { page = Model.Page.ToString(), revision = Model.Entry.LatestRevision.RevisionNumber })">@Html.Date(Model.Entry.LatestRevision.Revised)</a></span>
     <span>@Html.ActionLink("History", "Revisions", new { page = Model.Page })</span>
     @if (ViewData.IsLoggedIn()) {
     <span>@Html.ActionLink("Edit", "Edit", new { page = Model.Page })</span>

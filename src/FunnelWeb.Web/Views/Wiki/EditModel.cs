@@ -30,7 +30,7 @@ namespace FunnelWeb.Web.Views.Wiki
         [DisplayName("Name")]
         [StringLength(50)]
         [Description("This will appear in the URL to the page.")]
-        [RegularExpression("[a-z0-9\\-]+", ErrorMessage = "Page names can only include lowercase alpha characters, numbers and dashes")]
+        [RegularExpression("[a-z0-9\\-\\/]+", ErrorMessage = "Page names can only include lowercase alpha characters, numbers, dashes and forward slashes (/)")]
         [HintSize(HintSize.Medium)]
         public string Page { get; set; }
 
