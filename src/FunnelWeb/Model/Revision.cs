@@ -15,6 +15,7 @@ namespace FunnelWeb.Model
             Tags = string.Empty;
             Status = 0;
             IsVisible = true;
+            Format = Formats.Markdown;
         }
 
         public virtual int Id { get; private set; }
@@ -27,6 +28,7 @@ namespace FunnelWeb.Model
         public virtual string ChangeSummary { get; set; }
         
         public virtual string Reason { get; set; }
+        public virtual string Format { get; set; }
         public virtual DateTime Revised { get; set; }
         public virtual int RevisionNumber { get; set; }
         public virtual string Tags { get; set; }

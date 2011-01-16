@@ -36,7 +36,7 @@
   </div>
   }
   <div class='entry'>
-  @Html.DisplayFor(model => model.Entry.LatestRevision.Body)
+  @Html.DisplayFor(model => model.Entry.LatestRevision.Body, new { Format = Model.Entry.LatestRevision.Format })
   </div>  
   <div class='entry-tools'>
     <span>Last revised: <a href="@Html.ActionUrl("Page", new { page = Model.Page, revision = Model.Entry.LatestRevision.RevisionNumber })">@Html.Date(Model.Entry.LatestRevision.Revised)</a></span>

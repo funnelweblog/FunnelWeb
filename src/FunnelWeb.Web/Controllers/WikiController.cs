@@ -106,6 +106,7 @@ namespace FunnelWeb.Web.Controllers
             model.Page = DateTime.Today.ToString("yyyy/MM/dd/");
             model.AllowComments = true;
             model.MetaTitle = "Enter a meta title";
+            model.Format = Formats.Markdown;
             model.PublishDate = DateTime.Today.Date.ToString("yyyy-MM-dd");
             return View("Edit", model);
         }
@@ -119,6 +120,8 @@ namespace FunnelWeb.Web.Controllers
             model.AllowComments = entry.IsDiscussionEnabled;
             model.ChangeSummary = entry.Id == 0 ? "Initial create" : "";
             model.Content = entry.LatestRevision.Body;
+            model.Format = entry.LatestRevision.Format;
+            model.HideChrome = entry.HideChrome;
             model.Keywords = entry.MetaKeywords;
             model.MetaDescription = entry.MetaDescription;
             model.MetaTitle = entry.MetaTitle;
@@ -137,6 +140,8 @@ namespace FunnelWeb.Web.Controllers
             model.AllowComments = entry.IsDiscussionEnabled;
             model.ChangeSummary = "Reverted to version " + revision;
             model.Content = entry.LatestRevision.Body;
+            model.Format = entry.LatestRevision.Format;
+            model.HideChrome = entry.HideChrome;
             model.Keywords = entry.MetaKeywords;
             model.MetaDescription = entry.MetaDescription;
             model.MetaTitle = entry.MetaTitle;
@@ -166,11 +171,13 @@ namespace FunnelWeb.Web.Controllers
             entry.IsDiscussionEnabled = model.AllowComments;
             entry.MetaDescription = model.MetaDescription ?? string.Empty;
             entry.MetaKeywords = model.Keywords ?? string.Empty;
+            entry.HideChrome = model.HideChrome;
             entry.Published = DateTime.Parse(model.PublishDate, CultureInfo.InvariantCulture).ToUniversalTime();
 
             var revision = entry.Revise();
             revision.Body = model.Content;
             revision.Reason = model.ChangeSummary;
+            revision.Format = model.Format;
 
             EntryRepository.Save(entry);
 
