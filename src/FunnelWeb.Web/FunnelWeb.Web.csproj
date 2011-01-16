@@ -230,6 +230,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Styles\Layout\Mobile.css" />
+    <Content Include="Content\Styles\Themes\Official\Theme.css" />
     <Content Include="Content\Styles\Themes\MattHamilton\backgnd.png" />
     <Content Include="Views\Wiki\Mobile\NotFound.cshtml" />
     <Content Include="Views\Wiki\Mobile\Recent.cshtml" />

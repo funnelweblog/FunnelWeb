@@ -21,29 +21,31 @@
 </head>
 <body>
   <div class="top">
-    <div class="header">
-      <a class="logo" href="@Url.Content("~/")" title="@Html.Settings().SiteTitle">@Html.Settings().SiteTitle</a>
-    </div>
-    <div class="nav">
-      <ul>
-        <li><a href="@Html.Qualify("/")">Home</a></li>
-        @MvcHtmlString.Create(Html.Settings().MainLinks)
-        @if (ViewData.IsLoggedIn())
-        {
-        <li>@Html.ActionLink("New Post", "New", "Wiki")</li>
-        <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
-        <li>@Html.ActionLink("Unpublished Posts", "Unpublished", "Wiki")</li>
-        <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
-        }
-      </ul>
-      <div class="search">
-        @using (Html.BeginForm("Search", "Wiki", FormMethod.Get))
-        {
-        <p>
-          @Html.TextBox("q", Request.QueryString["q"], new { alt = "Search", @class = "medium" })
-          <input type="submit" id="search" class="submit" value="Search" />
-        </p>
-        }
+    <div class="top-in">
+      <div class="header">
+        <a class="logo" href="@Url.Content("~/")" title="@Html.Settings().SiteTitle">@Html.Settings().SiteTitle</a>
+      </div>
+      <div class="nav">
+        <ul>
+          <li><a href="@Html.Qualify("/")">Home</a></li>
+          @MvcHtmlString.Create(Html.Settings().MainLinks)
+          @if (ViewData.IsLoggedIn())
+          {
+          <li>@Html.ActionLink("New Post", "New", "Wiki")</li>
+          <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
+          <li>@Html.ActionLink("Unpublished", "Unpublished", "Wiki")</li>
+          <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
+          }
+        </ul>
+        <div class="search">
+          @using (Html.BeginForm("Search", "Wiki", FormMethod.Get))
+          {
+          <p>
+            @Html.TextBox("q", Request.QueryString["q"], new { alt = "Search", @class = "medium" })
+            <input type="submit" id="search" class="submit" value="Search" />
+          </p>
+          }
+        </div>
       </div>
     </div>
   </div>
@@ -57,7 +59,9 @@
     @if (IsSectionDefined("Summary"))
     {
     <div class="intro" id="_summary">
-      @RenderSection("Summary", required: false)
+      <div class="intro-in">
+        @RenderSection("Summary", required: false)
+      </div>
     </div>
     }
     <div class="content">
