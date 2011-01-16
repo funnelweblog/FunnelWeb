@@ -34,7 +34,7 @@ namespace FunnelWeb.Web.Views.Wiki
         [StringLength(200)]
         [DisplayName("Blog URL")]
         [HintSize(HintSize.Medium)]
-        [ValidUrl(ErrorMessage = "Please enter a valid URL that starts with http:// or https://")]
+        [ValidUrl(ErrorMessage = "Please enter a valid URL that starts with http:// or https://. Not required.")]
         public string CommenterBlog { get; set; }
 
         [DisplayName("E-mail")]
@@ -42,7 +42,7 @@ namespace FunnelWeb.Web.Views.Wiki
         [DataType(DataType.EmailAddress)]
         [HintSize(HintSize.Medium)]
         [RegularExpression("^[A-Za-z0-9._%+-]+@([A-Za-z0-9-]+\\.)+([A-Za-z0-9]{2,4}|museum)$", ErrorMessage = "Please enter a valid email address")]
-        [Description("Used for your <a href=\"http://en.gravatar.com/\">gravatar</a>. Will not be public.")]
+        [Description("Used for your <a href=\"http://en.gravatar.com/\">gravatar</a>. Not required. Will not be public. ")]
         public string CommenterEmail { get; set; }
 
         [Required]
