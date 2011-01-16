@@ -55,9 +55,10 @@ namespace FunnelWeb.Web.Controllers
             var items =
                 from e in entries
                 let itemUri = new Uri(Request.Url, Url.Action("Page", "Wiki", new { page = e.Name }))
+                let viaFeedUri = new Uri(Request.Url, "/via-feed" + Url.Action("Page", "Wiki", new { page = e.Name }))
                 orderby e.FeedDate descending
                 let content = TextSyndicationContent.CreateHtmlContent(
-                            BuildFeedItemBody(itemUri, e.LatestRevision))
+                            BuildFeedItemBody(itemUri, viaFeedUri, e.LatestRevision))
                 select new
                 {
                     Item = new SyndicationItem
@@ -89,10 +90,10 @@ namespace FunnelWeb.Web.Controllers
             }));
         }
 
-        private string BuildFeedItemBody(Uri itemUri, Revision latestRevision)
+        private string BuildFeedItemBody(Uri itemUri, Uri viaFeedUri, Revision latestRevision)
         {
             var result = Markdown.Render(latestRevision.Body)
-                         + string.Format("<img src=\"{0}\" />", itemUri + "/via-feed");
+                         + string.Format("<img src=\"{0}\" />", viaFeedUri);
 
             if (Settings.GetSettings().FacebookLike)
             {
