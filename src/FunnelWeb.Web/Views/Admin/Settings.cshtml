@@ -110,7 +110,16 @@
     @Html.HintFor(m => m.UploadPath)
   </div>
 
-  <h3>Spam</h3>
+  <h3>Comments</h3>
+  <div class="editor-label">
+    @Html.LabelFor(m => m.DisableCommentsOlderThan)
+  </div>
+  <div class="editor-field">
+    @Html.TextBoxFor(m => m.DisableCommentsOlderThan, new { @class = "small" })
+    @Html.ValidationMessageFor(m => m.DisableCommentsOlderThan)
+    @Html.HintFor(m => m.DisableCommentsOlderThan)
+  </div>
+
   <div class="editor-label">
     @Html.LabelFor(m => m.AkismetApiKey)
   </div>

@@ -94,57 +94,64 @@
     }
   </div>
 </div>
-  
-<h2>Your Comments</h2>
+
+  if (Html.Settings().DisableCommentsOlderThan > 0 && DateTime.UtcNow.AddDays(-Html.Settings().DisableCommentsOlderThan) > Model.Entry.Published)
+  {
+    <p>No new comments are allowed on this post.</p>  
+  }
+  else
+  {        
+    <h2>Your Comments</h2>
       
-@Html.ValidationSummary("Comment unsuccessful. Please correct the errors below.")
+    @Html.ValidationSummary("Comment unsuccessful. Please correct the errors below.")
 
-<div class='entry-comment'>
-@using (Html.BeginForm("Page", "Wiki", new { page = Model.Page }, FormMethod.Post, new { @class = "promptBeforeUnload" }))
-{
-  <div class="form-body">
+    <div class='entry-comment'>
+    @using (Html.BeginForm("Page", "Wiki", new { page = Model.Page }, FormMethod.Post, new { @class = "promptBeforeUnload" }))
+    {
+      <div class="form-body">
           
-    <div class="editor-label">
-      @Html.LabelFor(m => m.CommenterName)
-    </div>
-    <div class="editor-field">
-      @Html.TextBoxFor(m => m.CommenterName, Html.AttributesFor(m => m.CommenterName))
-      @Html.ValidationMessageFor(m => m.CommenterName)
-      @Html.HintFor(m => m.CommenterName)
-    </div>
+        <div class="editor-label">
+          @Html.LabelFor(m => m.CommenterName)
+        </div>
+        <div class="editor-field">
+          @Html.TextBoxFor(m => m.CommenterName, Html.AttributesFor(m => m.CommenterName))
+          @Html.ValidationMessageFor(m => m.CommenterName)
+          @Html.HintFor(m => m.CommenterName)
+        </div>
           
-    <div class="editor-label">
-      @Html.LabelFor(m => m.CommenterBlog)
-    </div>
-    <div class="editor-field">
-      @Html.TextBoxFor(m => m.CommenterBlog, Html.AttributesFor(m => m.CommenterBlog))
-      @Html.ValidationMessageFor(m => m.CommenterBlog)
-      @Html.HintFor(m => m.CommenterBlog)
-    </div>
+        <div class="editor-label">
+          @Html.LabelFor(m => m.CommenterBlog)
+        </div>
+        <div class="editor-field">
+          @Html.TextBoxFor(m => m.CommenterBlog, Html.AttributesFor(m => m.CommenterBlog))
+          @Html.ValidationMessageFor(m => m.CommenterBlog)
+          @Html.HintFor(m => m.CommenterBlog)
+        </div>
           
-    <div class="editor-label">
-      @Html.LabelFor(m => m.CommenterEmail)
-    </div>
-    <div class="editor-field">
-      @Html.TextBoxFor(m => m.CommenterEmail, Html.AttributesFor(m => m.CommenterEmail))
-      @Html.ValidationMessageFor(m => m.CommenterEmail)
-      @Html.HintFor(m => m.CommenterEmail)
-    </div>
+        <div class="editor-label">
+          @Html.LabelFor(m => m.CommenterEmail)
+        </div>
+        <div class="editor-field">
+          @Html.TextBoxFor(m => m.CommenterEmail, Html.AttributesFor(m => m.CommenterEmail))
+          @Html.ValidationMessageFor(m => m.CommenterEmail)
+          @Html.HintFor(m => m.CommenterEmail)
+        </div>
           
-    <div class="editor-label">
-      @Html.LabelFor(m => m.Comments)
-    </div>
-    <div class="editor-field">
-      @Html.TextAreaFor(m => m.Comments, Html.AttributesFor(m => m.Comments))
-      @Html.ValidationMessageFor(m => m.Comments)
-    </div>
+        <div class="editor-label">
+          @Html.LabelFor(m => m.Comments)
+        </div>
+        <div class="editor-field">
+          @Html.TextAreaFor(m => m.Comments, Html.AttributesFor(m => m.Comments))
+          @Html.ValidationMessageFor(m => m.Comments)
+        </div>
           
-    <div class="editor-field">
-      <input type="submit" id="submit" class="submit" value="Submit" />
-    </div>
-  </div>
-}
+        <div class="editor-field">
+          <input type="submit" id="submit" class="submit" value="Submit" />
+        </div>
+      </div>
+    }
 
-</div>
+    </div>
+  }
 }
 

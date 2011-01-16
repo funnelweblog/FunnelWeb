@@ -219,6 +219,13 @@ namespace FunnelWeb.Web.Controllers
                 HttpContext.Trace.Warn("Akismet is offline, comment cannot be validated: " + ex);
             }
 
+            // Anything posted after the disable date is considered spam (the comment box shouldn't be visible anyway)
+            var settings = SettingsProvider.GetSettings();
+            if (settings.DisableCommentsOlderThan > 0 && DateTime.UtcNow.AddDays(settings.DisableCommentsOlderThan) > entry.Published)
+            {
+                comment.IsSpam = true;
+            }
+
             EntryRepository.Save(entry);
 
             EventPublisher.Publish(new CommentPostedEvent(entry, comment));
