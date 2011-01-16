@@ -18,11 +18,18 @@ namespace FunnelWeb.Web.Controllers
     [ValidateInput(false)]
     public class WikiController : Controller
     {
-        private const int ItemsPerPage = 30;
+        private const int ItemsPerPage = 2;
         public IEntryRepository EntryRepository { get; set; }
         public IFeedRepository FeedRepository { get; set; }
         public ISpamChecker SpamChecker { get; set; }
         public IEventPublisher EventPublisher { get; set; }
+
+        public virtual ActionResult Home(int? pageNumber)
+        {
+            // TODO: If they have a custom home page, use that
+
+            return Recent(pageNumber ?? 0);
+        }
 
         public virtual ActionResult Recent(int pageNumber)
         {
@@ -30,8 +37,8 @@ namespace FunnelWeb.Web.Controllers
 
             var entries = FeedRepository.GetFeed(feed, pageNumber * ItemsPerPage, ItemsPerPage);
             var totalItems = FeedRepository.GetFeedCount(feed);
-            ViewData.Model = new RecentModel(entries, pageNumber, (int)((decimal)totalItems / ItemsPerPage + 1));
-            return View();
+            ViewData.Model = new RecentModel(entries, pageNumber, (int)((decimal)totalItems / ItemsPerPage + 1), ControllerContext.RouteData.Values["action"].ToString());
+            return View("Recent");
         }
 
         public virtual ActionResult Search([Bind(Prefix = "q")] string searchText)
@@ -76,7 +83,7 @@ namespace FunnelWeb.Web.Controllers
         public virtual ActionResult Unpublished()
         {
             var allPosts = EntryRepository.GetUnpublished();
-            ViewData.Model = new RecentModel(allPosts, 1, 1);
+            ViewData.Model = new RecentModel(allPosts, 1, 1, "Unpublished");
             return View();
         }
 

@@ -55,13 +55,15 @@ namespace FunnelWeb.Web
             routes.MapLowerCaseRoute(r(), "sitemap.xml", new { controller = "Wiki", action = "SiteMap" });
 
             // Wiki
-            routes.MapLowerCaseRoute(r(), "", new { controller = "Wiki", action = "Recent", pageNumber = "0" });
+            routes.MapLowerCaseRoute(r(), "blog", new { controller = "Wiki", action = "Recent", pageNumber = "0" });
+            routes.MapLowerCaseRoute(r(), "blog/{pageNumber}", new { controller = "Wiki", action = "Recent" }, new { pageNumber = "\\d+" });
+            routes.MapLowerCaseRoute(r(), "", new { controller = "Wiki", action = "Home", pageNumber = "0" });
+            routes.MapLowerCaseRoute(r(), "{pageNumber}", new { controller = "Wiki", action = "Home" }, new { pageNumber = "\\d+" });
             routes.MapLowerCaseRoute(r(), "unpublished", new { controller = "Wiki", action = "Unpublished" });
             routes.MapLowerCaseRoute(r(), "search", new { controller = "Wiki", action = "Search" });
             routes.MapLowerCaseRoute(r(), "new", new { controller = "Wiki", action = "New" });
             routes.MapLowerCaseRoute(r(), "edit/{*page}", new { controller = "Wiki", action = "Edit", page = UrlParameter.Optional });
             routes.MapLowerCaseRoute(r(), "revert/{*page}", new { controller = "Wiki", action = "Revert" });
-            routes.MapLowerCaseRoute(r(), "{pageNumber}", new { controller = "Wiki", action = "Recent" }, new { pageNumber = "\\d+" });
             routes.MapLowerCaseRoute(r(), "via-feed/{*page}", new { controller = "Resource", action = "Render", fileName = "/Content/Images/Transparent.gif", contentType = "image/gif" });
             routes.MapLowerCaseRoute(r(), "history-of/{*page}", new { controller = "Wiki", action = "Revisions" });
             routes.MapLowerCaseRoute(r(), "{*page}", new { controller = "Wiki", action = "Page" });
