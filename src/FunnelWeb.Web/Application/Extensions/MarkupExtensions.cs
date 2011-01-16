@@ -56,7 +56,7 @@ namespace FunnelWeb.Web.Application.Extensions
         public static MvcHtmlString ActionUrl(this HtmlHelper html, string actionName, object values)
         {
             var url = new UrlHelper(html.ViewContext.RequestContext, html.RouteCollection);
-            var result = url.Action(actionName, values);
+            var result = url.Action(actionName, "Wiki", values);
             return MvcHtmlString.Create(result.ToLower(CultureInfo.InvariantCulture));
         }
 

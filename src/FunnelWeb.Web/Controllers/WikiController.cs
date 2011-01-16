@@ -56,9 +56,9 @@ namespace FunnelWeb.Web.Controllers
             return View("NotFound");
         }
 
-        public virtual ActionResult Page(PageName page, int revision)
+        public virtual ActionResult Page(PageName page, int? revision)
         {
-            var entry = EntryRepository.GetEntry(page, revision);
+            var entry = EntryRepository.GetEntry(page, revision ?? 0);
             if (entry == null)
             {
                 if (HttpContext.User.Identity.IsAuthenticated)
@@ -111,9 +111,9 @@ namespace FunnelWeb.Web.Controllers
         }
 
         [Authorize]
-        public virtual ActionResult Revert(PageName page, int revision)
+        public virtual ActionResult Revert(PageName page, int? revision)
         {
-            var entry = EntryRepository.GetEntry(page, revision) ?? new Entry() { Title = page, MetaTitle = page, Name = page, LatestRevision = new Revision() };
+            var entry = EntryRepository.GetEntry(page, revision ?? 0) ?? new Entry() { Title = page, MetaTitle = page, Name = page, LatestRevision = new Revision() };
             var feeds = FeedRepository.GetFeeds();
             var model = new EditModel(page, entry.Id == 0, feeds);
             model.AllowComments = entry.IsDiscussionEnabled;
