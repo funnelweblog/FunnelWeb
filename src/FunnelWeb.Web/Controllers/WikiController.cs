@@ -19,7 +19,7 @@ namespace FunnelWeb.Web.Controllers
     [ValidateInput(false)]
     public class WikiController : Controller
     {
-        private const int ItemsPerPage = 2;
+        private const int ItemsPerPage = 30;
         public IEntryRepository EntryRepository { get; set; }
         public IFeedRepository FeedRepository { get; set; }
         public ISpamChecker SpamChecker { get; set; }
