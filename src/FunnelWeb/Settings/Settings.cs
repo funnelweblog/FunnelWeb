@@ -85,6 +85,12 @@ namespace FunnelWeb.Settings
         [SettingStorage(StorageLocation.Database, "spam-blacklist")]
         public string SpamWords { get; set; }
 
+        [DisplayName("Disable comments after")]
+        [DefaultValue(0)]
+        [Description("If a post is older than this many days, comments will be disabled. Use 0 to allow comments indefinitely.")]
+        [SettingStorage(StorageLocation.Database, "spam-comment-disable")]
+        public int DisableCommentsOlderThan { get; set; }
+
         [DisplayName("HTML Head")]
         [StringLength(2000)]
         [DefaultValue("")]
@@ -160,6 +166,18 @@ namespace FunnelWeb.Settings
         [Description("Notify me when comments are posted")]
         [SettingStorage(StorageLocation.Database, "smtp-comments-on")]
         public bool CommentNotification { get; set; }
+
+        [DisplayName("Facebook Like")]
+        [DefaultValue(true)]
+        [Description("Show a Facebook 'Like' button under each page")]
+        [SettingStorage(StorageLocation.Database, "facebook-like")]
+        public bool FacebookLike { get; set; }
+
+        [DisplayName("Home page")]
+        [DefaultValue("blog")]
+        [Description("Enter the name of a page to use as your custom home page. Use 'blog' to show a list of recent posts.")]
+        [SettingStorage(StorageLocation.Database, "home-page")]
+        public string CustomHomePage { get; set; }
 
         [SettingStorage(StorageLocation.Custom)]
         public string[] Themes { get; set; }

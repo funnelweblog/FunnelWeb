@@ -25,10 +25,10 @@ namespace FunnelWeb.Tests.Web
             public void ShouldMapRoutesAsSpecifiedInDocumentation()
             {
                 // Wiki
-                Routes.WillRoute("~/", new {controller = "Wiki", action = "Recent", pageNumber = "0" });
-                Routes.WillRoute("~/hello-world", new { controller = "Wiki", action = "Page", page = "hello-world", revision = "0" });
-                Routes.WillRoute("~/hello-world/2", new { controller = "Wiki", action = "Page", page = "hello-world", revision = "2" });
-                Routes.WillRoute("~/hello-world/revisions", new { controller = "Wiki", action = "Revisions", page = "hello-world" });
+                Routes.WillRoute("~/", new {controller = "Wiki", action = "Home", pageNumber = "0" });
+                Routes.WillRoute("~/blog", new {controller = "Wiki", action = "Recent", pageNumber = "0" });
+                Routes.WillRoute("~/hello-world", new { controller = "Wiki", action = "Page", page = "hello-world", revision = (int?)null });
+                Routes.WillRoute("~/history-of/hello-world", new { controller = "Wiki", action = "Revisions", page = "hello-world" });
                 Routes.WillRoute("~/edit/hello-world", new { controller = "Wiki", action = "Edit", page = "hello-world" });
                 
                 // Feeds

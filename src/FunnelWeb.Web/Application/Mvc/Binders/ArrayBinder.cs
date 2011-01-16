@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Helpers;
 
@@ -15,7 +16,7 @@ namespace FunnelWeb.Web.Application.Mvc.Binders
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
             var selectedIdentities = new List<int>();
-            var formValues = controllerContext.HttpContext.Request.Unvalidated().Form;
+            var formValues = controllerContext.HttpContext.Request.Form;
             foreach (var parameter in formValues)
             {
                 var key = (string) parameter;

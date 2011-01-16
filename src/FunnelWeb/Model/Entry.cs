@@ -39,6 +39,7 @@ namespace FunnelWeb.Model
         public virtual string MetaDescription { get; set; }
         public virtual string MetaKeywords { get; set; }
         public virtual string MetaTitle { get; set; }
+        public virtual bool HideChrome { get; set; }
         
         [Valid]
         public virtual Revision LatestRevision 

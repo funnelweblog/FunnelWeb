@@ -18,6 +18,7 @@ namespace FunnelWeb.Model.Mappings
             Map(x => x.MetaDescription);
             Map(x => x.MetaKeywords);
             Map(x => x.MetaTitle);
+            Map(x => x.HideChrome);
             Map(x => x.CommentCount).Formula("(SELECT COUNT(*) from Comment where Comment.EntryID = ID and Comment.Status = 1)");
             Map(x => x.FeedDate).Formula("(SELECT ISNULL(MAX(FeedItem.SortDate), Published)  from FeedItem where FeedItem.ItemID = ID)");
 

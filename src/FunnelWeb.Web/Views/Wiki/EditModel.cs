@@ -30,7 +30,7 @@ namespace FunnelWeb.Web.Views.Wiki
         [DisplayName("Name")]
         [StringLength(50)]
         [Description("This will appear in the URL to the page.")]
-        [RegularExpression("[a-z0-9\\-]+", ErrorMessage = "Page names can only include lowercase alpha characters, numbers and dashes")]
+        [RegularExpression("[a-z0-9\\-\\/]+", ErrorMessage = "Page names can only include lowercase alpha characters, numbers, dashes and forward slashes (/)")]
         [HintSize(HintSize.Medium)]
         public string Page { get; set; }
 
@@ -77,6 +77,11 @@ namespace FunnelWeb.Web.Views.Wiki
         public string Keywords { get; set; }
 
         [Required]
+        [DisplayName("Format")]
+        [Description("Choose the markup format you'd like to use for this page")]
+        public string Format { get; set; }
+
+        [Required]
         [DisplayName("Content")]
         [DataType("Markdown")]
         [HintSize(HintSize.Large)]
@@ -90,9 +95,13 @@ namespace FunnelWeb.Web.Views.Wiki
         [HintSize(HintSize.Large)]
         public string ChangeSummary { get; set; }
 
-        [DisplayName("Allow comments")]
+        [DisplayName("Comments")]
         [Description("If checked, allows users to post comments on this page.")]
         public bool AllowComments { get; set; }
+
+        [DisplayName("Hide chrome")]
+        [Description("If checked, the page title, date, history and so on will not be shown on the page.")]
+        public bool HideChrome { get; set; }
 
         public IEnumerable<Feed> Feeds { get; set; }
 

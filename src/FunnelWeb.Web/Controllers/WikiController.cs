@@ -6,6 +6,7 @@ using FunnelWeb.Eventing;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Model.Strings;
+using FunnelWeb.Settings;
 using FunnelWeb.Web.Application.Filters;
 using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Application.Spam;
@@ -23,6 +24,22 @@ namespace FunnelWeb.Web.Controllers
         public IFeedRepository FeedRepository { get; set; }
         public ISpamChecker SpamChecker { get; set; }
         public IEventPublisher EventPublisher { get; set; }
+        public ISettingsProvider SettingsProvider { get; set; }
+
+        public virtual ActionResult Home(int? pageNumber)
+        {
+            var settings = SettingsProvider.GetSettings();
+            if (!string.IsNullOrWhiteSpace(settings.CustomHomePage))
+            {
+                var entry = EntryRepository.GetEntry(settings.CustomHomePage);
+                if (entry != null)
+                {
+                    return View("Page", new PageModel(entry.Name, entry, false));
+                }
+            }
+
+            return Recent(pageNumber ?? 0);
+        }
 
         public virtual ActionResult Recent(int pageNumber)
         {
@@ -30,8 +47,8 @@ namespace FunnelWeb.Web.Controllers
 
             var entries = FeedRepository.GetFeed(feed, pageNumber * ItemsPerPage, ItemsPerPage);
             var totalItems = FeedRepository.GetFeedCount(feed);
-            ViewData.Model = new RecentModel(entries, pageNumber, (int)((decimal)totalItems / ItemsPerPage + 1));
-            return View();
+            ViewData.Model = new RecentModel(entries, pageNumber, (int)((decimal)totalItems / ItemsPerPage + 1), ControllerContext.RouteData.Values["action"].ToString());
+            return View("Recent");
         }
 
         public virtual ActionResult Search([Bind(Prefix = "q")] string searchText)
@@ -56,9 +73,9 @@ namespace FunnelWeb.Web.Controllers
             return View("NotFound");
         }
 
-        public virtual ActionResult Page(PageName page, int revision)
+        public virtual ActionResult Page(PageName page, int? revision)
         {
-            var entry = EntryRepository.GetEntry(page, revision);
+            var entry = EntryRepository.GetEntry(page, revision ?? 0);
             if (entry == null)
             {
                 if (HttpContext.User.Identity.IsAuthenticated)
@@ -76,7 +93,7 @@ namespace FunnelWeb.Web.Controllers
         public virtual ActionResult Unpublished()
         {
             var allPosts = EntryRepository.GetUnpublished();
-            ViewData.Model = new RecentModel(allPosts, 1, 1);
+            ViewData.Model = new RecentModel(allPosts, 1, 1, "Unpublished");
             return View();
         }
 
@@ -86,8 +103,10 @@ namespace FunnelWeb.Web.Controllers
             var feeds = FeedRepository.GetFeeds();
             var model = new EditModel("", true, feeds);
             model.Title = "Enter a title";
+            model.Page = DateTime.Today.ToString("yyyy/MM/dd/");
             model.AllowComments = true;
             model.MetaTitle = "Enter a meta title";
+            model.Format = Formats.Markdown;
             model.PublishDate = DateTime.Today.Date.ToString("yyyy-MM-dd");
             return View("Edit", model);
         }
@@ -101,6 +120,8 @@ namespace FunnelWeb.Web.Controllers
             model.AllowComments = entry.IsDiscussionEnabled;
             model.ChangeSummary = entry.Id == 0 ? "Initial create" : "";
             model.Content = entry.LatestRevision.Body;
+            model.Format = entry.LatestRevision.Format;
+            model.HideChrome = entry.HideChrome;
             model.Keywords = entry.MetaKeywords;
             model.MetaDescription = entry.MetaDescription;
             model.MetaTitle = entry.MetaTitle;
@@ -111,14 +132,16 @@ namespace FunnelWeb.Web.Controllers
         }
 
         [Authorize(Roles = "Moderator")]
-        public virtual ActionResult Revert(PageName page, int revision)
+        public virtual ActionResult Revert(PageName page, int? revision)
         {
-            var entry = EntryRepository.GetEntry(page, revision) ?? new Entry() { Title = page, MetaTitle = page, Name = page, LatestRevision = new Revision() };
+            var entry = EntryRepository.GetEntry(page, revision ?? 0) ?? new Entry() { Title = page, MetaTitle = page, Name = page, LatestRevision = new Revision() };
             var feeds = FeedRepository.GetFeeds();
             var model = new EditModel(page, entry.Id == 0, feeds);
             model.AllowComments = entry.IsDiscussionEnabled;
             model.ChangeSummary = "Reverted to version " + revision;
             model.Content = entry.LatestRevision.Body;
+            model.Format = entry.LatestRevision.Format;
+            model.HideChrome = entry.HideChrome;
             model.Keywords = entry.MetaKeywords;
             model.MetaDescription = entry.MetaDescription;
             model.MetaTitle = entry.MetaTitle;
@@ -148,11 +171,13 @@ namespace FunnelWeb.Web.Controllers
             entry.IsDiscussionEnabled = model.AllowComments;
             entry.MetaDescription = model.MetaDescription ?? string.Empty;
             entry.MetaKeywords = model.Keywords ?? string.Empty;
+            entry.HideChrome = model.HideChrome;
             entry.Published = DateTime.Parse(model.PublishDate, CultureInfo.InvariantCulture).ToUniversalTime();
 
             var revision = entry.Revise();
             revision.Body = model.Content;
             revision.Reason = model.ChangeSummary;
+            revision.Format = model.Format;
 
             EntryRepository.Save(entry);
 
@@ -168,6 +193,7 @@ namespace FunnelWeb.Web.Controllers
             return RedirectToAction("Page", new { page = model.Page });
         }
 
+        // Posting a comment
         [HttpPost]
         public virtual ActionResult Page(PageName page, PageModel model)
         {
@@ -198,6 +224,13 @@ namespace FunnelWeb.Web.Controllers
             catch (Exception ex)
             {
                 HttpContext.Trace.Warn("Akismet is offline, comment cannot be validated: " + ex);
+            }
+
+            // Anything posted after the disable date is considered spam (the comment box shouldn't be visible anyway)
+            var settings = SettingsProvider.GetSettings();
+            if (settings.DisableCommentsOlderThan > 0 && DateTime.UtcNow.AddDays(settings.DisableCommentsOlderThan) > entry.Published)
+            {
+                comment.IsSpam = true;
             }
 
             EntryRepository.Save(entry);

@@ -29,6 +29,17 @@
     @Html.HintFor(m => m.Introduction)
   </div>
         
+  <h3>Home Page</h3>
+        
+  <div class="editor-label">
+    @Html.LabelFor(m => m.CustomHomePage)
+  </div>
+  <div class="editor-field">
+    @Html.TextBoxFor(m => m.CustomHomePage)
+    @Html.ValidationMessageFor(m => m.CustomHomePage)
+    @Html.HintFor(m => m.CustomHomePage)
+  </div>
+
   <h3>Appearance</h3>
         
   <div class="editor-label">
@@ -99,7 +110,16 @@
     @Html.HintFor(m => m.UploadPath)
   </div>
 
-  <h3>Spam</h3>
+  <h3>Comments</h3>
+  <div class="editor-label">
+    @Html.LabelFor(m => m.DisableCommentsOlderThan)
+  </div>
+  <div class="editor-field">
+    @Html.TextBoxFor(m => m.DisableCommentsOlderThan, new { @class = "small" })
+    @Html.ValidationMessageFor(m => m.DisableCommentsOlderThan)
+    @Html.HintFor(m => m.DisableCommentsOlderThan)
+  </div>
+
   <div class="editor-label">
     @Html.LabelFor(m => m.AkismetApiKey)
   </div>
@@ -136,7 +156,17 @@
     @Html.ValidationMessageFor(m => m.HtmlFooter)
     @Html.HintFor(m => m.HtmlFooter)
   </div>
-        
+
+
+  <h3>Social</h3>        
+  <div class="editor-label">
+    @Html.LabelFor(m => m.FacebookLike)
+  </div>
+  <div class="editor-field">
+    @Html.CheckBoxFor(m => m.FacebookLike)
+    @Html.ValidationMessageFor(m => m.FacebookLike)
+    @Html.HintFor(m => m.FacebookLike)
+  </div>
 
   <h3>Email notifications</h3>
 

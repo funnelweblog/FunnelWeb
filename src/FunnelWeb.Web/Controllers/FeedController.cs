@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Web.Mvc;
+using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Model.Strings;
 using FunnelWeb.Settings;
@@ -54,10 +55,10 @@ namespace FunnelWeb.Web.Controllers
             var items =
                 from e in entries
                 let itemUri = new Uri(Request.Url, Url.Action("Page", "Wiki", new { page = e.Name }))
+                let viaFeedUri = new Uri(Request.Url, "/via-feed" + Url.Action("Page", "Wiki", new { page = e.Name }))
                 orderby e.FeedDate descending
                 let content = TextSyndicationContent.CreateHtmlContent(
-                            Markdown.Render(e.LatestRevision.Body) +
-                            String.Format("<img src=\"{0}\" />", itemUri + "/via-feed"))
+                            BuildFeedItemBody(itemUri, viaFeedUri, e.LatestRevision))
                 select new
                 {
                     Item = new SyndicationItem
@@ -87,6 +88,22 @@ namespace FunnelWeb.Web.Controllers
                     item.Categories.Add(new SyndicationCategory(k.Trim()));
                 return item;
             }));
+        }
+
+        private string BuildFeedItemBody(Uri itemUri, Uri viaFeedUri, Revision latestRevision)
+        {
+            var result = Markdown.Render(latestRevision.Body)
+                         + string.Format("<img src=\"{0}\" />", viaFeedUri);
+
+            if (Settings.GetSettings().FacebookLike)
+            {
+                var facebook = string.Format(@"  <div class='facebook'>
+                      <iframe src='http://www.facebook.com/plugins/like.php?href={0}&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=80' scrolling='no' frameborder='0' style='border:none; overflow:hidden; width:450px; height:80px;' allowTransparency='true'></iframe>
+                    </div>", Url.Encode(itemUri.AbsoluteUri));
+                result += facebook;
+            }
+
+            return result;
         }
 
         public virtual ActionResult CommentFeed()

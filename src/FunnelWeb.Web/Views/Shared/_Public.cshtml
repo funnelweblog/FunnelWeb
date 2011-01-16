@@ -26,7 +26,7 @@
     </div>
     <div class="nav">
       <ul>
-        <li>@Html.Qualify(Html.ActionLink("Home", "Recent", "Wiki"))</li>
+        <li><a href="@Html.Qualify("/")">Home</a></li>
         @MvcHtmlString.Create(Html.Settings().MainLinks)
         @if (ViewData.IsLoggedIn())
         {

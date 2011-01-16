@@ -25,7 +25,7 @@
     <div class='summary'>
       <h2>@Html.Qualify(Html.ActionLink(entry.Title, "Edit", new { page = entry.Name }))</h2>
       @if (!string.IsNullOrEmpty(entry.MetaDescription)) {
-      <p>@Html.Encode(entry.MetaDescription)</p>
+      <p>@entry.MetaDescription</p>
       }
     </div>
   </div>
@@ -40,9 +40,9 @@
     @if (i == Model.PageNumber) { 
       @MvcHtmlString.Create((i + 1).ToString())
     } else if (i == 0) { 
-      @Html.ActionLink((i + 1).ToString(), "Recent") 
+      @Html.ActionLink((i + 1).ToString(), "Unpublished") 
     } else { 
-      @Html.ActionLink((i + 1).ToString(), "Recent", new { pageNumber = i }) 
+      @Html.ActionLink((i + 1).ToString(), "Unpublished", new { pageNumber = i }) 
     }
   </span>
   }

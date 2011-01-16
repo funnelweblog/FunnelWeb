@@ -97,11 +97,11 @@ h5
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     
-    padding: 0 15px;
-    margin: 0 15px;
+    padding: 0 0 0 15px;
+    margin: 0 0 0 5px;
     margin-top: 70px;
     float: right;
-    width: 220px;
+    max-width: 220px;
 }
 .intro h1
 {
@@ -118,7 +118,7 @@ h5
 
 .post-list
 {
-    width: 660px;
+    width: 700px;
 }
 
 .post-line
@@ -168,6 +168,13 @@ h5
     border-bottom: 1px solid #ccc;
 }
 
+.comment .comment-author
+{
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+}
+
 pre
 {
     background: #FFFCF4;
@@ -190,9 +197,16 @@ pre
     color: #fff;
     font-family: "Segoe UI", Sans-Serif; 
     font-weight:normal;
+    padding-top: 10px;
+    padding-bottom: 10px;
     border-radius: 0;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
+}
+
+.entry-date .year
+{
+    font-size: 14pt;
 }
 
 .entry-tools

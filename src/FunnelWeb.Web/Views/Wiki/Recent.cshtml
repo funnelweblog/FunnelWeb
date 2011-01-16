@@ -44,9 +44,9 @@
     @if (i == Model.PageNumber) { 
       @MvcHtmlString.Create((i + 1).ToString())
     } else if (i == 0) { 
-      @Html.ActionLink((i + 1).ToString(), "Recent") 
+      @Html.ActionLink((i + 1).ToString(), Model.ActionName) 
     } else { 
-      @Html.ActionLink((i + 1).ToString(), "Recent", new { pageNumber = i }) 
+      @Html.ActionLink((i + 1).ToString(), Model.ActionName, new { pageNumber = i }) 
     }
   </span>
   }

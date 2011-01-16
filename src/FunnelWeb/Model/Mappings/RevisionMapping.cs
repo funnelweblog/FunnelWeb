@@ -15,6 +15,7 @@ namespace FunnelWeb.Model.Mappings
             Map(x => x.RevisionNumber);
             Map(x => x.Status);
             Map(x => x.Tags);
+            Map(x => x.Format);
             References(x => x.Entry, "EntryId");
         }
     }

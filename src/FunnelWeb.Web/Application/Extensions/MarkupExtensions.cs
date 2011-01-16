@@ -56,7 +56,7 @@ namespace FunnelWeb.Web.Application.Extensions
         public static MvcHtmlString ActionUrl(this HtmlHelper html, string actionName, object values)
         {
             var url = new UrlHelper(html.ViewContext.RequestContext, html.RouteCollection);
-            var result = url.Action(actionName, values);
+            var result = url.Action(actionName, "Wiki", values);
             return MvcHtmlString.Create(result.ToLower(CultureInfo.InvariantCulture));
         }
 
@@ -146,8 +146,9 @@ namespace FunnelWeb.Web.Application.Extensions
         public static IEnumerable<MvcHtmlString> CssKeywordsFor(this HtmlHelper html, Entry entry)
         {
             return from k in entry.MetaKeywords.Split(',')
-                   where keyword.IsMatch(k)
-                   select MvcHtmlString.Create("keyword-" + k.Trim());
+                   let w = k.Trim()
+                   where keyword.IsMatch(w)
+                   select MvcHtmlString.Create("keyword-" + w);
         }
 
         #endregion

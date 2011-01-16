@@ -27,5 +27,5 @@
 
 @if (Model.Result.Successful == false && Model.Result.Error != null) {
   <h2>Exception Details</h2>
-  <pre>@Model.Result.Error</pre>
+  <pre>@MvcHtmlString.Create(Model.Result.Error.ToString())</pre>
 }
