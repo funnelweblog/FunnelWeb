@@ -103,6 +103,7 @@ namespace FunnelWeb.Web.Controllers
             var feeds = FeedRepository.GetFeeds();
             var model = new EditModel("", true, feeds);
             model.Title = "Enter a title";
+            model.Page = DateTime.Today.ToString("yyyy/MM/dd/");
             model.AllowComments = true;
             model.MetaTitle = "Enter a meta title";
             model.PublishDate = DateTime.Today.Date.ToString("yyyy-MM-dd");

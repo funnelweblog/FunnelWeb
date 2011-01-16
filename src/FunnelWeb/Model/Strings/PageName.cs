@@ -19,8 +19,7 @@ namespace FunnelWeb.Model.Strings
             value = Regex.Replace(value, "\\s", "-");
             value = new string(value.Select(x => (char.IsLetterOrDigit(x) || x == '-' || x == '/') ? x : '-').ToArray());
             value = Regex.Replace(value, "-+", "-");
-            value = Regex.Replace(value, "-$", "");
-            if (value.StartsWith("-")) value = value.Substring(1);
+            value = value.Trim('-', '/');
             return value;
         }
 
