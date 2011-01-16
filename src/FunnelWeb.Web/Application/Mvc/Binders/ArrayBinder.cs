@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Helpers;
 
@@ -15,7 +16,16 @@ namespace FunnelWeb.Web.Application.Mvc.Binders
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
             var selectedIdentities = new List<int>();
-            var formValues = controllerContext.HttpContext.Request.Unvalidated().Form;
+
+            var context = controllerContext.HttpContext;
+            var formValues = context.Request.Form;
+            // This is gross, but Unvalidated() throws if there's no HttpContext, and 
+            // there doesn't seem to be any other way of faking it
+            if (HttpContext.Current != null)
+            {
+                formValues = context.Request.Unvalidated().Form;
+            }
+
             foreach (var parameter in formValues)
             {
                 var key = (string) parameter;
