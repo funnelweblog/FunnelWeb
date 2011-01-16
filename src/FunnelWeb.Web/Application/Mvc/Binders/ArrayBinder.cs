@@ -16,16 +16,7 @@ namespace FunnelWeb.Web.Application.Mvc.Binders
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
             var selectedIdentities = new List<int>();
-
-            var context = controllerContext.HttpContext;
-            var formValues = context.Request.Form;
-            // This is gross, but Unvalidated() throws if there's no HttpContext, and 
-            // there doesn't seem to be any other way of faking it
-            if (HttpContext.Current != null)
-            {
-                formValues = context.Request.Unvalidated().Form;
-            }
-
+            var formValues = controllerContext.HttpContext.Request.Form;
             foreach (var parameter in formValues)
             {
                 var key = (string) parameter;
