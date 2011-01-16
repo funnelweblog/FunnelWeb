@@ -1,3 +1,10 @@
 ﻿@model String
 
-@Html.Markdown(Model, ViewData.ContainsKey("Sanitize") && (bool)ViewData["Sanitize"])
+@if (ViewData.ContainsKey("Format") && (string)ViewData["Format"] == FunnelWeb.Model.Formats.Html)
+{
+  @MvcHtmlString.Create(Model)
+}
+else
+{
+  @Html.Markdown(Model, ViewData.ContainsKey("Sanitize") && (bool)ViewData["Sanitize"])
+}

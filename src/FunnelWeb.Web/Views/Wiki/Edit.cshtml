@@ -93,6 +93,17 @@
   <div class="editor-field">
     <span>@Html.ActionLink("Click here to upload files...", "Index", "Upload", null, new{target = "_blank"})</span>
   </div>
+  
+  <div class="editor-label">
+    @Html.LabelFor(m => m.Format)
+  </div>
+  <div class="editor-field">
+    @Html.RadioButtonFor(m => m.Format, @FunnelWeb.Model.Formats.Markdown) Markdown
+    @Html.RadioButtonFor(m => m.Format, @FunnelWeb.Model.Formats.Html) HTML
+    @Html.ValidationMessageFor(m => m.Format)
+    @Html.HintFor(m => m.Format)
+    <span class="hint">You may find <a href="http://milianw.de/projects/markdownify/">Markdownify</a> useful for converting between formats.</span>
+  </div>
 
   <div class="editor-label">
     @Html.LabelFor(m => m.Content)
@@ -132,6 +143,16 @@
     @Html.CheckBoxFor(m => m.AllowComments, Html.AttributesFor(m => m.AllowComments))
     @Html.ValidationMessageFor(m => m.AllowComments)
     @Html.HintFor(m => m.AllowComments)
+  </div>
+  <br />
+  
+  <div class="editor-label">
+    @Html.LabelFor(m => m.HideChrome)
+  </div>
+  <div class="editor-field">
+    @Html.CheckBoxFor(m => m.HideChrome, Html.AttributesFor(m => m.HideChrome))
+    @Html.ValidationMessageFor(m => m.HideChrome)
+    @Html.HintFor(m => m.HideChrome)
   </div>
 
   <div class="editor-label">
