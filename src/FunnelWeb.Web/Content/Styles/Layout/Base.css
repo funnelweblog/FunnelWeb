@@ -994,3 +994,31 @@ pre.prettyprint { font-family: Consolas; font-size: 11pt;  }
   .atn { color: #404; }
   .atv { color: #060; }
 }
+
+.boxes 
+{
+    clear: both;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.box4 
+{
+    width: 180px;
+    margin-right: 20px;
+    float: left;
+}
+.box4 img, .box2 img, .box3 img  
+{
+    padding: 0;
+    margin: 0;
+}
+.box2 
+{
+    width: 380px;
+    margin-right: 20px;
+}
+.box3 
+{
+    width: 280px;
+    margin-right: 20px;
+}
