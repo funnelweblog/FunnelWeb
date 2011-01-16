@@ -167,6 +167,12 @@ namespace FunnelWeb.Settings
         [SettingStorage(StorageLocation.Database, "facebook-like")]
         public bool FacebookLike { get; set; }
 
+        [DisplayName("Home page")]
+        [DefaultValue("blog")]
+        [Description("Enter the name of a page to use as your custom home page. Use 'blog' to show a list of recent posts.")]
+        [SettingStorage(StorageLocation.Database, "home-page")]
+        public string CustomHomePage { get; set; }
+
         [SettingStorage(StorageLocation.Custom)]
         public string[] Themes { get; set; }
     }

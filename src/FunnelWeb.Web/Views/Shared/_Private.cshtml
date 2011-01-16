@@ -19,7 +19,7 @@
     </div>
     <div class="nav">
       <ul>
-        <li>@Html.Qualify(Html.ActionLink("Home", "Recent", "Wiki"))</li>
+        <li><a href="@Html.Qualify("/")">Home</a></li>
         @if (ViewData.IsLoggedIn()) {
         <li>@Html.ActionLink("New Post", "New", "Wiki")</li>
         <li>@Html.ActionLink("Admin", "Index", "Admin")</li>

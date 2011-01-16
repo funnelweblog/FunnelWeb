@@ -6,6 +6,7 @@ using FunnelWeb.Eventing;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Model.Strings;
+using FunnelWeb.Settings;
 using FunnelWeb.Web.Application.Filters;
 using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Application.Spam;
@@ -23,10 +24,19 @@ namespace FunnelWeb.Web.Controllers
         public IFeedRepository FeedRepository { get; set; }
         public ISpamChecker SpamChecker { get; set; }
         public IEventPublisher EventPublisher { get; set; }
+        public ISettingsProvider SettingsProvider { get; set; }
 
         public virtual ActionResult Home(int? pageNumber)
         {
-            // TODO: If they have a custom home page, use that
+            var settings = SettingsProvider.GetSettings();
+            if (!string.IsNullOrWhiteSpace(settings.CustomHomePage))
+            {
+                var entry = EntryRepository.GetEntry(settings.CustomHomePage);
+                if (entry != null)
+                {
+                    return View("Page", new PageModel(entry.Name, entry, false));
+                }
+            }
 
             return Recent(pageNumber ?? 0);
         }
@@ -175,6 +185,7 @@ namespace FunnelWeb.Web.Controllers
             return RedirectToAction("Page", new { page = model.Page });
         }
 
+        // Posting a comment
         [HttpPost]
         public virtual ActionResult Page(PageName page, PageModel model)
         {

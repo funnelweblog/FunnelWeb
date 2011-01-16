@@ -29,6 +29,17 @@
     @Html.HintFor(m => m.Introduction)
   </div>
         
+  <h3>Home Page</h3>
+        
+  <div class="editor-label">
+    @Html.LabelFor(m => m.CustomHomePage)
+  </div>
+  <div class="editor-field">
+    @Html.TextBoxFor(m => m.CustomHomePage)
+    @Html.ValidationMessageFor(m => m.CustomHomePage)
+    @Html.HintFor(m => m.CustomHomePage)
+  </div>
+
   <h3>Appearance</h3>
         
   <div class="editor-label">
