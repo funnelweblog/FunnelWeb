@@ -18,13 +18,13 @@ namespace FunnelWeb.Tests.Integration
 
             Browser.Link(Find.ByText("New Post")).Click();
 
-            Browser.TextField("Page").AppendText("my-page");
-            Browser.TextField("Title").AppendText("My Page");
-            Browser.TextField("MetaTitle").AppendText("My Page Top");
-            Browser.TextField("MetaDescription").AppendText("This is a summary of my blog post");
-            Browser.TextField("Sidebar").AppendText("Some intro");
-            Browser.TextField("TagsString").AppendText("tag1, tag2, tag3");
-            Browser.TextField("wmd-input").AppendText("This is my entry...");
+            Browser.TextField("Page").TypeText("my-page");
+            Browser.TextField("Title").TypeText("My Page");
+            Browser.TextField("MetaTitle").TypeText("My Page Top");
+            Browser.TextField("MetaDescription").TypeText("This is a summary of my blog post");
+            Browser.TextField("Sidebar").TypeText("Some intro");
+            Browser.TextField("TagsString").TypeText("tag1, tag2, tag3");
+            Browser.TextField("wmd-input").TypeText("This is my entry...");
             Browser.RadioButton(Find.ByValue("Public-Blog")).Click();
             
             Browser.Button(Find.ByValue("Save!")).Click();
