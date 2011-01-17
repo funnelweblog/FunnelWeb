@@ -107,7 +107,7 @@ namespace FunnelWeb.Settings
 
         [DisplayName("Theme")]
         [StringLength(100)]
-        [DefaultValue("Default")]
+        [DefaultValue("Official")]
         [Description("The theme which will be used for this website.")]
         [SettingStorage(StorageLocation.Database, "ui-theme")]
         public string Theme { get; set; }

@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -35,6 +36,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\Autofac\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\lib\Watin\Microsoft.mshtml.dll</HintPath>
+    </Reference>
     <Reference Include="Moq">
       <HintPath>..\..\lib\Moq\Moq.dll</HintPath>
     </Reference>
@@ -45,6 +51,7 @@
       <HintPath>..\..\lib\NUnit\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -59,6 +66,20 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WatiN.Core">
+      <HintPath>..\..\lib\Watin\WatiN.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="WatiN.Core.UnitTests">
+      <HintPath>..\..\lib\Watin\WatiN.Core.UnitTests.dll</HintPath>
+    </Reference>
+    <Reference Include="WebDev.WebHost40, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Cassini\WebDev.WebHost40.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebDev.WebServer40">
+      <HintPath>..\..\lib\Cassini\WebDev.WebServer40.EXE</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Information\SolutionInfo.cs">
@@ -67,9 +88,16 @@
     <Compile Include="..\Information\VersionInfo.cs">
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
+    <Compile Include="Helpers\AdHocSqlRunner.cs" />
+    <Compile Include="Helpers\Requires.cs" />
+    <Compile Include="Helpers\TemporaryDatabase.cs" />
+    <Compile Include="Integration\CanCreateNewBlogPosts.cs" />
+    <Compile Include="Integration\CanDeployDatabase.cs" />
     <Compile Include="Helpers\RouteExtensions.cs" />
     <Compile Include="Helpers\Specification.cs" />
     <Compile Include="Helpers\ThenAttribute.cs" />
+    <Compile Include="Helpers\IntegrationTest.cs" />
+    <Compile Include="Integration\CanLogIn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\Application\ActionResults\XmlActionResultTests.cs" />
     <Compile Include="Web\Application\Binders\ArrayBinderTests.cs" />
@@ -101,7 +129,13 @@
       <Name>FunnelWeb</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>dir</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
