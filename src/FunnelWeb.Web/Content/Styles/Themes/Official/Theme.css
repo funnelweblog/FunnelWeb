@@ -412,3 +412,8 @@ pre
 {
     border: 5px solid #cac29e;
 }
+
+.boxes h3
+{
+    margin-top: 5px;
+}
