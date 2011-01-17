@@ -15,7 +15,7 @@ namespace FunnelWeb.Web.Controllers
 
         public ActionResult Index()
         {
-            var tags = _repo.GetAll();
+            var tags = _repo.GetTags();
 
             return View(tags);
         }

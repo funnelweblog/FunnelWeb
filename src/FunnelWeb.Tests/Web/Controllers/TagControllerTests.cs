@@ -35,13 +35,13 @@ namespace FunnelWeb.Tests.Web.Controllers
         {
             //Arrange
             var repo = Substitute.For<ITagRepository>();
-            repo.GetAll().Returns(Enumerable
-                .Range(0, 5)
-                .Select(x => new Tag
-                                 {
-                                     Id = x,
-                                     Name = x.ToString()
-                                 }));
+            repo.GetTags().Returns(Enumerable
+                                       .Range(0, 5)
+                                       .Select(x => new Tag
+                                                        {
+                                                            Name = x.ToString()
+                                                        })
+                                       .AsQueryable());
             var controller = new TagController(repo);
 
             //Act
