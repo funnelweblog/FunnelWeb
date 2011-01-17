@@ -46,52 +46,12 @@ namespace FunnelWeb.Tests.Web.Controllers
             var entries = Substitute.For<IEnumerable<Entry>>();
             EntryRepository.Search(Arg.Is("search")).Returns(entries);
 
-            var result = (ViewResult)Controller.Search("search");
+            var result = (ViewResult)Controller.Search("search", false);
 
             EntryRepository.Received().Search(Arg.Is<string>("search"));
-            Assert.That(result.ViewName, Is.EqualTo("NotFound"));
+            Assert.That(result.ViewName, Is.EqualTo("Search"));
             Assert.IsInstanceOf<SearchModel>(result.ViewData.Model);
             Assert.AreEqual(entries, ((SearchModel)result.ViewData.Model).Results);
-        }
-
-        [Test]
-        public void NotFoundReturnsMatchedPageIfFound()
-        {
-            var redirect = new Redirect() { To = "some-page" };
-            EntryRepository.GetClosestRedirect(Arg.Any<string>()).Returns(redirect);
-
-            var result = (RedirectResult)Controller.NotFound("search");
-
-            EntryRepository.Received().GetClosestRedirect(Arg.Any<string>());
-            Assert.AreEqual(result.Url, "~/" + redirect.To);
-        }
-
-        [Test]
-        public void NotFoundReturnsMatchedWebsiteIfFound()
-        {
-            Redirect redirect = new Redirect() { To = "http://www.google.com" };
-            EntryRepository.GetClosestRedirect(Arg.Any<string>()).Returns(redirect);
-
-            var result = (RedirectResult)Controller.NotFound("search");
-
-            EntryRepository.Received().GetClosestRedirect(Arg.Any<string>());
-            Assert.AreEqual(result.Url, redirect.To);
-        }
-
-        [Test]
-        public void NotFound()
-        {
-            var entries = new List<Entry>();
-            EntryRepository.Search(Arg.Is<string>("search")).Returns(entries);
-            
-            var result = (ViewResult)Controller.NotFound("search");
-
-            Assert.AreEqual("NotFound", result.ViewName);
-            Assert.IsNotNull(result.ViewData.Model);
-            Assert.IsInstanceOf(typeof(SearchModel), result.ViewData.Model);
-            var model = (SearchModel)result.ViewData.Model;
-            Assert.AreSame(entries, model.Results);
-            EntryRepository.Received().Search(Arg.Is<string>("search"));
         }
 
         [Test]
@@ -116,7 +76,7 @@ namespace FunnelWeb.Tests.Web.Controllers
             
             var result = (ViewResult)Controller.Page("page", 0);
 
-            Assert.AreEqual("NotFound", result.ViewName);
+            Assert.AreEqual("Search", result.ViewName);
             Assert.IsNotNull(result.ViewData.Model);
             Assert.IsInstanceOf(typeof(SearchModel), result.ViewData.Model);
 
@@ -146,17 +106,19 @@ namespace FunnelWeb.Tests.Web.Controllers
         [Test]
         public void EditReturnsExistingPageWhenFound()
         {
-            var entry = new Entry() { Name = "Awesome Post", LatestRevision = new Revision() };
-            EntryRepository.GetEntry(Arg.Any<PageName>()).Returns(entry);
+            var entry = new Entry() { Name = "awesome-post", LatestRevision = new Revision() };
+            EntryRepository.GetEntry(Arg.Any<PageName>(), Arg.Any<int>()).Returns(entry);
+
             var feeds = new List<Tag>().AsQueryable();
             FeedRepository.GetTags().Returns(feeds);
             
             var result = (ViewResult)Controller.Edit(entry.Name, null);
 
-            Assert.IsTrue(string.IsNullOrEmpty(result.ViewName));
+            Assert.AreEqual("Edit", result.ViewName);
             Assert.AreEqual(feeds, ((EditModel)result.ViewData.Model).AllTags);
             Assert.AreEqual(entry.Name.ToString(), ((EditModel)result.ViewData.Model).Page);
-            EntryRepository.Received().GetEntry(Arg.Any<PageName>());
+
+            EntryRepository.Received().GetEntry(Arg.Any<PageName>(), Arg.Any<int>());
             FeedRepository.Received().GetTags();
         }
 

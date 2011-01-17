@@ -50,24 +50,10 @@ namespace FunnelWeb.Web.Controllers
             return View("Recent");
         }
 
-        public virtual ActionResult Search([Bind(Prefix = "q")] string searchText)
+        public virtual ActionResult Search([Bind(Prefix = "q")] string searchText, bool? is404)
         {
             var results = EntryRepository.Search(searchText);
-            return View("Search", new SearchModel(searchText, false, results));
-        }
-
-        public virtual ActionResult NotFound(string searchText)
-        {
-            var redirect = EntryRepository.GetClosestRedirect(HttpContext.Request.Url.AbsolutePath);
-            if (redirect != null)
-            {
-                return redirect.To.StartsWith("http") 
-                    ? Redirect(redirect.To) 
-                    : Redirect("~/" + redirect.To);
-            }
-
-            var results = EntryRepository.Search(searchText);
-            return View("Search", new SearchModel(searchText, true, results));
+            return View("Search", new SearchModel(searchText, is404 ?? false, results));
         }
 
         public virtual ActionResult Page(PageName page, int? revision)
@@ -79,7 +65,7 @@ namespace FunnelWeb.Web.Controllers
                 {
                     return RedirectToAction("Edit", "Wiki", new {page});
                 }
-                return NotFound(page);
+                return Search(page, true);
             }
 
             ViewData.Model = new PageModel(page, entry, revision > 0);
