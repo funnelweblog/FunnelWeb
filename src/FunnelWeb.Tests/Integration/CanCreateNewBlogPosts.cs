@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using FunnelWeb.Tests.Helpers;
+﻿using FunnelWeb.Tests.Helpers;
 using NUnit.Framework;
 using WatiN.Core;
 
@@ -31,8 +30,7 @@ namespace FunnelWeb.Tests.Integration
             Browser.Button(Find.ByValue("Save!")).Click();
 
             Browser.WaitUntilContainsText("History");
-            Browser.WaitUntilContainsText("My Page");
-
+            
             Browser.GoTo(RootUrl);
 
             Assert.IsTrue(Browser.ContainsText("My Page"));
@@ -42,7 +40,6 @@ namespace FunnelWeb.Tests.Integration
             Assert.IsTrue(Browser.ContainsText("tag3"));
             
             Browser.WaitForComplete();
-            Thread.Sleep(10000);
         }
     }
 }
