@@ -14,7 +14,7 @@ namespace FunnelWeb.Tests.Web.Controllers
     {
 
         [Test]
-        public void TagControllerTests_Empty_Repository_Returns_No_Categories()
+        public void TagControllerTests_Empty_Repository_Returns_No_Tags()
         {
             //Arrange
             var repo = Substitute.For<ITagRepository>();
@@ -29,5 +29,27 @@ namespace FunnelWeb.Tests.Web.Controllers
             Assert.IsInstanceOf(typeof (IEnumerable<Tag>), result.Model);
             Assert.IsFalse(((IEnumerable<Tag>) result.Model).Any());
         }
+
+        [Test]
+        public void TagControllerTests_GetAll_Returns_Entire_Repository()
+        {
+            //Arrange
+            var repo = Substitute.For<ITagRepository>();
+            repo.GetAll().Returns(Enumerable
+                .Range(0, 5)
+                .Select(x => new Tag
+                                 {
+                                     Id = x,
+                                     Name = x.ToString()
+                                 }));
+            var controller = new TagController(repo);
+
+            //Act
+            var result = controller.Index() as ViewResult;
+
+            //Assert
+            Assert.IsTrue(((IEnumerable<Tag>)result.Model).Count() == 5);
+        }
+
     }
 }
