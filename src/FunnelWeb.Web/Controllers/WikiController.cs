@@ -128,7 +128,7 @@ namespace FunnelWeb.Web.Controllers
             entry.Name = model.Page;
             entry.Title = model.Title ?? string.Empty;
             entry.Summary = model.Sidebar ?? string.Empty;
-            entry.MetaTitle = model.MetaTitle ?? string.Empty;
+            entry.MetaTitle = string.IsNullOrWhiteSpace(model.MetaTitle) ? model.Title : model.MetaTitle;
             entry.IsDiscussionEnabled = !model.DisableComments;
             entry.MetaDescription = model.MetaDescription ?? string.Empty;
             entry.HideChrome = model.HideChrome;
