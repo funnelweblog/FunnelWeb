@@ -1,27 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using FunnelWeb.Model.Repositories;
 
 namespace FunnelWeb.Web.Controllers
 {
     [Authorize]
     public class TagController : Controller
     {
-        private Model.Repositories.ITagRepository repo;
+        private readonly ITagRepository _repo;
 
-        public TagController(Model.Repositories.ITagRepository repo)
+        public TagController(ITagRepository repo)
         {
-            // TODO: Complete member initialization
-            this.repo = repo;
+            _repo = repo;
         }
-        //
-        // GET: /Tag/
 
         public ActionResult Index()
         {
-            return View();
+            var tags = _repo.GetAll();
+
+            return View(tags);
         }
 
     }
