@@ -29,9 +29,9 @@ namespace FunnelWeb.Web.Views.Wiki
         public bool IsNew { get; set; }
 
         [Required]
-        [DisplayName("Name")]
+        [DisplayName("SLUG")]
         [StringLength(50)]
-        [Description("This will appear in the URL to the page.")]
+        [Description("This will form the URL to your page.")]
         [RegularExpression("[a-z0-9\\-\\/]+", ErrorMessage = "Page names can only include lowercase alpha characters, numbers, dashes and forward slashes (/)")]
         [HintSize(HintSize.Medium)]
         public string Page { get; set; }

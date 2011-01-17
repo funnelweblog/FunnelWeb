@@ -85,9 +85,10 @@ namespace FunnelWeb.Web.Controllers
             var entry = EntryRepository.GetEntry(page, revertToRevision ?? 0) 
                 ?? new Entry
                 {
-                    Title = page, 
-                    MetaTitle = page, 
+                    Title = "New post",
+                    MetaTitle = "New post", 
                     Name = page, 
+                    Status = EntryStatus.PublicBlog,
                     LatestRevision = new Revision()
                 };
             
