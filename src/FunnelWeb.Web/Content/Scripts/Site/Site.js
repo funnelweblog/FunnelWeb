@@ -31,11 +31,11 @@ function enablePrettyDates() {
 
 var changes = 0;
 function enableChangeDetection() {
-    $(".promptBeforeUnload input").click(function () {
+    $("input[type=text]").click(function () {
         changes++;
     });
 
-    $(".promptBeforeUnload textarea").click(function () {
+    $("textarea").click(function () {
         changes++;
     });
 
@@ -76,9 +76,9 @@ $(function () {
     enablePrettyDates();
     enableNewWindowLinks();
 
+    enableChangeDetection();
+
     if ($("#wmd-input").size() > 0) {
         initializeWmd();
     }
-    enableChangeDetection();
 });
-

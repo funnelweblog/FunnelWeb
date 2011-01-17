@@ -235,10 +235,10 @@ Attacklab.wmdBase = function () {
                 text = text.replace('http://https://', 'https://');
                 text = text.replace('http://ftp://', 'ftp://');
 
-// Disabled so that we can just enter the name of a page as a relative link
-//                if (text.indexOf('http://') === -1 && text.indexOf('ftp://') === -1 && text.indexOf('https://') === -1) {
-//                    text = 'http://' + text;
-//                }
+                // Disabled so that we can just enter the name of a page as a relative link
+                //                if (text.indexOf('http://') === -1 && text.indexOf('ftp://') === -1 && text.indexOf('https://') === -1) {
+                //                    text = 'http://' + text;
+                //                }
             }
 
             dialog.parentNode.removeChild(dialog);
@@ -1167,20 +1167,6 @@ Attacklab.wmdBase = function () {
                 }
             });
 
-            // Auto-continue lists, code blocks and block quotes when
-            // the enter key is pressed.
-            util.addEvent(inputBox, "keyup", function (key) {
-                if (!key.shiftKey && !key.ctrlKey && !key.metaKey) {
-                    var keyCode = key.charCode || key.keyCode;
-                    // Key code 13 is Enter
-                    if (keyCode === 13) {
-                        fakeButton = {};
-                        fakeButton.textOp = command.doAutoindent;
-                        doClick(fakeButton);
-                    }
-                }
-            });
-
             // Disable ESC clearing the input textarea on IE
             if (global.isIE) {
                 util.addEvent(inputBox, "keydown", function (key) {
@@ -1468,15 +1454,16 @@ Attacklab.wmdBase = function () {
 
         this.selection = this.selection.replace(/^(\s*)/, "");
 
-        if (!remove) {
-            this.before += re.$1;
-        }
+// These remove segments cause issues in Chrome
+//        if (!remove) {
+//            this.before += RegExp.$1.toString();
+//        }
 
         this.selection = this.selection.replace(/(\s*)$/, "");
 
-        if (!remove) {
-            this.after = re.$1 + this.after;
-        }
+//        if (!remove) {
+//            this.after = RegExp.$1.toString() + this.after;
+//        }
     };
 
 
@@ -2334,37 +2321,38 @@ Attacklab.wmdBase = function () {
     }
 };
 
+function initializeWmd() {
+    Attacklab.wmd_env = {};
+    Attacklab.account_options = {};
+    Attacklab.wmd_defaults = { version: 1, output: "Markdown", lineLength: 40, delayLoad: true };
 
-Attacklab.wmd_env = {};
-Attacklab.account_options = {};
-Attacklab.wmd_defaults = { version: 1, output: "HTML", lineLength: 40, delayLoad: false };
+    if (!Attacklab.wmd) {
+        Attacklab.wmd = function () {
+            Attacklab.loadEnv = function () {
+                var mergeEnv = function (env) {
+                    if (!env) {
+                        return;
+                    }
 
-if (!Attacklab.wmd) {
-    Attacklab.wmd = function () {
-        Attacklab.loadEnv = function () {
-            var mergeEnv = function (env) {
-                if (!env) {
-                    return;
-                }
+                    for (var key in env) {
+                        Attacklab.wmd_env[key] = env[key];
+                    }
+                };
 
-                for (var key in env) {
-                    Attacklab.wmd_env[key] = env[key];
-                }
+                mergeEnv(Attacklab.wmd_defaults);
+                mergeEnv(Attacklab.account_options);
+                mergeEnv(top["wmd_options"]);
+                Attacklab.full = true;
+
+                var defaultButtons = "bold italic link blockquote code image ol ul heading hr";
+                Attacklab.wmd_env.buttons = Attacklab.wmd_env.buttons || defaultButtons;
             };
+            Attacklab.loadEnv();
 
-            mergeEnv(Attacklab.wmd_defaults);
-            mergeEnv(Attacklab.account_options);
-            mergeEnv(top["wmd_options"]);
-            Attacklab.full = true;
-
-            var defaultButtons = "bold italic link blockquote code image ol ul heading hr";
-            Attacklab.wmd_env.buttons = Attacklab.wmd_env.buttons || defaultButtons;
         };
-        Attacklab.loadEnv();
 
+        Attacklab.wmd();
+        Attacklab.wmdBase();
+        Attacklab.Util.startEditor();
     };
-
-    Attacklab.wmd();
-    Attacklab.wmdBase();
-    Attacklab.Util.startEditor();
-};
+}
