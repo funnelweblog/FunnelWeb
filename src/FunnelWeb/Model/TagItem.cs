@@ -2,15 +2,14 @@ using System;
 
 namespace FunnelWeb.Model
 {
-    public class FeedItem
+    public class TagItem
     {
-        public FeedItem()
+        public TagItem()
         {
         }
 
         public virtual int Id { get; private set; }
         public virtual Entry Entry { get; set; }
-        public virtual Feed Feed { get; set; }
-        public virtual DateTime SortDate { get; set; }
+        public virtual Tag Tag { get; set; }
     }
 }

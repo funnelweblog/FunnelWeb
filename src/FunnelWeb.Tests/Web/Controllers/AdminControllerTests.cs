@@ -16,14 +16,14 @@ namespace FunnelWeb.Tests.Web.Controllers
     {
         protected AdminController Controller { get; set; }
         protected IAdminRepository AdminRepository { get; set; }
-        protected IFeedRepository FeedRepository { get; set; }
+        protected ITagRepository FeedRepository { get; set; }
 
         [SetUp]
         public void SetUp()
         {
             Controller = new AdminController();
             Controller.AdminRepository = AdminRepository = Substitute.For<IAdminRepository>();
-            Controller.FeedRepository = FeedRepository = Substitute.For<IFeedRepository>();
+            Controller.FeedRepository = FeedRepository = Substitute.For<ITagRepository>();
             Controller.ControllerContext = CreateControllerContext();
         }
 
@@ -46,7 +46,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         [Test]
         public void DeleteFeed()
         {
-            FeedRepository.GetFeeds().Returns(new List<Feed>().AsQueryable());
+            FeedRepository.GetTags().Returns(new List<Tag>().AsQueryable());
             
             var result = (RedirectToRouteResult)Controller.DeleteFeed(0);
 
@@ -98,7 +98,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         {
             Controller.Feeds(new FeedsModel {FeedName = "name", FeedTitle = "title"});
 
-            FeedRepository.Received().Save(Arg.Is<Feed>(x => x.Name == "name"));
+            FeedRepository.Received().Save(Arg.Is<Tag>(x => x.Name == "name"));
         }
 
         private static ControllerContext CreateControllerContext()

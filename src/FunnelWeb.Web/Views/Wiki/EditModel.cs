@@ -17,12 +17,14 @@ namespace FunnelWeb.Web.Views.Wiki
             
         }
 
-        public EditModel(PageName page, bool isNew, IEnumerable<Feed> feeds)
+        public EditModel(PageName page, bool isNew, IEnumerable<Tag> tags)
         {
             Page = page;
             IsNew = isNew;
-            Feeds = feeds.ToList();
+            AllTags = tags.ToList();
         }
+
+        public List<Tag> AllTags { get; set; }
 
         public bool IsNew { get; set; }
 
@@ -41,7 +43,6 @@ namespace FunnelWeb.Web.Views.Wiki
         [HintSize(HintSize.Medium)]
         public string Title { get; set; }
 
-        [Required]
         [DisplayName("Meta-Title")]
         [StringLength(65)]
         [Description("This appears at the top of the browser tab and is used by search engines.")]
@@ -56,25 +57,23 @@ namespace FunnelWeb.Web.Views.Wiki
         [RegularExpression("[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}", ErrorMessage = "Please enter a date in YYYY-MM-DD format.")]
         public string PublishDate { get; set; }
 
-        [Required]
-        [DisplayName("Description")]
+        [DisplayName("Summary")]
         [StringLength(150)]
-        [Description("A short description that will appear in the &lt;meta&gt; tags of the page, and on the home page as a summary.")]
+        [Description("A short description that will appear on the home page, and in the meta-description shown to search engines.")]
         [HintSize(HintSize.Large)]
         public string MetaDescription { get; set; }
 
-        [DisplayName("Sidebar")]
+        [DisplayName("Introduction")]
         [StringLength(1000)]
-        [Description("This will appear at the right of the page. Use it to provide a quick description of the page to users. Use markdown or HTML.")]
+        [Description("An introduction that will appear at the top or right of the page. Use markdown or HTML.")]
         [HintSize(HintSize.Large)]
         public string Sidebar { get; set; }
 
-        [Required]
-        [DisplayName("Keywords")]
+        [DisplayName("Tags")]
         [StringLength(100)]
-        [Description("Comma-separated keywords that will appear in the &lt;meta&gt; tags of the page.")]
+        [Description("Comma-separated tags that will appear in the &lt;meta&gt; tags of the page.")]
         [HintSize(HintSize.Large)]
-        public string Keywords { get; set; }
+        public string TagsString { get; set; }
 
         [Required]
         [DisplayName("Format")]
@@ -88,23 +87,37 @@ namespace FunnelWeb.Web.Views.Wiki
         [AllowHtml]
         public string Content { get; set; }
 
-        [Required]
         [DisplayName("Change summary")]
         [StringLength(300)]
         [Description("A brief overview of what was changed and why. This will appear on the page history.")]
         [HintSize(HintSize.Large)]
         public string ChangeSummary { get; set; }
 
-        [DisplayName("Comments")]
-        [Description("If checked, allows users to post comments on this page.")]
-        public bool AllowComments { get; set; }
+        [DisplayName("Disable Comments")]
+        [Description("If checked, users will not be able to post comments on this page")]
+        public bool DisableComments { get; set; }
 
         [DisplayName("Hide chrome")]
-        [Description("If checked, the page title, date, history and so on will not be shown on the page.")]
+        [Description("If checked, the page title, date, history and so on will be shown on the page.")]
         public bool HideChrome { get; set; }
 
-        public IEnumerable<Feed> Feeds { get; set; }
+        [Required]
+        [DisplayName("Status")]
+        public string Status { get; set; }
 
-        public int[] FeedIds { get; set; }
+        public IEnumerable<Tag> SelectedTags
+        {
+            get
+            {
+                var tagStrings = (TagsString ?? string.Empty).Split(',', ';', ' ')
+                    .Select(x => x.Trim().ToLowerInvariant())
+                    .Where(x => x.Length > 0);
+                return tagStrings.Select(s => AllTags.FirstOrDefault(t => t.Name == s) ?? new Tag {Name = s});
+            }
+            set
+            {
+                TagsString = string.Join(", ", value.Select(x => x.Name));
+            }
+        }
     }
 }

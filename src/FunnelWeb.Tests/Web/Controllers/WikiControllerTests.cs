@@ -21,7 +21,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         protected WikiController Controller { get; set; }
         protected ControllerContext ControllerContext { get; set; }
         protected IEntryRepository EntryRepository { get; set; }
-        protected IFeedRepository FeedRepository { get; set; }
+        protected ITagRepository FeedRepository { get; set; }
         protected ISpamChecker SpamChecker { get; set; }
         protected IIdentity Identity { get; set; }
         protected IPrincipal User { get; set; }
@@ -31,7 +31,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         {
             Controller = new WikiController();
             Controller.EntryRepository = EntryRepository = Substitute.For<IEntryRepository>();
-            Controller.FeedRepository = FeedRepository = Substitute.For<IFeedRepository>();
+            Controller.TagRepository = FeedRepository = Substitute.For<ITagRepository>();
             Controller.SpamChecker = SpamChecker = Substitute.For<ISpamChecker>();
             Controller.ControllerContext = ControllerContext = CreateControllerContext();
             Identity = Substitute.For<IIdentity>();
@@ -50,8 +50,8 @@ namespace FunnelWeb.Tests.Web.Controllers
 
             EntryRepository.Received().Search(Arg.Is<string>("search"));
             Assert.That(result.ViewName, Is.EqualTo("NotFound"));
-            Assert.IsInstanceOf<NotFoundModel>(result.ViewData.Model);
-            Assert.AreEqual(entries, ((NotFoundModel)result.ViewData.Model).Results);
+            Assert.IsInstanceOf<SearchModel>(result.ViewData.Model);
+            Assert.AreEqual(entries, ((SearchModel)result.ViewData.Model).Results);
         }
 
         [Test]
@@ -88,8 +88,8 @@ namespace FunnelWeb.Tests.Web.Controllers
 
             Assert.AreEqual("NotFound", result.ViewName);
             Assert.IsNotNull(result.ViewData.Model);
-            Assert.IsInstanceOf(typeof(NotFoundModel), result.ViewData.Model);
-            var model = (NotFoundModel)result.ViewData.Model;
+            Assert.IsInstanceOf(typeof(SearchModel), result.ViewData.Model);
+            var model = (SearchModel)result.ViewData.Model;
             Assert.AreSame(entries, model.Results);
             EntryRepository.Received().Search(Arg.Is<string>("search"));
         }
@@ -118,9 +118,9 @@ namespace FunnelWeb.Tests.Web.Controllers
 
             Assert.AreEqual("NotFound", result.ViewName);
             Assert.IsNotNull(result.ViewData.Model);
-            Assert.IsInstanceOf(typeof(NotFoundModel), result.ViewData.Model);
+            Assert.IsInstanceOf(typeof(SearchModel), result.ViewData.Model);
 
-            var model = (NotFoundModel)result.ViewData.Model;
+            var model = (SearchModel)result.ViewData.Model;
             Assert.AreSame(entries, model.Results);
 
             EntryRepository.Received().Search(Arg.Is<string>("page"));
@@ -144,33 +144,20 @@ namespace FunnelWeb.Tests.Web.Controllers
         }
 
         [Test]
-        public void New()
-        {
-            var feeds = new List<Feed>().AsQueryable();
-            FeedRepository.GetFeeds().Returns(feeds);
-            
-            var result = (ViewResult)Controller.New();
-
-            Assert.AreEqual("Edit", result.ViewName);
-            Assert.AreEqual(feeds, ((EditModel)result.ViewData.Model).Feeds);
-            FeedRepository.Received().GetFeeds();
-        }
-
-        [Test]
         public void EditReturnsExistingPageWhenFound()
         {
             var entry = new Entry() { Name = "Awesome Post", LatestRevision = new Revision() };
             EntryRepository.GetEntry(Arg.Any<PageName>()).Returns(entry);
-            var feeds = new List<Feed>().AsQueryable();
-            FeedRepository.GetFeeds().Returns(feeds);
+            var feeds = new List<Tag>().AsQueryable();
+            FeedRepository.GetTags().Returns(feeds);
             
-            var result = (ViewResult)Controller.Edit(entry.Name);
+            var result = (ViewResult)Controller.Edit(entry.Name, null);
 
             Assert.IsTrue(string.IsNullOrEmpty(result.ViewName));
-            Assert.AreEqual(feeds, ((EditModel)result.ViewData.Model).Feeds);
+            Assert.AreEqual(feeds, ((EditModel)result.ViewData.Model).AllTags);
             Assert.AreEqual(entry.Name.ToString(), ((EditModel)result.ViewData.Model).Page);
             EntryRepository.Received().GetEntry(Arg.Any<PageName>());
-            FeedRepository.Received().GetFeeds();
+            FeedRepository.Received().GetTags();
         }
 
         private static ControllerContext CreateControllerContext()

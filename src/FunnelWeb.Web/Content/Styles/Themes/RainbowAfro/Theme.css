@@ -336,3 +336,25 @@ h2, h3, h4, h5, h6
 {
     color: #999;
 }
+span.tags 
+{
+    display: block;
+    padding-top: 10px;
+    padding-bottom: 3px;
+}
+a.tag 
+{
+    background: #E0EAF1;
+    border-bottom: 1px solid #3E6D8E;
+    border-right: 1px solid #7F9FB6;
+    color: #3E6D8E;
+    font-size: 10pt;
+    padding: 2px 4px;
+    margin-right: 3px;
+    text-decoration: none;
+}
+a.tag:hover 
+{
+    background: #7F9FB6;
+    color: #fff;
+}

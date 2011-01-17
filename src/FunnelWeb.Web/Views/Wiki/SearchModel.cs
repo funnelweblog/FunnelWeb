@@ -3,9 +3,9 @@ using FunnelWeb.Model;
 
 namespace FunnelWeb.Web.Views.Wiki
 {
-    public class NotFoundModel
+    public class SearchModel
     {
-        public NotFoundModel(string searchText, bool is404, IEnumerable<Entry> results)
+        public SearchModel(string searchText, bool is404, IEnumerable<Entry> results)
         {
             SearchText = searchText;
             Is404 = is404;

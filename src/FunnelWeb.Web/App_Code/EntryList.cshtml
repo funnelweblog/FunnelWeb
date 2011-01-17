@@ -1,0 +1,38 @@
+@inherits FunnelWeb.Web.App_Code.HelperPage
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using FunnelWeb.Model
+@using FunnelWeb.Web.Application.Extensions
+
+@helper Render(IEnumerable<Entry> entries)
+{
+  <div class="post-list">
+    @foreach (var entry in entries)
+    {
+    <div class='post-line @String.Join(" ", Html.CssKeywordsFor(entry))'>
+      <div class='revised'>
+        <span class='month'>@entry.Published.ToLocalTime().ToString("MMM d")</span> 
+        <span class='year'>@entry.Published.ToLocalTime().ToString("yyyy")</span>
+      </div>
+      <div class='comments'>
+        <a href='@Url.Action("Page", new { page = entry.Name })#comments'>
+          <span class='comment-count'>@entry.CommentCount</span>
+          <span>comments</span> 
+        </a>
+      </div>
+      <div class='summary'>
+        <h2>
+          @Html.Qualify(Html.ActionLink(entry.Title, "Page", new { page = entry.Name }))
+        </h2>
+        @if (!string.IsNullOrEmpty(entry.MetaDescription))
+        {
+        <p>@entry.MetaDescription</p>
+        }
+        @TagList.Render(entry.Tags)
+      </div>
+    </div>
+    }
+  </div>
+}
+
+

@@ -16,11 +16,15 @@ namespace FunnelWeb.Model.Mappings
             Map(x => x.Title);
             Map(x => x.IsDiscussionEnabled);
             Map(x => x.MetaDescription);
-            Map(x => x.MetaKeywords);
             Map(x => x.MetaTitle);
             Map(x => x.HideChrome);
+            Map(x => x.Status);
             Map(x => x.CommentCount).Formula("(SELECT COUNT(*) from Comment where Comment.EntryID = ID and Comment.Status = 1)");
-            Map(x => x.FeedDate).Formula("(SELECT ISNULL(MAX(FeedItem.SortDate), Published)  from FeedItem where FeedItem.ItemID = ID)");
+
+            HasManyToMany(x => x.Tags)
+                .Table("TagItem")
+                .ParentKeyColumn("EntryId")
+                .ChildKeyColumn("TagId");
 
             HasMany(x => x.Pingbacks)
                 .KeyColumn("EntryId")

@@ -145,7 +145,7 @@ namespace FunnelWeb.Web.Application.Extensions
         static Regex keyword = new Regex("^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$", RegexOptions.Compiled);
         public static IEnumerable<MvcHtmlString> CssKeywordsFor(this HtmlHelper html, Entry entry)
         {
-            return from k in entry.MetaKeywords.Split(',')
+            return from k in entry.Tags.Select(x => x.Name)
                    let w = k.Trim()
                    where keyword.IsMatch(w)
                    select MvcHtmlString.Create("keyword-" + w);

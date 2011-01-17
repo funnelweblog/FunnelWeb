@@ -14,7 +14,7 @@ namespace FunnelWeb.Web.Controllers
     public class AdminController : Controller
     {
         public IAdminRepository AdminRepository { get; set; }
-        public IFeedRepository FeedRepository { get; set; }
+        public ITagRepository FeedRepository { get; set; }
         public ISettingsProvider SettingsProvider { get; set; }
 
         [Authorize]
@@ -56,7 +56,7 @@ namespace FunnelWeb.Web.Controllers
         [Authorize]
         public virtual ActionResult Feeds()
         {
-            var feeds = FeedRepository.GetFeeds().ToList();
+            var feeds = FeedRepository.GetTags().ToList();
             return View(new FeedsModel(feeds));
         }
 
@@ -64,7 +64,7 @@ namespace FunnelWeb.Web.Controllers
         [HttpPost]
         public virtual ActionResult Feeds(FeedsModel model)
         {
-            var feeds = FeedRepository.GetFeeds().ToList();
+            var feeds = FeedRepository.GetTags().ToList();
             model.Feeds = feeds;
             
             if (!ModelState.IsValid)
@@ -72,9 +72,8 @@ namespace FunnelWeb.Web.Controllers
                 return View(model);
             }
 
-            var feed = new Feed();
+            var feed = new Tag();
             feed.Name = model.FeedName;
-            feed.Title = model.FeedTitle;
             FeedRepository.Save(feed);
             return RedirectToAction("Feeds", "Admin");
         }
@@ -83,7 +82,7 @@ namespace FunnelWeb.Web.Controllers
         [HttpPost]
         public virtual ActionResult DeleteFeed(int feedId)
         {
-            var feed = FeedRepository.GetFeeds().FirstOrDefault(x => x.Id == feedId);
+            var feed = FeedRepository.GetTags().FirstOrDefault(x => x.Id == feedId);
             if (feed != null)
             {
                 FeedRepository.Delete(feed);

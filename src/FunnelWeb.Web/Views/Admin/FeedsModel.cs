@@ -11,12 +11,12 @@ namespace FunnelWeb.Web.Views.Admin
         {
         }
 
-        public FeedsModel(IEnumerable<Feed> feeds)
+        public FeedsModel(IEnumerable<Tag> feeds)
         {
             Feeds = feeds;
         }
 
-        public IEnumerable<Feed> Feeds { get; set; }
+        public IEnumerable<Tag> Feeds { get; set; }
 
         [Required]
         [DisplayName("URL name")]

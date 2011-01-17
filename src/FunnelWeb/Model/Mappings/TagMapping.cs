@@ -1,17 +1,15 @@
 ﻿using FluentNHibernate.Mapping;
-using FunnelWeb.Model.Mappings.UserTypes;
 
 namespace FunnelWeb.Model.Mappings
 {
-    public class FeedMapping : ClassMap<Feed>
+    public class TagMapping : ClassMap<Tag>
     {
-        public FeedMapping()
+        public TagMapping()
         {
             Id(x => x.Id);
-            Map(x => x.Name).CustomType<PageNameUserType>();
-            Map(x => x.Title);
+            Map(x => x.Name);
             HasMany(x => x.Items)
-                .KeyColumn("FeedId")
+                .KeyColumn("TagId")
                 .AsSet()
                 .Inverse()
                 .LazyLoad()

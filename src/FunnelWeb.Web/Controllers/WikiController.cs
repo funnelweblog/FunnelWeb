@@ -21,6 +21,7 @@ namespace FunnelWeb.Web.Controllers
     {
         private const int ItemsPerPage = 30;
         public IEntryRepository EntryRepository { get; set; }
+        public ITagRepository TagRepository { get; set; }
         public IFeedRepository FeedRepository { get; set; }
         public ISpamChecker SpamChecker { get; set; }
         public IEventPublisher EventPublisher { get; set; }
@@ -43,19 +44,16 @@ namespace FunnelWeb.Web.Controllers
 
         public virtual ActionResult Recent(int pageNumber)
         {
-            var feed = FeedRepository.GetFeeds().OrderBy(f => f.Id).First().Name;
-
-            var entries = FeedRepository.GetFeed(feed, pageNumber * ItemsPerPage, ItemsPerPage);
-            var totalItems = FeedRepository.GetFeedCount(feed);
-            ViewData.Model = new RecentModel(entries, pageNumber, (int)((decimal)totalItems / ItemsPerPage + 1), ControllerContext.RouteData.Values["action"].ToString());
+            var entries = FeedRepository.GetRecentEntries(pageNumber * ItemsPerPage, ItemsPerPage);
+            var totalItems = FeedRepository.GetEntryCount();
+            ViewData.Model = new RecentModel("Recent Posts", entries, pageNumber, (int)((decimal)totalItems / ItemsPerPage + 1), ControllerContext.RouteData.Values["action"].ToString());
             return View("Recent");
         }
 
         public virtual ActionResult Search([Bind(Prefix = "q")] string searchText)
         {
             var results = EntryRepository.Search(searchText);
-            ViewData.Model = new NotFoundModel(searchText, false, results);
-            return View("NotFound");
+            return View("Search", new SearchModel(searchText, false, results));
         }
 
         public virtual ActionResult NotFound(string searchText)
@@ -69,8 +67,7 @@ namespace FunnelWeb.Web.Controllers
             }
 
             var results = EntryRepository.Search(searchText);
-            ViewData.Model = new NotFoundModel(searchText, true, results);
-            return View("NotFound");
+            return View("Search", new SearchModel(searchText, true, results));
         }
 
         public virtual ActionResult Page(PageName page, int? revision)
@@ -93,70 +90,48 @@ namespace FunnelWeb.Web.Controllers
         public virtual ActionResult Unpublished()
         {
             var allPosts = EntryRepository.GetUnpublished();
-            ViewData.Model = new RecentModel(allPosts, 1, 1, "Unpublished");
-            return View();
+            return View("Recent", new RecentModel("Unpublished Posts", allPosts, 1, 1, "Unpublished"));
         }
 
         [Authorize]
-        public virtual ActionResult New()
+        public virtual ActionResult Edit(PageName page, int? revertToRevision)
         {
-            var feeds = FeedRepository.GetFeeds();
-            var model = new EditModel("", true, feeds);
-            model.Title = "Enter a title";
-            model.Page = DateTime.Today.ToString("yyyy/MM/dd/");
-            model.AllowComments = true;
-            model.MetaTitle = "Enter a meta title";
-            model.Format = Formats.Markdown;
-            model.PublishDate = DateTime.Today.Date.ToString("yyyy-MM-dd");
+            var entry = EntryRepository.GetEntry(page, revertToRevision ?? 0) 
+                ?? new Entry
+                {
+                    Title = page, 
+                    MetaTitle = page, 
+                    Name = page, 
+                    LatestRevision = new Revision()
+                };
+            
+            var allTags = TagRepository.GetTags();
+            var model = new EditModel(page, entry.Id == 0, allTags);
+            model.DisableComments = !entry.IsDiscussionEnabled;
+            model.Content = entry.LatestRevision.Body;
+            model.Format = entry.LatestRevision.Format;
+            model.HideChrome = entry.HideChrome;
+            model.Status = entry.Status;
+            model.MetaDescription = entry.MetaDescription;
+            model.MetaTitle = entry.MetaTitle;
+            model.PublishDate = entry.Published.ToLocalTime().ToString("yyyy-MM-dd");
+            model.Sidebar = entry.Summary;
+            model.Title = entry.Title;
+            model.SelectedTags = entry.Tags;
+            model.ChangeSummary = entry.Id == 0 ? "Initial create" : (revertToRevision == null ? "" :  "Reverted to version " + revertToRevision);
+
+            if (revertToRevision != null)
+            {
+                return View("Edit", model).AndFlash("You are editing an old version of this page. This will become the current version when you save.");
+            }
             return View("Edit", model);
-        }
-
-        [Authorize]
-        public virtual ActionResult Edit(PageName page)
-        {
-            var entry = EntryRepository.GetEntry(page) ?? new Entry() { Title = page, MetaTitle = page, Name = page, LatestRevision = new Revision()};
-            var feeds = FeedRepository.GetFeeds();
-            var model = new EditModel(page, entry.Id == 0, feeds);
-            model.AllowComments = entry.IsDiscussionEnabled;
-            model.ChangeSummary = entry.Id == 0 ? "Initial create" : "";
-            model.Content = entry.LatestRevision.Body;
-            model.Format = entry.LatestRevision.Format;
-            model.HideChrome = entry.HideChrome;
-            model.Keywords = entry.MetaKeywords;
-            model.MetaDescription = entry.MetaDescription;
-            model.MetaTitle = entry.MetaTitle;
-            model.PublishDate = entry.Published.ToLocalTime().ToString("yyyy-MM-dd");
-            model.Sidebar = entry.Summary;
-            model.Title = entry.Title;
-            return View(model);
-        }
-
-        [Authorize]
-        public virtual ActionResult Revert(PageName page, int? revision)
-        {
-            var entry = EntryRepository.GetEntry(page, revision ?? 0) ?? new Entry() { Title = page, MetaTitle = page, Name = page, LatestRevision = new Revision() };
-            var feeds = FeedRepository.GetFeeds();
-            var model = new EditModel(page, entry.Id == 0, feeds);
-            model.AllowComments = entry.IsDiscussionEnabled;
-            model.ChangeSummary = "Reverted to version " + revision;
-            model.Content = entry.LatestRevision.Body;
-            model.Format = entry.LatestRevision.Format;
-            model.HideChrome = entry.HideChrome;
-            model.Keywords = entry.MetaKeywords;
-            model.MetaDescription = entry.MetaDescription;
-            model.MetaTitle = entry.MetaTitle;
-            model.PublishDate = entry.Published.ToLocalTime().ToString("yyyy-MM-dd");
-            model.Sidebar = entry.Summary;
-            model.Title = entry.Title;
-            return View("Edit", model).AndFlash("You are editing an old version of this page. This will become the current version when you save.");
         }
 
         [HttpPost]
         [Authorize]
         public virtual ActionResult Edit(EditModel model)
         {
-            var feeds = FeedRepository.GetFeeds();
-            model.Feeds = feeds;
+            model.AllTags = TagRepository.GetTags().ToList();
                 
             if (!ModelState.IsValid)
             {
@@ -168,26 +143,24 @@ namespace FunnelWeb.Web.Controllers
             entry.Title = model.Title ?? string.Empty;
             entry.Summary = model.Sidebar ?? string.Empty;
             entry.MetaTitle = model.MetaTitle ?? string.Empty;
-            entry.IsDiscussionEnabled = model.AllowComments;
+            entry.IsDiscussionEnabled = !model.DisableComments;
             entry.MetaDescription = model.MetaDescription ?? string.Empty;
-            entry.MetaKeywords = model.Keywords ?? string.Empty;
             entry.HideChrome = model.HideChrome;
             entry.Published = DateTime.Parse(model.PublishDate, CultureInfo.InvariantCulture).ToUniversalTime();
+            entry.Status = model.Status;
 
             var revision = entry.Revise();
             revision.Body = model.Content;
-            revision.Reason = model.ChangeSummary;
+            revision.Reason = model.ChangeSummary ?? string.Empty;
             revision.Format = model.Format;
 
             EntryRepository.Save(entry);
 
-            foreach (var feed in FeedRepository.GetFeeds())
+            entry.Tags.Clear();
+            foreach (var tag in model.SelectedTags)
             {
-                if (model.FeedIds == null || model.FeedIds.Contains(feed.Id) == false) 
-                    continue;
-
-                feed.Publish(entry);
-                FeedRepository.Save(feed);
+                entry.Tags.Add(tag);
+                TagRepository.Save(tag);
             }
 
             return RedirectToAction("Page", new { page = model.Page });

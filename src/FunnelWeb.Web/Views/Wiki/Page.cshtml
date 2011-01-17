@@ -5,7 +5,7 @@
 
 @section Meta {
   <meta name="description" content="@Model.Entry.MetaDescription" />
-  <meta name="keywords" content="@Model.Entry.MetaKeywords" />
+  <meta name="keywords" content="@Model.Entry.TagsCommaSeparated" />
   <link rel="canonical" href="@Html.Qualify(Html.ActionUrl("Page", new { page = Model.Entry.Name }))" />
   <link rel="pingback" href="@Html.Qualify("/pingback")" />
   @if (Model.IsPriorVersion)
@@ -24,8 +24,8 @@
   @Html.ActionLink(Model.Entry.Title, "Page", new { page = Model.Entry.Name })
 </h1>
 <div class="entry-date">
-  <span class='month'>@Model.Entry.FeedDate.ToLocalTime().ToString("MMM d")</span>
-  <span class='year'>@Model.Entry.FeedDate.ToLocalTime().ToString("yyyy")</span>
+  <span class='month'>@Model.Entry.Published.ToLocalTime().ToString("MMM d")</span>
+  <span class='year'>@Model.Entry.Published.ToLocalTime().ToString("yyyy")</span>
 </div>
 }
 
@@ -56,6 +56,8 @@
     <iframe src="http://www.facebook.com/plugins/like.php?href=@Url.Encode(Request.Url.AbsoluteUri)&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe>
   </div>
   }
+  
+  @TagList.Render(Model.Entry.Tags)
   
   <div class='entry-tools'>
     <span>Last revised: <a href="@Html.ActionUrl("Page", new { page = Model.Page.ToString(), revision = Model.Entry.LatestRevision.RevisionNumber })">@Html.Date(Model.Entry.LatestRevision.Revised)</a></span>
