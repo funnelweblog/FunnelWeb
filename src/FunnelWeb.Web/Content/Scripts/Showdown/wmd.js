@@ -1452,18 +1452,25 @@ Attacklab.wmdBase = function () {
     // If remove is true, the whitespace disappears.
     wmd.Chunks.prototype.trimWhitespace = function (remove) {
 
+        var originalLength = this.selection.length;
         this.selection = this.selection.replace(/^(\s*)/, "");
+        var whitespace = originalLength - this.selection.length;
 
-// These remove segments cause issues in Chrome
-//        if (!remove) {
-//            this.before += RegExp.$1.toString();
-//        }
+        if (!remove) {
+            for (var i = 0; i < whitespace; i++) {
+                this.before += " ";
+            }
+        }
 
+        originalLength = this.selection.length;
         this.selection = this.selection.replace(/(\s*)$/, "");
+        whitespace = originalLength - this.selection.length;
 
-//        if (!remove) {
-//            this.after = RegExp.$1.toString() + this.after;
-//        }
+        if (!remove) {
+            for (var i = 0; i < whitespace; i++) {
+                this.after = " " + this.after;
+            }
+        }
     };
 
 
