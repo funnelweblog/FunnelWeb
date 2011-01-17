@@ -91,6 +91,7 @@
     <Compile Include="Helpers\AdHocSqlRunner.cs" />
     <Compile Include="Helpers\Requires.cs" />
     <Compile Include="Helpers\TemporaryDatabase.cs" />
+    <Compile Include="Integration\CanCreateNewBlogPosts.cs" />
     <Compile Include="Integration\CanDeployDatabase.cs" />
     <Compile Include="Helpers\RouteExtensions.cs" />
     <Compile Include="Helpers\Specification.cs" />

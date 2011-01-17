@@ -1,4 +1,4 @@
-﻿using System.Threading;
+﻿using System;
 using FunnelWeb.Tests.Helpers;
 using NUnit.Framework;
 using WatiN.Core;
@@ -33,6 +33,19 @@ namespace FunnelWeb.Tests.Integration
                     browser.Link(Find.ByText("Logout")).Click();
                 }
             }
+        }
+    }
+
+    public class LoggedInIntegrationTest : IntegrationTest
+    {
+        public LoggedInIntegrationTest(TheDatabase requirements) : base(requirements)
+        {
+        }
+
+        protected override void Execute()
+        {
+            LogIn();
+            LogOut();
         }
     }
 }

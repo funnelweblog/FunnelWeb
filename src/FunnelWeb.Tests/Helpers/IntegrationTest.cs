@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
+using WatiN.Core;
 
 namespace FunnelWeb.Tests.Helpers
 {
@@ -28,6 +29,11 @@ namespace FunnelWeb.Tests.Helpers
 
         protected abstract void Execute();
 
+        public int Rand()
+        {
+            return new Random(DateTime.Now.Millisecond).Next(1, 1000);
+        }
+
         [Test]
         public void Run()
         {
@@ -42,7 +48,33 @@ namespace FunnelWeb.Tests.Helpers
                 UpdateConnectionStringInWebConfig(Database.ConnectionString);
             }
 
+            Browser = new IE();
             Execute();
+        }
+
+        protected IE Browser { get; set; }
+
+        protected void LogIn()
+        {
+            Browser.GoTo(RootUrl + "login");
+
+            Assert.IsTrue(Browser.ContainsText("log in"));
+
+            Browser.TextField(Find.ByName("Username")).AppendText("test");
+            Browser.TextField(Find.ByName("Password")).AppendText("test");
+
+            Browser.Button(Find.ByValue("Submit")).Click();
+
+            Browser.WaitUntilContainsText("Admin");
+            Browser.WaitForComplete();
+        }
+
+        protected void LogOut()
+        {
+            if (Browser.ContainsText("Logout"))
+            {
+                Browser.Link(Find.ByText("Logout")).Click();
+            }
         }
 
         private static void StartWebServer()
