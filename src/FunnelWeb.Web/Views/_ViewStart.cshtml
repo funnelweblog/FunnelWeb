@@ -1,3 +1,7 @@
 ﻿@{
   Layout = "~/Views/Shared/_Public.cshtml";
+  if (Context.IsMobileDevice())
+  {
+    Layout = "~/Views/Shared/_Mobile.cshtml";
+  }
 }

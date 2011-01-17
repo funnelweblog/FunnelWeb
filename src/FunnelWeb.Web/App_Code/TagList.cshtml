@@ -1,0 +1,13 @@
+@inherits FunnelWeb.Web.App_Code.HelperPage
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+
+@helper Render(IEnumerable<FunnelWeb.Model.Tag> tags)
+{
+  <span class='tags'>
+    @foreach (var tag in tags)
+    {
+      <a class='tag' href='#' title='Posts tagged @tag.Name'>@tag.Name</a>
+    }
+  </span>
+}

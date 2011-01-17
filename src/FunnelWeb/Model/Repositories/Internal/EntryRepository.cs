@@ -27,12 +27,8 @@ namespace FunnelWeb.Model.Repositories.Internal
 
         public IEnumerable<Entry> GetUnpublished()
         {
-            var feedItemsCriteria = DetachedCriteria.For<FeedItem>("item")
-                .SetProjection(Projections.Property("item.Entry.Id"));
-            return session.CreateCriteria<Entry>()
-                .Add(Subqueries.PropertyNotIn("Id", feedItemsCriteria))
-                .AddOrder(Order.Desc("Published"))
-                .List<Entry>();
+            return session.Linq<Entry>().Where(x => x.Status != EntryStatus.PublicBlog)
+                .OrderByDescending(x => x.Published);
         }
 
         public Entry GetEntry(PageName name)

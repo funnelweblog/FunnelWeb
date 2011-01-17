@@ -176,7 +176,7 @@
     <Compile Include="Application\ForceLowercaseUrlHttpModule.cs" />
     <Compile Include="Application\Mvc\HintSizeAttribute.cs" />
     <Compile Include="Application\Mvc\LowercaseRoute.cs" />
-    <Compile Include="Application\Mvc\MobileHelpers.cs" />
+    <Compile Include="Application\Extensions\MobileExtensions.cs" />
     <Compile Include="Application\Mvc\MvcExtensions.cs" />
     <Compile Include="Application\Mvc\RouteCollectionExtension.cs" />
     <Compile Include="Application\Mvc\ValidUrlAttribute.cs" />
@@ -190,9 +190,8 @@
     <Compile Include="Application\Mvc\Binders\BindersModule.cs" />
     <Compile Include="Application\Mime\MimeSupport.cs" />
     <Compile Include="Application\Views\MarkdownProvider.cs" />
-    <Compile Include="Controllers\TagController.cs" />
+    <Content Include="App_Code\HelperPage.cs" />
     <Compile Include="Views\Admin\CommentsModel.cs" />
-    <Compile Include="Views\Admin\FeedsModel.cs" />
     <Compile Include="Views\Admin\PingbacksModel.cs" />
     <Compile Include="Views\Admin\IndexModel.cs" />
     <Compile Include="Controllers\InstallController.cs" />
@@ -201,7 +200,7 @@
     <Compile Include="Views\Login\LoginModel.cs" />
     <Compile Include="Views\Upload\IndexModel.cs" />
     <Compile Include="Views\Wiki\EditModel.cs" />
-    <Compile Include="Views\Wiki\NotFoundModel.cs" />
+    <Compile Include="Views\Wiki\SearchModel.cs" />
     <Compile Include="Views\Wiki\PageModel.cs" />
     <Compile Include="Views\Wiki\RecentModel.cs" />
     <Compile Include="Views\Wiki\ReviseModel.cs" />
@@ -233,8 +232,6 @@
     <Content Include="Content\Styles\Layout\Mobile.css" />
     <Content Include="Content\Styles\Themes\Official\Theme.css" />
     <Content Include="Content\Styles\Themes\MattHamilton\backgnd.png" />
-    <Content Include="Views\Wiki\Mobile\NotFound.cshtml" />
-    <Content Include="Views\Wiki\Mobile\Recent.cshtml" />
     <Content Include="Views\Shared\_Mobile.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Markdown.cshtml" />
     <Content Include="Content\Styles\Layout\Admin.css" />
@@ -249,7 +246,6 @@
     <Content Include="Content\Styles\Themes\RainbowAfro\Header.jpg" />
     <Content Include="Content\Styles\Themes\RainbowAfro\Theme.css" />
     <Content Include="Views\Admin\Comments.cshtml" />
-    <Content Include="Views\Admin\Feeds.cshtml" />
     <Content Include="Views\Admin\Pingbacks.cshtml" />
     <Content Include="Views\Admin\Settings.cshtml" />
     <Content Include="Global.asax" />
@@ -300,14 +296,13 @@
     <Content Include="Content\Styles\Themes\Default\Theme.css" />
     <Content Include="Views\Upload\Index.cshtml" />
     <Content Include="Views\Wiki\Edit.cshtml" />
-    <Content Include="Views\Wiki\NotFound.cshtml" />
+    <Content Include="Views\Wiki\Search.cshtml" />
     <Content Include="Views\Wiki\Page.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\DisplayTemplates\Markdown.cshtml" />
     <Content Include="Views\Wiki\Recent.cshtml" />
     <Content Include="Views\Wiki\Revisions.cshtml" />
     <Content Include="Views\Wiki\SiteMap.cshtml" />
-    <Content Include="Views\Wiki\Unpublished.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -333,7 +328,13 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Wiki\Mobile\Page.cshtml" />
+    <Content Include="App_Code\EntryList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Code\TagList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Code\Paginator.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
@@ -350,7 +351,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>64690</DevelopmentServerPort>
+          <DevelopmentServerPort>38387</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

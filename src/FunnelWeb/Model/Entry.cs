@@ -21,6 +21,7 @@ namespace FunnelWeb.Model
             Revisions = new HashedSet<Revision>();
             Comments = new HashedSet<Comment>();
             Pingbacks = new HashedSet<Pingback>();
+            Tags = new HashedSet<Tag>();
             IsDiscussionEnabled = true;
         }
 
@@ -35,11 +36,10 @@ namespace FunnelWeb.Model
         public virtual DateTime Published { get; set; }
         public virtual bool IsDiscussionEnabled { get; set; }
         public virtual int CommentCount { get; set; }
-        public virtual DateTime FeedDate { get; set; }
         public virtual string MetaDescription { get; set; }
-        public virtual string MetaKeywords { get; set; }
         public virtual string MetaTitle { get; set; }
         public virtual bool HideChrome { get; set; }
+        public virtual string Status { get; set; }
         
         [Valid]
         public virtual Revision LatestRevision 
@@ -54,7 +54,13 @@ namespace FunnelWeb.Model
         public virtual ISet<Revision> Revisions { get; private set; }
         public virtual ISet<Comment> Comments { get; set; }
         public virtual ISet<Pingback> Pingbacks { get; set; }
+        public virtual ISet<Tag> Tags { get; set; }
         
+        public virtual string TagsCommaSeparated
+        {
+            get { return string.Join(", ", Tags.Select(x => x.Name)); }
+        }
+
         public virtual Revision Revise()
         {
             var original = LatestRevision;

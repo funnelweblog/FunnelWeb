@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace FunnelWeb.Model.Repositories
 {
     public interface ITagRepository
     {
-        IEnumerable<Tag> GetAll();
-
-        Tag GetByName(string name);
-
-        IEnumerable<Tag> GetByPartialName(string partial);
+        IQueryable<Tag> GetTags();
+        IEnumerable<Entry> GetTaggedItems(string tagName, int skip, int take);
+        int GetTaggedItemCount(string tagName);
+        void Save(Tag tag);
+        void Delete(Tag tag);
     }
 }

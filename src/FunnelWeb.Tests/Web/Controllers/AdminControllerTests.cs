@@ -16,14 +16,14 @@ namespace FunnelWeb.Tests.Web.Controllers
     {
         protected AdminController Controller { get; set; }
         protected IAdminRepository AdminRepository { get; set; }
-        protected IFeedRepository FeedRepository { get; set; }
+        protected ITagRepository FeedRepository { get; set; }
 
         [SetUp]
         public void SetUp()
         {
             Controller = new AdminController();
             Controller.AdminRepository = AdminRepository = Substitute.For<IAdminRepository>();
-            Controller.FeedRepository = FeedRepository = Substitute.For<IFeedRepository>();
+            Controller.FeedRepository = FeedRepository = Substitute.For<ITagRepository>();
             Controller.ControllerContext = CreateControllerContext();
         }
 
@@ -33,24 +33,6 @@ namespace FunnelWeb.Tests.Web.Controllers
             var result = (ViewResult)Controller.Index();
             
             Assert.That(result.ViewName, Is.EqualTo(string.Empty));
-        }
-
-        [Test]
-        public void CreateFeed()
-        {
-            var result = (RedirectToRouteResult)Controller.Feeds(new FeedsModel());
-
-            Assert.That(result.RouteValues["Action"], Is.EqualTo("Feeds"));
-        }
-
-        [Test]
-        public void DeleteFeed()
-        {
-            FeedRepository.GetFeeds().Returns(new List<Feed>().AsQueryable());
-            
-            var result = (RedirectToRouteResult)Controller.DeleteFeed(0);
-
-            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Feeds"));
         }
 
         [Test]
@@ -91,14 +73,6 @@ namespace FunnelWeb.Tests.Web.Controllers
             var result = (RedirectToRouteResult)Controller.TogglePingbackSpam(0);
 
             Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Pingbacks"));
-        }
-
-        [Test]
-        public void CreateFeedIsSaved()
-        {
-            Controller.Feeds(new FeedsModel {FeedName = "name", FeedTitle = "title"});
-
-            FeedRepository.Received().Save(Arg.Is<Feed>(x => x.Name == "name"));
         }
 
         private static ControllerContext CreateControllerContext()

@@ -17,6 +17,7 @@ namespace FunnelWeb.Web.Controllers
     public class FeedController : Controller
     {
         public IFeedRepository FeedRepository { get; set; }
+        public ITagRepository TagRepository { get; set; }
         public IMarkdownProvider Markdown { get; set; }
         public ISettingsProvider Settings { get; set; }
 
@@ -44,19 +45,17 @@ namespace FunnelWeb.Web.Controllers
             };
         }
 
-        public virtual ActionResult Feed(PageName feedName)
+        public virtual ActionResult Feed()
         {
             var settings = Settings.GetSettings();
-            if (String.IsNullOrWhiteSpace(feedName))
-                feedName = FeedRepository.GetFeeds().OrderBy(f => f.Id).First().Name;
-
-            var entries = FeedRepository.GetFeed(feedName, 0, 20);
+            
+            var entries = FeedRepository.GetRecentEntries(0, 20);
 
             var items =
                 from e in entries
                 let itemUri = new Uri(Request.Url, Url.Action("Page", "Wiki", new { page = e.Name }))
                 let viaFeedUri = new Uri(Request.Url, "/via-feed" + Url.Action("Page", "Wiki", new { page = e.Name }))
-                orderby e.FeedDate descending
+                orderby e.Published descending
                 let content = TextSyndicationContent.CreateHtmlContent(
                             BuildFeedItemBody(itemUri, viaFeedUri, e.LatestRevision))
                 select new
@@ -67,7 +66,7 @@ namespace FunnelWeb.Web.Controllers
                         Title = TextSyndicationContent.CreatePlaintextContent(e.Title),
                         Summary = content,
                         Content = content,
-                        LastUpdatedTime = e.FeedDate,
+                        LastUpdatedTime = e.LatestRevision.Revised,
                         PublishDate = e.Published,
                         Links =
                             {
@@ -78,7 +77,7 @@ namespace FunnelWeb.Web.Controllers
                                 new SyndicationPerson {Name = settings.Author}
                             },
                     },
-                    Keywords = e.MetaKeywords.Split(',')
+                    Keywords = e.Tags.Select(x => x.Name).ToArray()
                 };
 
             return FeedResult(items.Select(i =>
@@ -108,7 +107,7 @@ namespace FunnelWeb.Web.Controllers
 
         public virtual ActionResult CommentFeed()
         {
-            var comments = FeedRepository.GetCommentFeed(0, 20);
+            var comments = FeedRepository.GetRecentComments(0, 20);
 
             var items =
                 from e in comments

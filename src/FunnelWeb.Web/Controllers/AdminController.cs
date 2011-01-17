@@ -14,7 +14,7 @@ namespace FunnelWeb.Web.Controllers
     public class AdminController : Controller
     {
         public IAdminRepository AdminRepository { get; set; }
-        public IFeedRepository FeedRepository { get; set; }
+        public ITagRepository FeedRepository { get; set; }
         public ISettingsProvider SettingsProvider { get; set; }
 
         [Authorize]
@@ -47,48 +47,6 @@ namespace FunnelWeb.Web.Controllers
             
             return RedirectToAction("Settings", "Admin")
                 .AndFlash("Your changes have been saved");
-        }
-
-        #endregion
-
-        #region Feeds
-
-        [Authorize]
-        public virtual ActionResult Feeds()
-        {
-            var feeds = FeedRepository.GetFeeds().ToList();
-            return View(new FeedsModel(feeds));
-        }
-
-        [Authorize]
-        [HttpPost]
-        public virtual ActionResult Feeds(FeedsModel model)
-        {
-            var feeds = FeedRepository.GetFeeds().ToList();
-            model.Feeds = feeds;
-            
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var feed = new Feed();
-            feed.Name = model.FeedName;
-            feed.Title = model.FeedTitle;
-            FeedRepository.Save(feed);
-            return RedirectToAction("Feeds", "Admin");
-        }
-
-        [Authorize]
-        [HttpPost]
-        public virtual ActionResult DeleteFeed(int feedId)
-        {
-            var feed = FeedRepository.GetFeeds().FirstOrDefault(x => x.Id == feedId);
-            if (feed != null)
-            {
-                FeedRepository.Delete(feed);
-            }
-            return RedirectToAction("Feeds", "Admin");
         }
 
         #endregion
