@@ -190,6 +190,7 @@
     <Compile Include="Application\Mvc\Binders\BindersModule.cs" />
     <Compile Include="Application\Mime\MimeSupport.cs" />
     <Compile Include="Application\Views\MarkdownProvider.cs" />
+    <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Views\Admin\CommentsModel.cs" />
     <Compile Include="Views\Admin\FeedsModel.cs" />
     <Compile Include="Views\Admin\PingbacksModel.cs" />
