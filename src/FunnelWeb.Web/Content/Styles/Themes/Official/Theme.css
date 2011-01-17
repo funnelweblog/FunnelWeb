@@ -403,3 +403,12 @@ pre
 {
     background: #eeecdd;
 }
+
+.box3, .box2, .box4 
+{
+    margin-right: 10px;
+}
+.boxes img
+{
+    border: 5px solid #cac29e;
+}
