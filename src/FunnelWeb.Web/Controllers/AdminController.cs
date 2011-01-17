@@ -51,47 +51,6 @@ namespace FunnelWeb.Web.Controllers
 
         #endregion
 
-        #region Feeds
-
-        [Authorize]
-        public virtual ActionResult Feeds()
-        {
-            var feeds = FeedRepository.GetTags().ToList();
-            return View(new FeedsModel(feeds));
-        }
-
-        [Authorize]
-        [HttpPost]
-        public virtual ActionResult Feeds(FeedsModel model)
-        {
-            var feeds = FeedRepository.GetTags().ToList();
-            model.Feeds = feeds;
-            
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var feed = new Tag();
-            feed.Name = model.FeedName;
-            FeedRepository.Save(feed);
-            return RedirectToAction("Feeds", "Admin");
-        }
-
-        [Authorize]
-        [HttpPost]
-        public virtual ActionResult DeleteFeed(int feedId)
-        {
-            var feed = FeedRepository.GetTags().FirstOrDefault(x => x.Id == feedId);
-            if (feed != null)
-            {
-                FeedRepository.Delete(feed);
-            }
-            return RedirectToAction("Feeds", "Admin");
-        }
-
-        #endregion
-
         #region Comments
 
         [Authorize]

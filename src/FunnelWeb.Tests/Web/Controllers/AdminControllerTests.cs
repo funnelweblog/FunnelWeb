@@ -36,24 +36,6 @@ namespace FunnelWeb.Tests.Web.Controllers
         }
 
         [Test]
-        public void CreateFeed()
-        {
-            var result = (RedirectToRouteResult)Controller.Feeds(new FeedsModel());
-
-            Assert.That(result.RouteValues["Action"], Is.EqualTo("Feeds"));
-        }
-
-        [Test]
-        public void DeleteFeed()
-        {
-            FeedRepository.GetTags().Returns(new List<Tag>().AsQueryable());
-            
-            var result = (RedirectToRouteResult)Controller.DeleteFeed(0);
-
-            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Feeds"));
-        }
-
-        [Test]
         public void DeleteComment()
         {
             var result = (RedirectToRouteResult)Controller.DeleteComment(0);
@@ -91,14 +73,6 @@ namespace FunnelWeb.Tests.Web.Controllers
             var result = (RedirectToRouteResult)Controller.TogglePingbackSpam(0);
 
             Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Pingbacks"));
-        }
-
-        [Test]
-        public void CreateFeedIsSaved()
-        {
-            Controller.Feeds(new FeedsModel {FeedName = "name", FeedTitle = "title"});
-
-            FeedRepository.Received().Save(Arg.Is<Tag>(x => x.Name == "name"));
         }
 
         private static ControllerContext CreateControllerContext()

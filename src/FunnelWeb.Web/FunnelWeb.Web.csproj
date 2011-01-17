@@ -192,7 +192,6 @@
     <Compile Include="Application\Views\MarkdownProvider.cs" />
     <Content Include="App_Code\HelperPage.cs" />
     <Compile Include="Views\Admin\CommentsModel.cs" />
-    <Compile Include="Views\Admin\FeedsModel.cs" />
     <Compile Include="Views\Admin\PingbacksModel.cs" />
     <Compile Include="Views\Admin\IndexModel.cs" />
     <Compile Include="Controllers\InstallController.cs" />
@@ -247,7 +246,6 @@
     <Content Include="Content\Styles\Themes\RainbowAfro\Header.jpg" />
     <Content Include="Content\Styles\Themes\RainbowAfro\Theme.css" />
     <Content Include="Views\Admin\Comments.cshtml" />
-    <Content Include="Views\Admin\Feeds.cshtml" />
     <Content Include="Views\Admin\Pingbacks.cshtml" />
     <Content Include="Views\Admin\Settings.cshtml" />
     <Content Include="Global.asax" />
