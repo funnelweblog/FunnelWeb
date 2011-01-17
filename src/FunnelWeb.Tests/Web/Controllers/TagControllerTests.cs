@@ -51,5 +51,59 @@ namespace FunnelWeb.Tests.Web.Controllers
             Assert.IsTrue(((IEnumerable<Tag>)result.Model).Count() == 5);
         }
 
+        [Test]
+        public void TagControllerTests_Tag_Accessible_By_Full_Name()
+        {
+            //Arrange
+            
+            //Act
+
+            //Assert
+            Assert.Inconclusive();
+        }
+
+        [Test]
+        public void TagControllerTests_Tag_Accessible_By_Partial_Name()
+        {
+            //Arrange
+
+            //Act
+
+            //Assert
+            Assert.Inconclusive();
+        }
+
+        [Test]
+        public void TagControllerTests_Null_Result_When_Tag_Name_Not_Matched()
+        {
+            //Arrange
+            
+            //Act
+
+            //Assert
+            Assert.Inconclusive();
+        }
+
+        [Test]
+        public void TagControllerTests_Creating_Tag_Returns_As_Result()
+        {
+            //Arrange
+
+            //Act
+
+            //Assert
+            Assert.Inconclusive();
+        }
+
+        [Test]
+        public void TagControllerTests_All_Pages_For_A_Tag_Can_Be_Resolved()
+        {
+            //Arrange
+
+            //Act
+
+            //Assert
+            Assert.Inconclusive();
+        }
     }
 }
