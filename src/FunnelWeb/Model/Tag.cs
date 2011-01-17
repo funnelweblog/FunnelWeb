@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using Bindable.Core.Helpers;
 using Iesi.Collections.Generic;

@@ -106,6 +106,7 @@
     <Compile Include="Web\Application\Markup\MarkdownTests.cs" />
     <Compile Include="Web\Application\Mime\RegistryMimeTypeLookupTests.cs" />
     <Compile Include="Web\Controllers\AdminControllerTests.cs" />
+    <Compile Include="Web\Controllers\TagControllerTests.cs" />
     <Compile Include="Web\Controllers\UploadControllerTests.cs" />
     <Compile Include="Web\Controllers\WikiControllerTests.cs" />
     <Compile Include="Web\Model\Repositories\FileRepositoryTests.cs" />

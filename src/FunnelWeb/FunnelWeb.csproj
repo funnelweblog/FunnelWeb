@@ -96,6 +96,7 @@
     <Compile Include="Eventing\EventingModule.cs" />
     <Compile Include="Eventing\INotifier.cs" />
     <Compile Include="IFunnelWebExtension.cs" />
+    <Compile Include="Model\Tag.cs" />
     <Compile Include="Model\Comment.cs" />
     <Compile Include="Model\Comparers\CommentComparer.cs" />
     <Compile Include="Model\Comparers\PingbackComparer.cs" />
@@ -105,7 +106,6 @@
     <Compile Include="Model\EntryStatus.cs" />
     <Compile Include="Model\Repositories\IFeedRepository.cs" />
     <Compile Include="Model\Repositories\Internal\TagRepository.cs" />
-    <Compile Include="Model\Tag.cs" />
     <Compile Include="Model\TagItem.cs" />
     <Compile Include="Model\FileItem.cs" />
     <Compile Include="Model\Formats.cs" />
@@ -121,8 +121,8 @@
     <Compile Include="Model\Pingback.cs" />
     <Compile Include="Model\Redirect.cs" />
     <Compile Include="Model\Repositories\IAdminRepository.cs" />
-    <Compile Include="Model\Repositories\IEntryRepository.cs" />
     <Compile Include="Model\Repositories\ITagRepository.cs" />
+    <Compile Include="Model\Repositories\IEntryRepository.cs" />
     <Compile Include="Model\Repositories\IFileRepository.cs" />
     <Compile Include="Model\Repositories\Internal\AdminRepository.cs" />
     <Compile Include="Model\Repositories\Internal\EntryRepository.cs" />
