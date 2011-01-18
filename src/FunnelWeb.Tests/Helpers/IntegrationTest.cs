@@ -117,7 +117,7 @@ namespace FunnelWeb.Tests.Helpers
 
             DestinationPath = typeof(IntegrationTest).Assembly.CodeBase.Replace("file:///", "").Replace("/", "\\");
             DestinationPath = Path.GetDirectoryName(DestinationPath);  // Debug
-            DestinationPath = Path.Combine(DestinationPath, "FunnelWeb.Web" + Guid.NewGuid());
+            DestinationPath = Path.Combine(DestinationPath, "FunnelWeb.WebTesting");
             Directory.CreateDirectory(DestinationPath);
 
             // Create all of the directories
@@ -126,7 +126,16 @@ namespace FunnelWeb.Tests.Helpers
 
             // Copy all the files
             foreach (var newPath in Directory.GetFiles(sourcePath, "*.*", SearchOption.AllDirectories))
-                File.Copy(newPath, newPath.Replace(sourcePath, DestinationPath));
+            {
+                try
+                {
+                    File.Copy(newPath, newPath.Replace(sourcePath, DestinationPath));                    
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine(string.Format("Could not copy file: '{0}'. Reason: {1}", newPath, ex));
+                }
+            }
         }
     }
 }

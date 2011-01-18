@@ -32,6 +32,7 @@ namespace FunnelWeb.Tests.Integration
             Browser.WaitUntilContainsText("History");
             
             Browser.GoTo(RootUrl);
+            Browser.Refresh();
 
             Assert.IsTrue(Browser.ContainsText("My Page"));
             Assert.IsTrue(Browser.ContainsText("This is a summary of my blog post"));
