@@ -50,6 +50,9 @@ namespace FunnelWeb.Tests.Helpers
 
             Browser = new IE();
             Execute();
+
+            Browser.ForceClose();
+            Browser.Dispose();
         }
 
         protected IE Browser { get; set; }
@@ -122,7 +125,9 @@ namespace FunnelWeb.Tests.Helpers
 
             // Create all of the directories
             foreach (var dirPath in Directory.GetDirectories(sourcePath, "*", SearchOption.AllDirectories))
+            {
                 Directory.CreateDirectory(dirPath.Replace(sourcePath, DestinationPath));
+            }
 
             // Copy all the files
             foreach (var newPath in Directory.GetFiles(sourcePath, "*.*", SearchOption.AllDirectories))
