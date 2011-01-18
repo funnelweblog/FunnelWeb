@@ -8,22 +8,24 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Mvc.Html;
 using System.Web.Routing;
-using Autofac;
-using Autofac.Integration.Web;
+using FunnelWeb.Model;
 using FunnelWeb.Settings;
 using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Application.Views;
-using FunnelWeb.Model;
-using System.Text.RegularExpressions;
 
 namespace FunnelWeb.Web.Application.Extensions
 {
     public static class MarkupExtensions
     {
+        public static MvcHtmlString Version()
+        {
+            return MvcHtmlString.Create(Assembly.GetExecutingAssembly().GetName().Version.ToString());
+        }
+
         #region URL's
 
         public static MvcHtmlString Qualify(this HtmlHelper html, MvcHtmlString url)
