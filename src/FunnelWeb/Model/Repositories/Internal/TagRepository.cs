@@ -69,5 +69,10 @@ namespace FunnelWeb.Model.Repositories.Internal
         {
             session.Delete(feed);
         }
+
+        public Tag GetTag(string tagName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

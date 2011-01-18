@@ -55,11 +55,16 @@ namespace FunnelWeb.Tests.Web.Controllers
         public void TagControllerTests_Tag_Accessible_By_Full_Name()
         {
             //Arrange
-            
-            //Act
+            var repo = Substitute.For<ITagRepository>();
+            var tagName = "Demo";
+            repo.GetTag(Arg.Is(tagName)).Returns(new Tag {Name = tagName});
 
+            var controller = new TagController(repo);
+            //Act
+            var result = controller.Tag(tagName) as ViewResult;
             //Assert
-            Assert.Inconclusive();
+            Assert.IsNotNull(result);
+            Assert.IsTrue(((dynamic) result.Model).Name == tagName);
         }
 
         [Test]

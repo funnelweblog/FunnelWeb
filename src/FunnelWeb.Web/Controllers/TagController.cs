@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using FunnelWeb.Model.Repositories;
 
 namespace FunnelWeb.Web.Controllers
@@ -20,5 +21,11 @@ namespace FunnelWeb.Web.Controllers
             return View(tags);
         }
 
+        public ActionResult Tag(string tagName)
+        {
+            var tag = _repo.GetTag(tagName);
+
+            return View(tag);
+        }
     }
 }
