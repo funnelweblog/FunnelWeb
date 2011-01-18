@@ -68,6 +68,11 @@ namespace FunnelWeb.Web.Controllers
                 return Search(page, true);
             }
 
+            if (entry.Status == EntryStatus.Private && !HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Search(page, true);
+            }
+
             ViewData.Model = new PageModel(page, entry, revision > 0);
             return View();
         }

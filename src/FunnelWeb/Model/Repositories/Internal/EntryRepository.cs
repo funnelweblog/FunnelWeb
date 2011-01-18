@@ -126,6 +126,7 @@ namespace FunnelWeb.Model.Repositories.Internal
                         select z.*, [Rank] from [Entry] z
                             inner join CONTAINSTABLE([Entry], *, :searchString) as searchTable2 on searchTable2.[Key] = z.Id
                     ) as Entries on Entries.Id = e.Id
+                    where {e.Status} != '" + EntryStatus.Private + @"'
                     order by [Rank] desc",
                 "e",
                 typeof(Entry))
@@ -154,6 +155,7 @@ namespace FunnelWeb.Model.Repositories.Internal
                     Restrictions.Like("entry.Title", searchTerms),
                     Restrictions.Like("rev.Body", searchTerms)
                     ))
+                .Add(Restrictions.NotEqProperty("entity.Status", EntryStatus.Private))
                 .SetFirstResult(0)
                 .SetMaxResults(15)
                 .SetResultTransformer(Transformers.AliasToEntityMap)
