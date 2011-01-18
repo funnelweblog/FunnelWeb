@@ -13,6 +13,26 @@ a:hover
     color: #D0A090;
 }
 
+span.tags
+{
+    display: block;
+    margin: 10px 0;
+}
+
+a.tag
+{
+    color: #A08070;
+    border: 1px solid #D0A090;
+    text-decoration: none;
+    padding: 1px 4px;
+    width: 60px;
+}
+
+a.tag:hover
+{
+    background-color: #ffe0d0;
+}
+
 h1, h2, h3, h4, h5, h6
 {
     color: #A08070;
@@ -157,10 +177,16 @@ h5
     color: #fff;
 }
 
+.post-line .summary
+{
+    position: relative;
+    top: -0.5em;
+}
+
 .content h1 a
 {
     border: 0px;
-    color: #A08070; 
+    color: #A08070;
 }
 
 .comment
