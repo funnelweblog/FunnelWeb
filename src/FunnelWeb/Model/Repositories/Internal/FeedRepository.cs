@@ -33,7 +33,7 @@ namespace FunnelWeb.Model.Repositories.Internal
                         .AddOrder(Order.Desc("rv.Revised"))
                         .Add(Restrictions.EqProperty("rv.Entry.Id", "entry.Id"))
                         .SetMaxResults(1))))
-                .Add(Restrictions.Not(Restrictions.Eq("entry.Status", EntryStatus.PublicPage)))
+                .Add(Restrictions.Eq("entry.Status", EntryStatus.PublicBlog))
                 .Add(Restrictions.Le("entry.Published", DateTime.UtcNow.Date.AddDays(1)))
                 .AddOrder(Order.Desc("entry.Published"))
                 .SetFirstResult(skip)

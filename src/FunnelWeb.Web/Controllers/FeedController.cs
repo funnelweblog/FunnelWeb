@@ -5,7 +5,6 @@ using System.ServiceModel.Syndication;
 using System.Web.Mvc;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
-using FunnelWeb.Model.Strings;
 using FunnelWeb.Settings;
 using FunnelWeb.Web.Application.Filters;
 using FunnelWeb.Web.Application.Mvc.ActionResults;
@@ -56,14 +55,14 @@ namespace FunnelWeb.Web.Controllers
                 let itemUri = new Uri(Request.Url, Url.Action("Page", "Wiki", new { page = e.Name }))
                 let viaFeedUri = new Uri(Request.Url, "/via-feed" + Url.Action("Page", "Wiki", new { page = e.Name }))
                 orderby e.Published descending
-                let content = TextSyndicationContent.CreateHtmlContent(
+                let content = SyndicationContent.CreateHtmlContent(
                             BuildFeedItemBody(itemUri, viaFeedUri, e.LatestRevision))
                 select new
                 {
                     Item = new SyndicationItem
                     {
                         Id = itemUri.ToString(),
-                        Title = TextSyndicationContent.CreatePlaintextContent(e.Title),
+                        Title = SyndicationContent.CreatePlaintextContent(e.Title),
                         Summary = content,
                         Content = content,
                         LastUpdatedTime = e.LatestRevision.Revised,
