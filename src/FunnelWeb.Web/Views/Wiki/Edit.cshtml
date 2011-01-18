@@ -83,7 +83,7 @@
     @Html.LabelFor(m => m.TagsString)
   </div>
   <div class="editor-field">
-    @Html.TextBoxFor(m => m.TagsString, Html.AttributesFor(m => m.TagsString))
+    @Html.EditorFor(m => m.TagsString, Html.AttributesFor(m => m.TagsString))
     @Html.ValidationMessageFor(m => m.TagsString)
     @Html.HintFor(m => m.TagsString)
   </div>

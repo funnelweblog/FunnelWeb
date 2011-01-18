@@ -11,21 +11,31 @@ namespace FunnelWeb.Model.Repositories.Internal
 {
     public class TagRepository : ITagRepository
     {
-        private readonly ISession session;
+        private readonly ISession _session;
 
         public TagRepository(ISession session)
         {
-            this.session = session;
+            _session = session;
         }
 
         public IQueryable<Tag> GetTags()
         {
-            return session.Linq<Tag>();
+            return GetTags(string.Empty);
+        }
+
+        public IQueryable<Tag> GetTags(string tagName)
+        {
+            tagName = tagName ?? string.Empty;
+
+            return from tag in _session.Linq<Tag>()
+                   where tag.Name.Contains(tagName)
+                   select tag;
+
         }
 
         public IEnumerable<Entry> GetTaggedItems(string tagName, int skip, int take)
         {
-            var entryQuery = (ArrayList)session.CreateCriteria<TagItem>("ti")
+            var entryQuery = (ArrayList)_session.CreateCriteria<TagItem>("ti")
                                             .CreateCriteria("ti.Tag", "tag")
                                             .CreateCriteria("ti.Entry", "entry")
                                             .CreateCriteria("entry.Revisions", "rev")
@@ -57,17 +67,17 @@ namespace FunnelWeb.Model.Repositories.Internal
 
         public int GetTaggedItemCount(string tagName)
         {
-            return session.Linq<TagItem>().Where(i => i.Tag.Name == tagName).Count();
+            return _session.Linq<TagItem>().Where(i => i.Tag.Name == tagName).Count();
         }
 
         public void Save(Tag feed)
         {
-            session.SaveOrUpdate(feed);
+            _session.SaveOrUpdate(feed);
         }
 
         public void Delete(Tag feed)
         {
-            session.Delete(feed);
+            _session.Delete(feed);
         }
 
         public Tag GetTag(string tagName)

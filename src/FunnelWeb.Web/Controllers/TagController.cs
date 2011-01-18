@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using FunnelWeb.Model.Repositories;
 
@@ -14,18 +15,19 @@ namespace FunnelWeb.Web.Controllers
             _repo = repo;
         }
 
-        public ActionResult Index()
+        [HttpGet]
+        public ActionResult Index(string tagName = null)
         {
-            var tags = _repo.GetTags();
+            var tags = _repo.GetTags(tagName);
 
-            return View(tags);
+            return Json(tags, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Tag(string tagName)
         {
             var tag = _repo.GetTag(tagName);
 
-            return View(tag);
+            return Json(tag);
         }
     }
 }

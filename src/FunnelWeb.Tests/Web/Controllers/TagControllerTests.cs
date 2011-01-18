@@ -21,13 +21,13 @@ namespace FunnelWeb.Tests.Web.Controllers
             var controller = new TagController(repo);
 
             //Act
-            var result = controller.Index() as ViewResult;
+            var result = controller.Index() as JsonResult;
 
             //Assert
             Assert.IsNotNull(result);
-            Assert.IsNotNull(result.Model);
-            Assert.IsInstanceOf(typeof (IEnumerable<Tag>), result.Model);
-            Assert.IsFalse(((IEnumerable<Tag>) result.Model).Any());
+            Assert.IsNotNull(result.Data);
+            Assert.IsInstanceOf(typeof (IEnumerable<Tag>), result.Data);
+            Assert.IsFalse(((IEnumerable<Tag>) result.Data).Any());
         }
 
         [Test]
@@ -35,7 +35,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         {
             //Arrange
             var repo = Substitute.For<ITagRepository>();
-            repo.GetTags().Returns(Enumerable
+            repo.GetTags(Arg.Any<string>()).Returns(Enumerable
                                        .Range(0, 5)
                                        .Select(x => new Tag
                                                         {
@@ -45,10 +45,10 @@ namespace FunnelWeb.Tests.Web.Controllers
             var controller = new TagController(repo);
 
             //Act
-            var result = controller.Index() as ViewResult;
+            var result = controller.Index() as JsonResult;
 
             //Assert
-            Assert.IsTrue(((IEnumerable<Tag>)result.Model).Count() == 5);
+            Assert.IsTrue(((IQueryable<Tag>)result.Data).Count() == 5);
         }
 
         [Test]
@@ -61,10 +61,10 @@ namespace FunnelWeb.Tests.Web.Controllers
 
             var controller = new TagController(repo);
             //Act
-            var result = controller.Tag(tagName) as ViewResult;
+            var result = controller.Tag(tagName) as JsonResult;
             //Assert
             Assert.IsNotNull(result);
-            Assert.IsTrue(((dynamic) result.Model).Name == tagName);
+            Assert.IsTrue(((dynamic) result.Data).Name == tagName);
         }
 
         [Test]
@@ -87,10 +87,10 @@ namespace FunnelWeb.Tests.Web.Controllers
 
             var controller = new TagController(repo);
             //Act
-            var result = controller.Tag(string.Empty) as ViewResult;
+            var result = controller.Tag(string.Empty) as JsonResult;
             //Assert
             Assert.IsNotNull(result);
-            Assert.IsNull(result.Model);
+            Assert.IsNull(result.Data);
         }
 
         [Test]

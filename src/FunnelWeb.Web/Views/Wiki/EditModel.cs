@@ -76,6 +76,7 @@ namespace FunnelWeb.Web.Views.Wiki
         [StringLength(100)]
         [Description("Comma-separated tags that will appear in the &lt;meta&gt; tags of the page.")]
         [HintSize(HintSize.Large)]
+        [DataType("Tags")]
         public string TagsString { get; set; }
 
         [Required]

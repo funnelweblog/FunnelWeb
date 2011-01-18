@@ -1,0 +1,7 @@
+﻿@model String
+
+@{
+    Html.RequiresJs("Site/taggy.js", "Scripts", 10);   
+}
+
+@Html.TextBoxFor(m => Model, Html.AttributesFor(m => Model))

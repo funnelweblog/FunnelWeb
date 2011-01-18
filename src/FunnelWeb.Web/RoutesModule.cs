@@ -54,6 +54,9 @@ namespace FunnelWeb.Web
             routes.MapLowerCaseRoute(r(), "sitemap", new { controller = "Wiki", action = "SiteMap" });
             routes.MapLowerCaseRoute(r(), "sitemap.xml", new { controller = "Wiki", action = "SiteMap" });
 
+            // Tags
+            routes.MapLowerCaseRoute(r(), "tag/{*tagName}", new {controller = "Tag", action = "Index"});
+
             // Wiki
             routes.MapLowerCaseRoute(r(), "blog", new { controller = "Wiki", action = "Recent", pageNumber = "0" });
             routes.MapLowerCaseRoute(r(), "blog/{pageNumber}", new { controller = "Wiki", action = "Recent" }, new { pageNumber = "\\d+" });

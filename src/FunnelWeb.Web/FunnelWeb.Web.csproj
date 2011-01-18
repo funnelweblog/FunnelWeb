@@ -230,9 +230,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Scripts\Site\taggy.js" />
     <Content Include="Content\Styles\Layout\Mobile.css" />
     <Content Include="Content\Styles\Themes\Official\Theme.css" />
     <Content Include="Content\Styles\Themes\MattHamilton\backgnd.png" />
+    <None Include="Views\Shared\EditorTemplates\Tags.cshtml" />
     <Content Include="Views\Shared\_Mobile.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Markdown.cshtml" />
     <Content Include="Content\Styles\Layout\Admin.css" />
@@ -286,7 +288,7 @@
     <Content Include="Content\Resources\favicon.ico" />
     <Content Include="Content\Resources\Robots.txt" />
     <Content Include="Content\Resources\Status.html" />
-    <Content Include="Content\Scripts\JQuery\jquery-1.3.2.min.js" />
+    <Content Include="Content\Scripts\JQuery\jquery-1.4.4.min.js" />
     <Content Include="Content\Scripts\JQuery\jsdate.js" />
     <Content Include="Content\Scripts\Prettify\prettify.js" />
     <Content Include="Content\Scripts\Showdown\showdown.js" />
