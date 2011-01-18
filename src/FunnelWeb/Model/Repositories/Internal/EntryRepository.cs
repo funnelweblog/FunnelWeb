@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Bindable.Core.Language;
@@ -29,6 +30,13 @@ namespace FunnelWeb.Model.Repositories.Internal
         {
             return session.Linq<Entry>().Where(x => x.Status != EntryStatus.PublicBlog)
                 .OrderByDescending(x => x.Published);
+        }
+
+        public Entry GetEntry(int id)
+        {
+            return session.Linq<Entry>()
+                .Expand("Revisions")
+                .FirstOrDefault(x => x.Id == id);
         }
 
         public Entry GetEntry(PageName name)

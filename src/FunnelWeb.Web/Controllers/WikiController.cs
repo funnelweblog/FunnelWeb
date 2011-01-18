@@ -98,7 +98,7 @@ namespace FunnelWeb.Web.Controllers
                 };
             
             var allTags = TagRepository.GetTags();
-            var model = new EditModel(page, entry.Id == 0, allTags);
+            var model = new EditModel(page, entry.Id, allTags);
             model.DisableComments = !entry.IsDiscussionEnabled;
             model.Content = entry.LatestRevision.Body;
             model.Format = entry.LatestRevision.Format;
@@ -130,7 +130,15 @@ namespace FunnelWeb.Web.Controllers
                 return View(model);
             }
 
-            var entry = EntryRepository.GetEntry(model.Page) ?? new Entry();
+            // Does an entry with that name already exist?
+            var existing = EntryRepository.GetEntry(model.Page);
+            if (existing != null && existing.Id != model.OriginalEntryId)
+            {
+                ModelState.AddModelError("PageExists", string.Format("A page with SLUG '{0}' already exists. You should edit that page instead.", model.Page));
+                return View(model);
+            }
+
+            var entry = EntryRepository.GetEntry(model.OriginalEntryId) ?? new Entry();
             entry.Name = model.Page;
             entry.Title = model.Title ?? string.Empty;
             entry.Summary = model.Sidebar ?? string.Empty;

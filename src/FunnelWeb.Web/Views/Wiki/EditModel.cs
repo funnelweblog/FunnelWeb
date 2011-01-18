@@ -17,16 +17,19 @@ namespace FunnelWeb.Web.Views.Wiki
             
         }
 
-        public EditModel(PageName page, bool isNew, IEnumerable<Tag> tags)
+        public EditModel(PageName page, int originalEntryId, IEnumerable<Tag> tags)
         {
             Page = page;
-            IsNew = isNew;
+            IsNew = originalEntryId == 0;
+            OriginalEntryId = originalEntryId;
             AllTags = tags.ToList();
         }
 
         public List<Tag> AllTags { get; set; }
 
         public bool IsNew { get; set; }
+
+        public int OriginalEntryId { get; set; }
 
         [Required]
         [DisplayName("SLUG")]

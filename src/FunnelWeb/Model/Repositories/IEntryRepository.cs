@@ -8,6 +8,7 @@ namespace FunnelWeb.Model.Repositories
     {
         IQueryable<Entry> GetEntries();
         IEnumerable<Entry> GetUnpublished();
+        Entry GetEntry(int id);
         Entry GetEntry(PageName name);
         Entry GetEntry(PageName name, int revision);
         Redirect GetClosestRedirect(PageName name);
