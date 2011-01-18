@@ -82,11 +82,15 @@ namespace FunnelWeb.Tests.Web.Controllers
         public void TagControllerTests_Null_Result_When_Tag_Name_Not_Matched()
         {
             //Arrange
-            
-            //Act
+            var repo = Substitute.For<ITagRepository>();
+            repo.GetTag(Arg.Any<string>()).Returns(x => null);
 
+            var controller = new TagController(repo);
+            //Act
+            var result = controller.Tag(string.Empty) as ViewResult;
             //Assert
-            Assert.Inconclusive();
+            Assert.IsNotNull(result);
+            Assert.IsNull(result.Model);
         }
 
         [Test]
