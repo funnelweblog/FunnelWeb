@@ -21,7 +21,7 @@ namespace FunnelWeb.Web.Application.Extensions
 {
     public static class MarkupExtensions
     {
-        public static MvcHtmlString Version()
+        public static MvcHtmlString Version(this HtmlHelper html)
         {
             return MvcHtmlString.Create(Assembly.GetExecutingAssembly().GetName().Version.ToString());
         }
