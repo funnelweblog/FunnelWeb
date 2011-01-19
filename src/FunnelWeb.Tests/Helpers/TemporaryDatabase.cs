@@ -15,7 +15,7 @@ namespace FunnelWeb.Tests.Helpers
 
         public TemporaryDatabase()
         {
-            databaseName = "FW" + Guid.NewGuid();
+            databaseName = "FunnelWebIntegrationTests";
             connectionString = string.Format("Server=(local)\\SQLEXPRESS;Database={0};Trusted_connection=true;Pooling=false", databaseName);
             database = new AdHocSqlRunner(connectionString);
 
@@ -37,6 +37,14 @@ namespace FunnelWeb.Tests.Helpers
 
         public void CreateAndDeploy()
         {
+            try
+            {
+                master.ExecuteNonQuery("drop database [" + databaseName + "]");
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine(string.Format("Could not drop integration test database: {0}", ex));
+            }
             master.ExecuteNonQuery("create database [" + databaseName + "]");
 
             var app = new ApplicationDatabase();

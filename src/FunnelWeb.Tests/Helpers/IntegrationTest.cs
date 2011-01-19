@@ -39,9 +39,6 @@ namespace FunnelWeb.Tests.Helpers
         {
             if ((requirements & TheDatabase.MustBeFresh) == TheDatabase.MustBeFresh || Database == null)
             {
-                if (Database != null)
-                    Database.Dispose();
-
                 Database = new TemporaryDatabase();
                 Database.CreateAndDeploy();
 
