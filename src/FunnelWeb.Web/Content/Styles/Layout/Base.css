@@ -1030,3 +1030,42 @@ a.tag
     color: #ccc;
     padding: 1px 5px 1px 0;
 }
+
+.triangle-border {
+	position:relative;
+	padding:15px;
+	margin:1em 0 3em;
+	border:5px solid #5a8f00;
+	color:#333;
+	background:#fff;
+	
+	/* css3 */
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+}
+
+.triangle-border:before {
+	content:"";
+	display:block; /* reduce the damage in FF3.0 */
+	position:absolute;
+	bottom:-40px; /* value = - border-top-width - border-bottom-width */
+	left:40px; /* controls horizontal position */
+	width:0;
+	height:0;
+	border:20px solid transparent;
+	border-top-color:#5a8f00;
+}
+
+/* creates the smaller  triangle */
+.triangle-border:after {
+	content:"";
+	display:block; /* reduce the damage in FF3.0 */
+	position:absolute;
+	bottom:-26px; /* value = - border-top-width - border-bottom-width */
+	left:47px; /* value = (:before left) + (:before border-left) - (:after border-left) */
+	width:0;
+	height:0;
+	border:13px solid transparent;
+	border-top-color:#fff;
+}

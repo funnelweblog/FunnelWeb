@@ -12,21 +12,36 @@
 
         var opts = jQuery.extend(true, options, defaults);
 
+        var load = function () {
+            if (tagCache.hasOwnProperty(that.val())) {
+
+            } else {
+                jQuery.getJSON(opts.url + that.val(), null, function (result) {
+                    tagCache[that.val()] = result;
+                });
+            }
+        };
+
+        var displayData = function () {
+            console.log(tagCache[that.val()]);
+        };
+
         that.keyup(function (e) {
             switch (e.which) {
                 case 188:
                     //new tag
                     break;
-                default:
-                    if (tagCache.hasOwnProperty(that.val())) {
-                        console.log(tagCache[that.val()]);
-                    } else {
-                        jQuery.getJSON(opts.url + that.val(), null, function (result) {
-                            console.log(result);
-                        });
+                case 8:
+                    if (that.val() !== '') {
+                        load();
                     }
+                    break;
+                default:
+                    load();
                     break;
             }
         });
     };
 })();
+
+jQuery('.taggy').taggy();
