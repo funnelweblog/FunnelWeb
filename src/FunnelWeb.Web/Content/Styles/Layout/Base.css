@@ -1069,3 +1069,11 @@ a.tag
 	border:13px solid transparent;
 	border-top-color:#fff;
 }
+
+.triangle-border p 
+{
+	background-image:url(/Content/Images/add.png);
+	background-position:left top;
+	background-repeat:no-repeat;
+	padding-left:20px;
+}

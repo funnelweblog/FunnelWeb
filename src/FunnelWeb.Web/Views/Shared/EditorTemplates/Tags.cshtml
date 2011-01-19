@@ -1,10 +1,9 @@
 ﻿@model String
 
 @{
-    Html.RequiresJs("Site/taggy.js", "Scripts", 10);   
+    Html.RequiresJs("Site/taggy.js", "Scripts", 10);
+    Html.RequiresJs("jQuery/jquery.tmpl.js", "Scripts", 10);
 }
-
-<p class="triangle-border top">umbraco</p>
 
 @Html.TextBoxFor(m => Model, new { @class = "taggy" })
 
