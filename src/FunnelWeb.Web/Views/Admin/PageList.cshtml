@@ -10,9 +10,9 @@
   Here is a list of all of the pages in your site
 </p>
 
-@foreach (var group in Model.Entries.GroupBy(x => x.Status))
+@foreach (var group in Model.Entries.GroupBy(x => x.Status).OrderBy(g => g.Key))
 {
-  <h2>@group.Key</h2>
+  <h3>@group.Key</h3>
   
   if (group.Key == FunnelWeb.Model.EntryStatus.Private) 
   {
@@ -44,8 +44,8 @@
         <td>@Html.ActionLink(entry.Name, "Page", "Wiki", new { page = entry.Name }, new { })</td>
         <td>@entry.Title</td>
         <td>@entry.CommentCount</td>
-        <td>@entry.Published.ToString("yyyy-MM-dd")</td>
-        <td>@Html.Date(entry.LatestRevision.Revised)</td>
+        <td>@Html.Date(entry.Published)</td>
+        <td>@Html.Date(entry.LatestRevision.Revised) (@Html.ActionLink("History", "Revisions", "Wiki", new { page = entry.Name }, new { }))</td>
       </tr>
   }
     </tbody>
