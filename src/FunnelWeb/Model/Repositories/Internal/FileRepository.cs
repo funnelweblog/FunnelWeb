@@ -136,10 +136,20 @@ namespace FunnelWeb.Model.Repositories.Internal
 
         public void Save(Stream inputStream, string fullPath, bool unzip)
         {
-            if (!unzip)
-                inputStream.Save(fullPath);
-            else 
+            if (unzip && IsZipFile(fullPath))
+            {
                 inputStream.Extract(fullPath);
+            }
+            else
+            {
+                inputStream.Save(fullPath);
+            }
+        }
+
+        private bool IsZipFile(string fullPath)
+        {
+            var extension = Path.GetExtension(fullPath).ToLowerInvariant();
+            return extension == "zip" || extension == "gz" || extension == "tar" || extension == "rar";
         }
     }
 }
