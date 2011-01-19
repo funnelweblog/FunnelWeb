@@ -27,10 +27,10 @@ namespace FunnelWeb.Web.Controllers
         }
 
         [Authorize]
-        public virtual ActionResult Upload(string path, bool unzip, FileUpload upload)
+        public virtual ActionResult Upload(string path, bool? unzip, FileUpload upload)
         {
             var fullPath = FileRepository.MapPath(Path.Combine(path, upload.FileName));
-            FileRepository.Save(upload.Stream, fullPath, unzip);
+            FileRepository.Save(upload.Stream, fullPath, unzip ?? false);
             return RedirectToAction("Index", "Upload", new { path });
         }
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System.IO;
 using ICSharpCode.SharpZipLib.Zip;
 
 namespace FunnelWeb.Utilities
@@ -11,6 +7,9 @@ namespace FunnelWeb.Utilities
     {
         public static void Save(this Stream stream, string fileName)
         {
+            var directoryName = Path.GetDirectoryName(fileName);
+            Directory.CreateDirectory(directoryName);
+
             using (var output = new FileStream(fileName, FileMode.Create, FileAccess.Write))
             {
                 var size = 2048;
@@ -43,6 +42,7 @@ namespace FunnelWeb.Utilities
         {
             var directoryName = Path.GetDirectoryName(entry.Name);
             if (directoryName == null) return;
+            if (!entry.IsFile) return;
 
             var fileName = Path.GetFileName(entry.Name);
             if (fileName == null) return;
