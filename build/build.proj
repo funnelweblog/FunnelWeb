@@ -2,16 +2,31 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="lib\MSBuild.Community.Tasks.Targets" />
   <Import Project="lib\MSBuild.Deployment.Tasks.Targets" />
-
+  <Import Project="lib\MSBuild.Community.Tasks.Targets"/>
+  <Import Project="lib\MSBuild.Mercurial.tasks"/>
+  
   <PropertyGroup>
     <Root>$(MSBuildStartupDirectory)</Root>
     <nunitconsoleexe>$(Root)\lib\NUnit\exe\nunit-console-x86.exe</nunitconsoleexe>
   </PropertyGroup>
 
-  <Target Name="Build">
+  <PropertyGroup>
+    <Major>1</Major>
+    <Minor>0</Minor>
+    <Build>1</Build>
+    <Revision>0</Revision>
+  </PropertyGroup>
+  
+  <Target Name="Version">
+    <HgVersion LocalPath=".">
+      <Output TaskParameter="Revision" PropertyName="Revision" />
+    </HgVersion>
+  </Target>
+  
+  <Target Name="Build" DependsOnTargets="Version">
     <!-- Diagnostics -->
     <Message Text="Diagnostics:"/>
-    <Message Text="Build Number:    $(build_number)" />
+    <Message Text="Build Number:    $(Major).$(Minor).$(Build).$(Revision)" />
     <Message Text="Build dir:       $(MSBuildProjectDirectory)" />
     <Message Text="Project root:    $(Root)" />
     <Message Text="NUnit Console:   $(nunitconsoleexe)" />
@@ -37,8 +52,8 @@
     <AssemblyInfo
       CodeLanguage="CS"
       OutputFile="$(Root)\src\Information\VersionInfo.cs"
-      AssemblyVersion="$(build_number)"
-      AssemblyFileVersion="$(build_number)"
+      AssemblyVersion="$(Major).$(Minor).$(Build).$(Revision)"
+      AssemblyFileVersion="$(Major).$(Minor).$(Build).$(Revision)"
       />
     
     <!-- Zip source -->
@@ -48,7 +63,7 @@
     </ItemGroup>
     <Zip Files="@(SourceFilesToZip)"
       WorkingDirectory="$(Root)"
-      ZipFileName="$(MSBuildProjectDirectory)\Artifacts\FunnelWeb-$(build_number)-source.zip"
+      ZipFileName="$(MSBuildProjectDirectory)\Artifacts\FunnelWeb-$(Major).$(Minor).$(Build).$(Revision)-source.zip"
       ZipLevel="9"
       />
     
@@ -90,7 +105,7 @@
     </ItemGroup>
     <Zip Files="@(PublishedFilesToZip)"
       WorkingDirectory="$(Root)\build\Published"
-      ZipFileName="$(MSBuildProjectDirectory)\Artifacts\FunnelWeb-$(build_number).zip"
+      ZipFileName="$(MSBuildProjectDirectory)\Artifacts\FunnelWeb-$(Major).$(Minor).$(Build).$(Revision).zip"
       ZipLevel="9"
       />
 
@@ -100,6 +115,5 @@
     </ItemGroup>
     <Exec Condition="$(teamcity_dotnet_nunitlauncher) != ''" Command="$(teamcity_dotnet_nunitlauncher) v4.0 x86 NUnit-2.5.0 @(TestAssemblies->'%(FullPath)', '%20')" />
     <Exec Condition="$(teamcity_dotnet_nunitlauncher) == ''" Command="$(nunitconsoleexe) @(TestAssemblies->'%(FullPath)', '%20')" />
-
   </Target>
 </Project>
