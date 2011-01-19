@@ -230,6 +230,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\add.png" />
+    <Content Include="Content\Images\delete.png" />
     <Content Include="Content\Scripts\JQuery\jquery.tmpl.js" />
     <Content Include="Content\Scripts\Site\taggy.js" />
     <Content Include="Content\Styles\Layout\Mobile.css" />
