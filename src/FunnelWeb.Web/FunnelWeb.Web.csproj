@@ -65,6 +65,10 @@
     <Reference Include="FluentNHibernate">
       <HintPath>..\..\lib\NHibernate\FluentNHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\SharpZipLib\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="Iesi.Collections">
       <HintPath>..\..\lib\NHibernate\Iesi.Collections.dll</HintPath>
     </Reference>
@@ -193,6 +197,7 @@
     <Content Include="App_Code\HelperPage.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Views\Admin\CommentsModel.cs" />
+    <Compile Include="Views\Admin\PageListModel.cs" />
     <Compile Include="Views\Admin\PingbacksModel.cs" />
     <Compile Include="Views\Admin\IndexModel.cs" />
     <Compile Include="Controllers\InstallController.cs" />
@@ -237,6 +242,7 @@
     <Content Include="Content\Styles\Layout\Mobile.css" />
     <Content Include="Content\Styles\Themes\Official\Theme.css" />
     <Content Include="Content\Styles\Themes\MattHamilton\backgnd.png" />
+    <Content Include="Views\Admin\PageList.cshtml" />
     <None Include="Views\Shared\EditorTemplates\Tags.cshtml" />
     <Content Include="Views\Shared\_Mobile.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Markdown.cshtml" />

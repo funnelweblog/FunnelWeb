@@ -16,6 +16,7 @@ namespace FunnelWeb.Web.Controllers
         public IAdminRepository AdminRepository { get; set; }
         public ITagRepository FeedRepository { get; set; }
         public ISettingsProvider SettingsProvider { get; set; }
+        public IEntryRepository EntryRepository { get; set; }
 
         [Authorize]
         public virtual ActionResult Index()
@@ -121,5 +122,12 @@ namespace FunnelWeb.Web.Controllers
         }
 
         #endregion
+
+        [Authorize]
+        public virtual ActionResult PageList()
+        {
+            var entries = EntryRepository.GetEntries().ToList();
+            return View(new PageListModel(entries));
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System.IO;
+using System.Web;
 using System.Web.Mvc;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Web.Application;
@@ -50,14 +51,41 @@ namespace FunnelWeb.Tests.Web.Controllers
         [Test]
         public void Upload()
         {
-            var file = Substitute.For<HttpPostedFileBase>();
-            var upload = new FileUpload(file);
-            
-            var result = (RedirectToRouteResult)Controller.Upload("path", upload);
+            var stream = new MemoryStream();
 
-            FileRepository.Received().MapPath(Arg.Is<string>("path"));
-            file.Received().SaveAs(Arg.Any<string>());
-            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
+            var file = Substitute.For<HttpPostedFileBase>();
+            file.InputStream.Returns(stream);
+
+            var upload = new FileUpload(file);
+
+            FileRepository.MapPath(Arg.Any<string>()).Returns("path");
+            
+            var result = (RedirectToRouteResult)Controller.Upload("path", false, upload);
+
+            FileRepository.Received().MapPath(Arg.Is("path"));
+            FileRepository.Received().Save(Arg.Is<Stream>(stream), Arg.Is("path"), Arg.Is(false));
+
+            Assert.That(result.RouteValues["Action"], Is.EqualTo("Index"));
+        }
+
+        [Test]
+        public void UploadAndUnzip()
+        {
+            var stream = new MemoryStream();
+
+            var file = Substitute.For<HttpPostedFileBase>();
+            file.InputStream.Returns(stream);
+
+            var upload = new FileUpload(file);
+
+            FileRepository.MapPath(Arg.Any<string>()).Returns("path");
+
+            var result = (RedirectToRouteResult)Controller.Upload("path", true, upload);
+
+            FileRepository.Received().MapPath(Arg.Is("path"));
+            FileRepository.Received().Save(Arg.Is<Stream>(stream), Arg.Is("path"), Arg.Is(true));
+
+            Assert.That(result.RouteValues["Action"], Is.EqualTo("Index"));
         }
 
         [Test]

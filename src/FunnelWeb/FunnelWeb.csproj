@@ -53,6 +53,10 @@
     <Reference Include="FluentNHibernate">
       <HintPath>..\..\lib\NHibernate\FluentNHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\SharpZipLib\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="Iesi.Collections">
       <HintPath>..\..\lib\NHibernate\Iesi.Collections.dll</HintPath>
     </Reference>
@@ -142,6 +146,7 @@
     <Compile Include="Settings\SettingStorageAttribute.cs" />
     <Compile Include="Settings\StorageLocation.cs" />
     <Compile Include="Utilities\NumericExtensions.cs" />
+    <Compile Include="Utilities\StreamExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FunnelWeb.DatabaseDeployer\FunnelWeb.DatabaseDeployer.csproj">
