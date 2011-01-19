@@ -1,4 +1,4 @@
-@model FunnelWeb.Web.Views.Wiki.NotFoundModel
+@model FunnelWeb.Web.Views.Wiki.SearchModel
 @{
   if (Model.Is404) {
     Response.StatusCode = 404;
@@ -16,8 +16,7 @@
       
 @if (Model.Is404) {
 <p>
-  The page you requested does not exist. Below are some pages that may be related. If you still can't find 
-  what you are looking for, you can @Html.ActionLink("contact me", "Page", "Wiki", new {page = "contact"}, null).
+  The page you requested does not exist. Below are some pages that may be related.
 </p>
 }
       

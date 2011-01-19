@@ -1,0 +1,53 @@
+@model FunnelWeb.Web.Views.Admin.PageListModel
+@{
+    ViewBag.Title = "FunnelWeb Administration - Page List";
+    Layout = "~/Views/Shared/_Private.cshtml";
+}
+
+<h1>Page List</h1>
+
+<p>
+  Here is a list of all of the pages in your site
+</p>
+
+@foreach (var group in Model.Entries.GroupBy(x => x.Status))
+{
+  <h2>@group.Key</h2>
+  
+  if (group.Key == FunnelWeb.Model.EntryStatus.Private) 
+  {
+    <p>Only logged in users can see these pages.</p>
+  }
+  else if (group.Key == FunnelWeb.Model.EntryStatus.PublicPage) 
+  {
+    <p>Anyone can see these pages, but you'll need to link to them yourself. They won't appear in the main RSS feed.</p>
+  }
+  else if (group.Key == FunnelWeb.Model.EntryStatus.PublicBlog) 
+  {
+    <p>Anyone can see these pages, and they will appear in the main RSS feed as well as on the home page.</p>
+  }
+  
+  <table>
+    <thead>
+      <tr>
+        <td>SLUG</td>
+        <td>Title</td>
+        <td>Comments</td>
+        <td>Published</td>
+        <td>Last revision</td>
+      </tr>
+    </thead>
+    <tbody>
+  @foreach (var entry in group)
+  {
+      <tr>
+        <td>@Html.ActionLink(entry.Name, "Page", "Wiki", new { page = entry.Name }, new { })</td>
+        <td>@entry.Title</td>
+        <td>@entry.CommentCount</td>
+        <td>@entry.Published.ToString("yyyy-MM-dd")</td>
+        <td>@Html.Date(entry.LatestRevision.Revised)</td>
+      </tr>
+  }
+    </tbody>
+  </table>
+}
