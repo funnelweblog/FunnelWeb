@@ -51,6 +51,7 @@
 @using (Html.BeginForm("Upload", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" })) {
   <input type="hidden" name="path" value="@Model.PathString" />
   <input type="file" name="upload" />
+  <input type="checkbox" name="unzip" id="unzip" title="unzip" value="true" /> <label for="unzip">unzip</label>
   <input type="submit" value="Submit" />
 }
 </div>

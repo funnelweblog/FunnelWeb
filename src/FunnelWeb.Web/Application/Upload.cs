@@ -1,5 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Web;
+using ICSharpCode.SharpZipLib.Zip;
 
 namespace FunnelWeb.Web.Application
 {
@@ -21,5 +23,7 @@ namespace FunnelWeb.Web.Application
         {
             postedFile.SaveAs(fullPath);
         }
+
+        public Stream Stream { get { return postedFile.InputStream; } }
     }
 }

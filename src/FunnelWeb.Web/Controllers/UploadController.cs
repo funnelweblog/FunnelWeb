@@ -19,7 +19,7 @@ namespace FunnelWeb.Web.Controllers
             path = path ?? string.Empty;
             if (FileRepository.IsFile(path))
             {
-                return RedirectToAction("Index", "Upload", new {path = Path.GetDirectoryName(path)});
+                return RedirectToAction("Index", "Upload", new { path = Path.GetDirectoryName(path) });
             }
 
             ViewData.Model = new IndexModel(path, FileRepository.GetItems(path));
@@ -27,11 +27,11 @@ namespace FunnelWeb.Web.Controllers
         }
 
         [Authorize]
-        public virtual ActionResult Upload(string path, FileUpload upload)
+        public virtual ActionResult Upload(string path, bool unzip, FileUpload upload)
         {
             var fullPath = FileRepository.MapPath(Path.Combine(path, upload.FileName));
-            upload.SaveTo(fullPath);
-            return RedirectToAction("Index", "Upload", new {path });
+            FileRepository.Save(upload.Stream, fullPath, unzip);
+            return RedirectToAction("Index", "Upload", new { path });
         }
 
         [Authorize]

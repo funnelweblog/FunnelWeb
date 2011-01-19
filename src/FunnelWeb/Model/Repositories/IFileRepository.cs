@@ -1,4 +1,5 @@
 using System.IO;
+using System.Web;
 
 namespace FunnelWeb.Model.Repositories
 {
@@ -15,5 +16,6 @@ namespace FunnelWeb.Model.Repositories
         void Delete(string filePath);
 
         void CreateDirectory(string path, string name);
+        void Save(Stream inputStream, string fullPath, bool unzip);
     }
 }

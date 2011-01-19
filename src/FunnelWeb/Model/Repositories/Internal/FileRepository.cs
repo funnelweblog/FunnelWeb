@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Linq;
 using System.Security;
@@ -5,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using FunnelWeb.Settings;
 using FunnelWeb.Utilities;
+using ICSharpCode.SharpZipLib.Zip;
 
 namespace FunnelWeb.Model.Repositories.Internal
 {
@@ -130,6 +132,14 @@ namespace FunnelWeb.Model.Repositories.Internal
         {
             var fullPath = MapPath(Path.Combine(path, name));
             Directory.CreateDirectory(fullPath);
+        }
+
+        public void Save(Stream inputStream, string fullPath, bool unzip)
+        {
+            if (!unzip)
+                inputStream.Save(fullPath);
+            else 
+                inputStream.Extract(fullPath);
         }
     }
 }
