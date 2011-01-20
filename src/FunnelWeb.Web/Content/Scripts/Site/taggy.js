@@ -27,8 +27,11 @@ $(function () {
 
         select: function (event, ui) {
             $('.newTagInputWrapper').before(
-                    '<li class="newTagItem" id="container-' + ui.item.value + '"><a><em class="tagName">' + ui.item.label + '</em><span class="rm" id="' + ui.item.value + '"></span></a></li>'
+                    '<li class="newTagItem" id="container-' + ui.item.value + '"><a><em class="tagName">' + ui.item.label + '</em><span class="rm" id="' + ui.item.id + '"></span></a></li>'
                 );
+
+            var h = $('#tags input[type="hidden"]');
+            h.val(h.val() + ',' + ui.item.id);
         },
 
         close: function (event, ui) {
@@ -38,6 +41,11 @@ $(function () {
         width: 200
     });
 
+    $('span.rm').live('click', function () {
+        var h = $('#tags input[type="hidden"]');
+        h.val(h.val().replace(this.id, ''));
+        $('#container-' + this.id).remove();
+    });
 
     $('#tags').click(function (event) {
         if ($(event.target).is('span')) {
@@ -48,4 +56,5 @@ $(function () {
     $('#tags').click(function (event) {
         $("#tagInput").focus();
     });
+
 });

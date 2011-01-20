@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
 
 namespace FunnelWeb.Web.Controllers
@@ -20,7 +21,7 @@ namespace FunnelWeb.Web.Controllers
         {
             var tags = _repo.GetTags(tagName);
 
-            return Json(tags, JsonRequestBehavior.AllowGet);
+            return Json(tags.Select(x => new { Id = x.Id, Name = x.Name }), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Tag(string tagName)

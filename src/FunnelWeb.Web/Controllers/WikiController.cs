@@ -63,7 +63,7 @@ namespace FunnelWeb.Web.Controllers
             {
                 if (HttpContext.User.Identity.IsAuthenticated)
                 {
-                    return RedirectToAction("Edit", "Wiki", new {page});
+                    return RedirectToAction("Edit", "Wiki", new { page });
                 }
                 return Search(page, true);
             }
@@ -87,16 +87,16 @@ namespace FunnelWeb.Web.Controllers
         [Authorize]
         public virtual ActionResult Edit(PageName page, int? revertToRevision)
         {
-            var entry = EntryRepository.GetEntry(page, revertToRevision ?? 0) 
+            var entry = EntryRepository.GetEntry(page, revertToRevision ?? 0)
                 ?? new Entry
                 {
                     Title = "New post",
-                    MetaTitle = "New post", 
-                    Name = page, 
+                    MetaTitle = "New post",
+                    Name = page,
                     Status = EntryStatus.PublicBlog,
                     LatestRevision = new Revision()
                 };
-            
+
             var allTags = TagRepository.GetTags();
             var model = new EditModel(page, entry.Id, allTags);
             model.DisableComments = !entry.IsDiscussionEnabled;
@@ -110,7 +110,7 @@ namespace FunnelWeb.Web.Controllers
             model.Sidebar = entry.Summary;
             model.Title = entry.Title;
             model.SelectedTags = entry.Tags;
-            model.ChangeSummary = entry.Id == 0 ? "Initial create" : (revertToRevision == null ? "" :  "Reverted to version " + revertToRevision);
+            model.ChangeSummary = entry.Id == 0 ? "Initial create" : (revertToRevision == null ? "" : "Reverted to version " + revertToRevision);
 
             if (revertToRevision != null)
             {
@@ -124,7 +124,7 @@ namespace FunnelWeb.Web.Controllers
         public virtual ActionResult Edit(EditModel model)
         {
             model.AllTags = TagRepository.GetTags().ToList();
-                
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -157,7 +157,7 @@ namespace FunnelWeb.Web.Controllers
             EntryRepository.Save(entry);
 
             entry.Tags.Clear();
-            foreach (var tagName in model.TagsString.Split(','))
+            foreach (var tagName in model.TagsString.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
             {
                 int id;
                 Tag tag;
@@ -186,7 +186,7 @@ namespace FunnelWeb.Web.Controllers
         public virtual ActionResult Page(PageName page, PageModel model)
         {
             var entry = EntryRepository.GetEntry(page);
-            if (entry == null) 
+            if (entry == null)
                 return RedirectToAction("Recent");
 
             if (!ModelState.IsValid)
@@ -225,7 +225,7 @@ namespace FunnelWeb.Web.Controllers
 
             EventPublisher.Publish(new CommentPostedEvent(entry, comment));
 
-            return RedirectToAction("Page", new {page = page})
+            return RedirectToAction("Page", new { page = page })
                 .AndFlash("Thanks, your comment has been posted.");
         }
 
