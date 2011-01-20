@@ -1,4 +1,4 @@
-﻿@model String
+﻿@model IEnumerable<FunnelWeb.Model.Tag>
 
 @{
     Html.RequiresJs("Site/taggy.js", "Scripts", 10);
@@ -8,9 +8,13 @@
 
 <div id="tags" class="tagInputContainer field">
     <ul id="selectedTags" class="tagLines">
+        @foreach (var tag in Model) { 
+            <li class="newTagItem" id="container-@tag.Id"><a><em class="tagName">@tag.Name</em><span class="rm" id="@tag.Id"></span></a></li>
+        }  
         <li class="newTagInputWrapper" style="width: 30px">
             <input type="text" id="tagInput" name="agInput" />
             <div id="tmpTagsInput"></div>
         </li>
     </ul>
+    <input type="hidden" value="@string.Join(",", Model.Select(x => x.Id))" name="@Html.FieldNameFor(x => Model)-Ids" />
 </div>

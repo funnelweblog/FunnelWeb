@@ -80,9 +80,18 @@ namespace FunnelWeb.Model.Repositories.Internal
             _session.Delete(feed);
         }
 
+        public Tag GetTag(int id)
+        {
+            return _session.Linq<Tag>()
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
+        }
+
         public Tag GetTag(string tagName)
         {
-            throw new NotImplementedException();
+            return _session.Linq<Tag>()
+                .Where(x => x.Name.Contains(tagName))
+                .FirstOrDefault();
         }
     }
 }

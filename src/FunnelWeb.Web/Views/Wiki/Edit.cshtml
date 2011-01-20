@@ -80,12 +80,12 @@
   </div>
       
   <div class="editor-label">
-    @Html.LabelFor(m => m.TagsString)
+    @Html.LabelFor(m => m.SelectedTags)
   </div>
   <div class="editor-field">
-    @Html.EditorFor(m => m.TagsString, Html.AttributesFor(m => m.TagsString))
-    @Html.ValidationMessageFor(m => m.TagsString)
-    @Html.HintFor(m => m.TagsString)
+    @Html.EditorFor(m => m.SelectedTags)
+    @Html.ValidationMessageFor(m => m.SelectedTags)
+    @Html.HintFor(m => m.SelectedTags)
   </div>
       
   <div class="editor-label">

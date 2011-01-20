@@ -157,8 +157,23 @@ namespace FunnelWeb.Web.Controllers
             EntryRepository.Save(entry);
 
             entry.Tags.Clear();
-            foreach (var tag in model.SelectedTags)
+            foreach (var tagName in model.TagsString.Split(','))
             {
+                int id;
+                Tag tag;
+                if (int.TryParse(tagName, out id))
+                {
+                    tag = TagRepository.GetTag(id);
+                }
+                else
+                {
+                    tag = new Tag
+                              {
+                                  Name = tagName
+                              };
+                    TagRepository.Save(tag);
+                }
+
                 entry.Tags.Add(tag);
                 TagRepository.Save(tag);
             }

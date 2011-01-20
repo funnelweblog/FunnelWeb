@@ -179,6 +179,7 @@
     <Compile Include="Application\Filters\TransactionalAttribute.cs" />
     <Compile Include="Application\ForceLowercaseUrlHttpModule.cs" />
     <Compile Include="Application\Mvc\HintSizeAttribute.cs" />
+    <Compile Include="Application\Mvc\HtmlHelperExtensions.cs" />
     <Compile Include="Application\Mvc\LowercaseRoute.cs" />
     <Compile Include="Application\Extensions\MobileExtensions.cs" />
     <Compile Include="Application\Mvc\MvcExtensions.cs" />
@@ -206,6 +207,7 @@
     <Compile Include="Views\Login\LoginModel.cs" />
     <Compile Include="Views\Upload\IndexModel.cs" />
     <Compile Include="Views\Wiki\EditModel.cs" />
+    <Compile Include="Application\Mvc\Binders\EditModelBinder.cs" />
     <Compile Include="Views\Wiki\SearchModel.cs" />
     <Compile Include="Views\Wiki\PageModel.cs" />
     <Compile Include="Views\Wiki\RecentModel.cs" />

@@ -109,6 +109,9 @@ namespace FunnelWeb.Web.Views.Wiki
         [DisplayName("Status")]
         public string Status { get; set; }
 
+        [Description("Comma-separated tags that will appear in the &lt;meta&gt; tags of the page.")]
+        [HintSize(HintSize.Large)]
+        [DataType("Tags")]
         public IEnumerable<Tag> SelectedTags
         {
             get

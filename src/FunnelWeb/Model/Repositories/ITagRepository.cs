@@ -11,6 +11,8 @@ namespace FunnelWeb.Model.Repositories
         int GetTaggedItemCount(string tagName);
         void Save(Tag tag);
         void Delete(Tag tag);
+        Tag GetTag(int id);
+
         Tag GetTag(string tagName);
     }
 }

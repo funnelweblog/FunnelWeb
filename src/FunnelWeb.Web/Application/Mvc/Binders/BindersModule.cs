@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using Autofac;
 using FunnelWeb.Model.Strings;
+using FunnelWeb.Web.Views.Wiki;
 
 namespace FunnelWeb.Web.Application.Mvc.Binders
 {
@@ -19,6 +20,7 @@ namespace FunnelWeb.Web.Application.Mvc.Binders
             binders.Add(typeof(PageName), new ImplicitAssignmentBinder());
             binders.Add(typeof(int[]), new ArrayBinder());
             binders.Add(typeof(FileUpload), new UploadBinder());
+            binders.Add(typeof (EditModel), new EditModelBinder());
         }
     }
 }

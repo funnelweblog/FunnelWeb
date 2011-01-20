@@ -27,7 +27,7 @@ $(function () {
 
         select: function (event, ui) {
             $('.newTagInputWrapper').before(
-                    '<li class="newTagItem" id="container_' + ui.item.value + '"><a><em class="tagName">' + ui.item.label + '</em><span class="rm" id="' + ui.item.value + '"></span></a></li>'
+                    '<li class="newTagItem" id="container-' + ui.item.value + '"><a><em class="tagName">' + ui.item.label + '</em><span class="rm" id="' + ui.item.value + '"></span></a></li>'
                 );
         },
 
