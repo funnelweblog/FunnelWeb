@@ -1,0 +1,111 @@
+﻿li {
+    list-style: none;
+}
+    
+input[type="text"] {
+    outline: none;
+}
+    
+.field {
+    clear: left;
+    position: relative;
+    zoom: 1;
+    width: auto;
+    height: auto;
+    margin: 0 0 10px 50px;
+    z-index: 100;
+}
+
+label {
+    display: block;
+    text-align: right;
+    position: absolute;
+    margin: 3px 0 0 -46px;
+    width: 3.2em;
+    font-size: 100%;
+    color: black;
+    font-weight: bold;
+}
+    
+input#peopleTagInput, input#skillTagInput {
+    width: 100%;
+    height: 15px;
+    background: white;
+    padding: 0!important;
+    border: 1px solid white!important;
+}
+    
+.tagLines {
+    overflow: hidden;
+    width: 332px;
+    background: white;
+    border: 1px solid #B9C1CA;
+    padding: 2px 5px 0 5px;
+}
+
+.tagInputContainer 
+{
+    left: 12px;
+}
+    
+.tagLines li.newSkillTagInputWrapper, .tagLines li.newPeopleTagInputWrapper {
+    width: 100px;
+    float: left;
+    display: block;
+    height: 17px;
+    margin: 0 0 2px 0;
+    padding: 0;
+    background: white;
+}
+    
+.tagLines li.newSkillTagInputWrapper input, .tagLines li.newPeopleTagInputWrapper input {
+    position: static!important;
+    border: none!important;
+    background: yellow!important;
+    padding: 1px!important;
+    background: white!important;
+}
+    
+.tagLines li.newTagItem {
+    float: left;
+    position: relative;
+    height: 17px;
+    margin: 0 0 2px 0;
+    padding: 0;
+    background: white;
+    border-right: 6px solid white;
+}
+    
+
+
+#tagsField .tagLines li.newTagItem a {
+    background: gainsboro;
+    border: 1px solid gainsboro;
+}
+    
+.tagLines li.newTagItem a {
+    display: block;
+    position: relative;
+    padding: 0 15px 0 5px;
+    color: black;
+    cursor: pointer;
+    height: 15px;
+    background: #E8F1F7;
+    _display: inline;
+    _float: left;
+    border: 1px solid #E8F1F7;
+}
+    
+a {
+    text-decoration: none;
+    color: #1462C1;
+}
+    
+.tagLines li.newTagItem span {
+    position: absolute;
+    top: 3px;
+    right: 2px;
+    height: 11px;
+    width: 11px;
+    background: transparent url('images/del_sprite_tagComplete.png') no-repeat 0 0;
+}

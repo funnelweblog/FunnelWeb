@@ -1,60 +1,45 @@
-﻿/// <reference path="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.4.4-vsdoc.js" />
-/// <reference path="../JQuery/jquery.tmpl.js" />
+﻿$(function () {
 
-(function () {
+    var skillsDb = [
+            { value: "Push", name: "Push" },
+            { value: "Hit", name: "Hit" },
+            { value: "Trap", name: "Trap" },
+            { value: "Flick", name: "Flick" }
+        ];
 
-    jQuery.fn.taggy = function (options) {
-        var that = this;
-        var defaults = {
-            url: '/tag/'
-        };
+    $("#tagInput").autocomplete({
 
-        var template = '<p data-id="${Id}">${Name}</p>';
+        minLength: 0,
+        source: skillsDb,
 
-        var tagCache = {};
+        focus: function (event, ui) {
+            $("#tagInput").val(ui.item.name);
+            return false;
+        },
 
-        var opts = jQuery.extend(true, options, defaults);
+        select: function (event, ui) {
+            $('.newTagInputWrapper').before(
+                    '<li class="newTagItem" id="container_' + ui.item.value + '"><a><em class="tagName">' + ui.item.name + '</em><span class="rm" id="' + ui.item.value + '"></span></a></li>'
+                );
+        },
 
-        var load = function () {
-            if (tagCache.hasOwnProperty(that.val())) {
-                displayData();
-            } else {
-                jQuery.getJSON(opts.url + that.val(), null, function (result) {
-                    tagCache[that.val()] = result;
+        close: function (event, ui) {
+            $("#tagInput").val("");
+        },
 
-                    displayData();
-                });
-            }
-        };
+        width: 200
+    });
 
-        var displayData = function () {
-            $.template('tags', template);
 
-            var html = $.tmpl('tags', tagCache[that.val()]);
+    $('#tags').click(function (event) {
+        if ($(event.target).is('span')) {
+            $('#container_' + event.target.id).remove();
+        }
 
-            var bubble = $('<p class="triangle-border top"></p>').html(html);
 
-            console.log(bubble);
+    });
 
-            bubble.insertBefore(that);
-        };
-
-        that.keyup(function (e) {
-            switch (e.which) {
-                case 188:
-                    //new tag
-                    break;
-                case 8:
-                    if (that.val() !== '') {
-                        load();
-                    }
-                    break;
-                default:
-                    load();
-                    break;
-            }
-        });
-    };
-})();
-
-jQuery('.taggy').taggy();
+    $('#tags').click(function (event) {
+        $("#tagInput").focus();
+    });
+});

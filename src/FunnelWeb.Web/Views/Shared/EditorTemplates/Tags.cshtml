@@ -2,8 +2,15 @@
 
 @{
     Html.RequiresJs("Site/taggy.js", "Scripts", 10);
-    Html.RequiresJs("jQuery/jquery.tmpl.js", "Scripts", 10);
+    Html.RequiresJs("jQuery/jquery-ui-1.8.7.custom.min.js", "Scripts", 10);
+    Html.RequiresCss("jquery-ui-1.8.7.custom.css", "Layout");
 }
 
-@Html.TextBoxFor(m => Model, new { @class = "taggy" })
-
+<div id="tags" class="tagInputContainer field">
+    <ul id="selectedTags" class="tagLines">
+        <li class="newTagInputWrapper" style="width: 30px">
+            <input type="text" id="tagInput" name="agInput" />
+            <div id="tmpTagsInput"></div>
+        </li>
+    </ul>
+</div>
