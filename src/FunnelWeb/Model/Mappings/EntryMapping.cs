@@ -9,7 +9,6 @@ namespace FunnelWeb.Model.Mappings
         public EntryMapping()
         {
             Id(x => x.Id);
-            Map(x => x.IsVisible);
             Map(x => x.Name).CustomType<PageNameUserType>();
             Map(x => x.Published);
             Map(x => x.Summary);

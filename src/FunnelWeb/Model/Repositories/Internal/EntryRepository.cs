@@ -99,7 +99,6 @@ namespace FunnelWeb.Model.Repositories.Internal
         public void Save(Entry entry)
         {
             session.SaveOrUpdate(entry);
-            entry.LatestRevision.ChangeSummary = string.Empty;
             if (entry.LatestRevision.RevisionNumber == 0)
             {
                 entry.LatestRevision.RevisionNumber = session.Linq<Revision>().Where(x => x.Entry.Id == entry.Id).Count();

@@ -10,7 +10,7 @@ namespace FunnelWeb.Web.Controllers
     public class LoginController : Controller
     {
         public IAuthenticator Authenticator { get; set; }
-        public ITaskExecutor<MyTask> TaskExecutor { get; set; }
+        public ITaskExecutor<BlogMLImport> ImportTask { get; set; }
 
         [HttpGet]
         public virtual ActionResult Login(LoginModel model)
@@ -42,7 +42,7 @@ namespace FunnelWeb.Web.Controllers
         
         public virtual ActionResult Logout()
         {
-            TaskExecutor.Execute(new { foo = "bar" });
+            ImportTask.Execute(new { inputFile = "D:\\BlogML20Sample.xml" });
 
             Authenticator.Logout();
             return Redirect("/");  

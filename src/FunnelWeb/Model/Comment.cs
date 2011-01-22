@@ -14,7 +14,6 @@ namespace FunnelWeb.Model
         [DataType("Markdown")]
         public virtual string Body { get; set; }
         public virtual string AuthorName { get; set; }
-        public virtual string AuthorCompany { get; set; }
         public virtual string AuthorUrl { get; set; }
         public virtual string AuthorEmail { get; set; }
         public virtual Entry Entry { get; set; }

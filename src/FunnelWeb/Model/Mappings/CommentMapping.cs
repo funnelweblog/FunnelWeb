@@ -7,7 +7,6 @@ namespace FunnelWeb.Model.Mappings
         public CommentMapping()
         {
             Id(x => x.Id);
-            Map(x => x.AuthorCompany);
             Map(x => x.AuthorEmail);
             Map(x => x.AuthorName);
             Map(x => x.AuthorUrl);

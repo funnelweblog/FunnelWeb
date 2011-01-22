@@ -16,7 +16,6 @@ namespace FunnelWeb.Model
             Title = string.Empty;
             Name = string.Empty;
             Summary = string.Empty;
-            IsVisible = true;
             Published = DateTime.UtcNow;
             Revisions = new HashedSet<Revision>();
             Comments = new HashedSet<Comment>();
@@ -32,7 +31,6 @@ namespace FunnelWeb.Model
         [DataType("Markdown")]
         public virtual string Summary { get; set; }
 
-        public virtual bool IsVisible { get; set; }
         public virtual DateTime Published { get; set; }
         public virtual bool IsDiscussionEnabled { get; set; }
         public virtual int CommentCount { get; set; }
@@ -68,7 +66,6 @@ namespace FunnelWeb.Model
             if (original != null)
             {
                 revision.Body = original.Body;
-                revision.IsVisible = original.IsVisible;
                 revision.Reason = original.Reason;
                 revision.Tags = original.Tags;
             }

@@ -199,7 +199,6 @@ namespace FunnelWeb.Web.Controllers
             }
 
             var comment = entry.Comment();
-            comment.AuthorCompany = string.Empty;
             comment.AuthorEmail = model.CommenterEmail ?? string.Empty;
             comment.AuthorName = model.CommenterName ?? string.Empty;
             comment.AuthorUrl = model.CommenterBlog ?? string.Empty;

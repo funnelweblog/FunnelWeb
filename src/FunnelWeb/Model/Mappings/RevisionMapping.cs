@@ -8,8 +8,6 @@ namespace FunnelWeb.Model.Mappings
         {
             Id(x => x.Id);
             Map(x => x.Body);
-            Map(x => x.ChangeSummary);
-            Map(x => x.IsVisible);
             Map(x => x.Reason);
             Map(x => x.Revised);
             Map(x => x.RevisionNumber);

@@ -44,6 +44,9 @@
     <Reference Include="Bindable.Core">
       <HintPath>..\..\lib\Bindable\Bindable.Core.dll</HintPath>
     </Reference>
+    <Reference Include="BlogML">
+      <HintPath>..\..\lib\BlogML\BlogML.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Core">
       <HintPath>..\..\lib\NHibernate\Castle.Core.dll</HintPath>
     </Reference>
@@ -104,7 +107,7 @@
     <Compile Include="Tasks\ITask.cs" />
     <Compile Include="Tasks\ITaskExecutor.cs" />
     <Compile Include="Model\Mappings\TaskStateMapping.cs" />
-    <Compile Include="Tasks\MyTask.cs" />
+    <Compile Include="Tasks\BlogMLImport.cs" />
     <Compile Include="Model\Repositories\Internal\TaskStateRepository.cs" />
     <Compile Include="Model\Repositories\ITaskStateRepository.cs" />
     <Compile Include="Tasks\TaskExecutor.cs" />

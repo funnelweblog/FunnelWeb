@@ -38,35 +38,35 @@ namespace FunnelWeb.Tasks
                     foreach (var step in task.Execute(properties))
                     {
                         var localStep = step;
-                        
-                        UpdateTaskState(taskId, 
+
+                        UpdateTaskState(taskId,
                                         state =>
+                                        {
+                                            state.Append(localStep.LogMessage);
+                                            if (localStep.ProgressEstimate.HasValue)
                                             {
-                                                state.Append(localStep.LogMessage);
-                                                if (localStep.ProgressEstimate.HasValue)
-                                                {
-                                                    state.ProgressEstimate = localStep.ProgressEstimate.Value;
-                                                }
-                                            });
+                                                state.ProgressEstimate = localStep.ProgressEstimate.Value;
+                                            }
+                                        });
                     }
 
                     UpdateTaskState(taskId,
                                     state =>
-                                        {
-                                            state.Append("Completed");
-                                            state.Status = TaskStatus.Success;
-                                            state.ProgressEstimate = 100;
-                                        });
+                                    {
+                                        state.Append("Completed");
+                                        state.Status = TaskStatus.Success;
+                                        state.ProgressEstimate = 100;
+                                    });
                 }
                 catch (Exception ex)
                 {
                     UpdateTaskState(taskId,
                                     state =>
-                                        {
-                                            state.Append("Failed. {0}", ex);
-                                            state.Status = TaskStatus.Failed;
-                                            state.ProgressEstimate = 100;
-                                        });
+                                    {
+                                        state.Append("Failed. {0}", ex);
+                                        state.Status = TaskStatus.Failed;
+                                        state.ProgressEstimate = 100;
+                                    });
                 }
             }
         }
@@ -75,7 +75,7 @@ namespace FunnelWeb.Tasks
         {
             var taskState = new TaskState();
             taskState.TaskName = typeof(TTask).Name;
-            taskState.Arguments = string.Join(", ", properties.Select(x => x.Key + " = " + x.Value));
+            taskState.Arguments = string.Join(Environment.NewLine, properties.Select(x => x.Key + " = " + x.Value));
             taskState.Updated = taskState.Started = DateTime.UtcNow;
             taskState.OutputLog = string.Empty;
             taskState.ProgressEstimate = 0;
@@ -83,10 +83,10 @@ namespace FunnelWeb.Tasks
 
             WithinTransaction(
                 scope =>
-                    {
-                        var repository = scope.Resolve<ITaskStateRepository>();
-                        repository.Save(taskState);
-                    });
+                {
+                    var repository = scope.Resolve<ITaskStateRepository>();
+                    repository.Save(taskState);
+                });
 
             return taskState.Id;
         }
@@ -111,17 +111,17 @@ namespace FunnelWeb.Tasks
         {
             WithinTransaction(
                 scope =>
-                    {
-                        var repository = scope.Resolve<ITaskStateRepository>();
-                        var state = repository.Get(taskId);
+                {
+                    var repository = scope.Resolve<ITaskStateRepository>();
+                    var state = repository.Get(taskId);
 
-                        updater(state);
+                    updater(state);
 
-                        repository.Save(state);
-                    });
+                    repository.Save(state);
+                });
         }
 
-        private static Dictionary<string,object> GetProperties(object o)
+        private static Dictionary<string, object> GetProperties(object o)
         {
             if (o == null) return new Dictionary<string, object>();
             var results = new Dictionary<string, object>();
