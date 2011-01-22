@@ -11,6 +11,16 @@ $(function () {
                 response(tagCache[request.term]);
             } else {
                 $.getJSON('/tag/' + request.term, function (data) {
+                    var termExists = false;
+                    for (var i = 0, l = data.length; i < l; i++) {
+                        if (data[i].Name === request.term) {
+                            termExists = true;
+                            break;
+                        }
+                    }
+
+                    if (!termExists) data.push({ Name: request.term, Id: request.term });
+
                     tagCache[request.term] = $.map(data, function (item) {
                         return { label: item.Name, value: item.Id, id: item.Id };
                     });
