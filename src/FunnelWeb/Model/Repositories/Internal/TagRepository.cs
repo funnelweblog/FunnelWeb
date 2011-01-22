@@ -11,11 +11,11 @@ namespace FunnelWeb.Model.Repositories.Internal
 {
     public class TagRepository : ITagRepository
     {
-        private readonly ISession _session;
+        private readonly ISession session;
 
         public TagRepository(ISession session)
         {
-            _session = session;
+            this.session = session;
         }
 
         public IQueryable<Tag> GetTags()
@@ -27,7 +27,7 @@ namespace FunnelWeb.Model.Repositories.Internal
         {
             tagName = tagName ?? string.Empty;
 
-            return from tag in _session.Linq<Tag>()
+            return from tag in session.Linq<Tag>()
                    where tag.Name.Contains(tagName)
                    select tag;
 
@@ -35,7 +35,7 @@ namespace FunnelWeb.Model.Repositories.Internal
 
         public IEnumerable<Entry> GetTaggedItems(string tagName, int skip, int take)
         {
-            var entryQuery = (ArrayList)_session.CreateCriteria<TagItem>("ti")
+            var entryQuery = (ArrayList)session.CreateCriteria<TagItem>("ti")
                                             .CreateCriteria("ti.Tag", "tag")
                                             .CreateCriteria("ti.Entry", "entry")
                                             .CreateCriteria("entry.Revisions", "rev")
@@ -67,29 +67,29 @@ namespace FunnelWeb.Model.Repositories.Internal
 
         public int GetTaggedItemCount(string tagName)
         {
-            return _session.Linq<TagItem>().Where(i => i.Tag.Name == tagName).Count();
+            return session.Linq<TagItem>().Where(i => i.Tag.Name == tagName).Count();
         }
 
         public void Save(Tag feed)
         {
-            _session.SaveOrUpdate(feed);
+            session.SaveOrUpdate(feed);
         }
 
         public void Delete(Tag feed)
         {
-            _session.Delete(feed);
+            session.Delete(feed);
         }
 
         public Tag GetTag(int id)
         {
-            return _session.Linq<Tag>()
+            return session.Linq<Tag>()
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
         }
 
         public Tag GetTag(string tagName)
         {
-            return _session.Linq<Tag>()
+            return session.Linq<Tag>()
                 .Where(x => x.Name.Contains(tagName))
                 .FirstOrDefault();
         }

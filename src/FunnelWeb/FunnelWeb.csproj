@@ -100,6 +100,15 @@
     <Compile Include="Eventing\EventingModule.cs" />
     <Compile Include="Eventing\INotifier.cs" />
     <Compile Include="IFunnelWebExtension.cs" />
+    <Compile Include="Tasks\TaskModule.cs" />
+    <Compile Include="Tasks\ITask.cs" />
+    <Compile Include="Tasks\ITaskExecutor.cs" />
+    <Compile Include="Model\Mappings\TaskStateMapping.cs" />
+    <Compile Include="Tasks\MyTask.cs" />
+    <Compile Include="Model\Repositories\Internal\TaskStateRepository.cs" />
+    <Compile Include="Model\Repositories\ITaskStateRepository.cs" />
+    <Compile Include="Tasks\TaskExecutor.cs" />
+    <Compile Include="Model\TaskState.cs" />
     <Compile Include="Model\Tag.cs" />
     <Compile Include="Model\Comment.cs" />
     <Compile Include="Model\Comparers\CommentComparer.cs" />
@@ -137,6 +146,8 @@
     <Compile Include="Model\Setting.cs" />
     <Compile Include="Model\Strings\EnforcedString.cs" />
     <Compile Include="Model\Strings\PageName.cs" />
+    <Compile Include="Model\TaskStatus.cs" />
+    <Compile Include="Tasks\TaskStep.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\ConnectionStringProvider.cs" />
     <Compile Include="Settings\IConnectionStringProvider.cs" />

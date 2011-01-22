@@ -17,6 +17,7 @@ namespace FunnelWeb.Web.Controllers
         public ITagRepository FeedRepository { get; set; }
         public ISettingsProvider SettingsProvider { get; set; }
         public IEntryRepository EntryRepository { get; set; }
+        public ITaskStateRepository TaskRepository { get; set; }
 
         [Authorize]
         public virtual ActionResult Index()
@@ -119,6 +120,24 @@ namespace FunnelWeb.Web.Controllers
                 AdminRepository.Save(item);
             }
             return RedirectToAction("Pingbacks", "Admin");
+        }
+
+        #endregion
+
+        #region Tasks
+
+        [Authorize]
+        public virtual ActionResult Tasks()
+        {
+            var tasks = TaskRepository.GetAll().OrderByDescending(x => x.Started);
+            return View("Tasks", new TasksModel(tasks.ToList()));
+        }
+
+        [Authorize]
+        public virtual ActionResult Task(int id)
+        {
+            var task = TaskRepository.Get(id);
+            return View("Task", new TaskModel(task));
         }
 
         #endregion

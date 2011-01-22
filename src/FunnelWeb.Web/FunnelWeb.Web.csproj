@@ -198,6 +198,8 @@
     <Content Include="App_Code\HelperPage.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Views\Admin\CommentsModel.cs" />
+    <Compile Include="Views\Admin\TaskModel.cs" />
+    <Compile Include="Views\Admin\TasksModel.cs" />
     <Compile Include="Views\Admin\PageListModel.cs" />
     <Compile Include="Views\Admin\PingbacksModel.cs" />
     <Compile Include="Views\Admin\IndexModel.cs" />
@@ -262,6 +264,8 @@
     <Content Include="Content\Styles\Themes\Official\Theme.css" />
     <Content Include="Content\Styles\Themes\MattHamilton\backgnd.png" />
     <Content Include="Views\Admin\PageList.cshtml" />
+    <Content Include="Views\Admin\Tasks.cshtml" />
+    <Content Include="Views\Admin\Task.cshtml" />
     <None Include="Views\Shared\EditorTemplates\Tags.cshtml" />
     <Content Include="Views\Shared\_Mobile.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Markdown.cshtml" />

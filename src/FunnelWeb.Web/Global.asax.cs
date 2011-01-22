@@ -6,6 +6,7 @@ using Autofac;
 using Autofac.Integration.Web.Mvc;
 using FunnelWeb.Eventing;
 using FunnelWeb.Model.Repositories;
+using FunnelWeb.Tasks;
 using FunnelWeb.Web.Application.Authentication;
 using FunnelWeb.Web.Application.Mime;
 using FunnelWeb.Web.Application.Mvc.Binders;
@@ -32,6 +33,7 @@ namespace FunnelWeb.Web
             builder.RegisterModule(new ViewsModule(ViewEngines.Engines));
             builder.RegisterModule(new SpamModule());
             builder.RegisterModule(new EventingModule());
+            builder.RegisterModule(new TasksModule());
             builder.RegisterModule(new ExtensionsModule(Server.MapPath("~/bin/Extensions")));
 
             var container = builder.Build();

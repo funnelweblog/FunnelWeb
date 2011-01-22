@@ -23,7 +23,6 @@
         @if (ViewData.IsLoggedIn()) {
         <li>@Html.ActionLink("New Post", "Edit", "Wiki")</li>
         <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
-        <li>@Html.ActionLink("Unpublished Posts", "Unpublished", "Wiki")</li>
         <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
         }
       </ul>

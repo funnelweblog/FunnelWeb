@@ -25,11 +25,13 @@ namespace FunnelWeb.Model.Repositories
             builder.RegisterType<ApplicationDatabase>().As<IApplicationDatabase>();
             builder.RegisterType<ConnectionStringProvider>().As<IConnectionStringProvider>();
 
-            builder.Register<IFileRepository>(x => new FileRepository(x.Resolve<ISettingsProvider>(), x.Resolve<HttpServerUtilityBase>())).InstancePerHttpRequest();
-            builder.RegisterType<TagRepository>().As<ITagRepository>().InstancePerHttpRequest();
-            builder.RegisterType<AdminRepository>().As<IAdminRepository>();
-            builder.RegisterType<EntryRepository>().As<IEntryRepository>().InstancePerHttpRequest();
-            builder.RegisterType<FeedRepository>().As<IFeedRepository>().InstancePerHttpRequest();
+            builder.Register<IFileRepository>(x => new FileRepository(x.Resolve<ISettingsProvider>(), x.Resolve<HttpServerUtilityBase>())).InstancePerLifetimeScope();
+            builder.RegisterType<TagRepository>().As<ITagRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<AdminRepository>().As<IAdminRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<EntryRepository>().As<IEntryRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<FeedRepository>().As<IFeedRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<TaskStateRepository>().As<ITaskStateRepository>().InstancePerLifetimeScope();
+
             builder.Register(x =>
             {
                 if (sessionFactory == null)

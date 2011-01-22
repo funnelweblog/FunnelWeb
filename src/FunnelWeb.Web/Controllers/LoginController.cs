@@ -1,4 +1,6 @@
 using System.Web.Mvc;
+using FunnelWeb.Model;
+using FunnelWeb.Tasks;
 using FunnelWeb.Web.Application.Authentication;
 using FunnelWeb.Web.Views.Login;
 
@@ -8,6 +10,7 @@ namespace FunnelWeb.Web.Controllers
     public class LoginController : Controller
     {
         public IAuthenticator Authenticator { get; set; }
+        public ITaskExecutor<MyTask> TaskExecutor { get; set; }
 
         [HttpGet]
         public virtual ActionResult Login(LoginModel model)
@@ -39,6 +42,8 @@ namespace FunnelWeb.Web.Controllers
         
         public virtual ActionResult Logout()
         {
+            TaskExecutor.Execute(new { foo = "bar" });
+
             Authenticator.Logout();
             return Redirect("/");  
         }
