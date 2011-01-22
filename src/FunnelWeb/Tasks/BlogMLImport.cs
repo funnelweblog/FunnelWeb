@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading;
 using BlogML;
 using BlogML.Xml;
 using FunnelWeb.Model;
@@ -9,11 +10,11 @@ using FunnelWeb.Model.Repositories;
 
 namespace FunnelWeb.Tasks
 {
-    public class BlogMLImport : ITask
+    public class BlogMLImportTask : ITask
     {
         private readonly IEntryRepository entryRepository;
 
-        public BlogMLImport(IEntryRepository entryRepository)
+        public BlogMLImportTask(IEntryRepository entryRepository)
         {
             this.entryRepository = entryRepository;
         }
@@ -61,8 +62,9 @@ namespace FunnelWeb.Tasks
                     var existing = entryRepository.GetEntry(entry.Name);
                     if (existing != null)
                     {
-                        yield return new TaskStep(progress, "Did NOT import post: {0}, because a post by this name already exists", entry.Name);
+                        yield return new TaskStep(progress, "Did NOT import post '{0}', because a post by this name already exists", entry.Name);
 
+                        Thread.Sleep(5000);
                         continue;
                     }
 
@@ -84,7 +86,9 @@ namespace FunnelWeb.Tasks
 
                     entryRepository.Save(entry);
 
-                    yield return new TaskStep(progress, "Imported post: {0}", entry.Name);
+                    yield return new TaskStep(progress, "Imported post '{0}'", entry.Name);
+
+                    Thread.Sleep(5000);
                 }
             }
             yield break;

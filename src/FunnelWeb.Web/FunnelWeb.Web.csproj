@@ -197,6 +197,7 @@
     <Compile Include="Application\Views\MarkdownProvider.cs" />
     <Content Include="App_Code\HelperPage.cs" />
     <Compile Include="Controllers\TagController.cs" />
+    <Compile Include="Views\Admin\BlogMLImportModel.cs" />
     <Compile Include="Views\Admin\CommentsModel.cs" />
     <Compile Include="Views\Admin\TaskModel.cs" />
     <Compile Include="Views\Admin\TasksModel.cs" />
@@ -239,7 +240,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\busy.gif" />
     <Content Include="Content\Images\add.png" />
+    <Content Include="Content\Images\fail.png" />
+    <Content Include="Content\Images\success.png" />
     <Content Include="Content\Images\delete.png" />
     <Content Include="Content\Scripts\JQuery\jquery-ui-1.8.7.custom.min.js" />
     <Content Include="Content\Scripts\Site\taggy.js" />
@@ -266,6 +270,7 @@
     <Content Include="Views\Admin\PageList.cshtml" />
     <Content Include="Views\Admin\Tasks.cshtml" />
     <Content Include="Views\Admin\Task.cshtml" />
+    <Content Include="Views\Admin\BlogMLImport.cshtml" />
     <None Include="Views\Shared\EditorTemplates\Tags.cshtml" />
     <Content Include="Views\Shared\_Mobile.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Markdown.cshtml" />

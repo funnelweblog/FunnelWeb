@@ -2,6 +2,6 @@
 {
     public interface ITaskExecutor<out TTask> where TTask : ITask
     {
-        void Execute(object arguments);
+        int Execute(object arguments);
     }
 }

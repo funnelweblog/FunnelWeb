@@ -19,19 +19,25 @@ namespace FunnelWeb.Tasks
             this.rootScope = rootScope;
         }
 
-        public void Execute(object arguments)
+        public int Execute(object arguments)
         {
-            ThreadPool.QueueUserWorkItem(RunOnBackgroundThread, arguments);
+            var properties = GetProperties(arguments);
+            var taskId = CreateNewTaskState(properties);
+
+            properties["taskId"] = taskId;
+            ThreadPool.QueueUserWorkItem(RunOnBackgroundThread, properties);
+
+            return taskId;
         }
 
         private void RunOnBackgroundThread(object arguments)
         {
-            var properties = GetProperties(arguments);
+            var properties = (Dictionary<string, object>)arguments;
+            var taskId = (int)properties["taskId"];
 
             using (var scope = rootScope.BeginLifetimeScope())
             {
                 var task = scope.Resolve<TTask>();
-                var taskId = CreateNewTaskState(properties);
 
                 try
                 {
@@ -39,34 +45,37 @@ namespace FunnelWeb.Tasks
                     {
                         var localStep = step;
 
-                        UpdateTaskState(taskId,
-                                        state =>
-                                        {
-                                            state.Append(localStep.LogMessage);
-                                            if (localStep.ProgressEstimate.HasValue)
-                                            {
-                                                state.ProgressEstimate = localStep.ProgressEstimate.Value;
-                                            }
-                                        });
+                        UpdateTaskState(
+                            taskId,
+                            state =>
+                            {
+                                state.Append(localStep.LogMessage);
+                                if (localStep.ProgressEstimate.HasValue)
+                                {
+                                    state.ProgressEstimate = localStep.ProgressEstimate.Value;
+                                }
+                            });
                     }
 
-                    UpdateTaskState(taskId,
-                                    state =>
-                                    {
-                                        state.Append("Completed");
-                                        state.Status = TaskStatus.Success;
-                                        state.ProgressEstimate = 100;
-                                    });
+                    UpdateTaskState(
+                        taskId,
+                        state =>
+                        {
+                            state.Append("Completed");
+                            state.Status = TaskStatus.Success;
+                            state.ProgressEstimate = 100;
+                        });
                 }
                 catch (Exception ex)
                 {
-                    UpdateTaskState(taskId,
-                                    state =>
-                                    {
-                                        state.Append("Failed. {0}", ex);
-                                        state.Status = TaskStatus.Failed;
-                                        state.ProgressEstimate = 100;
-                                    });
+                    UpdateTaskState(
+                        taskId,
+                        state =>
+                        {
+                            state.Append("Failed. {0}", ex);
+                            state.Status = TaskStatus.Failed;
+                            state.ProgressEstimate = 100;
+                        });
                 }
             }
         }

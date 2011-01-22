@@ -44,7 +44,18 @@
 
 @if (Model.State.Status == FunnelWeb.Model.TaskStatus.Running)
 {
-  <p><strong>This page automatically refreshes every 5 seconds.</strong></p>
+  <img src="@Html.QualifyVersion("/content/images/busy.gif")" style="vertical-align: middle" alt="Running" width="32" height="32" />
+  <span><strong>Executing (@Model.State.ProgressEstimate%)...</strong></span>
+}
+else if (Model.State.Status == FunnelWeb.Model.TaskStatus.Success)
+{
+  <img src="@Html.QualifyVersion("/content/images/success.png")" style="vertical-align: middle" alt="Success" width="32" height="32" />
+  <span><strong>Completed successfully.</strong></span>
+}
+else if (Model.State.Status == FunnelWeb.Model.TaskStatus.Failed)
+{
+  <img src="@Html.QualifyVersion("/content/images/fail.png")" style="vertical-align: middle" alt="Failure" width="32" height="32" />
+  <span><strong>Failed. See the error log before.</strong></span>
 }
 <pre>
 @Model.State.OutputLog

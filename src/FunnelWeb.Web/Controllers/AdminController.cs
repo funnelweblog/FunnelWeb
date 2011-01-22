@@ -1,11 +1,15 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using System.Web.Mvc;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Settings;
+using FunnelWeb.Tasks;
+using FunnelWeb.Web.Application;
 using FunnelWeb.Web.Application.Filters;
 using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Views.Admin;
+using BlogMLImport = FunnelWeb.Web.Views.Admin.BlogMLImportModel;
 
 namespace FunnelWeb.Web.Controllers
 {
@@ -18,6 +22,7 @@ namespace FunnelWeb.Web.Controllers
         public ISettingsProvider SettingsProvider { get; set; }
         public IEntryRepository EntryRepository { get; set; }
         public ITaskStateRepository TaskRepository { get; set; }
+        public ITaskExecutor<BlogMLImportTask> ImportTask { get; set; }
 
         [Authorize]
         public virtual ActionResult Index()
@@ -138,6 +143,34 @@ namespace FunnelWeb.Web.Controllers
         {
             var task = TaskRepository.Get(id);
             return View("Task", new TaskModel(task));
+        }
+
+        #endregion
+
+        #region Import 
+
+        [Authorize]
+        public virtual ActionResult BlogMLImport()
+        {
+            return View(new BlogMLImportModel());
+        }
+
+        [Authorize]
+        [HttpPost]
+        public virtual ActionResult BlogMLImport(FileUpload upload)
+        {
+            if (upload == null || string.IsNullOrWhiteSpace(upload.FileName))
+            {
+                ModelState.AddModelError("File", "Please select a file to upload.");
+                return View();
+            }
+
+            var fullPath = Server.MapPath(SettingsProvider.GetSettings().UploadPath);
+            fullPath = Path.Combine(fullPath, upload.FileName);
+            upload.SaveTo(fullPath);
+            
+            var id = ImportTask.Execute(new { inputFile = fullPath});
+            return RedirectToAction("Task", new {id = id});
         }
 
         #endregion
