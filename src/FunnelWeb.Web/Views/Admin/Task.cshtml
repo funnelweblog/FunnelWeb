@@ -4,6 +4,13 @@
     Layout = "~/Views/Shared/_Private.cshtml";
 }
 
+@section Meta{
+  @if (Model.State.Status == FunnelWeb.Model.TaskStatus.Running)
+  {
+    <meta http-equiv="refresh" content="5" />
+  }
+}
+
 <h1>@Model.State.TaskName (Started @Html.Date(Model.State.Started))</h1>
 <p>
   @Html.ActionLink("Back to Task List", "Tasks", "Admin")
@@ -35,6 +42,10 @@
   The current server UTC time is <code>@DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss")</code>
 </p>
 
+@if (Model.State.Status == FunnelWeb.Model.TaskStatus.Running)
+{
+  <p><strong>This page automatically refreshes every 5 seconds.</strong></p>
+}
 <pre>
 @Model.State.OutputLog
 </pre>

@@ -33,7 +33,7 @@ namespace FunnelWeb.Web.Views.Wiki
 
         [Required]
         [DisplayName("SLUG")]
-        [StringLength(50)]
+        [StringLength(100)]
         [Description("This will form the URL to your page.")]
         [RegularExpression("[a-z0-9\\-\\/]+", ErrorMessage = "Page names can only include lowercase alpha characters, numbers, dashes and forward slashes (/)")]
         [HintSize(HintSize.Medium)]

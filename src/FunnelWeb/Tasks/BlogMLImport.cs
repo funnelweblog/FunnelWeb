@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using BlogML;
 using BlogML.Xml;
 using FunnelWeb.Model;
@@ -43,15 +44,27 @@ namespace FunnelWeb.Tasks
 
                 foreach (var post in blog.Posts)
                 {
+                    postIndex++;
+                    progress = (int)(((double)postIndex / (double)postCount) * (double)remainingProgress);
+                        
                     var entry = new Entry();
                     entry.HideChrome = false;
                     entry.IsDiscussionEnabled = true;
                     entry.Status = post.PostType == BlogPostTypes.Article ? EntryStatus.PublicPage : EntryStatus.PublicBlog;
                     entry.Title = entry.MetaTitle = NoLongerThan(200, post.Title);
                     entry.Published = post.DateCreated < DateTime.Today.AddYears(-100) ? DateTime.UtcNow : post.DateCreated;
-                    entry.Summary = post.HasExcerpt ? NoLongerThan(500, post.Excerpt.UncodedText) : "";
-                    entry.MetaDescription = post.HasExcerpt ? NoLongerThan(200, post.Excerpt.UncodedText) : NoLongerThan(200, post.Content.UncodedText);
-                    entry.Name = NoLongerThan(50, post.PostUrl.Trim('/'));
+                    entry.Summary = post.HasExcerpt ? NoLongerThan(500, StripHtml(post.Excerpt.UncodedText)) : "";
+                    entry.MetaDescription = post.HasExcerpt ? NoLongerThan(200, StripHtml(post.Excerpt.UncodedText)) : NoLongerThan(200, StripHtml(post.Content.UncodedText));
+                    entry.Name = NoLongerThan(100, post.PostUrl.Trim('/'));
+
+                    // Ensure this post wasn't already imported
+                    var existing = entryRepository.GetEntry(entry.Name);
+                    if (existing != null)
+                    {
+                        yield return new TaskStep(progress, "Did NOT import post: {0}, because a post by this name already exists", entry.Name);
+
+                        continue;
+                    }
 
                     var revision = entry.Revise();
                     revision.Body = post.Content.UncodedText;
@@ -71,20 +84,29 @@ namespace FunnelWeb.Tasks
 
                     entryRepository.Save(entry);
 
-                    postIndex++;
-                    progress = (int)(((double)postIndex / (double)postCount) * (double)remainingProgress);
                     yield return new TaskStep(progress, "Imported post: {0}", entry.Name);
                 }
             }
             yield break;
         }
 
-        private string NoLongerThan(int max, string text)
+        private static string StripHtml(string html)
+        {
+            html = Regex.Replace(html, @"<(.|\n)*?>", string.Empty);
+            html = html.Replace(@"&nbsp;", " ");
+            html = html.Replace(@"&quot;", "\"");
+            html = html.Replace(@"&lt;", "<");
+            html = html.Replace(@"&gt;", ">");
+            return html;
+        }
+
+        private static string NoLongerThan(int max, string text)
         {
             text = text ?? string.Empty;
             if (text.Length > max)
             {
                 text = text.Substring(0, max - 4);
+                text += "...";
             }
             return text;
         }

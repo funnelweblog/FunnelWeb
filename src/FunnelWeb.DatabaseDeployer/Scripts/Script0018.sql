@@ -15,3 +15,8 @@ go
 alter table [dbo].[Comment]
 	drop column [AuthorCompany]
 go
+
+-- 50 was a nice size, but when we import from other blog engines they may have used large URL's
+alter table [dbo].[Entry] 
+	alter column [Name] nvarchar(100)
+go
