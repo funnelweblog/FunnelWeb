@@ -271,7 +271,7 @@
     <Content Include="Views\Admin\Tasks.cshtml" />
     <Content Include="Views\Admin\Task.cshtml" />
     <Content Include="Views\Admin\BlogMLImport.cshtml" />
-    <None Include="Views\Shared\EditorTemplates\Tags.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Tags.cshtml" />
     <Content Include="Views\Shared\_Mobile.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Markdown.cshtml" />
     <Content Include="Content\Styles\Layout\Admin.css" />
