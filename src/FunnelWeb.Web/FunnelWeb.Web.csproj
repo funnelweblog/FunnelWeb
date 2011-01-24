@@ -266,6 +266,7 @@
     <Content Include="Content\Styles\Layout\jquery-ui-1.8.7.custom.css" />
     <Content Include="Content\Styles\Layout\Mobile.css" />
     <Content Include="Content\Styles\Layout\TagEditor.css" />
+    <Content Include="Content\Styles\Themes\BoringTheme\Theme.css" />
     <Content Include="Content\Styles\Themes\Official\Theme.css" />
     <Content Include="Content\Styles\Themes\MattHamilton\backgnd.png" />
     <Content Include="Views\Admin\PageList.cshtml" />
@@ -335,6 +336,7 @@
     <Content Include="Content\Styles\Layout\Base.css" />
     <Content Include="Content\Styles\Themes\AaronPowell\Theme.css" />
     <Content Include="Content\Styles\Themes\Default\Theme.css" />
+    <None Include="Views\Themes\BoringTheme\Wiki\Recent.cshtml" />
     <Content Include="Views\Upload\Index.cshtml" />
     <Content Include="Views\Wiki\Edit.cshtml" />
     <Content Include="Views\Wiki\Search.cshtml" />
@@ -376,6 +378,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\Paginator.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Extensions\" />
+    <Folder Include="Views\Themes\Extensions\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
