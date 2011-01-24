@@ -3,7 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
-using Autofac.Integration.Web.Mvc;
+using Autofac.Integration.Mvc;
 using FunnelWeb.Eventing;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Tasks;
