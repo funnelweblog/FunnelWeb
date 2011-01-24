@@ -55,10 +55,5 @@ namespace FunnelWeb.Web.Application.Views
             locationFormats.AddRange(_masterLocationFormats);
             MasterLocationFormats = locationFormats.ToArray();
         }
-
-        public override ViewEngineResult FindView(ControllerContext controllerContext, string viewName, string masterName, bool useCache)
-        {
-            return base.FindView(controllerContext, viewName, masterName, useCache);
-        }
     }
 }
