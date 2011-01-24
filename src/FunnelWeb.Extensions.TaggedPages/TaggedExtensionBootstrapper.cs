@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Reflection;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
@@ -7,15 +8,11 @@ using Autofac.Integration.Mvc;
 namespace FunnelWeb.Extensions.TaggedPages
 {
     [FunnelWebExtension(FullName = "Display posts by tags", Publisher = "FunnelWeb", SupportLink = "http://www.funnelweblog.com")]
-    public class TaggedExtensionBootstrapper : IRoutableFunnelWebExtension
+    public class TaggedExtensionBootstrapper : RoutableFunnelWebExtension
     {
-        public void Initialize(ContainerBuilder builder)
+        public override void Initialize(ContainerBuilder builder)
         {
-            Routes.MapRoute("tagged", "tagged/{*tag}", new { controller = "Tagged", action = "Index" });
-
-            builder.RegisterControllers(Assembly.GetExecutingAssembly());
+            Routes.MapRoute(null, "tagged/{*tag}", new { controller = "Tagged", action = "Index" }, null, new[] { "FunnelWeb.Extensions.TaggedPages.Controllers" });
         }
-
-        public RouteCollection Routes { get; set; }
     }
 }

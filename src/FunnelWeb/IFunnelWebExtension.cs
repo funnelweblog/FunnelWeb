@@ -3,19 +3,51 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
+using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
 
 namespace FunnelWeb
 {
+    /// <summary>
+    /// An extensibility point for FunnelWeb
+    /// </summary>
     public interface IFunnelWebExtension
     {
+        /// <summary>
+        /// Initializes the extension, the Autofac container is also provided so that you can include items for DI
+        /// </summary>
+        /// <param name="builder">The builder.</param>
         void Initialize(ContainerBuilder builder);
     }
 
-    public interface IRoutableFunnelWebExtension : IFunnelWebExtension
+    /// <summary>
+    /// An extensibility point for FunnelWeb which allows modification of the Route data for FunnelWeb. Remember though with great power comes great responsibility!
+    /// </summary>
+    public abstract class RoutableFunnelWebExtension : IFunnelWebExtension
     {
-        RouteCollection Routes { get; set; } 
+        /// <summary>
+        /// Gets or sets the routes.
+        /// </summary>
+        /// <value>The routes.</value>
+        protected internal RouteCollection Routes { get; internal set; }
+        /// <summary>
+        /// Initializes the extension, the Autofac container is also provided so that you can include items for DI
+        /// </summary>
+        /// <param name="builder">The builder.</param>
+        public abstract void Initialize(ContainerBuilder builder);
+        /// <summary>
+        /// Registers the controllers based on FunnelWeb standards
+        /// </summary>
+        /// <remarks>If you are overriding this but don't call the base implementation your controllers may not be registered property</remarks>
+        /// <param name="builder">The builder.</param>
+        protected internal virtual void RegisterControllers(ContainerBuilder builder)
+        {
+            builder.RegisterAssemblyTypes(this.GetType().Assembly)
+                .Where(x => typeof (IController).IsAssignableFrom(x) && x.Name.EndsWith("Controller"))
+                .Named<IController>(x => x.Name.Replace("Controller", string.Empty))
+                ;
+        }
     }
 
     [MetadataAttribute]
@@ -68,12 +100,18 @@ namespace FunnelWeb
             foreach (var export in Extensions)
             {
                 var extension = export.Value;
-                var controller = extension as IRoutableFunnelWebExtension;
+                var controller = extension as RoutableFunnelWebExtension;
 
                 if (controller != null)
+                {
                     controller.Routes = routes;
-
-                extension.Initialize(builder);
+                    controller.Initialize(builder);
+                    controller.RegisterControllers(builder);
+                }
+                else
+                {
+                    extension.Initialize(builder);
+                }
                 builder.RegisterInstance(export.Metadata).As<FunnelWebExtensionAttribute>();
             }
         }
