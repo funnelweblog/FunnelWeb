@@ -8,11 +8,17 @@ namespace FunnelWeb.Extensions.TaggedPages.Controllers
     [FunnelWebExtension(FullName = "Display posts by tags", Publisher = "FunnelWeb", SupportLink = "http://www.funnelweblog.com")]
     public class TaggedController : Controller, IRoutableFunnelWebExtension
     {
-        void IFunnelWebExtension.Initialize(ContainerBuilder builder)
+        public ActionResult Index(string tag)
         {
             throw new NotImplementedException();
+            return View();
         }
 
-        RouteCollection IRoutableFunnelWebExtension.Routes { get; set; }
+        public void Initialize(ContainerBuilder builder)
+        {
+            Routes.MapRoute("tagged", "tagged/{*tag}", new { controller = "Tagged", action = "Index"});
+        }
+
+        public RouteCollection Routes { get; set; }
     }
 }
