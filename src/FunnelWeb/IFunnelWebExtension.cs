@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
-using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
 
@@ -14,7 +13,7 @@ namespace FunnelWeb
         void Initialize(ContainerBuilder builder);
     }
 
-    public interface IRoutableFunnelWebExtension : IFunnelWebExtension, IController
+    public interface IRoutableFunnelWebExtension : IFunnelWebExtension
     {
         RouteCollection Routes { get; set; } 
     }
@@ -70,13 +69,9 @@ namespace FunnelWeb
             {
                 var extension = export.Value;
                 var controller = extension as IRoutableFunnelWebExtension;
-                
+
                 if (controller != null)
-                {
                     controller.Routes = routes;
-                    builder.RegisterInstance(controller)
-                        .AsImplementedInterfaces();
-                }
 
                 extension.Initialize(builder);
                 builder.RegisterInstance(export.Metadata).As<FunnelWebExtensionAttribute>();

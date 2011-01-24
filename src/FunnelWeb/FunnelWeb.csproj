@@ -38,9 +38,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\Autofac\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac.Integration.Web.Mvc3">
-      <HintPath>..\..\lib\Autofac\Autofac.Integration.Web.Mvc3.dll</HintPath>
-    </Reference>
     <Reference Include="Bindable.Core">
       <HintPath>..\..\lib\Bindable\Bindable.Core.dll</HintPath>
     </Reference>

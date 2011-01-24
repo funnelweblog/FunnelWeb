@@ -34,6 +34,9 @@
     <Reference Include="Autofac">
       <HintPath>..\..\lib\Autofac\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac.Integration.Mvc">
+      <HintPath>..\..\lib\Autofac\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -48,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Controllers\TaggedController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaggedExtensionBootstrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FunnelWeb\FunnelWeb.csproj">
