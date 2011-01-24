@@ -186,6 +186,7 @@
     <Compile Include="Application\Mvc\RouteCollectionExtension.cs" />
     <Compile Include="Application\Mvc\ValidUrlAttribute.cs" />
     <Compile Include="Application\RequireUpdatedDatabaseHttpModule.cs" />
+    <Compile Include="Application\Views\FunnelWebViewEngine.cs" />
     <Compile Include="Application\Views\IMarkdownProvider.cs" />
     <Compile Include="Application\Views\InputSanitizer.cs" />
     <Compile Include="Application\Views\Markdown.cs" />
@@ -220,7 +221,7 @@
     <Compile Include="Application\Mvc\HyphenatedRouteHandler.cs" />
     <Compile Include="RoutesModule.cs" />
     <Compile Include="Application\Spam\SpamModule.cs" />
-    <Compile Include="Application\Views\ViewsModule.cs" />
+    <Compile Include="Application\Views\SettingsModule.cs" />
     <Compile Include="Application\CacheStaticFilesHttpModule.cs" />
     <Compile Include="Application\Pingbacks\PingbackHandler.cs" />
     <Compile Include="Application\Pingbacks\XmlRpcFaultException.cs" />

@@ -8,6 +8,7 @@ using FunnelWeb.Tasks;
 using FunnelWeb.Web.Application;
 using FunnelWeb.Web.Application.Filters;
 using FunnelWeb.Web.Application.Mvc;
+using FunnelWeb.Web.Application.Views;
 using FunnelWeb.Web.Views.Admin;
 using BlogMLImport = FunnelWeb.Web.Views.Admin.BlogMLImportModel;
 
@@ -49,9 +50,13 @@ namespace FunnelWeb.Web.Controllers
                 ModelState.AddModelError("", "Your settings could not be saved. Please fix the errors shown below.");
                 return View(settings);
             }
-            
+
             SettingsProvider.SaveSettings(settings);
-            
+
+            var viewEngines = ViewEngines.Engines.OfType<FunnelWebViewEngine>();
+            foreach (var funnelWebViewEngine in viewEngines)
+                funnelWebViewEngine.UpdateThemePath();
+
             return RedirectToAction("Settings", "Admin")
                 .AndFlash("Your changes have been saved");
         }
@@ -79,7 +84,7 @@ namespace FunnelWeb.Web.Controllers
         public virtual ActionResult DeleteAllSpam()
         {
             var comments = AdminRepository.GetSpam().ToList();
-            foreach (var comment in comments) 
+            foreach (var comment in comments)
                 AdminRepository.Delete(comment);
             return RedirectToAction("Comments", "Admin");
         }
@@ -147,7 +152,7 @@ namespace FunnelWeb.Web.Controllers
 
         #endregion
 
-        #region Import 
+        #region Import
 
         [Authorize]
         public virtual ActionResult BlogMLImport()
@@ -168,9 +173,9 @@ namespace FunnelWeb.Web.Controllers
             var fullPath = Server.MapPath(SettingsProvider.GetSettings().UploadPath);
             fullPath = Path.Combine(fullPath, upload.FileName);
             upload.SaveTo(fullPath);
-            
-            var id = ImportTask.Execute(new { inputFile = fullPath});
-            return RedirectToAction("Task", new {id = id});
+
+            var id = ImportTask.Execute(new { inputFile = fullPath });
+            return RedirectToAction("Task", new { id = id });
         }
 
         #endregion

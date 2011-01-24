@@ -12,6 +12,7 @@ using FunnelWeb.Web.Application.Mime;
 using FunnelWeb.Web.Application.Mvc.Binders;
 using FunnelWeb.Web.Application.Spam;
 using FunnelWeb.Web.Application.Views;
+using FunnelWeb.Settings;
 
 namespace FunnelWeb.Web
 {
@@ -24,6 +25,8 @@ namespace FunnelWeb.Web
         {
             var builder = new ContainerBuilder();
             builder.RegisterControllers(Assembly.GetExecutingAssembly()).PropertiesAutowired();
+            builder.Register<HttpContextBase>(x => new HttpContextWrapper(HttpContext.Current))
+                .InstancePerLifetimeScope();
             builder.Register<HttpServerUtilityBase>(x => new HttpServerUtilityWrapper(HttpContext.Current.Server));
             builder.RegisterModule(new ExtensionsModule(Server.MapPath("~/bin/Extensions"), RouteTable.Routes));
             builder.RegisterModule(new RoutesModule(RouteTable.Routes));
@@ -31,12 +34,15 @@ namespace FunnelWeb.Web
             builder.RegisterModule(new BindersModule(ModelBinders.Binders));
             builder.RegisterModule(new MimeSupportModule());
             builder.RegisterModule(new RepositoriesModule());
-            builder.RegisterModule(new ViewsModule(ViewEngines.Engines));
+            builder.RegisterModule(new SettingsModule());
             builder.RegisterModule(new SpamModule());
             builder.RegisterModule(new EventingModule());
             builder.RegisterModule(new TasksModule());
             
             var container = builder.Build();
+
+            ViewEngines.Engines.Clear();
+            ViewEngines.Engines.Add(new FunnelWebViewEngine(container.Resolve<ISettingsProvider>()));
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
