@@ -28,8 +28,6 @@ namespace FunnelWeb.Web
             builder.Register<HttpContextBase>(x => new HttpContextWrapper(HttpContext.Current))
                 .InstancePerLifetimeScope();
             builder.Register<HttpServerUtilityBase>(x => new HttpServerUtilityWrapper(HttpContext.Current.Server));
-            builder.RegisterModule(new ExtensionsModule(Server.MapPath("~/bin/Extensions"), RouteTable.Routes));
-            builder.RegisterModule(new RoutesModule(RouteTable.Routes));
             builder.RegisterModule(new AuthenticationModule());
             builder.RegisterModule(new BindersModule(ModelBinders.Binders));
             builder.RegisterModule(new MimeSupportModule());
@@ -38,6 +36,9 @@ namespace FunnelWeb.Web
             builder.RegisterModule(new SpamModule());
             builder.RegisterModule(new EventingModule());
             builder.RegisterModule(new TasksModule());
+
+            builder.RegisterModule(new ExtensionsModule(Server.MapPath("~/bin/Extensions"), RouteTable.Routes));
+            builder.RegisterModule(new RoutesModule(RouteTable.Routes));
             
             var container = builder.Build();
 
