@@ -25,10 +25,10 @@ namespace FunnelWeb.Web
             routes.IgnoreRoute("pingback");
 
             // Administration
-            routes.MapHyphenatedRoute("admin/{action}", new { controller = "Admin", action = "Index" });
+            //routes.MapHyphenatedRoute("admin/{action}", new { controller = "Admin", action = "Index" });
 
             // Installation
-            routes.MapLowerCaseRoute(r(), "install/{action}", new { controller = "Install", action = "Index" });
+            //routes.MapLowerCaseRoute(r(), "install/{action}", new { controller = "Install", action = "Index" });
 
             // Feeds
             routes.MapLowerCaseRoute(r(), "feed", new { controller = "Feed", action = "Feed", feedName = (string)null });
@@ -40,7 +40,7 @@ namespace FunnelWeb.Web
 
             // Upload
             routes.MapLowerCaseRoute(r(), "get/{*path}", new { controller = "Upload", action = "Render" });
-            routes.MapHyphenatedRoute("upload/{action}/{*path}", new { controller = "Upload", action = "Index", path = "/" });
+            //routes.MapHyphenatedRoute("upload/{action}/{*path}", new { controller = "Upload", action = "Index", path = "/" });
             
             // Resources
             routes.MapLowerCaseRoute(r(), "robots", new { controller = "Resource", action = "Render", fileName = "/Content/Resources/Robots.txt", contentType = "text/plain" });
@@ -62,11 +62,13 @@ namespace FunnelWeb.Web
             routes.MapLowerCaseRoute(r(), "blog/{pageNumber}", new { controller = "Wiki", action = "Recent" }, new { pageNumber = "\\d+" });
             routes.MapLowerCaseRoute(r(), "", new { controller = "Wiki", action = "Home", pageNumber = "0" });
             routes.MapLowerCaseRoute(r(), "{pageNumber}", new { controller = "Wiki", action = "Home" }, new { pageNumber = "\\d+" });
-            routes.MapLowerCaseRoute(r(), "unpublished", new { controller = "Wiki", action = "Unpublished" });
             routes.MapLowerCaseRoute(r(), "search", new { controller = "Wiki", action = "Search" });
-            routes.MapLowerCaseRoute(r(), "new", new { controller = "Wiki", action = "Edit", page = "" });
-            routes.MapLowerCaseRoute(r(), "edit/{*page}", new { controller = "Wiki", action = "Edit", page = UrlParameter.Optional });
-            routes.MapLowerCaseRoute(r(), "revert/{*page}", new { controller = "Wiki", action = "Revert" });
+			
+			routes.MapLowerCaseRoute(r(), "unpublished", new { controller = "WikiAdmin", Area = "Admin", action = "Unpublished" });
+			routes.MapLowerCaseRoute(r(), "admin/new", new { controller = "WikiAdmin", Area = "Admin", action = "Edit", page = "" });
+			routes.MapLowerCaseRoute(r(), "edit/{*page}", new { controller = "WikiAdmin", Area = "Admin", action = "Edit", page = UrlParameter.Optional });
+			routes.MapLowerCaseRoute(r(), "revert/{*page}", new { controller = "WikiAdmin", Area = "Admin", action = "Revert" });
+
             routes.MapLowerCaseRoute(r(), "via-feed/{*page}", new { controller = "Resource", action = "Render", fileName = "/Content/Images/Transparent.gif", contentType = "image/gif" });
             routes.MapLowerCaseRoute(r(), "history-of/{*page}", new { controller = "Wiki", action = "Revisions" });
             routes.MapLowerCaseRoute(r(), "{*page}", new { controller = "Wiki", action = "Page" });

@@ -22,7 +22,7 @@
 {
 <div class='validation-summary-errors'>
   This is a <strong>private</strong> page. Only logged in users will be able to see it. 
-  @Html.ActionLink("Edit this page ", "Edit", new { page = Model.Page }) to make it public.
+  @Html.ActionLink("Edit this page ", "Edit", "WikiAdmin", new { Area = "Admin", page = Model.Page }, new { }) to make it public.
 </div>    
 }
 
@@ -45,7 +45,7 @@
       <span>You are looking at revision @Model.Entry.LatestRevision.RevisionNumber of this page, which may be out of date. @Html.ActionLink("View the latest version.", "Page", new { page = Model.Entry.Name })</span>
           @if (ViewData.IsLoggedIn())
           {
-            <span> @Html.ActionLink("Revert to this version.", "Revert", new { page = Model.Page, revision = Model.Entry.LatestRevision.RevisionNumber })</span>
+            <span> @Html.ActionLink("Revert to this version.", "Revert", "WikiAdmin", new { Area = "Admin", page = Model.Page, revision = Model.Entry.LatestRevision.RevisionNumber }, new { })</span>
           }
       <span></span>
     </div>
@@ -72,7 +72,8 @@
     <span>@Html.ActionLink("History", "Revisions", new { page = Model.Page })</span>
     @if (ViewData.IsLoggedIn())
     {
-    <span>@Html.ActionLink("Edit", "Edit", new { page = Model.Page })</span>
+      
+    <span>@Html.ActionLink("Edit", "Edit", "WikiAdmin", new { Area = "Admin", page = Model.Page }, new { })</span>
     }
     @if (Model.IsPriorVersion)
     {
@@ -99,7 +100,7 @@ else
   if (ViewData.IsLoggedIn())
   {
   <div class='entry-tools'>
-    <span>@Html.ActionLink("Edit", "Edit", new { page = Model.Page })</span>
+    <span>@Html.ActionLink("Edit", "Edit", "WikiAdmin", new { Area = "Admin", page = Model.Page }, new { })</span>
   </div>
   }
 }

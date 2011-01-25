@@ -41,6 +41,8 @@ namespace FunnelWeb.Web
             builder.RegisterModule(new EventingModule());
             builder.RegisterModule(new TasksModule());
 
+			AreaRegistration.RegisterAllAreas();
+
             builder.RegisterModule(new ExtensionsModule(Server.MapPath("~/bin/Extensions"), RouteTable.Routes));
             builder.RegisterModule(new RoutesModule(RouteTable.Routes));
 
