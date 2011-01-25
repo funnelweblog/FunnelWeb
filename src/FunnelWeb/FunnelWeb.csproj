@@ -34,9 +34,9 @@
     <Reference Include="Antlr3.Runtime">
       <HintPath>..\..\lib\NHibernate\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac, Version=2.2.4.900, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+    <Reference Include="Autofac, Version=2.4.2.696, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Autofac\Autofac.dll</HintPath>
+      <HintPath>..\packages\Autofac.2.4.2.696\lib\NET40\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Bindable.Core">
       <HintPath>..\..\lib\Bindable\Bindable.Core.dll</HintPath>
@@ -168,6 +168,9 @@
       <Project>{D3182161-B0E5-47A7-8968-654489F0C60E}</Project>
       <Name>FunnelWeb.DatabaseDeployer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
