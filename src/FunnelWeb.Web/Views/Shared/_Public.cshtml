@@ -14,7 +14,7 @@
   }
   @MvcHtmlString.Create(Html.RenderCssHere(new List<IClientDependencyPath> {
       new BasicPath("Layout", "~/Content/Styles/Layout"),
-      new BasicPath("Theme", "~/Content/Styles/Themes/" + Html.Settings().Theme)
+      new BasicPath("Theme", "~/Themes/" + Html.Settings().Theme + "/Content/Styles")
     }))
   @RenderSection("Meta", required: false)
   @MvcHtmlString.Create(Html.Settings().HtmlHead)

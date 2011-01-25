@@ -265,9 +265,9 @@
     <Content Include="Content\Styles\Layout\jquery-ui-1.8.7.custom.css" />
     <Content Include="Content\Styles\Layout\Mobile.css" />
     <Content Include="Content\Styles\Layout\TagEditor.css" />
-    <Content Include="Content\Styles\Themes\BoringTheme\Theme.css" />
-    <Content Include="Content\Styles\Themes\Official\Theme.css" />
-    <Content Include="Content\Styles\Themes\MattHamilton\backgnd.png" />
+    <Content Include="Themes\BoringTheme\Content\Styles\Theme.css" />
+    <Content Include="Themes\Official\Content\Styles\Theme.css" />
+    <Content Include="Themes\MattHamilton\Content\Styles\backgnd.png" />
     <Content Include="Views\Admin\PageList.cshtml" />
     <Content Include="Views\Admin\Tasks.cshtml" />
     <Content Include="Views\Admin\Task.cshtml" />
@@ -276,16 +276,16 @@
     <Content Include="Views\Shared\_Mobile.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Markdown.cshtml" />
     <Content Include="Content\Styles\Layout\Admin.css" />
-    <Content Include="Content\Styles\Themes\Pastel\Bar.png" />
-    <Content Include="Content\Styles\Themes\Pastel\Theme.css" />
-    <Content Include="Content\Styles\Themes\Twitter\Background.png" />
-    <Content Include="Content\Styles\Themes\Twitter\Bar.png" />
-    <Content Include="Content\Styles\Themes\Twitter\Theme.css" />
-    <Content Include="Content\Styles\Themes\MattHamilton\Theme.css" />
-    <Content Include="Content\Styles\Themes\MattHamilton\Title.png" />
-    <Content Include="Content\Styles\Themes\RainbowAfro\Bar.png" />
-    <Content Include="Content\Styles\Themes\RainbowAfro\Header.jpg" />
-    <Content Include="Content\Styles\Themes\RainbowAfro\Theme.css" />
+    <Content Include="Themes\Pastel\Content\Styles\Bar.png" />
+    <Content Include="Themes\Pastel\Content\Styles\Theme.css" />
+    <Content Include="Themes\Twitter\Content\Styles\Background.png" />
+    <Content Include="Themes\Twitter\Content\Styles\Bar.png" />
+    <Content Include="Themes\Twitter\Content\Styles\Theme.css" />
+    <Content Include="Themes\MattHamilton\Content\Styles\Theme.css" />
+    <Content Include="Themes\MattHamilton\Content\Styles\Title.png" />
+    <Content Include="Themes\RainbowAfro\Content\Styles\Bar.png" />
+    <Content Include="Themes\RainbowAfro\Content\Styles\Header.jpg" />
+    <Content Include="Themes\RainbowAfro\Content\Styles\Theme.css" />
     <Content Include="Views\Admin\Comments.cshtml" />
     <Content Include="Views\Admin\Pingbacks.cshtml" />
     <Content Include="Views\Admin\Settings.cshtml" />
@@ -333,9 +333,9 @@
     <Content Include="Content\Scripts\Showdown\wmd.js" />
     <Content Include="Content\Scripts\Site\Site.js" />
     <Content Include="Content\Styles\Layout\Base.css" />
-    <Content Include="Content\Styles\Themes\AaronPowell\Theme.css" />
-    <Content Include="Content\Styles\Themes\Default\Theme.css" />
-    <None Include="Views\Themes\BoringTheme\Wiki\Recent.cshtml" />
+    <Content Include="Themes\AaronPowell\Content\Styles\Theme.css" />
+    <Content Include="Themes\Default\Content\Styles\Theme.css" />
+    <None Include="Themes\BoringTheme\Views\Wiki\Recent.cshtml" />
     <Content Include="Views\Upload\Index.cshtml" />
     <Content Include="Views\Wiki\Edit.cshtml" />
     <Content Include="Views\Wiki\Search.cshtml" />
@@ -380,7 +380,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Extensions\" />
-    <Folder Include="Views\Themes\Extensions\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

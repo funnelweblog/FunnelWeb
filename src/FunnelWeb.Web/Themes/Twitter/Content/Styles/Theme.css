@@ -1,6 +1,6 @@
 ﻿body
 {
-    background: #C0DEED url(/Content/Styles/Themes/Twitter/Background.png) no-repeat 50% 0%;
+    background: #C0DEED url(Background.png) no-repeat 50% 0%;
     font-size: 12pt;
     font-family: Arial;
     color: #222;
@@ -159,7 +159,7 @@ h1, h2, h3, h4, h5, h6
 
 .post-line 
 {
-    background: #e0e0e0 url('/Content/Styles/Themes/Twitter/Bar.png');
+    background: #e0e0e0 url('Bar.png');
     border: 1px solid #ccc;
     margin-bottom: 20px;
     padding: 0;

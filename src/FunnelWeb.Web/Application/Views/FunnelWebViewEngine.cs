@@ -32,8 +32,8 @@ namespace FunnelWeb.Web.Application.Views
         {
             var locationFormats = new List<string>()
                                                   {
-                                                      "~/Views/Themes/" + settings.Theme + "/{1}/{0}.cshtml", 
-                                                      "~/Views/Themes/" + settings.Theme + "/Extensions/{1}/{0}.cshtml", 
+                                                      "~/Themes/" + settings.Theme + "/Views/{1}/{0}.cshtml", 
+                                                      "~/Themes/" + settings.Theme + "/Views/Extensions/{1}/{0}.cshtml", 
                                                       "~/Views/Extensions/{0}.cshtml",
                                                   };
             locationFormats.AddRange(_partialViewLocationFormats);
@@ -41,9 +41,8 @@ namespace FunnelWeb.Web.Application.Views
 
             locationFormats = new List<string>()
                                       {
-                                          "~/Views/Themes/" + settings.Theme + "/{1}/{0}.cshtml",
-                                          "~/Views/Themes/" + settings.Theme +
-                                          "/Extensions/{1}/{0}.cshtml",
+                                          "~/Themes/" + settings.Theme + "/Views/{1}/{0}.cshtml",
+                                          "~/Themes/" + settings.Theme + "/Views/Extensions/{1}/{0}.cshtml",
                                           "~/Views/Extensions/{0}.cshtml",
                                       };
             locationFormats.AddRange(_viewLocationFormats);
@@ -51,9 +50,8 @@ namespace FunnelWeb.Web.Application.Views
 
             locationFormats = new List<string>()
                                       {
-                                          "~/Views/Themes/" + settings.Theme + "/{1}/{0}.cshtml",
-                                          "~/Views/Themes/" + settings.Theme +
-                                          "/Extensions/{1}/{0}.cshtml",
+                                          "~/Themes/" + settings.Theme + "/Views/{1}/{0}.cshtml",
+                                          "~/Themes/" + settings.Theme + "/Views/Extensions/{1}/{0}.cshtml",
                                           "~/Views/Extensions/{0}.cshtml",
                                       };
             locationFormats.AddRange(_masterLocationFormats);
