@@ -38,6 +38,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Autofac.2.4.2.696\lib\NET40\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac.Integration.Mvc">
+      <HintPath>..\packages\Autofac.Mvc3.2.4.2.696\lib\NET40\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Bindable.Core">
       <HintPath>..\..\lib\Bindable\Bindable.Core.dll</HintPath>
     </Reference>

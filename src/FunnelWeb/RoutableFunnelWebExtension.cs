@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
+using Autofac.Integration.Mvc;
 
 namespace FunnelWeb
 {
@@ -26,10 +27,11 @@ namespace FunnelWeb
         /// <param name="builder">The builder.</param>
         protected internal virtual void RegisterControllers(ContainerBuilder builder)
         {
-            builder.RegisterAssemblyTypes(GetType().Assembly)
-                .Where(t => t.Name.EndsWith("Controller"))
+            builder.RegisterControllers(GetType().Assembly)
+                //.Where(t => t.Name.EndsWith("Controller"))
                 .Named<IController>(t => t.Name.Replace("Controller", string.Empty))
                 .PropertiesAutowired()
+                .AsSelf()
                 ;
         }
     }

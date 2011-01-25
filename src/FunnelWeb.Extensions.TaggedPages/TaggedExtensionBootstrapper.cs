@@ -8,7 +8,7 @@ namespace FunnelWeb.Extensions.TaggedPages
     {
         public override void Initialize(ContainerBuilder builder)
         {
-            Routes.MapRoute(null, "tagged/{*tag}", new { controller = "Tagged", action = "Index" }, null, new[] { "FunnelWeb.Extensions.TaggedPages.Controllers" });
+            Routes.MapRoute(null, "tagged/{*tag}", new { controller = "Tagged", action = "Index" });
         }
     }
 }

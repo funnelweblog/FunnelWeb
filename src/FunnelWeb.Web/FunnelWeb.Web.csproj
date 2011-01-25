@@ -171,7 +171,6 @@
     <Compile Include="Application\Mvc\ActionResults\XmlActionResult.cs" />
     <Compile Include="Application\Authentication\FormsAuthenticator.cs" />
     <Compile Include="Application\Authentication\IAuthenticator.cs" />
-    <Compile Include="Application\Mvc\CustomMobileViewEngine.cs" />
     <Compile Include="Application\Mvc\HintSize.cs" />
     <Compile Include="Application\Mvc\Binders\ArrayBinder.cs" />
     <Compile Include="Application\Mvc\Binders\ImplicitAssignmentBinder.cs" />
@@ -189,7 +188,7 @@
     <Compile Include="Application\Mvc\RouteCollectionExtension.cs" />
     <Compile Include="Application\Mvc\ValidUrlAttribute.cs" />
     <Compile Include="Application\RequireUpdatedDatabaseHttpModule.cs" />
-    <Compile Include="Application\Views\FunnelWebViewEngine.cs" />
+    <Compile Include="Application\Mvc\FunnelWebViewEngine.cs" />
     <Compile Include="Application\Views\IMarkdownProvider.cs" />
     <Compile Include="Application\Views\InputSanitizer.cs" />
     <Compile Include="Application\Views\Markdown.cs" />
@@ -200,6 +199,7 @@
     <Compile Include="Application\Mime\MimeSupport.cs" />
     <Compile Include="Application\Views\MarkdownProvider.cs" />
     <Content Include="App_Code\HelperPage.cs" />
+    <Compile Include="Application\Mvc\ControllerFactory.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Views\Admin\BlogMLImportModel.cs" />
     <Compile Include="Views\Admin\CommentsModel.cs" />

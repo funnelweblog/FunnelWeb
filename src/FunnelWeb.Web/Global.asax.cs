@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -13,6 +12,7 @@ using FunnelWeb.Model.Repositories;
 using FunnelWeb.Tasks;
 using FunnelWeb.Web.Application.Authentication;
 using FunnelWeb.Web.Application.Mime;
+using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Application.Mvc.Binders;
 using FunnelWeb.Web.Application.Spam;
 using FunnelWeb.Web.Application.Views;
@@ -53,28 +53,6 @@ namespace FunnelWeb.Web
 
             ControllerBuilder.Current.SetControllerFactory(new ControllerFactory(container));
 
-
-        }
-        public class ControllerFactory : DefaultControllerFactory
-        {
-            private readonly IContainer _container;
-
-            public ControllerFactory(IContainer container)
-            {
-                _container = container;
-            }
-            protected override Type GetControllerType(RequestContext requestContext, string controllerName)
-            {
-                var controller = base.GetControllerType(requestContext, controllerName);
-                if (controller == null)
-                {
-                    object x;
-                    if (_container.TryResolveNamed(controllerName, typeof(IController), out x))
-                        controller = x.GetType();
-                }
-
-                return controller;
-            }
 
         }
     }

@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using FunnelWeb.Settings;
 
-namespace FunnelWeb.Web.Application.Views
+namespace FunnelWeb.Web.Application.Mvc
 {
     /// <summary>
     /// 
@@ -34,7 +34,7 @@ namespace FunnelWeb.Web.Application.Views
                                                   {
                                                       "~/Themes/" + settings.Theme + "/Views/{1}/{0}.cshtml", 
                                                       "~/Themes/" + settings.Theme + "/Views/Extensions/{1}/{0}.cshtml", 
-                                                      "~/Views/Extensions/{0}.cshtml",
+                                                      "~/Views/Extensions/{1}/{0}.cshtml",
                                                   };
             locationFormats.AddRange(_partialViewLocationFormats);
             PartialViewLocationFormats = locationFormats.ToArray();
@@ -43,7 +43,7 @@ namespace FunnelWeb.Web.Application.Views
                                       {
                                           "~/Themes/" + settings.Theme + "/Views/{1}/{0}.cshtml",
                                           "~/Themes/" + settings.Theme + "/Views/Extensions/{1}/{0}.cshtml",
-                                          "~/Views/Extensions/{0}.cshtml",
+                                          "~/Views/Extensions/{1}/{0}.cshtml",
                                       };
             locationFormats.AddRange(_viewLocationFormats);
             ViewLocationFormats = locationFormats.ToArray();
@@ -52,7 +52,7 @@ namespace FunnelWeb.Web.Application.Views
                                       {
                                           "~/Themes/" + settings.Theme + "/Views/{1}/{0}.cshtml",
                                           "~/Themes/" + settings.Theme + "/Views/Extensions/{1}/{0}.cshtml",
-                                          "~/Views/Extensions/{0}.cshtml",
+                                          "~/Views/Extensions/{1}/{0}.cshtml",
                                       };
             locationFormats.AddRange(_masterLocationFormats);
             MasterLocationFormats = locationFormats.ToArray();
