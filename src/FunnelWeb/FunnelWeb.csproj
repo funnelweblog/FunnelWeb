@@ -100,7 +100,10 @@
     </Compile>
     <Compile Include="Eventing\EventingModule.cs" />
     <Compile Include="Eventing\INotifier.cs" />
+    <Compile Include="ExtensionsModule.cs" />
+    <Compile Include="FunnelWebExtensionAttribute.cs" />
     <Compile Include="IFunnelWebExtension.cs" />
+    <Compile Include="RoutableFunnelWebExtension.cs" />
     <Compile Include="Tasks\TaskModule.cs" />
     <Compile Include="Tasks\ITask.cs" />
     <Compile Include="Tasks\ITaskExecutor.cs" />
