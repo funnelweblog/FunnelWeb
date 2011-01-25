@@ -63,3 +63,5 @@ glob:build/Artifacts/
 glob:build/Published/
 glob:build/TestResult.xml
 [pP]ublish
+
+Views\Extensions\*

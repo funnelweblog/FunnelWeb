@@ -1,9 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
-using System.Web.Mvc;
-using System.Web.Routing;
+﻿using System.Web.Mvc;
 using Autofac;
-using Autofac.Integration.Mvc;
 
 namespace FunnelWeb.Extensions.TaggedPages
 {
