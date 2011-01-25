@@ -7,11 +7,17 @@ namespace FunnelWeb.Extensions.TaggedPages.Controllers
     [FunnelWebRequest]
     public class TaggedController : Controller
     {
-        public ITagRepository TagRepository { get; set; }
+        private readonly ITagRepository _tagRepository;
+        //public ITagRepository TagRepository { get; set; }
+
+        public TaggedController(ITagRepository tagRepository)
+        {
+            _tagRepository = tagRepository;
+        }
 
         public ActionResult Index(string tag)
         {
-            var entries = TagRepository.GetTaggedItems(tag, 0, 30);
+            var entries = _tagRepository.GetTaggedItems(tag, 0, 30);
 
             return View(entries);
         }

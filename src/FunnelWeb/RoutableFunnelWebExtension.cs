@@ -29,7 +29,7 @@ namespace FunnelWeb
             builder.RegisterAssemblyTypes(GetType().Assembly)
                 .Where(t => t.Name.EndsWith("Controller"))
                 .Named<IController>(t => t.Name.Replace("Controller", string.Empty))
-                .InstancePerLifetimeScope()
+                .PropertiesAutowired()
                 ;
         }
     }
