@@ -21,6 +21,14 @@ namespace FunnelWeb.Web.Application
                 return;
             }
 
+            if (!DatabaseRequiresUpgrade())
+                return;
+
+            HttpContext.Current.Response.Redirect("~/login?databaseIssue=true");
+        }
+
+        internal static bool DatabaseRequiresUpgrade()
+        {
             var applicationDatabase = new ApplicationDatabase();
             var connectionStringProvider = new ConnectionStringProvider();
 
@@ -31,13 +39,10 @@ namespace FunnelWeb.Web.Application
             {
                 var currentVersion = applicationDatabase.GetCurrentVersion(connectionString);
                 var requiredVersion = applicationDatabase.GetApplicationVersion(connectionString);
-                if (currentVersion == requiredVersion)
-                {
-                    return;
-                }
+                return currentVersion != requiredVersion;
             }
 
-            HttpContext.Current.Response.Redirect("~/login?databaseIssue=true");
+            return true;
         }
 
         public void Dispose()

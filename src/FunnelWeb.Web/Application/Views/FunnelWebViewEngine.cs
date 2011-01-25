@@ -21,6 +21,10 @@ namespace FunnelWeb.Web.Application.Views
             _partialViewLocationFormats = PartialViewLocationFormats;
             _viewLocationFormats = ViewLocationFormats;
             _masterLocationFormats = MasterLocationFormats;
+
+            if(RequireUpdatedDatabaseHttpModule.DatabaseRequiresUpgrade())
+                return;
+
             UpdateThemePath(_settings.GetSettings());
         }
 

@@ -43,9 +43,9 @@ namespace FunnelWeb
         /// <param name="builder">The builder.</param>
         protected internal virtual void RegisterControllers(ContainerBuilder builder)
         {
-            builder.RegisterAssemblyTypes(this.GetType().Assembly)
-                .Where(x => typeof (IController).IsAssignableFrom(x) && x.Name.EndsWith("Controller"))
-                .Named<IController>(x => x.Name.Replace("Controller", string.Empty))
+            builder.RegisterAssemblyTypes(GetType().Assembly)
+                .Where(t => t.Name.EndsWith("Controller"))
+                .Named<IController>(t => t.Name.Replace("Controller", string.Empty))
                 ;
         }
     }
