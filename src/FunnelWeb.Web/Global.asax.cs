@@ -25,36 +25,64 @@ namespace FunnelWeb.Web
     /// </summary>
     public class MvcApplication : HttpApplication
     {
-        protected void Application_Start()
+        void Application_BeginRequest(Object source, EventArgs e)
         {
-            var builder = new ContainerBuilder();
-            builder.RegisterControllers(Assembly.GetExecutingAssembly()).PropertiesAutowired();
-            builder.Register<HttpContextBase>(x => new HttpContextWrapper(HttpContext.Current))
-                .InstancePerLifetimeScope();
-            builder.Register<HttpServerUtilityBase>(x => new HttpServerUtilityWrapper(HttpContext.Current.Server));
-            builder.RegisterModule(new AuthenticationModule());
-            builder.RegisterModule(new BindersModule(ModelBinders.Binders));
-            builder.RegisterModule(new MimeSupportModule());
-            builder.RegisterModule(new RepositoriesModule());
-            builder.RegisterModule(new SettingsModule());
-            builder.RegisterModule(new SpamModule());
-            builder.RegisterModule(new EventingModule());
-            builder.RegisterModule(new TasksModule());
+            HttpApplication app = (HttpApplication)source;
+            HttpContext context = app.Context;
 
-            builder.RegisterModule(new ExtensionsModule(Server.MapPath("~/bin/Extensions"), RouteTable.Routes));
-            builder.RegisterModule(new RoutesModule(RouteTable.Routes));
-
-            var container = builder.Build();
-
-            ViewEngines.Engines.Clear();
-            ViewEngines.Engines.Add(new FunnelWebViewEngine(container.Resolve<ISettingsProvider>()));
-
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
-
-            ControllerBuilder.Current.SetControllerFactory(new ControllerFactory(container));
-
-
+            // Attempt to peform first request initialization
+            FirstRequestInitialization.Initialize(Server, context);
         }
+
+
+        // from http://mvolo.com/blogs/serverside/archive/2007/11/10/Integrated-mode-Request-is-not-available-in-this-context-in-Application_5F00_Start.aspx
+        class FirstRequestInitialization
+        {
+            private static bool s_InitializedAlready = false;
+            private static Object s_lock = new Object();
+
+            // Initialize only on the first request
+            public static void Initialize(HttpServerUtility server, HttpContext context)
+            {
+                if (s_InitializedAlready) return;
+
+                lock (s_lock)
+                {
+                    if (s_InitializedAlready) return;
+
+                    var builder = new ContainerBuilder();
+                    builder.RegisterControllers(Assembly.GetExecutingAssembly()).PropertiesAutowired();
+                    builder.Register<HttpContextBase>(x => new HttpContextWrapper(HttpContext.Current))
+                        .InstancePerLifetimeScope();
+                    builder.Register<HttpServerUtilityBase>(x => new HttpServerUtilityWrapper(HttpContext.Current.Server));
+                    builder.RegisterModule(new AuthenticationModule());
+                    builder.RegisterModule(new BindersModule(ModelBinders.Binders));
+                    builder.RegisterModule(new MimeSupportModule());
+                    builder.RegisterModule(new RepositoriesModule());
+                    builder.RegisterModule(new SettingsModule());
+                    builder.RegisterModule(new SpamModule());
+                    builder.RegisterModule(new EventingModule());
+                    builder.RegisterModule(new TasksModule());
+
+                    builder.RegisterModule(new ExtensionsModule(server.MapPath("~/bin/Extensions"), RouteTable.Routes));
+                    builder.RegisterModule(new RoutesModule(RouteTable.Routes));
+
+                    var container = builder.Build();
+
+                    ViewEngines.Engines.Clear();
+                    ViewEngines.Engines.Add(new FunnelWebViewEngine(container.Resolve<ISettingsProvider>()));
+
+                    DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+
+                    ControllerBuilder.Current.SetControllerFactory(new ControllerFactory(container));
+
+
+                    s_InitializedAlready = true;
+                }
+            }
+        }
+
+
         public class ControllerFactory : DefaultControllerFactory
         {
             private readonly IContainer _container;
@@ -75,7 +103,6 @@ namespace FunnelWeb.Web
 
                 return controller;
             }
-
         }
     }
 }
