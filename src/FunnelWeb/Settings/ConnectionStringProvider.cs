@@ -10,8 +10,10 @@ namespace FunnelWeb.Settings
         {
             get
             {
-                var config = WebConfigurationManager.OpenWebConfiguration(HttpContext.Current.Request.ApplicationPath);
-                return config.AppSettings.Settings["funnelweb.configuration.database.connection"].Value;
+
+                return ConfigurationManager.AppSettings["funnelweb.configuration.database.connection"];
+                //var config = WebConfigurationManager.OpenWebConfiguration(HttpContext.Current.Request.ApplicationPath);
+                //return config.AppSettings.Settings["funnelweb.configuration.database.connection"].Value;
             }
             set
             {

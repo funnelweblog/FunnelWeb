@@ -25,7 +25,7 @@ namespace FunnelWeb.Web
     /// </summary>
     public class MvcApplication : HttpApplication
     {
-        protected void Application_Start()
+        void Application_Start()
         {
             var builder = new ContainerBuilder();
             builder.RegisterControllers(Assembly.GetExecutingAssembly()).PropertiesAutowired();
