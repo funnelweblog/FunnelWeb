@@ -15,6 +15,12 @@ namespace FunnelWeb.Web.Areas.Admin
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
+                "Admin_Logout",
+                "admin/logout",
+                new { controller = "login", action = "logout" }
+                );
+
+            context.MapRoute(
                 "Admin_Login",
                 "admin/login/{action}",
                 new { controller = "login", action = "login" }
