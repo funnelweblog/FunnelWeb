@@ -41,8 +41,8 @@
   @foreach (var entry in group)
   {
       <tr>
-        <td>@Html.ActionLink(entry.Name, "Page", "Wiki", new { Area = "", page = entry.Name }, new { })</td>
-        <td>@entry.Title</td>
+        <td>@Html.ActionLink(entry.Name, "Page", "Wiki", new { Area = "", page = entry.Name }, new { title = "View this page" })</td>
+        <td>@Html.ActionLink(entry.Title, "Edit", "WikiAdmin", new { Area = "Admin", page = entry.Name }, new { title = "Edit this page" })</td>
         <td>@entry.CommentCount</td>
         <td>@Html.Date(entry.Published)</td>
         <td>@Html.Date(entry.LatestRevision.Revised) (@Html.ActionLink("History", "Revisions", "Wiki", new { Area = "", page = entry.Name }, new { }))</td>

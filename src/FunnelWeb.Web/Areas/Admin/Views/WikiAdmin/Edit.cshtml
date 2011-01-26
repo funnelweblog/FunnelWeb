@@ -1,6 +1,20 @@
 @model FunnelWeb.Web.Areas.Admin.Views.WikiAdmin.EditModel
 @{
-  ViewBag.Title = (Model.IsNew ? "Create - " : "Edit - ") + Model.Title; 
+  ViewBag.Title = (Model.IsNew ? "Create - " : "Edit - ") + Model.Title;
+
+  var pageTemplates = new List<SelectListItem>()
+    {
+      new SelectListItem { Text = "(default)", Value = "" }
+    };
+    
+  var templatesPath = Server.MapPath(Html.ThemePath() + "/Views/Shared/PageTemplates");
+  if(Directory.Exists( templatesPath))
+  {
+    pageTemplates.AddRange(Directory.EnumerateFiles(templatesPath, "*.cshtml")
+                      .Select(f => Path.GetFileNameWithoutExtension(f))
+                      .Where(f => f != "Default")
+                      .Select(f => new SelectListItem { Text = f, Value = f, Selected = Model.PageTemplate == f }));
+  }
 }
 
 @section Summary {
@@ -54,6 +68,15 @@
     @Html.HintFor(m => m.MetaTitle)
   </div>
       
+  <div class="editor-label">
+    @Html.LabelFor(m => m.PageTemplate)
+  </div>
+  <div class="editor-field">
+    @Html.DropDownListFor(m => m.PageTemplate, pageTemplates, Html.AttributesFor(m => m.PageTemplate))
+    @Html.ValidationMessageFor(m => m.PageTemplate)
+    @Html.HintFor(m => m.PageTemplate)
+  </div>
+
   <div class="editor-label">
     @Html.LabelFor(m => m.PublishDate)
   </div>

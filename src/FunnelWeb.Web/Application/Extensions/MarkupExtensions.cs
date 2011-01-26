@@ -230,5 +230,10 @@ namespace FunnelWeb.Web.Application.Extensions
 		{	// http://stackoverflow.com/questions/2036305/how-to-specify-an-area-name-in-an-action-link
 			return htmlHelper.ActionLink(linkText, actionName, adminControllerName, new {Area = "Admin"}, new {});
 		}
+
+		public static string ThemePath(this HtmlHelper helper)
+		{
+			return "~/Themes/" + helper.Settings().Theme;
+		}
     }
 }

@@ -358,6 +358,9 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\Shared\PageTemplates\Default.cshtml" />
+    <Content Include="Themes\Twitter\Views\Shared\PageTemplates\Default.cshtml" />
+    <Content Include="Themes\Twitter\Views\Shared\PageTemplates\Homepage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Public.cshtml" />

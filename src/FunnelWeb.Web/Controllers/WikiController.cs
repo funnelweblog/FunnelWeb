@@ -39,7 +39,8 @@ namespace FunnelWeb.Web.Controllers
                 var entry = EntryRepository.GetEntry(settings.CustomHomePage);
                 if (entry != null)
                 {
-                    return View("Page", new PageModel(entry.Name, entry, false));
+					var masterPage = "PageTemplates/"  + (entry.PageTemplate ?? "Default");
+					return View("Page", masterPage, new PageModel(entry.Name, entry, false));
                 }
             }
 
@@ -78,7 +79,8 @@ namespace FunnelWeb.Web.Controllers
             }
 
             ViewData.Model = new PageModel(page, entry, revision > 0);
-            return View();
+			var masterPage = "PageTemplates/"  + (entry.PageTemplate ?? "Default");
+			return View(null, masterPage);
         }
 
         // Posting a comment

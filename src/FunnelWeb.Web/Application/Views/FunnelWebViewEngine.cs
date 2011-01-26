@@ -52,6 +52,8 @@ namespace FunnelWeb.Web.Application.Views
                                       {
                                           "~/Themes/" + settings.Theme + "/Views/{1}/{0}.cshtml",
                                           "~/Themes/" + settings.Theme + "/Views/Extensions/{1}/{0}.cshtml",
+										  "~/Themes/" + settings.Theme + "/Views/Shared/{1}/{0}.cshtml",
+										  "~/Themes/" + settings.Theme + "/Views/Shared/{0}.cshtml",
                                           "~/Views/Extensions/{0}.cshtml",
                                       };
             locationFormats.AddRange(_masterLocationFormats);

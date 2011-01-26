@@ -51,6 +51,13 @@ namespace FunnelWeb.Web.Areas.Admin.Views.WikiAdmin
         [HintSize(HintSize.Medium)]
         public string MetaTitle { get; set; }
 
+		[DisplayName("Page Template")]
+		[StringLength(20)]
+		[Description("This will change how your page looks.")]
+		[RegularExpression("[a-zA-Z0-9\\-]+", ErrorMessage = "Page templates can only include lowercase alpha characters, numbers and dashes")]
+		[HintSize(HintSize.Medium)]
+		public string PageTemplate { get; set; }
+
         [Required]
         [DisplayName("Publish date")]
         [Description("This page will not appear in any feeds until after the date above.")]

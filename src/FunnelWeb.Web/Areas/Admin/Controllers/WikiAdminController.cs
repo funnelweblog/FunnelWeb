@@ -94,6 +94,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
 			var entry = EntryRepository.GetEntry(model.OriginalEntryId) ?? new Entry();
 			entry.Name = model.Page;
+			entry.PageTemplate = string.IsNullOrEmpty(model.PageTemplate) ? null : model.PageTemplate;
 			entry.Title = model.Title ?? string.Empty;
 			entry.Summary = model.Sidebar ?? string.Empty;
 			entry.MetaTitle = string.IsNullOrWhiteSpace(model.MetaTitle) ? model.Title : model.MetaTitle;

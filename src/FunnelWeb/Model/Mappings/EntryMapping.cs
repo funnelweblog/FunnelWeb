@@ -18,6 +18,7 @@ namespace FunnelWeb.Model.Mappings
             Map(x => x.MetaTitle);
             Map(x => x.HideChrome);
             Map(x => x.Status);
+			Map(x => x.PageTemplate);
             Map(x => x.CommentCount).Formula("(SELECT COUNT(*) from Comment where Comment.EntryID = ID and Comment.Status = 1)");
 
             HasManyToMany(x => x.Tags)
