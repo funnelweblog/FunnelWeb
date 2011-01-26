@@ -7,28 +7,28 @@
 <h1>Blog Administration</h1>
 
 <div class="admin-link">
-  <h3>@Html.ActionLink("Page list", "Index", "PageList")</h3>
+  <h3>@Html.AdminActionLink("Page list", "PageList", "Admin")</h3>
   <p>
     A list of all published and unpublished pages on your site, for quick access.
   </p>
 </div>
 
 <div class="admin-link">
-  <h3>@Html.ActionLink("General settings", "Index", "Settings")</h3>
+  <h3>@Html.AdminActionLink("General settings", "Settings", "Admin")</h3>
   <p>
     Configure site-wide settings, such as the blog title and introduction text, page headers and footers, and so on.
   </p>
 </div>
 
 <div class="admin-link">
-  <h3>@Html.ActionLink("Comments", "Index", "Comments")</h3>
+  <h3>@Html.AdminActionLink("Comments", "Comments", "Admin")</h3>
   <p>
     This page allows you to delete and mark comments as spam.
   </p>
 </div>
     
 <div class="admin-link">
-  <h3>@Html.ActionLink("Pingbacks", "Index", "Pingbacks")</h3>
+  <h3>@Html.AdminActionLink("Pingbacks", "Pingbacks", "Admin")</h3>
   <p>
     Pingbacks are created when other blogs link to your blog. This page allows to you delete pingbacks if they are spam.
   </p>
@@ -49,14 +49,14 @@
 </div>
 
 <div class="admin-link">
-  <h3>@Html.ActionLink("Tasks", "Index", "Tasks")</h3>
+  <h3>@Html.AdminActionLink("Tasks", "Tasks", "Admin")</h3>
   <p>
     Maintenance tasks that have been run in the background.
   </p>
 </div>
 
 <div class="admin-link">
-  <h3>@Html.ActionLink("BlogML Import", "Index", "BlogMLImport")</h3>
+  <h3>@Html.AdminActionLink("BlogML Import", "BlogMLImport", "Admin")</h3>
   <p>
     Import blog content from another blog engine.
   </p>

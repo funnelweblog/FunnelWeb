@@ -17,13 +17,13 @@ namespace FunnelWeb.Web.Areas.Admin
             context.MapRoute(
                 "Admin_Logout",
                 "admin/logout",
-                new { controller = "login", action = "logout" }
+                new { controller = "Login", action = "Logout" }
                 );
 
             context.MapRoute(
                 "Admin_Login",
                 "admin/login/{action}",
-                new { controller = "login", action = "login" }
+                new { controller = "Login", action = "Login" }
                 );
 
             context.MapRoute(
@@ -53,7 +53,7 @@ namespace FunnelWeb.Web.Areas.Admin
             context.MapRoute(
                 "Admin_default",
                 "admin/{controller}/{action}/{id}",
-                new { controller = "admin", action = "Index", id = UrlParameter.Optional }
+                new { controller = "Admin", action = "Index", id = UrlParameter.Optional }
                 );
         }
     }
