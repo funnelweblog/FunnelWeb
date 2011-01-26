@@ -31,9 +31,9 @@
                     @MvcHtmlString.Create(Html.Settings().MainLinks)
                     @if (ViewData.IsLoggedIn())
                     {
-                        <li>@Html.ActionLink("New Post", "Edit", "Wiki")</li>
-                        <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
-                        <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
+                        <li>@Html.AdminActionLink("New Post", "Edit", "WikiAdmin")</li>
+                        <li>@Html.AdminActionLink("Admin", "Index", "Admin")</li>
+                        <li>@Html.AdminActionLink("Logout", "Logout", "Login")</li>
                     }
                 </ul>
                 <div class="search">
