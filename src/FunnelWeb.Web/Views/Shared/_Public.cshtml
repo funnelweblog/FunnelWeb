@@ -28,20 +28,20 @@
       </div>
       <div class="nav">
         <ul>
-            @MvcHtmlString.Create(Html.Settings().MainLinks)
-            @if (ViewData.IsLoggedIn())
-            {
-              <li>@Html.AdminActionLink("New Post", "Edit", "WikiAdmin")</li>
-              <li>@Html.AdminActionLink("Admin", "Index", "Admin")</li>
-              <li>@Html.AdminActionLink("Logout", "Logout", "Login")</li>
-            }
+        @MvcHtmlString.Create(Html.Settings().MainLinks)
+        @if (ViewData.IsLoggedIn())
+        {
+          <li>@Html.AdminActionLink("New Post", "Edit", "WikiAdmin")</li>
+          <li>@Html.AdminActionLink("Admin", "Index", "Admin")</li>
+          <li>@Html.AdminActionLink("Logout", "Logout", "Login")</li>
+        }
         </ul>
         <div class="search">
           @using (Html.BeginForm("Search", "Wiki", FormMethod.Get))
           {
           <p>
-              @Html.TextBox("q", Request.QueryString["q"], new { alt = "Search", @class = "medium" })
-              <input type="submit" id="search" class="submit" value="Search" />
+            @Html.TextBox("q", Request.QueryString["q"], new { alt = "Search", @class = "medium" })
+            <input type="submit" id="search" class="submit" value="Search" />
           </p>
           }
         </div>
