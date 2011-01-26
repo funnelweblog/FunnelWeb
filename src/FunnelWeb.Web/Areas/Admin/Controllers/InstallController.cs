@@ -7,12 +7,12 @@ using FunnelWeb.Web.Areas.Admin.Views.Install;
 namespace FunnelWeb.Web.Areas.Admin.Controllers
 {
     [ValidateInput(false)]
+    [Authorize]
     public class InstallController : Controller
     {
         public IApplicationDatabase Database { get; set; }
         public IConnectionStringProvider ConnectionStringProvider { get; set; }
 
-        [Authorize]
         public virtual ActionResult Index()
         {
             var connectionString = ConnectionStringProvider.ConnectionString;
@@ -32,7 +32,6 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         [ActionName("test")]
         public virtual ActionResult Test(string connectionString)
         {
@@ -41,7 +40,6 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public virtual ActionResult Upgrade()
         {
             var log = new Log();

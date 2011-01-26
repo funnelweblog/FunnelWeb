@@ -24,45 +24,30 @@ namespace FunnelWeb.Web.Areas.Admin
             context.MapRoute(
                 "Admin_Login",
                 "admin/login/{action}",
-                new { controller = "Login", action = "Login" }
+                new {controller = "Login", action = "Login"}
                 );
 
-            //context.MapRoute(
-            //    "Admin_Settings",
-            //    "admin/settings",
-            //    new { controller = "Admin", action = "Settings" }
-            //    );
+            context.MapRoute(
+                "Admin_Install",
+                "admin/install/{action}",
+                new {controller = "Install", action = "Index"}
+                );
 
-            //context.MapRoute(
-            //    "Admin_comments",
-            //    "admin/comments",
-            //    new { controller = "Admin", action = "Comments" }
-            //    );
-
-            //context.MapRoute(
-            //    "Admin_Install",
-            //    "admin/install/{action}",
-            //    new { controller = "Install", action = "Index" }
-            //    );
-
+            //need to do this route explicitly otherwise we can't handle nice URLs when directory browsing
             context.MapRoute(
                 "Admin_Upload",
                 "upload/{action}/{*path}",
                 new {controller = "Upload", action = "Index", path = "/"}
                 );
 
+            //an explicit route to the edit page so that it can be done well
             context.MapRoute(
                 "Admin_Wiki_Edit",
                 "admin/{controller}/edit/{*page}",
                 new { controller = "WikiAdmin", action = "Edit", page = UrlParameter.Optional }
                 );
 
-            //context.MapRoute(
-            //    "Admin_Wiki_Page",
-            //    "admin/{controller}/page/{*page}",
-            //    new { controller = "WikiAdmin", action = "Edit", page = UrlParameter.Optional }
-            //    );
-
+            //anything else we expect is on the admin controller, so just route to it
             context.MapRoute(
                 "Admin_default",
                 "admin/{action}/{id}",

@@ -23,23 +23,13 @@ namespace FunnelWeb.Web
 
             AreaRegistration.RegisterAllAreas();
 
-            // Administration
-            //routes.MapHyphenatedRoute("admin/{action}", new { controller = "Admin", action = "Index" });
-
-            // Installation
-            //routes.MapLowerCaseRoute("install/{action}", new { controller = "Install", action = "Index" });
-
             // Feeds
             routes.MapLowerCaseRoute("feed", new { controller = "Feed", action = "Feed", feedName = (string)null });
             routes.MapLowerCaseRoute("feeds/{*feedName}", new { controller = "Feed", action = "Feed" });
             routes.MapLowerCaseRoute("commentfeed", new { controller = "Feed", action = "CommentFeed" });
 
-            // Login - does not work with Areas (not sure why)
-            //routes.MapLowerCaseRoute("login/{action}", new { Area = "Admin", controller = "Login", action = "Login", databaseIssue = UrlParameter.Optional, ReturnUrl = UrlParameter.Optional });
-
             // Upload
             routes.MapLowerCaseRoute("get/{*path}", new { controller = "Upload", action = "Render" });
-            //routes.MapHyphenatedRoute("upload/{action}/{*path}", new { controller = "Upload", action = "Index", path = "/" });
 
             // Resources
             routes.MapLowerCaseRoute("robots", new { controller = "Resource", action = "Render", fileName = "/Content/Resources/Robots.txt", contentType = "text/plain" });
