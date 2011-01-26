@@ -5,20 +5,20 @@ namespace FunnelWeb.Web.Application.Mvc
 {
     public static class RouteCollectionExtension
     {
-        public static Route MapLowerCaseRoute(this RouteCollection routes, string name, string url, object defaults)
+        public static Route MapLowerCaseRoute(this RouteCollection routes, string url, object defaults)
         {
-            return routes.MapLowerCaseRoute(name, url, defaults, null);
+            return routes.MapLowerCaseRoute(url, defaults, null);
         }
 
-        public static Route MapLowerCaseRoute(this RouteCollection routes, string name, string url, object defaults, object constraints)
+        public static Route MapLowerCaseRoute(this RouteCollection routes, string url, object defaults, object constraints)
         {
             Route route = new LowercaseRoute(url, new MvcRouteHandler())
-                              {
-                                  Defaults = new RouteValueDictionary(defaults),
-                                  Constraints = new RouteValueDictionary(constraints)
-                              };
+            {
+                Defaults = new RouteValueDictionary(defaults),
+                Constraints = new RouteValueDictionary(constraints)
+            };
 
-            routes.Add(name, route);
+            routes.Add(null, route);
 
             return route;
         }
