@@ -21,6 +21,8 @@ namespace FunnelWeb.Web
             routes.IgnoreRoute("{*allaxd}", new { allaxd = @".*\.axd(/.*)?" });
             routes.IgnoreRoute("pingback");
 
+            AreaRegistration.RegisterAllAreas();
+
             // Administration
             //routes.MapHyphenatedRoute("admin/{action}", new { controller = "Admin", action = "Index" });
 
