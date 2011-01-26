@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using FunnelWeb.Web.Application.Mvc;
 
 namespace FunnelWeb.Web.Areas.Admin
 {
@@ -26,33 +27,45 @@ namespace FunnelWeb.Web.Areas.Admin
                 new { controller = "Login", action = "Login" }
                 );
 
+            //context.MapRoute(
+            //    "Admin_Settings",
+            //    "admin/settings",
+            //    new { controller = "Admin", action = "Settings" }
+            //    );
+
+            //context.MapRoute(
+            //    "Admin_comments",
+            //    "admin/comments",
+            //    new { controller = "Admin", action = "Comments" }
+            //    );
+
+            //context.MapRoute(
+            //    "Admin_Install",
+            //    "admin/install/{action}",
+            //    new { controller = "Install", action = "Index" }
+            //    );
+
             context.MapRoute(
-                "Admin_Settings",
-                "admin/settings/{action}",
-                new { controller = "Settings", action = "Index" }
+                "Admin_Upload",
+                "upload/{action}/{*path}",
+                new {controller = "Upload", action = "Index", path = "/"}
                 );
 
             context.MapRoute(
-                "Admin_comments",
-                "admin/comments/{action}",
-                new { controller = "Comments", action = "Index" }
-                );
-
-            context.MapRoute(
-                "Admin_Install",
-                "admin/install/{action}",
-                new {controller = "Install", action = "Index"}
-                );
-
-            context.MapRoute(
-                "Admin_Wiki",
-                "admin/{controller}/{action}/{*page}",
+                "Admin_Wiki_Edit",
+                "admin/{controller}/edit/{*page}",
                 new { controller = "WikiAdmin", action = "Edit", page = UrlParameter.Optional }
                 );
 
+            //context.MapRoute(
+            //    "Admin_Wiki_Page",
+            //    "admin/{controller}/page/{*page}",
+            //    new { controller = "WikiAdmin", action = "Edit", page = UrlParameter.Optional }
+            //    );
+
             context.MapRoute(
                 "Admin_default",
-                "admin/{controller}/{action}/{id}",
+                "admin/{action}/{id}",
                 new { controller = "Admin", action = "Index", id = UrlParameter.Optional }
                 );
         }

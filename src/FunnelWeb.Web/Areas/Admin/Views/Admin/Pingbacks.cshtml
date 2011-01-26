@@ -15,8 +15,8 @@
         <a href="@Html.Encode(pingback.TargetUri)">@Html.Encode(pingback.TargetUri)</a>
     </td>
     <td width="25%">
-        @Html.ActionLink("Delete", "DeletePingback", "Admin", new { Area = "Admin", pingback = pingback.Id }, null)
-        @Html.ActionLink(pingback.IsSpam ? "Unspam" : "Spam", "TogglePingbackSpam", "Admin", new { Area = "Admin", pingback = pingback.Id }, null)
+        @Html.ActionLink("Delete", "DeletePingback", "Admin", new { Area = "Admin", pingback.Id }, null)
+        @Html.ActionLink(pingback.IsSpam ? "Unspam" : "Spam", "TogglePingbackSpam", "Admin", new { Area = "Admin", pingback.Id }, null)
     </td>
 </tr>
 </table>

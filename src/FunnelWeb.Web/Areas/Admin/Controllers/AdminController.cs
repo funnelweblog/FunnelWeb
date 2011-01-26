@@ -14,6 +14,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 {
     [FunnelWebRequest]
     [ValidateInput(false)]
+    [Authorize]
     public class AdminController : Controller
     {
         public IAdminRepository AdminRepository { get; set; }
@@ -31,14 +32,12 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
         #region Settings
 
-        [Authorize]
         public virtual ActionResult Settings()
         {
             var settings = SettingsProvider.GetSettings();
             return View(settings);
         }
 
-        [Authorize]
         [HttpPost]
         public virtual ActionResult Settings(Settings.Settings settings)
         {
@@ -63,22 +62,19 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
         #region Comments
 
-        [Authorize]
         public virtual ActionResult Comments()
         {
             var comments = AdminRepository.GetComments(0, 50);
             return View(new CommentsModel(comments));
         }
 
-        [Authorize]
-        public virtual ActionResult DeleteComment(int comment)
+        public virtual ActionResult DeleteComment(int id)
         {
-            var item = AdminRepository.GetComment(comment);
+            var item = AdminRepository.GetComment(id);
             AdminRepository.Delete(item);
             return RedirectToAction("Comments", "Admin");
         }
 
-        [Authorize]
         public virtual ActionResult DeleteAllSpam()
         {
             var comments = AdminRepository.GetSpam().ToList();
@@ -87,10 +83,9 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
             return RedirectToAction("Comments", "Admin");
         }
 
-        [Authorize]
-        public virtual ActionResult ToggleSpam(int comment)
+        public virtual ActionResult ToggleSpam(int id)
         {
-            var item = AdminRepository.GetComment(comment);
+            var item = AdminRepository.GetComment(id);
             if (item != null)
             {
                 item.IsSpam = !item.IsSpam;
@@ -103,25 +98,22 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
         #region Pingbacks
 
-        [Authorize]
         public virtual ActionResult Pingbacks()
         {
             var pingbacks = AdminRepository.GetPingbacks();
             return View(new PingbacksModel(pingbacks));
         }
 
-        [Authorize]
-        public virtual ActionResult DeletePingback(int pingback)
+        public virtual ActionResult DeletePingback(int id)
         {
-            var item = AdminRepository.GetPingback(pingback);
+            var item = AdminRepository.GetPingback(id);
             AdminRepository.Delete(item);
             return RedirectToAction("Pingbacks", "Admin");
         }
 
-        [Authorize]
-        public virtual ActionResult TogglePingbackSpam(int pingback)
+        public virtual ActionResult TogglePingbackSpam(int id)
         {
-            var item = AdminRepository.GetPingback(pingback);
+            var item = AdminRepository.GetPingback(id);
             if (item != null)
             {
                 item.IsSpam = !item.IsSpam;
@@ -134,14 +126,12 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
         #region Tasks
 
-        [Authorize]
         public virtual ActionResult Tasks()
         {
             var tasks = TaskRepository.GetAll().OrderByDescending(x => x.Started);
             return View("Tasks", new TasksModel(tasks.ToList()));
         }
 
-        [Authorize]
         public virtual ActionResult Task(int id)
         {
             var task = TaskRepository.Get(id);
@@ -152,13 +142,11 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
         #region Import
 
-        [Authorize]
         public virtual ActionResult BlogMLImport()
         {
             return View(new BlogMLImportModel());
         }
 
-        [Authorize]
         [HttpPost]
         public virtual ActionResult BlogMLImport(FileUpload upload)
         {
@@ -178,7 +166,6 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
         #endregion
 
-        [Authorize]
         public virtual ActionResult PageList()
         {
             var entries = EntryRepository.GetEntries().ToList();
