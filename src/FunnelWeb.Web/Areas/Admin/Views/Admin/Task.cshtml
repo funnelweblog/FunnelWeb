@@ -1,0 +1,62 @@
+@model FunnelWeb.Web.Areas.Admin.Views.Admin.TaskModel
+@{
+    ViewBag.Title = "FunnelWeb Administration - Task Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Private.cshtml";
+}
+
+@section Meta{
+  @if (Model.State.Status == FunnelWeb.Model.TaskStatus.Running)
+  {
+    <meta http-equiv="refresh" content="5" />
+  }
+}
+
+<h1>@Model.State.TaskName (Started @Html.Date(Model.State.Started))</h1>
+<p>
+  @Html.AdminActionLink("Back to Task List", "Tasks", "Admin")
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <td>Task</td>
+      <td>Arguments</td>
+      <td>Started</td>
+      <td>Progress</td>
+      <td>Status</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>@Model.State.TaskName</td>
+      <td>@Model.State.Arguments</td>
+      <td>@Html.Date(Model.State.Started)</td>
+      <td>@Model.State.ProgressEstimate%</td>
+      <td>@Model.State.Status</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  Below is the output log for this task. All times are server UTC time. 
+  The current server UTC time is <code>@DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss")</code>
+</p>
+
+@if (Model.State.Status == FunnelWeb.Model.TaskStatus.Running)
+{
+  <img src="@Html.QualifyVersion("/content/images/busy.gif")" style="vertical-align: middle" alt="Running" width="32" height="32" />
+  <span><strong>Executing (@Model.State.ProgressEstimate%)...</strong></span>
+}
+else if (Model.State.Status == FunnelWeb.Model.TaskStatus.Success)
+{
+  <img src="@Html.QualifyVersion("/content/images/success.png")" style="vertical-align: middle" alt="Success" width="32" height="32" />
+  <span><strong>Completed successfully.</strong></span>
+}
+else if (Model.State.Status == FunnelWeb.Model.TaskStatus.Failed)
+{
+  <img src="@Html.QualifyVersion("/content/images/fail.png")" style="vertical-align: middle" alt="Failure" width="32" height="32" />
+  <span><strong>Failed. See the error log before.</strong></span>
+}
+<pre>
+@Model.State.OutputLog
+</pre>

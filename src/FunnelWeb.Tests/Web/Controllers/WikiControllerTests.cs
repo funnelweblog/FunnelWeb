@@ -8,10 +8,13 @@ using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Model.Strings;
 using FunnelWeb.Web.Application.Spam;
+using FunnelWeb.Web.Areas.Admin.Controllers;
+using FunnelWeb.Web.Areas.Admin.Views.WikiAdmin;
 using FunnelWeb.Web.Controllers;
 using FunnelWeb.Web.Views.Wiki;
 using NSubstitute;
 using NUnit.Framework;
+using PageModel = FunnelWeb.Web.Views.Wiki.PageModel;
 
 namespace FunnelWeb.Tests.Web.Controllers
 {
@@ -19,6 +22,7 @@ namespace FunnelWeb.Tests.Web.Controllers
     public class WikiControllerTests
     {
         protected WikiController Controller { get; set; }
+		protected WikiAdminController AdminController { get; set; }
         protected ControllerContext ControllerContext { get; set; }
         protected IEntryRepository EntryRepository { get; set; }
         protected ITagRepository FeedRepository { get; set; }
@@ -34,6 +38,13 @@ namespace FunnelWeb.Tests.Web.Controllers
             Controller.TagRepository = FeedRepository = Substitute.For<ITagRepository>();
             Controller.SpamChecker = SpamChecker = Substitute.For<ISpamChecker>();
             Controller.ControllerContext = ControllerContext = CreateControllerContext();
+
+			AdminController = new WikiAdminController();
+			AdminController.EntryRepository = EntryRepository = Substitute.For<IEntryRepository>();
+			AdminController.TagRepository = FeedRepository = Substitute.For<ITagRepository>();
+			AdminController.SpamChecker = SpamChecker = Substitute.For<ISpamChecker>();
+			AdminController.ControllerContext = ControllerContext = CreateControllerContext();
+
             Identity = Substitute.For<IIdentity>();
             User = Substitute.For<IPrincipal>();
             User.Identity.Returns(Identity);
@@ -111,8 +122,8 @@ namespace FunnelWeb.Tests.Web.Controllers
 
             var feeds = new List<Tag>().AsQueryable();
             FeedRepository.GetTags().Returns(feeds);
-            
-            var result = (ViewResult)Controller.Edit(entry.Name, null);
+
+			var result = (ViewResult)AdminController.Edit(entry.Name, null);
 
             Assert.AreEqual("Edit", result.ViewName);
             Assert.AreEqual(feeds, ((EditModel)result.ViewData.Model).AllTags);

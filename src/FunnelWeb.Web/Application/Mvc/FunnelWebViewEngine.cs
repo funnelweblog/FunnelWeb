@@ -22,7 +22,7 @@ namespace FunnelWeb.Web.Application.Mvc
             _viewLocationFormats = ViewLocationFormats;
             _masterLocationFormats = MasterLocationFormats;
 
-            if(RequireUpdatedDatabaseHttpModule.DatabaseRequiresUpgrade())
+            if (RequireUpdatedDatabaseHttpModule.DatabaseRequiresUpgrade())
                 return;
 
             UpdateThemePath(_settings.GetSettings());
@@ -30,30 +30,32 @@ namespace FunnelWeb.Web.Application.Mvc
 
         protected internal void UpdateThemePath(Settings.Settings settings)
         {
-            var locationFormats = new List<string>()
-                                                  {
-                                                      "~/Themes/" + settings.Theme + "/Views/{1}/{0}.cshtml", 
-                                                      "~/Themes/" + settings.Theme + "/Views/Extensions/{1}/{0}.cshtml", 
-                                                      "~/Views/Extensions/{1}/{0}.cshtml",
-                                                  };
+            var locationFormats = new List<string>
+                                      {
+                                          "~/Themes/" + settings.Theme + "/Views/{1}/{0}.cshtml",
+                                          "~/Themes/" + settings.Theme + "/Views/Extensions/{1}/{0}.cshtml",
+                                          "~/Views/Extensions/{0}.cshtml",
+                                      };
             locationFormats.AddRange(_partialViewLocationFormats);
             PartialViewLocationFormats = locationFormats.ToArray();
 
-            locationFormats = new List<string>()
-                                      {
-                                          "~/Themes/" + settings.Theme + "/Views/{1}/{0}.cshtml",
-                                          "~/Themes/" + settings.Theme + "/Views/Extensions/{1}/{0}.cshtml",
-                                          "~/Views/Extensions/{1}/{0}.cshtml",
-                                      };
+            locationFormats = new List<string>
+                                  {
+                                      "~/Themes/" + settings.Theme + "/Views/{1}/{0}.cshtml",
+                                      "~/Themes/" + settings.Theme + "/Views/Extensions/{1}/{0}.cshtml",
+                                      "~/Views/Extensions/{0}.cshtml",
+                                  };
             locationFormats.AddRange(_viewLocationFormats);
             ViewLocationFormats = locationFormats.ToArray();
 
-            locationFormats = new List<string>()
-                                      {
-                                          "~/Themes/" + settings.Theme + "/Views/{1}/{0}.cshtml",
-                                          "~/Themes/" + settings.Theme + "/Views/Extensions/{1}/{0}.cshtml",
-                                          "~/Views/Extensions/{1}/{0}.cshtml",
-                                      };
+            locationFormats = new List<string>
+                                  {
+                                      "~/Themes/" + settings.Theme + "/Views/{1}/{0}.cshtml",
+                                      "~/Themes/" + settings.Theme + "/Views/Extensions/{1}/{0}.cshtml",
+                                      "~/Themes/" + settings.Theme + "/Views/Shared/{1}/{0}.cshtml",
+                                      "~/Themes/" + settings.Theme + "/Views/Shared/{0}.cshtml",
+                                      "~/Views/Extensions/{0}.cshtml",
+                                  };
             locationFormats.AddRange(_masterLocationFormats);
             MasterLocationFormats = locationFormats.ToArray();
         }

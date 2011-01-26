@@ -27,6 +27,7 @@ namespace FunnelWeb.Model
         public virtual int Id { get; private set; }
         public virtual string Title { get; set; }
         public virtual PageName Name { get; set; }
+		public virtual string PageTemplate { get; set; }
 
         [DataType("Markdown")]
         public virtual string Summary { get; set; }

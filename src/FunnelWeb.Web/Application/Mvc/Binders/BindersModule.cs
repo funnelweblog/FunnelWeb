@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using Autofac;
 using FunnelWeb.Model.Strings;
+using FunnelWeb.Web.Areas.Admin.Views.WikiAdmin;
 using FunnelWeb.Web.Views.Wiki;
 
 namespace FunnelWeb.Web.Application.Mvc.Binders

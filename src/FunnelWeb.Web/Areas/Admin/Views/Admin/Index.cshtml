@@ -1,0 +1,63 @@
+@model FunnelWeb.Web.Areas.Admin.Views.Admin.IndexModel
+@{
+    ViewBag.Title = "FunnelWeb Administration";
+    Layout = "~/Areas/Admin/Views/Shared/_Private.cshtml";
+}
+
+<h1>Blog Administration</h1>
+
+<div class="admin-link">
+  <h3>@Html.ActionLink("Page list", "PageList")</h3>
+  <p>
+    A list of all published and unpublished pages on your site, for quick access.
+  </p>
+</div>
+
+<div class="admin-link">
+  <h3>@Html.ActionLink("General settings", "Settings")</h3>
+  <p>
+    Configure site-wide settings, such as the blog title and introduction text, page headers and footers, and so on.
+  </p>
+</div>
+
+<div class="admin-link">
+  <h3>@Html.ActionLink("Comments", "Comments")</h3>
+  <p>
+    This page allows you to delete and mark comments as spam.
+  </p>
+</div>
+    
+<div class="admin-link">
+  <h3>@Html.ActionLink("Pingbacks", "Pingbacks")</h3>
+  <p>
+    Pingbacks are created when other blogs link to your blog. This page allows to you delete pingbacks if they are spam.
+  </p>
+</div>
+    
+<div class="admin-link">
+  <h3>@Html.AdminActionLink("Database", "Index", "Install")</h3>
+  <p>
+    Use this tool to change your connection string, and to upgrade your database.
+  </p>
+</div>
+
+<div class="admin-link">
+  <h3>@Html.AdminActionLink("File Uploads", "Index", "Upload")</h3>
+  <p>
+    This area allows you to upload files.
+  </p>
+</div>
+
+<div class="admin-link">
+  <h3>@Html.ActionLink("Tasks", "Tasks")</h3>
+  <p>
+    Maintenance tasks that have been run in the background.
+  </p>
+</div>
+
+<div class="admin-link">
+  <h3>@Html.ActionLink("BlogML Import", "BlogMLImport")</h3>
+  <p>
+    Import blog content from another blog engine.
+  </p>
+</div>

@@ -1,0 +1,18 @@
+@model FunnelWeb.Web.Areas.Admin.Views.WikiAdmin.RecentModel
+
+@section Meta 
+{
+  <meta name="description" content="@Html.Settings().SearchDescription" />
+  <meta name="keywords" content="@Html.Settings().SearchKeywords" />  
+}
+
+@section Summary 
+{
+  @Html.DisplayFor(_ => Html.Settings().Introduction) 
+}
+
+<h1>@Model.Title</h1>
+
+@EntryList.Render(Model.Entries)
+
+@Paginator.Render(Model.ActionName, Model.PageNumber, Model.TotalPages)

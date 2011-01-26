@@ -11,6 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 using System.Web.Routing;
 using FunnelWeb.Model;
 using FunnelWeb.Settings;
@@ -221,5 +222,18 @@ namespace FunnelWeb.Web.Application.Extensions
             attributes["class"] = attributes["class"].ToString().Trim();
             return attributes;
         }
+
+		/// <summary>
+		/// Create an action link to an action in the Admin area.
+		/// </summary>
+		public static MvcHtmlString AdminActionLink(this HtmlHelper htmlHelper, string linkText, string actionName, string adminControllerName)
+		{	// http://stackoverflow.com/questions/2036305/how-to-specify-an-area-name-in-an-action-link
+			return htmlHelper.ActionLink(linkText, actionName, adminControllerName, new {Area = "Admin"}, new {});
+		}
+
+		public static string ThemePath(this HtmlHelper helper)
+		{
+			return "~/Themes/" + helper.Settings().Theme;
+		}
     }
 }
