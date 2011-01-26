@@ -283,9 +283,9 @@
     <Content Include="Areas\Admin\Views\Admin\Tasks.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Task.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\BlogMLImport.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\Tags.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Tags.cshtml" />
     <Content Include="Views\Shared\_Mobile.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\Markdown.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Markdown.cshtml" />
     <Content Include="Content\Styles\Layout\Admin.css" />
     <Content Include="Themes\Pastel\Content\Styles\Bar.png" />
     <Content Include="Themes\Pastel\Content\Styles\Theme.css" />
