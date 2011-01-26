@@ -1,95 +1,93 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>@(ViewBag.Title == null ? "" : (ViewBag.Title + " - "))@Html.Settings().SiteTitle
-    </title>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="language" content="english" />
-    <meta name="author" content="@Html.Settings().SiteTitle" />
-    <link href="@Html.Qualify(Html.ActionUrl("Feed", "Feed", null))" type="application/atom+xml" rel="alternate" title="Blog Feed" />
-    <link href="@Html.Qualify(Html.ActionUrl("CommentFeed", "Feed", null))" type="application/atom+xml" rel="alternate" title="Comments Feed" />
-    <link rel="icon" type="image/png" href="@Html.Qualify("/favicon.png")" />
-    @{ 
-        Html.RequiresCss("Base.css", "Layout", 0);
-        Html.RequiresCss("Theme.css", "Theme", 10000);
-    }
-    @MvcHtmlString.Create(Html.RenderCssHere(new List<IClientDependencyPath> {
-      new BasicPath("Layout", "~/Content/Styles/Layout"),
-      new BasicPath("Theme", "~/Themes/" + Html.Settings().Theme + "/Content/Styles")
-    }))
-    @RenderSection("Meta", required: false)
-    @MvcHtmlString.Create(Html.Settings().HtmlHead)
+  <title>@(ViewBag.Title == null ? "" : (ViewBag.Title + " - "))@Html.Settings().SiteTitle
+  </title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="language" content="english" />
+  <meta name="author" content="@Html.Settings().SiteTitle" />
+  <link href="@Html.Qualify(Html.ActionUrl("Feed", "Feed", null))" type="application/atom+xml" rel="alternate" title="Blog Feed" />
+  <link href="@Html.Qualify(Html.ActionUrl("CommentFeed", "Feed", null))" type="application/atom+xml" rel="alternate" title="Comments Feed" />
+  <link rel="icon" type="image/png" href="@Html.Qualify("/favicon.png")" />
+  @{ 
+    Html.RequiresCss("Base.css", "Layout", 0);
+    Html.RequiresCss("Theme.css", "Theme", 10000);
+  }
+  @MvcHtmlString.Create(Html.RenderCssHere(new List<IClientDependencyPath> {
+    new BasicPath("Layout", "~/Content/Styles/Layout"),
+    new BasicPath("Theme", "~/Themes/" + Html.Settings().Theme + "/Content/Styles")
+  }))
+  @RenderSection("Meta", required: false)
+  @MvcHtmlString.Create(Html.Settings().HtmlHead)
 </head>
 <body>
-    <div class="top">
-        <div class="top-in">
-            <div class="header">
-                <a class="logo" href="@Url.Content("~/")" title="@Html.Settings().SiteTitle">@Html.Settings().SiteTitle</a>
-            </div>
-            <div class="nav">
-                <ul>
-                    @MvcHtmlString.Create(Html.Settings().MainLinks)
-                    @if (ViewData.IsLoggedIn())
-                    {
-                        <li>@Html.AdminActionLink("New Post", "Edit", "WikiAdmin")</li>
-                        <li>@Html.AdminActionLink("Admin", "Index", "Admin")</li>
-                        <li>@Html.AdminActionLink("Logout", "Logout", "Login")</li>
-                    }
-                </ul>
-                <div class="search">
-                    @using (Html.BeginForm("Search", "Wiki", FormMethod.Get))
-                    {
-                        <p>
-                            @Html.TextBox("q", Request.QueryString["q"], new { alt = "Search", @class = "medium" })
-                            <input type="submit" id="search" class="submit" value="Search" />
-                        </p>
-                    }
-                </div>
-            </div>
+  <div class="top">
+    <div class="top-in">
+      <div class="header">
+        <a class="logo" href="@Url.Content("~/")" title="@Html.Settings().SiteTitle">@Html.Settings().SiteTitle</a>
+      </div>
+      <div class="nav">
+        <ul>
+            @MvcHtmlString.Create(Html.Settings().MainLinks)
+            @if (ViewData.IsLoggedIn())
+            {
+              <li>@Html.AdminActionLink("New Post", "Edit", "WikiAdmin")</li>
+              <li>@Html.AdminActionLink("Admin", "Index", "Admin")</li>
+              <li>@Html.AdminActionLink("Logout", "Logout", "Login")</li>
+            }
+        </ul>
+        <div class="search">
+          @using (Html.BeginForm("Search", "Wiki", FormMethod.Get))
+          {
+          <p>
+              @Html.TextBox("q", Request.QueryString["q"], new { alt = "Search", @class = "medium" })
+              <input type="submit" id="search" class="submit" value="Search" />
+          </p>
+          }
         </div>
+      </div>
     </div>
-    <div class="body">
-        @if (TempData.ContainsKey("Flash"))
-        {
-            <div class="flash">
-                <p>@TempData["Flash"]</p>
-            </div>
-        }
-        @if (IsSectionDefined("Summary"))
-        {
-            <div class="intro" id="_summary">
-                <div class="intro-in">
-                    @RenderSection("Summary", required: false)
-                </div>
-            </div>
-        }
-        <div class="content">
-            @RenderBody()
-        </div>
+  </div>
+  <div class="body">
+  @if (TempData.ContainsKey("Flash"))
+  {
+    <div class="flash">
+      <p>@TempData["Flash"]</p>
     </div>
-    <div class="footer">
-        @MvcHtmlString.Create(Html.Settings().Footer)
-        @if (!ViewData.IsLoggedIn())
-        {
-            <p>
-                Is this your blog? @Html.AdminActionLink("Log in and update it", "Login", "Login").
-            </p>
-        }
+  }
+  @if (IsSectionDefined("Summary"))
+  {
+    <div class="intro" id="_summary">
+      <div class="intro-in">
+        @RenderSection("Summary", required: false)
+      </div>
     </div>
-    @{ 
-        Html.RequiresJs("JQuery/jquery-1.4.4.min.js", "Scripts", 0);
-        Html.RequiresJs("JQuery/jsdate.js", "Scripts", 1);
-        Html.RequiresJs("Prettify/Prettify.js", "Scripts", 1);
-        Html.RequiresJs("Showdown/Showdown.js", "Scripts", 1);
-        Html.RequiresJs("Showdown/wmd.js", "Scripts", 1);
-        Html.RequiresJs("Site/Site.js", "Scripts", 1);
+  }
+    <div class="content">
+      @RenderBody()
+    </div>
+  </div>
+  <div class="footer">
+    @MvcHtmlString.Create(Html.Settings().Footer)
+    @if (!ViewData.IsLoggedIn())
+    {
+    <p>Is this your blog? @Html.AdminActionLink("Log in and update it", "Login", "Login").</p>
     }
-    @MvcHtmlString.Create(Html.RenderJsHere(new List<IClientDependencyPath> {
-        new BasicPath("Scripts", "/Content/Scripts"),
-        new BasicPath("ThemeScripts", "~/Themes/" + Html.Settings().Theme  + "/Content/Scripts/")
-    }))
-    @MvcHtmlString.Create(Html.Settings().HtmlFooter)
-    <!-- Powered by FunnelWeb, the blog engine of real developers -->
-    <!-- FunnelWeb version: @Html.Version() -->
+  </div>
+  @{ 
+    Html.RequiresJs("JQuery/jquery-1.4.4.min.js", "Scripts", 0);
+    Html.RequiresJs("JQuery/jsdate.js", "Scripts", 1);
+    Html.RequiresJs("Prettify/Prettify.js", "Scripts", 1);
+    Html.RequiresJs("Showdown/Showdown.js", "Scripts", 1);
+    Html.RequiresJs("Showdown/wmd.js", "Scripts", 1);
+    Html.RequiresJs("Site/Site.js", "Scripts", 1);
+  }
+  @MvcHtmlString.Create(Html.RenderJsHere(new List<IClientDependencyPath> {
+    new BasicPath("Scripts", "/Content/Scripts"),
+    new BasicPath("ThemeScripts", "~/Themes/" + Html.Settings().Theme  + "/Content/Scripts/")
+  }))
+  @MvcHtmlString.Create(Html.Settings().HtmlFooter)
+  <!-- Powered by FunnelWeb, the blog engine of real developers -->
+  <!-- FunnelWeb version: @Html.Version() -->
 </body>
 </html>
