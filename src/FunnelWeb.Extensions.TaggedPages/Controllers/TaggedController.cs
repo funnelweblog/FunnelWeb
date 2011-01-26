@@ -17,9 +17,9 @@ namespace FunnelWeb.Extensions.TaggedPages.Controllers
 
         public ActionResult Index(string tag)
         {
-            var tagItem = _tagRepository.GetTag(tag);
+            var tagItems = _tagRepository.GetTaggedItems(tag, 0, 30);
 
-            return View(tagItem);
+            return View(tagItems);
         }
     }
 }
