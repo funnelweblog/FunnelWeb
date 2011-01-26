@@ -51,7 +51,7 @@ namespace FunnelWeb.Web
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
-            ControllerBuilder.Current.SetControllerFactory(new ControllerFactory(container));
+            ControllerBuilder.Current.SetControllerFactory(new FunnelWebControllerFactory(container));
 
 
         }

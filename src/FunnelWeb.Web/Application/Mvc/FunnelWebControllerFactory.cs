@@ -5,11 +5,11 @@ using Autofac;
 
 namespace FunnelWeb.Web.Application.Mvc
 {
-    public class ControllerFactory : DefaultControllerFactory
+    public class FunnelWebControllerFactory : DefaultControllerFactory
     {
         private readonly IContainer _container;
 
-        public ControllerFactory(IContainer container)
+        public FunnelWebControllerFactory(IContainer container)
         {
             _container = container;
         }
