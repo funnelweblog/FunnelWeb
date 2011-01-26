@@ -35,8 +35,8 @@ namespace FunnelWeb.Web
             routes.MapLowerCaseRoute(r(), "feeds/{*feedName}", new { controller = "Feed", action = "Feed" });
             routes.MapLowerCaseRoute(r(), "commentfeed", new { controller = "Feed", action = "CommentFeed" });
 
-            // Login
-            routes.MapLowerCaseRoute(r(), "login/{action}", new { controller = "Login", action = "Login", databaseIssue = UrlParameter.Optional, ReturnUrl = UrlParameter.Optional });
+            // Login - does not work with Areas (not sure why)
+            //routes.MapLowerCaseRoute(r(), "login/{action}", new { Area = "Admin", controller = "Login", action = "Login", databaseIssue = UrlParameter.Optional, ReturnUrl = UrlParameter.Optional });
 
             // Upload
             routes.MapLowerCaseRoute(r(), "get/{*path}", new { controller = "Upload", action = "Render" });
