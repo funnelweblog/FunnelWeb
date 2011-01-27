@@ -106,6 +106,7 @@
     <Compile Include="ExtensionsModule.cs" />
     <Compile Include="FunnelWebExtensionAttribute.cs" />
     <Compile Include="IFunnelWebExtension.cs" />
+    <Compile Include="IRequireDatabaseScripts.cs" />
     <Compile Include="RoutableFunnelWebExtension.cs" />
     <Compile Include="Tasks\TaskModule.cs" />
     <Compile Include="Tasks\ITask.cs" />

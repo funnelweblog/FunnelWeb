@@ -5,6 +5,7 @@ using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Web.Routing;
 using Autofac;
+using FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders;
 
 namespace FunnelWeb
 {
@@ -38,6 +39,18 @@ namespace FunnelWeb
             {
                 var extension = export.Value;
                 var controller = extension as RoutableFunnelWebExtension;
+                var requiresScripts = extension as IRequireDatabaseScripts;
+
+                if (requiresScripts != null)
+                {
+                    builder
+                        .RegisterInstance(new EmbeddedSqlScriptProvider(
+                                              extension.GetType().Assembly,
+                                              version =>
+                                              string.Format(requiresScripts.ScriptNameFormat,
+                                                            version.ToString().PadLeft(4, '0'))))
+                        .As<IScriptProvider>();
+                }
 
                 if (controller != null)
                 {

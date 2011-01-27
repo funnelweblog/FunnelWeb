@@ -11,6 +11,11 @@
         int GetHighestScriptVersion();
 
         /// <summary>
+        /// The source identifier for the script provider
+        /// </summary>
+        string SourceIdentifier { get; }
+
+        /// <summary>
         /// Gets the script for a given version number.
         /// </summary>
         /// <param name="versionNumber">The version number.</param>

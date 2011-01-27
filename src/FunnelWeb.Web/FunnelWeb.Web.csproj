@@ -204,6 +204,7 @@
     <Content Include="App_Code\HelperPage.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\WikiAdminController.cs" />
+    <Compile Include="Areas\Admin\Views\Install\ExtensionVersion.cs" />
     <Compile Include="Areas\Admin\Views\WikiAdmin\EditModel.cs" />
     <Compile Include="Areas\Admin\Views\WikiAdmin\RecentModel.cs" />
     <Compile Include="Areas\Admin\Views\WikiAdmin\ReviseModel.cs" />

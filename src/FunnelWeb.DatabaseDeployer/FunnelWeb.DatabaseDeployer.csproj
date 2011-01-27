@@ -78,6 +78,7 @@
     <Compile Include="IApplicationDatabase.cs" />
     <Compile Include="Infrastructure\DatabaseUpgrader.cs" />
     <Compile Include="Infrastructure\DatabaseUpgradeResult.cs" />
+    <Compile Include="Infrastructure\DatabaseUpgradeResults.cs" />
     <Compile Include="Infrastructure\Execution\IScriptExecutor.cs" />
     <Compile Include="Infrastructure\Execution\SqlScriptExecutor.cs" />
     <Compile Include="Infrastructure\ILog.cs" />
@@ -126,6 +127,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Scripts\Script0019.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\Script0020.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -7,6 +7,7 @@ using System.Web.Routing;
 using System.Web.SessionState;
 using Autofac;
 using Autofac.Integration.Mvc;
+using FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders;
 using FunnelWeb.Eventing;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Tasks;
@@ -47,7 +48,7 @@ namespace FunnelWeb.Web
             var container = builder.Build();
 
             ViewEngines.Engines.Clear();
-            ViewEngines.Engines.Add(new FunnelWebViewEngine(container.Resolve<ISettingsProvider>()));
+            ViewEngines.Engines.Add(new FunnelWebViewEngine(container.Resolve<ISettingsProvider>(), container.Resolve<IEnumerable<IScriptProvider>>()));
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 

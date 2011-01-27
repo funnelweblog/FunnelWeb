@@ -77,18 +77,48 @@
       <td>@(Model.CanConnect ? Model.NewVersion.ToString() : "N/A")</td>
     </tr>
   </table>
+  
+    @if (Model.ExtensionVersions.Any(ev => ev.CurrentVersion != ev.NewVersion))
+    { 
+      <br />
+      <br />
+      <table>
+        <thead>
+          <tr>
+            <td colspan='2'>Extensions @properNoun Information</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>Extension</td>
+          <td>Extension Current Version</td>
+          <td>Extension Version Needed</td>
+        </tr>
+        @foreach (var extension in Model.ExtensionVersions)
+        { 
+          <tr>
+            <td>@extension.ExtensionName</td>
+            <td>@(Model.CanConnect ? extension.CurrentVersion.ToString() : "N/A")</td>
+            <td>@(Model.CanConnect ? extension.NewVersion.ToString() : "N/A")</td>
+          </tr>
+        }
+      </table>
 
-  @if (Model.CurrentVersion == Model.NewVersion) {
+    }
+  @if (Model.CurrentVersion == Model.NewVersion && Model.ExtensionVersions.All(ev => ev.CurrentVersion == ev.NewVersion))
+  {
     <text>
     <p class='good'>Your database is up to date. No @verb is necessary.</p>
     <p class='important'><a href="/">Sweet!</a></p>
     </text>
-  } else {
+  }
+  else
+  {
     <text>
     <p class='warning'>
       Reminder: make sure to perform a backup of your database before proceeding with this @verb.
     </p>
-    @using (Html.BeginForm("Upgrade", "Install", FormMethod.Post)) {
+    @using (Html.BeginForm("Upgrade", "Install", FormMethod.Post))
+    {
     <div class="form-body">
       <p>
         <input type="submit" id="submit1" class="submit" value="Upgrade to version @Model.NewVersion" />

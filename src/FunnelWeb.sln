@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunnelWeb.Extensions.Commen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunnelWeb.Extensions.TaggedPages", "FunnelWeb.Extensions.TaggedPages\FunnelWeb.Extensions.TaggedPages.csproj", "{8DE4EF7B-BA06-4288-9CF1-0284033578F1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunnelWeb.Extensions.SqlAuthentication", "FunnelWeb.Extensions.SqlAuthentication\FunnelWeb.Extensions.SqlAuthentication.csproj", "{067F23F1-909D-4512-A2F4-1E5C8E4F0E52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CodeCoverage|Any CPU = CodeCoverage|Any CPU
@@ -151,6 +153,26 @@ Global
 		{8DE4EF7B-BA06-4288-9CF1-0284033578F1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{8DE4EF7B-BA06-4288-9CF1-0284033578F1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{8DE4EF7B-BA06-4288-9CF1-0284033578F1}.Release|x86.ActiveCfg = Release|Any CPU
+		{067F23F1-909D-4512-A2F4-1E5C8E4F0E52}.CodeCoverage|Any CPU.ActiveCfg = Release|Any CPU
+		{067F23F1-909D-4512-A2F4-1E5C8E4F0E52}.CodeCoverage|Any CPU.Build.0 = Release|Any CPU
+		{067F23F1-909D-4512-A2F4-1E5C8E4F0E52}.CodeCoverage|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{067F23F1-909D-4512-A2F4-1E5C8E4F0E52}.CodeCoverage|Mixed Platforms.Build.0 = Release|Any CPU
+		{067F23F1-909D-4512-A2F4-1E5C8E4F0E52}.CodeCoverage|x86.ActiveCfg = Release|Any CPU
+		{067F23F1-909D-4512-A2F4-1E5C8E4F0E52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{067F23F1-909D-4512-A2F4-1E5C8E4F0E52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{067F23F1-909D-4512-A2F4-1E5C8E4F0E52}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{067F23F1-909D-4512-A2F4-1E5C8E4F0E52}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{067F23F1-909D-4512-A2F4-1E5C8E4F0E52}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{067F23F1-909D-4512-A2F4-1E5C8E4F0E52}.FxCop|Any CPU.ActiveCfg = Release|Any CPU
+		{067F23F1-909D-4512-A2F4-1E5C8E4F0E52}.FxCop|Any CPU.Build.0 = Release|Any CPU
+		{067F23F1-909D-4512-A2F4-1E5C8E4F0E52}.FxCop|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{067F23F1-909D-4512-A2F4-1E5C8E4F0E52}.FxCop|Mixed Platforms.Build.0 = Release|Any CPU
+		{067F23F1-909D-4512-A2F4-1E5C8E4F0E52}.FxCop|x86.ActiveCfg = Release|Any CPU
+		{067F23F1-909D-4512-A2F4-1E5C8E4F0E52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{067F23F1-909D-4512-A2F4-1E5C8E4F0E52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{067F23F1-909D-4512-A2F4-1E5C8E4F0E52}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{067F23F1-909D-4512-A2F4-1E5C8E4F0E52}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{067F23F1-909D-4512-A2F4-1E5C8E4F0E52}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

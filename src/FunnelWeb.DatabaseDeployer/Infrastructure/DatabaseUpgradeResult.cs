@@ -14,6 +14,7 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
         private readonly int upgradedVersion;
         private readonly bool successful;
         private readonly Exception error;
+        private readonly string extensionName;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DatabaseUpgradeResult"/> class.
@@ -23,7 +24,8 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
         /// <param name="upgraded">The upgraded.</param>
         /// <param name="successful">if set to <c>true</c> [successful].</param>
         /// <param name="error">The error.</param>
-        public DatabaseUpgradeResult(IEnumerable<IScript> scripts, int original, int upgraded, bool successful, Exception error)
+        /// <param name="extensionName">The extension being upgraded</param>
+        public DatabaseUpgradeResult(IEnumerable<IScript> scripts, int original, int upgraded, bool successful, Exception error, string extensionName = "FunnelWeb")
         {
             this.scripts = new List<IScript>();
             this.scripts.AddRange(scripts);
@@ -31,6 +33,7 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
             upgradedVersion = upgraded;
             this.successful = successful;
             this.error = error;
+            this.extensionName = extensionName;
         }
 
         /// <summary>
@@ -71,6 +74,14 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
         public Exception Error
         {
             get { return error; }
+        }
+
+        public string Name
+        {
+            get
+            {
+                return extensionName;
+            }
         }
     }
 }

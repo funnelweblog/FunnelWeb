@@ -13,10 +13,11 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure.VersionTrackers
         /// <summary>
         /// Recalls the version number of a database specified in a given connection string.
         /// </summary>
-        /// <param name="connectionString">The connection string.</param>
+        /// <param name="connectionString">The connection string.</param> 
+        /// <param name="sourceIdentifier">The source identifier for the scripts</param>
         /// <param name="log">The log.</param>
         /// <returns></returns>
-        public int RecallVersionNumber(string connectionString, ILog log)
+        public int RecallVersionNumber(string connectionString, string sourceIdentifier, ILog log)
         {
             log.WriteInformation("Detecting the current database version.");
             using (log.Indent())
@@ -48,6 +49,7 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure.VersionTrackers
                     {
                         command.CommandText = "GetCurrentVersionNumber";
                         command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("sourceIdentifier", sourceIdentifier);
                         connection.Open();
 
                         var versionResult = command.ExecuteScalar();

@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.DatabaseDeployer.Infrastructure;
+using FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders;
 
 namespace FunnelWeb.Tests.Helpers
 {
@@ -48,7 +50,7 @@ namespace FunnelWeb.Tests.Helpers
             master.ExecuteNonQuery("create database [" + databaseName + "]");
 
             var app = new ApplicationDatabase();
-            app.PerformUpgrade(connectionString, new TraceLog());
+            app.PerformUpgrade(connectionString, new List<IScriptProvider>(), new TraceLog());
         }
 
         public void Dispose()
@@ -77,7 +79,6 @@ namespace FunnelWeb.Tests.Helpers
             {
                 return new FooDisposable();
             }
-
 
             public class FooDisposable : IDisposable
             {

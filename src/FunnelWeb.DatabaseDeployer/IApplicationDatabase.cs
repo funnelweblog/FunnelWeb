@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using FunnelWeb.DatabaseDeployer.Infrastructure;
+using FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders;
 
 namespace FunnelWeb.DatabaseDeployer
 {
@@ -12,14 +14,28 @@ namespace FunnelWeb.DatabaseDeployer
         /// </summary>
         /// <param name="connectionString">The connection string.</param>
         /// <returns>The current version number.</returns>
-        int GetCurrentVersion(string connectionString);
+        int GetApplicationCurrentVersion(string connectionString);
 
         /// <summary>
         /// Gets the current schema version number that the application requires.
         /// </summary>
-        /// <param name="connectionString">The connection string.</param>
         /// <returns>The application version number.</returns>
-        int GetApplicationVersion(string connectionString);
+        int GetApplicationVersion();
+
+        /// <summary>
+        /// Gets the current schema version number of the extension.
+        /// </summary>
+        /// <param name="connectionString">The connection string.</param>
+        /// <param name="scriptProviderToCheck">The script provider to check the current version of</param>
+        /// <returns>The current version number.</returns>
+        int GetExtensionCurrentVersion(string connectionString, IScriptProvider scriptProviderToCheck);
+
+        /// <summary>
+        /// Gets the current schema version number that the extension requires.
+        /// </summary>
+        /// <param name="scriptProviderToCheck">The script provider to check the highest version</param>
+        /// <returns>The application version number.</returns>
+        int GetExtensionVersion(IScriptProvider scriptProviderToCheck);
 
         /// <summary>
         /// Tries to connect to the database.
@@ -37,6 +53,6 @@ namespace FunnelWeb.DatabaseDeployer
         /// <returns>
         /// A container of information about the results of the database upgrade.
         /// </returns>
-        DatabaseUpgradeResult PerformUpgrade(string connectionString, ILog log);
+        DatabaseUpgradeResults PerformUpgrade(string connectionString, IEnumerable<IScriptProvider> extensionScriptProviders, ILog log);
     }
 }

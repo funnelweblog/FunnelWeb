@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
@@ -47,6 +48,11 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders
             return highestVersionNumber;
         }
 
+        public string SourceIdentifier
+        {
+            get { return assembly.FullName; }
+        }
+
         /// <summary>
         /// Gets the script for a given version number.
         /// </summary>
@@ -62,7 +68,7 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders
                 contents = resourceStreamReader.ReadToEnd();
             }
 
-            return new EmbeddedSqlScript(scriptName, contents, versionNumber, assembly.FullName);
+            return new EmbeddedSqlScript(scriptName, contents, versionNumber, SourceIdentifier);
         }
     }
 }

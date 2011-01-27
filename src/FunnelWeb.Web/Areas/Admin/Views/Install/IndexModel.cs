@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace FunnelWeb.Web.Areas.Admin.Views.Install
@@ -15,5 +17,7 @@ namespace FunnelWeb.Web.Areas.Admin.Views.Install
         [Description("Enter the connection string to the Microsoft SQL Server database given to you by your web host.")]
         public string ConnectionString { get; set; }
         public bool IsInstall { get { return CurrentVersion == 0; } }
+
+        public IEnumerable<ExtensionVersion> ExtensionVersions { get; set; }
     }
 }

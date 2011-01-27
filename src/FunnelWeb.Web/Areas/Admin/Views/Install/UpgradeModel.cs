@@ -4,12 +4,12 @@ namespace FunnelWeb.Web.Areas.Admin.Views.Install
 {
     public class UpgradeModel
     {
-        public DatabaseUpgradeResult Result { get; set; }
+        public DatabaseUpgradeResults Results { get; set; }
         public Log Log { get; set; }
 
-        public UpgradeModel(DatabaseUpgradeResult result, Log log)
+        public UpgradeModel(DatabaseUpgradeResults results, Log log)
         {
-            Result = result;
+            Results = results;
             Log = log;
         }
     }

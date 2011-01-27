@@ -11,9 +11,10 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure.VersionTrackers
         /// Recalls the version number of a database specified in a given connection string.
         /// </summary>
         /// <param name="connectionString">The connection string.</param>
+        /// <param name="sourceIdentifier">The source identifier for the scripts</param>
         /// <param name="log">The log.</param>
         /// <returns></returns>
-        int RecallVersionNumber(string connectionString, ILog log);
+        int RecallVersionNumber(string connectionString, string sourceIdentifier, ILog log);
 
         /// <summary>
         /// Records a database upgrade for a database specified in a given connection string.
