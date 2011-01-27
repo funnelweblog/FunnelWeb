@@ -1,0 +1,190 @@
+@model FunnelWeb.Web.Areas.Admin.Views.WikiAdmin.EditModel
+@{
+  ViewBag.Title = (Model.IsNew ? "Create - " : "Edit - ") + Model.Title;
+
+  var pageTemplates = new List<SelectListItem>()
+    {
+      new SelectListItem { Text = "(default)", Value = "" }
+    };
+    
+  var templatesPath = Server.MapPath(Html.ThemePath() + "/Views/Shared/PageTemplates");
+  if(Directory.Exists( templatesPath))
+  {
+    pageTemplates.AddRange(Directory.EnumerateFiles(templatesPath, "*.cshtml")
+                      .Select(f => Path.GetFileNameWithoutExtension(f))
+                      .Where(f => f != "Default")
+                      .Select(f => new SelectListItem { Text = f, Value = f, Selected = Model.PageTemplate == f }));
+  }
+}
+
+@section Summary {
+  @if (Model.IsNew) {     
+  <p>The page you navigated to has not been created yet. Use the editor below to create the first version of this page.</p>
+  } else {
+  <p>Use the editor below to update this page. Alternatively, you can @Html.ActionLink("go back to the previous page", "Page", new{Area = "Admin",page = Model.Page}).</p>
+  }  
+}
+
+@if (Model.IsNew) {
+<h1>Create: @Model.Title</h1>
+} else {     
+<h1>Edit: @Model.Title</h1>
+}
+    
+@Html.ValidationSummary("Edit unsuccessful. Please correct the errors below.")
+
+@using (Html.BeginForm("Edit", "WikiAdmin", FormMethod.Post, new { Area = "Admin" }))
+{
+@Html.HiddenFor(m => m.OriginalEntryId)
+<div class="form-body">
+  <div class="editor-label">
+    @Html.LabelFor(m => m.Page)
+  </div>
+  <div class="editor-field">
+    @Html.TextBoxFor(m => m.Page, Html.AttributesFor(m => m.Page))
+    @if (!string.IsNullOrWhiteSpace(Model.Page))
+    {
+      <span>@Html.ActionLink(Model.Page, "Page", new { Area = "Admin", page = Model.Page })</span>
+    }      
+    @Html.ValidationMessageFor(m => m.Page)
+    @Html.HintFor(m => m.Page)
+  </div>
+
+  <div class="editor-label">
+    @Html.LabelFor(m => m.Title)
+  </div>
+  <div class="editor-field">
+    @Html.TextBoxFor(m => m.Title, Html.AttributesFor(m => m.Title))
+    @Html.ValidationMessageFor(m => m.Title)
+    @Html.HintFor(m => m.Title)
+  </div>
+
+  <div class="editor-label">
+    @Html.LabelFor(m => m.MetaTitle)
+  </div>
+  <div class="editor-field">
+    @Html.TextBoxFor(m => m.MetaTitle, Html.AttributesFor(m => m.MetaTitle))
+    @Html.ValidationMessageFor(m => m.MetaTitle)
+    @Html.HintFor(m => m.MetaTitle)
+  </div>
+      
+  <div class="editor-label">
+    @Html.LabelFor(m => m.PageTemplate)
+  </div>
+  <div class="editor-field">
+    @Html.DropDownListFor(m => m.PageTemplate, pageTemplates, Html.AttributesFor(m => m.PageTemplate))
+    @Html.ValidationMessageFor(m => m.PageTemplate)
+    @Html.HintFor(m => m.PageTemplate)
+  </div>
+
+  <div class="editor-label">
+    @Html.LabelFor(m => m.PublishDate)
+  </div>
+  <div class="editor-field">
+    @Html.TextBoxFor(m => m.PublishDate, Html.AttributesFor(m => m.PublishDate))
+    @Html.ValidationMessageFor(m => m.PublishDate)
+    @Html.HintFor(m => m.PublishDate)
+  </div>
+      
+  <div class="editor-label">
+    @Html.LabelFor(m => m.MetaDescription)
+  </div>
+  <div class="editor-field">
+    @Html.TextAreaFor(m => m.MetaDescription, Html.AttributesFor(m => m.MetaDescription))
+    @Html.ValidationMessageFor(m => m.MetaDescription)
+    @Html.HintFor(m => m.MetaDescription)
+  </div>
+
+  <div class="editor-label">
+    @Html.LabelFor(m => m.Sidebar)
+  </div>
+  <div class="editor-field">
+    @Html.TextAreaFor(m => m.Sidebar, Html.AttributesFor(m => m.Sidebar))
+    @Html.ValidationMessageFor(m => m.Sidebar)
+    @Html.HintFor(m => m.Sidebar)
+  </div>
+      
+  <div class="editor-label">
+    @Html.LabelFor(m => m.SelectedTags)
+  </div>
+  <div class="editor-field">
+    @Html.EditorFor(m => m.SelectedTags)
+    @Html.ValidationMessageFor(m => m.SelectedTags)
+    @Html.HintFor(m => m.SelectedTags)
+  </div>
+      
+  <div class="editor-label">
+    @Html.Label("Upload")
+  </div>
+  <div class="editor-field">
+    <span>@Html.ActionLink("Click here to upload files...", "Index", "Upload", new { Area = "Admin" }, new { target = "_blank" })</span>
+  </div>
+  
+  <div class="editor-label">
+    @Html.LabelFor(m => m.Format)
+  </div>
+  <div class="editor-field">
+    @Html.RadioButtonFor(m => m.Format, @FunnelWeb.Model.Formats.Markdown) Markdown
+    @Html.RadioButtonFor(m => m.Format, @FunnelWeb.Model.Formats.Html) HTML
+    @Html.ValidationMessageFor(m => m.Format)
+    @Html.HintFor(m => m.Format)
+    <span class="hint">You may find <a href="http://milianw.de/projects/markdownify/">Markdownify</a> useful for converting between formats.</span>
+  </div>
+
+  <div class="editor-label">
+    @Html.LabelFor(m => m.Content)
+  </div>
+  <div class="editor-field">
+    @Html.EditorFor(m => m.Content, Html.AttributesFor(m => m.Content))
+    @Html.ValidationMessageFor(m => m.Content)
+    @Html.HintFor(m => m.Content)
+  </div>
+        
+  <div class="editor-label">
+    @Html.LabelFor(m => m.ChangeSummary)
+  </div>
+  <div class="editor-field">
+    @Html.TextBoxFor(m => m.ChangeSummary, Html.AttributesFor(m => m.ChangeSummary))
+    @Html.ValidationMessageFor(m => m.ChangeSummary)
+    @Html.HintFor(m => m.ChangeSummary)
+  </div>
+
+  <div class="editor-label">
+    @Html.LabelFor(m => m.DisableComments)
+  </div>
+  <div class="editor-field">
+    @Html.CheckBoxFor(m => m.DisableComments, Html.AttributesFor(m => m.DisableComments))
+    @Html.ValidationMessageFor(m => m.DisableComments)
+    @Html.HintFor(m => m.DisableComments)
+  </div>
+  <br />
+  
+  <div class="editor-label">
+    @Html.LabelFor(m => m.HideChrome)
+  </div>
+  <div class="editor-field">
+    @Html.CheckBoxFor(m => m.HideChrome, Html.AttributesFor(m => m.HideChrome))
+    @Html.ValidationMessageFor(m => m.HideChrome)
+    @Html.HintFor(m => m.HideChrome)
+  </div>
+  
+  <div class="editor-label">
+    @Html.LabelFor(m => m.Status)
+  </div>
+  <div class="editor-field">
+    <div>@Html.RadioButtonFor(m => m.Status, @FunnelWeb.Model.EntryStatus.Private)<abbr title="Only logged in users can see this page">Private</abbr></div>
+    <div>@Html.RadioButtonFor(m => m.Status, @FunnelWeb.Model.EntryStatus.PublicPage)<abbr title="Anyone can see this page, but you'll need to link to it yourself - it won't appear on the home page or in the RSS feed">Public (Page)</abbr></div>
+    <div>@Html.RadioButtonFor(m => m.Status, @FunnelWeb.Model.EntryStatus.PublicBlog)<abbr title="Anyone can see this page, it will appear on the home page and in the RSS feed">Public (Blog Post)</abbr></div>
+    @Html.ValidationMessageFor(m => m.Format)
+  </div>
+
+  <div class="editor-label">
+  </div>
+  <div class="editor-field">
+    <input type="submit" id="submit" class="submit" value="Save!" />
+  </div>
+</div>
+}
+
+<h3>Preview</h3>
+<div id="wmd-preview" class="wmd-panel"></div>

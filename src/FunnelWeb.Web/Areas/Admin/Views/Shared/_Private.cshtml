@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>@ViewBag.Title</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  @{ 
+    Html.RequiresCss("Base.css", "Layout", 0);
+    Html.RequiresCss("Admin.css", "Layout", 0);
+  }
+  @MvcHtmlString.Create(Html.RenderCssHere(new List<IClientDependencyPath> {
+      new BasicPath("Layout", "~/Content/Styles/Layout")
+    }))
+  @RenderSection("Meta", required: false)
+</head>
+<body>
+  <div class="top">
+    <div class="header">
+      <a class="logo" href="@Html.Qualify("/")" title="Administration">Administration</a>
+    </div>
+    <div class="nav">
+      <ul>
+        @if (ViewData.IsLoggedIn()) {
+        <li>@Html.AdminActionLink("New Post", "Edit", "WikiAdmin")</li>
+        <li>@Html.AdminActionLink("Admin", "Index", "Admin")</li>
+        <li>@Html.AdminActionLink("Logout", "Logout", "Login")</li>
+        }
+      </ul>
+    </div>
+  </div>
+  <div class="body">
+    @if (TempData.ContainsKey("Flash")) {
+    <div class="flash">
+      <p>@TempData["Flash"]</p>
+    </div>
+    }
+    
+    @if (IsSectionDefined("Summary"))
+    {
+    <div class="intro" id="_summary">
+      <div class="intro-in">
+        @RenderSection("Summary", required: false)
+      </div>
+    </div>
+    }
+
+    <div class="content">
+      @RenderBody()
+    </div>
+  </div>
+  <div class="footer">
+    This is an admin page, so you won't see the standard header, footer and styles being applied. It's for your own protection.
+  </div>
+  @{ 
+    Html.RequiresJs("JQuery/jquery-1.4.4.min.js", "Scripts", 0);
+    Html.RequiresJs("JQuery/jsdate.js", "Scripts", 1);
+    Html.RequiresJs("Prettify/Prettify.js", "Scripts", 1);
+    Html.RequiresJs("Showdown/Showdown.js", "Scripts", 1);
+    Html.RequiresJs("Showdown/wmd.js", "Scripts", 1);
+    Html.RequiresJs("Site/Site.js", "Scripts", 1);
+  }
+  @MvcHtmlString.Create(Html.RenderJsHere(new BasicPath("Scripts", "~/Content/Scripts")))
+</body>
+</html>

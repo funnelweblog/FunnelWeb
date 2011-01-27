@@ -4,8 +4,8 @@ using System.Web;
 using System.Web.Mvc;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
+using FunnelWeb.Web.Areas.Admin.Controllers;
 using FunnelWeb.Web.Controllers;
-using FunnelWeb.Web.Views.Admin;
 using NSubstitute;
 using NUnit.Framework;
 

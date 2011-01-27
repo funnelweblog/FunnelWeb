@@ -167,10 +167,13 @@
     <Compile Include="..\Information\VersionInfo.cs">
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
+    <Compile Include="Application\Markup\InputSanitizer.cs" />
+    <Compile Include="Application\Markup\Markdown.cs" />
     <Compile Include="Application\Mvc\ActionResults\FeedResult.cs" />
     <Compile Include="Application\Mvc\ActionResults\XmlActionResult.cs" />
     <Compile Include="Application\Authentication\FormsAuthenticator.cs" />
     <Compile Include="Application\Authentication\IAuthenticator.cs" />
+    <Compile Include="Application\Mvc\FunnelWebControllerFactory.cs" />
     <Compile Include="Application\Mvc\HintSize.cs" />
     <Compile Include="Application\Mvc\Binders\ArrayBinder.cs" />
     <Compile Include="Application\Mvc\Binders\ImplicitAssignmentBinder.cs" />
@@ -199,21 +202,25 @@
     <Compile Include="Application\Mime\MimeSupport.cs" />
     <Compile Include="Application\Views\MarkdownProvider.cs" />
     <Content Include="App_Code\HelperPage.cs" />
-    <Compile Include="Application\Mvc\FunnelWebControllerFactory.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\WikiAdminController.cs" />
+    <Compile Include="Areas\Admin\Views\WikiAdmin\EditModel.cs" />
+    <Compile Include="Areas\Admin\Views\WikiAdmin\RecentModel.cs" />
+    <Compile Include="Areas\Admin\Views\WikiAdmin\ReviseModel.cs" />
+    <Compile Include="Areas\Admin\Views\WikiAdmin\RevisionsModel.cs" />
     <Compile Include="Controllers\TagController.cs" />
-    <Compile Include="Views\Admin\BlogMLImportModel.cs" />
-    <Compile Include="Views\Admin\CommentsModel.cs" />
-    <Compile Include="Views\Admin\TaskModel.cs" />
-    <Compile Include="Views\Admin\TasksModel.cs" />
-    <Compile Include="Views\Admin\PageListModel.cs" />
-    <Compile Include="Views\Admin\PingbacksModel.cs" />
-    <Compile Include="Views\Admin\IndexModel.cs" />
-    <Compile Include="Controllers\InstallController.cs" />
-    <Compile Include="Views\Install\IndexModel.cs" />
-    <Compile Include="Views\Install\UpgradeModel.cs" />
-    <Compile Include="Views\Login\LoginModel.cs" />
-    <Compile Include="Views\Upload\IndexModel.cs" />
-    <Compile Include="Views\Wiki\EditModel.cs" />
+    <Compile Include="Areas\Admin\Views\Admin\BlogMLImportModel.cs" />
+    <Compile Include="Areas\Admin\Views\Admin\CommentsModel.cs" />
+    <Compile Include="Areas\Admin\Views\Admin\TaskModel.cs" />
+    <Compile Include="Areas\Admin\Views\Admin\TasksModel.cs" />
+    <Compile Include="Areas\Admin\Views\Admin\PageListModel.cs" />
+    <Compile Include="Areas\Admin\Views\Admin\PingbacksModel.cs" />
+    <Compile Include="Areas\Admin\Views\Admin\IndexModel.cs" />
+    <Compile Include="Areas\Admin\Controllers\InstallController.cs" />
+    <Compile Include="Areas\Admin\Views\Install\IndexModel.cs" />
+    <Compile Include="Areas\Admin\Views\Install\UpgradeModel.cs" />
+    <Compile Include="Areas\Admin\Views\Login\LoginModel.cs" />
+    <Compile Include="Areas\Admin\Views\Upload\IndexModel.cs" />
     <Compile Include="Application\Mvc\Binders\EditModelBinder.cs" />
     <Compile Include="Views\Wiki\SearchModel.cs" />
     <Compile Include="Views\Wiki\PageModel.cs" />
@@ -232,11 +239,11 @@
     <Compile Include="Application\Spam\AkismetSpamChecker.cs" />
     <Compile Include="Application\Spam\ISpamChecker.cs" />
     <Compile Include="Application\Upload.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Controllers\ResourceController.cs" />
-    <Compile Include="Controllers\UploadController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UploadController.cs" />
     <Compile Include="Controllers\WikiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -272,10 +279,10 @@
     <Content Include="Themes\BoringTheme\Content\Styles\Theme.css" />
     <Content Include="Themes\Official\Content\Styles\Theme.css" />
     <Content Include="Themes\MattHamilton\Content\Styles\backgnd.png" />
-    <Content Include="Views\Admin\PageList.cshtml" />
-    <Content Include="Views\Admin\Tasks.cshtml" />
-    <Content Include="Views\Admin\Task.cshtml" />
-    <Content Include="Views\Admin\BlogMLImport.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\PageList.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Tasks.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Task.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\BlogMLImport.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Tags.cshtml" />
     <Content Include="Views\Shared\_Mobile.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Markdown.cshtml" />
@@ -290,14 +297,14 @@
     <Content Include="Themes\RainbowAfro\Content\Styles\Bar.png" />
     <Content Include="Themes\RainbowAfro\Content\Styles\Header.jpg" />
     <Content Include="Themes\RainbowAfro\Content\Styles\Theme.css" />
-    <Content Include="Views\Admin\Comments.cshtml" />
-    <Content Include="Views\Admin\Pingbacks.cshtml" />
-    <Content Include="Views\Admin\Settings.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Comments.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Pingbacks.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Settings.cshtml" />
     <Content Include="Global.asax" />
-    <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Install\UpgradeReport.cshtml" />
-    <Content Include="Views\Install\Index.cshtml" />
-    <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Install\UpgradeReport.cshtml" />
+    <Content Include="Areas\Admin\Views\Install\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\Login.cshtml" />
     <Content Include="Content\Images\favicon.ico" />
     <Content Include="Content\Images\editorbuttons.png" />
     <Content Include="Content\Images\external.png" />
@@ -339,10 +346,14 @@
     <Content Include="Content\Styles\Layout\Base.css" />
     <Content Include="Themes\AaronPowell\Content\Styles\Theme.css" />
     <Content Include="Themes\Default\Content\Styles\Theme.css" />
+    <Content Include="Areas\Admin\Views\Web.config" />
+    <Content Include="Areas\Admin\Views\WikiAdmin\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\WikiAdmin\Recent.cshtml" />
+    <Content Include="Areas\Admin\Views\WikiAdmin\Revisions.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="packages.config" />
     <None Include="Themes\BoringTheme\Views\Wiki\Recent.cshtml" />
-    <Content Include="Views\Upload\Index.cshtml" />
-    <Content Include="Views\Wiki\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Upload\Index.cshtml" />
     <Content Include="Views\Wiki\Search.cshtml" />
     <Content Include="Views\Wiki\Page.cshtml" />
     <Content Include="Views\Web.config" />
@@ -354,6 +365,9 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\Shared\PageTemplates\Default.cshtml" />
+    <Content Include="Themes\Twitter\Views\Shared\PageTemplates\Default.cshtml" />
+    <Content Include="Themes\Twitter\Views\Shared\PageTemplates\Homepage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Public.cshtml" />
@@ -369,7 +383,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\_Private.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Private.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -384,6 +398,7 @@
     <Content Include="App_Code\Paginator.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Views\Extensions\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

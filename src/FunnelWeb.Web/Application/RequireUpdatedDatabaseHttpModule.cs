@@ -24,7 +24,7 @@ namespace FunnelWeb.Web.Application
             if (!DatabaseRequiresUpgrade())
                 return;
 
-            HttpContext.Current.Response.Redirect("~/login?databaseIssue=true");
+            HttpContext.Current.Response.Redirect("~/admin/login?databaseIssue=true");
         }
 
         internal static bool DatabaseRequiresUpgrade()

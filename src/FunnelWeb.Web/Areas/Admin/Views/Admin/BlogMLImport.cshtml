@@ -1,0 +1,31 @@
+@model FunnelWeb.Web.Areas.Admin.Views.Admin.BlogMLImportModel
+@{
+  ViewBag.Title = "FunnelWeb Administration - BlogML Import";
+  Layout = "~/Areas/Admin/Views/Shared/_Private.cshtml";
+}
+
+<h1>BlogML Import</h1>
+
+<p>
+  So you want to migrate your blog from another engine to FunnelWeb? This is the place.
+  See our <a href="http://www.funnelweblog.com/blogml">BlogML page for information about BlogML exporters for different blog engines.</a>
+</p>
+<p>Note: if the task fails, you can safely try to import the same file again. FunnelWeb's BlogML importer is careful not to import the same post twice.</p>
+
+@Html.ValidationSummary("Please correct the errors below.")
+
+@using (Html.BeginForm("BlogMLImport", "Admin", FormMethod.Post, new { Area = "Admin", @class = "promptBeforeUnload", enctype = "multipart/form-data" }))
+{
+<div class="form-body">
+  <div class="editor-label">
+    @Html.Label("Upload")
+  </div>
+  <div class="editor-field">
+    <input type="file" name="upload" />
+  </div>
+  
+  <p>
+    <input type="submit" id="submit" class="submit" value="Import!" />
+  </p>
+</div>
+}

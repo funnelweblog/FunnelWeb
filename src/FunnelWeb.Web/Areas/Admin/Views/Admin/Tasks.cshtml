@@ -1,0 +1,31 @@
+@model FunnelWeb.Web.Areas.Admin.Views.Admin.TasksModel
+@{
+    ViewBag.Title = "FunnelWeb Administration - Task List";
+    Layout = "~/Areas/Admin/Views/Shared/_Private.cshtml";
+}
+
+<h1>Tasks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <td>Task</td>
+      <td>Arguments</td>
+      <td>Started</td>
+      <td>Progress</td>
+      <td>Status</td>
+    </tr>
+  </thead>
+  <tbody>
+@foreach (var task in Model.Tasks)
+{
+    <tr>
+      <td>@Html.ActionLink(task.TaskName, "Task", "Admin", new { Area = "Admin", id = task.Id }, new { })</td>
+      <td>@task.Arguments</td>
+      <td>@Html.Date(task.Started)</td>
+      <td>@task.ProgressEstimate%</td>
+      <td>@task.Status</td>
+    </tr>
+}
+  </tbody>
+</table>
