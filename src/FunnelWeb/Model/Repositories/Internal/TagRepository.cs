@@ -45,7 +45,7 @@ namespace FunnelWeb.Model.Repositories.Internal
                                                     .AddOrder(Order.Desc("rv.Revised"))
                                                     .Add(Restrictions.EqProperty("rv.Entry.Id", "entry.Id"))
                                                     .SetMaxResults(1))))
-                                            .Add(Restrictions.Eq("ti.Name", tagName))
+                                            .Add(Restrictions.Eq("tag.Name", tagName))
                                             .Add(Restrictions.Le("entry.Published", DateTime.UtcNow.Date.AddDays(1)))
                                             .AddOrder(Order.Desc("entry.Published"))
                                             .SetFirstResult(skip)

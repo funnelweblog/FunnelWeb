@@ -1,1 +1,13 @@
-﻿<h1>@Model.Name</h1>
+﻿@model System.Collections.Generic.IEnumerable<FunnelWeb.Model.Entry>
+
+@using System.Linq
+
+<h2>Posts tagged with <span class="tagName">@ViewBag.Tag</span></h2>
+
+@if (@Model.Any())
+{ 
+    @EntryList.Render(Model)
+}
+else { 
+    <p>Aww snap! That tag isn't being used anyway</p>
+}
