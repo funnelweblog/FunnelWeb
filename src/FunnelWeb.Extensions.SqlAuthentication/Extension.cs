@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using FunnelWeb.Web.Application.Authentication;
 
 namespace FunnelWeb.Extensions.SqlAuthentication
 {
@@ -7,7 +8,15 @@ namespace FunnelWeb.Extensions.SqlAuthentication
     {
         public void Initialize(ContainerBuilder builder)
         {
+            builder
+                .RegisterType<SqlAuthenticator>()
+                .As<IAuthenticator>()
+                .SingleInstance();
         }
+
+        public string FullName { get; set; }
+        public string SupportLink { get; set; }
+        public string Publisher { get; set; }
 
         public string ScriptNameFormat
         {

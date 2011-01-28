@@ -10,5 +10,9 @@ namespace FunnelWeb.Extensions.CommentNotification
         {
             builder.RegisterType<CommentPostedListener>().As<IEventListener>().InstancePerLifetimeScope();
         }
+
+        public string FullName { get; set; }
+        public string SupportLink { get; set; }
+        public string Publisher { get; set; }
     }
 }

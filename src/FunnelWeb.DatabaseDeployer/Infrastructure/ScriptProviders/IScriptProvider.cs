@@ -16,6 +16,11 @@
         string SourceIdentifier { get; }
 
         /// <summary>
+        /// The display name for the script provider
+        /// </summary>
+        string DisplayName { get; }
+
+        /// <summary>
         /// Gets the script for a given version number.
         /// </summary>
         /// <param name="versionNumber">The version number.</param>

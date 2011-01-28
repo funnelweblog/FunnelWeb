@@ -2,130 +2,172 @@
 @{
   ViewBag.Title = "FunnelWeb Installation";
   Layout = "~/Areas/Admin/Views/Shared/_Private.cshtml";
-  
+
   var properNoun = Model.IsInstall ? "Installer" : "Upgrader";
   var noun = Model.IsInstall ? "installer" : "upgrader";
   var verb = Model.IsInstall ? "install" : "upgrade";
   var proceed = Model.IsInstall ? "Proceed with Installation" : "Proceed with Upgrade";
 }
-
 <h1>
   FunnelWeb @properNoun
 </h1>
-    
 <p class='important'>
-  Welcome to your FunnelWeb installation! 
+  Welcome to your FunnelWeb installation!
 </p>
 <p>
-  This page allows you to edit the SQL Server connection string, and install or upgrade the 
-  database. You will see this page any time you upgrade FunnelWeb.
+  This page allows you to edit the SQL Server connection string, and install or upgrade
+  the database. You will see this page any time you upgrade FunnelWeb.
 </p>
-        
-<h2>Change Connection String</h2>
-@if (Model.CanConnect) {
+<h2>
+  Change Connection String</h2>
+@if (Model.CanConnect)
+{
   <p class='good'>
-    The connection string below appears to work. However, you can change it if you wish to 
-    use an alternative database.
+    The connection string below appears to work. However, you can change it if you wish
+    to use an alternative database.
   </p>
-} else {
+}
+else
+{
   <p class='bad'>
-    The connection string below is invalid. You will need to change it before proceeding with 
-    this @verb. The error was:
+    The connection string below is invalid. You will need to change it before proceeding
+    with this @verb. The error was:
   </p>
   <pre>@Model.ConnectionError</pre>
 }
-
-@using (Html.BeginForm("Test", "Install", FormMethod.Post, new { Area = "Admin" })) {
-<div class="form-body">
-        
-  <div class="editor-label">
-    @Html.LabelFor(m => m.ConnectionString)
+@using (Html.BeginForm("Test", "Install", FormMethod.Post, new { Area = "Admin" }))
+{
+  <div class="form-body">
+    <div class="editor-label">
+      @Html.LabelFor(m => m.ConnectionString)
+    </div>
+    <div class="editor-field">
+      @Html.TextAreaFor(m => m.ConnectionString, Html.AttributesFor(m => m.ConnectionString))
+      @Html.ValidationMessageFor(m => m.ConnectionString)
+      @Html.HintFor(m => m.ConnectionString)
+    </div>
+    <div class="editor-label">
+    </div>
+    <div class="editor-field">
+      <input type="submit" id="submit" class="submit" value="Save and Test" />
+    </div>
   </div>
-  <div class="editor-field">
-    @Html.TextAreaFor(m => m.ConnectionString, Html.AttributesFor(m => m.ConnectionString))
-    @Html.ValidationMessageFor(m => m.ConnectionString)
-    @Html.HintFor(m => m.ConnectionString)
-  </div>
-      
-  <div class="editor-label">
-  </div>
-  <div class="editor-field">
-    <input type="submit" id="submit" class="submit" value="Save and Test" />
-  </div>
-</div>
 }
-
-@if (Model.CanConnect) {
+@if (Model.CanConnect)
+{
   <text>
   <h2>@proceed</h2>
   <p>
     The FunnelWeb @noun is now ready to @verb your database.
   </p>
-
-  <table>
-    <thead>
-      <tr>
-        <td colspan='2'>@properNoun Information</td>
-      </tr>
-    </thead>
-    <tr>
-      <td>Current FunnelWeb database version: </td>
-      <td>@(Model.CanConnect ? Model.CurrentVersion.ToString() : "N/A")</td>
-    </tr>
-    <tr>
-      <td>Can upgrade to: </td>
-      <td>@(Model.CanConnect ? Model.NewVersion.ToString() : "N/A")</td>
-    </tr>
-  </table>
-  
-    @if (Model.ExtensionVersions.Any(ev => ev.CurrentVersion != ev.NewVersion))
-    { 
-      <br />
-      <br />
-      <table>
-        <thead>
-          <tr>
-            <td colspan='2'>Extensions @properNoun Information</td>
-          </tr>
-        </thead>
+  @if (Model.CurrentVersion != Model.NewVersion)
+  { 
+    <table>
+      <thead>
         <tr>
-          <td>Extension</td>
-          <td>Extension Current Version</td>
-          <td>Extension Version Needed</td>
+          <td colspan='2'>@properNoun Information
+          </td>
         </tr>
-        @foreach (var extension in Model.ExtensionVersions)
-        { 
-          <tr>
-            <td>@extension.ExtensionName</td>
-            <td>@(Model.CanConnect ? extension.CurrentVersion.ToString() : "N/A")</td>
-            <td>@(Model.CanConnect ? extension.NewVersion.ToString() : "N/A")</td>
-          </tr>
-        }
-      </table>
+      </thead>
+      <tr>
+        <td>
+          Current FunnelWeb database version:
+        </td>
+        <td>@(Model.CanConnect ? Model.CurrentVersion.ToString() : "N/A")
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Can upgrade to:
+        </td>
+        <td>@(Model.CanConnect ? Model.NewVersion.ToString() : "N/A")
+        </td>
+      </tr>
+    </table>
+  }
+  
+  @if (Model.CurrentVersion != Model.NewVersion && Model.ExtensionVersions.Any(ev => ev.CurrentVersion != ev.NewVersion)) { 
+    <br />
+    <br />
+  }
+  
+  @if (Model.ExtensionVersions.Any(ev => ev.CurrentVersion != ev.NewVersion))
+  { 
+    
+    <table>
+      <thead>
+        <tr>
+          <td colspan='3'>
+            Extensions @properNoun Information
+          </td>
+        </tr>
+      </thead>
+      <tr>
+        <td>
+          Extension
+        </td>
+        <td>
+          Extension Current Version
+        </td>
+        <td>
+          Extension Version Needed
+        </td>
+      </tr>
+      @foreach (var extension in Model.ExtensionVersions)
+      { 
+        <tr>
+          <td>@extension.ExtensionName
+          </td>
+          <td>@(Model.CanConnect ? extension.CurrentVersion.ToString() : "N/A")
+          </td>
+          <td>@(Model.CanConnect ? extension.NewVersion.ToString() : "N/A")
+          </td>
+        </tr>
+      }
+    </table>
 
-    }
+  }
   @if (Model.CurrentVersion == Model.NewVersion && Model.ExtensionVersions.All(ev => ev.CurrentVersion == ev.NewVersion))
   {
     <text>
-    <p class='good'>Your database is up to date. No @verb is necessary.</p>
-    <p class='important'><a href="/">Sweet!</a></p>
+    <p class='good'>
+      Your database is up to date. No @verb is necessary.</p>
+    <p class='important'>
+      <a href="/">Sweet!</a></p>
     </text>
   }
   else
   {
     <text>
     <p class='warning'>
-      Reminder: make sure to perform a backup of your database before proceeding with this @verb.
+      Reminder: make sure to perform a backup of your database before proceeding with
+      this @verb.
     </p>
     @using (Html.BeginForm("Upgrade", "Install", FormMethod.Post))
     {
-    <div class="form-body">
-      <p>
-        <input type="submit" id="submit1" class="submit" value="Upgrade to version @Model.NewVersion" />
-      </p>
-    </div>
-    } 
+      <div class="form-body">
+        <p>
+          @{
+      string submitText;
+      var extensionUpgradeCount = Model.ExtensionVersions.Count(e => e.CurrentVersion != e.NewVersion);
+      if (Model.CurrentVersion != Model.NewVersion && extensionUpgradeCount == 0)
+      {
+        submitText = string.Format("Upgrade to version {0}", Model.NewVersion);
+      }
+      else if (Model.CurrentVersion != Model.NewVersion && extensionUpgradeCount > 0)
+      {
+        submitText = "Install Upgrades";
+      }
+      else
+      {
+        submitText = "Upgrade Extensions";
+      }
+            <input type="submit" id="submit1" class="submit" value="@submitText" />
+          }
+        </p>
+      </div>
+    }
     </text>
-  } 
+  }
   </text>
 } 

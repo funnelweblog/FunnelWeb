@@ -27,6 +27,7 @@ namespace FunnelWeb.DatabaseDeployer
             scriptExecutor = new SqlScriptExecutor();
             versionTracker = new SchemaVersionsTableSqlVersionTracker();
             scriptProvider = new EmbeddedSqlScriptProvider(
+                Assembly.GetExecutingAssembly().FullName,
                 Assembly.GetExecutingAssembly(),
                 versionNumber => string.Format(
                                      "FunnelWeb.DatabaseDeployer.Scripts.Script{0}.sql",

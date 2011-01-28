@@ -62,12 +62,12 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
                 }
 
                 log.WriteInformation("Upgrade successful");
-                return new DatabaseUpgradeResult(scripts, originalVersion, currentVersion, true, null, scriptProvider.SourceIdentifier);
+                return new DatabaseUpgradeResult(scripts, originalVersion, currentVersion, true, null, scriptProvider.DisplayName);
             }
             catch (Exception ex)
             {
                 log.WriteError("Upgrade failed", ex);
-                return new DatabaseUpgradeResult(scripts, originalVersion, currentVersion, false, ex, scriptProvider.SourceIdentifier);
+                return new DatabaseUpgradeResult(scripts, originalVersion, currentVersion, false, ex, scriptProvider.DisplayName);
             }
         }
 

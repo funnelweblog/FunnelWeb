@@ -21,7 +21,7 @@ namespace FunnelWeb
         }
 
         [ImportMany]
-        public IEnumerable<Lazy<IFunnelWebExtension, FunnelWebExtensionAttribute>> Extensions { get; set; }
+        public IEnumerable<Lazy<IFunnelWebExtension, IFunnelWebExtensionMetaData>> Extensions { get; set; }
 
         protected override void Load(ContainerBuilder builder)
         {
@@ -45,6 +45,7 @@ namespace FunnelWeb
                 {
                     builder
                         .RegisterInstance(new EmbeddedSqlScriptProvider(
+                                              export.Metadata.FullName,
                                               extension.GetType().Assembly,
                                               version =>
                                               string.Format(requiresScripts.ScriptNameFormat,
@@ -62,7 +63,7 @@ namespace FunnelWeb
                 {
                     extension.Initialize(builder);
                 }
-                builder.RegisterInstance(export.Metadata).As<FunnelWebExtensionAttribute>();
+                builder.RegisterInstance(export.Metadata).As<IFunnelWebExtensionMetaData>();
             }
         }
     }

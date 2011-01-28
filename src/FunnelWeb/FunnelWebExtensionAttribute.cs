@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 
 namespace FunnelWeb
@@ -9,12 +8,6 @@ namespace FunnelWeb
     public class FunnelWebExtensionAttribute : ExportAttribute
     {
         public FunnelWebExtensionAttribute()
-            : base(typeof(IFunnelWebExtension))
-        {
-            
-        }
-
-        public FunnelWebExtensionAttribute(IDictionary<string, object> something)
             : base(typeof(IFunnelWebExtension))
         {
             

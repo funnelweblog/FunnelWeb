@@ -12,16 +12,19 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders
     /// </summary>
     public sealed class EmbeddedSqlScriptProvider : IScriptProvider
     {
+        private readonly string _displayName;
         private readonly Assembly assembly;
         private readonly GetEmbeddedScriptNameCallback mapFileNameCallback;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EmbeddedSqlScriptProvider"/> class.
         /// </summary>
+        /// <param name="displayName">Display name of script provider</param>
         /// <param name="assembly">The assembly.</param>
         /// <param name="mapFileNameCallback">The map file name callback.</param>
-        public EmbeddedSqlScriptProvider(Assembly assembly, GetEmbeddedScriptNameCallback mapFileNameCallback)
+        public EmbeddedSqlScriptProvider(string displayName, Assembly assembly, GetEmbeddedScriptNameCallback mapFileNameCallback)
         {
+            _displayName = displayName;
             this.assembly = assembly;
             this.mapFileNameCallback = mapFileNameCallback;
         }
@@ -51,6 +54,11 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders
         public string SourceIdentifier
         {
             get { return assembly.FullName; }
+        }
+
+        public string DisplayName
+        {
+            get { return _displayName; }
         }
 
         /// <summary>

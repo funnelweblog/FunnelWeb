@@ -42,12 +42,12 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
         private ExtensionVersion GetExtensionVersion(IScriptProvider extensionScriptProvider)
         {
+            var extensionCurrentVersion = Database.GetExtensionCurrentVersion(ConnectionStringProvider.ConnectionString,
+                                                                              extensionScriptProvider);
             return new ExtensionVersion
                        {
-                           ExtensionName = extensionScriptProvider.SourceIdentifier,
-                           CurrentVersion =
-                               Database.GetExtensionCurrentVersion(ConnectionStringProvider.ConnectionString,
-                                                                   extensionScriptProvider),
+                           ExtensionName = extensionScriptProvider.DisplayName,
+                           CurrentVersion = extensionCurrentVersion,
                            NewVersion = Database.GetExtensionVersion(extensionScriptProvider)
                        };
         }

@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
@@ -20,6 +21,7 @@ namespace FunnelWeb
         /// </summary>
         /// <param name="builder">The builder.</param>
         public abstract void Initialize(ContainerBuilder builder);
+
         /// <summary>
         /// Registers the controllers based on FunnelWeb standards
         /// </summary>
