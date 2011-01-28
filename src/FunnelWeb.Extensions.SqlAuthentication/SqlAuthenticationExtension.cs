@@ -1,17 +1,20 @@
-﻿using Autofac;
+﻿using System.Web.Mvc;
+using Autofac;
 using FunnelWeb.Web.Application.Authentication;
 
 namespace FunnelWeb.Extensions.SqlAuthentication
 {
     [FunnelWebExtension(FullName = "Multi User SQL Authentication", Publisher = "FunnelWeb", SupportLink = "http://code.google.com/p/funnelweb")]
-    public class Extension : IFunnelWebExtension, IRequireDatabaseScripts
+    public class SqlAuthenticationExtension : RoutableFunnelWebExtension, IRequireDatabaseScripts
     {
-        public void Initialize(ContainerBuilder builder)
+        public override void Initialize(ContainerBuilder builder)
         {
             builder
                 .RegisterType<SqlAuthenticator>()
                 .As<IAuthenticator>()
                 .SingleInstance();
+
+            Routes.MapRoute(null, "admin/sqlauthentication", new { controller = "SqlAuthentication", action = "Index" });
         }
 
         public string FullName { get; set; }

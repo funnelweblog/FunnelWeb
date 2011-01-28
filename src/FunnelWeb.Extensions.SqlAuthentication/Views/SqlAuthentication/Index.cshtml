@@ -1,0 +1,8 @@
+﻿@model FunnelWeb.Extensions.SqlAuthentication.Model.IndexModel
+
+<h1>Sql Authentication Provider Setup</h1>
+
+@if (!Model.IsUsingSqlAuthentication)
+{
+  Html.ActionLink("Enable Sql Authentication", "EnableSqlAuthentication", "SqlAuthentication");
+}

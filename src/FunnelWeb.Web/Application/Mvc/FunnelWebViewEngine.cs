@@ -35,7 +35,7 @@ namespace FunnelWeb.Web.Application.Mvc
                                       {
                                           "~/Themes/" + settings.Theme + "/Views/{1}/{0}.cshtml",
                                           "~/Themes/" + settings.Theme + "/Views/Extensions/{1}/{0}.cshtml",
-                                          "~/Views/Extensions/{0}.cshtml",
+                                          "~/Views/Extensions/{1}/{0}.cshtml",
                                       };
             locationFormats.AddRange(_partialViewLocationFormats);
             PartialViewLocationFormats = locationFormats.ToArray();
@@ -44,7 +44,7 @@ namespace FunnelWeb.Web.Application.Mvc
                                   {
                                       "~/Themes/" + settings.Theme + "/Views/{1}/{0}.cshtml",
                                       "~/Themes/" + settings.Theme + "/Views/Extensions/{1}/{0}.cshtml",
-                                      "~/Views/Extensions/{0}.cshtml",
+                                      "~/Views/Extensions/{1}/{0}.cshtml",
                                   };
             locationFormats.AddRange(_viewLocationFormats);
             ViewLocationFormats = locationFormats.ToArray();
@@ -55,7 +55,7 @@ namespace FunnelWeb.Web.Application.Mvc
                                       "~/Themes/" + settings.Theme + "/Views/Extensions/{1}/{0}.cshtml",
                                       "~/Themes/" + settings.Theme + "/Views/Shared/{1}/{0}.cshtml",
                                       "~/Themes/" + settings.Theme + "/Views/Shared/{0}.cshtml",
-                                      "~/Views/Extensions/{0}.cshtml",
+                                      "~/Views/Extensions/{1}/{0}.cshtml",
                                   };
             locationFormats.AddRange(_masterLocationFormats);
             MasterLocationFormats = locationFormats.ToArray();

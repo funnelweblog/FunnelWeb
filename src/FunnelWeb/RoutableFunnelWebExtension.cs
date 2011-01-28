@@ -33,8 +33,7 @@ namespace FunnelWeb
                 //.Where(t => t.Name.EndsWith("Controller"))
                 .Named<IController>(t => t.Name.Replace("Controller", string.Empty))
                 .PropertiesAutowired()
-                .AsSelf()
-                ;
+                .AsSelf();
         }
     }
 }

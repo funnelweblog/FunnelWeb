@@ -7,14 +7,13 @@ using FunnelWeb.Tasks;
 using FunnelWeb.Web.Application;
 using FunnelWeb.Web.Application.Filters;
 using FunnelWeb.Web.Application.Mvc;
-using FunnelWeb.Web.Application.Views;
 using FunnelWeb.Web.Areas.Admin.Views.Admin;
 
 namespace FunnelWeb.Web.Areas.Admin.Controllers
 {
     [FunnelWebRequest]
     [ValidateInput(false)]
-    [Authorize]
+    [Authorize(Roles="Admin")]
     public class AdminController : Controller
     {
         public IAdminRepository AdminRepository { get; set; }
@@ -24,7 +23,6 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         public ITaskStateRepository TaskRepository { get; set; }
         public ITaskExecutor<BlogMLImportTask> ImportTask { get; set; }
 
-        [Authorize]
         public virtual ActionResult Index()
         {
             return View(new IndexModel());

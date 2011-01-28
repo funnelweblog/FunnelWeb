@@ -8,6 +8,7 @@ namespace FunnelWeb.Web.Application.Authentication
         {
             base.Load(builder);
             builder.RegisterType<FormsAuthenticator>().As<IAuthenticator>().SingleInstance();
+            builder.RegisterType<FormsRoleProvider>().As<IRoleProvider>().SingleInstance();
         }
     }
 }
