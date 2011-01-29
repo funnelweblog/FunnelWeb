@@ -14,7 +14,7 @@ namespace FunnelWeb.Extensions.SqlAuthentication
                 .As<IAuthenticator>()
                 .SingleInstance();
 
-            Routes.MapRoute(null, "admin/sqlauthentication", new { controller = "SqlAuthentication", action = "Index" });
+            Routes.MapRoute(null, "admin/sqlauthentication/{action}", new { controller = "SqlAuthentication", action = "Index" });
         }
 
         public string FullName { get; set; }

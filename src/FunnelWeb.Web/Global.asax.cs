@@ -1,15 +1,18 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel.Composition.Hosting;
 using System.Reflection;
 using System.Web;
+using System.Web.Compilation;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using System.Web.Routing;
-using System.Web.SessionState;
 using Autofac;
 using Autofac.Integration.Mvc;
+using Bindable;
 using FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders;
 using FunnelWeb.Eventing;
 using FunnelWeb.Model.Repositories;
+using FunnelWeb.Settings;
 using FunnelWeb.Tasks;
 using FunnelWeb.Web.Application.Authentication;
 using FunnelWeb.Web.Application.Mime;
@@ -17,7 +20,6 @@ using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Application.Mvc.Binders;
 using FunnelWeb.Web.Application.Spam;
 using FunnelWeb.Web.Application.Views;
-using FunnelWeb.Settings;
 
 namespace FunnelWeb.Web
 {
@@ -26,6 +28,22 @@ namespace FunnelWeb.Web
     /// </summary>
     public class MvcApplication : HttpApplication
     {
+        private static string _extensionsPath;
+
+        public static void Initialise()
+        {
+            // Add assemblies containing IModules to the BuildManager
+            _extensionsPath = HostingEnvironment.MapPath("~/bin/Extensions");
+            var catalog = new DirectoryCatalog(_extensionsPath);
+            var compositionContainer = new CompositionContainer(catalog);
+            var modules = compositionContainer.GetExportedValues<IFunnelWebExtension>();
+
+            var assemblies = new HashSet<Assembly>();
+            modules.Each(m => assemblies.Add(m.GetType().Assembly));
+
+            assemblies.Each(BuildManager.AddReferencedAssembly);
+        }
+
         void Application_Start()
         {
             var builder = new ContainerBuilder();
@@ -42,7 +60,7 @@ namespace FunnelWeb.Web
             builder.RegisterModule(new EventingModule());
             builder.RegisterModule(new TasksModule());
 
-            builder.RegisterModule(new ExtensionsModule(Server.MapPath("~/bin/Extensions"), RouteTable.Routes));
+            builder.RegisterModule(new ExtensionsModule(_extensionsPath, RouteTable.Routes));
             builder.RegisterModule(new RoutesModule(RouteTable.Routes));
 
             var container = builder.Build();
