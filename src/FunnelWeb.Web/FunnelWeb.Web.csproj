@@ -171,6 +171,7 @@
     <Compile Include="Application\Authentication\FormsRoleProvider.cs" />
     <Compile Include="Application\Authentication\FunnelWebRoleProvider.cs" />
     <Compile Include="Application\Authentication\IRoleProvider.cs" />
+    <Compile Include="Application\IDatabaseUpgradeDetector.cs" />
     <Compile Include="Application\Markup\InputSanitizer.cs" />
     <Compile Include="Application\Markup\Markdown.cs" />
     <Compile Include="Application\Mvc\ActionResults\FeedResult.cs" />

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FunnelWeb.Settings
 {
-    public class Settings
+    public class FunnelWebSettings : ISettings
     {
         [DisplayName("File Upload Path")]
         [StringLength(300)]

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace FunnelWeb.Settings
         private readonly object @lock = new object();
         private readonly IAdminRepository repository;
         private readonly Func<string> themesDirectoryPath;
-        private Settings settings;
+        private readonly Dictionary<Type, ISettings> settingsStore = new Dictionary<Type, ISettings>();
 
         public SettingsProvider(IAdminRepository repository, Func<string> themesDirectoryPath)
         {
@@ -22,26 +23,28 @@ namespace FunnelWeb.Settings
             this.themesDirectoryPath = themesDirectoryPath;
         }
 
-        public Settings GetSettings()
+        public T GetSettings<T>() where T : ISettings
         {
-            if (settings == null)
+            var settingsType = typeof (T);
+            if (!settingsStore.ContainsKey(settingsType))
             {
                 lock (@lock)
                 {
-                    if (settings == null)
+                    if (!settingsStore.ContainsKey(settingsType))
                     {
-                        LoadSettings();
+                        LoadSettings<T>();
                     }
                 }
             }
 
-            return settings;
+            return (T)settingsStore[settingsType];
         }
 
-        private void LoadSettings()
+        private void LoadSettings<T>() where T : ISettings
         {
-            settings = new Settings();
-            var settingMetadata = ReadSettingMetadata();
+            var settings = Activator.CreateInstance<T>();
+            settingsStore.Add(typeof (T), settings);
+            var settingMetadata = ReadSettingMetadata<T>();
             var databaseSettings = repository.GetSettings().ToList();
             var webConfigSettings = WebConfigurationManager.AppSettings;
 
@@ -78,10 +81,15 @@ namespace FunnelWeb.Settings
             }
         }
 
-        public void SaveSettings(Settings settingsToSave)
+        public void SaveSettings<T>(T settingsToSave) where T : ISettings
         {
-            settings = settingsToSave;
-            var settingsMetadata = ReadSettingMetadata();
+            var settingsType = typeof (T);
+            if (settingsStore.ContainsKey(settingsType))
+                settingsStore[settingsType] = settingsToSave;
+            else
+                settingsStore.Add(settingsType, settingsToSave);
+
+            var settingsMetadata = ReadSettingMetadata<T>();
             var databaseSettings = repository.GetSettings().ToList();
 
             foreach (var setting in settingsMetadata)
@@ -90,7 +98,7 @@ namespace FunnelWeb.Settings
                 switch (setting.Storage.Location)
                 {
                     case StorageLocation.Database:
-                        var value = setting.Read(settings);
+                        var value = setting.Read(settingsToSave);
                         var dbSetting = databaseSettings.FirstOrDefault(x => x.Name == setting.Storage.Key);
                         if (dbSetting != null)
                         {
@@ -98,7 +106,13 @@ namespace FunnelWeb.Settings
                         }
                         else
                         {
-                            databaseSettings.Add(new Setting { Description = setting.Description, DisplayName = setting.DisplayName, Name = setting.Storage.Key, Value = value ?? setting.DefaultValue as string ?? string.Empty });
+                            databaseSettings.Add(new Setting
+                                                     {
+                                                         Description = setting.Description, 
+                                                         DisplayName = setting.DisplayName, 
+                                                         Name = setting.Storage.Key,
+                                                         Value = value ?? setting.DefaultValue as string ?? string.Empty
+                                                     });
                         }
                         break;
                     case StorageLocation.Custom:
@@ -111,9 +125,9 @@ namespace FunnelWeb.Settings
             repository.Save(databaseSettings);
         }
 
-        private static SettingDescriptor[] ReadSettingMetadata()
+        private static IEnumerable<SettingDescriptor> ReadSettingMetadata<T>()
         {
-            return typeof (Settings).GetProperties()
+            return typeof (T).GetProperties()
                 .OfType<PropertyInfo>()
                 .Where(x => x.GetCustomAttributes(true).OfType<SettingStorageAttribute>().Any())
                 .Select(x => new SettingDescriptor(x))
@@ -173,7 +187,7 @@ namespace FunnelWeb.Settings
                 get { return storage; }
             }
 
-            public void Write(Settings settings, object value)
+            public void Write(ISettings settings, object value)
             {
                 if (value != null)
                 {
@@ -182,7 +196,7 @@ namespace FunnelWeb.Settings
                 }
             }
 
-            public string Read(Settings settings)
+            public string Read(ISettings settings)
             {
                 return (property.GetValue(settings, null) ?? string.Empty).ToString();
             }

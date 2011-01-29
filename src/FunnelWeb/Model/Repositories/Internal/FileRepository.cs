@@ -16,7 +16,7 @@ namespace FunnelWeb.Model.Repositories.Internal
 
         public FileRepository(ISettingsProvider settingsProvider, HttpServerUtilityBase server)
         {
-            root = settingsProvider.GetSettings().UploadPath;
+            root = settingsProvider.GetSettings<Settings.FunnelWebSettings>().UploadPath;
             // If it's a virtual path then we can map it, otherwise we'll expect that it's a windows path
             if (root.StartsWith("~"))
             {

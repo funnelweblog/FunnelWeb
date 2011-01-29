@@ -11,13 +11,13 @@ go
 -- This table is used for SQL authentication
 create table dbo.[Role] (
 	Id int identity not null constraint PK_Roles_Id primary key,
-	[Role] nvarchar(50) not null
+	Name nvarchar(50) not null
 )
 go
 
 -- This table is used for SQL authentication
 create table dbo.UserRoles (
-	UserId int identity not null,
+	UserId int not null,
 	RoleId int not null
 )
 go
@@ -44,5 +44,5 @@ alter table dbo.UserRoles add constraint
 	)
 go
 
-insert into [Role] ([Role]) values ('Moderator')
-insert into [Role] ([Role]) values ('Admin')
+insert into [Role] (Name) values ('Moderator')
+insert into [Role] (Name) values ('Admin')

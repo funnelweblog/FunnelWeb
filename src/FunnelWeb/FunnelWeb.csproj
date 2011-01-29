@@ -109,6 +109,7 @@
     <Compile Include="IFunnelWebExtensionMetaData.cs" />
     <Compile Include="IRequireDatabaseScripts.cs" />
     <Compile Include="RoutableFunnelWebExtension.cs" />
+    <Compile Include="Settings\ISettings.cs" />
     <Compile Include="Tasks\TaskModule.cs" />
     <Compile Include="Tasks\ITask.cs" />
     <Compile Include="Tasks\ITaskExecutor.cs" />
@@ -161,7 +162,7 @@
     <Compile Include="Settings\ConnectionStringProvider.cs" />
     <Compile Include="Settings\IConnectionStringProvider.cs" />
     <Compile Include="Settings\ISettingsProvider.cs" />
-    <Compile Include="Settings\Settings.cs" />
+    <Compile Include="Settings\FunnelWebSettings.cs" />
     <Compile Include="Settings\SettingsProvider.cs" />
     <Compile Include="Settings\SettingStorageAttribute.cs" />
     <Compile Include="Settings\StorageLocation.cs" />

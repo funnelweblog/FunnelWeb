@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders;
 using FunnelWeb.Settings;
 
 namespace FunnelWeb.Web.Application.Mvc
@@ -16,20 +15,20 @@ namespace FunnelWeb.Web.Application.Mvc
         private readonly string[] _viewLocationFormats;
         private readonly string[] _masterLocationFormats;
 
-        public FunnelWebViewEngine(ISettingsProvider settings, IEnumerable<IScriptProvider> extensions)
+        public FunnelWebViewEngine(ISettingsProvider settings, IDatabaseUpgradeDetector databaseUpgradeDetector)
         {
             _settings = settings;
             _partialViewLocationFormats = PartialViewLocationFormats;
             _viewLocationFormats = ViewLocationFormats;
             _masterLocationFormats = MasterLocationFormats;
 
-            if (RequireUpdatedDatabaseHttpModule.DatabaseRequiresUpgrade(extensions))
+            if (databaseUpgradeDetector.UpdateNeeded())
                 return;
 
-            UpdateThemePath(_settings.GetSettings());
+            UpdateThemePath(_settings.GetSettings<FunnelWebSettings>());
         }
 
-        protected internal void UpdateThemePath(Settings.Settings settings)
+        protected internal void UpdateThemePath(FunnelWebSettings settings)
         {
             var locationFormats = new List<string>
                                       {

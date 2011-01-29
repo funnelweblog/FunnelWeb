@@ -2,7 +2,7 @@
 {
     public interface IAuthenticator
     {
-        bool AuthenticateAndLogin(string username, string password, bool databaseIssue);
+        bool AuthenticateAndLogin(string username, string password);
         void Logout();
     }
 }

@@ -33,7 +33,7 @@ namespace FunnelWeb.Web.Controllers
 
         public virtual ActionResult Home(int? pageNumber)
         {
-            var settings = SettingsProvider.GetSettings();
+            var settings = SettingsProvider.GetSettings<FunnelWebSettings>();
             if (!string.IsNullOrWhiteSpace(settings.CustomHomePage))
             {
                 var entry = EntryRepository.GetEntry(settings.CustomHomePage);
@@ -116,7 +116,7 @@ namespace FunnelWeb.Web.Controllers
             }
 
             // Anything posted after the disable date is considered spam (the comment box shouldn't be visible anyway)
-            var settings = SettingsProvider.GetSettings();
+            var settings = SettingsProvider.GetSettings<FunnelWebSettings>();
             if (settings.DisableCommentsOlderThan > 0 && DateTime.UtcNow.AddDays(settings.DisableCommentsOlderThan) > entry.Published)
             {
                 comment.IsSpam = true;

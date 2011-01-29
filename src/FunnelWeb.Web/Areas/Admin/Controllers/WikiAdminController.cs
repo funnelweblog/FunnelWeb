@@ -11,10 +11,7 @@ using FunnelWeb.Web.Application.Filters;
 using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Application.Spam;
 using FunnelWeb.Web.Areas.Admin.Views.WikiAdmin;
-using FunnelWeb.Web.Views.Wiki;
-using PageModel = FunnelWeb.Web.Views.Wiki.PageModel;
 using RecentModel = FunnelWeb.Web.Views.Wiki.RecentModel;
-using RevisionsModel = FunnelWeb.Web.Views.Wiki.RevisionsModel;
 
 namespace FunnelWeb.Web.Areas.Admin.Controllers
 {
@@ -31,14 +28,14 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         public IEventPublisher EventPublisher { get; set; }
         public ISettingsProvider SettingsProvider { get; set; }
 
-        [Authorize]
+        [Authorize(Roles = "Moderator")]
         public virtual ActionResult Unpublished()
         {
             var allPosts = EntryRepository.GetUnpublished();
             return View("Recent", new RecentModel("Unpublished Posts", allPosts, 1, 1, "Unpublished"));
         }
 
-        [Authorize]
+        [Authorize(Roles = "Moderator")]
         public virtual ActionResult Edit(PageName page, int? revertToRevision)
         {
             var entry = EntryRepository.GetEntry(page, revertToRevision ?? 0)
@@ -74,8 +71,8 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         }
 
 		[HttpPost]
-		[Authorize]
-		public virtual ActionResult Edit(EditModel model)
+        [Authorize(Roles = "Moderator")]
+        public virtual ActionResult Edit(EditModel model)
 		{
 			model.AllTags = TagRepository.GetTags().ToList();
 

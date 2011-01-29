@@ -1,4 +1,5 @@
-﻿using FunnelWeb.Model.Strings;
+﻿using System;
+using FunnelWeb.Model.Strings;
 
 namespace FunnelWeb.Model
 {

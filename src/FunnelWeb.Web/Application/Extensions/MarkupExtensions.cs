@@ -184,9 +184,9 @@ namespace FunnelWeb.Web.Application.Extensions
 
         #region Settings
 
-        public static Settings.Settings Settings(this HtmlHelper helper)
+        public static FunnelWebSettings Settings(this HtmlHelper helper)
         {
-            return DependencyResolver.Current.GetService<ISettingsProvider>().GetSettings();
+            return DependencyResolver.Current.GetService<ISettingsProvider>().GetSettings<FunnelWebSettings>();
         }
 
         #endregion

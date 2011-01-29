@@ -1,4 +1,6 @@
-﻿namespace FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders
+﻿using System.Reflection;
+
+namespace FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders
 {
     /// <summary>
     /// Provides scripts to be executed and tracks whether they have been executed.
@@ -14,6 +16,8 @@
         /// The source identifier for the script provider
         /// </summary>
         string SourceIdentifier { get; }
+
+        Assembly SourceAssembly { get; }
 
         /// <summary>
         /// The display name for the script provider

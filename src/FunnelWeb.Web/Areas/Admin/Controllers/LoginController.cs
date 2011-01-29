@@ -25,8 +25,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
                 return View(model);
             }
 
-            var databaseIssue = model.DatabaseIssue ?? false;
-            var authenticated = Authenticator.AuthenticateAndLogin(model.Username, model.Password, databaseIssue);
+            var authenticated = Authenticator.AuthenticateAndLogin(model.Username, model.Password);
             if (authenticated)
             {
                 return (model.DatabaseIssue ?? false)

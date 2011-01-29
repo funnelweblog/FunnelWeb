@@ -11,7 +11,7 @@ using FunnelWeb.Web.Areas.Admin.Views.Install;
 namespace FunnelWeb.Web.Areas.Admin.Controllers
 {
     [ValidateInput(false)]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class InstallController : Controller
     {
         public IApplicationDatabase Database { get; set; }

@@ -9,11 +9,13 @@ using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Bindable;
+using FunnelWeb.DatabaseDeployer.Infrastructure;
 using FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders;
 using FunnelWeb.Eventing;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Settings;
 using FunnelWeb.Tasks;
+using FunnelWeb.Web.Application;
 using FunnelWeb.Web.Application.Authentication;
 using FunnelWeb.Web.Application.Mime;
 using FunnelWeb.Web.Application.Mvc;
@@ -46,29 +48,35 @@ namespace FunnelWeb.Web
 
         void Application_Start()
         {
+            IContainer container = null;
             var builder = new ContainerBuilder();
             builder.RegisterControllers(Assembly.GetExecutingAssembly()).PropertiesAutowired();
             builder.Register<HttpContextBase>(x => new HttpContextWrapper(HttpContext.Current))
                 .InstancePerLifetimeScope();
             builder.Register<HttpServerUtilityBase>(x => new HttpServerUtilityWrapper(HttpContext.Current.Server));
+            builder
+                .RegisterType<DatabaseUpgradeDetector>()
+                .As<IDatabaseUpgradeDetector>().
+                InstancePerLifetimeScope();
             builder.RegisterModule(new AuthenticationModule());
             builder.RegisterModule(new BindersModule(ModelBinders.Binders));
             builder.RegisterModule(new MimeSupportModule());
-            builder.RegisterModule(new RepositoriesModule());
             builder.RegisterModule(new SettingsModule());
             builder.RegisterModule(new SpamModule());
             builder.RegisterModule(new EventingModule());
             builder.RegisterModule(new TasksModule());
 
             builder.RegisterModule(new ExtensionsModule(_extensionsPath, RouteTable.Routes));
+            // ReSharper disable AccessToModifiedClosure
+            builder.RegisterModule(new RepositoriesModule(()=>container.Resolve<IEnumerable<IScriptProvider>>()));
+            // ReSharper restore AccessToModifiedClosure
             builder.RegisterModule(new RoutesModule(RouteTable.Routes));
 
-            var container = builder.Build();
+            container = builder.Build();
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
             ViewEngines.Engines.Clear();
-            ViewEngines.Engines.Add(new FunnelWebViewEngine(container.Resolve<ISettingsProvider>(), container.Resolve<IEnumerable<IScriptProvider>>()));
-
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            ViewEngines.Engines.Add(new FunnelWebViewEngine(container.Resolve<ISettingsProvider>(), container.Resolve<IDatabaseUpgradeDetector>()));
 
             ControllerBuilder.Current.SetControllerFactory(new FunnelWebControllerFactory(container));
         }

@@ -26,7 +26,7 @@ namespace FunnelWeb.Extensions.CommentNotification
             if (commentDetails == null)
                 return;
 
-            var settings = settingsProvider.GetSettings();
+            var settings = settingsProvider.GetSettings<FunnelWebSettings>();
             if (!settings.CommentNotification)
             {
                 return;
@@ -39,7 +39,7 @@ namespace FunnelWeb.Extensions.CommentNotification
                     });
         }
 
-        private void SendEmail(Settings.Settings settings, CommentPostedEvent commentDetails)
+        private void SendEmail(FunnelWebSettings settings, CommentPostedEvent commentDetails)
         {
             try
             {

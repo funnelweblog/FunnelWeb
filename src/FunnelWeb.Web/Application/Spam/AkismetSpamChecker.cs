@@ -17,7 +17,7 @@ namespace FunnelWeb.Web.Application.Spam
 
         private Akismet Connect()
         {
-            var settings = settingsProvider.GetSettings();
+            var settings = settingsProvider.GetSettings<FunnelWebSettings>();
             var akismet = new Akismet(
                 settings.AkismetApiKey,
                 "http://www.funnelweblog.com",
@@ -29,7 +29,7 @@ namespace FunnelWeb.Web.Application.Spam
 
         public void Verify(Comment comment)
         {
-            var settings = settingsProvider.GetSettings();
+            var settings = settingsProvider.GetSettings<FunnelWebSettings>();
             var akismet = Connect();
             var akismetComment = new AkismetComment();
             akismetComment.Blog = "http://www.funnelweblog.com";

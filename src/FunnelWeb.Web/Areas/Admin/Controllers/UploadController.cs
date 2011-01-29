@@ -13,7 +13,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         public IFileRepository FileRepository { get; set; }
         public IMimeTypeLookup MimeHelper { get; set; }
 
-        [Authorize]
+        [Authorize(Roles = "Moderator")]
         public virtual ActionResult Index(string path)
         {
             path = path ?? string.Empty;
@@ -26,7 +26,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles = "Moderator")]
         public virtual ActionResult Upload(string path, bool? unzip, FileUpload upload)
         {
             var fullPath = FileRepository.MapPath(Path.Combine(path, upload.FileName));
@@ -34,21 +34,21 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
             return RedirectToAction("Index", "Upload", new { path });
         }
 
-        [Authorize]
+        [Authorize(Roles = "Moderator")]
         public virtual ActionResult CreateDirectory(string path, string name)
         {
             FileRepository.CreateDirectory(path, name);
             return RedirectToAction("Index", "Upload", new { path });
         }
 
-        [Authorize]
+        [Authorize(Roles = "Moderator")]
         public virtual ActionResult Move(string path, string oldPath, string newPath)
         {
             FileRepository.Move(oldPath, newPath);
             return RedirectToAction("Index", "Upload", new { path });
         }
 
-        [Authorize]
+        [Authorize(Roles = "Moderator")]
         public virtual ActionResult Delete(string path, string filePath)
         {
             FileRepository.Delete(filePath);

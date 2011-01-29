@@ -22,7 +22,7 @@ namespace FunnelWeb.Web.Controllers
 
         private FeedResult FeedResult(IEnumerable<SyndicationItem> items)
         {
-            var settings = Settings.GetSettings();
+            var settings = Settings.GetSettings<FunnelWebSettings>();
 
 			var feedUrl = new Uri(Request.Url, Url.Action("Recent", "WikiAdmin", new { Area = "Admin" }));
             return new FeedResult(
@@ -46,7 +46,7 @@ namespace FunnelWeb.Web.Controllers
 
         public virtual ActionResult Feed()
         {
-            var settings = Settings.GetSettings();
+            var settings = Settings.GetSettings<FunnelWebSettings>();
             
             var entries = FeedRepository.GetRecentEntries(0, 20);
 
@@ -93,7 +93,7 @@ namespace FunnelWeb.Web.Controllers
             var result = Markdown.Render(latestRevision.Body)
                          + string.Format("<img src=\"{0}\" />", viaFeedUri);
 
-            if (Settings.GetSettings().FacebookLike)
+            if (Settings.GetSettings<FunnelWebSettings>().FacebookLike)
             {
                 var facebook = string.Format(@"  <div class='facebook'>
                       <iframe src='http://www.facebook.com/plugins/like.php?href={0}&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=80' scrolling='no' frameborder='0' style='border:none; overflow:hidden; width:450px; height:80px;' allowTransparency='true'></iframe>

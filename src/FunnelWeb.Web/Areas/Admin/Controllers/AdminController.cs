@@ -32,14 +32,14 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
         public virtual ActionResult Settings()
         {
-            var settings = SettingsProvider.GetSettings();
+            var settings = SettingsProvider.GetSettings<FunnelWebSettings>();
             return View(settings);
         }
 
         [HttpPost]
-        public virtual ActionResult Settings(Settings.Settings settings)
+        public virtual ActionResult Settings(FunnelWebSettings settings)
         {
-            settings.Themes = SettingsProvider.GetSettings().Themes;
+            settings.Themes = SettingsProvider.GetSettings<FunnelWebSettings>().Themes;
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Your settings could not be saved. Please fix the errors shown below.");
@@ -154,7 +154,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
                 return View();
             }
 
-            var fullPath = Server.MapPath(SettingsProvider.GetSettings().UploadPath);
+            var fullPath = Server.MapPath(SettingsProvider.GetSettings<FunnelWebSettings>().UploadPath);
             fullPath = Path.Combine(fullPath, upload.FileName);
             upload.SaveTo(fullPath);
 

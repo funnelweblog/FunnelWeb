@@ -56,6 +56,11 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders
             get { return assembly.FullName; }
         }
 
+        public Assembly SourceAssembly
+        {
+            get { return assembly; }
+        }
+
         public string DisplayName
         {
             get { return _displayName; }
