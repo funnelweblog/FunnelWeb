@@ -40,6 +40,9 @@
     <Reference Include="Microsoft.QueryComposition">
       <HintPath>Lib\Microsoft.QueryComposition.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Runtime.Serialization.Json">
+      <HintPath>Lib\Microsoft.Runtime.Serialization.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.ServiceModel.Http">
       <HintPath>Lib\Microsoft.ServiceModel.Http.dll</HintPath>
     </Reference>
@@ -59,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\JsonService.cs" />
     <Compile Include="Services\DemoService.cs" />
     <Compile Include="WcfDemoBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
