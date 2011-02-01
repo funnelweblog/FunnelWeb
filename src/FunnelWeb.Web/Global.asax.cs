@@ -8,8 +8,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
+using Autofac.Integration.Wcf;
 using Bindable;
-using FunnelWeb.DatabaseDeployer.Infrastructure;
 using FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders;
 using FunnelWeb.Eventing;
 using FunnelWeb.Model.Repositories;
@@ -38,7 +38,17 @@ namespace FunnelWeb.Web
             _extensionsPath = HostingEnvironment.MapPath("~/bin/Extensions");
             var catalog = new DirectoryCatalog(_extensionsPath);
             var compositionContainer = new CompositionContainer(catalog);
-            var modules = compositionContainer.GetExportedValues<IFunnelWebExtension>();
+            IEnumerable<IFunnelWebExtension> modules;
+            try
+            {
+                modules = compositionContainer.GetExportedValues<IFunnelWebExtension>();
+            }
+            catch (ReflectionTypeLoadException ex)
+            {
+                if (ex.LoaderExceptions.Length > 0)
+                    throw new FunnelWebExtensionLoadException(string.Format("Failed to load {0}", ex.Types[0].Assembly.FullName), ex.LoaderExceptions[0]) ;
+                throw;
+            }
 
             var assemblies = new HashSet<Assembly>();
             modules.Each(m => assemblies.Add(m.GetType().Assembly));
@@ -74,6 +84,7 @@ namespace FunnelWeb.Web
 
             container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            AutofacHostFactory.Container = container;
 
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new FunnelWebViewEngine(container.Resolve<ISettingsProvider>(), container.Resolve<IDatabaseUpgradeDetector>()));
