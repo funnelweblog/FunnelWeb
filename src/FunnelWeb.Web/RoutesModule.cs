@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq;
+using System.ServiceModel.Activation;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
@@ -17,6 +20,23 @@ namespace FunnelWeb.Web
 
         protected override void Load(ContainerBuilder builder)
         {
+            //Due to a bug in the .AddServiceRoute<>() method in WCF we have to do this work around.
+            // see http://wcf.codeplex.com/workitem/9 for bug description
+            //Workaround caches all service route urls, removes the service routes. Adds a constraint to the wiki page route
+            // then re-adds the service routes at the end.
+            var serviceRoutes = routes
+                .OfType<ServiceRoute>()
+                .ToList();
+            var serviceRoutesUrls = serviceRoutes
+                                 .Select(serviceRoute => serviceRoute.Url.Replace("{*pathInfo}", ""))
+                                 .ToArray();
+            var notAService = new NotFromValuesListConstraint(serviceRoutesUrls.ToArray());
+            var defaultConstraint = new { page = notAService };
+            foreach (var serviceRoute in serviceRoutes)
+            {
+                routes.Remove(serviceRoute);
+            }
+
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.IgnoreRoute("{*allaxd}", new { allaxd = @".*\.axd(/.*)?" });
             routes.IgnoreRoute("pingback");
@@ -60,7 +80,41 @@ namespace FunnelWeb.Web
 
             routes.MapLowerCaseRoute("via-feed/{*page}", new { controller = "Resource", action = "Render", fileName = "/Content/Images/Transparent.gif", contentType = "image/gif" });
             routes.MapLowerCaseRoute("history-of/{*page}", new { controller = "Wiki", action = "Revisions" });
-            routes.MapLowerCaseRoute("{*page}", new { controller = "Wiki", action = "Page" });
+            routes.MapLowerCaseRoute("{*page}", new { controller = "Wiki", action = "Page" }, defaultConstraint);
+
+            foreach (var serviceRoute in serviceRoutes)
+            {
+                routes.Add(serviceRoute);
+            }
+        }
+    }
+
+    public class NotFromValuesListConstraint : IRouteConstraint
+    {
+        private readonly string[] _values;
+
+        public NotFromValuesListConstraint(params string[] values)
+        {
+            _values = values;
+        }
+
+        public bool Match(HttpContextBase httpContext,
+        Route route,
+        string parameterName,
+        RouteValueDictionary values,
+        RouteDirection routeDirection)
+        {
+            if (!values.ContainsKey(parameterName))
+                return true;
+
+            // Get the value called "parameterName" from the 
+            // RouteValueDictionary called "value"
+            string value = values[parameterName].ToString();
+
+            // Return true is the list of allowed values contains 
+            // this value.
+            var match = !_values.Any(value.Contains);
+            return match;
         }
     }
 }
