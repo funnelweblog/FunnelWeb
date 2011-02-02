@@ -37,7 +37,9 @@
     <Reference Include="Autofac.Configuration">
       <HintPath>..\..\lib\Autofac\Autofac.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac.Integration.Wcf, Version=2.4.3.700, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL" />
+    <Reference Include="Autofac.Integration.Wcf, Version=2.4.3.700, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Autofac\Autofac.Integration.Wcf.dll</HintPath>
+    </Reference>
     <Reference Include="FluentNHibernate, Version=1.0.0.593, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Net.Http">
       <HintPath>Lib\Microsoft.Net.Http.dll</HintPath>
