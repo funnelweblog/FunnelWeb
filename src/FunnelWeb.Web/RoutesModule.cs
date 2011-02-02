@@ -20,16 +20,16 @@ namespace FunnelWeb.Web
 
         protected override void Load(ContainerBuilder builder)
         {
-            //Due to a bug in the .AddServiceRoute<>() method in WCF we have to do this work around.
+            // Due to a bug in the .AddServiceRoute<>() method in WCF we have to do this work around.
             // see http://wcf.codeplex.com/workitem/9 for bug description
-            //Workaround caches all service route urls, removes the service routes. Adds a constraint to the wiki page route
+            // Workaround caches all service route urls, removes the service routes. Adds a constraint to the wiki page route
             // then re-adds the service routes at the end.
             var serviceRoutes = routes
                 .OfType<ServiceRoute>()
                 .ToList();
             var serviceRoutesUrls = serviceRoutes
-                                 .Select(serviceRoute => serviceRoute.Url.Replace("{*pathInfo}", ""))
-                                 .ToArray();
+                .Select(serviceRoute => serviceRoute.Url.Replace("{*pathInfo}", ""))
+                .ToArray();
             var notAService = new NotFromValuesListConstraint(serviceRoutesUrls.ToArray());
             var defaultConstraint = new { page = notAService };
             foreach (var serviceRoute in serviceRoutes)
