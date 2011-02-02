@@ -57,15 +57,13 @@ namespace FunnelWeb.Extensions.SqlAuthentication
         private static string[] FetchRolesForUser(string username)
         {
             var session = DependencyResolver.Current.GetService<ISession>();
-            var fetchRolesForUser = session
+            var user = session
                 .Linq<User>()
-                .Expand("Roles")
                 .Where(u => u.Username == username)
-                .SelectMany(u => u.Roles)
-                .ToList()
-                .Select(r=>r.Name)
-                .ToArray();
-            return fetchRolesForUser;
+                .SingleOrDefault();
+            if (user != null)
+                return user.Roles.Select(r => r.Name).ToArray();
+            return null;
         }
 
         public void AddUserToRoles(User user, params string[] rolesToAddTo)
