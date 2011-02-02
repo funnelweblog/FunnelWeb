@@ -47,8 +47,8 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure.VersionTrackers
                 {
                     using (var command = connection.CreateCommand())
                     {
-                        command.CommandText = "GetCurrentVersionNumber";
-                        command.CommandType = CommandType.StoredProcedure;
+                        command.CommandText = "select max(VersionNumber) from dbo.SchemaVersions where SourceIdentifier = @sourceIdentifier";
+                        command.CommandType = CommandType.Text;
                         command.Parameters.AddWithValue("sourceIdentifier", sourceIdentifier);
                         connection.Open();
 
