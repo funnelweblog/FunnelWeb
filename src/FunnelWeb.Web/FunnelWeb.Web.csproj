@@ -230,6 +230,7 @@
     <Compile Include="Areas\Admin\Views\Login\LoginModel.cs" />
     <Compile Include="Areas\Admin\Views\Upload\IndexModel.cs" />
     <Compile Include="Application\Mvc\Binders\EditModelBinder.cs" />
+    <Compile Include="Application\Mvc\NotFromValuesListConstraint.cs" />
     <Compile Include="Views\Wiki\SearchModel.cs" />
     <Compile Include="Views\Wiki\PageModel.cs" />
     <Compile Include="Views\Wiki\RecentModel.cs" />
