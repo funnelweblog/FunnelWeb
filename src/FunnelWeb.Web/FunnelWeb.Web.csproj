@@ -173,9 +173,10 @@
     <Compile Include="Application\Authentication\FormsRoleProvider.cs" />
     <Compile Include="Application\Authentication\FunnelWebRoleProvider.cs" />
     <Compile Include="Application\Authentication\IRoleProvider.cs" />
+    <Compile Include="Application\DatabaseUpgradeDetector.cs" />
     <Compile Include="Application\IDatabaseUpgradeDetector.cs" />
     <Compile Include="Application\Markup\InputSanitizer.cs" />
-    <Compile Include="Application\Markup\Markdown.cs" />
+    <Compile Include="Application\Markup\MarkdownRenderer.cs" />
     <Compile Include="Application\Mvc\ActionResults\FeedResult.cs" />
     <Compile Include="Application\Mvc\ActionResults\XmlActionResult.cs" />
     <Compile Include="Application\Authentication\FormsAuthenticator.cs" />
@@ -188,7 +189,7 @@
     <Compile Include="Application\Extensions\MarkupExtensions.cs" />
     <Compile Include="Application\Extensions\ViewDataDictionaryExtensions.cs" />
     <Compile Include="Application\Filters\RequireLoginAttribute.cs" />
-    <Compile Include="Application\Filters\TransactionalAttribute.cs" />
+    <Compile Include="Application\Filters\FunnelWebRequestAttribute.cs" />
     <Compile Include="Application\ForceLowercaseUrlHttpModule.cs" />
     <Compile Include="Application\Mvc\HintSizeAttribute.cs" />
     <Compile Include="Application\Mvc\HtmlHelperExtensions.cs" />
@@ -201,12 +202,12 @@
     <Compile Include="Application\Mvc\FunnelWebViewEngine.cs" />
     <Compile Include="Application\Views\IMarkdownProvider.cs" />
     <Compile Include="Application\Views\InputSanitizer.cs" />
-    <Compile Include="Application\Views\Markdown.cs" />
+    <Compile Include="Application\Views\MarkdownRenderer.cs" />
     <Compile Include="Application\Mime\IMimeTypeLookup.cs" />
     <Compile Include="Application\Mime\RegistryMimeTypeLookup.cs" />
     <Compile Include="Application\Authentication\AuthenticationModule.cs" />
     <Compile Include="Application\Mvc\Binders\BindersModule.cs" />
-    <Compile Include="Application\Mime\MimeSupport.cs" />
+    <Compile Include="Application\Mime\MimeSupportModule.cs" />
     <Compile Include="Application\Views\MarkdownProvider.cs" />
     <Content Include="App_Code\HelperPage.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
@@ -247,7 +248,7 @@
     <Compile Include="Application\Pingbacks\XmlRpcHandler.cs" />
     <Compile Include="Application\Spam\AkismetSpamChecker.cs" />
     <Compile Include="Application\Spam\ISpamChecker.cs" />
-    <Compile Include="Application\Upload.cs" />
+    <Compile Include="Application\FileUpload.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
