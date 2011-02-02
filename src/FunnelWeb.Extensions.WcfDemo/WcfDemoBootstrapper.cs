@@ -16,6 +16,11 @@ namespace FunnelWeb.Extensions.WcfDemo
             Routes.AddServiceRoute<JsonService, AutofacConfigurableServiceHostFactory>("services/jsonservice", new JsonValueSampleConfiguration());
         }
 
+        public string SourceIdentifier
+        {
+            get { return "FunnelWeb.Extensions.WcfDemo"; }
+        }
+
         public string ScriptNameFormat
         {
             get { return "FunnelWeb.Extensions.WcfDemo.Scripts.Script{0}.sql"; }

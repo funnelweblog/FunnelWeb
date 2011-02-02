@@ -47,7 +47,7 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure.VersionTrackers
                 {
                     using (var command = connection.CreateCommand())
                     {
-                        command.CommandText = "select max(VersionNumber) from dbo.SchemaVersions where SourceIdentifier = @sourceIdentifier";
+                        command.CommandText = "select max(VersionNumber) from dbo.SchemaVersions where (SourceIdentifier LIKE @sourceIdentifier + '%') OR (SourceIdentifier LIKE 'PaulPad%' AND @sourceIdentifier LIKE 'FunnelWeb.DatabaseDeployer%')";
                         command.CommandType = CommandType.Text;
                         command.Parameters.AddWithValue("sourceIdentifier", sourceIdentifier);
                         connection.Open();

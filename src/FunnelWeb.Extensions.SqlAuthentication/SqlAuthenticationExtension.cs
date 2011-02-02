@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using Autofac;
 using FunnelWeb.Web.Application.Authentication;
 
@@ -31,6 +32,11 @@ namespace FunnelWeb.Extensions.SqlAuthentication
         public string FullName { get; set; }
         public string SupportLink { get; set; }
         public string Publisher { get; set; }
+
+        public string SourceIdentifier
+        {
+            get { return "FunnelWeb.Extensions.SqlAuthentication"; }
+        }
 
         public string ScriptNameFormat
         {

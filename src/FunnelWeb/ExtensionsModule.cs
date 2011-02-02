@@ -45,7 +45,7 @@ namespace FunnelWeb
                 {
                     builder
                         .RegisterInstance(new EmbeddedSqlScriptProvider(
-                                              export.Metadata.FullName,
+                                              requiresScripts.SourceIdentifier,
                                               extension.GetType().Assembly,
                                               version =>
                                               string.Format(requiresScripts.ScriptNameFormat,
