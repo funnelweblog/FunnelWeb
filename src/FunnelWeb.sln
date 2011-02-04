@@ -193,7 +193,6 @@ Global
 		{FA47AB19-1EA4-4DB7-B07F-8780169C2471}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA47AB19-1EA4-4DB7-B07F-8780169C2471}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FA47AB19-1EA4-4DB7-B07F-8780169C2471}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{FA47AB19-1EA4-4DB7-B07F-8780169C2471}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{FA47AB19-1EA4-4DB7-B07F-8780169C2471}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
