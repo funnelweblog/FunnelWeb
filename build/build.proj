@@ -66,12 +66,16 @@
       ZipFileName="$(MSBuildProjectDirectory)\Artifacts\FunnelWeb-$(Major).$(Minor).$(Build).$(Revision)-source.zip"
       ZipLevel="9"
       />
-    
+	  
+    <PropertyGroup>
+		<PackageLocation>$(MSBuildProjectDirectory)\Artifacts\FunnelWeb-$(Major).$(Minor).$(Build).$(Revision)-msdeploy.zip</PackageLocation>
+	</PropertyGroup>
+	
     <!-- Compile -->
     <ItemGroup>
       <ProjectToBuild Include="$(Root)\src\FunnelWeb.sln" />
     </ItemGroup>
-    <MSBuild Projects="@(ProjectToBuild)" Targets="Build" Properties="Configuration=Release">
+    <MSBuild Projects="@(ProjectToBuild)" Targets="Build" Properties="Configuration=Release;DeployOnBuild=true;DeployTarget=Package;PackageLocation=$(PackageLocation);">
       <Output TaskParameter="TargetOutputs" ItemName="AssembliesBuiltByChildProjects" />
     </MSBuild>
 
