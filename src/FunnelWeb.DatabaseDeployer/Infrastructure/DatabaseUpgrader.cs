@@ -38,14 +38,14 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
         {
             var originalVersion = 0;
             var currentVersion = 0;
-            var maximumVersion = 0;
             var scripts = new List<IScript>();
+
             try
             {
                 log.WriteInformation("Beginning database upgrade. Connection string is: '{0}'", connectionString);
 
                 originalVersion = versionTracker.RecallVersionNumber(connectionString, scriptProvider.SourceIdentifier, log);
-                maximumVersion = scriptProvider.GetHighestScriptVersion();
+                var maximumVersion = scriptProvider.GetHighestScriptVersion();
 
                 currentVersion = originalVersion;
                 while (currentVersion < maximumVersion)
@@ -77,7 +77,7 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
         public DatabaseUpgradeResults PerformUpgrade(ILog log)
         {
             return new DatabaseUpgradeResults(UpgradeScriptProvider(applicationScriptProvider, log),
-                                              extensionScriptProviders.Select(sp => UpgradeScriptProvider(sp, log)));
+                                              extensionScriptProviders.Select(sp => UpgradeScriptProvider(sp, log)).ToList());
         }
     }
 }
