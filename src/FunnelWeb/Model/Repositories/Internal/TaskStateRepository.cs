@@ -20,7 +20,7 @@ namespace FunnelWeb.Model.Repositories.Internal
 
         public IQueryable<TaskState> GetAll()
         {
-            return session.Linq<TaskState>();
+            return session.Query<TaskState>();
         }
 
         public void Save(TaskState state)

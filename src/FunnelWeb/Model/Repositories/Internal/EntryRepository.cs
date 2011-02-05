@@ -23,20 +23,21 @@ namespace FunnelWeb.Model.Repositories.Internal
 
         public IQueryable<Entry> GetEntries()
         {
-            return session.Linq<Entry>();
+            return session.Query<Entry>();
         }
 
         public IEnumerable<Entry> GetUnpublished()
         {
-            return session.Linq<Entry>().Where(x => x.Status != EntryStatus.PublicBlog)
+            return session.Query<Entry>().Where(x => x.Status != EntryStatus.PublicBlog)
                 .OrderByDescending(x => x.Published);
         }
 
         public Entry GetEntry(int id)
         {
-            return session.Linq<Entry>()
-                .Expand("Revisions")
-                .FirstOrDefault(x => x.Id == id);
+            return session.QueryOver<Entry>()
+                .Where(x => x.Id == id)
+                .Fetch(x => x.Revisions).Eager()
+                .SingleOrDefault();
         }
 
         public Entry GetEntry(PageName name)
@@ -91,7 +92,7 @@ namespace FunnelWeb.Model.Repositories.Internal
         public Redirect GetClosestRedirect(PageName name)
         {
             var nameSoundEx = SoundEx.Evaluate(name);
-            var redirects = session.Linq<Redirect>()
+            var redirects = session.Query<Redirect>()
                 .ToList();
             return redirects.Where(x => SoundEx.Evaluate(x.From) == nameSoundEx).FirstOrDefault();
         }
@@ -101,7 +102,7 @@ namespace FunnelWeb.Model.Repositories.Internal
             session.SaveOrUpdate(entry);
             if (entry.LatestRevision.RevisionNumber == 0)
             {
-                entry.LatestRevision.RevisionNumber = session.Linq<Revision>().Where(x => x.Entry.Id == entry.Id).Count();
+                entry.LatestRevision.RevisionNumber = session.Query<Revision>().Where(x => x.Entry.Id == entry.Id).Count();
             }
             session.Update(entry.LatestRevision);
         }
@@ -134,14 +135,14 @@ namespace FunnelWeb.Model.Repositories.Internal
                             inner join CONTAINSTABLE([Entry], *, :searchString) as searchTable2 on searchTable2.[Key] = z.Id
                     ) as Entries on Entries.Id = e.Id
                     where e.Status != '" + EntryStatus.Private + @"'
-                    order by [Rank] desc",
-                "e",
-                typeof(Entry))
+                    order by [Rank] desc")
                 .SetMaxResults(300)
                 .SetString("searchString", searchQuery)
                 .SetReadOnly(true)
-                .List()
-                .OfType<Entry>().Distinct().Take(15).ToList();
+                .List<Entry>()
+                .Distinct()
+                .Take(15)
+                .ToList();
             return query;
         }
 

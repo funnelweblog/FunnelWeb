@@ -39,10 +39,11 @@ namespace FunnelWeb.Extensions.SqlAuthentication
         {
             var session = DependencyResolver.Current.GetService<ISession>();
             var checkIsUserInRole = session
-                                        .Linq<User>()
-                                        .Expand("Roles")
-                                        .Where(u => u.Username == username && u.Roles.Any(r => r.Name == roleName))
-                                        .Count() == 1;
+                                        .QueryOver<User>()
+                                        .Where(u=>u.Username == username)
+                                        .JoinQueryOver<Role>(r=>r.Roles)
+                                        .Where(r => r.Name == roleName)
+                                        .RowCount() == 1;
             return checkIsUserInRole;
         }
 
@@ -57,13 +58,13 @@ namespace FunnelWeb.Extensions.SqlAuthentication
         private static string[] FetchRolesForUser(string username)
         {
             var session = DependencyResolver.Current.GetService<ISession>();
-            var user = session
-                .Linq<User>()
+            var roles = session
+                .QueryOver<Role>()
+                .JoinQueryOver<User>(u=>u.Users)
                 .Where(u => u.Username == username)
-                .SingleOrDefault();
-            if (user != null)
-                return user.Roles.Select(r => r.Name).ToArray();
-            return null;
+                .Select(r=>r.Name)
+                .List<string>();
+            return roles.ToArray();
         }
 
         public void AddUserToRoles(User user, params string[] rolesToAddTo)
@@ -71,7 +72,7 @@ namespace FunnelWeb.Extensions.SqlAuthentication
             var session = DependencyResolver.Current.GetService<ISession>();
             foreach (var roleToAddTo in rolesToAddTo)
             {
-                var role = session.Linq<Role>().Where(r => r.Name == roleToAddTo).SingleOrDefault();
+                var role = session.QueryOver<Role>().Where(r => r.Name == roleToAddTo).SingleOrDefault();
                 role.Users.Add(user);
                 user.Roles.Add(role);
                 session.SaveOrUpdate(role);

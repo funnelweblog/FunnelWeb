@@ -49,9 +49,6 @@
     <Reference Include="Castle.Core">
       <HintPath>..\..\lib\NHibernate\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.DynamicProxy2">
-      <HintPath>..\..\lib\NHibernate\Castle.DynamicProxy2.dll</HintPath>
-    </Reference>
     <Reference Include="FluentNHibernate">
       <HintPath>..\..\lib\NHibernate\FluentNHibernate.dll</HintPath>
     </Reference>
@@ -68,17 +65,8 @@
     <Reference Include="NHibernate">
       <HintPath>..\..\lib\NHibernate\NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="NHibernate.ByteCode.Castle">
-      <HintPath>..\..\lib\NHibernate\NHibernate.ByteCode.Castle.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate.Linq">
-      <HintPath>..\..\lib\NHibernate\NHibernate.Linq.dll</HintPath>
-    </Reference>
     <Reference Include="NHibernate.Validator">
       <HintPath>..\..\lib\NHibernate\NHibernate.Validator.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate.Validator.Specific">
-      <HintPath>..\..\lib\NHibernate\NHibernate.Validator.Specific.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />

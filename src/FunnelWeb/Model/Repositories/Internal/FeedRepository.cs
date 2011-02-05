@@ -20,7 +20,7 @@ namespace FunnelWeb.Model.Repositories.Internal
 
         public int GetEntryCount()
         {
-            return session.Linq<Entry>().Where(e => e.Status == EntryStatus.PublicBlog).Count();
+            return session.Query<Entry>().Where(e => e.Status == EntryStatus.PublicBlog).Count();
         }
 
         public IEnumerable<Entry> GetRecentEntries(int skip, int take)
@@ -55,12 +55,15 @@ namespace FunnelWeb.Model.Repositories.Internal
 
         public IEnumerable<Comment> GetRecentComments(int skip, int take)
         {
-            return session.Linq<Comment>().Expand("Entry")
-                .OrderByDescending(x => x.Posted)
+            return session
+                .QueryOver<Comment>()
+                .Fetch(x=>x.Entry).Eager()
+                .OrderBy(x=>x.Posted).Desc()
+                .Where(x=> !x.IsSpam)
                 .Take((skip * take) + take * 10)
-                .ToList()
-                .Where(x => !x.IsSpam)
-                .Skip(skip).Take(take);
+                .Skip(skip)
+                .Take(take)
+                .List();
         }
     }
 }

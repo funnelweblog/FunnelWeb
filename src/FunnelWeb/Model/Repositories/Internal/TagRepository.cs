@@ -27,7 +27,7 @@ namespace FunnelWeb.Model.Repositories.Internal
         {
             tagName = tagName ?? string.Empty;
 
-            return from tag in session.Linq<Tag>()
+            return from tag in session.Query<Tag>()
                    where tag.Name.Contains(tagName)
                    select tag;
 
@@ -67,7 +67,7 @@ namespace FunnelWeb.Model.Repositories.Internal
 
         public int GetTaggedItemCount(string tagName)
         {
-            return session.Linq<TagItem>().Where(i => i.Tag.Name == tagName).Count();
+            return session.Query<TagItem>().Where(i => i.Tag.Name == tagName).Count();
         }
 
         public void Save(Tag feed)
@@ -82,14 +82,14 @@ namespace FunnelWeb.Model.Repositories.Internal
 
         public Tag GetTag(int id)
         {
-            return session.Linq<Tag>()
+            return session.Query<Tag>()
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
         }
 
         public Tag GetTag(string tagName)
         {
-            return session.Linq<Tag>()
+            return session.Query<Tag>()
                 .Where(x => x.Name.Contains(tagName))
                 .FirstOrDefault();
         }

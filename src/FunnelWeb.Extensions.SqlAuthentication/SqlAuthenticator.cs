@@ -39,8 +39,9 @@ namespace FunnelWeb.Extensions.SqlAuthentication
         private static bool SqlAuthenticateAndLogin(string username, string password)
         {
             var session = DependencyResolver.Current.GetService<ISession>();
-            var user = session.Linq<User>().SingleOrDefault(
-                u => u.Username == username && u.Password == FunnelWebSqlMembership.HashPassword(password));
+            var user = session.QueryOver<User>()
+                .Where(u => u.Username == username && u.Password == FunnelWebSqlMembership.HashPassword(password))
+                .SingleOrDefault();
 
             if (user != null)
             {

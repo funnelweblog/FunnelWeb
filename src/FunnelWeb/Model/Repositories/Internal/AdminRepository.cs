@@ -16,7 +16,7 @@ namespace FunnelWeb.Model.Repositories.Internal
 
         public IQueryable<Comment> GetComments(int skip, int take)
         {
-            return session.Linq<Comment>()
+            return session.Query<Comment>()
                 .OrderByDescending(x => x.Posted)
                 .Skip(skip)
                 .Take(take);
@@ -24,39 +24,39 @@ namespace FunnelWeb.Model.Repositories.Internal
 
         public IQueryable<Comment> GetSpam()
         {
-            return session.Linq<Comment>()
+            return session.Query<Comment>()
                 .Where(x => x.Status == 0);
         }
 
         public Comment GetComment(int commentId)
         {
-            return session.Linq<Comment>()
+            return session.Query<Comment>()
                 .Where(x => x.Id == commentId)
                 .FirstOrDefault();
         }
 
         public Pingback GetPingback(int pingback)
         {
-            return session.Linq<Pingback>()
+            return session.Query<Pingback>()
                 .Where(x => x.Id == pingback)
                 .FirstOrDefault();
         }
 
         public IQueryable<Setting> GetSettings()
         {
-            return session.Linq<Setting>()
+            return session.Query<Setting>()
                 .Take(1000);
         }
 
         public IQueryable<Redirect> GetRedirects()
         {
-            return session.Linq<Redirect>()
+            return session.Query<Redirect>()
                 .Take(1000);
         }
 
         public IEnumerable<Pingback> GetPingbacks()
         {
-            return session.Linq<Pingback>()
+            return session.Query<Pingback>()
                 .OrderByDescending(x => x.Id)
                 .Take(50);
         }

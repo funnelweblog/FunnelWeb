@@ -57,9 +57,6 @@
     <Reference Include="Castle.Core">
       <HintPath>..\..\lib\NHibernate\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.DynamicProxy2">
-      <HintPath>..\..\lib\NHibernate\Castle.DynamicProxy2.dll</HintPath>
-    </Reference>
     <Reference Include="ClientDependency.Core">
       <HintPath>..\..\lib\ClientDependency\ClientDependency.Core.dll</HintPath>
     </Reference>
@@ -69,7 +66,7 @@
     <Reference Include="FluentNHibernate">
       <HintPath>..\..\lib\NHibernate\FluentNHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+    <Reference Include="ICSharpCode.SharpZipLib">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\SharpZipLib\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
@@ -94,14 +91,11 @@
     <Reference Include="NHibernate.ByteCode.Castle">
       <HintPath>..\..\lib\NHibernate\NHibernate.ByteCode.Castle.dll</HintPath>
     </Reference>
-    <Reference Include="NHibernate.Linq">
-      <HintPath>..\..\lib\NHibernate\NHibernate.Linq.dll</HintPath>
-    </Reference>
     <Reference Include="NHibernate.Validator">
       <HintPath>..\..\lib\NHibernate\NHibernate.Validator.dll</HintPath>
     </Reference>
-    <Reference Include="NHibernate.Validator.Specific">
-      <HintPath>..\..\lib\NHibernate\NHibernate.Validator.Specific.dll</HintPath>
+    <Reference Include="Remotion.Data.Linq">
+      <HintPath>..\..\lib\NHibernate\Remotion.Data.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
