@@ -11,9 +11,7 @@ namespace FunnelWeb.Extensions.WcfDemo
         public override void Initialize(ContainerBuilder builder)
         {
             builder.RegisterType<DemoService>();
-            builder.RegisterType<JsonService>();
-            Routes.AddServiceRoute<DemoService, AutofacConfigurableServiceHostFactory>("services/demoservice", new HttpHostConfiguration());
-            Routes.AddServiceRoute<JsonService, AutofacConfigurableServiceHostFactory>("services/jsonservice", new JsonValueSampleConfiguration());
+            Routes.AddServiceRoute<DemoService, AutofacConfigurableServiceHostFactory>("services/demoservice", new JsonSupportConfiguration());
         }
 
         public string SourceIdentifier

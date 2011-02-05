@@ -7,7 +7,7 @@ using Microsoft.ServiceModel.Http;
 
 namespace FunnelWeb.Extensions.WcfDemo
 {
-    public class JsonValueSampleConfiguration : HttpHostConfiguration, IProcessorProvider
+    public class JsonSupportConfiguration : HttpHostConfiguration, IProcessorProvider
     {
         public void RegisterRequestProcessorsForOperation(HttpOperationDescription operation, IList<Processor> processors, MediaTypeProcessorMode mode)
         {
@@ -17,7 +17,6 @@ namespace FunnelWeb.Extensions.WcfDemo
         }
         public void RegisterResponseProcessorsForOperation(HttpOperationDescription operation, IList<Processor> processors, MediaTypeProcessorMode mode)
         {
-            processors.ClearMediaTypeProcessors();
             processors.Add(new JsonProcessor(operation, mode));
         }
     }

@@ -40,7 +40,9 @@
     <Reference Include="Autofac.Integration.Wcf, Version=2.4.3.700, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\..\lib\Autofac\Autofac.Integration.Wcf.dll</HintPath>
     </Reference>
-    <Reference Include="FluentNHibernate, Version=1.0.0.593, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL" />
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\..\lib\NHibernate\FluentNHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Net.Http">
       <HintPath>Lib\Microsoft.Net.Http.dll</HintPath>
     </Reference>
@@ -56,8 +58,12 @@
     <Reference Include="Microsoft.ServiceModel.WebHttp">
       <HintPath>Lib\Microsoft.ServiceModel.WebHttp.dll</HintPath>
     </Reference>
-    <Reference Include="NHibernate, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL" />
-    <Reference Include="NHibernate.Linq, Version=1.0.0.4000, Culture=neutral, PublicKeyToken=444cf6a87fdab271, processorArchitecture=MSIL" />
+    <Reference Include="NHibernate">
+      <HintPath>..\..\lib\NHibernate\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.Linq">
+      <HintPath>..\..\lib\NHibernate\NHibernate.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -74,10 +80,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutofacConfigurableServiceHostFactory.cs" />
-    <Compile Include="JsonValueSampleConfiguration.cs" />
+    <Compile Include="JsonSupportConfiguration.cs" />
     <Compile Include="Model\Data.cs" />
     <Compile Include="Model\Mapping\DataMappings.cs" />
-    <Compile Include="Services\JsonService.cs" />
     <Compile Include="Services\DemoService.cs" />
     <Compile Include="WcfDemoBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
