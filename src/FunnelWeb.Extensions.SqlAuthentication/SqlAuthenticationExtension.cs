@@ -13,6 +13,7 @@ namespace FunnelWeb.Extensions.SqlAuthentication
             builder
                 .RegisterType<SqlAuthenticator>()
                 .As<IAuthenticator>()
+                .AsSelf()
                 .SingleInstance();
 
             builder
