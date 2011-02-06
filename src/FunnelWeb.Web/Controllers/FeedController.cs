@@ -24,7 +24,7 @@ namespace FunnelWeb.Web.Controllers
         {
             var settings = Settings.GetSettings<FunnelWebSettings>();
 
-			var feedUrl = new Uri(Request.Url, Url.Action("Recent", "WikiAdmin", new { Area = "Admin" }));
+			var feedUrl = new Uri(Request.Url, Url.Action("Recent", "Wiki"));
             return new FeedResult(
                 new Atom10FeedFormatter(
                     new SyndicationFeed(settings.SiteTitle, settings.SearchDescription, feedUrl, items)
@@ -52,8 +52,8 @@ namespace FunnelWeb.Web.Controllers
 
             var items =
                 from e in entries
-				let itemUri = new Uri(Request.Url, Url.Action("Page", "WikiAdmin", new { Area = "Admin", page = e.Name }))
-				let viaFeedUri = new Uri(Request.Url, "/via-feed" + Url.Action("Page", "WikiAdmin", new { Area = "Admin", page = e.Name }))
+				let itemUri = new Uri(Request.Url, Url.Action("Page", "Wiki", new { page = e.Name }))
+				let viaFeedUri = new Uri(Request.Url, "/via-feed" + Url.Action("Page", "Wiki", new { page = e.Name }))
                 orderby e.Published descending
                 let content = SyndicationContent.CreateHtmlContent(
                             BuildFeedItemBody(itemUri, viaFeedUri, e.LatestRevision))
