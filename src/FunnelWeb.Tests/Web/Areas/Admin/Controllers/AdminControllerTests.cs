@@ -1,15 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
-using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Web.Areas.Admin.Controllers;
-using FunnelWeb.Web.Controllers;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace FunnelWeb.Tests.Web.Controllers
+namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
 {
     [TestFixture]
     public class AdminControllerTests
@@ -21,10 +17,12 @@ namespace FunnelWeb.Tests.Web.Controllers
         [SetUp]
         public void SetUp()
         {
-            Controller = new AdminController();
-            Controller.AdminRepository = AdminRepository = Substitute.For<IAdminRepository>();
-            Controller.FeedRepository = FeedRepository = Substitute.For<ITagRepository>();
-            Controller.ControllerContext = CreateControllerContext();
+            Controller = new AdminController
+                             {
+                                 AdminRepository = AdminRepository = Substitute.For<IAdminRepository>(),
+                                 FeedRepository = FeedRepository = Substitute.For<ITagRepository>(),
+                                 ControllerContext = CreateControllerContext()
+                             };
         }
 
         [Test]
@@ -40,7 +38,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         {
             var result = (RedirectToRouteResult)Controller.DeleteComment(0);
 
-            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Comments"));
+            Assert.That(result.RouteValues["Action"], Is.EqualTo("Comments"));
         }
 
         [Test]
@@ -48,7 +46,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         {
             var result = (RedirectToRouteResult)Controller.DeleteAllSpam();
 
-            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Comments"));
+            Assert.That(result.RouteValues["Action"], Is.EqualTo("Comments"));
         }
 
         [Test]
@@ -56,7 +54,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         {
             var result = (RedirectToRouteResult)Controller.DeletePingback(0);
 
-            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Pingbacks"));
+            Assert.That(result.RouteValues["Action"], Is.EqualTo("Pingbacks"));
         }
 
         [Test]
@@ -64,7 +62,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         {
             var result = (RedirectToRouteResult)Controller.ToggleSpam(0);
 
-            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Comments"));
+            Assert.That(result.RouteValues["Action"], Is.EqualTo("Comments"));
         }
 
         [Test]
@@ -72,7 +70,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         {
             var result = (RedirectToRouteResult)Controller.TogglePingbackSpam(0);
 
-            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Pingbacks"));
+            Assert.That(result.RouteValues["Action"], Is.EqualTo("Pingbacks"));
         }
 
         private static ControllerContext CreateControllerContext()
