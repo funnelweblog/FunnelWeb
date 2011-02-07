@@ -5,11 +5,10 @@ using FunnelWeb.Model.Repositories;
 using FunnelWeb.Web.Application;
 using FunnelWeb.Web.Application.Mime;
 using FunnelWeb.Web.Areas.Admin.Controllers;
-using FunnelWeb.Web.Controllers;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace FunnelWeb.Tests.Web.Controllers
+namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
 {
     [TestFixture]
     public class UploadControllerTests
@@ -21,10 +20,12 @@ namespace FunnelWeb.Tests.Web.Controllers
         [SetUp]
         public void SetUp()
         {
-            Controller = new UploadController();
-            Controller.FileRepository = FileRepository = Substitute.For<IFileRepository>();
-            Controller.MimeHelper = MimeTypeLookup = Substitute.For<IMimeTypeLookup>();
-            Controller.ControllerContext = CreateControllerContext();
+            Controller = new UploadController
+                             {
+                                 FileRepository = FileRepository = Substitute.For<IFileRepository>(),
+                                 MimeHelper = MimeTypeLookup = Substitute.For<IMimeTypeLookup>(),
+                                 ControllerContext = CreateControllerContext()
+                             };
         }
 
         [Test]
@@ -35,7 +36,7 @@ namespace FunnelWeb.Tests.Web.Controllers
             var result = (RedirectToRouteResult)Controller.Index("test");
 
             FileRepository.Received().IsFile(Arg.Any<string>());
-            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
+            Assert.That(result.RouteValues["Action"], Is.EqualTo("Index"));
         }
 
         [Test]
@@ -94,8 +95,8 @@ namespace FunnelWeb.Tests.Web.Controllers
         {
             var result = (RedirectToRouteResult)Controller.CreateDirectory("path", string.Empty);
 
-            FileRepository.Received().CreateDirectory(Arg.Is<string>("path"), Arg.Any<string>());
-            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
+            FileRepository.Received().CreateDirectory(Arg.Is("path"), Arg.Any<string>());
+            Assert.That(result.RouteValues["Action"], Is.EqualTo("Index"));
             Assert.That(result.RouteValues["path"], Is.EqualTo("path"));
         }
 
@@ -104,22 +105,22 @@ namespace FunnelWeb.Tests.Web.Controllers
         {
             var result = (RedirectToRouteResult)Controller.Delete("path", "file");
 
-            FileRepository.Received().Delete(Arg.Is<string>("file"));
-            Assert.That((string)result.RouteValues["Action"], Is.EqualTo("Index"));
+            FileRepository.Received().Delete(Arg.Is("file"));
+            Assert.That(result.RouteValues["Action"], Is.EqualTo("Index"));
             Assert.That(result.RouteValues["path"], Is.EqualTo("path"));
         }
 
         [Test]
         public void RenderExistingFile()
         {
-            FileRepository.IsFile(Arg.Is<string>("file")).Returns(true);
-            FileRepository.MapPath(Arg.Is<string>("file")).Returns("file");
+            FileRepository.IsFile(Arg.Is("file")).Returns(true);
+            FileRepository.MapPath(Arg.Is("file")).Returns("file");
 
             MimeTypeLookup.GetMimeType(Arg.Any<string>()).Returns("mime-type");
 
             var result = (FilePathResult)Controller.Render("file");
 
-            FileRepository.Received().IsFile(Arg.Is<string>("file"));
+            FileRepository.Received().IsFile(Arg.Is("file"));
             MimeTypeLookup.Received().GetMimeType(Arg.Any<string>());
 
             Assert.That(result.FileName, Is.EqualTo("file"));
@@ -129,11 +130,11 @@ namespace FunnelWeb.Tests.Web.Controllers
         [Test]
         public void RenderMissingFile()
         {
-            FileRepository.IsFile(Arg.Is<string>("file")).Returns(false);
+            FileRepository.IsFile(Arg.Is("file")).Returns(false);
 
             var result = (RedirectResult)Controller.Render("file");
 
-            FileRepository.Received().IsFile(Arg.Is<string>("file"));
+            FileRepository.Received().IsFile(Arg.Is("file"));
             FileRepository.DidNotReceive().MapPath(Arg.Any<string>());
             MimeTypeLookup.DidNotReceive().GetMimeType(Arg.Any<string>());
 
