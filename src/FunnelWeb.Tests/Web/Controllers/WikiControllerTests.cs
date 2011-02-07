@@ -22,7 +22,6 @@ namespace FunnelWeb.Tests.Web.Controllers
     public class WikiControllerTests
     {
         protected WikiController Controller { get; set; }
-		protected WikiAdminController AdminController { get; set; }
         protected ControllerContext ControllerContext { get; set; }
         protected IEntryRepository EntryRepository { get; set; }
         protected ITagRepository FeedRepository { get; set; }
@@ -38,12 +37,6 @@ namespace FunnelWeb.Tests.Web.Controllers
             Controller.TagRepository = FeedRepository = Substitute.For<ITagRepository>();
             Controller.SpamChecker = SpamChecker = Substitute.For<ISpamChecker>();
             Controller.ControllerContext = ControllerContext = CreateControllerContext();
-
-			AdminController = new WikiAdminController();
-			AdminController.EntryRepository = EntryRepository = Substitute.For<IEntryRepository>();
-			AdminController.TagRepository = FeedRepository = Substitute.For<ITagRepository>();
-			AdminController.SpamChecker = SpamChecker = Substitute.For<ISpamChecker>();
-			AdminController.ControllerContext = ControllerContext = CreateControllerContext();
 
             Identity = Substitute.For<IIdentity>();
             User = Substitute.For<IPrincipal>();
@@ -112,25 +105,6 @@ namespace FunnelWeb.Tests.Web.Controllers
             var model = (PageModel)result.ViewData.Model;
             Assert.AreEqual(entry, model.Entry);
             EntryRepository.Received().GetEntry(Arg.Is<PageName>(entry.Name), Arg.Is<int>(0));
-        }
-
-        [Test]
-        public void EditReturnsExistingPageWhenFound()
-        {
-            var entry = new Entry() { Name = "awesome-post", LatestRevision = new Revision() };
-            EntryRepository.GetEntry(Arg.Any<PageName>(), Arg.Any<int>()).Returns(entry);
-
-            var feeds = new List<Tag>().AsQueryable();
-            FeedRepository.GetTags().Returns(feeds);
-
-			var result = (ViewResult)AdminController.Edit(entry.Name, null);
-
-            Assert.AreEqual("Edit", result.ViewName);
-            Assert.AreEqual(feeds, ((EditModel)result.ViewData.Model).AllTags);
-            Assert.AreEqual(entry.Name.ToString(), ((EditModel)result.ViewData.Model).Page);
-
-            EntryRepository.Received().GetEntry(Arg.Any<PageName>(), Arg.Any<int>());
-            FeedRepository.Received().GetTags();
         }
 
         private static ControllerContext CreateControllerContext()

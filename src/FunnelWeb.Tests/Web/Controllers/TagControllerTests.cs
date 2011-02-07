@@ -18,6 +18,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         {
             //Arrange
             var repo = Substitute.For<ITagRepository>();
+            repo.GetTags(Arg.Any<string>()).Returns(x => Enumerable.Empty<Tag>().AsQueryable());
             var controller = new TagController(repo);
 
             //Act
@@ -26,8 +27,7 @@ namespace FunnelWeb.Tests.Web.Controllers
             //Assert
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Data);
-            Assert.IsInstanceOf(typeof (IEnumerable<Tag>), result.Data);
-            Assert.IsFalse(((IEnumerable<Tag>) result.Data).Any());
+            Assert.IsFalse(((IEnumerable<object>) result.Data).Any());
         }
 
         [Test]
@@ -48,7 +48,7 @@ namespace FunnelWeb.Tests.Web.Controllers
             var result = controller.Index() as JsonResult;
 
             //Assert
-            Assert.IsTrue(((IQueryable<Tag>)result.Data).Count() == 5);
+            Assert.IsTrue(((IQueryable<object>)result.Data).Count() == 5);
         }
 
         [Test]
