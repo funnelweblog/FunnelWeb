@@ -1,6 +1,6 @@
 using System;
-using NHibernate.Validator.Constraints;
 using System.ComponentModel.DataAnnotations;
+using NHibernate.Validator.Constraints;
 
 namespace FunnelWeb.Model
 {

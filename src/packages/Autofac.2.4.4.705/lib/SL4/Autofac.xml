@@ -969,6 +969,27 @@
             The lifetime scope that is ending.
             </summary>
         </member>
+        <member name="T:Autofac.Core.Lifetime.LifetimeScopeResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Autofac.Core.Lifetime.LifetimeScopeResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Autofac.Core.Lifetime.LifetimeScopeResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Autofac.Core.Lifetime.LifetimeScopeResources.ScopeIsDisposed">
+            <summary>
+              Looks up a localized string similar to Instances cannot be resolved and nested lifetimes cannot be created from this LifetimeScope as it has already been disposed..
+            </summary>
+        </member>
         <member name="T:Autofac.Core.RegistrationSourceAddedEventArgs">
             <summary>
             Fired when an <see cref="T:Autofac.Core.IRegistrationSource"/> is added to the registry.
@@ -1130,6 +1151,11 @@
             Releases unmanaged and - optionally - managed resources
             </summary>
             <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        </member>
+        <member name="P:Autofac.Util.Disposable.IsDisposed">
+            <summary>
+            Returns true if the current instance has been disposed; otherwise false;
+            </summary>
         </member>
         <member name="T:Autofac.Core.IComponentRegistration">
             <summary>
@@ -2895,15 +2921,6 @@
             <param name="message">The message.</param>
             <param name="innerException">The inner exception.</param>
         </member>
-        <member name="M:Autofac.Core.DependencyResolutionException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Autofac.Core.Registration.ComponentNotRegisteredException"/> class.
-            </summary>
-            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
-            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.</param>
-            <exception cref="T:System.ArgumentNullException">The <paramref name="info"/> parameter is null. </exception>
-            <exception cref="T:System.Runtime.Serialization.SerializationException">The class name is null or <see cref="P:System.Exception.HResult"/> is zero (0). </exception>
-        </member>
         <member name="T:Autofac.Core.DependencyResolutionExceptionResources">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
@@ -3349,15 +3366,6 @@
             <param name="service">The service.</param>
             <param name="innerException">The inner exception.</param>
         </member>
-        <member name="M:Autofac.Core.Registration.ComponentNotRegisteredException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Autofac.Core.Registration.ComponentNotRegisteredException"/> class.
-            </summary>
-            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
-            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.</param>
-            <exception cref="T:System.ArgumentNullException">The <paramref name="info"/> parameter is null. </exception>
-            <exception cref="T:System.Runtime.Serialization.SerializationException">The class name is null or <see cref="P:System.Exception.HResult"/> is zero (0). </exception>
-        </member>
         <member name="T:Autofac.Core.Registration.ComponentNotRegisteredExceptionResources">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
@@ -3651,6 +3659,11 @@
         <member name="P:Autofac.Core.Resolving.ResolveOperationResources.MaxDepthExceeded">
             <summary>
               Looks up a localized string similar to Probable circular dependency between factory-scoped components. Chain includes &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:Autofac.Core.Resolving.ResolveOperationResources.TemporaryContextDisposed">
+            <summary>
+              Looks up a localized string similar to This resolve operation has already ended. When registering components using lambdas, the IComponentContext &apos;c&apos; parameter to the lambda cannot be stored. Instead, either resolve IComponentContext again from &apos;c&apos;, or resolve a Func&lt;&gt; based factory to create subsequent components from..
             </summary>
         </member>
         <member name="T:Autofac.Core.TypedService">
@@ -6027,6 +6040,16 @@
             <param name="sequence">The sequence.</param>
             <param name="leadingItem">The leading item.</param>
             <returns></returns>
+        </member>
+        <member name="T:System.Security.AllowPartiallyTrustedCallersAttribute">
+            <summary>
+            Attribute marker to make code compatible with Silverlight
+            </summary>
+        </member>
+        <member name="T:System.SerializableAttribute">
+            <summary>
+            Attribute marker to make code compatible with Silverlight
+            </summary>
         </member>
         <member name="M:Autofac.Util.TypeExtensions.GetTypesThatClose(System.Type,System.Type)">
             <summary>Returns the first concrete interface supported by the candidate type that
