@@ -42,25 +42,11 @@ namespace FunnelWeb.Model.Repositories.Internal
 
         public Entry GetEntry(PageName name)
         {
-            var entryQuery = (Hashtable)session.CreateCriteria<Entry>("entry")
-                .Add(Restrictions.Eq("entry.Name", name))
-                .CreateCriteria("Revisions", "rev")
-                    .AddOrder(Order.Desc("rev.Revised"))
-                .SetMaxResults(1)
-                .SetResultTransformer(Transformers.AliasToEntityMap)
-                .UniqueResult();
-
-            if (entryQuery == null) return null;
-
-            var entry = (Entry)entryQuery["entry"];
-            entry.LatestRevision = (Revision)entryQuery["rev"];
-
-            var comments = session.CreateFilter(entry.Comments, "")
-                .SetFirstResult(0)
-                .SetMaxResults(500)
-                .List();
-            entry.Comments = new HashedSet<Comment>(comments.Cast<Comment>().ToList());
-
+            var entry = session
+                .QueryOver<Entry>()
+                .Where(e => e.Name == name)
+                .Left.JoinQueryOver(e => e.Comments)
+                .SingleOrDefault<Entry>();
             return entry;
         }
 
@@ -104,7 +90,6 @@ namespace FunnelWeb.Model.Repositories.Internal
             {
                 entry.LatestRevision.RevisionNumber = session.Query<Revision>().Where(x => x.Entry.Id == entry.Id).Count();
             }
-            session.Update(entry.LatestRevision);
         }
 
         public IEnumerable<Entry> Search(string searchText)
