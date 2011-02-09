@@ -7,7 +7,7 @@ namespace FunnelWeb.Model.Mappings
         public RevisionMapping()
         {
             Id(x => x.Id);
-            Map(x => x.Body);
+            Map(x => x.Body).Length(12000);
             Map(x => x.Reason);
             Map(x => x.Revised);
             Map(x => x.RevisionNumber);
