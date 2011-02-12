@@ -59,7 +59,6 @@ namespace FunnelWeb.Model
             {
                 revision.Body = original.Body;
                 revision.Reason = original.Reason;
-                revision.Tags = original.Tags;
             }
             revision.Entry = this;
             revision.Revised = DateTime.UtcNow;
@@ -70,9 +69,11 @@ namespace FunnelWeb.Model
 
         public virtual Comment Comment()
         {
-            var comment = new Comment();
-            comment.Entry = this;
-            comment.Posted = DateTime.UtcNow;
+            var comment = new Comment
+            {
+                Entry = this,
+                Posted = DateTime.UtcNow
+            };
             Comments.Add(comment);
             return comment;
         }

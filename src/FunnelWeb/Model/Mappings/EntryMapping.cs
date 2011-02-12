@@ -25,10 +25,8 @@ namespace FunnelWeb.Model.Mappings
                 c=>
                     {
                         c.Map(r => r.Id, "LatestRevisionId");
-                        c.Map(r => r.RevisionNumber, "LatestRevisionNumber");
-                        c.Map(r => r.Body, "LatestRevisionBody");
-                        c.Map(r => r.Reason, "LatestRevisionReason");
-                        c.Map(r => r.Tags, "LatestRevisionTags");
+                        c.Map(r => r.RevisionNumber);
+                        c.Map(r => r.Body);
                     });
 
             HasManyToMany(x => x.Tags)
