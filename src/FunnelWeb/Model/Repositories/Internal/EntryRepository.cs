@@ -37,6 +37,7 @@ namespace FunnelWeb.Model.Repositories.Internal
             return session.QueryOver<Entry>()
                 .Where(x => x.Id == id)
                 .Fetch(x => x.Revisions).Eager()
+                .Fetch(x => x.Tags).Eager()
                 .SingleOrDefault();
         }
 
