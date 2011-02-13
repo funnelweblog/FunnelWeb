@@ -108,27 +108,25 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
 			EntryRepository.Save(entry);
 
-			entry.Tags.Clear();
-			foreach (var tagName in model.TagsString.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries))
-			{
-				int id;
-				Tag tag;
-				if (int.TryParse(tagName, out id))
-				{
-					tag = TagRepository.GetTag(id);
-				}
-				else
-				{
-					tag = new Tag
-					      	{
-					      		Name = tagName
-					      	};
-					TagRepository.Save(tag);
-				}
-
-				entry.Tags.Add(tag);
-				TagRepository.Save(tag);
-			}
+            //Unsure why, but previous tags appear as 0, so if i have two old tags and 1 new, i will get 0,0,newtag
+            foreach (var tagName in model.TagsString.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Where(s => s != "0"))
+            {
+                int id;
+                Tag tag;
+                if (int.TryParse(tagName, out id))
+                {
+                    //tag = TagRepository.GetTag(id);
+                }
+                else
+                {
+                    tag = new Tag
+                    {
+                        Name = tagName
+                    };
+                    TagRepository.Save(tag);
+                    entry.Tags.Add(tag);
+                }
+            }
 
 			return RedirectToAction("Page", "Wiki", new { Area = "", page = model.Page});
 		}

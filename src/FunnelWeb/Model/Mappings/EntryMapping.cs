@@ -21,6 +21,14 @@ namespace FunnelWeb.Model.Mappings
 			Map(x => x.PageTemplate);
             Map(x => x.CommentCount).Formula("(SELECT COUNT(*) from Comment where Comment.EntryID = ID and Comment.Status = 1)");
 
+            Component(o => o.LatestRevision,
+                c=>
+                    {
+                        c.Map(r => r.Id, "LatestRevisionId");
+                        c.Map(r => r.RevisionNumber);
+                        c.Map(r => r.Body);
+                    });
+
             HasManyToMany(x => x.Tags)
                 .Table("TagItem")
                 .ParentKeyColumn("EntryId")

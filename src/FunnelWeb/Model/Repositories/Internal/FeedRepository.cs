@@ -25,32 +25,16 @@ namespace FunnelWeb.Model.Repositories.Internal
 
         public IEnumerable<Entry> GetRecentEntries(int skip, int take)
         {
-            var entryQuery = (ArrayList)session.CreateCriteria<Entry>("entry")
-                .CreateCriteria("entry.Revisions", "rev")
-                .Add(Restrictions.EqProperty("rev.Id", Projections.SubQuery(
-                    DetachedCriteria.For<Revision>("rv")
-                        .SetProjection(Projections.Property("rv.Id"))
-                        .AddOrder(Order.Desc("rv.Revised"))
-                        .Add(Restrictions.EqProperty("rv.Entry.Id", "entry.Id"))
-                        .SetMaxResults(1))))
-                .Add(Restrictions.Eq("entry.Status", EntryStatus.PublicBlog))
-                .Add(Restrictions.Le("entry.Published", DateTime.UtcNow.Date.AddDays(1)))
-                .AddOrder(Order.Desc("entry.Published"))
-                .SetFirstResult(skip)
-                .SetMaxResults(take)
-                .SetResultTransformer(Transformers.AliasToEntityMap)
+            var entryQuery = session
+                .QueryOver<Entry>()
+                .Where(e=>e.Status == EntryStatus.PublicBlog)
+                .And(e=>e.Published < DateTime.UtcNow.Date.AddDays(1))
+                .OrderBy(e=>e.Published).Desc
+                .Skip(skip)
+                .Take(take)
                 .List();
 
-            var results = new List<Entry>();
-            foreach (var record in entryQuery.Cast<Hashtable>())
-            {
-                var entry = (Entry)record["entry"];
-                var revision = (Revision)record["rev"];
-                entry.LatestRevision = revision;
-                results.Add(entry);
-            }
-
-            return results;
+            return entryQuery;
         }
 
         public IEnumerable<Comment> GetRecentComments(int skip, int take)

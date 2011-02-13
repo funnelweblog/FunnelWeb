@@ -9,8 +9,6 @@ namespace FunnelWeb.Model
 {
     public class Entry
     {
-        private Revision revision;
-
         public Entry()
         {
             Title = string.Empty;
@@ -39,16 +37,9 @@ namespace FunnelWeb.Model
         public virtual string MetaTitle { get; set; }
         public virtual bool HideChrome { get; set; }
         public virtual string Status { get; set; }
-        
+
         [Valid]
-        public virtual Revision LatestRevision 
-        { 
-            get
-            {
-                return revision ?? Revisions.OrderByDescending(x => x.Revised).FirstOrDefault();
-            }
-            set { revision = value; }
-        }
+        public virtual Revision LatestRevision { get; set; }
 
         public virtual ISet<Revision> Revisions { get; private set; }
         public virtual ISet<Comment> Comments { get; set; }
@@ -68,20 +59,21 @@ namespace FunnelWeb.Model
             {
                 revision.Body = original.Body;
                 revision.Reason = original.Reason;
-                revision.Tags = original.Tags;
             }
             revision.Entry = this;
             revision.Revised = DateTime.UtcNow;
-            this.revision = revision;
+            LatestRevision = revision;
             Revisions.Add(revision);
             return revision;
         }
 
         public virtual Comment Comment()
         {
-            var comment = new Comment();
-            comment.Entry = this;
-            comment.Posted = DateTime.UtcNow;
+            var comment = new Comment
+            {
+                Entry = this,
+                Posted = DateTime.UtcNow
+            };
             Comments.Add(comment);
             return comment;
         }

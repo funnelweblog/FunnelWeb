@@ -11,7 +11,6 @@ namespace FunnelWeb.Model
             Body = string.Empty;
             Reason = string.Empty;
             Revised = DateTime.UtcNow;
-            Tags = string.Empty;
             Status = 0;
             Format = Formats.Markdown;
         }
@@ -26,7 +25,6 @@ namespace FunnelWeb.Model
         public virtual string Format { get; set; }
         public virtual DateTime Revised { get; set; }
         public virtual int RevisionNumber { get; set; }
-        public virtual string Tags { get; set; }
         public virtual int Status { get; set; }
         public virtual Entry Entry { get; set; }
     }
