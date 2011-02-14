@@ -115,7 +115,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
                 Tag tag;
                 if (int.TryParse(tagName, out id))
                 {
-                    //tag = TagRepository.GetTag(id);
+                    tag = TagRepository.GetTag(id);
                 }
                 else
                 {
@@ -124,8 +124,8 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
                         Name = tagName
                     };
                     TagRepository.Save(tag);
-                    entry.Tags.Add(tag);
                 }
+                entry.Tags.Add(tag);
             }
 
 			return RedirectToAction("Page", "Wiki", new { Area = "", page = model.Page});
