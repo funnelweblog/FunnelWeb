@@ -96,7 +96,8 @@ namespace FunnelWeb.Web.Controllers
                 model.Entry = entry;
                 model.IsPriorVersion = false;
                 model.Page = page;
-                return View("Page", model)
+                var masterPage = "PageTemplates/" + (entry.PageTemplate ?? "Default");
+                return View("Page", masterPage, model)
                     .AndFlash("Your comment was not posted - please check the validation errors below.");
             }
 
