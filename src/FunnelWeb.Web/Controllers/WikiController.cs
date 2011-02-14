@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using FunnelWeb.Eventing;
@@ -9,12 +8,9 @@ using FunnelWeb.Model.Strings;
 using FunnelWeb.Settings;
 using FunnelWeb.Web.Application.Filters;
 using FunnelWeb.Web.Application.Mvc;
+using FunnelWeb.Web.Application.Mvc.ActionResults;
 using FunnelWeb.Web.Application.Spam;
-using FunnelWeb.Web.Areas.Admin.Views.WikiAdmin;
 using FunnelWeb.Web.Views.Wiki;
-using PageModel = FunnelWeb.Web.Views.Wiki.PageModel;
-using RecentModel = FunnelWeb.Web.Views.Wiki.RecentModel;
-using RevisionsModel = FunnelWeb.Web.Views.Wiki.RevisionsModel;
 
 namespace FunnelWeb.Web.Controllers
 {
@@ -39,8 +35,8 @@ namespace FunnelWeb.Web.Controllers
                 var entry = EntryRepository.GetEntry(settings.CustomHomePage);
                 if (entry != null)
                 {
-					var masterPage = "PageTemplates/"  + (entry.PageTemplate ?? "Default");
-					return View("Page", masterPage, new PageModel(entry.Name, entry, false));
+                    ViewData.Model = new PageModel(entry.Name, entry, false);
+                    return new PageTemplateActionResult("Page", entry.PageTemplate);
                 }
             }
 
@@ -79,8 +75,7 @@ namespace FunnelWeb.Web.Controllers
             }
 
             ViewData.Model = new PageModel(page, entry, revision > 0);
-			var masterPage = "PageTemplates/"  + (entry.PageTemplate ?? "Default");
-			return View(null, masterPage);
+            return new PageTemplateActionResult(entry.PageTemplate);
         }
 
         // Posting a comment
@@ -96,8 +91,8 @@ namespace FunnelWeb.Web.Controllers
                 model.Entry = entry;
                 model.IsPriorVersion = false;
                 model.Page = page;
-                var masterPage = "PageTemplates/" + (entry.PageTemplate ?? "Default");
-                return View("Page", masterPage, model)
+                ViewData.Model = model;
+                return new PageTemplateActionResult(entry.PageTemplate, "Page")
                     .AndFlash("Your comment was not posted - please check the validation errors below.");
             }
 

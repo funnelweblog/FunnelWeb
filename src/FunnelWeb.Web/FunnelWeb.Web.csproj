@@ -188,6 +188,7 @@
     <Compile Include="Application\Mvc\MvcExtensions.cs" />
     <Compile Include="Application\Mvc\RouteCollectionExtension.cs" />
     <Compile Include="Application\Mvc\ValidUrlAttribute.cs" />
+    <Compile Include="Application\Mvc\ActionResults\PageTemplateActionResult.cs" />
     <Compile Include="Application\RequireUpdatedDatabaseHttpModule.cs" />
     <Compile Include="Application\Mvc\FunnelWebViewEngine.cs" />
     <Compile Include="Application\Views\IMarkdownProvider.cs" />
