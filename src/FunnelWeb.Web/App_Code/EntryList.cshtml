@@ -16,7 +16,7 @@
       </div>
       <div class='comments'>
         <a href='@Url.Action("Page", new { page = entry.Name })#comments'>
-          <span class='comment-count'>@entry.CommentCount</span>
+          <span>comment@(entry.CommentCount == 1 ? "" : "s")</span>
           <span>comments</span> 
         </a>
       </div>
