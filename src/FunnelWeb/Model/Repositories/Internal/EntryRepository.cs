@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Bindable.Core.Language;
@@ -110,61 +109,32 @@ namespace FunnelWeb.Model.Repositories.Internal
         {
             var searchTerms = searchText.Split(' ', '-', '_').Where(x => !string.IsNullOrEmpty(x)).Select(x => "\"" + x + "*\"");
             var searchQuery = string.Join(" OR ", searchTerms.ToArray());
-            var query = session.CreateSQLQuery(
-                @"select {e.*} from [Entry] {e}
-                    inner join (
-                        select z.*, [Rank] from [Entry] z
-                            inner join [Revision] rv on z.Id = rv.EntryId
-                            inner join CONTAINSTABLE([Revision], *, :searchString) as searchTable1 on searchTable1.[Key] = rv.Id
-                        union all 
-                        select z.*, [Rank] from [Entry] z
-                            inner join CONTAINSTABLE([Entry], *, :searchString) as searchTable2 on searchTable2.[Key] = z.Id
-                    ) as Entries on Entries.Id = e.Id
-                    where e.Status != '" + EntryStatus.Private + @"'
-                    order by [Rank] desc")
-                .SetMaxResults(300)
-                .SetString("searchString", searchQuery)
-                .SetReadOnly(true)
-                .List<Entry>()
-                .Distinct()
+
+            var query = session.QueryOver<Entry>()
+                .Where(Expression.Sql("CONTAINS(*, ?)", searchQuery, NHibernateUtil.String))
+                .And(e => e.Status != EntryStatus.Private)
                 .Take(15)
-                .ToList();
+                .List<Entry>();
+
             return query;
         }
 
         public IEnumerable<Entry> SearchUsingLike(string searchText)
         {
-            var searchTerms = "%" + new string(searchText.Where(x => char.IsLetterOrDigit(x) || x == ' ').ToArray()) + "%";
-            searchTerms.Replace(" ", "%");
+            var searchTerms = new string(searchText.Where(x => char.IsLetterOrDigit(x) || x == ' ').ToArray());
+            searchTerms = searchTerms.Replace(" ", "%");
 
-            var entryQuery = (ArrayList)session.CreateCriteria<Entry>("entry")
-                .CreateCriteria("entry.Revisions", "rev")
-                .Add(Restrictions.EqProperty("rev.Id", Projections.SubQuery(
-                    DetachedCriteria.For<Revision>("rv")
-                        .SetProjection(Projections.Property("rv.Id"))
-                        .AddOrder(Order.Desc("rv.Revised"))
-                        .Add(Restrictions.EqProperty("rv.Entry.Id", "entry.Id"))
-                        .SetMaxResults(1))))
-                .Add(new OrExpression(
-                    Restrictions.Like("entry.Title", searchTerms),
-                    Restrictions.Like("rev.Body", searchTerms)
-                    ))
-                .Add(Restrictions.Not(Restrictions.Eq("entry.Status", EntryStatus.Private)))
-                .SetFirstResult(0)
-                .SetMaxResults(15)
-                .SetResultTransformer(Transformers.AliasToEntityMap)
-                .List();
+            var query = session.QueryOver<Entry>()
+                .Where
+                (
+                    Restrictions.On<Entry>(e => e.LatestRevision.Body).IsLike(searchTerms, MatchMode.Anywhere) 
+                    ||
+                    Restrictions.On<Entry>(e => e.Title).IsLike(searchTerms, MatchMode.Anywhere)
+                )
+                .Take(15)
+                .List<Entry>();
 
-            var results = new List<Entry>();
-            foreach (var record in entryQuery.Cast<Hashtable>())
-            {
-                var entry = (Entry)record["entry"];
-                var revision = (Revision)record["rev"];
-                entry.LatestRevision = revision;
-                results.Add(entry);
-            }
-
-            return results;
+            return query;
         }
     }
 }
