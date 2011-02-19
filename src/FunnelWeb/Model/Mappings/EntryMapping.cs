@@ -26,7 +26,7 @@ namespace FunnelWeb.Model.Mappings
                     {
                         c.Map(r => r.Id, "LatestRevisionId");
                         c.Map(r => r.RevisionNumber);
-                        c.Map(r => r.Body);
+                        c.Map(r => r.Body).Length(int.MaxValue);
                     });
 
             HasManyToMany(x => x.Tags)
