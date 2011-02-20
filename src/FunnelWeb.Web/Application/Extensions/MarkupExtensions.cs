@@ -153,13 +153,22 @@ namespace FunnelWeb.Web.Application.Extensions
             return MvcHtmlString.Create(text);
         }
 
-        static Regex keyword = new Regex("^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$", RegexOptions.Compiled);
+        static readonly Regex Keyword = new Regex("^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$", RegexOptions.Compiled);
+        static readonly Regex KeywordReplace = new Regex(@"[ &\.#]+", RegexOptions.Compiled);
         public static IEnumerable<MvcHtmlString> CssKeywordsFor(this HtmlHelper html, Entry entry)
         {
-            return from k in entry.Tags.Select(x => x.Name)
+            return from k in entry.Tags.Select(x => KeywordReplace.Replace(x.Name, "-"))
                    let w = k.Trim()
-                   where keyword.IsMatch(w)
+                   where Keyword.IsMatch(w)
                    select MvcHtmlString.Create("keyword-" + w);
+        }
+
+        public static MvcHtmlString CssKeywordsFor(this HtmlHelper html, Tag tag)
+        {
+            var fixedTag = KeywordReplace.Replace(tag.Name, "-");
+            return Keyword.IsMatch(fixedTag)
+                ? MvcHtmlString.Create("keyword-" + fixedTag) 
+                : MvcHtmlString.Empty;
         }
 
         #endregion
@@ -210,8 +219,7 @@ namespace FunnelWeb.Web.Application.Extensions
 
         public static IDictionary<string, object> AttributesFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
         {
-            var attributes = new RouteValueDictionary();
-            attributes.Add("class", "");
+            var attributes = new RouteValueDictionary {{"class", ""}};
 
             WhenEncountering<StringLengthAttribute>(expression, att => attributes["maxlength"] = att.MaximumLength);
             WhenEncountering<HintSizeAttribute>(expression, att =>

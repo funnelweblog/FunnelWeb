@@ -32,7 +32,7 @@
 
     var changes = 0;
     function enableChangeDetection() {
-        $("input[type=text]").click(function () {
+        $("input[type=text]:not(#search)").click(function () {
             changes++;
         });
 
@@ -48,13 +48,13 @@
             if (changes > 0) {
                 return "Navigating away will lose the unsaved changes you have made.";
             }
-        }
+        };
     }
 
     $.expr[':'].external = function (obj) {
         return !(obj.href == "")
             && !obj.href.match(/^mailto\:/)
-            && !(obj.hostname == location.hostname)
+            && !(obj.hostname == location.hostname);
     };
 
     function enableNewWindowLinks() {

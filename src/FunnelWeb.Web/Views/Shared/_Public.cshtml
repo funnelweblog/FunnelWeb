@@ -21,72 +21,75 @@
   @MvcHtmlString.Create(Html.Settings().HtmlHead)
 </head>
 <body>
-  <div class="top">
-    <div class="top-in">
-      <div class="header">
-        <a class="logo" href="@Url.Content("~/")" title="@Html.Settings().SiteTitle">@Html.Settings().SiteTitle</a>
-      </div>
-      <div class="nav">
-        <ul>
-        @MvcHtmlString.Create(Html.Settings().MainLinks)
-        @if (ViewData.IsLoggedIn())
-        {
-          <li>@Html.AdminActionLink("New Post", "Edit", "WikiAdmin")</li>
-          <li>@Html.AdminActionLink("Admin", "Index", "Admin")</li>
-          <li>@Html.AdminActionLink("Logout", "Logout", "Login")</li>
-        }
-        </ul>
-        <div class="search">
-          @using (Html.BeginForm("Search", "Wiki", FormMethod.Get))
-          {
-          <p>
-            @Html.TextBox("q", Request.QueryString["q"], new { alt = "Search", @class = "medium" })
-            <input type="submit" id="search" class="submit" value="Search" />
-          </p>
-          }
+  <div class="wrap">
+    <div class="top">
+      <div class="top-in">
+        <div class="header">
+          <a class="logo" href="@Url.Content("~/")" title="@Html.Settings().SiteTitle">@Html.Settings().SiteTitle</a>
+        </div>
+        <div class="nav">
+          <ul>
+            @MvcHtmlString.Create(Html.Settings().MainLinks)
+            @if (ViewData.IsLoggedIn())
+            {
+              <li>@Html.AdminActionLink("New Post", "Edit", "WikiAdmin")</li>
+              <li>@Html.AdminActionLink("Admin", "Index", "Admin")</li>
+              <li>@Html.AdminActionLink("Logout", "Logout", "Login")</li>
+            }
+          </ul>
+          <div class="search">
+            @using (Html.BeginForm("Search", "Wiki", FormMethod.Get))
+            {
+              <p>
+                @Html.TextBox("q", Request.QueryString["q"], new { alt = "Search", @class = "medium" })
+                <input type="submit" id="search" class="submit" value="Search" />
+              </p>
+            }
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="body">
-  @if (TempData.ContainsKey("Flash"))
-  {
-    <div class="flash">
-      <p>@TempData["Flash"]</p>
-    </div>
-  }
-  @if (IsSectionDefined("Summary"))
-  {
-    <div class="intro" id="_summary">
-      <div class="intro-in">
-        @RenderSection("Summary", required: false)
+    <div class="body">
+      @if (TempData.ContainsKey("Flash"))
+      {
+        <div class="flash">
+          <p>@TempData["Flash"]</p>
+        </div>
+      }
+      @if (IsSectionDefined("Summary"))
+      {
+        <div class="intro" id="_summary">
+          <div class="intro-in">
+            @RenderSection("Summary", required: false)
+          </div>
+        </div>
+      }
+      <div class="content">
+        @RenderBody()
       </div>
     </div>
-  }
-    <div class="content">
-      @RenderBody()
+    <div class="footer">
+      @MvcHtmlString.Create(Html.Settings().Footer)
+      @if (!ViewData.IsLoggedIn())
+      {
+        <p>
+          Is this your blog? @Html.AdminActionLink("Log in and update it", "Login", "Login").</p>
+      }
     </div>
-  </div>
-  <div class="footer">
-    @MvcHtmlString.Create(Html.Settings().Footer)
-    @if (!ViewData.IsLoggedIn())
-    {
-    <p>Is this your blog? @Html.AdminActionLink("Log in and update it", "Login", "Login").</p>
+    @{ 
+      Html.RequiresJs("JQuery/jquery-1.4.4.min.js", "Scripts", 0);
+      Html.RequiresJs("JQuery/jsdate.js", "Scripts", 1);
+      Html.RequiresJs("Prettify/Prettify.js", "Scripts", 1);
+      Html.RequiresJs("Showdown/Showdown.js", "Scripts", 1);
+      Html.RequiresJs("Showdown/wmd.js", "Scripts", 1);
+      Html.RequiresJs("Site/Site.js", "Scripts", 1);
     }
-  </div>
-  @{ 
-    Html.RequiresJs("JQuery/jquery-1.4.4.min.js", "Scripts", 0);
-    Html.RequiresJs("JQuery/jsdate.js", "Scripts", 1);
-    Html.RequiresJs("Prettify/Prettify.js", "Scripts", 1);
-    Html.RequiresJs("Showdown/Showdown.js", "Scripts", 1);
-    Html.RequiresJs("Showdown/wmd.js", "Scripts", 1);
-    Html.RequiresJs("Site/Site.js", "Scripts", 1);
-  }
-  @MvcHtmlString.Create(Html.RenderJsHere(new List<IClientDependencyPath> {
+    @MvcHtmlString.Create(Html.RenderJsHere(new List<IClientDependencyPath> {
     new BasicPath("Scripts", "/Content/Scripts"),
     new BasicPath("ThemeScripts", "~/Themes/" + Html.Settings().Theme  + "/Content/Scripts/")
   }))
-  @MvcHtmlString.Create(Html.Settings().HtmlFooter)
+    @MvcHtmlString.Create(Html.Settings().HtmlFooter)
+  </div>
   <!-- Powered by FunnelWeb, the blog engine of real developers -->
   <!-- FunnelWeb version: @Html.Version() -->
 </body>
