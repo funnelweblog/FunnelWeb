@@ -15,14 +15,14 @@
         <span class='year'>@entry.Published.ToLocalTime().ToString("yyyy")</span>
       </div>
       <div class='comments'>
-        <a href='@Url.Action("Page", new { page = entry.Name })#comments'>
+        <a href='@Url.Action("Page", "Wiki", new { page = entry.Name })#comments'>
           <span class='comment-count'>@entry.CommentCount</span>
           <span>comment@(entry.CommentCount == 1 ? "" : "s")</span>
         </a>
       </div>
       <div class='summary'>
         <h2>
-          @Html.Qualify(Html.ActionLink(entry.Title, "Page", new { page = entry.Name }))
+          @Html.ActionLink(entry.Title, "Page", "Wiki", new { page = entry.Name }, null)
         </h2>
         @if (!string.IsNullOrEmpty(entry.MetaDescription))
         {
