@@ -46,7 +46,7 @@ namespace FunnelWeb.Web.Areas.Admin.Views.WikiAdmin
         public string Title { get; set; }
 
         [DisplayName("Meta-Title")]
-        [StringLength(65)]
+        [StringLength(255)]
         [Description("This appears at the top of the browser tab and is used by search engines.")]
         [HintSize(HintSize.Medium)]
         public string MetaTitle { get; set; }

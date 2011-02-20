@@ -16,7 +16,7 @@ namespace FunnelWeb.Web.Views.Wiki
         public string Title { get; set; }
 
         [Required]
-        [StringLength(65)]
+        [StringLength(255)]
         [DataType(DataType.Text)]
         public string MetaTitle { get; set; }
 
