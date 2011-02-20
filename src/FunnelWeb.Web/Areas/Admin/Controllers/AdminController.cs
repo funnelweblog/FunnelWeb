@@ -164,10 +164,28 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
         #endregion
 
-        public virtual ActionResult PageList()
+        public virtual ActionResult PageList(PageListSortColumn? sort, bool? asc)
         {
-            var entries = EntryRepository.GetEntries().ToList();
-            return View(new PageListModel(entries));
+            var entries = EntryRepository.GetEntries();
+            if (sort == null)
+                sort = PageListSortColumn.Slug;
+            switch (sort.Value)
+            {
+                case PageListSortColumn.Slug:
+                    entries = asc.GetValueOrDefault() ? entries.OrderBy(e => e.Name) : entries.OrderByDescending(e => e.Name);
+                    break;
+                case PageListSortColumn.Title:
+                    entries = asc.GetValueOrDefault() ? entries.OrderBy(e => e.Title) : entries.OrderByDescending(e => e.Title);
+                    break;
+                case PageListSortColumn.Comments:
+                    entries = asc.GetValueOrDefault() ? entries.OrderBy(e => e.CommentCount) : entries.OrderByDescending(e => e.CommentCount);
+                    break;
+                case PageListSortColumn.Published:
+                    entries = asc.GetValueOrDefault() ? entries.OrderBy(e => e.Published) : entries.OrderByDescending(e => e.Published);
+                    break;
+            }
+
+            return View(new PageListModel(entries.ToList()) { SortAscending = asc.GetValueOrDefault() });
         }
 
         public virtual ActionResult DeletePage(int id)

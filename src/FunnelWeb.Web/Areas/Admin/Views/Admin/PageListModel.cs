@@ -3,6 +3,14 @@ using FunnelWeb.Model;
 
 namespace FunnelWeb.Web.Areas.Admin.Views.Admin
 {
+    public enum PageListSortColumn
+	{
+		Slug,
+		Title,
+		Comments,
+		Published
+	}
+
     public class PageListModel
     {
         public PageListModel(IEnumerable<Entry> entries)
@@ -11,5 +19,6 @@ namespace FunnelWeb.Web.Areas.Admin.Views.Admin
         }
 
         public IEnumerable<Entry> Entries { get; set; }
+        public bool SortAscending { get; set; }
     }
 }

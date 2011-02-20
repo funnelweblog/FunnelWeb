@@ -30,10 +30,10 @@
   <table>
     <thead>
       <tr>
-        <td>SLUG</td>
-        <td>Title</td>
-        <td>Comments</td>
-        <td>Published</td>
+        <td>@Html.ActionLink("SLUG", "PageList", "Admin", new { Area = "Admin", sort = "Slug", asc = !Model.SortAscending }, null)</td>
+        <td>@Html.ActionLink("Title", "PageList", "Admin", new { Area = "Admin", sort = "Title", asc = !Model.SortAscending }, null)</td>
+        <td>@Html.ActionLink("Comments", "PageList", "Admin", new { Area = "Admin", sort = "Comments", asc = !Model.SortAscending }, null)</td>
+        <td>@Html.ActionLink("Published", "PageList", "Admin", new { Area = "Admin", sort = "Published", asc = !Model.SortAscending }, null)</td>
         <td>Last revision</td>
       </tr>
     </thead>
