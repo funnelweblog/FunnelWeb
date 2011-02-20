@@ -1,8 +1,9 @@
 ﻿using System.Web.Mvc;
+using FunnelWeb.Authentication;
+using FunnelWeb.Authentication.Internal;
 using FunnelWeb.Extensions.SqlAuthentication.Model;
+using FunnelWeb.Filters;
 using FunnelWeb.Settings;
-using FunnelWeb.Web.Application.Authentication;
-using FunnelWeb.Web.Application.Filters;
 
 namespace FunnelWeb.Extensions.SqlAuthentication.Controllers
 {

@@ -1,11 +1,11 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Web.Mvc;
+using FunnelWeb.Filters;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Settings;
 using FunnelWeb.Tasks;
 using FunnelWeb.Web.Application;
-using FunnelWeb.Web.Application.Filters;
 using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Areas.Admin.Views.Admin;
 

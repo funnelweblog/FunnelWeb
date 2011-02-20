@@ -3,7 +3,7 @@ using System.Data;
 using System.Web.Mvc;
 using NHibernate;
 
-namespace FunnelWeb.Web.Application.Filters
+namespace FunnelWeb.Filters
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class FunnelWebRequestAttribute : ActionFilterAttribute

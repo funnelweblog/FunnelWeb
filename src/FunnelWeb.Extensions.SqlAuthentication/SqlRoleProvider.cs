@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using FunnelWeb.Authentication;
 using FunnelWeb.Extensions.SqlAuthentication.Model;
 using FunnelWeb.Settings;
 using FunnelWeb.Web.Application;
-using FunnelWeb.Web.Application.Authentication;
 using NHibernate;
 using NHibernate.Linq;
 

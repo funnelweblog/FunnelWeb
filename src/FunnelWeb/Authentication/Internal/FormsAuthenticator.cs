@@ -1,6 +1,6 @@
 using System.Web.Security;
 
-namespace FunnelWeb.Web.Application.Authentication
+namespace FunnelWeb.Authentication.Internal
 {
     public class FormsAuthenticator : IAuthenticator
     {

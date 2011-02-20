@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
+using FunnelWeb.Filters;
 using FunnelWeb.Model.Repositories;
-using FunnelWeb.Web.Application.Filters;
 
 namespace FunnelWeb.Extensions.TaggedPages.Controllers
 {

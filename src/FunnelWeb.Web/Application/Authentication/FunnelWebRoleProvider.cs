@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.Web.Security;
+using FunnelWeb.Authentication;
 
 namespace FunnelWeb.Web.Application.Authentication
 {

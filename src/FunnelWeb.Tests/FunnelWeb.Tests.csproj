@@ -105,7 +105,6 @@
     <Compile Include="Web\Application\ActionResults\XmlActionResultTests.cs" />
     <Compile Include="Web\Application\Binders\ArrayBinderTests.cs" />
     <Compile Include="Web\Application\Binders\ImplicitAssignmentBinderTests.cs" />
-    <Compile Include="Web\Application\Filters\RequireLoginTests.cs" />
     <Compile Include="Web\Application\Markup\MarkdownTests.cs" />
     <Compile Include="Web\Application\Mime\RegistryMimeTypeLookupTests.cs" />
     <Compile Include="Web\Areas\Admin\Controllers\AdminControllerTests.cs" />

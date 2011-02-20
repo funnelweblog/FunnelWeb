@@ -54,10 +54,6 @@
     <Compile Include="TaggedExtensionBootstrapper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FunnelWeb.Web\FunnelWeb.Web.csproj">
-      <Project>{64FAABD6-F45B-4ED1-A3AD-6989C1934405}</Project>
-      <Name>FunnelWeb.Web</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FunnelWeb\FunnelWeb.csproj">
       <Project>{3E448C45-F459-45D7-950C-5ABEF926513D}</Project>
       <Name>FunnelWeb</Name>

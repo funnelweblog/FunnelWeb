@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Web.Mvc;
+using FunnelWeb.Filters;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Settings;
-using FunnelWeb.Web.Application.Filters;
 using FunnelWeb.Web.Application.Mvc.ActionResults;
 using FunnelWeb.Web.Application.Views;
 

@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using FunnelWeb.Authentication;
+using FunnelWeb.Authentication.Internal;
 
 namespace FunnelWeb.Web.Application.Authentication
 {

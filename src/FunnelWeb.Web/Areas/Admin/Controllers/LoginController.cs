@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using FunnelWeb.Authentication;
 using FunnelWeb.Web.Application.Authentication;
 using FunnelWeb.Web.Areas.Admin.Views.Login;
 

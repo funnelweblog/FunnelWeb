@@ -160,17 +160,12 @@
     <Compile Include="..\Information\VersionInfo.cs">
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
-    <Compile Include="Application\Authentication\FormsRoleProvider.cs" />
     <Compile Include="Application\Authentication\FunnelWebRoleProvider.cs" />
-    <Compile Include="Application\Authentication\IRoleProvider.cs" />
     <Compile Include="Application\DatabaseUpgradeDetector.cs" />
-    <Compile Include="Application\IDatabaseUpgradeDetector.cs" />
     <Compile Include="Application\Markup\InputSanitizer.cs" />
     <Compile Include="Application\Markup\MarkdownRenderer.cs" />
     <Compile Include="Application\Mvc\ActionResults\FeedResult.cs" />
     <Compile Include="Application\Mvc\ActionResults\XmlActionResult.cs" />
-    <Compile Include="Application\Authentication\FormsAuthenticator.cs" />
-    <Compile Include="Application\Authentication\IAuthenticator.cs" />
     <Compile Include="Application\Mvc\FunnelWebControllerFactory.cs" />
     <Compile Include="Application\Mvc\HintSize.cs" />
     <Compile Include="Application\Mvc\Binders\ArrayBinder.cs" />
@@ -178,8 +173,6 @@
     <Compile Include="Application\Mvc\Binders\UploadBinder.cs" />
     <Compile Include="Application\Extensions\MarkupExtensions.cs" />
     <Compile Include="Application\Extensions\ViewDataDictionaryExtensions.cs" />
-    <Compile Include="Application\Filters\RequireLoginAttribute.cs" />
-    <Compile Include="Application\Filters\FunnelWebRequestAttribute.cs" />
     <Compile Include="Application\ForceLowercaseUrlHttpModule.cs" />
     <Compile Include="Application\Mvc\HintSizeAttribute.cs" />
     <Compile Include="Application\Mvc\HtmlHelperExtensions.cs" />

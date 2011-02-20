@@ -96,11 +96,17 @@
     <Compile Include="..\Information\VersionInfo.cs">
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
+    <Compile Include="Authentication\Internal\FormsAuthenticator.cs" />
+    <Compile Include="Authentication\Internal\FormsRoleProvider.cs" />
+    <Compile Include="Authentication\IAuthenticator.cs" />
+    <Compile Include="Authentication\IRoleProvider.cs" />
     <Compile Include="Eventing\EventingModule.cs" />
     <Compile Include="Eventing\INotifier.cs" />
     <Compile Include="ExtensionsModule.cs" />
+    <Compile Include="Filters\FunnelWebRequestAttribute.cs" />
     <Compile Include="FunnelWebExtensionAttribute.cs" />
     <Compile Include="FunnelWebExtensionLoadException.asax.cs" />
+    <Compile Include="IDatabaseUpgradeDetector.cs" />
     <Compile Include="IFunnelWebExtension.cs" />
     <Compile Include="IFunnelWebExtensionMetaData.cs" />
     <Compile Include="IRequireDatabaseScripts.cs" />

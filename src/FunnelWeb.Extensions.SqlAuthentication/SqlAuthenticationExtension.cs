@@ -1,7 +1,6 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Autofac;
-using FunnelWeb.Web.Application.Authentication;
+using FunnelWeb.Authentication;
 
 namespace FunnelWeb.Extensions.SqlAuthentication
 {

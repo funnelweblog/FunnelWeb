@@ -1,4 +1,4 @@
-﻿namespace FunnelWeb.Web.Application.Authentication
+﻿namespace FunnelWeb.Authentication
 {
     public interface IAuthenticator
     {
