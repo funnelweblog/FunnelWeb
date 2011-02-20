@@ -63,5 +63,5 @@ glob:build/Artifacts/
 glob:build/Published/
 glob:build/TestResult.xml
 [pP]ublish
-
+glob:Tools\*.nupkg
 Views\Extensions\*

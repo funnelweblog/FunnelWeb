@@ -43,7 +43,7 @@ namespace FunnelWeb.Model.Repositories.Internal
                 .QueryOver<Comment>()
                 .Fetch(x=>x.Entry).Eager()
                 .OrderBy(x=>x.Posted).Desc()
-                .Where(x=> !x.IsSpam)
+                .Where(x => x.Status != 0)
                 .Take((skip * take) + take * 10)
                 .Skip(skip)
                 .Take(take)
