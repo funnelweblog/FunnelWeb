@@ -32,7 +32,7 @@ namespace FunnelWeb.Web.Areas.Admin.Views.WikiAdmin
 
         [Required]
         [DisplayName("SLUG")]
-        [StringLength(100)]
+        [StringLength(200)]
         [Description("This will form the URL to your page.")]
         [RegularExpression("[a-z0-9\\-\\/]+", ErrorMessage = "Page names can only include lowercase alpha characters, numbers, dashes and forward slashes (/)")]
         [HintSize(HintSize.Medium)]
