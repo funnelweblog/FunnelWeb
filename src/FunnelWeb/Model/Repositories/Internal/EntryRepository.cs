@@ -99,10 +99,13 @@ namespace FunnelWeb.Model.Repositories.Internal
                 return new Entry[0];
             }
 
-            var isFullTextEnabled = session.CreateSQLQuery("SELECT FullTextServiceProperty('IsFullTextInstalled')").List()[0];
-            return (int) isFullTextEnabled == 0 
-                ? SearchUsingLike(searchText) 
-                : SearchUsingFullText(searchText);
+            var isFullTextEnabled = session.CreateSQLQuery(
+                "SELECT FullTextServiceProperty('IsFullTextInstalled') + OBJECTPROPERTY(OBJECT_ID('Entry'), 'TableFullTextChangeTrackingOn')")
+                .List()[0];
+
+            return (int) isFullTextEnabled == 2
+                ? SearchUsingFullText(searchText)
+                : SearchUsingLike(searchText);
         }
 
         private IEnumerable<Entry> SearchUsingFullText(string searchText)
