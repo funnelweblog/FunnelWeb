@@ -169,5 +169,11 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
             var entries = EntryRepository.GetEntries().ToList();
             return View(new PageListModel(entries));
         }
+
+        public virtual ActionResult DeletePage(int id)
+		{
+			EntryRepository.Delete(id);
+			return RedirectToAction("PageList");
+		}
     }
 }

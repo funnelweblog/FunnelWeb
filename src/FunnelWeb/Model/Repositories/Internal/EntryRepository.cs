@@ -75,6 +75,13 @@ namespace FunnelWeb.Model.Repositories.Internal
             return entry;
         }
 
+        public void Delete(int id)
+		{
+			var entry = GetEntry(id);
+			if (entry != null)
+				session.Delete(entry);
+		}
+
         public Redirect GetClosestRedirect(PageName name)
         {
             var nameSoundEx = SoundEx.Evaluate(name);

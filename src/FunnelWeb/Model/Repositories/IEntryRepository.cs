@@ -14,5 +14,6 @@ namespace FunnelWeb.Model.Repositories
         Redirect GetClosestRedirect(PageName name);
         void Save(Entry entry);
         IEnumerable<Entry> Search(string searchText);
+        void Delete(int id);
     }
 }
