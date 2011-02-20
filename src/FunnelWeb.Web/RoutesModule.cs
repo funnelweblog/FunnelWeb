@@ -53,9 +53,9 @@ namespace FunnelWeb.Web
             // Resources
             routes.MapLowerCaseRoute("robots", new { controller = "Resource", action = "Render", fileName = "/Content/Resources/Robots.txt", contentType = "text/plain" });
             routes.MapLowerCaseRoute("robots.txt", new { controller = "Resource", action = "Render", fileName = "Content/Resources/Robots.txt", contentType = "text/plain" });
-            routes.MapLowerCaseRoute("favicon", new { controller = "Resource", action = "Render", fileName = "/Content/Resources/favicon.ico", contentType = "image/vnd.microsoft.icon" });
-            routes.MapLowerCaseRoute("favicon.ico", new { controller = "Resource", action = "Render", fileName = "/Content/Resources/favicon.ico", contentType = "image/vnd.microsoft.icon" });
-            routes.MapLowerCaseRoute("favicon.png", new { controller = "Resource", action = "Render", fileName = "/Content/Resources/favicon.png", contentType = "image/png" });
+            routes.MapLowerCaseRoute("favicon", new { controller = "Resource", action = "Render", fileName = "{Theme}/Content/Images/favicon.ico", fileName2 = "/Content/Resources/favicon.ico", contentType = "image/vnd.microsoft.icon" });
+            routes.MapLowerCaseRoute("favicon.ico", new { controller = "Resource", action = "Render", fileName = "{Theme}/Content/Images/favicon.ico", fileName2 = "/Content/Resources/favicon.ico", contentType = "image/vnd.microsoft.icon" });
+            routes.MapLowerCaseRoute("favicon.png", new { controller = "Resource", action = "Render", fileName = "{Theme}/Content/Images/favicon.png", fileName2 = "/Content/Resources/favicon.png", contentType = "image/png" });
             routes.MapLowerCaseRoute("status", new { controller = "Resource", action = "Render", fileName = "/Content/Resources/Status.html", contentType = "text/html" });
 
             // Site Map
