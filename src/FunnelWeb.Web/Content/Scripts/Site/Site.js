@@ -32,7 +32,7 @@
 
     var changes = 0;
     function enableChangeDetection() {
-        $("input[type=text]:not(#search)").click(function () {
+        $("input[type=text]:not(#q)").click(function () {
             changes++;
         });
 
