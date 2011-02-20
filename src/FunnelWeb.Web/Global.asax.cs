@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
+using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Web;
 using System.Web.Compilation;
@@ -35,7 +38,23 @@ namespace FunnelWeb.Web
         public static void Initialise()
         {
             // Add assemblies containing IModules to the BuildManager
-            _extensionsPath = HostingEnvironment.MapPath("~/bin/Extensions");
+            _extensionsPath = HostingEnvironment.MapPath("~/bin/Extensions") ?? string.Empty;
+
+            if (!Directory.Exists(_extensionsPath))
+            {
+                try
+                {
+                    Directory.CreateDirectory(_extensionsPath);
+                }
+                catch (Exception ex)
+                {
+                    // oh, well nothing really we can do
+                    Trace.WriteLine("Could not create extensions directory:" + _extensionsPath + "\r\n" + ex.Message);
+                }
+            }
+
+            if (!Directory.Exists(_extensionsPath)) return;
+
             var catalog = new DirectoryCatalog(_extensionsPath);
             var compositionContainer = new CompositionContainer(catalog);
             IEnumerable<IFunnelWebExtension> modules;
@@ -46,13 +65,11 @@ namespace FunnelWeb.Web
             catch (ReflectionTypeLoadException ex)
             {
                 if (ex.LoaderExceptions.Length > 0)
-                    throw new FunnelWebExtensionLoadException(string.Format("Failed to load {0}", ex.Types[0].Assembly.FullName), ex.LoaderExceptions[0]) ;
+                    throw new FunnelWebExtensionLoadException(string.Format("Failed to load {0}", ex.Types[0].Assembly.FullName), ex.LoaderExceptions[0]);
                 throw;
             }
-
             var assemblies = new HashSet<Assembly>();
             modules.Each(m => assemblies.Add(m.GetType().Assembly));
-
             assemblies.Each(BuildManager.AddReferencedAssembly);
         }
 
