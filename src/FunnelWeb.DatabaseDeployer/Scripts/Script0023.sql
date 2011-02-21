@@ -129,15 +129,20 @@ go
 alter table dbo.Revision set (lock_escalation = table)
 go
 
-create fulltext index on dbo.[Entry]
-( 
-	Name LANGUAGE 1033, 
-	Title LANGUAGE 1033, 
-	Summary LANGUAGE 1033, 
-	MetaDescription LANGUAGE 1033, 
-	Body LANGUAGE 1033
-) key index PK_Entry_Id on FTCatalog with change_tracking auto 
-go
-alter fulltext index on dbo.[Entry]
-	enable 
-go
+declare @hasFullText bit
+select @hasFullText = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled')
+if (@hasFullText = 1)
+begin
+	exec sp_fulltext_catalog 'FTCatalog', 'create' 
+	exec sp_fulltext_table 'Entry', 'create', 'FTCatalog', 'PK_Entry_Id' 
+	exec sp_fulltext_column 'Entry', 'Name', 'add', 0x0409
+	exec sp_fulltext_column 'Entry', 'Title', 'add', 0x0409
+	exec sp_fulltext_column 'Entry', 'Summary', 'add', 0x0409
+	exec sp_fulltext_column 'Entry', 'MetaDescription', 'add', 0x0409
+	exec sp_fulltext_column 'Entry', 'Body', 'add', 0x0409
+	exec sp_fulltext_table 'Entry', 'activate'
+	exec sp_fulltext_catalog 'FTCatalog', 'start_full' 
+	exec sp_fulltext_table 'Entry', 'start_change_tracking'
+    exec sp_fulltext_table 'Entry', 'start_background_updateindex'
+end
+

@@ -24,7 +24,10 @@ $(function () {
                     tagCache[request.term] = $.map(data, function (item) {
                         return { label: item.Name, value: item.Id, id: item.Id };
                     });
-                    console.log(response);
+                    if (window.console) {
+                        console.log(response);
+                    }
+
                     response(tagCache[request.term]);
                 });
             }

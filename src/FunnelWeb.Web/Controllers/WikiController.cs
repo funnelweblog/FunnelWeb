@@ -74,7 +74,7 @@ namespace FunnelWeb.Web.Controllers
                 return Search(page, true);
             }
 
-            ViewData.Model = new PageModel(page, entry, revision > 0);
+            ViewData.Model = new PageModel(page, entry, revision > 0 && revision < entry.LatestRevision.RevisionNumber);
             return new PageTemplateActionResult(entry.PageTemplate);
         }
 
