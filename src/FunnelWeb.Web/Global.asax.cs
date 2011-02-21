@@ -46,7 +46,7 @@ namespace FunnelWeb.Web
                 {
                     Directory.CreateDirectory(_extensionsPath);
                 }
-                catch (Exception ex)
+                catch (IOException ex)
                 {
                     // oh, well nothing really we can do
                     Trace.WriteLine("Could not create extensions directory:" + _extensionsPath + "\r\n" + ex.Message);
