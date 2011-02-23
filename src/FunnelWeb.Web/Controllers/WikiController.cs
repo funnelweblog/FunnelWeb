@@ -122,7 +122,7 @@ namespace FunnelWeb.Web.Controllers
 
             EventPublisher.Publish(new CommentPostedEvent(entry, comment));
 
-            return RedirectToAction("Page", new { page = page })
+            return RedirectToAction("Page", new { page })
 				.AndFlash("Thanks, your comment has been posted.");
         }
 
@@ -131,7 +131,7 @@ namespace FunnelWeb.Web.Controllers
             var entry = EntryRepository.GetEntry(page);
             if (entry == null)
             {
-                return RedirectToAction("Edit", new { page = page });
+                return RedirectToAction("Edit", "WikiAdmin", new { page });
             }
 
             ViewData.Model = new RevisionsModel(page, entry);

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Bindable.Core.Helpers;
 using Iesi.Collections.Generic;
 
@@ -10,31 +9,32 @@ namespace FunnelWeb.Model
         public Tag()
         {
             Name = string.Empty;
-            Items = new HashedSet<TagItem>();
+            Entries = new HashedSet<Entry>();
         }
 
         public virtual int Id { get; private set; }
         public virtual string Name { get; set; }
-        public virtual ISet<TagItem> Items { get; private set; }
+        public virtual ISet<Entry> Entries { get; private set; }
 
         public virtual void Add(Entry entry)
         {
             Guard.NotNull(entry, "entry");
-            var existing = Items.FirstOrDefault(x => x.Entry == entry);
+            var existing = Entries.FirstOrDefault(x => x == entry);
             if (existing != null)
                 return;
 
-            var newItem = new TagItem { Entry = entry, Tag = this };
-            Items.Add(newItem);
+            Entries.Add(entry);
+            entry.Tags.Add(this);
         }
 
         public virtual void Remove(Entry entry)
         {
             Guard.NotNull(entry, "entry");
-            var existing = Items.FirstOrDefault(x => x.Entry == entry);
+            var existing = Entries.FirstOrDefault(x => x == entry);
             if (existing != null)
             {
-                Items.Remove(existing);
+                Entries.Remove(existing);
+                existing.Tags.Remove(this);
             }
         }
     }

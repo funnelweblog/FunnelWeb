@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
@@ -20,7 +21,6 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
     [ValidateInput(false)]
     public class WikiAdminController : Controller
     {
-        private const int ItemsPerPage = 30;
         public IEntryRepository EntryRepository { get; set; }
         public ITagRepository TagRepository { get; set; }
         public IFeedRepository FeedRepository { get; set; }
@@ -49,19 +49,24 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
                 };
 
             var allTags = TagRepository.GetTags();
-            var model = new EditModel(page, entry.Id, allTags);
-            model.DisableComments = !entry.IsDiscussionEnabled;
-            model.Content = entry.LatestRevision.Body;
-            model.Format = entry.LatestRevision.Format;
-            model.HideChrome = entry.HideChrome;
-            model.Status = entry.Status;
-            model.MetaDescription = entry.MetaDescription;
-            model.MetaTitle = entry.MetaTitle;
-            model.PublishDate = entry.Published.ToLocalTime().ToString("yyyy-MM-dd");
-            model.Sidebar = entry.Summary;
-            model.Title = entry.Title;
-            model.SelectedTags = entry.Tags;
-            model.ChangeSummary = entry.Id == 0 ? "Initial create" : (revertToRevision == null ? "" : "Reverted to version " + revertToRevision);
+            var model = new EditModel(page, entry.Id, allTags)
+                            {
+                                DisableComments = !entry.IsDiscussionEnabled,
+                                Content = entry.LatestRevision.Body,
+                                Format = entry.LatestRevision.Format,
+                                HideChrome = entry.HideChrome,
+                                Status = entry.Status,
+                                MetaDescription = entry.MetaDescription,
+                                MetaTitle = entry.MetaTitle,
+                                PublishDate = entry.Published.ToLocalTime().ToString("yyyy-MM-dd"),
+                                Sidebar = entry.Summary,
+                                Title = entry.Title,
+                                SelectedTags = entry.Tags,
+                                ChangeSummary =
+                                    entry.Id == 0
+                                        ? "Initial create"
+                                        : (revertToRevision == null ? "" : "Reverted to version " + revertToRevision)
+                            };
 
             if (revertToRevision != null)
             {
@@ -78,6 +83,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
 			if (!ModelState.IsValid)
 			{
+			    model.SelectedTags = GetEditTags(model);
 				return View(model);
 			}
 
@@ -85,7 +91,8 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 			var existing = EntryRepository.GetEntry(model.Page);
 			if (existing != null && existing.Id != model.OriginalEntryId)
 			{
-				ModelState.AddModelError("PageExists", string.Format("A page with SLUG '{0}' already exists. You should edit that page instead.", model.Page));
+                model.SelectedTags = GetEditTags(model);
+                ModelState.AddModelError("PageExists", string.Format("A page with SLUG '{0}' already exists. You should edit that page instead.", model.Page));
 				return View(model);
 			}
 
@@ -106,9 +113,27 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 			revision.Reason = model.ChangeSummary ?? string.Empty;
 			revision.Format = model.Format;
 
+            var editTags = GetEditTags(model);
+            var toDelete = entry.Tags.Where(t => !editTags.Contains(t)).ToList();
+            var toAdd = editTags.Where(t => !entry.Tags.Contains(t)).ToList();
+
+		    foreach (var tag in toDelete)
+		        tag.Remove(entry);
+            foreach (var tag in toAdd)
+            {
+                if (tag.Id == 0)
+                    TagRepository.Save(tag);
+                tag.Add(entry);
+            }
+
 			EntryRepository.Save(entry);
 
-            //Unsure why, but previous tags appear as 0, so if i have two old tags and 1 new, i will get 0,0,newtag
+		    return RedirectToAction("Page", "Wiki", new { Area = "", page = model.Page});
+		}
+
+        private List<Tag> GetEditTags(EditModel model)
+        {
+            var tagList = new List<Tag>();
             foreach (var tagName in model.TagsString.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Where(s => s != "0"))
             {
                 int id;
@@ -120,15 +145,14 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
                 else
                 {
                     tag = new Tag
-                    {
-                        Name = tagName
-                    };
-                    TagRepository.Save(tag);
+                              {
+                                  Name = tagName
+                              };
                 }
-                entry.Tags.Add(tag);
+                tagList.Add(tag);
             }
 
-			return RedirectToAction("Page", "Wiki", new { Area = "", page = model.Page});
-		}
+            return tagList;
+        }
     }
 }

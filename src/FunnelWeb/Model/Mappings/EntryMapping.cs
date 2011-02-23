@@ -32,7 +32,8 @@ namespace FunnelWeb.Model.Mappings
             HasManyToMany(x => x.Tags)
                 .Table("TagItem")
                 .ParentKeyColumn("EntryId")
-                .ChildKeyColumn("TagId");
+                .ChildKeyColumn("TagId")
+                .AsSet();
 
             HasMany(x => x.Pingbacks)
                 .KeyColumn("EntryId")

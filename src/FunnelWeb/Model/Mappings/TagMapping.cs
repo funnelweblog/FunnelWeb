@@ -8,12 +8,13 @@ namespace FunnelWeb.Model.Mappings
         {
             Id(x => x.Id);
             Map(x => x.Name);
-            HasMany(x => x.Items)
-                .KeyColumn("TagId")
+            HasManyToMany(x => x.Entries)
+                .Table("TagItem")
+                .ParentKeyColumn("TagId")
+                .ChildKeyColumn("EntryId")
                 .AsSet()
                 .Inverse()
-                .LazyLoad()
-                .Cascade.AllDeleteOrphan();
+                .LazyLoad();
         }
     }
 }

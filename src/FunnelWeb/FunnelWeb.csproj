@@ -131,12 +131,10 @@
     <Compile Include="Model\EntryStatus.cs" />
     <Compile Include="Model\Repositories\IFeedRepository.cs" />
     <Compile Include="Model\Repositories\Internal\TagRepository.cs" />
-    <Compile Include="Model\TagItem.cs" />
     <Compile Include="Model\FileItem.cs" />
     <Compile Include="Model\Formats.cs" />
     <Compile Include="Model\Mappings\CommentMapping.cs" />
     <Compile Include="Model\Mappings\EntryMapping.cs" />
-    <Compile Include="Model\Mappings\FeedItemMapping.cs" />
     <Compile Include="Model\Mappings\TagMapping.cs" />
     <Compile Include="Model\Mappings\PingbackMapping.cs" />
     <Compile Include="Model\Mappings\RedirectMapping.cs" />
