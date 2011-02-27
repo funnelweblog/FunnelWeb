@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
 using WatiN.Core;
@@ -12,8 +11,8 @@ namespace FunnelWeb.Tests.Helpers
     {
         private static int Port = 10091;
         private readonly TheDatabase requirements;
-        protected static string DestinationPath;
         private static Process webServerProcess;
+        protected static string DestinationPath;
         protected static TemporaryDatabase Database { get; private set; }
         
         static IntegrationTest()
@@ -54,10 +53,16 @@ namespace FunnelWeb.Tests.Helpers
             }
 
             Browser = new IE();
-            Execute();
+            try
+            {
+                Execute();
 
-            Browser.ForceClose();
-            Browser.Dispose();
+            }
+            finally
+            {
+                Browser.ForceClose();
+                Browser.Dispose();
+            }
         }
 
         protected IE Browser { get; set; }
@@ -139,7 +144,7 @@ namespace FunnelWeb.Tests.Helpers
             {
                 try
                 {
-                    File.Copy(newPath, newPath.Replace(sourcePath, DestinationPath));                    
+                    File.Copy(newPath, newPath.Replace(sourcePath, DestinationPath), true);                    
                 }
                 catch (Exception ex)
                 {

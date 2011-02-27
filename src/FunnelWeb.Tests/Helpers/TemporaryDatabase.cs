@@ -5,6 +5,7 @@ using System.Diagnostics;
 using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.DatabaseDeployer.Infrastructure;
 using FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders;
+using FunnelWeb.Extensions.SqlAuthentication;
 
 namespace FunnelWeb.Tests.Helpers
 {
@@ -41,6 +42,7 @@ namespace FunnelWeb.Tests.Helpers
         {
             try
             {
+                master.ExecuteNonQuery("alter database [" + databaseName + "] set single_user with rollback immediate");
                 master.ExecuteNonQuery("drop database [" + databaseName + "]");
             }
             catch (Exception ex)
@@ -50,7 +52,19 @@ namespace FunnelWeb.Tests.Helpers
             master.ExecuteNonQuery("create database [" + databaseName + "]");
 
             var app = new ApplicationDatabase();
-            app.PerformUpgrade(connectionString, new List<IScriptProvider>(), new TraceLog());
+            app.PerformUpgrade(connectionString, new List<IScriptProvider>
+                                                     {
+                                                         ScriptProviderFor(new SqlAuthenticationExtension())
+                                                     }, new TraceLog());
+        }
+
+        public IScriptProvider ScriptProviderFor<T>(T extensionWithScripts) where T : IRequireDatabaseScripts
+        {
+            return new EmbeddedSqlScriptProvider(extensionWithScripts.SourceIdentifier,
+                                          typeof (T).Assembly,
+                                          version =>
+                                          string.Format(extensionWithScripts.ScriptNameFormat,
+                                                        version.ToString().PadLeft(4, '0')));
         }
 
         public void Dispose()
