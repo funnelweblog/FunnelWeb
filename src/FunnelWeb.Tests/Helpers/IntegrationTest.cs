@@ -20,6 +20,14 @@ namespace FunnelWeb.Tests.Helpers
         {
             DeployTheWebApplication();
             StartWebServer();
+            //Hook to kill the web server
+            AppDomain.CurrentDomain.DomainUnload += CurrentDomainDomainUnload;
+        }
+
+        static void CurrentDomainDomainUnload(object sender, EventArgs e)
+        {
+            AppDomain.CurrentDomain.DomainUnload -= CurrentDomainDomainUnload;
+            webServerProcess.Kill();
         }
 
         protected IntegrationTest(TheDatabase requirements)
@@ -56,7 +64,7 @@ namespace FunnelWeb.Tests.Helpers
 
         protected void LogIn()
         {
-            Browser.GoTo(RootUrl + "login");
+            Browser.GoTo(RootUrl + "admin/login");
 
             Assert.IsTrue(Browser.ContainsText("log in"));
 

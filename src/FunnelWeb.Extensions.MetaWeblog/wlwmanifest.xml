@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<manifest xmlns="http://schemas.microsoft.com/wlw/manifest/weblog">
+	<options>
+		<clientType>Metaweblog</clientType>
+		<supportsPostAsDraft>Yes</supportsPostAsDraft>
+		<supportsFileUpload>Yes</supportsFileUpload>
+		<supportsCategories>Yes</supportsCategories>
+		<supportsCustomDate>Yes</supportsCustomDate>
+		<supportsCommentPolicy>Yes</supportsCommentPolicy>
+		<supportsExcerpt>Yes</supportsExcerpt>
+		<supportsNewCategories>Yes</supportsNewCategories>
+		<supportsNewCategoriesInline>Yes</supportsNewCategoriesInline>
+		<supportsMultipleCategories>Yes</supportsMultipleCategories>
+		<supportsHierarchicalCategories>No</supportsHierarchicalCategories>
+		<supportsKeywords>Yes</supportsKeywords>
+		<supportsPingPolicy>No</supportsPingPolicy>
+		<supportsAuthor>No</supportsAuthor>
+		<supportsSlug>Yes</supportsSlug>
+		<supportsPassword>No</supportsPassword>
+		<supportsTrackbacks>No</supportsTrackbacks>
+		<supportsPages>Yes</supportsPages>
+		<supportsPageParent>Yes</supportsPageParent>
+		<supportsPageOrder>No</supportsPageOrder>
+
+		<!--additional live writer options-->
+		<supportsEmptyTitles>No</supportsEmptyTitles>
+		<requiresHtmlTitles>No</requiresHtmlTitles>
+		<requiresXHTML>Yes</requiresXHTML>
+		<supportsScripts>Yes</supportsScripts>
+		<supportsEmbeds>No</supportsEmbeds>
+		<characterSet>UTF-8</characterSet>
+		<maxCategoryNameLength>140</maxCategoryNameLength>
+		<supportsAutoUpdate>Yes</supportsAutoUpdate>
+		<fileUploadNameFormat>{FileName}</fileUploadNameFormat>
+	</options>
+	<weblog>
+		<serviceName>FunnelWeb</serviceName>
+		<imageUrl>Content/Images/favicon.ico</imageUrl>
+		<homepageLinkText>View your blog</homepageLinkText>
+		<adminLinkText>Manage your blog</adminLinkText>
+		<adminUrl><![CDATA[{blog-homepage-url}/Admin]]></adminUrl>
+	</weblog>
+</manifest>
