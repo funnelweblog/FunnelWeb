@@ -3,9 +3,7 @@ using System.Web.Mvc;
 using FunnelWeb.Authentication;
 using FunnelWeb.Extensions.SqlAuthentication.Model;
 using FunnelWeb.Settings;
-using FunnelWeb.Web.Application;
 using NHibernate;
-using NHibernate.Linq;
 
 namespace FunnelWeb.Extensions.SqlAuthentication
 {

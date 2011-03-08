@@ -1,14 +1,10 @@
-﻿using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Security;
 using FunnelWeb.Authentication;
 using FunnelWeb.Authentication.Internal;
 using FunnelWeb.Extensions.SqlAuthentication.Model;
 using FunnelWeb.Settings;
-using FunnelWeb.Web.Application;
 using NHibernate;
-using NHibernate.Linq;
 
 namespace FunnelWeb.Extensions.SqlAuthentication
 {

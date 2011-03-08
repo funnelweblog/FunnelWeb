@@ -47,6 +47,12 @@ namespace FunnelWeb.Web.Application
             }
         }
 
+        public void Reset()
+        {
+            lock (_lock)
+                _updateNeeded = null;
+        }
+
         private static bool ExtensionsRequireUpdate(IEnumerable<IScriptProvider> extensions,
                                                     IApplicationDatabase applicationDatabase, string connectionString)
         {

@@ -25,7 +25,8 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
             string connectionString, 
             IScriptProvider applicationScriptProvider,
             IEnumerable<IScriptProvider> extensionScriptProviders, 
-            IVersionTracker versionTracker, IScriptExecutor scriptExecutor)
+            IVersionTracker versionTracker,
+            IScriptExecutor scriptExecutor)
         {
             this.connectionString = connectionString;
             this.applicationScriptProvider = applicationScriptProvider;

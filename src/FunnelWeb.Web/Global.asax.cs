@@ -83,8 +83,8 @@ namespace FunnelWeb.Web
             builder.Register<HttpServerUtilityBase>(x => new HttpServerUtilityWrapper(HttpContext.Current.Server));
             builder
                 .RegisterType<DatabaseUpgradeDetector>()
-                .As<IDatabaseUpgradeDetector>().
-                InstancePerLifetimeScope();
+                .As<IDatabaseUpgradeDetector>()
+                .SingleInstance();
             builder.RegisterModule(new AuthenticationModule());
             builder.RegisterModule(new BindersModule(ModelBinders.Binders));
             builder.RegisterModule(new MimeSupportModule());

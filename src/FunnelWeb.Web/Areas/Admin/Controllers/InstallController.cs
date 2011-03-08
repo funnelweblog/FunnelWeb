@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using FunnelWeb.DatabaseDeployer;
@@ -16,6 +15,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
     {
         public IApplicationDatabase Database { get; set; }
         public IConnectionStringProvider ConnectionStringProvider { get; set; }
+        public IDatabaseUpgradeDetector DatabaseUpgradeDetector { get; set; }
         public IEnumerable<IScriptProvider> ExtensionScriptProviders { get; set; }
 
         public virtual ActionResult Index()
@@ -65,6 +65,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         {
             var log = new Log();
             var result = Database.PerformUpgrade(ConnectionStringProvider.ConnectionString, ExtensionScriptProviders, log);
+            DatabaseUpgradeDetector.Reset();
             return View("UpgradeReport", new UpgradeModel(result, log));
         }
     }
