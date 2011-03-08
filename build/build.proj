@@ -86,8 +86,8 @@
       Properties="Configuration=Release;WebProjectOutputDir=$(Root)\build\Published\;OutDir=$(Root)\build\Published\bin\" 
       />
     <!-- Also copy extensions -->
-    <ItemGroup>
-      <ExtensionsToPublish Include="$(Root)\src\*Extension*\bin\Release\*Extension*.dll" />
+	<ItemGroup>
+      <ExtensionsToPublish Include="$(Root)\src\FunnelWeb.Web\bin\Extensions\*.dll" />
     </ItemGroup>
     <Copy SourceFiles="@(ExtensionsToPublish)" DestinationFolder="$(Root)\build\Published\bin\Extensions" />
     <!-- And delete PDBs/XML to keep the upload small -->
