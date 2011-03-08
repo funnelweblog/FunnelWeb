@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Web.Configuration;
+using Autofac.Features.OwnedInstances;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
 
@@ -13,13 +13,13 @@ namespace FunnelWeb.Settings
     public class SettingsProvider : ISettingsProvider
     {
         private readonly object @lock = new object();
-        private readonly IAdminRepository repository;
+        private readonly Func<Owned<IAdminRepository>> adminRepository;
         private readonly Func<string> themesDirectoryPath;
         private readonly Dictionary<Type, ISettings> settingsStore = new Dictionary<Type, ISettings>();
 
-        public SettingsProvider(IAdminRepository repository, Func<string> themesDirectoryPath)
+        public SettingsProvider(Func<Owned<IAdminRepository>> adminRepository, Func<string> themesDirectoryPath)
         {
-            this.repository = repository;
+            this.adminRepository = adminRepository;
             this.themesDirectoryPath = themesDirectoryPath;
         }
 
@@ -45,38 +45,40 @@ namespace FunnelWeb.Settings
             var settings = Activator.CreateInstance<T>();
             settingsStore.Add(typeof (T), settings);
             var settingMetadata = ReadSettingMetadata<T>();
-            var databaseSettings = repository.GetSettings().ToList();
-            var webConfigSettings = WebConfigurationManager.AppSettings;
-
-            foreach (var setting in settingMetadata)
+            using (var repository = adminRepository())
             {
-                // Initialize with default values
-                setting.Write(settings, setting.DefaultValue);
+                var databaseSettings = repository.Value.GetSettings().ToList();
 
-                // Write over it using the stored value
-                switch (setting.Storage.Location)
+                foreach (var setting in settingMetadata)
                 {
-                    case StorageLocation.Database:
-                        var dbSetting = databaseSettings.FirstOrDefault(x => x.Name == setting.Storage.Key);
-                        if (dbSetting != null)
-                        {
-                            setting.Write(settings, dbSetting.Value);
-                        }
-                        break;
-                    case StorageLocation.Custom:
-                        if (setting.Property.Name == "Themes")
-                        {
-                            var themeFolder = new DirectoryInfo(themesDirectoryPath());
-                            var themes = themeFolder.GetDirectories().Select(x => x.Name).OrderBy(x => x).ToArray();
-                            setting.Write(settings, themes);
-                        }
-                        else
-                        {
-                            throw new NotSupportedException(string.Format("Could not read the custom setting '{0}'", setting.Property.Name));
-                        }
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                    // Initialize with default values
+                    setting.Write(settings, setting.DefaultValue);
+
+                    // Write over it using the stored value
+                    switch (setting.Storage.Location)
+                    {
+                        case StorageLocation.Database:
+                            var dbSetting = databaseSettings.FirstOrDefault(x => x.Name == setting.Storage.Key);
+                            if (dbSetting != null)
+                            {
+                                setting.Write(settings, dbSetting.Value);
+                            }
+                            break;
+                        case StorageLocation.Custom:
+                            if (setting.Property.Name == "Themes")
+                            {
+                                var themeFolder = new DirectoryInfo(themesDirectoryPath());
+                                var themes = themeFolder.GetDirectories().Select(x => x.Name).OrderBy(x => x).ToArray();
+                                setting.Write(settings, themes);
+                            }
+                            else
+                            {
+                                throw new NotSupportedException(string.Format("Could not read the custom setting '{0}'", setting.Property.Name));
+                            }
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
                 }
             }
         }
@@ -90,39 +92,43 @@ namespace FunnelWeb.Settings
                 settingsStore.Add(settingsType, settingsToSave);
 
             var settingsMetadata = ReadSettingMetadata<T>();
-            var databaseSettings = repository.GetSettings().ToList();
-
-            foreach (var setting in settingsMetadata)
+            using (var repository = adminRepository())
             {
-                // Write over it using the stored value
-                switch (setting.Storage.Location)
-                {
-                    case StorageLocation.Database:
-                        var value = setting.Read(settingsToSave);
-                        var dbSetting = databaseSettings.FirstOrDefault(x => x.Name == setting.Storage.Key);
-                        if (dbSetting != null)
-                        {
-                            dbSetting.Value = value ?? setting.DefaultValue as string ?? string.Empty;
-                        }
-                        else
-                        {
-                            databaseSettings.Add(new Setting
-                                                     {
-                                                         Description = setting.Description, 
-                                                         DisplayName = setting.DisplayName, 
-                                                         Name = setting.Storage.Key,
-                                                         Value = value ?? setting.DefaultValue as string ?? string.Empty
-                                                     });
-                        }
-                        break;
-                    case StorageLocation.Custom:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
+                var databaseSettings = repository.Value.GetSettings().ToList();
 
-            repository.Save(databaseSettings);
+                foreach (var setting in settingsMetadata)
+                {
+                    // Write over it using the stored value
+                    switch (setting.Storage.Location)
+                    {
+                        case StorageLocation.Database:
+                            var value = setting.Read(settingsToSave);
+                            var dbSetting = databaseSettings.FirstOrDefault(x => x.Name == setting.Storage.Key);
+                            if (dbSetting != null)
+                            {
+                                dbSetting.Value = value ?? setting.DefaultValue as string ?? string.Empty;
+                            }
+                            else
+                            {
+                                databaseSettings.Add(new Setting
+                                                         {
+                                                             Description = setting.Description,
+                                                             DisplayName = setting.DisplayName,
+                                                             Name = setting.Storage.Key,
+                                                             Value =
+                                                                 value ?? setting.DefaultValue as string ?? string.Empty
+                                                         });
+                            }
+                            break;
+                        case StorageLocation.Custom:
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+
+                repository.Value.Save(databaseSettings);
+            }
         }
 
         private static IEnumerable<SettingDescriptor> ReadSettingMetadata<T>()
