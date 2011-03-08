@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
@@ -8,8 +7,6 @@ using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Model.Strings;
 using FunnelWeb.Web.Application.Spam;
-using FunnelWeb.Web.Areas.Admin.Controllers;
-using FunnelWeb.Web.Areas.Admin.Views.WikiAdmin;
 using FunnelWeb.Web.Controllers;
 using FunnelWeb.Web.Views.Wiki;
 using NSubstitute;
@@ -32,11 +29,13 @@ namespace FunnelWeb.Tests.Web.Controllers
         [SetUp]
         public void SetUp()
         {
-            Controller = new WikiController();
-            Controller.EntryRepository = EntryRepository = Substitute.For<IEntryRepository>();
-            Controller.TagRepository = FeedRepository = Substitute.For<ITagRepository>();
-            Controller.SpamChecker = SpamChecker = Substitute.For<ISpamChecker>();
-            Controller.ControllerContext = ControllerContext = CreateControllerContext();
+            Controller = new WikiController
+                             {
+                                 EntryRepository = EntryRepository = Substitute.For<IEntryRepository>(),
+                                 TagRepository = FeedRepository = Substitute.For<ITagRepository>(),
+                                 SpamChecker = SpamChecker = Substitute.For<ISpamChecker>(),
+                                 ControllerContext = ControllerContext = CreateControllerContext()
+                             };
 
             Identity = Substitute.For<IIdentity>();
             User = Substitute.For<IPrincipal>();
@@ -52,7 +51,7 @@ namespace FunnelWeb.Tests.Web.Controllers
 
             var result = (ViewResult)Controller.Search("search", false);
 
-            EntryRepository.Received().Search(Arg.Is<string>("search"));
+            EntryRepository.Received().Search(Arg.Is("search"));
             Assert.That(result.ViewName, Is.EqualTo("Search"));
             Assert.IsInstanceOf<SearchModel>(result.ViewData.Model);
             Assert.AreEqual(entries, ((SearchModel)result.ViewData.Model).Results);
@@ -67,11 +66,11 @@ namespace FunnelWeb.Tests.Web.Controllers
             var result = (RedirectToRouteResult)Controller.Page("page", 0);
 
             Assert.AreEqual("Edit", result.RouteValues["Action"]);
-            EntryRepository.Received().GetEntry(Arg.Is<PageName>("page"), Arg.Is<int>(0));
+            EntryRepository.Received().GetEntry(Arg.Is<PageName>("page"), Arg.Is(0));
         }
 
         [Test]
-        public void WikiControllerTests_Page_Returns_NotFound_For_New_Page_And_Not_Logged_In()
+        public void WikiControllerTestsPageReturnsNotFoundForNewPageAndNotLoggedIn()
         {
             var entries = new List<Entry>();
             EntryRepository.GetEntry(Arg.Any<PageName>(), Arg.Any<int>()).Returns(x => null);
@@ -87,24 +86,24 @@ namespace FunnelWeb.Tests.Web.Controllers
             var model = (SearchModel)result.ViewData.Model;
             Assert.AreSame(entries, model.Results);
 
-            EntryRepository.Received().Search(Arg.Is<string>("page"));
-            EntryRepository.Received().GetEntry(Arg.Is<PageName>("page"), Arg.Is<int>(0));
+            EntryRepository.Received().Search(Arg.Is("page"));
+            EntryRepository.Received().GetEntry(Arg.Is<PageName>("page"), Arg.Is(0));
         }
 
         [Test]
-        public void WikiControllerTests_Page_Returns_Found_Page()
+        public void WikiControllerTestsPageReturnsFoundPage()
         {
-            var entry = new Entry() { Name = "page" };
+            var entry = new Entry { Name = "page" };
             EntryRepository.GetEntry(Arg.Any<PageName>(), Arg.Any<int>()).Returns(entry);
-            
-            var result = (ViewResult)Controller.Page(entry.Name, 0);
 
-            Assert.IsNotNull(result.ViewData.Model);
-            Assert.IsInstanceOf<PageModel>(result.ViewData.Model);
-            
-            var model = (PageModel)result.ViewData.Model;
+            Controller.Page(entry.Name, 0);
+
+            Assert.IsNotNull(Controller.ViewData.Model);
+            Assert.IsInstanceOf<PageModel>(Controller.ViewData.Model);
+
+            var model = (PageModel)Controller.ViewData.Model;
             Assert.AreEqual(entry, model.Entry);
-            EntryRepository.Received().GetEntry(Arg.Is<PageName>(entry.Name), Arg.Is<int>(0));
+            EntryRepository.Received().GetEntry(Arg.Is(entry.Name), Arg.Is(0));
         }
 
         private static ControllerContext CreateControllerContext()

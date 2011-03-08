@@ -1,7 +1,9 @@
-﻿using System.Web.Routing;
+﻿using System.Web.Mvc;
+using System.Web.Routing;
 using Autofac;
 using FunnelWeb.Tests.Helpers;
 using FunnelWeb.Web;
+using FunnelWeb.Web.Areas.Admin;
 using NUnit.Framework;
 
 namespace FunnelWeb.Tests.Web
@@ -15,6 +17,9 @@ namespace FunnelWeb.Tests.Web
             Routes = new RouteCollection();
             var builder = new ContainerBuilder();
             builder.RegisterModule(new RoutesModule(Routes));
+            var adminAreaRegistration = new AdminAreaRegistration();
+            var areaRegistrationContext = new AreaRegistrationContext(adminAreaRegistration.AreaName, Routes);
+            adminAreaRegistration.RegisterArea(areaRegistrationContext);
             builder.Build();
         }
 
@@ -29,14 +34,14 @@ namespace FunnelWeb.Tests.Web
                 Routes.WillRoute("~/blog", new {controller = "Wiki", action = "Recent", pageNumber = "0" });
                 Routes.WillRoute("~/hello-world", new { controller = "Wiki", action = "Page", page = "hello-world", revision = (int?)null });
                 Routes.WillRoute("~/history-of/hello-world", new { controller = "Wiki", action = "Revisions", page = "hello-world" });
-                Routes.WillRoute("~/edit/hello-world", new { controller = "Wiki", action = "Edit", page = "hello-world" });
+                Routes.WillRoute("~/edit/hello-world", new { controller = "WikiAdmin", action = "Edit", page = "hello-world" });
                 
                 // Feeds
                 Routes.WillRoute("~/feeds", new { controller = "Feed", action = "Feed", feedName = (string)null });
                 Routes.WillRoute("~/feeds/foo", new { controller = "Feed", action = "Feed", feedName = "foo" });
 
                 // Login
-                Routes.WillRoute("~/login", new { controller = "Login", action = "Login" });
+                Routes.WillRoute("~/admin/login", new { controller = "Login", action = "Login" });
             }
         }
     }

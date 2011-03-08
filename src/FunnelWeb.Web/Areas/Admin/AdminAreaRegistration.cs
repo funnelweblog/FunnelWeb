@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using FunnelWeb.Web.Application.Mvc;
 
 namespace FunnelWeb.Web.Areas.Admin
 {

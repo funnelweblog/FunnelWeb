@@ -28,13 +28,16 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
         protected IIdentity Identity { get; set; }
         protected IPrincipal User { get; set; }
         
+        [TestFixtureSetUp]
         public void Setup()
         {
-            AdminController = new WikiAdminController();
-            AdminController.EntryRepository = EntryRepository = Substitute.For<IEntryRepository>();
-            AdminController.TagRepository = FeedRepository = Substitute.For<ITagRepository>();
-            AdminController.SpamChecker = SpamChecker = Substitute.For<ISpamChecker>();
-            AdminController.ControllerContext = ControllerContext = CreateControllerContext();
+            AdminController = new WikiAdminController
+                                  {
+                                      EntryRepository = EntryRepository = Substitute.For<IEntryRepository>(),
+                                      TagRepository = FeedRepository = Substitute.For<ITagRepository>(),
+                                      SpamChecker = SpamChecker = Substitute.For<ISpamChecker>(),
+                                      ControllerContext = ControllerContext = CreateControllerContext()
+                                  };
 
             Identity = Substitute.For<IIdentity>();
             User = Substitute.For<IPrincipal>();
@@ -47,7 +50,7 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
         [Test]
         public void EditReturnsExistingPageWhenFound()
         {
-            var entry = new Entry() { Name = "awesome-post", LatestRevision = new Revision() };
+            var entry = new Entry { Name = "awesome-post", LatestRevision = new Revision() };
             EntryRepository.GetEntry(Arg.Any<PageName>(), Arg.Any<int>()).Returns(entry);
 
             var feeds = new List<Tag>().AsQueryable();
