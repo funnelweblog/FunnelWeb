@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web;
 using Autofac;
-using Autofac.Features.OwnedInstances;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Settings;
 
@@ -11,7 +10,7 @@ namespace FunnelWeb.Web.Application.Views
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(c => new SettingsProvider(c.Resolve<Func<Owned<IAdminRepository>>>(), () => HttpContext.Current.Server.MapPath("~/Themes")))
+            builder.Register(c => new SettingsProvider(c.Resolve<IAdminRepository>(), () => HttpContext.Current.Server.MapPath("~/Themes")))
                 .As<ISettingsProvider>()
                 .InstancePerLifetimeScope();
 
