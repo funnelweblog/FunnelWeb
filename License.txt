@@ -1,3 +1,7 @@
+FunnelWeb is licensed under the New BSD license.
+
+==============================================================================
+
 Copyright (c) 2009, FunnelWeb Contributors
 All rights reserved.
 
