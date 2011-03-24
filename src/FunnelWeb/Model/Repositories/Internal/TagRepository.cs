@@ -32,14 +32,20 @@ namespace FunnelWeb.Model.Repositories.Internal
 
         public IEnumerable<Entry> GetTaggedItems(string tagName, int skip, int take)
         {
-            return session.QueryOver<Tag>()
-                .Where(t => t.Name == tagName)
-                .JoinQueryOver<Entry>(i => i.Entries)
+            var tags = session.QueryOver<Tag>()
+                .Where(t => t.Name == tagName);
+
+            var entries = tags
+                .Left
+                    .JoinQueryOver<Entry>(i => i.Entries);
+
+            var results = entries
                 .Where(e => e.Published < DateTime.UtcNow.Date.AddDays(1))
-                .OrderBy(e=>e.Published).Desc
-                .Skip(skip)
-                .Take(take)
-                .List<Entry>();
+                .OrderBy(e => e.Published).Desc;
+
+            return results.List<Tag>()
+                .First()
+                .Entries;
         }
 
         public int GetTaggedItemCount(string tagName)
