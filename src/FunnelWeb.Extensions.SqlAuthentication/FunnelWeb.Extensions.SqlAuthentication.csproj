@@ -65,6 +65,8 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -72,6 +74,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\AddRoleModel.cs" />
+    <Compile Include="Model\NewUser.cs" />
     <Compile Include="Controllers\SqlAuthenticationController.cs" />
     <Compile Include="IFunnelWebSqlMembership.cs" />
     <Compile Include="Model\IndexModel.cs" />
@@ -91,6 +95,10 @@
     <EmbeddedResource Include="Scripts\Script0001.sql" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FunnelWeb.Web\FunnelWeb.Web.csproj">
+      <Project>{64FAABD6-F45B-4ED1-A3AD-6989C1934405}</Project>
+      <Name>FunnelWeb.Web</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FunnelWeb\FunnelWeb.csproj">
       <Project>{3E448C45-F459-45D7-950C-5ABEF926513D}</Project>
       <Name>FunnelWeb</Name>
@@ -99,6 +107,8 @@
   <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Views\SqlAuthentication\AddRole.cshtml" />
+    <None Include="Views\SqlAuthentication\NewAccount.cshtml" />
     <None Include="Views\SqlAuthentication\Index.cshtml" />
     <None Include="Views\SqlAuthentication\Setup.cshtml" />
   </ItemGroup>

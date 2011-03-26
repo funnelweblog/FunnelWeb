@@ -1,4 +1,5 @@
-﻿@model FunnelWeb.Extensions.SqlAuthentication.Model.IndexModel
+﻿@using System.Web.Mvc.Html;
+@model FunnelWeb.Extensions.SqlAuthentication.Model.IndexModel
 
 <h1>Sql Authentication Provider Setup</h1>
 
@@ -9,4 +10,28 @@
 else
 { 
   @Html.ActionLink("Disable Sql Authentication", "DisableSqlAuthentication", "SqlAuthentication");
+            
+  <h2>Users</h2>                                                                                                                                                                        
+  <table>
+    <tr>
+      <th>User</th>
+      <th>Roles</th>
+    </tr>
+    @foreach (var user in Model.Users)
+    {
+        <tr>
+          <td>@user.Name</td>
+          <td>
+            @foreach (var role in user.Roles)
+            {
+              @role.Name <text>(</text>@Html.ActionLink("Remove", "RemoveRole", new { userId = user.Id, roleId = role.Id })<text>)</text> <br />
+            }
+            <br />
+            @Html.ActionLink("Add Role", "AddRole", new { userId = user.Id })
+          </td>
+        </tr>
+    }
+  </table>
+  
+  @Html.ActionLink("Create User", "NewAccount");
 }

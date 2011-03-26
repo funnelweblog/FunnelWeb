@@ -1,4 +1,6 @@
-﻿using System.Web.Configuration;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Security;
 using FunnelWeb.Extensions.SqlAuthentication.Model;
@@ -31,6 +33,14 @@ namespace FunnelWeb.Extensions.SqlAuthentication
 
             DependencyResolver.Current.GetService<ISession>().Save(user);
             return user;
+        }
+
+        public IEnumerable<User> GetUsers()
+        {
+            return DependencyResolver.Current
+                .GetService<ISession>()
+                .QueryOver<User>()
+                .List();
         }
 
         internal static string HashPassword(string password)

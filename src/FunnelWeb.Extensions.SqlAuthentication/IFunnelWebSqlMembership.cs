@@ -1,4 +1,5 @@
-﻿using FunnelWeb.Extensions.SqlAuthentication.Model;
+﻿using System.Collections.Generic;
+using FunnelWeb.Extensions.SqlAuthentication.Model;
 
 namespace FunnelWeb.Extensions.SqlAuthentication
 {
@@ -6,5 +7,6 @@ namespace FunnelWeb.Extensions.SqlAuthentication
     {
         bool HasAdminAccount();
         User CreateAccount(string name, string email, string username, string password);
+        IEnumerable<User> GetUsers();
     }
 }

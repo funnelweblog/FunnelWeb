@@ -1,15 +1,13 @@
 ﻿@using System.Web.Mvc;
 @using System.Web.Mvc.Html;
 @using FunnelWeb.Web.Application.Extensions;
-@model FunnelWeb.Extensions.SqlAuthentication.Model.SetupModel
+@model FunnelWeb.Extensions.SqlAuthentication.Model.NewUser
 <h1>
   Sql Authentication Provider Setup</h1>
-@if (!Model.HasAdminAccount)
+@using (Html.BeginForm("NewAccount", "SqlAuthentication", FormMethod.Post))
 {
-  using (Html.BeginForm("CreateAdminAccount", "SqlAuthentication", FormMethod.Post))
-  {
-    <h2>
-      Create Admin Account</h2>
+  <h2>
+    Create Admin Account</h2>
   <div class="form-body">
     <div class="editor-label">
       @Html.LabelFor(m => m.Name)
@@ -54,8 +52,7 @@
     <div class="editor-label">
     </div>
     <div class="editor-field">
-      <input type="submit" id="submit" class="submit" value="Save!" />
+      <input type="submit" id="submit" class="submit" value="Create" />
     </div>
   </div>
-  }
 }
