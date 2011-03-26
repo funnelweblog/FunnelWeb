@@ -40,6 +40,9 @@ namespace FunnelWeb.Web
             routes.IgnoreRoute("{*allaxd}", new { allaxd = @".*\.axd(/.*)?" });
             routes.IgnoreRoute("pingback");
 
+            if (builder != null)
+                AreaRegistration.RegisterAllAreas();
+
             // Feeds
             routes.MapLowerCaseRoute("feed", new { controller = "Feed", action = "Feed", feedName = (string)null });
             routes.MapLowerCaseRoute("feeds/{*feedName}", new { controller = "Feed", action = "Feed" });

@@ -98,7 +98,6 @@ namespace FunnelWeb.Web
             builder.RegisterModule(new RepositoriesModule(()=>container.Resolve<IEnumerable<IScriptProvider>>()));
             // ReSharper restore AccessToModifiedClosure
 
-            AreaRegistration.RegisterAllAreas();
             builder.RegisterModule(new RoutesModule(RouteTable.Routes));
 
             container = builder.Build();
