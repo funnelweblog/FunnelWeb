@@ -62,10 +62,8 @@ namespace FunnelWeb.Extensions.MetaWeblog
                     entry.Title = post.title ?? string.Empty;
                     entry.Summary = post.mt_excerpt ?? string.Empty;
                     entry.MetaTitle = post.title;
-                    entry.Published = post.dateCreated.ToUniversalTime();
+                    entry.Published = (post.dateCreated < DateTime.Today.AddYears(10) ? DateTime.Today : post.dateCreated).ToUniversalTime();
                     entry.Status = publish ? EntryStatus.PublicBlog : EntryStatus.Private;
-
-                    entry.Summary = post.mt_excerpt ?? string.Empty;
 
                     var revision = entry.Revise();
                     revision.Body = post.description;
@@ -79,8 +77,7 @@ namespace FunnelWeb.Extensions.MetaWeblog
                     if (!string.IsNullOrEmpty(post.wp_slug))
                         entry.Name = post.wp_slug;
 
-                    if (entry.MetaDescription == null)
-                        entry.MetaDescription = entry.Title;
+                    entry.MetaDescription = entry.Summary;
 
                     var editTags = post.categories;
                     var toDelete = entry.Tags.Where(t => !editTags.Contains(t.Name)).ToList();
@@ -248,6 +245,7 @@ namespace FunnelWeb.Extensions.MetaWeblog
                            title = entry.Title,
                            userid = "FunnelWeb",
                            wp_slug = entry.Name.ToString(),
+                           mt_excerpt = entry.MetaDescription
                        };
         }
     }
