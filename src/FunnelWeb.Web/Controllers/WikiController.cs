@@ -36,7 +36,7 @@ namespace FunnelWeb.Web.Controllers
                 if (entry != null)
                 {
                     ViewData.Model = new PageModel(entry.Name, entry, false);
-                    return new PageTemplateActionResult("Page", entry.PageTemplate);
+                    return new PageTemplateActionResult(entry.PageTemplate, "Page");
                 }
             }
 
