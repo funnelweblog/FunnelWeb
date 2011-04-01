@@ -271,6 +271,7 @@
     <Content Include="Content\Styles\Layout\Mobile.css" />
     <Content Include="Content\Styles\Layout\TagEditor.css" />
     <Content Include="Themes\BoringTheme\Content\Styles\Theme.css" />
+    <Content Include="Themes\Clean\Content\Styles\Theme.css" />
     <Content Include="Themes\Official\Content\Styles\Theme.css" />
     <Content Include="Themes\MattHamilton\Content\Styles\backgnd.png" />
     <Content Include="Areas\Admin\Views\Admin\PageList.cshtml" />
