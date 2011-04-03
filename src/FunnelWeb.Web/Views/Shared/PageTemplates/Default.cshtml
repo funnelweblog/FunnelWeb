@@ -20,6 +20,8 @@
   @Html.DisplayFor(model => model.Entry.Summary)
 }
 
+@Html.ValidationSummary("Comment unsuccessful. Please correct the errors below.")
+
 @if (Model.Entry.Status == FunnelWeb.Model.EntryStatus.Private)
 {
   <div class='validation-summary-errors'>
@@ -29,6 +31,7 @@
     to make it public.
   </div>    
 }
+
 @if (!Model.Entry.HideChrome)
 {
   <h1>
