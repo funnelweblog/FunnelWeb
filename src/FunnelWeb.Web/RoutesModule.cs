@@ -49,7 +49,7 @@ namespace FunnelWeb.Web
             routes.MapLowerCaseRoute("commentfeed", new { controller = "Feed", action = "CommentFeed" });
 
             // Upload
-            routes.MapLowerCaseRoute("get/{*path}", new { controller = "Upload", action = "Render" });
+            routes.MapLowerCaseRoute("get/{*path}", new { controller = "Upload", action = "Render", area = "Admin" });
 
             // Resources
             routes.MapLowerCaseRoute("robots", new { controller = "Resource", action = "Render", fileName = "/Content/Resources/Robots.txt", contentType = "text/plain" });

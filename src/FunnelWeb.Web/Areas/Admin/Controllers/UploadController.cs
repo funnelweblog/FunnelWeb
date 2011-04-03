@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Web.Mvc;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Web.Application;
@@ -60,9 +61,32 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
             if (FileRepository.IsFile(path))
             {
                 var fullPath = FileRepository.MapPath(path);
-                return File(fullPath, MimeHelper.GetMimeType(fullPath));
+
+                return new CustomFileResult(fullPath, MimeHelper.GetMimeType(fullPath));
             }
             return Redirect("/");
+        }
+
+        // We can't use MVC's inbuilt FileResult, because ClientDependency seems to conflict with it
+        // and compresses the files
+        private class CustomFileResult : ActionResult
+        {
+            private readonly string path;
+            private readonly string mimeType;
+
+            public CustomFileResult(string path, string mimeType)
+            {
+                this.path = path;
+                this.mimeType = mimeType;
+            }
+
+            public override void ExecuteResult(ControllerContext context)
+            {
+                context.HttpContext.Response.ContentType = mimeType;
+                context.HttpContext.Response.AppendHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(path));
+                context.HttpContext.Response.WriteFile(path);
+                context.HttpContext.Response.Flush();
+            }
         }
     }
 }
