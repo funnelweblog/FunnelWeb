@@ -135,7 +135,12 @@
             @Html.UrlLink(comment.AuthorUrl, comment.AuthorName, "fn url")
           </div>
           <div class="comment-body">
-            <div class="comment-date">@Html.Date(comment.Posted)</div>
+            <div class="comment-date">@Html.Date(comment.Posted)
+              @if (ViewData.IsLoggedIn())
+              {
+                  @Html.ActionLink(comment.IsSpam ? "Unspam" : "Spam", "ToggleSpam", "Admin", new { Area = "Admin", id = comment.Id }, null)
+              }
+            </div>
             @Html.DisplayFor(_ => comment.Body, new { Sanitize = true })
           </div>
           <div class="clear">
