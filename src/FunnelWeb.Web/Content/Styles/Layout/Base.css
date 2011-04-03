@@ -1291,3 +1291,7 @@ a.tag
 	width: 11px;
 	background: transparent url('images/del_sprite_tagComplete.png') no-repeat 0 0;
 }
+.flash 
+{
+    clear: both;
+}

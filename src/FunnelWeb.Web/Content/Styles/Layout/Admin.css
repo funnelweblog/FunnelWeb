@@ -285,12 +285,13 @@ input, textarea
     border: 1px solid #999;
 }
 button, input[type="submit"] {
-    background: #E9E9E9 -webkit-linear-gradient(#FEFEFE, #F8F8F8 40%, #E9E9E9);
+    background: #E9E9E9;
     border-color: #999;
     color: #222;
     -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+    background: #E9E9E9 -webkit-linear-gradient(#FEFEFE, #F8F8F8 40%, #E9E9E9);
 }
 
 input[type="text"], textarea
@@ -328,7 +329,7 @@ input[type="text"], textarea
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
     border-radius: 6px;
-    margin: 10px 10px 10px 10px;
+    margin: 10px 0 10px 0;
     text-align: center;
     background: #FCFFCE -webkit-linear-gradient(#FCFFCE, #f8ff91);
 }

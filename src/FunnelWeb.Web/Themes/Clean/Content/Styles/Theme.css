@@ -3,6 +3,7 @@
     font-family: "Segoe UI", Verdana, Arial, Sans-Serif;
     font-size: 10pt;
     color: #333;
+    background: #fff;
 }
 
 a
@@ -258,7 +259,7 @@ pre
 
 .post-list
 {
-    width: auto;
+    width: 100%;
 }
 .post-line
 {
@@ -285,12 +286,13 @@ input, textarea
     border: 1px solid #999;
 }
 button, input[type="submit"] {
-    background: #EBEBEB -webkit-linear-gradient(#FEFEFE, #F8F8F8 40%, #E9E9E9);
+    background: #E9E9E9;
     border-color: #999;
     color: #222;
     -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+    background: #E9E9E9 -webkit-linear-gradient(#FEFEFE, #F8F8F8 40%, #E9E9E9);
 }
 
 input[type="text"], textarea
@@ -307,4 +309,41 @@ input[type="text"], textarea
 .tags .tag 
 {
     padding: 4px 7px;
+}
+.flash 
+{
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    margin: 10px 0 10px 0;
+    text-align: center;
+    background: #FCFFCE -webkit-linear-gradient(#FCFFCE, #f8ff91);
+}
+
+.validation-summary-errors
+{
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    background: #FFEEF2 -webkit-linear-gradient(#FFEEF2, #fdbebe);
+}
+.comment .comment-author 
+{
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    margin-top: 5px;
+}
+.comment .comment-author img 
+{
+    border: 1px solid #ccc; 
+    -moz-box-shadow: 3px 3px 5px #ddd; 
+    -webkit-box-shadow: 3px 3px 5px #ddd; 
+    box-shadow: 3px 3px 5px #ddd;
+}
+.comment .comment-body 
+{
+    margin-top: 0;
 }
