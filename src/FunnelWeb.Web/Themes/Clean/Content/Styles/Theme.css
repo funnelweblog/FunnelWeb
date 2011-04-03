@@ -3,6 +3,7 @@
     font-family: "Segoe UI", Verdana, Arial, Sans-Serif;
     font-size: 10pt;
     color: #333;
+    background: #fff;
 }
 
 a
@@ -258,7 +259,7 @@ pre
 
 .post-list
 {
-    width: auto;
+    width: 100%;
 }
 .post-line
 {
@@ -309,21 +310,6 @@ input[type="text"], textarea
 {
     padding: 4px 7px;
 }
-.admin-link 
-{
-    padding: 10px 0;
-}
-.admin-link h3
-{
-    font-size: 12pt;
-    margin: 0;
-    padding: 0;
-}
-.admin-link p 
-{
-    margin: 0;
-    padding: 0;
-}
 .flash 
 {
     -moz-border-radius: 6px;
@@ -333,11 +319,31 @@ input[type="text"], textarea
     text-align: center;
     background: #FCFFCE -webkit-linear-gradient(#FCFFCE, #f8ff91);
 }
-.comment-admin table
+
+.validation-summary-errors
 {
-    background: #fafafa;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    background: #FFEEF2 -webkit-linear-gradient(#FFEEF2, #fdbebe);
 }
-.comment-admin table.spam
+.comment .comment-author 
 {
-    background: #fdd0d0;
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    margin-top: 5px;
+}
+.comment .comment-author img 
+{
+    border: 1px solid #ccc; 
+    -moz-box-shadow: 3px 3px 5px #ddd; 
+    -webkit-box-shadow: 3px 3px 5px #ddd; 
+    box-shadow: 3px 3px 5px #ddd;
+}
+.comment .comment-body 
+{
+    margin-top: 0;
 }

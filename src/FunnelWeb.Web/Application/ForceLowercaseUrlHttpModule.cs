@@ -18,7 +18,12 @@ namespace FunnelWeb.Web.Application
         {
             var context = HttpContext.Current;
 
-            if (context.Request.Url.AbsolutePath.EndsWith(".axd") || context.Request.HttpMethod == "POST" || extensions.Any(x => context.Request.Url.AbsolutePath.EndsWith(x, StringComparison.InvariantCultureIgnoreCase)))
+            if (context.Request.Url.AbsolutePath.StartsWith("get", StringComparison.InvariantCultureIgnoreCase) || context.Request.Url.AbsolutePath.StartsWith("/get", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return;
+            }
+
+            if (context.Request.Url.AbsolutePath.EndsWith(".axd", StringComparison.InvariantCultureIgnoreCase) || context.Request.HttpMethod == "POST" || extensions.Any(x => context.Request.Url.AbsolutePath.EndsWith(x, StringComparison.InvariantCultureIgnoreCase)))
             {
                 return;
             }

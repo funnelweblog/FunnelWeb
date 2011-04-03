@@ -2,7 +2,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="lib\MSBuild.Community.Tasks.Targets" />
   <Import Project="lib\MSBuild.Deployment.Tasks.Targets" />
-  <Import Project="lib\MSBuild.Community.Tasks.Targets"/>
   <Import Project="lib\MSBuild.Mercurial.tasks"/>
   
   <PropertyGroup>
@@ -88,8 +87,10 @@
     <!-- Also copy extensions -->
 	<ItemGroup>
       <ExtensionsToPublish Include="$(Root)\src\FunnelWeb.Web\bin\Extensions\*.dll" />
+	  <ExtensionViewsToPublish Include="$(Root)\src\FunnelWeb.Web\Views\Extensions\**\*.*" />
     </ItemGroup>
     <Copy SourceFiles="@(ExtensionsToPublish)" DestinationFolder="$(Root)\build\Published\bin\Extensions" />
+	<Copy SourceFiles="@(ExtensionViewsToPublish)" DestinationFolder="$(Root)\build\Published\Views\Extensions\%(RecursiveDir)" />
     <!-- And delete PDBs/XML to keep the upload small -->
     <ItemGroup>
       <PublishedFilesToDelete Include="$(Root)\build\Published\**\bin\**\*.pdb" />
@@ -97,12 +98,24 @@
       <PublishedFilesToDelete Include="$(Root)\build\Published\**\bin\**\*.config" />
     </ItemGroup>
     <Delete Files="@(PublishedFilesToDelete)" ContinueOnError="true" />
+
     <!-- Rename web.config -->
     <Copy 
     	SourceFiles="$(Root)\build\Published\web.config" 
-		DestinationFiles="$(Root)\build\Published\web.config.sample">
+		DestinationFiles="$(Root)\build\Published\web.config.sample"
+		Condition="!Exists('$(Root)\src\FunnelWeb.Web\obj\Release\TransformWebConfig\transformed\Web.config')">
 	</Copy>
-	<Delete Files="$(Root)\build\Published\web.config"></Delete>
+	<Copy 
+    	SourceFiles="$(Root)\src\FunnelWeb.Web\obj\Release\TransformWebConfig\transformed\Web.config" 
+		DestinationFiles="$(Root)\build\Published\web.config"
+		Condition="Exists('$(Root)\src\FunnelWeb.Web\obj\Release\TransformWebConfig\transformed\Web.config')">
+	</Copy>
+	<Delete Files="$(Root)\build\Published\web.config"
+            Condition="!Exists('$(Root)\src\FunnelWeb.Web\obj\Release\TransformWebConfig\transformed\Web.config')" />
+	<Delete Files="$(Root)\build\Published\web.Debug.config"
+            Condition="Exists('$(Root)\build\Published\web.Debug.config')" />
+	<Delete Files="$(Root)\build\Published\web.Release.config"
+            Condition="Exists('$(Root)\build\Published\web.Release.config')" />
     <!-- Zip the Published folder -->
     <ItemGroup>
       <PublishedFilesToZip Include="$(Root)\build\Published\**\*.*" />

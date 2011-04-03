@@ -105,7 +105,7 @@ namespace FunnelWeb.Web
             AutofacHostFactory.Container = container;
 
             ViewEngines.Engines.Clear();
-            ViewEngines.Engines.Add(new FunnelWebViewEngine(container.Resolve<ISettingsProvider>(), container.Resolve<IDatabaseUpgradeDetector>()));
+            ViewEngines.Engines.Add(new FunnelWebViewEngine(() => container.Resolve<ISettingsProvider>(), container.Resolve<IDatabaseUpgradeDetector>()));
 
             ControllerBuilder.Current.SetControllerFactory(new FunnelWebControllerFactory(container));
         }

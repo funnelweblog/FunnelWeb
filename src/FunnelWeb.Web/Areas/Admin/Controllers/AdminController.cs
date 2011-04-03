@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using FunnelWeb.Filters;
@@ -60,10 +61,11 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
         #region Comments
 
-        public virtual ActionResult Comments()
+        public virtual ActionResult Comments(int? pageNumber)
         {
-            var comments = AdminRepository.GetComments(0, 50);
-            return View(new CommentsModel(comments));
+            var commentCount = (int)Math.Ceiling(AdminRepository.GetComments(0, int.MaxValue).Count()/20.00);
+            var comments = AdminRepository.GetComments((pageNumber??0) * 20, 20);
+            return View(new CommentsModel((pageNumber ?? 0), commentCount, comments));
         }
 
         public virtual ActionResult DeleteComment(int id)

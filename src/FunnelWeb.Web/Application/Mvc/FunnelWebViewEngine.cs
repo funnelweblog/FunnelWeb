@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using FunnelWeb.Settings;
 
@@ -15,15 +16,15 @@ namespace FunnelWeb.Web.Application.Mvc
         private readonly string[] _viewLocationFormats;
         private readonly string[] _masterLocationFormats;
 
-        public FunnelWebViewEngine(ISettingsProvider settings, IDatabaseUpgradeDetector databaseUpgradeDetector)
+        public FunnelWebViewEngine(Func<ISettingsProvider> settings, IDatabaseUpgradeDetector databaseUpgradeDetector)
         {
-            _settings = settings;
+            if (databaseUpgradeDetector.UpdateNeeded())
+                return;
+
+            _settings = settings();
             _partialViewLocationFormats = PartialViewLocationFormats;
             _viewLocationFormats = ViewLocationFormats;
             _masterLocationFormats = MasterLocationFormats;
-
-            if (databaseUpgradeDetector.UpdateNeeded())
-                return;
 
             UpdateThemePath(_settings.GetSettings<FunnelWebSettings>());
         }

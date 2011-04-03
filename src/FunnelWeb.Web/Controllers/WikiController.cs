@@ -97,8 +97,7 @@ namespace FunnelWeb.Web.Controllers
                 model.IsPriorVersion = false;
                 model.Page = page;
                 ViewData.Model = model;
-                return new PageTemplateActionResult(entry.PageTemplate, "Page")
-                    .AndFlash("Your comment was not posted - please check the validation errors below.");
+                return new PageTemplateActionResult(entry.PageTemplate, "Page");
             }
 
             var comment = entry.Comment();
