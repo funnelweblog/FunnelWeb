@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   @{ 
     Html.RequiresCss("Base.css", "Layout", 0);
-    Html.RequiresCss("Admin.css", "Layout", 0);
+    Html.RequiresCss("Admin.css", "Layout", 1);
   }
   @MvcHtmlString.Create(Html.RenderCssHere(new List<IClientDependencyPath> {
       new BasicPath("Layout", "~/Content/Styles/Layout")
@@ -48,7 +48,8 @@
     </div>
   </div>
   <div class="footer">
-    This is an admin page, so you won't see the standard header, footer and styles being applied. It's for your own protection.
+    <p>This is an admin page, so you won't see the standard header, footer and styles being applied. It's for your own protection.</p>
+    <p>Powered by <a href="http://www.funnelweblog.com/">FunnelWeb</a> @Html.Version()</p>
   </div>
   @{ 
     Html.RequiresJs("JQuery/jquery-1.4.4.min.js", "Scripts", 0);
