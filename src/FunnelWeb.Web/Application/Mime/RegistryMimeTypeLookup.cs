@@ -38,8 +38,8 @@ namespace FunnelWeb.Web.Application.Mime
                 }
             }
 
-            //foreach (var keyname in RegistryExtensionHelper.Where(keyname => keyname.Key == dotExt))
-            //    return keyname.Value;
+            foreach (var keyname in RegistryExtensionHelper.Where(keyname => keyname.Key == dotExt))
+                return keyname.Value;
 
             return "application/unknown";
         }
