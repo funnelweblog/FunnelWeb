@@ -59,32 +59,32 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         {
             if (FileRepository.IsFile(path))
             {
-                string fullPath = FileRepository.MapPath(path);
+                var fullPath = FileRepository.MapPath(path);
 
-                return new CustomFileResult(fullPath, MimeHelper.GetMimeType(fullPath));
+                return File(fullPath, MimeHelper.GetMimeType(fullPath));
             }
             return Redirect("/");
         }
 
-        private class CustomFileResult : ActionResult
-        {
-            private readonly string _mimeType;
-            private readonly string _path;
+        //private class CustomFileResult : ActionResult
+        //{
+        //    private readonly string _mimeType;
+        //    private readonly string _path;
 
-            public CustomFileResult(string path, string mimeType)
-            {
-                _path = path;
-                _mimeType = mimeType;
-            }
+        //    public CustomFileResult(string path, string mimeType)
+        //    {
+        //        _path = path;
+        //        _mimeType = mimeType;
+        //    }
 
-            public override void ExecuteResult(ControllerContext context)
-            {
-                context.HttpContext.Response.ContentType = _mimeType;
-                context.HttpContext.Response.AppendHeader("Content-Disposition",
-                                                          "attachment; filename=" + Path.GetFileName(_path));
-                context.HttpContext.Response.WriteFile(_path);
-                context.HttpContext.Response.Flush();
-            }
-        }
+        //    public override void ExecuteResult(ControllerContext context)
+        //    {
+        //        context.HttpContext.Response.ContentType = _mimeType;
+        //        context.HttpContext.Response.AppendHeader("Content-Disposition",
+        //                                                  "attachment; filename=" + Path.GetFileName(_path));
+        //        context.HttpContext.Response.WriteFile(_path);
+        //        context.HttpContext.Response.Flush();
+        //    }
+        //}
     }
 }
