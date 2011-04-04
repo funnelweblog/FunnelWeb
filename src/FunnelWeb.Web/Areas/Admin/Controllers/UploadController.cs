@@ -65,26 +65,5 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
             }
             return Redirect("/");
         }
-
-        //private class CustomFileResult : ActionResult
-        //{
-        //    private readonly string _mimeType;
-        //    private readonly string _path;
-
-        //    public CustomFileResult(string path, string mimeType)
-        //    {
-        //        _path = path;
-        //        _mimeType = mimeType;
-        //    }
-
-        //    public override void ExecuteResult(ControllerContext context)
-        //    {
-        //        context.HttpContext.Response.ContentType = _mimeType;
-        //        context.HttpContext.Response.AppendHeader("Content-Disposition",
-        //                                                  "attachment; filename=" + Path.GetFileName(_path));
-        //        context.HttpContext.Response.WriteFile(_path);
-        //        context.HttpContext.Response.Flush();
-        //    }
-        //}
     }
 }
