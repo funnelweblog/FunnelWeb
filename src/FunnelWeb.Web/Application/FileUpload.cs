@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Web;
-using ICSharpCode.SharpZipLib.Zip;
 
 namespace FunnelWeb.Web.Application
 {
