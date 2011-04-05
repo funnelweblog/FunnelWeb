@@ -18,13 +18,13 @@ namespace FunnelWeb.Web.Application.Mvc
 
         public FunnelWebViewEngine(Func<ISettingsProvider> settings, IDatabaseUpgradeDetector databaseUpgradeDetector)
         {
-            if (databaseUpgradeDetector.UpdateNeeded())
-                return;
-
-            _settings = settings();
             _partialViewLocationFormats = PartialViewLocationFormats;
             _viewLocationFormats = ViewLocationFormats;
             _masterLocationFormats = MasterLocationFormats;
+            _settings = settings();
+
+            if (databaseUpgradeDetector.UpdateNeeded())
+                return;
 
             UpdateThemePath(_settings.GetSettings<FunnelWebSettings>());
         }
