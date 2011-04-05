@@ -103,6 +103,7 @@
     <EmbeddedResource Include="Scripts\Script0010.sql" />
     <EmbeddedResource Include="Scripts\Script0011.sql" />
     <EmbeddedResource Include="Scripts\Script0012.sql" />
+    <EmbeddedResource Include="Scripts\Script0024.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

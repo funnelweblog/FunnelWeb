@@ -13,6 +13,8 @@ namespace FunnelWeb.Model.Mappings
             Map(x => x.Body);
             Map(x => x.Status);
             Map(x => x.Posted);
+            Map(x => x.AuthorIp);
+            Map(x => x.EntryRevisionNumber);
 
             References(x => x.Entry, "EntryId");
         }
