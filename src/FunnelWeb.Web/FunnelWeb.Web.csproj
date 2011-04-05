@@ -218,6 +218,7 @@
     <Compile Include="Areas\Admin\Views\Upload\IndexModel.cs" />
     <Compile Include="Application\Mvc\Binders\EditModelBinder.cs" />
     <Compile Include="Application\Mvc\NotFromValuesListConstraint.cs" />
+    <Compile Include="Controllers\TaggedController.cs" />
     <Compile Include="Views\Wiki\SearchModel.cs" />
     <Compile Include="Views\Wiki\PageModel.cs" />
     <Compile Include="Views\Wiki\RecentModel.cs" />
@@ -365,6 +366,7 @@
     <Content Include="Views\Shared\PageTemplates\Default.cshtml" />
     <Content Include="Themes\Twitter\Views\Shared\PageTemplates\Default.cshtml" />
     <Content Include="Themes\Twitter\Views\Shared\PageTemplates\Homepage.cshtml" />
+    <Content Include="Views\Tagged\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Public.cshtml" />

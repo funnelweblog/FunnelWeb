@@ -65,6 +65,9 @@ namespace FunnelWeb.Web
 
             // Tags
             routes.MapLowerCaseRoute("tag/{*tagName}", new { controller = "Tag", action = "Index" });
+            
+            // Tagged Pages
+            routes.MapLowerCaseRoute("tagged/{*tag}", new {controller = "Tagged", action = "Index"});
 
             // Wiki
             routes.MapLowerCaseRoute("blog", new { controller = "Wiki", action = "Recent", pageNumber = "0" });

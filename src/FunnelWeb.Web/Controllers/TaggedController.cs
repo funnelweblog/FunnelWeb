@@ -2,7 +2,7 @@
 using FunnelWeb.Filters;
 using FunnelWeb.Model.Repositories;
 
-namespace FunnelWeb.Extensions.TaggedPages.Controllers
+namespace FunnelWeb.Web.Controllers
 {
     [FunnelWebRequest]
     public class TaggedController : Controller
