@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Bindable.Core.Language;
+using FunnelWeb.Authentication;
 using FunnelWeb.Model.Strings;
 using Iesi.Collections.Generic;
 using NHibernate;
@@ -14,7 +15,7 @@ namespace FunnelWeb.Model.Repositories.Internal
     public class EntryRepository : IEntryRepository
     {
         private readonly ISession session;
-        
+
         public EntryRepository(ISession session)
         {
             this.session = session;

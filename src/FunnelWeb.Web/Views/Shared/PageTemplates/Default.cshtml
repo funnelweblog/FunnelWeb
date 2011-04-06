@@ -73,6 +73,7 @@
     @TagList.Render(Model.Entry.Tags)
   
     <div class='entry-tools'>
+      <span>Posted by: @Model.Entry.Author@{if (@Model.Entry.LatestRevision.Author != Model.Entry.Author) {Write(string.Format(", Last edit by: {0}", @Model.Entry.LatestRevision.Author));}}</span><br />
       <span>Last revised: <a href="@Html.ActionUrl("Page", new { page = Model.Page.ToString(), revision = Model.Entry.LatestRevision.RevisionNumber })">@Html.Date(Model.Entry.LatestRevision.Revised)</a></span>
       <span>@Html.ActionLink("History", "Revisions", new { page = Model.Page })</span>
       @if (ViewData.IsLoggedIn())

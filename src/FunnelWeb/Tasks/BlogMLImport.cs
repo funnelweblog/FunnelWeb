@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using BlogML;
 using BlogML.Xml;
+using FunnelWeb.Authentication;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
 
@@ -13,10 +14,12 @@ namespace FunnelWeb.Tasks
     public class BlogMLImportTask : ITask
     {
         private readonly IEntryRepository entryRepository;
+        private readonly IAuthenticator _authenticator;
 
-        public BlogMLImportTask(IEntryRepository entryRepository)
+        public BlogMLImportTask(IEntryRepository entryRepository, IAuthenticator authenticator)
         {
             this.entryRepository = entryRepository;
+            _authenticator = authenticator;
         }
 
         public IEnumerable<TaskStep> Execute(Dictionary<string, object> properties)
@@ -49,6 +52,7 @@ namespace FunnelWeb.Tasks
                     progress = (int)(((double)postIndex / (double)postCount) * (double)remainingProgress);
                         
                     var entry = new Entry();
+                    entry.Author = _authenticator.GetName();
                     entry.HideChrome = false;
                     entry.IsDiscussionEnabled = true;
                     entry.Status = post.PostType == BlogPostTypes.Article ? EntryStatus.PublicPage : EntryStatus.PublicBlog;
@@ -69,6 +73,7 @@ namespace FunnelWeb.Tasks
                     }
 
                     var revision = entry.Revise();
+                    revision.Author = _authenticator.GetName();
                     revision.Body = post.Content.UncodedText;
                     revision.Format = Formats.Html;
                     revision.Reason = "Imported from BlogML";

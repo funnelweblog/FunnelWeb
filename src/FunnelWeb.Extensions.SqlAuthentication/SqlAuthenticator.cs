@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web;
+using System.Web.Mvc;
 using System.Web.Security;
 using FunnelWeb.Authentication;
 using FunnelWeb.Authentication.Internal;
@@ -12,9 +14,28 @@ namespace FunnelWeb.Extensions.SqlAuthentication
     {
         private readonly FormsAuthenticator _formsAuthenticator;
 
-        public SqlAuthenticator()
+        public SqlAuthenticator(FormsAuthenticator formsAuthenticator)
         {
-            _formsAuthenticator = new FormsAuthenticator();
+            _formsAuthenticator = formsAuthenticator;
+        }
+
+        public string GetName()
+        {
+            return UseFormsAuthentication
+                       ? _formsAuthenticator.GetName()
+                       : SqlGetName();
+        }
+
+        private static string SqlGetName()
+        {
+            var username = ((FormsIdentity) HttpContext.Current.User.Identity).Name;
+
+            var session = DependencyResolver.Current.GetService<ISession>();
+            var user = session.QueryOver<User>()
+                .Where(u => u.Username == username)
+                .SingleOrDefault();
+
+            return user.Name;
         }
 
         public bool AuthenticateAndLogin(string username, string password)
