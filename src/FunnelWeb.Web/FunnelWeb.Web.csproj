@@ -186,6 +186,9 @@
     <Compile Include="Application\Mvc\ActionResults\PageTemplateActionResult.cs" />
     <Compile Include="Application\RequireUpdatedDatabaseHttpModule.cs" />
     <Compile Include="Application\Mvc\FunnelWebViewEngine.cs" />
+    <Compile Include="Application\Themes\IThemeProvider.cs" />
+    <Compile Include="Application\Themes\ThemeProvider.cs" />
+    <Compile Include="Application\Themes\ThemesModule.cs" />
     <Compile Include="Application\Views\IMarkdownProvider.cs" />
     <Compile Include="Application\Views\InputSanitizer.cs" />
     <Compile Include="Application\Views\MarkdownRenderer.cs" />

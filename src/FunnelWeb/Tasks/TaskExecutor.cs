@@ -38,6 +38,8 @@ namespace FunnelWeb.Tasks
             using (var scope = rootScope.BeginLifetimeScope())
             {
                 var task = scope.Resolve<TTask>();
+                var session = scope.Resolve<ISession>();
+                var transaction = session.BeginTransaction();
 
                 try
                 {
@@ -57,6 +59,9 @@ namespace FunnelWeb.Tasks
                             });
                     }
 
+                    session.Flush();
+                    transaction.Commit();
+
                     UpdateTaskState(
                         taskId,
                         state =>
@@ -68,6 +73,7 @@ namespace FunnelWeb.Tasks
                 }
                 catch (Exception ex)
                 {
+                    transaction.Rollback();
                     UpdateTaskState(
                         taskId,
                         state =>

@@ -8,6 +8,7 @@ using FunnelWeb.Settings;
 using FunnelWeb.Tasks;
 using FunnelWeb.Web.Application;
 using FunnelWeb.Web.Application.Mvc;
+using FunnelWeb.Web.Application.Themes;
 using FunnelWeb.Web.Areas.Admin.Views.Admin;
 
 namespace FunnelWeb.Web.Areas.Admin.Controllers
@@ -20,6 +21,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         public IAdminRepository AdminRepository { get; set; }
         public ITagRepository FeedRepository { get; set; }
         public ISettingsProvider SettingsProvider { get; set; }
+        public IThemeProvider ThemeProvider { get; set; }
         public IEntryRepository EntryRepository { get; set; }
         public ITaskStateRepository TaskRepository { get; set; }
         public ITaskExecutor<BlogMLImportTask> ImportTask { get; set; }
@@ -34,13 +36,14 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         public virtual ActionResult Settings()
         {
             var settings = SettingsProvider.GetSettings<FunnelWebSettings>();
+            ViewBag.Themes = ThemeProvider.GetThemes();
             return View(settings);
         }
 
         [HttpPost]
         public virtual ActionResult Settings(FunnelWebSettings settings)
         {
-            settings.Themes = SettingsProvider.GetSettings<FunnelWebSettings>().Themes;
+            ViewBag.Themes = ThemeProvider.GetThemes();
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Your settings could not be saved. Please fix the errors shown below.");

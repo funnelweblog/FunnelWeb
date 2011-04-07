@@ -10,7 +10,7 @@ namespace FunnelWeb.Web.Application.Views
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(c => new SettingsProvider(c.Resolve<IAdminRepository>(), () => HttpContext.Current.Server.MapPath("~/Themes")))
+            builder.Register(c => new SettingsProvider(c.Resolve<IAdminRepository>()))
                 .As<ISettingsProvider>()
                 .InstancePerLifetimeScope();
 

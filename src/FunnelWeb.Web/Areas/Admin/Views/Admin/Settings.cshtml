@@ -64,7 +64,7 @@
     @Html.LabelFor(m => m.Theme)
   </div>
   <div class="editor-field">
-    @Html.DropDownList("Theme", Model.Themes.Select(x =>
+    @Html.DropDownList("Theme", ((string[])ViewBag.Themes).Select(x =>
       new SelectListItem { Text = x, Selected = Model.Theme == x })
       )
     @Html.ValidationMessageFor(m => m.Theme)
