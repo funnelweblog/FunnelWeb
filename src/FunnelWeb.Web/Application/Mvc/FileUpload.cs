@@ -1,9 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Web;
-using ICSharpCode.SharpZipLib.Zip;
 
-namespace FunnelWeb.Web.Application
+namespace FunnelWeb.Web.Application.Mvc
 {
     public class FileUpload
     {
