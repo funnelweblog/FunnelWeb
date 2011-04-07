@@ -11,6 +11,7 @@ using FunnelWeb.Eventing;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Settings;
 using FunnelWeb.Tasks;
+using FunnelWeb.Web.Application;
 using FunnelWeb.Web.Application.Authentication;
 using FunnelWeb.Web.Application.Mime;
 using FunnelWeb.Web.Application.Mvc;
@@ -30,20 +31,7 @@ namespace FunnelWeb.Web
         public static void BeforeApplicationStart()
         {
             extensionsPath = HostingEnvironment.MapPath("~/bin/Extensions") ?? string.Empty;
-            ExtensionModel.EnableAspNetIntegration(extensionsPath);
-        }
-
-        private void Application_Start()
-        {
-            var container = BuildContainer();
-
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
-            AutofacHostFactory.Container = container;
-
-            ViewEngines.Engines.Clear();
-            ViewEngines.Engines.Add(new FunnelWebViewEngine());
-
-            ControllerBuilder.Current.SetControllerFactory(new FunnelWebControllerFactory(container));
+            Extensibility.EnableAspNetIntegration(extensionsPath);
         }
 
         private static IContainer BuildContainer()
@@ -73,6 +61,19 @@ namespace FunnelWeb.Web
             builder.RegisterModule(new RoutesModule(RouteTable.Routes));
 
             return container = builder.Build();
+        }
+
+        private void Application_Start()
+        {
+            var container = BuildContainer();
+
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            AutofacHostFactory.Container = container;
+
+            ViewEngines.Engines.Clear();
+            ViewEngines.Engines.Add(new FunnelWebViewEngine());
+
+            ControllerBuilder.Current.SetControllerFactory(new FunnelWebControllerFactory(container));
         }
     }
 }

@@ -6,9 +6,9 @@ using System.Linq;
 using System.Reflection;
 using System.Web.Compilation;
 
-namespace FunnelWeb.Web
+namespace FunnelWeb.Web.Application
 {
-    public static class ExtensionModel
+    public static class Extensibility
     {
         /// <summary>
         /// Finds all FunnelWeb extensions (in the <paramref name="extensionsPath"/>), and adds the assembly 

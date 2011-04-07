@@ -220,7 +220,7 @@
     <Compile Include="Application\Mvc\Binders\EditModelBinder.cs" />
     <Compile Include="Application\Mvc\NotFromValuesListConstraint.cs" />
     <Compile Include="Controllers\TaggedController.cs" />
-    <Compile Include="Application\ExtensionModel.cs" />
+    <Compile Include="Application\Extensibility.cs" />
     <Compile Include="Views\Wiki\SearchModel.cs" />
     <Compile Include="Views\Wiki\PageModel.cs" />
     <Compile Include="Views\Wiki\RecentModel.cs" />
