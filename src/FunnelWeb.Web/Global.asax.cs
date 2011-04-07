@@ -11,7 +11,6 @@ using FunnelWeb.Eventing;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Settings;
 using FunnelWeb.Tasks;
-using FunnelWeb.Web.Application;
 using FunnelWeb.Web.Application.Authentication;
 using FunnelWeb.Web.Application.Mime;
 using FunnelWeb.Web.Application.Mvc;
@@ -42,7 +41,7 @@ namespace FunnelWeb.Web
             AutofacHostFactory.Container = container;
 
             ViewEngines.Engines.Clear();
-            ViewEngines.Engines.Add(new FunnelWebViewEngine(() => container.Resolve<ISettingsProvider>(), container.Resolve<IDatabaseUpgradeDetector>()));
+            ViewEngines.Engines.Add(new FunnelWebViewEngine());
 
             ControllerBuilder.Current.SetControllerFactory(new FunnelWebControllerFactory(container));
         }

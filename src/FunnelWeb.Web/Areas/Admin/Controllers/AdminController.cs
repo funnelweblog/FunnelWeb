@@ -52,10 +52,6 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
             SettingsProvider.SaveSettings(settings);
 
-            var viewEngines = ViewEngines.Engines.OfType<FunnelWebViewEngine>();
-            foreach (var funnelWebViewEngine in viewEngines)
-                funnelWebViewEngine.UpdateThemePath(settings);
-
             return RedirectToAction("Settings", "Admin")
                 .AndFlash("Your changes have been saved");
         }
