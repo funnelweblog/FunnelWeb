@@ -6,11 +6,11 @@ namespace FunnelWeb.Web.Application.Mvc
 {
     public class NotFromValuesListConstraint : IRouteConstraint
     {
-        private readonly string[] _values;
+        private readonly string[] values;
 
         public NotFromValuesListConstraint(params string[] values)
         {
-            _values = values;
+            this.values = values;
         }
 
         public bool Match(HttpContextBase httpContext,
@@ -28,7 +28,7 @@ namespace FunnelWeb.Web.Application.Mvc
 
             // Return true is the list of allowed values contains 
             // this value.
-            var match = !_values.Any(value.Contains);
+            var match = !this.values.Any(value.Contains);
             return match;
         }
     }
