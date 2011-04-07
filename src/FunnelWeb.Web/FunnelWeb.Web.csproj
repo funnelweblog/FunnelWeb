@@ -164,8 +164,6 @@
     </Compile>
     <Compile Include="Application\Authentication\FunnelWebRoleProvider.cs" />
     <Compile Include="Application\DatabaseUpgradeDetector.cs" />
-    <Compile Include="Application\Markup\InputSanitizer.cs" />
-    <Compile Include="Application\Markup\MarkdownRenderer.cs" />
     <Compile Include="Application\Mvc\ActionResults\FeedResult.cs" />
     <Compile Include="Application\Mvc\ActionResults\XmlActionResult.cs" />
     <Compile Include="Application\Mvc\FunnelWebControllerFactory.cs" />
