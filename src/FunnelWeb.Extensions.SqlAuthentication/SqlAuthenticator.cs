@@ -12,17 +12,23 @@ namespace FunnelWeb.Extensions.SqlAuthentication
 {
     public class SqlAuthenticator : IAuthenticator
     {
-        private readonly FormsAuthenticator _formsAuthenticator;
+        private readonly FormsAuthenticator formsAuthenticator;
+        private readonly Func<IDatabaseUpgradeDetector> upgradeDetector;
+        private readonly Func<ISettingsProvider> settingsProvider;
+        private readonly ISession session;
 
-        public SqlAuthenticator(FormsAuthenticator formsAuthenticator)
+        public SqlAuthenticator(FormsAuthenticator formsAuthenticator, Func<IDatabaseUpgradeDetector> upgradeDetector, Func<ISettingsProvider> settingsProvider, ISession session)
         {
-            _formsAuthenticator = formsAuthenticator;
+            this.formsAuthenticator = formsAuthenticator;
+            this.upgradeDetector = upgradeDetector;
+            this.settingsProvider = settingsProvider;
+            this.session = session;
         }
 
         public string GetName()
         {
             return UseFormsAuthentication
-                       ? _formsAuthenticator.GetName()
+                       ? formsAuthenticator.GetName()
                        : SqlGetName();
         }
 
@@ -41,22 +47,21 @@ namespace FunnelWeb.Extensions.SqlAuthentication
         public bool AuthenticateAndLogin(string username, string password)
         {
             return UseFormsAuthentication ?
-                _formsAuthenticator.AuthenticateAndLogin(username, password) :
+                formsAuthenticator.AuthenticateAndLogin(username, password) :
                 SqlAuthenticateAndLogin(username, password);
         }
 
-        private static bool UseFormsAuthentication
+        private bool UseFormsAuthentication
         {
             get
             {
-                return DependencyResolver.Current.GetService<IDatabaseUpgradeDetector>().UpdateNeeded() ||
-                    !DependencyResolver.Current.GetService<ISettingsProvider>().GetSettings<SqlAuthSettings>().SqlAuthenticationEnabled;
+                return upgradeDetector().UpdateNeeded() ||
+                    !settingsProvider().GetSettings<SqlAuthSettings>().SqlAuthenticationEnabled;
             }
         }
 
-        private static bool SqlAuthenticateAndLogin(string username, string password)
+        private bool SqlAuthenticateAndLogin(string username, string password)
         {
-            var session = DependencyResolver.Current.GetService<ISession>();
             var user = session.QueryOver<User>()
                 .Where(u => u.Username == username && u.Password == FunnelWebSqlMembership.HashPassword(password))
                 .SingleOrDefault();
@@ -72,7 +77,7 @@ namespace FunnelWeb.Extensions.SqlAuthentication
 
         public void Logout()
         {
-            _formsAuthenticator.Logout();
+            formsAuthenticator.Logout();
         }
     }
 }
