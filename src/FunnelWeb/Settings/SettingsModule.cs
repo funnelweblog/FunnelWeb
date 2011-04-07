@@ -8,7 +8,9 @@ namespace FunnelWeb.Settings
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            
+
+            builder.RegisterType<ConnectionStringProvider>().As<IConnectionStringProvider>();
+
             builder.Register(c => new SettingsProvider(c.Resolve<IAdminRepository>()))
                 .As<ISettingsProvider>()
                 .InstancePerLifetimeScope();

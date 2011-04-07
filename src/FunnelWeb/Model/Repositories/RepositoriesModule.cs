@@ -17,9 +17,6 @@ namespace FunnelWeb.Model.Repositories
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ApplicationDatabase>().As<IApplicationDatabase>();
-            builder.RegisterType<ConnectionStringProvider>().As<IConnectionStringProvider>();
-
             builder.Register<IFileRepository>(x => new FileRepository(x.Resolve<ISettingsProvider>(), x.Resolve<HttpServerUtilityBase>())).InstancePerLifetimeScope();
             builder.RegisterType<TagRepository>().As<ITagRepository>().InstancePerLifetimeScope();
             builder.RegisterType<AdminRepository>().As<IAdminRepository>().InstancePerLifetimeScope();

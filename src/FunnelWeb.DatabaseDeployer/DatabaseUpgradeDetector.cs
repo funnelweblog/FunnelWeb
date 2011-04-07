@@ -9,13 +9,15 @@ namespace FunnelWeb.DatabaseDeployer
     {
         private readonly Func<string> connectionStringCallback;
         private readonly IEnumerable<IScriptProvider> extensions;
+        private readonly IApplicationDatabase database;
         private bool? updateNeeded;
         private readonly object @lock = new object();
 
-        public DatabaseUpgradeDetector(Func<string> connectionStringCallback, IEnumerable<IScriptProvider> extensions)
+        public DatabaseUpgradeDetector(Func<string> connectionStringCallback, IEnumerable<IScriptProvider> extensions, IApplicationDatabase database)
         {
             this.connectionStringCallback = connectionStringCallback;
             this.extensions = extensions;
+            this.database = database;
         }
 
         public bool UpdateNeeded()
@@ -28,16 +30,14 @@ namespace FunnelWeb.DatabaseDeployer
                 if (updateNeeded != null)
                     return updateNeeded.Value;
 
-                var applicationDatabase = new ApplicationDatabase();
-
                 var connectionString = connectionStringCallback();
 
                 string error;
-                if (applicationDatabase.TryConnect(connectionString, out error))
+                if (database.TryConnect(connectionString, out error))
                 {
-                    var currentVersion = applicationDatabase.GetApplicationCurrentVersion(connectionString);
-                    var requiredVersion = applicationDatabase.GetApplicationVersion();
-                    updateNeeded = currentVersion != requiredVersion || ExtensionsRequireUpdate(extensions, applicationDatabase, connectionString);
+                    var currentVersion = database.GetApplicationCurrentVersion(connectionString);
+                    var requiredVersion = database.GetApplicationVersion();
+                    updateNeeded = currentVersion != requiredVersion || ExtensionsRequireUpdate(extensions, database, connectionString);
                 }
                 else
                 {
