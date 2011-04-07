@@ -4,7 +4,7 @@ using FunnelWeb.Authentication.Internal;
 
 namespace FunnelWeb.Web.Application.Authentication
 {
-    public class AuthenticationModule : Module
+    public class FormsAuthenticationModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {

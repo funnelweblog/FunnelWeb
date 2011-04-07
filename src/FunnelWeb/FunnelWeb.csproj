@@ -106,12 +106,12 @@
     <Compile Include="Filters\FunnelWebRequestAttribute.cs" />
     <Compile Include="FunnelWebExtensionAttribute.cs" />
     <Compile Include="FunnelWebExtensionLoadException.asax.cs" />
-    <Compile Include="IDatabaseUpgradeDetector.cs" />
     <Compile Include="IFunnelWebExtension.cs" />
     <Compile Include="IFunnelWebExtensionMetaData.cs" />
     <Compile Include="IRequireDatabaseScripts.cs" />
     <Compile Include="RoutableFunnelWebExtension.cs" />
     <Compile Include="Settings\ISettings.cs" />
+    <Compile Include="Settings\SettingsModule.cs" />
     <Compile Include="Tasks\TaskModule.cs" />
     <Compile Include="Tasks\ITask.cs" />
     <Compile Include="Tasks\ITaskExecutor.cs" />
@@ -178,6 +178,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -96,6 +96,10 @@
     <EmbeddedResource Include="Scripts\Script0001.sql" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FunnelWeb.DatabaseDeployer\FunnelWeb.DatabaseDeployer.csproj">
+      <Project>{D3182161-B0E5-47A7-8968-654489F0C60E}</Project>
+      <Name>FunnelWeb.DatabaseDeployer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FunnelWeb.Web\FunnelWeb.Web.csproj">
       <Project>{64FAABD6-F45B-4ED1-A3AD-6989C1934405}</Project>
       <Name>FunnelWeb.Web</Name>

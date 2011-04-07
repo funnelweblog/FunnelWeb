@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace FunnelWeb.Web.Application.Views
+namespace FunnelWeb.Web.Application.Markup
 {
     public static class InputSanitizer
     {

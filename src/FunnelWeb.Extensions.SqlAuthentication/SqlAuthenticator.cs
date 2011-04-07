@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using FunnelWeb.Authentication;
 using FunnelWeb.Authentication.Internal;
+using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.Extensions.SqlAuthentication.Model;
 using FunnelWeb.Settings;
 using NHibernate;

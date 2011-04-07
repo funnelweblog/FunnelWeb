@@ -1,6 +1,7 @@
-﻿using System.Linq;
-using System.Web.Mvc;
+﻿using System;
+using System.Linq;
 using FunnelWeb.Authentication;
+using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.Extensions.SqlAuthentication.Model;
 using FunnelWeb.Settings;
 using NHibernate;
@@ -9,19 +10,25 @@ namespace FunnelWeb.Extensions.SqlAuthentication
 {
     public class SqlRoleProvider : IRoleProvider
     {
-        private readonly FormsRoleProvider _formsRoleProvider;
+        private readonly Func<IDatabaseUpgradeDetector> upgradeDetector;
+        private readonly Func<ISettingsProvider> settingsProvider;
+        private readonly Func<ISession> sessionCallback;
+        private readonly FormsRoleProvider formsRoleProvider;
 
-        public SqlRoleProvider()
+        public SqlRoleProvider(Func<IDatabaseUpgradeDetector> upgradeDetector, Func<ISettingsProvider> settingsProvider, Func<ISession> sessionCallback)
         {
-            _formsRoleProvider = new FormsRoleProvider();
+            this.upgradeDetector = upgradeDetector;
+            this.settingsProvider = settingsProvider;
+            this.sessionCallback = sessionCallback;
+            formsRoleProvider = new FormsRoleProvider();
         }
 
-        private static bool UseFormsRoleProvider
+        private bool UseFormsRoleProvider
         {
             get
             {
-                return DependencyResolver.Current.GetService<IDatabaseUpgradeDetector>().UpdateNeeded() ||
-                    !DependencyResolver.Current.GetService<ISettingsProvider>()
+                return upgradeDetector().UpdateNeeded() ||
+                    !settingsProvider()
                     .GetSettings<SqlAuthSettings>().SqlAuthenticationEnabled;
             }
         }
@@ -29,45 +36,51 @@ namespace FunnelWeb.Extensions.SqlAuthentication
         public bool IsUserInRole(string username, string roleName)
         {
             return UseFormsRoleProvider
-                ? _formsRoleProvider.IsUserInRole(username, roleName) 
+                ? formsRoleProvider.IsUserInRole(username, roleName)
                 : CheckIsUserInRole(username, roleName);
         }
 
-        private static bool CheckIsUserInRole(string username, string roleName)
+        private bool CheckIsUserInRole(string username, string roleName)
         {
-            var session = DependencyResolver.Current.GetService<ISession>();
+            var session = sessionCallback();
+
             var checkIsUserInRole = session
-                                        .QueryOver<User>()
-                                        .Where(u=>u.Username == username)
-                                        .JoinQueryOver<Role>(r=>r.Roles)
-                                        .Where(r => r.Name == roleName)
-                                        .RowCount() == 1;
+                .QueryOver<User>()
+                .Where(u => u.Username == username)
+                .JoinQueryOver<Role>(r => r.Roles)
+                .Where(r => r.Name == roleName)
+                .RowCount() == 1;
+
             return checkIsUserInRole;
         }
 
         public string[] GetRolesForUser(string username)
         {
             var updateNeeded = UseFormsRoleProvider;
+
             return updateNeeded
-                       ? _formsRoleProvider.GetRolesForUser(username)
-                       : FetchRolesForUser(username);
+                ? formsRoleProvider.GetRolesForUser(username)
+                : FetchRolesForUser(username);
         }
 
-        private static string[] FetchRolesForUser(string username)
+        private string[] FetchRolesForUser(string username)
         {
-            var session = DependencyResolver.Current.GetService<ISession>();
+            var session = sessionCallback();
+
             var roles = session
                 .QueryOver<Role>()
-                .JoinQueryOver<User>(u=>u.Users)
+                .JoinQueryOver<User>(u => u.Users)
                 .Where(u => u.Username == username)
-                .Select(r=>r.Name)
+                .Select(r => r.Name)
                 .List<string>();
+
             return roles.ToArray();
         }
 
         public void AddUserToRoles(User user, params string[] rolesToAddTo)
         {
-            var session = DependencyResolver.Current.GetService<ISession>();
+            var session = sessionCallback();
+
             foreach (var roleToAddTo in rolesToAddTo)
             {
                 var role = session.QueryOver<Role>().Where(r => r.Name == roleToAddTo).SingleOrDefault();

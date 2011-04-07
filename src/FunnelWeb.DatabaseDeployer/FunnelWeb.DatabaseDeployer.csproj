@@ -59,6 +59,9 @@
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.2.4.4.705\lib\NET40\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Transactions" />
@@ -75,7 +78,10 @@
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
     <Compile Include="ApplicationDatabase.cs" />
+    <Compile Include="DatabaseModule.cs" />
+    <Compile Include="DatabaseUpgradeDetector.cs" />
     <Compile Include="IApplicationDatabase.cs" />
+    <Compile Include="IDatabaseUpgradeDetector.cs" />
     <Compile Include="Infrastructure\DatabaseUpgrader.cs" />
     <Compile Include="Infrastructure\DatabaseUpgradeResult.cs" />
     <Compile Include="Infrastructure\DatabaseUpgradeResults.cs" />
@@ -106,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Scripts\Script0013.sql" />

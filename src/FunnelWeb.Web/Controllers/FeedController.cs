@@ -7,8 +7,8 @@ using FunnelWeb.Filters;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Settings;
+using FunnelWeb.Web.Application.Markup;
 using FunnelWeb.Web.Application.Mvc.ActionResults;
-using FunnelWeb.Web.Application.Views;
 
 namespace FunnelWeb.Web.Controllers
 {

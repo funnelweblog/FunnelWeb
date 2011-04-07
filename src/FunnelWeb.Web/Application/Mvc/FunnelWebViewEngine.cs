@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.Settings;
 
 namespace FunnelWeb.Web.Application.Mvc
