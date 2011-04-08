@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Hosting;
@@ -13,6 +14,12 @@ namespace FunnelWeb.Settings
     public class XmlBootstrapSettings : IBootstrapSettings
     {
         private readonly XmlSerializer serializer = new XmlSerializer(typeof(FunnelWebConfiguration));
+        private readonly string bootstrapSettingsFilePath;
+
+        public XmlBootstrapSettings(string bootstrapSettingsFilePath)
+        {
+            this.bootstrapSettingsFilePath = bootstrapSettingsFilePath;
+        }
 
         /// <summary>
         /// Gets a setting by the specified name. Returns null if the setting is not set.
@@ -40,25 +47,20 @@ namespace FunnelWeb.Settings
             }
         }
 
-        private static string ConfigurationFilePath
-        {
-            get { return Path.Combine(HostingEnvironment.ApplicationPhysicalPath, "My.config"); }
-        }
-
         private FunnelWebConfiguration OpenConfiguration()
         {
-            if (!File.Exists(ConfigurationFilePath))
+            if (!File.Exists(bootstrapSettingsFilePath))
             {
                 return new FunnelWebConfiguration();
             }
-            using (var stream = new StreamReader(ConfigurationFilePath))
+            using (var stream = new StreamReader(bootstrapSettingsFilePath))
             {
                 return (FunnelWebConfiguration)serializer.Deserialize(stream);
             }
         }
         private void SaveConfiguration(FunnelWebConfiguration config)
         {
-            using (var writer = new StreamWriter(ConfigurationFilePath))
+            using (var writer = new StreamWriter(bootstrapSettingsFilePath))
             {
                 serializer.Serialize(writer, config);
             }
