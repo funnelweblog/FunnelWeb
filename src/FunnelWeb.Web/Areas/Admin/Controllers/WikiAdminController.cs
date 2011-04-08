@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
+using FunnelWeb.Authentication;
 using FunnelWeb.Eventing;
 using FunnelWeb.Filters;
 using FunnelWeb.Model;
@@ -21,6 +22,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
     [ValidateInput(false)]
     public class WikiAdminController : Controller
     {
+        public IAuthenticator Authenticator { get; set; }
         public IEntryRepository EntryRepository { get; set; }
         public ITagRepository TagRepository { get; set; }
         public IFeedRepository FeedRepository { get; set; }
@@ -96,7 +98,9 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 				return View(model);
 			}
 
-			var entry = EntryRepository.GetEntry(model.OriginalEntryId) ?? new Entry();
+		    var author = Authenticator.GetName();
+
+		    var entry = EntryRepository.GetEntry(model.OriginalEntryId) ?? new Entry { Author = author };
 			entry.Name = model.Page;
 			entry.PageTemplate = string.IsNullOrEmpty(model.PageTemplate) ? null : model.PageTemplate;
 			entry.Title = model.Title ?? string.Empty;
@@ -109,6 +113,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 			entry.Status = model.Status;
 
 			var revision = entry.Revise();
+		    revision.Author = author;
 			revision.Body = model.Content;
 			revision.Reason = model.ChangeSummary ?? string.Empty;
 			revision.Format = model.Format;

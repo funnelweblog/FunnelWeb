@@ -2,7 +2,6 @@
 {
     public enum StorageLocation
     {
-        Database, 
-        Custom
+        Database
     }
 }

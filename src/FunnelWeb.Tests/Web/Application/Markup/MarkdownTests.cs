@@ -1,4 +1,4 @@
-﻿using FunnelWeb.Web.Application.Views;
+﻿using FunnelWeb.Web.Application.Markup;
 using NUnit.Framework;
 
 namespace FunnelWeb.Tests.Web.Application.Markup

@@ -1,4 +1,4 @@
-﻿namespace FunnelWeb.Settings
+﻿namespace FunnelWeb.DatabaseDeployer
 {
     public interface IConnectionStringProvider
     {

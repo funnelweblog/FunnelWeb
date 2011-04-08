@@ -150,9 +150,6 @@
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
     <Compile Include="Application\Authentication\FunnelWebRoleProvider.cs" />
-    <Compile Include="Application\DatabaseUpgradeDetector.cs" />
-    <Compile Include="Application\Markup\InputSanitizer.cs" />
-    <Compile Include="Application\Markup\MarkdownRenderer.cs" />
     <Compile Include="Application\Mvc\ActionResults\FeedResult.cs" />
     <Compile Include="Application\Mvc\ActionResults\XmlActionResult.cs" />
     <Compile Include="Application\Mvc\FunnelWebControllerFactory.cs" />
@@ -171,17 +168,21 @@
     <Compile Include="Application\Mvc\RouteCollectionExtension.cs" />
     <Compile Include="Application\Mvc\ValidUrlAttribute.cs" />
     <Compile Include="Application\Mvc\ActionResults\PageTemplateActionResult.cs" />
+    <Compile Include="Application\Mvc\WebAbstractionsModule.cs" />
     <Compile Include="Application\RequireUpdatedDatabaseHttpModule.cs" />
     <Compile Include="Application\Mvc\FunnelWebViewEngine.cs" />
-    <Compile Include="Application\Views\IMarkdownProvider.cs" />
-    <Compile Include="Application\Views\InputSanitizer.cs" />
-    <Compile Include="Application\Views\MarkdownRenderer.cs" />
+    <Compile Include="Application\Themes\IThemeProvider.cs" />
+    <Compile Include="Application\Themes\ThemeProvider.cs" />
+    <Compile Include="Application\Themes\ThemesModule.cs" />
+    <Compile Include="Application\Markup\IMarkdownProvider.cs" />
+    <Compile Include="Application\Markup\InputSanitizer.cs" />
+    <Compile Include="Application\Markup\MarkdownRenderer.cs" />
     <Compile Include="Application\Mime\IMimeTypeLookup.cs" />
     <Compile Include="Application\Mime\RegistryMimeTypeLookup.cs" />
-    <Compile Include="Application\Authentication\AuthenticationModule.cs" />
+    <Compile Include="Application\Authentication\FormsAuthenticationModule.cs" />
     <Compile Include="Application\Mvc\Binders\BindersModule.cs" />
     <Compile Include="Application\Mime\MimeSupportModule.cs" />
-    <Compile Include="Application\Views\MarkdownProvider.cs" />
+    <Compile Include="Application\Markup\MarkdownProvider.cs" />
     <Content Include="App_Code\HelperPage.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\WikiAdminController.cs" />
@@ -206,6 +207,7 @@
     <Compile Include="Application\Mvc\Binders\EditModelBinder.cs" />
     <Compile Include="Application\Mvc\NotFromValuesListConstraint.cs" />
     <Compile Include="Controllers\TaggedController.cs" />
+    <Compile Include="Application\Extensibility.cs" />
     <Compile Include="Views\Wiki\SearchModel.cs" />
     <Compile Include="Views\Wiki\PageModel.cs" />
     <Compile Include="Views\Wiki\RecentModel.cs" />
@@ -215,14 +217,14 @@
     <Compile Include="Application\Mvc\HyphenatedRouteHandler.cs" />
     <Compile Include="RoutesModule.cs" />
     <Compile Include="Application\Spam\SpamModule.cs" />
-    <Compile Include="Application\Views\SettingsModule.cs" />
+    <Compile Include="Application\Markup\MarkupModule.cs" />
     <Compile Include="Application\CacheStaticFilesHttpModule.cs" />
     <Compile Include="Application\Pingbacks\PingbackHandler.cs" />
     <Compile Include="Application\Pingbacks\XmlRpcFaultException.cs" />
     <Compile Include="Application\Pingbacks\XmlRpcHandler.cs" />
     <Compile Include="Application\Spam\AkismetSpamChecker.cs" />
     <Compile Include="Application\Spam\ISpamChecker.cs" />
-    <Compile Include="Application\FileUpload.cs" />
+    <Compile Include="Application\Mvc\FileUpload.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
@@ -337,6 +339,9 @@
     <Content Include="Areas\Admin\Views\WikiAdmin\Revisions.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="packages.config" />
+    <Content Include="My.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Themes\BoringTheme\Views\Wiki\Recent.cshtml" />
     <Content Include="Areas\Admin\Views\Upload\Index.cshtml" />
     <Content Include="Views\Wiki\Search.cshtml" />

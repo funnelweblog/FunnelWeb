@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Web.Configuration;
@@ -14,13 +13,11 @@ namespace FunnelWeb.Settings
     {
         private readonly object @lock = new object();
         private readonly IAdminRepository repository;
-        private readonly Func<string> themesDirectoryPath;
         private readonly Dictionary<Type, ISettings> settingsStore = new Dictionary<Type, ISettings>();
 
-        public SettingsProvider(IAdminRepository repository, Func<string> themesDirectoryPath)
+        public SettingsProvider(IAdminRepository repository)
         {
             this.repository = repository;
-            this.themesDirectoryPath = themesDirectoryPath;
         }
 
         public T GetSettings<T>() where T : ISettings
@@ -46,8 +43,7 @@ namespace FunnelWeb.Settings
             settingsStore.Add(typeof(T), settings);
             var settingMetadata = ReadSettingMetadata<T>();
             var databaseSettings = repository.GetSettings().ToList();
-            var webConfigSettings = WebConfigurationManager.AppSettings;
-
+            
             foreach (var setting in settingMetadata)
             {
                 // Initialize with default values
@@ -61,18 +57,6 @@ namespace FunnelWeb.Settings
                         if (dbSetting != null)
                         {
                             setting.Write(settings, dbSetting.Value);
-                        }
-                        break;
-                    case StorageLocation.Custom:
-                        if (setting.Property.Name == "Themes")
-                        {
-                            var themeFolder = new DirectoryInfo(themesDirectoryPath());
-                            var themes = themeFolder.GetDirectories().Select(x => x.Name).OrderBy(x => x).ToArray();
-                            setting.Write(settings, themes);
-                        }
-                        else
-                        {
-                            throw new NotSupportedException(string.Format("Could not read the custom setting '{0}'", setting.Property.Name));
                         }
                         break;
                     default:
@@ -114,8 +98,6 @@ namespace FunnelWeb.Settings
                                 Value = value ?? setting.DefaultValue as string ?? string.Empty
                             });
                         }
-                        break;
-                    case StorageLocation.Custom:
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

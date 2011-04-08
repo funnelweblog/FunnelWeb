@@ -4,6 +4,9 @@
 @model FunnelWeb.Extensions.SqlAuthentication.Model.SetupModel
 <h1>
   Sql Authentication Provider Setup</h1>
+
+@Html.ValidationSummary("Admin account creation unsuccessful. Please correct the errors below.")
+
 @if (!Model.HasAdminAccount)
 {
   using (Html.BeginForm("CreateAdminAccount", "SqlAuthentication", FormMethod.Post))

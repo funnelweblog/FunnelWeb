@@ -6,7 +6,8 @@ namespace FunnelWeb.Web.Application.Spam
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<AkismetSpamChecker>().As<ISpamChecker>().SingleInstance();
+            builder.RegisterType<AkismetSpamChecker>().As<ISpamChecker>()
+                .InstancePerDependency();
         }
     }
 }

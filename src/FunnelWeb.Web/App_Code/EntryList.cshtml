@@ -6,6 +6,16 @@
 
 @helper Render(IEnumerable<Entry> entries)
 {
+  if (!entries.Any())
+  {
+    <p>No posts have been published yet.</p> 
+    if (ViewData.IsLoggedIn())
+    {
+      <p>Use the @Html.AdminActionLink("New Post", "Edit", "WikiAdmin") link at the top of the page to create a post.</p>
+    }
+  }
+  else
+  {
   <div class="post-list">
     @foreach (var entry in entries)
     {
@@ -33,6 +43,9 @@
     </div>
     }
   </div>
+  <div class="clear">
+  </div>
+  }
 }
 
 

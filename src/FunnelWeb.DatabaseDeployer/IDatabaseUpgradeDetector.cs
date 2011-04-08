@@ -1,4 +1,4 @@
-﻿namespace FunnelWeb
+﻿namespace FunnelWeb.DatabaseDeployer
 {
     public interface IDatabaseUpgradeDetector
     {

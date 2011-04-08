@@ -15,8 +15,8 @@ using System.Web.Mvc.Html;
 using System.Web.Routing;
 using FunnelWeb.Model;
 using FunnelWeb.Settings;
+using FunnelWeb.Web.Application.Markup;
 using FunnelWeb.Web.Application.Mvc;
-using FunnelWeb.Web.Application.Views;
 
 namespace FunnelWeb.Web.Application.Extensions
 {

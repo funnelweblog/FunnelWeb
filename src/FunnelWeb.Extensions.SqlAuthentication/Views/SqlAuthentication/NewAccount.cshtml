@@ -4,6 +4,9 @@
 @model FunnelWeb.Extensions.SqlAuthentication.Model.NewUser
 <h1>
   Sql Authentication Provider Setup</h1>
+
+@Html.ValidationSummary("Account creation unsuccessful. Please correct the errors below.")
+
 @using (Html.BeginForm("NewAccount", "SqlAuthentication", FormMethod.Post))
 {
   <h2>

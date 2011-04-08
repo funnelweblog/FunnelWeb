@@ -178,8 +178,5 @@ namespace FunnelWeb.Settings
         [Description("Enter the name of a page to use as your custom home page. Use 'blog' to show a list of recent posts.")]
         [SettingStorage(StorageLocation.Database, "home-page")]
         public string CustomHomePage { get; set; }
-
-        [SettingStorage(StorageLocation.Custom)]
-        public string[] Themes { get; set; }
     }
 }

@@ -25,6 +25,7 @@
     <tr>
       <td></td>
       <td><abbr title="When the change was made">Revised</abbr></td>
+      <td><abbr title="The Author of the Change">Revised By</abbr></td>
       <td><abbr title="Reasons explaining why the page was changed">Comments</abbr></td>
     </tr>
   </thead>
@@ -33,6 +34,7 @@
       <tr>
           <td valign="top">@revision.RevisionNumber</td>
           <td valign="top" align="right"><a href="@Html.ActionUrl("Page", new { page = Model.Page, revision = revision.RevisionNumber })">@Html.Date(revision.Revised)</a></td>
+          <td valign="top">@revision.Author</td>
           <td valign="top">@Html.TextilizeList(revision.Reason)</td>
       </tr>
 }

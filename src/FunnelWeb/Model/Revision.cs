@@ -27,5 +27,6 @@ namespace FunnelWeb.Model
         public virtual int RevisionNumber { get; set; }
         public virtual int Status { get; set; }
         public virtual Entry Entry { get; set; }
+        public virtual string Author { get; set; }
     }
 }

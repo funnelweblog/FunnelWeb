@@ -1,4 +1,4 @@
-﻿namespace FunnelWeb.Web.Application.Views
+﻿namespace FunnelWeb.Web.Application.Markup
 {
     public class MarkdownProvider : IMarkdownProvider
     {
