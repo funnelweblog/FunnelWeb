@@ -6,7 +6,7 @@ using NHibernate;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace FunnelWeb.Tests.Core
+namespace FunnelWeb.Tests.Core.Filters
 {
     [TestFixture]
     public class FunnelWebRequestFilterTests

@@ -121,7 +121,7 @@
     <Compile Include="..\Information\VersionInfo.cs">
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
-    <Compile Include="Core\FunnelWebRequestFilterTests.cs" />
+    <Compile Include="Core\Filters\FunnelWebRequestFilterTests.cs" />
     <Compile Include="DatabaseDeployer\DatabaseModuleTests.cs" />
     <Compile Include="DatabaseDeployer\DatabaseUpgradeDetectorTests.cs" />
     <Compile Include="Helpers\AdHocSqlRunner.cs" />
