@@ -9,8 +9,11 @@ namespace FunnelWeb.Web.Application.Mvc
         {
             base.Load(builder);
 
-            builder.Register<HttpContextBase>(x => new HttpContextWrapper(HttpContext.Current)).InstancePerLifetimeScope();
-            builder.Register<HttpServerUtilityBase>(x => new HttpServerUtilityWrapper(HttpContext.Current.Server));
+            builder.Register<HttpContextBase>(x => new HttpContextWrapper(HttpContext.Current))
+                .InstancePerLifetimeScope();
+        
+            builder.Register<HttpServerUtilityBase>(x => new HttpServerUtilityWrapper(HttpContext.Current.Server))
+                .InstancePerLifetimeScope();
         }
     }
 }

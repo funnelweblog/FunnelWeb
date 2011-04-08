@@ -9,7 +9,9 @@ namespace FunnelWeb.DatabaseDeployer
         {
             base.Load(builder);
 
-            builder.RegisterType<ApplicationDatabase>().As<IApplicationDatabase>();
+            builder.RegisterType<ApplicationDatabase>()
+                .As<IApplicationDatabase>()
+                .SingleInstance();
 
             builder
                 .RegisterType<DatabaseUpgradeDetector>()

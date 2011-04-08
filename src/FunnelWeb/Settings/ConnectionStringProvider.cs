@@ -1,9 +1,4 @@
-﻿using System;
-using System.Configuration;
-using System.Web;
-using System.Web.Configuration;
-using System.Xml.Linq;
-using FunnelWeb.DatabaseDeployer;
+﻿using FunnelWeb.DatabaseDeployer;
 
 namespace FunnelWeb.Settings
 {
