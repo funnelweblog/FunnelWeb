@@ -7,15 +7,15 @@ namespace FunnelWeb.DatabaseDeployer
 {
     public class DatabaseUpgradeDetector : IDatabaseUpgradeDetector
     {
-        private readonly Func<string> connectionStringCallback;
+        private readonly IConnectionStringProvider connectionStringProvider;
         private readonly IEnumerable<IScriptProvider> extensions;
         private readonly IApplicationDatabase database;
         private bool? updateNeeded;
         private readonly object @lock = new object();
 
-        public DatabaseUpgradeDetector(Func<string> connectionStringCallback, IEnumerable<IScriptProvider> extensions, IApplicationDatabase database)
+        public DatabaseUpgradeDetector(IConnectionStringProvider connectionStringProvider, IEnumerable<IScriptProvider> extensions, IApplicationDatabase database)
         {
-            this.connectionStringCallback = connectionStringCallback;
+            this.connectionStringProvider = connectionStringProvider;
             this.extensions = extensions;
             this.database = database;
         }
@@ -30,7 +30,7 @@ namespace FunnelWeb.DatabaseDeployer
                 if (updateNeeded != null)
                     return updateNeeded.Value;
 
-                var connectionString = connectionStringCallback();
+                var connectionString = connectionStringProvider.ConnectionString;
 
                 string error;
                 if (database.TryConnect(connectionString, out error))

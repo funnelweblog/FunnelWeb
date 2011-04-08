@@ -81,6 +81,7 @@
     <Compile Include="DatabaseModule.cs" />
     <Compile Include="DatabaseUpgradeDetector.cs" />
     <Compile Include="IApplicationDatabase.cs" />
+    <Compile Include="IConnectionStringProvider.cs" />
     <Compile Include="IDatabaseUpgradeDetector.cs" />
     <Compile Include="Infrastructure\DatabaseUpgrader.cs" />
     <Compile Include="Infrastructure\DatabaseUpgradeResult.cs" />

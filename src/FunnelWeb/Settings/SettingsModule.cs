@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.Model.Repositories;
 
 namespace FunnelWeb.Settings
@@ -10,6 +11,8 @@ namespace FunnelWeb.Settings
             base.Load(builder);
 
             builder.RegisterType<ConnectionStringProvider>().As<IConnectionStringProvider>();
+
+            builder.RegisterType<XmlBootstrapSettings>().As<IBootstrapSettings>().SingleInstance();
 
             builder.Register(c => new SettingsProvider(c.Resolve<IAdminRepository>()))
                 .As<ISettingsProvider>()

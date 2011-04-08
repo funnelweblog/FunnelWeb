@@ -32,7 +32,7 @@ namespace FunnelWeb.Model.Repositories
         {
             var configuration =
                 Fluently.Configure()
-                .Database(MsSqlConfiguration.MsSql2008.ConnectionString(new ConnectionStringProvider().ConnectionString).ShowSql())
+                .Database(MsSqlConfiguration.MsSql2008.ConnectionString(context.Resolve<IConnectionStringProvider>().ConnectionString).ShowSql())
                 .Mappings(m =>
                 {
                     m.FluentMappings.AddFromAssembly(System.Reflection.Assembly.GetExecutingAssembly());

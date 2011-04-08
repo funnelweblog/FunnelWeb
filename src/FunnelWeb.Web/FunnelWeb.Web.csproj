@@ -352,6 +352,9 @@
     <Content Include="Areas\Admin\Views\WikiAdmin\Revisions.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="packages.config" />
+    <Content Include="My.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Themes\BoringTheme\Views\Wiki\Recent.cshtml" />
     <Content Include="Areas\Admin\Views\Upload\Index.cshtml" />
     <Content Include="Views\Wiki\Search.cshtml" />

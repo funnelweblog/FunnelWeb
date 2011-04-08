@@ -42,7 +42,7 @@ namespace FunnelWeb.Web
             builder.RegisterControllers(Assembly.GetExecutingAssembly()).PropertiesAutowired();
 
             // FunnelWeb Database
-            builder.RegisterModule(new DatabaseModule(() => new ConnectionStringProvider().ConnectionString));
+            builder.RegisterModule(new DatabaseModule());
 
             // FunnelWeb Core
             builder.RegisterModule(new SettingsModule());
