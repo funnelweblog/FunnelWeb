@@ -43,8 +43,7 @@ namespace FunnelWeb.Settings
             settingsStore.Add(typeof(T), settings);
             var settingMetadata = ReadSettingMetadata<T>();
             var databaseSettings = repository.GetSettings().ToList();
-            var webConfigSettings = WebConfigurationManager.AppSettings;
-
+            
             foreach (var setting in settingMetadata)
             {
                 // Initialize with default values

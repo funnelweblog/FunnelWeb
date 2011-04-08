@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Web.Configuration;
 using FunnelWeb.Model;
 
 namespace FunnelWeb.Web.Areas.Admin.Views.Upload
@@ -12,7 +11,7 @@ namespace FunnelWeb.Web.Areas.Admin.Views.Upload
             PathString = path;
 
             var parts = new List<PathPart>();
-            parts.Add(new PathPart(WebConfigurationManager.AppSettings["fileserver.rootname"] ?? "Home", "/"));
+            parts.Add(new PathPart("Home", "/"));
             var pathBuilder = "";
             foreach (var part in path.Split('/'))
             {
