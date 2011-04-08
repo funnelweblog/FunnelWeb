@@ -110,8 +110,10 @@
     <Compile Include="IFunnelWebExtensionMetaData.cs" />
     <Compile Include="IRequireDatabaseScripts.cs" />
     <Compile Include="RoutableFunnelWebExtension.cs" />
+    <Compile Include="Settings\IBootstrapSettings.cs" />
     <Compile Include="Settings\ISettings.cs" />
     <Compile Include="Settings\SettingsModule.cs" />
+    <Compile Include="Settings\XmlBootstrapSettings.cs" />
     <Compile Include="Tasks\TaskModule.cs" />
     <Compile Include="Tasks\ITask.cs" />
     <Compile Include="Tasks\ITaskExecutor.cs" />
