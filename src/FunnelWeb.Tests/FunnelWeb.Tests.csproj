@@ -121,6 +121,7 @@
     <Compile Include="..\Information\VersionInfo.cs">
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\FunnelWebRequestFilterTests.cs" />
     <Compile Include="DatabaseDeployer\DatabaseModuleTests.cs" />
     <Compile Include="DatabaseDeployer\DatabaseUpgradeDetectorTests.cs" />
     <Compile Include="Helpers\AdHocSqlRunner.cs" />
@@ -150,7 +151,6 @@
     <Compile Include="Web\RoutingTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Core\" />
     <Folder Include="Web\Application\Spam\" />
   </ItemGroup>
   <ItemGroup>
