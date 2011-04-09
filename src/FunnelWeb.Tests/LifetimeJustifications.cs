@@ -54,7 +54,7 @@ namespace FunnelWeb.Tests
 
             //// FunnelWeb Core
             builder.RegisterModule(new SettingsModule("C:\\Foo\\My.config"));
-            builder.RegisterModule(new TasksModule(() => container));    // HACK: Need a better way to enable the TasksModule to create lifetime scopes from the root
+            builder.RegisterModule(new TasksModule());    // HACK: Need a better way to enable the TasksModule to create lifetime scopes from the root
             builder.RegisterModule(new RepositoriesModule());
             builder.RegisterModule(new EventingModule());
             builder.RegisterModule(new ExtensionsModule("C:\\Foo", routes));

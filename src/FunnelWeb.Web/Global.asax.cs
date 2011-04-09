@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
@@ -37,8 +36,6 @@ namespace FunnelWeb.Web
 
         private static IContainer BuildContainer()
         {
-            IContainer container = null;
-
             var builder = new ContainerBuilder();
             builder.RegisterControllers(Assembly.GetExecutingAssembly()).PropertiesAutowired();
 
@@ -47,7 +44,7 @@ namespace FunnelWeb.Web
 
             // FunnelWeb Core
             builder.RegisterModule(new SettingsModule(HostingEnvironment.MapPath("~/My.config")));
-            builder.RegisterModule(new TasksModule(() => container));    // HACK: Need a better way to enable the TasksModule to create lifetime scopes from the root
+            builder.RegisterModule(new TasksModule());
             builder.RegisterModule(new RepositoriesModule());
             builder.RegisterModule(new EventingModule());
             builder.RegisterModule(new ExtensionsModule(extensionsPath, RouteTable.Routes));
@@ -61,7 +58,7 @@ namespace FunnelWeb.Web
             builder.RegisterModule(new SpamModule());
             builder.RegisterModule(new RoutesModule(RouteTable.Routes));
 
-            return container = builder.Build();
+            return builder.Build();
         }
 
         private void Application_Start()
