@@ -77,6 +77,11 @@ namespace FunnelWeb.Web
 
             routes.MapLowerCaseRoute("via-feed/{*page}", new { controller = "Resource", action = "Render", fileName = "/Content/Images/Transparent.gif", contentType = "image/gif" });
             routes.MapLowerCaseRoute("history-of/{*page}", new { controller = "Wiki", action = "Revisions" });
+
+            // Remove .aspx
+            routes.Add(new RedirectRoute("(?<page>[a-zA-Z0-9/\\-\\._\\+ ]+)\\.aspx", new MvcRouteHandler()) { ReplacePattern = "/$1" });
+            routes.Add(new RedirectRoute("(?<page>rss)$", new MvcRouteHandler()) { ReplacePattern = "feed", ResponseCode = 302});
+
             routes.MapLowerCaseRoute("{*page}", new { controller = "Wiki", action = "Page" }, defaultConstraint);
 
             foreach (var serviceRoute in serviceRoutes)

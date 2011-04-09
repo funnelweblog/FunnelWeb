@@ -14,6 +14,7 @@
     <AssemblyName>FunnelWeb.Web</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -179,6 +180,8 @@
     <Compile Include="Application\Mvc\LowercaseRoute.cs" />
     <Compile Include="Application\Extensions\MobileExtensions.cs" />
     <Compile Include="Application\Mvc\MvcExtensions.cs" />
+    <Compile Include="Application\Mvc\RedirectRoute.cs" />
+    <Compile Include="Application\Mvc\RegexRoutes.cs" />
     <Compile Include="Application\Mvc\RouteCollectionExtension.cs" />
     <Compile Include="Application\Mvc\ValidUrlAttribute.cs" />
     <Compile Include="Application\Mvc\ActionResults\PageTemplateActionResult.cs" />
@@ -362,6 +365,9 @@
     <Content Include="Views\Shared\PageTemplates\Default.cshtml" />
     <Content Include="Themes\Twitter\Views\Shared\PageTemplates\Default.cshtml" />
     <Content Include="Themes\Twitter\Views\Shared\PageTemplates\Homepage.cshtml" />
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Public.cshtml" />
