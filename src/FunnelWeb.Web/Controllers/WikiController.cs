@@ -100,6 +100,8 @@ namespace FunnelWeb.Web.Controllers
             comment.AuthorEmail = model.CommenterEmail ?? string.Empty;
             comment.AuthorName = model.CommenterName ?? string.Empty;
             comment.AuthorUrl = model.CommenterBlog ?? string.Empty;
+            comment.AuthorIp = Request.UserHostAddress;
+            comment.EntryRevisionNumber = entry.LatestRevision.RevisionNumber;
             comment.Body = model.Comments;
 
             try

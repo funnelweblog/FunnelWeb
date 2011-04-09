@@ -65,8 +65,9 @@ namespace FunnelWeb.Model.Repositories.Internal
         {
             foreach (var setting in settings)
             {
-                session.SaveOrUpdate(setting);
+                session.SaveOrUpdate(setting);               
             }
+            session.Flush();
         }
 
         public void Save(Redirect redirect)

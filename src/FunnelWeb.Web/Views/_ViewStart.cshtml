@@ -1,7 +1,34 @@
 ﻿@{
-  Layout = "~/Views/Shared/_Public.cshtml";
-  if (Context.IsMobileDevice())
-  {
-    Layout = "~/Views/Shared/_Mobile.cshtml";
-  }
+    var layoutName = "_Public";
+    Layout = "~/Views/Shared/" + layoutName + ".cshtml";
+    if(Context.IsMobileDevice())
+    {
+        layoutName = "_Mobile";
+        Layout = "~/Views/Shared/" + layoutName + ".cshtml";
+    }
+    
+    var settingsProvider = DependencyResolver.Current.GetService<FunnelWeb.Settings.ISettingsProvider>();
+    var settings = settingsProvider.GetSettings<FunnelWeb.Settings.FunnelWebSettings>();
+
+    var locationFormats = new List<string>
+                                  {
+                                      "~/Themes/" + settings.Theme + "/Views/{0}.cshtml",
+                                      "~/Themes/" + settings.Theme + "/Views/Shared/{0}.cshtml",
+                                      "~/Views/Extensions/{0}.cshtml",
+                                  };
+    foreach(var format in locationFormats)
+    {
+        var virtualPath = String.Format(
+            System.Globalization.CultureInfo.InvariantCulture,
+            format,
+            layoutName);
+        System.Diagnostics.Trace.WriteLine(virtualPath);
+        if(!System.Web.Hosting.HostingEnvironment.VirtualPathProvider.FileExists(virtualPath))
+        {
+            continue;
+        }
+
+        this.Layout = virtualPath;
+        break;
+    } 
 }
