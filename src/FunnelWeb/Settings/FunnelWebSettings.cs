@@ -181,5 +181,17 @@ namespace FunnelWeb.Settings
 
         [SettingStorage(StorageLocation.Custom)]
         public string[] Themes { get; set; }
+
+        [DisplayName("Enable Analytics")]
+        [DefaultValue(false)]
+        [Description("Whether Google Analytics should be enabled for this site")]
+        [SettingStorage(StorageLocation.Database, "analytics-enabled")]
+        public bool EnableAnalytics { get; set; }
+
+        [DisplayName("Analytics Key")]
+        [DefaultValue("")]
+        [Description("Enter your Google Analytics Key")]
+        [SettingStorage(StorageLocation.Database, "analytics-key")]
+        public string AnalyticsKey { get; set; }
     }
 }
