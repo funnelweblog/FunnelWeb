@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders;
 
 namespace FunnelWeb.DatabaseDeployer
 {
     public class DatabaseUpgradeDetector : IDatabaseUpgradeDetector
     {
         private readonly IConnectionStringProvider connectionStringProvider;
-        private readonly IEnumerable<IScriptProvider> extensions;
+        private readonly IEnumerable<ScriptedExtension> extensions;
         private readonly IApplicationDatabase database;
         private bool? updateNeeded;
         private readonly object @lock = new object();
 
-        public DatabaseUpgradeDetector(IConnectionStringProvider connectionStringProvider, IEnumerable<IScriptProvider> extensions, IApplicationDatabase database)
+        public DatabaseUpgradeDetector(IConnectionStringProvider connectionStringProvider, IEnumerable<ScriptedExtension> extensions, IApplicationDatabase database)
         {
             this.connectionStringProvider = connectionStringProvider;
             this.extensions = extensions;
@@ -35,9 +34,14 @@ namespace FunnelWeb.DatabaseDeployer
                 string error;
                 if (database.TryConnect(connectionString, out error))
                 {
-                    var currentVersion = database.GetApplicationCurrentVersion(connectionString);
-                    var requiredVersion = database.GetApplicationVersion();
-                    updateNeeded = currentVersion != requiredVersion || ExtensionsRequireUpdate(extensions, database, connectionString);
+                    var currentScripts = database.GetCoreExecutedScripts(connectionString);
+                    var requiredScripts = database.GetCoreRequiredScripts();
+                    var notRun = requiredScripts.Select(x => x.Trim().ToLowerInvariant())
+                        .Except(currentScripts.Select(x => x.Trim().ToLowerInvariant()))
+                        .ToList();
+
+                    updateNeeded = notRun.Count > 0
+                        || ExtensionsRequireUpdate(extensions, database, connectionString);
                 }
                 else
                 {
@@ -54,14 +58,16 @@ namespace FunnelWeb.DatabaseDeployer
                 updateNeeded = null;
         }
 
-        private static bool ExtensionsRequireUpdate(IEnumerable<IScriptProvider> extensions, IApplicationDatabase applicationDatabase, string connectionString)
+        private static bool ExtensionsRequireUpdate(IEnumerable<ScriptedExtension> extensions, IApplicationDatabase applicationDatabase, string connectionString)
         {
-            return (from extensionScriptProvider in extensions
-                    let currentVersion =
-                        applicationDatabase.GetExtensionCurrentVersion(connectionString, extensionScriptProvider)
-                    let requiredVersion = applicationDatabase.GetExtensionVersion(extensionScriptProvider)
-                    where currentVersion != requiredVersion
-                    select currentVersion).Any();
+            return (from x in extensions
+                    let current = applicationDatabase.GetExtensionExecutedScripts(connectionString, x)
+                    let required = applicationDatabase.GetExtensionRequiredScripts(x)
+                    let notRun = required.Select(z => z.Trim().ToLowerInvariant())
+                        .Except(current.Select(z => z.Trim().ToLowerInvariant()))
+                        .ToList()
+                    where notRun.Count > 0
+                    select current).Any();
         }
     }
 }

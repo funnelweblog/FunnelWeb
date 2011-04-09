@@ -62,6 +62,9 @@
     <Reference Include="Autofac">
       <HintPath>..\packages\Autofac.2.4.4.705\lib\NET40\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="DbUp">
+      <HintPath>..\packages\dbup.1.0.40\lib\NET35\DbUp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -81,18 +84,8 @@
     <Compile Include="IApplicationDatabase.cs" />
     <Compile Include="IConnectionStringProvider.cs" />
     <Compile Include="IDatabaseUpgradeDetector.cs" />
-    <Compile Include="Infrastructure\DatabaseUpgrader.cs" />
-    <Compile Include="Infrastructure\DatabaseUpgradeResult.cs" />
-    <Compile Include="Infrastructure\DatabaseUpgradeResults.cs" />
-    <Compile Include="Infrastructure\Execution\IScriptExecutor.cs" />
-    <Compile Include="Infrastructure\Execution\SqlScriptExecutor.cs" />
-    <Compile Include="Infrastructure\ILog.cs" />
-    <Compile Include="Infrastructure\ScriptProviders\EmbeddedScriptProvider.cs" />
-    <Compile Include="Infrastructure\ScriptProviders\EmbeddedSqlScript.cs" />
-    <Compile Include="Infrastructure\ScriptProviders\IScript.cs" />
-    <Compile Include="Infrastructure\ScriptProviders\IScriptProvider.cs" />
-    <Compile Include="Infrastructure\VersionTrackers\IVersionTracker.cs" />
-    <Compile Include="Infrastructure\VersionTrackers\SchemaVersionsTableSqlVersionTracker.cs" />
+    <Compile Include="Infrastructure\FunnelWebJournal.cs" />
+    <Compile Include="ScriptedExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

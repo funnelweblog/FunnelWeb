@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.Settings;
@@ -27,10 +28,18 @@ namespace FunnelWeb.Web.Application.Mvc
 
             lock (@lock)
             {
-                var settings = DependencyResolver.Current.GetService<ISettingsProvider>().GetSettings<FunnelWebSettings>();
-                if (settings.Theme == lastTheme)
+                FunnelWebSettings settings;
+                try
                 {
-                    return lastEngine;
+                    settings = DependencyResolver.Current.GetService<ISettingsProvider>().GetSettings<FunnelWebSettings>();
+                    if (settings.Theme == lastTheme)
+                    {
+                        return lastEngine;
+                    }
+                }
+                catch (Exception)
+                {
+                    return fallbackViewEngine;
                 }
 
                 // Create a new razor view engine using the theme name when prioritizing names for resolving views

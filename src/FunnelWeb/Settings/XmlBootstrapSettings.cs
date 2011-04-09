@@ -63,6 +63,7 @@ namespace FunnelWeb.Settings
             using (var writer = new StreamWriter(bootstrapSettingsFilePath))
             {
                 serializer.Serialize(writer, config);
+                writer.Flush();
             }
         }
 
@@ -75,6 +76,7 @@ namespace FunnelWeb.Settings
                 HasChanged = false;
             }
 
+            [XmlIgnore]
             public bool HasChanged { get; set; }
 
             public void Set(string name, string value)

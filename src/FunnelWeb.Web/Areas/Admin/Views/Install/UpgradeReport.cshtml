@@ -4,56 +4,27 @@
   Layout = "~/Areas/Admin/Views/Shared/_Private.cshtml";
 }
 
-<h1>
-  FunnelWeb Upgrade Report
-</h1>
+<h1>FunnelWeb Upgrade Report</h1>
     
-@if (Model.Results.ApplicationUpgradeResult.OriginalVersion == Model.Results.ApplicationUpgradeResult.UpgradedVersion) {
-  <p class='good'>
-    FunnelWeb application database was already up to date. Feel free to review the logs below before continuing.
-  </p>
-} else if (Model.Results.ApplicationUpgradeResult.Successful) {
-  <p class='good'>
-    The upgrade to version @Model.Results.ApplicationUpgradeResult.UpgradedVersion completed successfully. Feel free to review the logs below before continuing.
-  </p>
-} else {
-  <p class='bad'>The upgrade failed. Please review the logs below to resolve the issue.</p>
-}
-
-@if (Model.Results.ExtensionsUpgradeResults.Any(e => e.OriginalVersion != e.UpgradedVersion)) { 
-
-  <h1>Extensions Upgrade Report</h1>
-    
-  foreach (var extensionReport in Model.Results.ExtensionsUpgradeResults.Where(e => e.OriginalVersion != e.UpgradedVersion)) { 
-    if (extensionReport.Successful)
-    {
-      <p class='good'>
-        The upgrade of @extensionReport.Name to version @extensionReport.UpgradedVersion completed successfully. Feel free to review the logs below before continuing.
-      </p>
-    } else {
-      <p class='bad'>The upgrade failed. Please review the logs below to resolve the issue.</p>
-    }
-  }
-}
-<p class='important'>
-  @Html.AdminActionLink("Back to upgrade page", "Index", "Install")
-</p>
-
-<h2>Log</h2>
-<ol>
-  @MvcHtmlString.Create(Model.Log)
-</ol>
-
-@if (Model.Results.ApplicationUpgradeResult.Successful == false && Model.Results.ApplicationUpgradeResult.Error != null)
+@if (Model.Results.All(x => x.Successful)) 
 {
-  <h2>FunnelWeb Upgrade Exception Details</h2>
-  <pre>@MvcHtmlString.Create(Model.Results.ApplicationUpgradeResult.Error.ToString())</pre>
+  <p class='good'>The upgrade completed successfully. @Model.Results.Sum(x => x.Scripts.Count()) scripts were run.</p>
+  <p class='important'><a href="@Url.Content("/")">Woohoo!</a></p>
+}
+else
+{
+  <p class='bad'>The upgrade failed. Please <strong>review the logs below</strong> to resolve the issue.</p>
+  <p class='important'>
+    @Html.AdminActionLink("Back to upgrade page", "Index", "Install")
+  </p>
 }
 
-@foreach (var extensionResults in Model.Results.ExtensionsUpgradeResults) {
-  if (extensionResults.Successful == false && extensionResults.Error != null)
+@if (Model.Results.Any(x => x.Error != null))
+{
+  <h2>Errors</h2>
+  
+  foreach (var result in Model.Results.Select(x => x.Error).Where(x => x != null))
   {
-    <h2>@extensionResults.Name Upgrade Exception Details</h2>
-    <pre>@MvcHtmlString.Create(extensionResults.Error.ToString())</pre>
+    <pre>@result.ToString()</pre>
   }
 }

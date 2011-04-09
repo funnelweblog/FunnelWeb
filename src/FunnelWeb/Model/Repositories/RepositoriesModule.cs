@@ -6,7 +6,6 @@ using Autofac;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using FunnelWeb.DatabaseDeployer;
-using FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders;
 using FunnelWeb.Model.Repositories.Internal;
 using FunnelWeb.Settings;
 using NHibernate;
@@ -38,10 +37,10 @@ namespace FunnelWeb.Model.Repositories
                     m.FluentMappings.AddFromAssembly(System.Reflection.Assembly.GetExecutingAssembly());
 
                     //Scan extensions for nHibernate mappings 
-                    var scriptProviders = context.Resolve<IEnumerable<IScriptProvider>>();
-                    foreach (var providerAssembly in scriptProviders.Select(provider => provider.SourceAssembly))
+                    var extension = context.Resolve<IEnumerable<ScriptedExtension>>();
+                    foreach (var assembly in extension.Select(provider => provider.SourceAssembly))
                     {
-                        m.FluentMappings.AddFromAssembly(providerAssembly);
+                        m.FluentMappings.AddFromAssembly(assembly);
                     }
                 });
 

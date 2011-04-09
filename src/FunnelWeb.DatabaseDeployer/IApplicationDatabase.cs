@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using FunnelWeb.DatabaseDeployer.Infrastructure;
-using FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders;
+using DbUp;
 
 namespace FunnelWeb.DatabaseDeployer
 {
@@ -9,33 +8,10 @@ namespace FunnelWeb.DatabaseDeployer
     /// </summary>
     public interface IApplicationDatabase
     {
-        /// <summary>
-        /// Gets the current schema version number of the database.
-        /// </summary>
-        /// <param name="connectionString">The connection string.</param>
-        /// <returns>The current version number.</returns>
-        int GetApplicationCurrentVersion(string connectionString);
-
-        /// <summary>
-        /// Gets the current schema version number that the application requires.
-        /// </summary>
-        /// <returns>The application version number.</returns>
-        int GetApplicationVersion();
-
-        /// <summary>
-        /// Gets the current schema version number of the extension.
-        /// </summary>
-        /// <param name="connectionString">The connection string.</param>
-        /// <param name="scriptProviderToCheck">The script provider to check the current version of</param>
-        /// <returns>The current version number.</returns>
-        int GetExtensionCurrentVersion(string connectionString, IScriptProvider scriptProviderToCheck);
-
-        /// <summary>
-        /// Gets the current schema version number that the extension requires.
-        /// </summary>
-        /// <param name="scriptProviderToCheck">The script provider to check the highest version</param>
-        /// <returns>The application version number.</returns>
-        int GetExtensionVersion(IScriptProvider scriptProviderToCheck);
+        string[] GetCoreExecutedScripts(string connectionString);
+        string[] GetCoreRequiredScripts();
+        string[] GetExtensionExecutedScripts(string connectionString, ScriptedExtension extension);
+        string[] GetExtensionRequiredScripts(ScriptedExtension extension);
 
         /// <summary>
         /// Tries to connect to the database.
@@ -49,10 +25,11 @@ namespace FunnelWeb.DatabaseDeployer
         /// Performs the upgrade.
         /// </summary>
         /// <param name="connectionString">The connection string.</param>
+        /// <param name="extensions">The extensions.</param>
         /// <param name="log">The log.</param>
         /// <returns>
         /// A container of information about the results of the database upgrade.
         /// </returns>
-        DatabaseUpgradeResults PerformUpgrade(string connectionString, IEnumerable<IScriptProvider> extensionScriptProviders, ILog log);
+        DatabaseUpgradeResult[] PerformUpgrade(string connectionString, IEnumerable<ScriptedExtension> extensions, ILog log);
     }
 }

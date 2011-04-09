@@ -60,80 +60,27 @@ else
   <p>
     The FunnelWeb @noun is now ready to @verb your database.
   </p>
-  @if (Model.CurrentVersion != Model.NewVersion)
-  { 
-    <table>
-      <thead>
-        <tr>
-          <td colspan='2'>@properNoun Information
-          </td>
-        </tr>
-      </thead>
-      <tr>
-        <td>
-          Current FunnelWeb database version:
-        </td>
-        <td>@(Model.CanConnect ? Model.CurrentVersion.ToString() : "N/A")
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Can upgrade to:
-        </td>
-        <td>@(Model.CanConnect ? Model.NewVersion.ToString() : "N/A")
-        </td>
-      </tr>
-    </table>
-  }
-  
-  @if (Model.CurrentVersion != Model.NewVersion && Model.ExtensionVersions.Any(ev => ev.CurrentVersion != ev.NewVersion)) { 
-    <br />
-    <br />
-  }
-  
-  @if (Model.ExtensionVersions.Any(ev => ev.CurrentVersion != ev.NewVersion))
-  { 
-    
-    <table>
-      <thead>
-        <tr>
-          <td colspan='3'>
-            Extensions @properNoun Information
-          </td>
-        </tr>
-      </thead>
-      <tr>
-        <td>
-          Extension
-        </td>
-        <td>
-          Extension Current Version
-        </td>
-        <td>
-          Extension Version Needed
-        </td>
-      </tr>
-      @foreach (var extension in Model.ExtensionVersions)
-      { 
-        <tr>
-          <td>@extension.ExtensionName
-          </td>
-          <td>@(Model.CanConnect ? extension.CurrentVersion.ToString() : "N/A")
-          </td>
-          <td>@(Model.CanConnect ? extension.NewVersion.ToString() : "N/A")
-          </td>
-        </tr>
-      }
-    </table>
 
+  @if (Model.ScriptsToRun.Length > 0)
+  { 
+    <p>
+      The following scripts will be run against your database. 
+    </p>
+    
+    <ul>
+    @foreach (var item in Model.ScriptsToRun)
+    {
+        <li>@item</li>
+    }
+    </ul>
   }
-  @if (Model.CurrentVersion == Model.NewVersion && Model.ExtensionVersions.All(ev => ev.CurrentVersion == ev.NewVersion))
+
+  @if (Model.ScriptsToRun.Length == 0)
   {
     <text>
-    <p class='good'>
-      Your database is up to date. No @verb is necessary.</p>
-    <p class='important'>
-      <a href="/">Sweet!</a></p>
+    <p class='good'>Your database is up to date. No @verb is necessary.</p>
+    
+    <p class='important'><a href="/">Sweet!</a></p>
     </text>
   }
   else
@@ -148,21 +95,7 @@ else
       <div class="form-body">
         <p>
           @{
-      string submitText;
-      var extensionUpgradeCount = Model.ExtensionVersions.Count(e => e.CurrentVersion != e.NewVersion);
-      if (Model.CurrentVersion != Model.NewVersion && extensionUpgradeCount == 0)
-      {
-        submitText = string.Format("Upgrade to version {0}", Model.NewVersion);
-      }
-      else if (Model.CurrentVersion != Model.NewVersion && extensionUpgradeCount > 0)
-      {
-        submitText = "Install Upgrades";
-      }
-      else
-      {
-        submitText = "Upgrade Extensions";
-      }
-            <input type="submit" id="submit1" class="submit" value="@submitText" />
+            <input type="submit" id="submit1" class="submit" value="@verb" />
           }
         </p>
       </div>

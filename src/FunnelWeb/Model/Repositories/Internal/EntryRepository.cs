@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Bindable.Core.Language;
-using FunnelWeb.Authentication;
 using FunnelWeb.Model.Strings;
 using Iesi.Collections.Generic;
 using NHibernate;
@@ -82,14 +80,6 @@ namespace FunnelWeb.Model.Repositories.Internal
 			if (entry != null)
 				session.Delete(entry);
 		}
-
-        public Redirect GetClosestRedirect(PageName name)
-        {
-            var nameSoundEx = SoundEx.Evaluate(name);
-            var redirects = session.Query<Redirect>()
-                .ToList();
-            return redirects.Where(x => SoundEx.Evaluate(x.From) == nameSoundEx).FirstOrDefault();
-        }
 
         public void Save(Entry entry)
         {

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using DbUp.ScriptProviders;
 using FunnelWeb.DatabaseDeployer;
-using FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -12,7 +13,7 @@ namespace FunnelWeb.Tests.DatabaseDeployer
         private DatabaseUpgradeDetector detector;
         private IConnectionStringProvider connectionString;
         private IApplicationDatabase applicationDatabase;
-        private List<IScriptProvider> extensions = new List<IScriptProvider>();
+        private List<ScriptedExtension> extensions = new List<ScriptedExtension>();
 
         [SetUp]
         public void SetUp()
@@ -56,7 +57,7 @@ namespace FunnelWeb.Tests.DatabaseDeployer
         [Test]
         public void UpdateNeededIfExtensionsOld()
         {
-            extensions.Add(Substitute.For<IScriptProvider>());
+            extensions.Add(new ScriptedExtension("XYZ", null, Substitute.For<IScriptProvider>())); 
 
             DatabaseIsOnline(true);
             CurrentSchemaVersionIs(10);
@@ -71,7 +72,7 @@ namespace FunnelWeb.Tests.DatabaseDeployer
         [Test]
         public void UpdateNotNeededIfExtensionsUpToDate()
         {
-            extensions.Add(Substitute.For<IScriptProvider>());
+            extensions.Add(new ScriptedExtension("XYZ", null, Substitute.For<IScriptProvider>())); 
 
             DatabaseIsOnline(true);
             CurrentSchemaVersionIs(10);
@@ -96,29 +97,29 @@ namespace FunnelWeb.Tests.DatabaseDeployer
         private void CurrentSchemaVersionIs(int version)
         {
             applicationDatabase
-                .GetApplicationCurrentVersion(Arg.Any<string>())
-                .Returns(version);
+                .GetCoreExecutedScripts(Arg.Any<string>())
+                .Returns(Enumerable.Range(1, version).Select(x => "Script" + x + ".sql").ToArray());
         }
 
         private void RequiredApplicationVersionIs(int version)
         {
             applicationDatabase
-                .GetApplicationVersion()
-                .Returns(version);
+                .GetCoreRequiredScripts()
+                .Returns(Enumerable.Range(1, version).Select(x => "Script" + x + ".sql").ToArray());
         }
 
         private void CurrentExtensionVersionIs(int version)
         {
             applicationDatabase
-                .GetExtensionVersion(Arg.Any<IScriptProvider>())
-                .Returns(version);
+                .GetExtensionExecutedScripts(Arg.Any<string>(), Arg.Any<ScriptedExtension>())
+                .Returns(Enumerable.Range(1, version).Select(x => "Script" + x + ".sql").ToArray());
         }
 
         private void RequiredExtensionVersionIs(int version)
         {
             applicationDatabase
-                .GetExtensionCurrentVersion(Arg.Any<string>(), Arg.Any<IScriptProvider>())
-                .Returns(version);
+                .GetExtensionRequiredScripts(Arg.Any<ScriptedExtension>())
+                .Returns(Enumerable.Range(1, version).Select(x => "Script" + x + ".sql").ToArray());
         }
 
         #endregion

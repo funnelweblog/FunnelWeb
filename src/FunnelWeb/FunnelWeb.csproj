@@ -37,14 +37,14 @@
     <Reference Include="Autofac.Integration.Mvc">
       <HintPath>..\packages\Autofac.Mvc3.2.4.4.705\lib\NET40\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="Bindable.Core">
-      <HintPath>..\..\lib\Bindable\Bindable.Core.dll</HintPath>
-    </Reference>
     <Reference Include="BlogML">
       <HintPath>..\..\lib\BlogML\BlogML.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core, Version=2.5.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DbUp">
+      <HintPath>..\packages\dbup.1.0.40\lib\NET35\DbUp.dll</HintPath>
     </Reference>
     <Reference Include="FluentNHibernate, Version=1.2.0.712, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
