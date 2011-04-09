@@ -112,6 +112,7 @@ h1, h2, h3, h4, h5, h6
     margin: 0;
     padding: 0;
     height: 60px;
+    width:240px;
 }
 .header a.logo
 {
@@ -127,6 +128,7 @@ h1, h2, h3, h4, h5, h6
 .nav 
 {
     margin-top: 15px;
+    width:700px;
 }
 .body .intro 
 {

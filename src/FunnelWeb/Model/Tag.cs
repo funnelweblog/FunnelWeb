@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using Bindable.Core.Helpers;
+﻿using System;
+using System.Linq;
 using Iesi.Collections.Generic;
 
 namespace FunnelWeb.Model
@@ -18,7 +18,7 @@ namespace FunnelWeb.Model
 
         public virtual void Add(Entry entry)
         {
-            Guard.NotNull(entry, "entry");
+            if (entry == null) throw new ArgumentNullException("entry");
             var existing = Entries.FirstOrDefault(x => x == entry);
             if (existing != null)
                 return;
@@ -29,7 +29,7 @@ namespace FunnelWeb.Model
 
         public virtual void Remove(Entry entry)
         {
-            Guard.NotNull(entry, "entry");
+            if (entry == null) throw new ArgumentNullException("entry");
             var existing = Entries.FirstOrDefault(x => x == entry);
             if (existing != null)
             {

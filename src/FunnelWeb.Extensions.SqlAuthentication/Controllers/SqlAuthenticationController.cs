@@ -1,9 +1,10 @@
-﻿using System.Web.Mvc;
-using FunnelWeb.Authentication;
+﻿using System.Linq;
+using System.Web.Mvc;
 using FunnelWeb.Authentication.Internal;
 using FunnelWeb.Extensions.SqlAuthentication.Model;
 using FunnelWeb.Filters;
 using FunnelWeb.Settings;
+using NHibernate;
 
 namespace FunnelWeb.Extensions.SqlAuthentication.Controllers
 {
@@ -35,9 +36,12 @@ namespace FunnelWeb.Extensions.SqlAuthentication.Controllers
 
         public ActionResult Index()
         {
+            var users = _sqlAuthSettings.SqlAuthenticationEnabled ? _sqlMembership.GetUsers() : Enumerable.Empty<User>();
+
             var indexModel = new IndexModel
                                  {
-                                     IsUsingSqlAuthentication = _sqlAuthSettings.SqlAuthenticationEnabled
+                                     IsUsingSqlAuthentication = _sqlAuthSettings.SqlAuthenticationEnabled,
+                                     Users = users
                                  };
             return View(indexModel);
         }
@@ -65,6 +69,27 @@ namespace FunnelWeb.Extensions.SqlAuthentication.Controllers
             sqlAuthSettings.SqlAuthenticationEnabled = false;
             _settingsProvider.SaveSettings(sqlAuthSettings);
             _sqlAuthenticator.Logout();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult NewAccount()
+        {
+            return View(new NewUser());
+        }
+
+        [HttpPost]
+        public ActionResult NewAccount(NewUser user)
+        {
+            if (user.Password != user.RepeatPassword)
+            {
+                ModelState.AddModelError("Password", "Passwords must match");
+                ModelState.AddModelError("RepeatPassword", "Passwords must match");
+                return RedirectToAction("Setup", new { user });
+            }
+
+            _sqlMembership.CreateAccount(user.Name, user.Email, user.Username, user.Password);
+
             return RedirectToAction("Index");
         }
 
@@ -105,6 +130,56 @@ namespace FunnelWeb.Extensions.SqlAuthentication.Controllers
             _settingsProvider.SaveSettings(sqlAuthSettings);
             _formsAuthenticator.Logout();
             return RedirectToAction("Index");
+        }
+            
+        public ActionResult RemoveRole(int userId, int roleId)
+        {
+            var user = DependencyResolver.Current.GetService<ISession>()
+                .Get<User>(userId);
+
+            var role = user.Roles.SingleOrDefault(r => r.Id == roleId);
+
+            user.Roles.Remove(role);
+            role.Users.Remove(user);
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult AddRole(int userId)
+        {
+            var service = DependencyResolver.Current.GetService<ISession>();
+            var user = service.QueryOver<User>()
+                .Where(u => u.Id == userId)
+                .Left.JoinQueryOver(u => u.Roles)
+                .SingleOrDefault();
+
+            var roles = service
+                .QueryOver<Role>()
+                .List()
+                .Except(user.Roles)
+                .ToList();
+
+            return View(new AddRoleModel { User = user, Roles = roles });
+        }
+
+        public ActionResult AddUserToRole(int userId, int roleId)
+        {
+            var service = DependencyResolver.Current.GetService<ISession>();
+            var user = service.QueryOver<User>()
+                .Where(u => u.Id == userId)
+                .Left.JoinQueryOver(u => u.Roles)
+                .SingleOrDefault();
+
+            if (user.Roles.SingleOrDefault(r => r.Id == roleId) == null)
+            {
+                var role = service
+                    .Get<Role>(roleId);
+                user.Roles.Add(role);
+                role.Users.Add(user);
+            }
+
+
+            return RedirectToAction("AddRole", new { userId });
         }
     }
 }

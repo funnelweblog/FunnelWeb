@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
+using FunnelWeb.DatabaseDeployer;
 
 namespace FunnelWeb.Web.Application
 {
@@ -9,6 +10,7 @@ namespace FunnelWeb.Web.Application
         public void Init(HttpApplication context)
         {
             context.BeginRequest += ApplicationBeginRequest;
+            context.Error += ApplicationError;
         }
 
         private static void ApplicationBeginRequest(object sender, EventArgs e)
@@ -23,6 +25,11 @@ namespace FunnelWeb.Web.Application
             }
 
             HttpContext.Current.Response.Redirect("~/admin/login?databaseIssue=true");
+        }
+
+        private static void ApplicationError(object sender, EventArgs e)
+        {
+            DependencyResolver.Current.GetService<IDatabaseUpgradeDetector>().Reset();
         }
 
         public void Dispose()

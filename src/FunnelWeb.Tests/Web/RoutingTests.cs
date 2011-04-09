@@ -1,6 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Reflection;
+using System.Web.Mvc;
 using System.Web.Routing;
-using Autofac;
 using FunnelWeb.Tests.Helpers;
 using FunnelWeb.Web;
 using FunnelWeb.Web.Areas.Admin;
@@ -15,12 +15,14 @@ namespace FunnelWeb.Tests.Web
         public RoutingTests()
         {
             Routes = new RouteCollection();
-            var builder = new ContainerBuilder();
-            builder.RegisterModule(new RoutesModule(Routes));
+            var routesModule = new RoutesModule(Routes);
+
             var adminAreaRegistration = new AdminAreaRegistration();
             var areaRegistrationContext = new AreaRegistrationContext(adminAreaRegistration.AreaName, Routes);
             adminAreaRegistration.RegisterArea(areaRegistrationContext);
-            builder.Build();
+
+            var methodInfo = typeof (RoutesModule).GetMethod("Load", BindingFlags.NonPublic | BindingFlags.Instance );
+            methodInfo.Invoke(routesModule, new object[] {null});
         }
 
         [TestFixture]

@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 
 namespace FunnelWeb.Tasks
 {
@@ -9,9 +10,11 @@ namespace FunnelWeb.Tasks
             base.Load(builder);
 
             builder.RegisterAssemblyTypes(typeof (TasksModule).Assembly)
-                .AssignableTo<ITask>();
+                .AssignableTo<ITask>()
+                .InstancePerDependency();
 
-            builder.RegisterGeneric(typeof (TaskExecutor<>)).As(typeof (ITaskExecutor<>));
+            builder.RegisterGeneric(typeof (TaskExecutor<>)).As(typeof (ITaskExecutor<>))
+                .SingleInstance();
         }
     }
 }

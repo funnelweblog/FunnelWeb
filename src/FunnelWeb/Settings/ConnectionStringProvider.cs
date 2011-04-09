@@ -1,23 +1,25 @@
-﻿using System.Configuration;
-using System.Web;
-using System.Web.Configuration;
+﻿using FunnelWeb.DatabaseDeployer;
 
 namespace FunnelWeb.Settings
 {
     public class ConnectionStringProvider : IConnectionStringProvider
     {
+        private readonly IBootstrapSettings settings;
+
+        public ConnectionStringProvider(IBootstrapSettings settings)
+        {
+            this.settings = settings;
+        }
+
         public string ConnectionString
         {
             get
             {
-
-                return ConfigurationManager.AppSettings["funnelweb.configuration.database.connection"];
+                return settings.Get("funnelweb.configuration.database.connection");
             }
             set
             {
-                var config = WebConfigurationManager.OpenWebConfiguration(HttpContext.Current.Request.ApplicationPath);
-                config.AppSettings.Settings["funnelweb.configuration.database.connection"].Value = value;
-                config.Save(ConfigurationSaveMode.Modified);
+                settings.Set("funnelweb.configuration.database.connection", value);
             }
         }
     }

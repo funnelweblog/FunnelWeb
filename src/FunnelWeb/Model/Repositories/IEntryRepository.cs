@@ -11,7 +11,6 @@ namespace FunnelWeb.Model.Repositories
         Entry GetEntry(int id);
         Entry GetEntry(PageName name);
         Entry GetEntry(PageName name, int revision);
-        Redirect GetClosestRedirect(PageName name);
         void Save(Entry entry);
         IEnumerable<Entry> Search(string searchText);
         void Delete(int id);

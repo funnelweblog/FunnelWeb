@@ -179,9 +179,6 @@ namespace FunnelWeb.Settings
         [SettingStorage(StorageLocation.Database, "home-page")]
         public string CustomHomePage { get; set; }
 
-        [SettingStorage(StorageLocation.Custom)]
-        public string[] Themes { get; set; }
-
         [DisplayName("Enable Analytics")]
         [DefaultValue(false)]
         [Description("Whether Google Analytics should be enabled for this site")]

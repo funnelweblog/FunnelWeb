@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using DbUp;
+using DbUp.ScriptProviders;
 using FunnelWeb.DatabaseDeployer;
-using FunnelWeb.DatabaseDeployer.Infrastructure;
-using FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders;
 using FunnelWeb.Extensions.SqlAuthentication;
 
 namespace FunnelWeb.Tests.Helpers
@@ -52,19 +52,19 @@ namespace FunnelWeb.Tests.Helpers
             master.ExecuteNonQuery("create database [" + databaseName + "]");
 
             var app = new ApplicationDatabase();
-            app.PerformUpgrade(connectionString, new List<IScriptProvider>
+            app.PerformUpgrade(connectionString, new List<ScriptedExtension>
                                                      {
                                                          ScriptProviderFor(new SqlAuthenticationExtension())
                                                      }, new TraceLog());
         }
 
-        public IScriptProvider ScriptProviderFor<T>(T extensionWithScripts) where T : IRequireDatabaseScripts
+        public ScriptedExtension ScriptProviderFor<T>(T extensionWithScripts) where T : IRequireDatabaseScripts
         {
-            return new EmbeddedSqlScriptProvider(extensionWithScripts.SourceIdentifier,
-                                          typeof (T).Assembly,
-                                          version =>
-                                          string.Format(extensionWithScripts.ScriptNameFormat,
-                                                        version.ToString().PadLeft(4, '0')));
+            var provider = new EmbeddedScriptProvider(
+                typeof (T).Assembly,
+                x => x.EndsWith(".sql", StringComparison.InvariantCultureIgnoreCase));
+
+            return new ScriptedExtension(extensionWithScripts.SourceIdentifier, typeof (T).Assembly, provider);
         }
 
         public void Dispose()

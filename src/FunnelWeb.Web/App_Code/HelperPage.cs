@@ -16,5 +16,10 @@ namespace FunnelWeb.Web.App_Code
         {
             get { return ((System.Web.Mvc.WebViewPage)WebPageContext.Current.Page).Url; }
         }
+
+        public static ViewDataDictionary ViewData
+        {
+            get { return ((System.Web.Mvc.WebViewPage) WebPageContext.Current.Page).ViewData; }
+        }
     }
 }

@@ -5,5 +5,4 @@ using FunnelWeb.Web;
 [assembly: AssemblyTitle("FunnelWeb.Web")]
 [assembly: AssemblyDescription("ASP.NET MVC assembly for FunnelWeb")]
 
-[assembly: PreApplicationStartMethod(
-  typeof(MvcApplication), "Initialise")]
+[assembly: PreApplicationStartMethod(typeof(MvcApplication), "BeforeApplicationStart")]

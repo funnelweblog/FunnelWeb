@@ -108,7 +108,7 @@ namespace FunnelWeb.Web.Areas.Admin.Views.WikiAdmin
         public bool DisableComments { get; set; }
 
         [DisplayName("Hide chrome")]
-        [Description("If checked, the page title, date, history and so on will be shown on the page.")]
+        [Description("If checked, the page title, date, history and so on will be hidden.")]
         public bool HideChrome { get; set; }
 
         [Required]

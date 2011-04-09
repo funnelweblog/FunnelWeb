@@ -1,1 +1,1 @@
-﻿insert into Setting([Name], DisplayName, Value, Description) values ('ui-theme', 'Theme', 'Official', 'Theme being used by the blog at the moment');
+﻿insert into Setting([Name], DisplayName, Value, Description) values ('ui-theme', 'Theme', 'Clean', 'Theme being used by the blog at the moment');

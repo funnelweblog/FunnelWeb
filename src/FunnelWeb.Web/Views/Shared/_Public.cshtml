@@ -49,13 +49,13 @@
         </div>
       </div>
     </div>
+    @if (TempData.ContainsKey("Flash"))
+    {
+      <div class="flash">
+        <p>@TempData["Flash"]</p>
+      </div>
+    }
     <div class="body">
-      @if (TempData.ContainsKey("Flash"))
-      {
-        <div class="flash">
-          <p>@TempData["Flash"]</p>
-        </div>
-      }
       @if (IsSectionDefined("Summary"))
       {
         <div class="intro" id="_summary">

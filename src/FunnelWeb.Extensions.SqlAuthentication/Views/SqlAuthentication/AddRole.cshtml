@@ -1,0 +1,17 @@
+﻿@using System.Web.Mvc;
+@using System.Web.Mvc.Html;
+@model FunnelWeb.Extensions.SqlAuthentication.Model.AddRoleModel
+<h1>
+  Sql Authentication Provider Setup</h1>
+@using (Html.BeginForm("NewAccount", "SqlAuthentication", FormMethod.Post))
+{
+  <h2>
+    Add User (@Model.User.Name) To Role</h2>
+    foreach (var role in Model.Roles)
+    {
+        @Html.ActionLink(role.Name, "AddUserToRole", new { userId = Model.User.Id, roleId = role.Id }) <br />
+    }
+    
+  <br />
+  @Html.ActionLink("Finished", "Index")
+}

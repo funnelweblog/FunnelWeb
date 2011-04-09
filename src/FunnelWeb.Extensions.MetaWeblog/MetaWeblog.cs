@@ -57,17 +57,17 @@ namespace FunnelWeb.Extensions.MetaWeblog
             {
                 using (var transaction = _session.BeginTransaction(IsolationLevel.Serializable))
                 {
-                    var entry = _entryRepository.GetEntry(Int32.Parse(postid)) ?? new Entry();
+                    var author = _authenticator.GetName();
+                    var entry = _entryRepository.GetEntry(Int32.Parse(postid)) ?? new Entry { Author = author};
                     entry.Name = post.permalink;
                     entry.Title = post.title ?? string.Empty;
                     entry.Summary = post.mt_excerpt ?? string.Empty;
                     entry.MetaTitle = post.title;
-                    entry.Published = post.dateCreated.ToUniversalTime();
+                    entry.Published = (post.dateCreated < DateTime.Today.AddYears(10) ? DateTime.Today : post.dateCreated).ToUniversalTime();
                     entry.Status = publish ? EntryStatus.PublicBlog : EntryStatus.Private;
 
-                    entry.Summary = post.mt_excerpt ?? string.Empty;
-
                     var revision = entry.Revise();
+                    revision.Author = author;
                     revision.Body = post.description;
                     revision.Reason = "API";
                     revision.Format = Formats.Html;
@@ -79,8 +79,7 @@ namespace FunnelWeb.Extensions.MetaWeblog
                     if (!string.IsNullOrEmpty(post.wp_slug))
                         entry.Name = post.wp_slug;
 
-                    if (entry.MetaDescription == null)
-                        entry.MetaDescription = entry.Title;
+                    entry.MetaDescription = entry.Summary;
 
                     var editTags = post.categories;
                     var toDelete = entry.Tags.Where(t => !editTags.Contains(t.Name)).ToList();
@@ -129,19 +128,16 @@ namespace FunnelWeb.Extensions.MetaWeblog
 
                 return _tagRepository.GetTags()
                     .ToList()
-                    .Select(t =>
-                                {
-                                   return new CategoryInfo
-                                        {
-                                            categoryid = t.Id.ToString(),
-                                            title = t.Name,
-                                            description = t.Name,
-                                            htmlUrl =
-                                                new Uri(HttpContext.Current.Request.Url, "/tagged/" + t.Name).ToString(),
-                                            rssUrl =
-                                            new Uri(HttpContext.Current.Request.Url, "/tagged/" + t.Name).ToString()
-                                        };
-                                })
+                    .Select(t => new CategoryInfo
+                                     {
+                                         categoryid = t.Id.ToString(),
+                                         title = t.Name,
+                                         description = t.Name,
+                                         htmlUrl =
+                                             new Uri(HttpContext.Current.Request.Url, "/tagged/" + t.Name).ToString(),
+                                         rssUrl =
+                                             new Uri(HttpContext.Current.Request.Url, "/tagged/" + t.Name).ToString()
+                                     })
                     .ToArray();
             }
             throw new XmlRpcFaultException(0, "User is not valid!");
@@ -173,7 +169,7 @@ namespace FunnelWeb.Extensions.MetaWeblog
                     var fileName = Path.GetFileNameWithoutExtension(mediaObject.name) + "_" + DateTime.Now.Ticks + Path.GetExtension(mediaObject.name);
                     var fullPath = _fileRepository.MapPath(fileName);
 
-                    objectInfo.url = System.Web.VirtualPathUtility.ToAbsolute(_funnelWebSettings.UploadPath + "/" + fileName);
+                    objectInfo.url = VirtualPathUtility.ToAbsolute(_funnelWebSettings.UploadPath + "/" + fileName);
 
                     _fileRepository.Save(memoryStream, fullPath, false);
                 }
@@ -248,6 +244,7 @@ namespace FunnelWeb.Extensions.MetaWeblog
                            title = entry.Title,
                            userid = "FunnelWeb",
                            wp_slug = entry.Name.ToString(),
+                           mt_excerpt = entry.MetaDescription
                        };
         }
     }

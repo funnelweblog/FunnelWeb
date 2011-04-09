@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using FunnelWeb.Web.Application;
+using FunnelWeb.Web.Application.Mvc;
 
 namespace FunnelWeb.Web.Areas.Admin.Views.Admin
 {

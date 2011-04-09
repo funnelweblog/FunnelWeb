@@ -1,0 +1,61 @@
+﻿@using System.Web.Mvc;
+@using System.Web.Mvc.Html;
+@using FunnelWeb.Web.Application.Extensions;
+@model FunnelWeb.Extensions.SqlAuthentication.Model.NewUser
+<h1>
+  Sql Authentication Provider Setup</h1>
+
+@Html.ValidationSummary("Account creation unsuccessful. Please correct the errors below.")
+
+@using (Html.BeginForm("NewAccount", "SqlAuthentication", FormMethod.Post))
+{
+  <h2>
+    Create Admin Account</h2>
+  <div class="form-body">
+    <div class="editor-label">
+      @Html.LabelFor(m => m.Name)
+    </div>
+    <div class="editor-field">
+      @Html.TextBoxFor(m => m.Name, Html.AttributesFor(m => m.Name))
+      @Html.ValidationMessageFor(m => m.Name)
+      @Html.HintFor(m => m.Name)
+    </div>
+    <div class="editor-label">
+      @Html.LabelFor(m => m.Email)
+    </div>
+    <div class="editor-field">
+      @Html.TextBoxFor(m => m.Email, Html.AttributesFor(m => m.Email))
+      @Html.ValidationMessageFor(m => m.Email)
+      @Html.HintFor(m => m.Email)
+    </div>
+    <div class="editor-label">
+      @Html.LabelFor(m => m.Username)
+    </div>
+    <div class="editor-field">
+      @Html.TextBoxFor(m => m.Username, Html.AttributesFor(m => m.Username))
+      @Html.ValidationMessageFor(m => m.Username)
+      @Html.HintFor(m => m.Username)
+    </div>
+    <div class="editor-label">
+      @Html.LabelFor(m => m.Password)
+    </div>
+    <div class="editor-field">
+      @Html.PasswordFor(m => m.Password, Html.AttributesFor(m => m.Password))
+      @Html.ValidationMessageFor(m => m.Password)
+      @Html.HintFor(m => m.Password)
+    </div>
+    <div class="editor-label">
+      @Html.LabelFor(m => m.RepeatPassword)
+    </div>
+    <div class="editor-field">
+      @Html.PasswordFor(m => m.RepeatPassword, Html.AttributesFor(m => m.RepeatPassword))
+      @Html.ValidationMessageFor(m => m.RepeatPassword)
+      @Html.HintFor(m => m.RepeatPassword)
+    </div>
+    <div class="editor-label">
+    </div>
+    <div class="editor-field">
+      <input type="submit" id="submit" class="submit" value="Create" />
+    </div>
+  </div>
+}

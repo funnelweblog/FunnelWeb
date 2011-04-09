@@ -37,6 +37,7 @@ namespace FunnelWeb.Model
         public virtual string MetaTitle { get; set; }
         public virtual bool HideChrome { get; set; }
         public virtual string Status { get; set; }
+        public virtual string Author { get; set; }
 
         [Valid]
         public virtual Revision LatestRevision { get; set; }
@@ -50,6 +51,7 @@ namespace FunnelWeb.Model
         {
             get { return string.Join(", ", Tags.Select(x => x.Name)); }
         }
+
 
         public virtual Revision Revise()
         {

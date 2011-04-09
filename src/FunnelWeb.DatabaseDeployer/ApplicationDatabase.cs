@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Reflection;
+using DbUp;
+using DbUp.Execution;
+using DbUp.Journal;
+using DbUp.ScriptProviders;
 using FunnelWeb.DatabaseDeployer.Infrastructure;
-using FunnelWeb.DatabaseDeployer.Infrastructure.Execution;
-using FunnelWeb.DatabaseDeployer.Infrastructure.ScriptProviders;
-using FunnelWeb.DatabaseDeployer.Infrastructure.VersionTrackers;
 
 namespace FunnelWeb.DatabaseDeployer
 {
@@ -15,56 +17,33 @@ namespace FunnelWeb.DatabaseDeployer
     public class ApplicationDatabase : IApplicationDatabase
     {
         public const string DefaultConnectionString = "Server=(local)\\SQLEXPRESS;Database=FunnelWeb;Trusted_connection=true";
-        private readonly IScriptExecutor scriptExecutor;
-        private readonly IVersionTracker versionTracker;
-        private readonly IScriptProvider scriptProvider;
+        private const string CoreSourceIdentifier = "FunnelWeb.DatabaseDeployer";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationDatabase"/> class.
         /// </summary>
         public ApplicationDatabase()
         {
-            scriptExecutor = new SqlScriptExecutor();
-            versionTracker = new SchemaVersionsTableSqlVersionTracker();
-            scriptProvider = new EmbeddedSqlScriptProvider(
-                "FunnelWeb.DatabaseDeployer",
-                Assembly.GetExecutingAssembly(),
-                versionNumber => string.Format(
-                                     "FunnelWeb.DatabaseDeployer.Scripts.Script{0}.sql",
-                                     versionNumber.ToString().PadLeft(4, '0')));
         }
 
-        public IScriptProvider ScriptProvider
+        public string[] GetCoreExecutedScripts(string connectionString)
         {
-            get { return scriptProvider; }
+            return CreateJournal(connectionString, CoreSourceIdentifier).GetExecutedScripts();
         }
 
-        /// <summary>
-        /// Gets the current schema version number of the database.
-        /// </summary>
-        /// <returns>The current version number.</returns>
-        public int GetApplicationCurrentVersion(string connectionString)
+        public string[] GetCoreRequiredScripts()
         {
-            return versionTracker.RecallVersionNumber(connectionString, scriptProvider.SourceIdentifier, new Log());
+            return CreateScriptProvider().GetScripts().Select(x => x.Name).ToArray();
         }
 
-        /// <summary>
-        /// Gets the current schema version number that the application requires.
-        /// </summary>
-        /// <returns>The application version number.</returns>
-        public int GetApplicationVersion()
+        public string[] GetExtensionExecutedScripts(string connectionString, ScriptedExtension extension)
         {
-            return scriptProvider.GetHighestScriptVersion();
+            return CreateJournal(connectionString, extension.SourceIdentifier).GetExecutedScripts();
         }
 
-        public int GetExtensionCurrentVersion(string connectionString, IScriptProvider scriptProviderToCheck)
+        public string[] GetExtensionRequiredScripts(ScriptedExtension extension)
         {
-            return versionTracker.RecallVersionNumber(connectionString, scriptProviderToCheck.SourceIdentifier, new Log());
-        }
-
-        public int GetExtensionVersion(IScriptProvider scriptProviderToCheck)
-        {
-            return scriptProviderToCheck.GetHighestScriptVersion();
+            return extension.ScriptProvider.GetScripts().Select(x => x.Name).ToArray();
         }
 
         /// <summary>
@@ -78,10 +57,10 @@ namespace FunnelWeb.DatabaseDeployer
             try
             {
                 var csb = new SqlConnectionStringBuilder(connectionString)
-                              {
-                                  Pooling = false, 
-                                  ConnectTimeout = 5
-                              };
+                {
+                    Pooling = false,
+                    ConnectTimeout = 5
+                };
 
                 errorMessage = "";
                 using (var connection = new SqlConnection(csb.ConnectionString))
@@ -105,11 +84,48 @@ namespace FunnelWeb.DatabaseDeployer
         /// <returns>
         /// A container of information about the results of the database upgrade.
         /// </returns>
-        public DatabaseUpgradeResults PerformUpgrade(string connectionString, IEnumerable<IScriptProvider> extensionScriptProviders, ILog log)
+        public DatabaseUpgradeResult[] PerformUpgrade(string connectionString, IEnumerable<ScriptedExtension> scriptedExtensions, ILog log)
         {
-            var result = new DatabaseUpgrader(connectionString, scriptProvider, extensionScriptProviders, versionTracker, scriptExecutor)
-                .PerformUpgrade(log);
+            var results = new List<DatabaseUpgradeResult>();
+
+            // Upgrade core
+            var core = Upgrade(connectionString, CreateScriptProvider(), CreateJournal(connectionString, CoreSourceIdentifier));
+            results.Add(core);
+
+            // Upgrade extensions
+            foreach (var extension in scriptedExtensions)
+            {
+                var ex = Upgrade(connectionString, extension.ScriptProvider, CreateJournal(connectionString, extension.SourceIdentifier));
+                results.Add(ex);
+            }
+
+            return results.ToArray();
+        }
+
+        private DatabaseUpgradeResult Upgrade(string connectionString, IScriptProvider scriptProvider, IJournal journal)
+        {
+            var upgrader = new DatabaseUpgrader(
+                connectionString,
+                scriptProvider,
+                journal,
+                new SqlScriptExecutor(connectionString));
+
+            var result = upgrader.PerformUpgrade();
             return result;
+        }
+
+        private static EmbeddedScriptProvider CreateScriptProvider()
+        {
+            return new EmbeddedScriptProvider(
+                Assembly.GetExecutingAssembly(),
+                script =>
+                    script.StartsWith("FunnelWeb.DatabaseDeployer.Scripts.Script", StringComparison.InvariantCultureIgnoreCase)
+                    && script.EndsWith(".sql", StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        private static IJournal CreateJournal(string connectionString, string sourceIdentifier)
+        {
+            return new FunnelWebJournal(connectionString, sourceIdentifier, new ConsoleLog());
         }
     }
 }

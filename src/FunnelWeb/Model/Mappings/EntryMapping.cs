@@ -19,6 +19,7 @@ namespace FunnelWeb.Model.Mappings
             Map(x => x.HideChrome);
             Map(x => x.Status);
 			Map(x => x.PageTemplate);
+            Map(x => x.Author);
             Map(x => x.CommentCount).Formula("(SELECT COUNT(*) from Comment where Comment.EntryID = ID and Comment.Status = 1)");
 
             Component(o => o.LatestRevision,
@@ -26,6 +27,7 @@ namespace FunnelWeb.Model.Mappings
                     {
                         c.Map(r => r.Id, "LatestRevisionId");
                         c.Map(r => r.RevisionNumber);
+                        c.Map(r => r.Author).Column("RevisionAuthor");
                         c.Map(r => r.Body).Length(int.MaxValue);
                     });
 

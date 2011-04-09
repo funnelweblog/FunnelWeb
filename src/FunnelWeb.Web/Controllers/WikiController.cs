@@ -36,7 +36,10 @@ namespace FunnelWeb.Web.Controllers
                 if (entry != null)
                 {
                     ViewData.Model = new PageModel(entry.Name, entry, false);
-                    return new PageTemplateActionResult("Page", entry.PageTemplate);
+                    return new PageTemplateActionResult(
+                        pageTemplate: entry.PageTemplate, 
+                        actionName: "Page"
+                    );
                 }
             }
 
@@ -75,7 +78,9 @@ namespace FunnelWeb.Web.Controllers
             }
 
             ViewData.Model = new PageModel(page, entry, revision > 0 && revision < entry.LatestRevision.RevisionNumber);
-            return new PageTemplateActionResult(entry.PageTemplate);
+            return new PageTemplateActionResult(
+                pageTemplate: entry.PageTemplate
+            );
         }
 
         // Posting a comment
@@ -92,8 +97,7 @@ namespace FunnelWeb.Web.Controllers
                 model.IsPriorVersion = false;
                 model.Page = page;
                 ViewData.Model = model;
-                return new PageTemplateActionResult(entry.PageTemplate, "Page")
-                    .AndFlash("Your comment was not posted - please check the validation errors below.");
+                return new PageTemplateActionResult(entry.PageTemplate, "Page");
             }
 
             var comment = entry.Comment();

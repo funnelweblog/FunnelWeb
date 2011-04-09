@@ -40,13 +40,16 @@ namespace FunnelWeb.Web
             routes.IgnoreRoute("{*allaxd}", new { allaxd = @".*\.axd(/.*)?" });
             routes.IgnoreRoute("pingback");
 
+            if (builder != null)
+                AreaRegistration.RegisterAllAreas();
+
             // Feeds
             routes.MapLowerCaseRoute("feed", new { controller = "Feed", action = "Feed", feedName = (string)null });
             routes.MapLowerCaseRoute("feeds/{*feedName}", new { controller = "Feed", action = "Feed" });
             routes.MapLowerCaseRoute("commentfeed", new { controller = "Feed", action = "CommentFeed" });
 
             // Upload
-            routes.MapLowerCaseRoute("get/{*path}", new { controller = "Upload", action = "Render" });
+            routes.MapLowerCaseRoute("get/{*path}", new { controller = "Upload", action = "Render", area = "Admin" });
 
             // Resources
             routes.MapLowerCaseRoute("robots", new { controller = "Resource", action = "Render", fileName = "/Content/Resources/Robots.txt", contentType = "text/plain" });
@@ -62,6 +65,9 @@ namespace FunnelWeb.Web
 
             // Tags
             routes.MapLowerCaseRoute("tag/{*tagName}", new { controller = "Tag", action = "Index" });
+            
+            // Tagged Pages
+            routes.MapLowerCaseRoute("tagged/{*tag}", new {controller = "Tagged", action = "Index"});
 
             // Wiki
             routes.MapLowerCaseRoute("blog", new { controller = "Wiki", action = "Recent", pageNumber = "0" });
