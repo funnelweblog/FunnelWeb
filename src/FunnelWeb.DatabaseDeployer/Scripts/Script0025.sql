@@ -58,7 +58,7 @@ GO
 --Default values for comment revision
 update Comment 
 	set EntryRevisionNumber = (select top 1 RevisionNumber from Revision where EntryId=Comment.EntryId order by RevisionNumber desc)
-where Comment.EntryRevisionNumber is null	
+where EntryRevisionNumber is null
 GO
 
 --Fix for any Entry table that may have revisions that are not the latest
