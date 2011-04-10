@@ -66,7 +66,7 @@ update Entry set
 	RevisionNumber = (select top 1 RevisionNumber from Revision where EntryId=Entry.Id order by RevisionNumber desc),
 	LatestRevisionId = (select top 1 Id from Revision where EntryId=Entry.Id order by RevisionNumber desc),
 	Body = (select top 1 Body from Revision where EntryId=Entry.Id order by RevisionNumber desc),
-	Author = (select top 1 RevisionNumber from Revision where EntryId=Entry.Id order by RevisionNumber desc)
+	Author = (select top 1 Author from Revision where EntryId=Entry.Id order by RevisionNumber desc)
 GO
 
 COMMIT
