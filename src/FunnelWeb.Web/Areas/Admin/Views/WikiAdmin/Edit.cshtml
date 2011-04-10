@@ -21,7 +21,7 @@
   @if (Model.IsNew) {     
   <p>The page you navigated to has not been created yet. Use the editor below to create the first version of this page.</p>
   } else {
-  <p>Use the editor below to update this page. Alternatively, you can @Html.ActionLink("go back to the previous page", "Page", new{Area = "Admin",page = Model.Page}).</p>
+  <p>Use the editor below to update this page. Alternatively, you can @Html.ActionLink("go back to the previous page", "Edit", new { Area = "Admin", page = Model.Page, revertToRevision = Model.PreviousRevision }).</p>
   }  
 }
 

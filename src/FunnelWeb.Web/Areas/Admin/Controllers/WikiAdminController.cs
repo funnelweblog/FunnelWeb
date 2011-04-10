@@ -64,6 +64,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
                                 Sidebar = entry.Summary,
                                 Title = entry.Title,
                                 SelectedTags = entry.Tags,
+                                PreviousRevision = revision.RevisionNumber <= 1 ? 1 : revision.RevisionNumber - 1,
                                 ChangeSummary =
                                     entry.Id == 0
                                         ? "Initial create"

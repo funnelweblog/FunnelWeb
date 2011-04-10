@@ -22,6 +22,7 @@ namespace FunnelWeb.Web.Areas.Admin.Views.WikiAdmin
             IsNew = originalEntryId == 0;
             OriginalEntryId = originalEntryId;
             AllTags = tags.ToList();
+            PreviousRevision = 1;
         }
 
         public List<Tag> AllTags { get; set; }
@@ -29,6 +30,8 @@ namespace FunnelWeb.Web.Areas.Admin.Views.WikiAdmin
         public bool IsNew { get; set; }
 
         public int OriginalEntryId { get; set; }
+
+        public int PreviousRevision { get; set; }
 
         [Required]
         [DisplayName("SLUG")]
