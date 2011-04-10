@@ -96,7 +96,7 @@ namespace FunnelWeb.Tests.Web.Controllers
             var entry = new Entry { Name = "page" };
             EntryRepository.GetEntry(Arg.Any<PageName>(), Arg.Any<int>()).Returns(entry);
 
-            Controller.Page(entry.Name, 0);
+            Controller.Page(entry.Name, (int?)null);
 
             Assert.IsNotNull(Controller.ViewData.Model);
             Assert.IsInstanceOf<PageModel>(Controller.ViewData.Model);
