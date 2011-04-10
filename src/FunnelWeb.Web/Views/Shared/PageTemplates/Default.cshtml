@@ -47,11 +47,11 @@
   {
     <div class='entry-tools'>
       <div>
-        <span>You are looking at revision @Model.Entry.LatestRevision.RevisionNumber of this
+        <span>You are looking at revision @Model.Revision.RevisionNumber of this
           page, which may be out of date. @Html.ActionLink("View the latest version.", "Page", new { page = Model.Entry.Name })</span>
         @if (ViewData.IsLoggedIn())
         {
-          <span>@Html.ActionLink("Revert to this version.", "Revert", "WikiAdmin", new { Area = "Admin", page = Model.Page, revision = Model.Entry.LatestRevision.RevisionNumber }, new { })</span>
+          <span>@Html.ActionLink("Revert to this version.", "Revert", "WikiAdmin", new { Area = "Admin", page = Model.Page, revision = Model.Revision.RevisionNumber }, new { })</span>
         }
         <span></span>
       </div>
@@ -73,8 +73,8 @@
     @TagList.Render(Model.Entry.Tags)
   
     <div class='entry-tools'>
-      <span>Posted by: @Model.Entry.Author@{if (@Model.Entry.LatestRevision.Author != Model.Entry.Author) {Write(string.Format(", Last edit by: {0}", @Model.Entry.LatestRevision.Author));}}</span><br />
-      <span>Last revised: <a href="@Html.ActionUrl("Page", new { page = Model.Page.ToString(), revision = Model.Entry.LatestRevision.RevisionNumber })">@Html.Date(Model.Entry.LatestRevision.Revised)</a></span>
+      <span>Posted by: @Model.Entry.Author@{if(@Model.Entry.LatestRevision.Author != Model.Entry.Author) { Write(string.Format(", Last edit by: {0}", @Model.Revision.Author)); }}</span><br />
+      <span>Last revised: <a href="@Html.ActionUrl("Page", new { page = Model.Page.ToString(), revision = Model.Revision.RevisionNumber })">@Html.Date(Model.Revision.Revised)</a></span>
       <span>@Html.ActionLink("History", "Revisions", new { page = Model.Page })</span>
       @if (ViewData.IsLoggedIn())
       {
@@ -84,7 +84,7 @@
       @if (Model.IsPriorVersion)
       {
         <div>
-          <span>You are looking at revision @Model.Entry.LatestRevision.RevisionNumber of this
+          <span>You are looking at revision @Model.Revision.RevisionNumber of this
             page, which may be out of date. @Html.ActionLink("View the latest version.", "Page", new { page = Model.Entry.Name })</span>
         </div>
       }
@@ -140,6 +140,7 @@
           </div>
           <div class="comment-body">
             <div class="comment-date">@Html.Date(comment.Posted)
+              @Html.CommentedAtRevision(comment, Model.Revision)
               @if (ViewData.IsLoggedIn())
               {
                   @Html.ActionLink(comment.IsSpam ? "Unspam" : "Spam", "ToggleSpam", "Admin", new { Area = "Admin", id = comment.Id }, null)

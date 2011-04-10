@@ -49,6 +49,7 @@ namespace FunnelWeb.Model.Mappings
                 .Inverse()
                 .AsSet<RevisionComparer>()
                 .LazyLoad()
+                .ApplyFilter<RevisionFilter>("RevisionNumber = :revisionNumber")
                 .Cascade.All();
 
             HasMany(x => x.Comments)

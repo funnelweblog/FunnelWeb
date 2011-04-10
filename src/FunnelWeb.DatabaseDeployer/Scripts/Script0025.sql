@@ -54,4 +54,19 @@ ALTER TABLE dbo.Comment ADD CONSTRAINT
 	 ON DELETE  NO ACTION 
 	
 GO
+
+--Default values for comment revision
+update Comment 
+	set EntryRevisionNumber = (select top 1 RevisionNumber from Revision where EntryId=Comment.EntryId order by RevisionNumber desc)
+where Comment.EntryRevisionNumber is null	
+GO
+
+--Fix for any Entry table that may have revisions that are not the latest
+update Entry set
+	RevisionNumber = (select top 1 RevisionNumber from Revision where EntryId=Entry.Id order by RevisionNumber desc),
+	LatestRevisionId = (select top 1 Id from Revision where EntryId=Entry.Id order by RevisionNumber desc),
+	Body = (select top 1 Body from Revision where EntryId=Entry.Id order by RevisionNumber desc),
+	Author = (select top 1 RevisionNumber from Revision where EntryId=Entry.Id order by RevisionNumber desc)
+GO
+
 COMMIT

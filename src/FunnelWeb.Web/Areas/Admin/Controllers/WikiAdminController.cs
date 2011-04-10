@@ -49,13 +49,13 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
                     Status = EntryStatus.PublicBlog,
                     LatestRevision = new Revision()
                 };
-
+            var revision = entry.Revision(revertToRevision);
             var allTags = TagRepository.GetTags();
             var model = new EditModel(page, entry.Id, allTags)
                             {
                                 DisableComments = !entry.IsDiscussionEnabled,
-                                Content = entry.LatestRevision.Body,
-                                Format = entry.LatestRevision.Format,
+                                Content = revision.Body,
+                                Format = revision.Format,
                                 HideChrome = entry.HideChrome,
                                 Status = entry.Status,
                                 MetaDescription = entry.MetaDescription,

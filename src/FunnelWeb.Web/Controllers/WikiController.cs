@@ -35,7 +35,7 @@ namespace FunnelWeb.Web.Controllers
                 var entry = EntryRepository.GetEntry(settings.CustomHomePage);
                 if (entry != null)
                 {
-                    ViewData.Model = new PageModel(entry.Name, entry, false);
+                    ViewData.Model = new PageModel(entry.Name, entry);
                     return new PageTemplateActionResult(
                         pageTemplate: entry.PageTemplate, 
                         actionName: "Page"
@@ -77,7 +77,7 @@ namespace FunnelWeb.Web.Controllers
                 return Search(page, true);
             }
 
-            ViewData.Model = new PageModel(page, entry, revision > 0 && revision < entry.LatestRevision.RevisionNumber);
+            ViewData.Model = new PageModel(page, entry, revision);
             return new PageTemplateActionResult(
                 pageTemplate: entry.PageTemplate
             );

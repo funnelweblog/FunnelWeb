@@ -54,18 +54,12 @@ namespace FunnelWeb.Model.Repositories.Internal
             if (revisionNumber <= 0) 
                 return GetEntry(name);
 
-            var entryQuery = (Hashtable)session.CreateCriteria<Entry>("entry")
-                .Add(Restrictions.Eq("entry.Name", name))
-                .CreateCriteria("Revisions", "rev")
-                    .Add(Restrictions.Eq("rev.RevisionNumber", revisionNumber))
-                    .AddOrder(Order.Desc("rev.Revised"))
-                .SetMaxResults(1)
-                .SetResultTransformer(Transformers.AliasToEntityMap)
-                .UniqueResult();
+            var entryQuery = session.QueryOver<Entry>()
+                .Where(x => x.Name == name)
+                .Fetch(x => x.Revisions).Eager;
+            session.EnableFilter("RevisionFilter").SetParameter("revisionNumber", revisionNumber);
 
-            var entry = (Entry)entryQuery["entry"];
-            entry.LatestRevision = (Revision)entryQuery["rev"];
-
+            var entry = entryQuery.SingleOrDefault();
             var comments = session.CreateFilter(entry.Comments, "")
                 .SetFirstResult(0)
                 .SetMaxResults(500)

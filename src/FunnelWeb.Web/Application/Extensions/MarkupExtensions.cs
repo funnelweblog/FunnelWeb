@@ -105,6 +105,25 @@ namespace FunnelWeb.Web.Application.Extensions
                 ));
         }
 
+        public static IHtmlString CommentedAtRevision(this HtmlHelper html, Comment comment, Revision revision)
+        {
+            if(comment.EntryRevisionNumber != revision.RevisionNumber)
+            {
+                if(comment.EntryRevisionNumber == comment.Entry.LatestRevision.RevisionNumber)
+                    return MvcHtmlString.Create("@ " +
+                        html.ActionLink("latest",
+                            "Page", "Wiki",
+                                new { page = comment.Entry.Name },
+                                new { }));
+                return MvcHtmlString.Create("@ " + 
+                    html.ActionLink(string.Format("version {0}", comment.EntryRevisionNumber), 
+                        "Page", "Wiki", 
+                            new { page = comment.Entry.Name, revision = comment.EntryRevisionNumber },
+                            new {}));
+            }
+            return MvcHtmlString.Empty;
+        }
+
         #endregion
 
         #region Text
