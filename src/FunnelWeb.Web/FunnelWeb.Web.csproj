@@ -7,7 +7,7 @@
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{64FAABD6-F45B-4ED1-A3AD-6989C1934405}</ProjectGuid>
-    <ProjectTypeGuids>{F85E285D-A4E0-4152-9332-AB1D724D3325};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FunnelWeb.Web</RootNamespace>
@@ -362,6 +362,10 @@
     <Content Include="Themes\Twitter\Views\Shared\PageTemplates\Default.cshtml" />
     <Content Include="Themes\Twitter\Views\Shared\PageTemplates\Homepage.cshtml" />
     <Content Include="Views\Tagged\Index.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Entries.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Tags.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\EntrySummary.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Tag.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Public.cshtml" />
@@ -383,12 +387,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Code\EntryList.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Code\TagList.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Code\Paginator.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -401,8 +399,8 @@
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target> -->
-  <Target Name="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
-    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(ProjectDir)" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
   </Target>
   <ProjectExtensions>
     <VisualStudio>
@@ -423,8 +421,4 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-  </PropertyGroup>
 </Project>
