@@ -13,6 +13,7 @@ using FunnelWeb.Settings;
 using FunnelWeb.Tasks;
 using FunnelWeb.Web.Application;
 using FunnelWeb.Web.Application.Authentication;
+using FunnelWeb.Web.Application.Markup;
 using FunnelWeb.Web.Application.Mime;
 using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Application.Mvc.Binders;
@@ -51,6 +52,7 @@ namespace FunnelWeb.Web
 
             // FunnelWeb Web
             builder.RegisterModule(new WebAbstractionsModule());
+            builder.RegisterModule(new MarkupModule());
             builder.RegisterModule(new FormsAuthenticationModule());
             builder.RegisterModule(new BindersModule(ModelBinders.Binders));
             builder.RegisterModule(new MimeSupportModule());

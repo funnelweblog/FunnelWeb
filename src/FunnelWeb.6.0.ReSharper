@@ -3,6 +3,10 @@
     <ExternalPath IsNull="False">
     </ExternalPath>
     <Sharing>SOLUTION</Sharing>
+    <CSS>
+      <FormatSettings />
+      <Naming2 />
+    </CSS>
     <CSharp>
       <FormatSettings>
         <KEEP_BLANK_LINES_IN_CODE>1</KEEP_BLANK_LINES_IN_CODE>
