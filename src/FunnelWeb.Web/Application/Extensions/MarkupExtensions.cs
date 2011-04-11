@@ -144,16 +144,9 @@ namespace FunnelWeb.Web.Application.Extensions
                 date.ToString("dd MMM, yyyy")));
         }
 
-        //public static string DateRssFormat(this HtmlHelper html, object value)
-        //{
-        //    var date = (DateTime)value;
-        //    return date.ToString("yyyy-MM-dd") + "T" + date.ToString("HH:mm:ss") + "Z";
-        //}
-
         public static MvcHtmlString Markdown(this HtmlHelper html, object content, bool sanitize)
         {
             var text = (content ?? string.Empty).ToString();
-            //var markdown = new MarkdownRenderer(sanitize, html.ViewContext.RequestContext.HttpContext.Request.Url.GetLeftPart(UriPartial.Authority));
             var markdown = DependencyResolver.Current.GetService<IMarkdownProvider>();
             text = markdown.Render(text);
             return MvcHtmlString.Create(text);
@@ -173,20 +166,20 @@ namespace FunnelWeb.Web.Application.Extensions
             return MvcHtmlString.Create(text);
         }
 
-        static readonly Regex Keyword = new Regex("^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$", RegexOptions.Compiled);
-        static readonly Regex KeywordReplace = new Regex(@"[ &\.#]+", RegexOptions.Compiled);
+        static readonly Regex keyword = new Regex("^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$", RegexOptions.Compiled);
+        static readonly Regex keywordReplace = new Regex(@"[ &\.#]+", RegexOptions.Compiled);
         public static IEnumerable<MvcHtmlString> CssKeywordsFor(this HtmlHelper html, Entry entry)
         {
-            return from k in entry.Tags.Select(x => KeywordReplace.Replace(x.Name, "-"))
+            return from k in entry.Tags.Select(x => keywordReplace.Replace(x.Name, "-"))
                    let w = k.Trim()
-                   where Keyword.IsMatch(w)
+                   where keyword.IsMatch(w)
                    select MvcHtmlString.Create("keyword-" + w);
         }
 
         public static MvcHtmlString CssKeywordsFor(this HtmlHelper html, Tag tag)
         {
-            var fixedTag = KeywordReplace.Replace(tag.Name, "-");
-            return Keyword.IsMatch(fixedTag)
+            var fixedTag = keywordReplace.Replace(tag.Name, "-");
+            return keyword.IsMatch(fixedTag)
                 ? MvcHtmlString.Create("keyword-" + fixedTag) 
                 : MvcHtmlString.Empty;
         }
