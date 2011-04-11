@@ -140,14 +140,14 @@ div.nav div.search
 	-moz-background-inline-policy: continuous;
 	-moz-background-origin: padding;
 	-moz-border-radius: 5px;
-	border-radius: 5px;
-	background-clip: border;
-	background-inline-policy: continuous;
-	background-origin: padding;
 	-webkit-border-radius: 5px;
 	-webkit-background-clip: border;
 	-webkit-background-inline-policy: continuous;
 	-webkit-background-origin: padding;
+	border-radius: 5px;
+	background-clip: border;
+	background-inline-policy: continuous;
+	background-origin: padding;
 }
 .intro h1
 {
@@ -806,11 +806,6 @@ span.close
 	display: none;
 }
 
-.clear
-{
-	clear: both;
-}
-
 .validation-summary-errors
 {
 	background: #FFEEF2;
@@ -1294,4 +1289,12 @@ a.tag
 .flash 
 {
     clear: both;
+}
+
+.clear 
+{
+	clear:both;
+	height:0px;
+	margin:0px;
+	width:0px;
 }

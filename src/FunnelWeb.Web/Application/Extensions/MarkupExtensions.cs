@@ -134,7 +134,8 @@ namespace FunnelWeb.Web.Application.Extensions
         public static MvcHtmlString Markdown(this HtmlHelper html, object content, bool sanitize)
         {
             var text = (content ?? string.Empty).ToString();
-            var markdown = new MarkdownRenderer(sanitize, html.ViewContext.RequestContext.HttpContext.Request.Url.GetLeftPart(UriPartial.Authority));
+            //var markdown = new MarkdownRenderer(sanitize, html.ViewContext.RequestContext.HttpContext.Request.Url.GetLeftPart(UriPartial.Authority));
+            var markdown = DependencyResolver.Current.GetService<IMarkdownProvider>();
             text = markdown.Render(text);
             return MvcHtmlString.Create(text);
         }
