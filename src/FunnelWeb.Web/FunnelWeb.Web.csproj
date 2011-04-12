@@ -153,6 +153,13 @@
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
     <Compile Include="Application\Authentication\FunnelWebRoleProvider.cs" />
+    <Compile Include="Application\Markup\ContentRenderer.cs" />
+    <Compile Include="Application\Markup\HtmlFormatter.cs" />
+    <Compile Include="Application\Markup\IContentEnricher.cs" />
+    <Compile Include="Application\Markup\IContentFormatter.cs" />
+    <Compile Include="Application\Markup\IContentRenderer.cs" />
+    <Compile Include="Application\Markup\MacroEvaluator.cs" />
+    <Compile Include="Application\Markup\MarkdownFormatter.cs" />
     <Compile Include="Application\Mvc\ActionResults\FeedResult.cs" />
     <Compile Include="Application\Mvc\ActionResults\XmlActionResult.cs" />
     <Compile Include="Application\Mvc\FunnelWebControllerFactory.cs" />

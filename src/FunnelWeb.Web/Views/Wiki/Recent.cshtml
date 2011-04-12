@@ -6,7 +6,7 @@
 }
 @section Summary 
 {
-    @Html.RenderTrusted(_ => Html.Settings().Introduction, Formats.Markdown)
+    @Html.RenderTrusted(Html.Settings().Introduction, Formats.Markdown)
 }
 <h1>@Model.Title</h1>
 
