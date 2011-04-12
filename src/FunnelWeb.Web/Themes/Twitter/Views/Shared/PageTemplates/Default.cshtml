@@ -17,7 +17,7 @@
 }
 
 @section Summary {
-  @Html.DisplayFor(model => model.Entry.Summary)
+  @Html.RenderTrusted(Model.Entry.Summary, Formats.Markdown)
 }
 
 @if (Model.Entry.Status == FunnelWeb.Model.EntryStatus.Private)
