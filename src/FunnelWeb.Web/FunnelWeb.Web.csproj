@@ -158,7 +158,10 @@
     <Compile Include="Application\Markup\IContentEnricher.cs" />
     <Compile Include="Application\Markup\IContentFormatter.cs" />
     <Compile Include="Application\Markup\IContentRenderer.cs" />
-    <Compile Include="Application\Markup\MacroEvaluator.cs" />
+    <Compile Include="Application\Markup\MacroEnricher.cs" />
+    <Compile Include="Application\Markup\Macros\MacroBase.cs" />
+    <Compile Include="Application\Markup\Macros\IMacroExecutor.cs" />
+    <Compile Include="Application\Markup\Macros\RazorMacroExecutor.cs" />
     <Compile Include="Application\Markup\MarkdownFormatter.cs" />
     <Compile Include="Application\Mvc\ActionResults\FeedResult.cs" />
     <Compile Include="Application\Mvc\ActionResults\XmlActionResult.cs" />
@@ -185,7 +188,7 @@
     <Compile Include="Application\Themes\ThemeProvider.cs" />
     <Compile Include="Application\Themes\ThemesModule.cs" />
     <Compile Include="Application\Markup\InputSanitizer.cs" />
-    <Compile Include="Application\Markup\MarkdownRenderer.cs" />
+    <Compile Include="Application\Markup\MarkdownNetByBrianJeremy.cs" />
     <Compile Include="Application\Mime\IMimeTypeLookup.cs" />
     <Compile Include="Application\Mime\RegistryMimeTypeLookup.cs" />
     <Compile Include="Application\Authentication\FormsAuthenticationModule.cs" />
@@ -348,6 +351,7 @@
     <Content Include="My.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Macros\TwitterStream.cshtml" />
     <None Include="Themes\BoringTheme\Views\Wiki\Recent.cshtml" />
     <Content Include="Areas\Admin\Views\Upload\Index.cshtml" />
     <Content Include="Views\Wiki\Search.cshtml" />

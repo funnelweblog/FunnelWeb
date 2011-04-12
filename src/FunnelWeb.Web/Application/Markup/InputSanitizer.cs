@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using System.Web.Mvc;
 
 namespace FunnelWeb.Web.Application.Markup
 {
@@ -24,7 +25,7 @@ namespace FunnelWeb.Web.Application.Markup
             \s?/?>$", RegexOptions.Singleline | RegexOptions.ExplicitCapture | RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace);
 
 
-        public string Enrich(string content, bool isContentTrusted)
+        public string Enrich(string content, bool isContentTrusted, HtmlHelper html)
         {
             if (isContentTrusted)
             {

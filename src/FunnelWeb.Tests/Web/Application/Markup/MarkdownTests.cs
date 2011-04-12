@@ -7,7 +7,7 @@ namespace FunnelWeb.Tests.Web.Application.Markup
     {
         protected void Expect(string markdown, string html)
         {
-            var renderer = new MarkdownRenderer("http://www.foo.com");
+            var renderer = new MarkdownNetByBrianJeremy("http://www.foo.com");
             var result = renderer.Render(markdown);
             Assert.AreEqual(html.Trim(), result.Trim());
         }

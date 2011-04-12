@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Web.Mvc;
@@ -8,6 +9,7 @@ using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Settings;
 using FunnelWeb.Web.Application.Markup;
+using FunnelWeb.Web.Application.Markup.Macros;
 using FunnelWeb.Web.Application.Mvc.ActionResults;
 
 namespace FunnelWeb.Web.Controllers
@@ -91,7 +93,7 @@ namespace FunnelWeb.Web.Controllers
         private string BuildFeedItemBody(Uri itemUri, Uri viaFeedUri, Revision latestRevision)
         {
             var result = 
-                Renderer.RenderTrusted(latestRevision.Body, latestRevision.Format)
+                Renderer.RenderTrusted(latestRevision.Body, latestRevision.Format, CreateHelper())
                 + string.Format("<img src=\"{0}\" />", viaFeedUri);
 
             if (Settings.GetSettings<FunnelWebSettings>().FacebookLike)
@@ -105,19 +107,24 @@ namespace FunnelWeb.Web.Controllers
             return result;
         }
 
+        private HtmlHelper CreateHelper()
+        {
+            return new HtmlHelper(new ViewContext(ControllerContext, null, new ViewDataDictionary(), new TempDataDictionary(), new StringWriter()), new CustomViewDataContainer());
+        }
+
         public virtual ActionResult CommentFeed()
         {
             var comments = FeedRepository.GetRecentComments(0, 20);
 
             var items =
                 from e in comments
-				let itemUri = new Uri(Request.Url, Url.Action("Page", "WikiAdmin", new { Area = "Admin", page = e.Entry.Name }) + "#comment-" + e.Id)
+				let itemUri = new Uri(Request.Url, Url.Action("Page", "Wiki", new { page = e.Entry.Name }) + "#comment-" + e.Id)
                 select new SyndicationItem
                 {
                     Id = itemUri.ToString(),
                     Title = SyndicationContent.CreatePlaintextContent(e.AuthorName + " on " + e.Entry.Title),
-                    Summary = SyndicationContent.CreateHtmlContent(Renderer.RenderUntrusted(e.Body, Formats.Markdown)),
-                    Content = SyndicationContent.CreateHtmlContent(Renderer.RenderUntrusted(e.Body, Formats.Markdown)),
+                    Summary = SyndicationContent.CreateHtmlContent(Renderer.RenderUntrusted(e.Body, Formats.Markdown, CreateHelper())),
+                    Content = SyndicationContent.CreateHtmlContent(Renderer.RenderUntrusted(e.Body, Formats.Markdown, CreateHelper())),
                     LastUpdatedTime = e.Posted,
                     Links = 
                     {

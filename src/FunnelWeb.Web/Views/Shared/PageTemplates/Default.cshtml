@@ -145,7 +145,7 @@
                   @Html.ActionLink(comment.IsSpam ? "Unspam" : "Spam", "ToggleSpam", "Admin", new { Area = "Admin", id = comment.Id }, null)
               }
             </div>
-            @Html.RenderUntrusted(Model.Entry.Summary, Formats.Markdown)
+            @Html.RenderUntrusted(comment.Body, Formats.Markdown)
           </div>
           <div class="clear">
           </div>

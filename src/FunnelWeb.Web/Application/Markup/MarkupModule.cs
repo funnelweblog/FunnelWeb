@@ -25,7 +25,7 @@ namespace FunnelWeb.Web.Application.Markup
 
             // Enrichers
             builder
-                .RegisterType<MacroEvaluator>()
+                .RegisterType<MacroEnricher>()
                 .As<IContentEnricher>()
                 .InstancePerDependency();
 

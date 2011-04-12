@@ -14,7 +14,7 @@ namespace FunnelWeb.Web.Application.Markup
 
         public string Format(string content)
         {
-            var renderer = new MarkdownRenderer(request.Url.GetLeftPart(UriPartial.Authority) + request.ApplicationPath);
+            var renderer = new MarkdownNetByBrianJeremy(request.Url.GetLeftPart(UriPartial.Authority) + request.ApplicationPath);
             return renderer.Render(content);
         }
     }

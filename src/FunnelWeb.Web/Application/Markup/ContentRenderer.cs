@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web.Mvc;
 using Autofac.Features.Indexed;
 
 namespace FunnelWeb.Web.Application.Markup
@@ -18,17 +19,17 @@ namespace FunnelWeb.Web.Application.Markup
             this.enrichers = enrichers;
         }
 
-        public string RenderTrusted(string content, string format)
+        public string RenderTrusted(string content, string format, HtmlHelper html)
         {
-            return Render(content, format, true);
+            return Render(content, format, true, html);
         }
 
-        public string RenderUntrusted(string content, string format)
+        public string RenderUntrusted(string content, string format, HtmlHelper html)
         {
-            return Render(content, format, false);
+            return Render(content, format, false, html);
         }
 
-        private string Render(string content, string format, bool trusted)
+        private string Render(string content, string format, bool trusted, HtmlHelper html)
         {
             IContentFormatter formatter;
             if (!formatters.TryGetValue(format, out formatter))
@@ -40,7 +41,7 @@ namespace FunnelWeb.Web.Application.Markup
 
             foreach (var enricher in enrichers)
             {
-                content = enricher.Enrich(content, trusted);
+                content = enricher.Enrich(content, trusted, html);
             }
 
             return content;

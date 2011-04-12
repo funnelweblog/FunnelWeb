@@ -10,11 +10,11 @@ namespace FunnelWeb.Web.Application.Markup
 	/// This markup renderer is courtesy Brian Jeremy.
 	/// http://www.brianjeremy.com/2007/12/07/revisied-markdownnet-library/
 	/// </summary>
-	public class MarkdownRenderer
+	public class MarkdownNetByBrianJeremy
 	{
 		private readonly string relativePathUrlPrefix;
 
-		static MarkdownRenderer()
+		static MarkdownNetByBrianJeremy()
 		{
 			nestedBrackets += RepeatString(@"(?>[^\[\]]+|\[", nestedBracketDepth);
 			nestedBrackets += RepeatString(@"\])*", nestedBracketDepth);
@@ -50,7 +50,7 @@ namespace FunnelWeb.Web.Application.Markup
 				backslashEscapeTable[@"\" + key] = escapeTable[key];
 		}
 
-		public MarkdownRenderer(string relativePathUrlPrefix)
+		public MarkdownNetByBrianJeremy(string relativePathUrlPrefix)
 		{
 			this.relativePathUrlPrefix = relativePathUrlPrefix;
 			urls = new Hashtable();

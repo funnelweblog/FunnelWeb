@@ -128,14 +128,14 @@ namespace FunnelWeb.Web.Application.Extensions
         public static MvcHtmlString RenderTrusted(this HtmlHelper html, object content, string format)
         {
             var renderer = DependencyResolver.Current.GetService<IContentRenderer>();
-            var rendered = renderer.RenderTrusted((content ?? string.Empty).ToString(), format);
+            var rendered = renderer.RenderTrusted((content ?? string.Empty).ToString(), format, html);
             return MvcHtmlString.Create(rendered);
         }
 
         public static MvcHtmlString RenderUntrusted(this HtmlHelper html, object content, string format)
         {
             var renderer = DependencyResolver.Current.GetService<IContentRenderer>();
-            var rendered = renderer.RenderUntrusted((content ?? string.Empty).ToString(), format);
+            var rendered = renderer.RenderUntrusted((content ?? string.Empty).ToString(), format, html);
             return MvcHtmlString.Create(rendered);
         }
 
