@@ -15,7 +15,7 @@
         <h2>@Html.ActionLink(Model.Title, "Page", "Wiki", new { page = Model.Name }, null)</h2>
         @if (!string.IsNullOrEmpty(Model.MetaDescription))
         {
-        <p>@Model.MetaDescription</p>
+        <p>@Html.RenderTrusted(Model.MetaDescription, Formats.Markdown)</p>
         }
         @Html.DisplayFor(x => Model.Tags)
     </div>

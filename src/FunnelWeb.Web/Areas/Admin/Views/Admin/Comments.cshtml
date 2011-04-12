@@ -20,7 +20,7 @@
     <tr>
       <td colspan="2" width="90%">
         <strong><a href="/@comment.Entry.Name/#comment-@comment.Id">@comment.Entry.Title</a></strong><br />
-        @Html.DisplayFor(_ => comment.Body, new { Sanitize = true })
+        @Html.RenderUntrusted(comment.Body, Formats.Markdown)
       </td>
     </tr>
     <tr>

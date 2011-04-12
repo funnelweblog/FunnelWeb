@@ -136,7 +136,7 @@
           </div>
           <div class="comment-body">
             <div class="comment-date">@Html.Date(comment.Posted)</div>
-            @Html.DisplayFor(_ => comment.Body, new { Sanitize = true })
+            @Html.RenderUntrusted(comment.Body, Formats.Markdown)
           </div>
           <div class="clear">
           </div>
