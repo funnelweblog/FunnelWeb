@@ -189,7 +189,6 @@
     <Compile Include="Areas\Admin\Controllers\WikiAdminController.cs" />
     <Compile Include="Areas\Admin\Views\Install\ExtensionVersion.cs" />
     <Compile Include="Areas\Admin\Views\WikiAdmin\EditModel.cs" />
-    <Compile Include="Areas\Admin\Views\WikiAdmin\RecentModel.cs" />
     <Compile Include="Areas\Admin\Views\WikiAdmin\ReviseModel.cs" />
     <Compile Include="Areas\Admin\Views\WikiAdmin\RevisionsModel.cs" />
     <Compile Include="Controllers\TagController.cs" />
@@ -336,7 +335,6 @@
     <Content Include="Themes\Default\Content\Styles\Theme.css" />
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\Admin\Views\WikiAdmin\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\WikiAdmin\Recent.cshtml" />
     <Content Include="Areas\Admin\Views\WikiAdmin\Revisions.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="packages.config" />
