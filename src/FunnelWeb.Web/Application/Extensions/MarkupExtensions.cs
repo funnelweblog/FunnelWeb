@@ -155,7 +155,7 @@ namespace FunnelWeb.Web.Application.Extensions
 
         static readonly Regex Keyword = new Regex("^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$", RegexOptions.Compiled);
         static readonly Regex KeywordReplace = new Regex(@"[ &\.#]+", RegexOptions.Compiled);
-        public static IEnumerable<MvcHtmlString> CssKeywordsFor(this HtmlHelper html, Entry entry)
+        public static IEnumerable<MvcHtmlString> CssKeywordsFor(this HtmlHelper html, EntrySummary entry)
         {
             return from k in entry.Tags.Select(x => KeywordReplace.Replace(x.Name, "-"))
                    let w = k.Trim()

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using FunnelWeb.Model;
 
 namespace FunnelWeb.Web.Views.Wiki
@@ -15,7 +17,8 @@ namespace FunnelWeb.Web.Views.Wiki
         }
 
         public string Title { get; set; }
-        public IEnumerable<Entry> Entries { get; set; }
+        [DataType("Entries")]
+        public IEnumerable<EntrySummary> Entries { get; set; }
         public int PageNumber { get; set; }
         public int TotalPages { get; set; }
         public string ActionName { get; set; }
