@@ -1,10 +1,9 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using System.Web.Mvc;
 
 namespace FunnelWeb.Web.Application.Markup.Macros
 {
-    public class MacroBase
+    public class MacroView
     {
         private StringBuilder output;
 

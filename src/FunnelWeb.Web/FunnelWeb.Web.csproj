@@ -159,7 +159,7 @@
     <Compile Include="Application\Markup\IContentFormatter.cs" />
     <Compile Include="Application\Markup\IContentRenderer.cs" />
     <Compile Include="Application\Markup\MacroEnricher.cs" />
-    <Compile Include="Application\Markup\Macros\MacroBase.cs" />
+    <Compile Include="Application\Markup\Macros\MacroView.cs" />
     <Compile Include="Application\Markup\Macros\IMacroExecutor.cs" />
     <Compile Include="Application\Markup\Macros\RazorMacroExecutor.cs" />
     <Compile Include="Application\Markup\MarkdownFormatter.cs" />

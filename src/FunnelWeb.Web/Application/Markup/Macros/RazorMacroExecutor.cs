@@ -5,6 +5,7 @@ using System.Dynamic;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Razor;
 using System.Web.Routing;
@@ -36,7 +37,7 @@ namespace FunnelWeb.Web.Application.Markup.Macros
             }
 
             var type = assembly.GetType("Generated.TemplateInstance");
-            var instance = (MacroBase)Activator.CreateInstance(type);
+            var instance = (MacroView)Activator.CreateInstance(type);
             var writer = new StringBuilder();
             instance.Html = html;
             instance.Initialize(writer);
@@ -48,7 +49,7 @@ namespace FunnelWeb.Web.Application.Markup.Macros
         private Assembly CompileAssembly(string templateContent)
         {
             var host = new RazorEngineHost(RazorCodeLanguage.GetLanguageByExtension("cshtml"));
-            host.DefaultBaseClass = typeof(MacroBase).FullName;
+            host.DefaultBaseClass = typeof(MacroView).FullName;
             host.NamespaceImports.Add("System.Web.Mvc");
             host.NamespaceImports.Add("System.Web.Mvc.Ajax");
             host.NamespaceImports.Add("System.Web.Mvc.Html");
@@ -65,7 +66,7 @@ namespace FunnelWeb.Web.Application.Markup.Macros
             var compiler = new CSharpCodeProvider();
             var param = new CompilerParameters();
             param.GenerateInMemory = true;
-            param.ReferencedAssemblies.Add(typeof(MacroBase).Assembly.Location);
+            param.ReferencedAssemblies.Add(typeof(MacroView).Assembly.Location);
             param.ReferencedAssemblies.Add(typeof(Microsoft.CSharp.RuntimeBinder.Binder).Assembly.Location);
             param.ReferencedAssemblies.Add(typeof(System.Runtime.CompilerServices.CallSite).Assembly.Location);
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
