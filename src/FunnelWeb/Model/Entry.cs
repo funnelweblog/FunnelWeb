@@ -27,7 +27,6 @@ namespace FunnelWeb.Model
         public virtual PageName Name { get; set; }
 		public virtual string PageTemplate { get; set; }
 
-        [DataType("Markdown")]
         public virtual string Summary { get; set; }
 
         public virtual DateTime Published { get; set; }
@@ -51,7 +50,6 @@ namespace FunnelWeb.Model
         {
             get { return string.Join(", ", Tags.Select(x => x.Name)); }
         }
-
 
         public virtual Revision Revise()
         {

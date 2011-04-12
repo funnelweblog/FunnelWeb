@@ -12,7 +12,6 @@ namespace FunnelWeb.Web.Application.Markup
 	/// </summary>
 	public class MarkdownRenderer
 	{
-		private readonly bool sanitize;
 		private readonly string relativePathUrlPrefix;
 
 		static MarkdownRenderer()
@@ -51,9 +50,8 @@ namespace FunnelWeb.Web.Application.Markup
 				backslashEscapeTable[@"\" + key] = escapeTable[key];
 		}
 
-		public MarkdownRenderer(bool sanitize, string relativePathUrlPrefix)
+		public MarkdownRenderer(string relativePathUrlPrefix)
 		{
-			this.sanitize = sanitize;
 			this.relativePathUrlPrefix = relativePathUrlPrefix;
 			urls = new Hashtable();
 			titles = new Hashtable();
@@ -95,11 +93,6 @@ namespace FunnelWeb.Web.Application.Markup
 			text = UnescapeSpecialChars(text);
 
 			text = text.Replace("href=\"/", "href=\"" + relativePathUrlPrefix + "/");
-
-			if (sanitize)
-			{
-				text = InputSanitizer.Sanitize(text);
-			}
 
 			return text + "\n";
 		}

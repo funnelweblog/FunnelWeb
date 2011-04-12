@@ -125,18 +125,18 @@ namespace FunnelWeb.Web.Application.Extensions
                 date.ToString("dd MMM, yyyy")));
         }
 
-        //public static string DateRssFormat(this HtmlHelper html, object value)
-        //{
-        //    var date = (DateTime)value;
-        //    return date.ToString("yyyy-MM-dd") + "T" + date.ToString("HH:mm:ss") + "Z";
-        //}
-
-        public static MvcHtmlString Markdown(this HtmlHelper html, object content, bool sanitize)
+        public static MvcHtmlString RenderTrusted(this HtmlHelper html, object content, string format)
         {
-            var text = (content ?? string.Empty).ToString();
-            var markdown = new MarkdownRenderer(sanitize, html.ViewContext.RequestContext.HttpContext.Request.Url.GetLeftPart(UriPartial.Authority));
-            text = markdown.Render(text);
-            return MvcHtmlString.Create(text);
+            var renderer = DependencyResolver.Current.GetService<IContentRenderer>();
+            var rendered = renderer.RenderTrusted((content ?? string.Empty).ToString(), format);
+            return MvcHtmlString.Create(rendered);
+        }
+
+        public static MvcHtmlString RenderUntrusted(this HtmlHelper html, object content, string format)
+        {
+            var renderer = DependencyResolver.Current.GetService<IContentRenderer>();
+            var rendered = renderer.RenderUntrusted((content ?? string.Empty).ToString(), format);
+            return MvcHtmlString.Create(rendered);
         }
 
         public static MvcHtmlString TextilizeList(this HtmlHelper html, object content)

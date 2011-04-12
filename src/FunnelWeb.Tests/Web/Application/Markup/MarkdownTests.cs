@@ -7,7 +7,7 @@ namespace FunnelWeb.Tests.Web.Application.Markup
     {
         protected void Expect(string markdown, string html)
         {
-            var renderer = new MarkdownRenderer(true, "http://www.foo.com");
+            var renderer = new MarkdownRenderer("http://www.foo.com");
             var result = renderer.Render(markdown);
             Assert.AreEqual(html.Trim(), result.Trim());
         }
@@ -69,12 +69,6 @@ namespace FunnelWeb.Tests.Web.Application.Markup
             public void ShouldSupportInlineHtml()
             {
                 Expect("<strong>hello</strong>", "<p><strong>hello</strong></p>");
-            }
-
-            [Test]
-            public void ShouldProtectAgainstCrossSiteScripting()
-            {
-                Expect("<script language='javascript'>alert('wow');</script>", "alert('wow');");
             }
         }
     }

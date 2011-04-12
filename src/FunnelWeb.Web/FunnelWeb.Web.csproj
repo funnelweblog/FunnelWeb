@@ -177,7 +177,6 @@
     <Compile Include="Application\Themes\IThemeProvider.cs" />
     <Compile Include="Application\Themes\ThemeProvider.cs" />
     <Compile Include="Application\Themes\ThemesModule.cs" />
-    <Compile Include="Application\Markup\IMarkdownProvider.cs" />
     <Compile Include="Application\Markup\InputSanitizer.cs" />
     <Compile Include="Application\Markup\MarkdownRenderer.cs" />
     <Compile Include="Application\Mime\IMimeTypeLookup.cs" />
@@ -185,7 +184,6 @@
     <Compile Include="Application\Authentication\FormsAuthenticationModule.cs" />
     <Compile Include="Application\Mvc\Binders\BindersModule.cs" />
     <Compile Include="Application\Mime\MimeSupportModule.cs" />
-    <Compile Include="Application\Markup\MarkdownProvider.cs" />
     <Content Include="App_Code\HelperPage.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\WikiAdminController.cs" />
@@ -350,7 +348,6 @@
     <Content Include="Views\Wiki\Search.cshtml" />
     <Content Include="Views\Wiki\Page.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Shared\DisplayTemplates\Markdown.cshtml" />
     <Content Include="Views\Wiki\Recent.cshtml" />
     <Content Include="Views\Wiki\Revisions.cshtml" />
     <Content Include="Views\Wiki\SiteMap.cshtml" />
@@ -394,6 +391,7 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Views\Extensions\" />
+    <Folder Include="Views\Shared\DisplayTemplates\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -17,7 +17,7 @@ namespace FunnelWeb.Web.Controllers
     {
         public IFeedRepository FeedRepository { get; set; }
         public ITagRepository TagRepository { get; set; }
-        public IMarkdownProvider Markdown { get; set; }
+        public IContentRenderer Renderer { get; set; }
         public ISettingsProvider Settings { get; set; }
 
         private FeedResult FeedResult(IEnumerable<SyndicationItem> items)
@@ -90,8 +90,9 @@ namespace FunnelWeb.Web.Controllers
 
         private string BuildFeedItemBody(Uri itemUri, Uri viaFeedUri, Revision latestRevision)
         {
-            var result = Markdown.Render(latestRevision.Body)
-                         + string.Format("<img src=\"{0}\" />", viaFeedUri);
+            var result = 
+                Renderer.RenderTrusted(latestRevision.Body, latestRevision.Format)
+                + string.Format("<img src=\"{0}\" />", viaFeedUri);
 
             if (Settings.GetSettings<FunnelWebSettings>().FacebookLike)
             {
@@ -115,8 +116,8 @@ namespace FunnelWeb.Web.Controllers
                 {
                     Id = itemUri.ToString(),
                     Title = SyndicationContent.CreatePlaintextContent(e.AuthorName + " on " + e.Entry.Title),
-                    Summary = SyndicationContent.CreateHtmlContent(Markdown.Render(e.Body, true)),
-                    Content = SyndicationContent.CreateHtmlContent(Markdown.Render(e.Body, true)),
+                    Summary = SyndicationContent.CreateHtmlContent(Renderer.RenderUntrusted(e.Body, Formats.Markdown)),
+                    Content = SyndicationContent.CreateHtmlContent(Renderer.RenderUntrusted(e.Body, Formats.Markdown)),
                     LastUpdatedTime = e.Posted,
                     Links = 
                     {
