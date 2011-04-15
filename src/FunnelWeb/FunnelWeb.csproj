@@ -91,6 +91,14 @@
     <Compile Include="Authentication\Internal\FormsRoleProvider.cs" />
     <Compile Include="Authentication\IAuthenticator.cs" />
     <Compile Include="Authentication\IRoleProvider.cs" />
+    <Compile Include="DatabaseDeployer\ApplicationDatabase.cs" />
+    <Compile Include="DatabaseDeployer\DatabaseModule.cs" />
+    <Compile Include="DatabaseDeployer\DatabaseUpgradeDetector.cs" />
+    <Compile Include="DatabaseDeployer\IApplicationDatabase.cs" />
+    <Compile Include="DatabaseDeployer\IConnectionStringProvider.cs" />
+    <Compile Include="DatabaseDeployer\IDatabaseUpgradeDetector.cs" />
+    <Compile Include="DatabaseDeployer\Infrastructure\FunnelWebJournal.cs" />
+    <Compile Include="DatabaseDeployer\ScriptedExtension.cs" />
     <Compile Include="Eventing\EventingModule.cs" />
     <Compile Include="Eventing\INotifier.cs" />
     <Compile Include="ExtensionsModule.cs" />
@@ -100,6 +108,12 @@
     <Compile Include="IFunnelWebExtension.cs" />
     <Compile Include="IFunnelWebExtensionMetaData.cs" />
     <Compile Include="IRequireDatabaseScripts.cs" />
+    <Compile Include="Model\EntrySummary.cs" />
+    <Compile Include="Repositories\Queries\EntryByNameAndRevisionQuery.cs" />
+    <Compile Include="Repositories\ICommand.cs" />
+    <Compile Include="Repositories\IQuery.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\NHibernateRepository.cs" />
     <Compile Include="RoutableFunnelWebExtension.cs" />
     <Compile Include="Settings\IBootstrapSettings.cs" />
     <Compile Include="Settings\ISettings.cs" />
@@ -162,15 +176,83 @@
     <Compile Include="Utilities\StreamExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FunnelWeb.DatabaseDeployer\FunnelWeb.DatabaseDeployer.csproj">
-      <Project>{D3182161-B0E5-47A7-8968-654489F0C60E}</Project>
-      <Name>FunnelWeb.DatabaseDeployer</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0001.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0002.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0003.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0004.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0005.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0006.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0007.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0008.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0009.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0010.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0011.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0012.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0013.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0014.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0015.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0016.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0017.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0018.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0019.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0020.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0021.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0022.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0023.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0024.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Extensibility\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

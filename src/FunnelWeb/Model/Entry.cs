@@ -7,23 +7,6 @@ using NHibernate.Validator.Constraints;
 
 namespace FunnelWeb.Model
 {
-    public class EntrySummary
-    {
-        public virtual PageName Name { get; set; }
-        public virtual string Title { get; set; }
-        
-        [DataType("Markdown")]
-        public virtual string Summary { get; set; }
-        
-        public virtual int CommentCount { get; set; }
-        public virtual string MetaDescription { get; set; }
-        public virtual DateTime Published { get; set; }
-        
-        [DataType("Tags")]
-        public virtual ISet<Tag> Tags { get; set; }
-
-    }
-
     public class Entry : EntrySummary
     {
         public Entry()
@@ -31,7 +14,13 @@ namespace FunnelWeb.Model
             Title = string.Empty;
             Name = string.Empty;
             Summary = string.Empty;
+            MetaDescription = string.Empty;
+            MetaTitle = string.Empty;
+            Status = string.Empty;
+            Author = string.Empty;
+            HideChrome = false;
             Published = DateTime.UtcNow;
+            PageTemplate = null;
             Revisions = new HashedSet<Revision>();
             Comments = new HashedSet<Comment>();
             Pingbacks = new HashedSet<Pingback>();
@@ -71,6 +60,7 @@ namespace FunnelWeb.Model
             }
             revision.Entry = this;
             revision.Revised = DateTime.UtcNow;
+            revision.RevisionNumber = Revisions.Count + 1;
             LatestRevision = revision;
             Revisions.Add(revision);
             return revision;

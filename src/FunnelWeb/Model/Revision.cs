@@ -11,6 +11,7 @@ namespace FunnelWeb.Model
             Body = string.Empty;
             Reason = string.Empty;
             Revised = DateTime.UtcNow;
+            Author = string.Empty;
             Status = 0;
             Format = Formats.Markdown;
         }

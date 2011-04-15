@@ -7,6 +7,7 @@ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.Model.Repositories.Internal;
+using FunnelWeb.Repositories;
 using FunnelWeb.Settings;
 using NHibernate;
 
@@ -22,6 +23,10 @@ namespace FunnelWeb.Model.Repositories
             builder.RegisterType<EntryRepository>().As<IEntryRepository>().InstancePerLifetimeScope();
             builder.RegisterType<FeedRepository>().As<IFeedRepository>().InstancePerLifetimeScope();
             builder.RegisterType<TaskStateRepository>().As<ITaskStateRepository>().InstancePerLifetimeScope();
+
+            builder.RegisterType<NHibernateRepository>()
+                .As<IRepository>()
+                .InstancePerLifetimeScope();
 
             builder.Register(ConfigureSessionFactory).As<ISessionFactory>().SingleInstance();
             builder.Register(c => c.Resolve<ISessionFactory>().OpenSession()).As<ISession>().InstancePerLifetimeScope();

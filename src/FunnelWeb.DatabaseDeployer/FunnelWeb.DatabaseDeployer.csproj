@@ -78,69 +78,11 @@
     <Compile Include="..\Information\VersionInfo.cs">
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
-    <Compile Include="ApplicationDatabase.cs" />
-    <Compile Include="DatabaseModule.cs" />
-    <Compile Include="DatabaseUpgradeDetector.cs" />
-    <Compile Include="IApplicationDatabase.cs" />
-    <Compile Include="IConnectionStringProvider.cs" />
-    <Compile Include="IDatabaseUpgradeDetector.cs" />
-    <Compile Include="Infrastructure\FunnelWebJournal.cs" />
-    <Compile Include="ScriptedExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Scripts\Script0001.sql" />
-    <EmbeddedResource Include="Scripts\Script0002.sql" />
-    <EmbeddedResource Include="Scripts\Script0003.sql" />
-    <EmbeddedResource Include="Scripts\Script0004.sql" />
-    <EmbeddedResource Include="Scripts\Script0005.sql" />
-    <EmbeddedResource Include="Scripts\Script0006.sql" />
-    <EmbeddedResource Include="Scripts\Script0007.sql" />
-    <EmbeddedResource Include="Scripts\Script0008.sql" />
-    <EmbeddedResource Include="Scripts\Script0009.sql" />
-    <EmbeddedResource Include="Scripts\Script0010.sql" />
-    <EmbeddedResource Include="Scripts\Script0011.sql" />
-    <EmbeddedResource Include="Scripts\Script0012.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Scripts\Script0013.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Scripts\Script0014.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Scripts\Script0015.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Scripts\Script0016.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Scripts\Script0017.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Scripts\Script0018.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Scripts\Script0019.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Scripts\Script0020.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Scripts\Script0021.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Scripts\Script0022.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Scripts\Script0023.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Scripts\Script0024.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -13,6 +13,7 @@ using FunnelWeb.Authentication.Internal;
 using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.Eventing;
 using FunnelWeb.Model.Repositories;
+using FunnelWeb.Repositories;
 using FunnelWeb.Settings;
 using FunnelWeb.Tasks;
 using FunnelWeb.Web.Application.Authentication;
@@ -103,6 +104,7 @@ namespace FunnelWeb.Tests
             // HTTP abstractions, therefore obviously per request   
             PerLifetimeScope<HttpServerUtilityBase>("Comes from HTTP context");
             PerLifetimeScope<HttpContextBase>("Comes from HTTP context");
+            PerLifetimeScope<HttpRequestBase>("Comes from HTTP context");
 
             // Repositories
             const string repositoriesReason = "Generally we're unlikely to resolve repositories more than once per request, and they are stateless anyway, but just in case let's re-use the same one";
@@ -112,6 +114,7 @@ namespace FunnelWeb.Tests
             PerLifetimeScope<IEntryRepository>(repositoriesReason);
             PerLifetimeScope<IFeedRepository>(repositoriesReason);
             PerLifetimeScope<ITaskStateRepository>(repositoriesReason);
+            PerLifetimeScope<IRepository>(repositoriesReason);
         }
 
         [Test]

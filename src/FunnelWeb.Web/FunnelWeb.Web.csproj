@@ -377,10 +377,6 @@
     <Content Include="Views\Shared\_Public.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FunnelWeb.DatabaseDeployer\FunnelWeb.DatabaseDeployer.csproj">
-      <Project>{D3182161-B0E5-47A7-8968-654489F0C60E}</Project>
-      <Name>FunnelWeb.DatabaseDeployer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FunnelWeb\FunnelWeb.csproj">
       <Project>{3E448C45-F459-45D7-950C-5ABEF926513D}</Project>
       <Name>FunnelWeb</Name>
