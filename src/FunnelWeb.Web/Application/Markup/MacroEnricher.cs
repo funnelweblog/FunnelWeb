@@ -33,6 +33,10 @@ namespace FunnelWeb.Web.Application.Markup
                 {
                     var macroName = m.Result("$1");
                     var macroArguments = m.Result("$2");
+                    if (string.IsNullOrWhiteSpace(macroArguments))
+                    {
+                        macroArguments = "{x = '42'}";
+                    }
 
                     var macroFilePath = context.Server.MapPath("~/Macros/" + macroName + ".cshtml");
                     finalMacroContent = "@{ var Args = new " + macroArguments + "; }" + Environment.NewLine + File.ReadAllText(macroFilePath);
