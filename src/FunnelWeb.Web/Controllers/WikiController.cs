@@ -62,6 +62,11 @@ namespace FunnelWeb.Web.Controllers
 
         public virtual ActionResult Page(PageName page, int? revision)
         {
+            if (revision != null && !SettingsProvider.GetSettings<FunnelWebSettings>().EnablePublicHistory)
+            {
+                return RedirectToAction("Page", "Wiki", new { page, revision = (int?)null});
+            }
+
             var entry = EntryRepository.GetEntry(page, revision ?? 0);
             if (entry == null)
             {
@@ -134,6 +139,12 @@ namespace FunnelWeb.Web.Controllers
 
         public virtual ActionResult Revisions(PageName page)
         {
+            var settings = SettingsProvider.GetSettings<FunnelWebSettings>();
+            if (!settings.EnablePublicHistory)
+            {
+                return RedirectToAction("Page", "Wiki", new { page });
+            }
+
             var entry = EntryRepository.GetEntry(page);
             if (entry == null)
             {

@@ -173,6 +173,12 @@ namespace FunnelWeb.Settings
         [SettingStorage(StorageLocation.Database, "facebook-like")]
         public bool FacebookLike { get; set; }
 
+        [DisplayName("Public History")]
+        [DefaultValue(true)]
+        [Description("Allow public users to see the 'history' links and view past revisions of your posts.")]
+        [SettingStorage(StorageLocation.Database, "show-public-history")]
+        public bool EnablePublicHistory { get; set; }
+
         [DisplayName("Home page")]
         [DefaultValue("blog")]
         [Description("Enter the name of a page to use as your custom home page. Use 'blog' to show a list of recent posts.")]

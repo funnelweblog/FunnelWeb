@@ -138,6 +138,16 @@
     @Html.HintFor(m => m.SpamWords)
   </div>
 
+  <h3>History</h3>
+  <div class="editor-label">
+    @Html.LabelFor(m => m.EnablePublicHistory)
+  </div>
+  <div class="editor-field">
+    @Html.CheckBoxFor(m => m.EnablePublicHistory)
+    @Html.ValidationMessageFor(m => m.EnablePublicHistory)
+    @Html.HintFor(m => m.EnablePublicHistory)
+  </div>
+
   <h3>HTML</h3>
   <div class="editor-label">
     @Html.LabelFor(m => m.HtmlHead)
