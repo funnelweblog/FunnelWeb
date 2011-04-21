@@ -1,5 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using FunnelWeb.Filters;
+using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
 
 namespace FunnelWeb.Web.Controllers
@@ -7,18 +9,18 @@ namespace FunnelWeb.Web.Controllers
     [FunnelWebRequest]
     public class TaggedController : Controller
     {
-        private readonly ITagRepository _tagRepository;
+        private readonly ITagRepository tagRepository;
 
         public TaggedController(ITagRepository tagRepository)
         {
-            _tagRepository = tagRepository;
+            this.tagRepository = tagRepository;
         }
 
         public ActionResult Index(string tag)
         {
-            var tagItems = _tagRepository.GetTaggedItems(tag, 0, 30);
+            var tagItems = tagRepository.GetTaggedItems(tag, 0, 30);
             ViewBag.Tag = tag;
-            return View(tagItems);
+            return View(tagItems.Select(x => (EntrySummary)x));
         }
     }
 }

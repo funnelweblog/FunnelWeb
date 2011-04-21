@@ -144,12 +144,17 @@ namespace FunnelWeb.Web.Application.Extensions
                 date.ToString("dd MMM, yyyy")));
         }
 
-        public static MvcHtmlString Markdown(this HtmlHelper html, object content, bool sanitize)
+        public static MvcHtmlString RenderTrusted(this HtmlHelper html, object content, string format)
         {
-            var text = (content ?? string.Empty).ToString();
-            var markdown = DependencyResolver.Current.GetService<IMarkdownProvider>();
-            text = markdown.Render(text);
-            return MvcHtmlString.Create(text);
+            var renderer = DependencyResolver.Current.GetService<IContentRenderer>();
+            var rendered = renderer.RenderTrusted((content ?? string.Empty).ToString(), format, html);
+            return MvcHtmlString.Create(rendered);
+        }
+        public static MvcHtmlString RenderUntrusted(this HtmlHelper html, object content, string format)
+        {
+            var renderer = DependencyResolver.Current.GetService<IContentRenderer>();
+            var rendered = renderer.RenderUntrusted((content ?? string.Empty).ToString(), format, html);
+            return MvcHtmlString.Create(rendered);
         }
 
         public static MvcHtmlString TextilizeList(this HtmlHelper html, object content)
@@ -168,7 +173,7 @@ namespace FunnelWeb.Web.Application.Extensions
 
         static readonly Regex keyword = new Regex("^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$", RegexOptions.Compiled);
         static readonly Regex keywordReplace = new Regex(@"[ &\.#]+", RegexOptions.Compiled);
-        public static IEnumerable<MvcHtmlString> CssKeywordsFor(this HtmlHelper html, Entry entry)
+        public static IEnumerable<MvcHtmlString> CssKeywordsFor(this HtmlHelper html, EntrySummary entry)
         {
             return from k in entry.Tags.Select(x => keywordReplace.Replace(x.Name, "-"))
                    let w = k.Trim()

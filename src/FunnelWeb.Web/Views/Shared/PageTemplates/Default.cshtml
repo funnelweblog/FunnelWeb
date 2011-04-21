@@ -17,7 +17,7 @@
 }
 
 @section Summary {
-  @Html.DisplayFor(model => model.Entry.Summary)
+  @Html.RenderTrusted(Model.Entry.Summary, Formats.Markdown)
 }
 
 @Html.ValidationSummary("Comment unsuccessful. Please correct the errors below.")
@@ -70,7 +70,7 @@
     </div>
     }
   
-    @TagList.Render(Model.Entry.Tags)
+    @Html.DisplayFor(x => x.Entry.Tags)
   
     <div class='entry-tools'>
       <span>Posted by: @Model.Entry.Author@{if(@Model.Entry.LatestRevision.Author != Model.Entry.Author) { Write(string.Format(", Last edit by: {0}", @Model.Revision.Author)); }}</span><br />
@@ -146,7 +146,7 @@
                   @Html.ActionLink(comment.IsSpam ? "Unspam" : "Spam", "ToggleSpam", "Admin", new { Area = "Admin", id = comment.Id }, null)
               }
             </div>
-            @Html.DisplayFor(_ => comment.Body, new { Sanitize = true })
+            @Html.RenderUntrusted(comment.Body, Formats.Markdown)
           </div>
           <div class="clear">
           </div>

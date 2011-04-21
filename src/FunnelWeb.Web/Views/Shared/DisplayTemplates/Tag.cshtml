@@ -1,0 +1,2 @@
+﻿@model Tag
+@Html.ActionLink(Model.Name, "Index", "Tagged", new { tag = Model.Name }, new { title = "Posts tagged " + Model.Name, @class = "tag " + @Html.CssKeywordsFor(Model) })

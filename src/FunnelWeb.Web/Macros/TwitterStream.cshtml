@@ -1,0 +1,39 @@
+﻿<div class="box2"> 
+    @Html.TextBox("hello")
+
+    <h2>@Args.title</h2> 
+    <script src="http://widgets.twimg.com/j/2/widget.js"></script> 
+    <script>
+        new TWTR.Widget({
+            version: 2,
+            type: 'search',
+            search: '@Args.search',
+            interval: 6000,
+            title: '',
+            subject: '@Args.title',
+            width: 'auto',
+            height: 200,
+            theme: {
+                shell: {
+                    background: '#dbd3af',
+                    color: '#ffffff'
+                },
+                tweets: {
+                    background: '#ffffff',
+                    color: '#444444',
+                    links: '#1985b5'
+                }
+            },
+            features: {
+                scrollbar: false,
+                loop: true,
+                live: true,
+                hashtags: true,
+                timestamp: true,
+                avatars: true,
+                toptweets: true,
+                behavior: 'default'
+            }
+        }).render().start();
+    </script> 
+</div>

@@ -4,5 +4,5 @@
 }
 
 <div class='entry @String.Join(" ", Html.CssKeywordsFor(Model.Entry))'>
-  @Html.DisplayFor(model => model.Revision.Body, new { Format = Model.Revision.Format })
+  @Html.RenderTrusted(Model.Entry.LatestRevision.Body, Model.Entry.LatestRevision.Format)
 </div>

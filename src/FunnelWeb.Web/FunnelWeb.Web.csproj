@@ -7,7 +7,7 @@
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{64FAABD6-F45B-4ED1-A3AD-6989C1934405}</ProjectGuid>
-    <ProjectTypeGuids>{F85E285D-A4E0-4152-9332-AB1D724D3325};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FunnelWeb.Web</RootNamespace>
@@ -153,6 +153,16 @@
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
     <Compile Include="Application\Authentication\FunnelWebRoleProvider.cs" />
+    <Compile Include="Application\Markup\ContentRenderer.cs" />
+    <Compile Include="Application\Markup\HtmlFormatter.cs" />
+    <Compile Include="Application\Markup\IContentEnricher.cs" />
+    <Compile Include="Application\Markup\IContentFormatter.cs" />
+    <Compile Include="Application\Markup\IContentRenderer.cs" />
+    <Compile Include="Application\Markup\MacroEnricher.cs" />
+    <Compile Include="Application\Markup\Macros\MacroView.cs" />
+    <Compile Include="Application\Markup\Macros\IMacroExecutor.cs" />
+    <Compile Include="Application\Markup\Macros\RazorMacroExecutor.cs" />
+    <Compile Include="Application\Markup\MarkdownFormatter.cs" />
     <Compile Include="Application\Mvc\ActionResults\FeedResult.cs" />
     <Compile Include="Application\Mvc\ActionResults\XmlActionResult.cs" />
     <Compile Include="Application\Mvc\FunnelWebControllerFactory.cs" />
@@ -179,21 +189,18 @@
     <Compile Include="Application\Themes\IThemeProvider.cs" />
     <Compile Include="Application\Themes\ThemeProvider.cs" />
     <Compile Include="Application\Themes\ThemesModule.cs" />
-    <Compile Include="Application\Markup\IMarkdownProvider.cs" />
     <Compile Include="Application\Markup\InputSanitizer.cs" />
-    <Compile Include="Application\Markup\MarkdownRenderer.cs" />
+    <Compile Include="Application\Markup\MarkdownNetByBrianJeremy.cs" />
     <Compile Include="Application\Mime\IMimeTypeLookup.cs" />
     <Compile Include="Application\Mime\RegistryMimeTypeLookup.cs" />
     <Compile Include="Application\Authentication\FormsAuthenticationModule.cs" />
     <Compile Include="Application\Mvc\Binders\BindersModule.cs" />
     <Compile Include="Application\Mime\MimeSupportModule.cs" />
-    <Compile Include="Application\Markup\MarkdownProvider.cs" />
     <Content Include="App_Code\HelperPage.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\WikiAdminController.cs" />
     <Compile Include="Areas\Admin\Views\Install\ExtensionVersion.cs" />
     <Compile Include="Areas\Admin\Views\WikiAdmin\EditModel.cs" />
-    <Compile Include="Areas\Admin\Views\WikiAdmin\RecentModel.cs" />
     <Compile Include="Areas\Admin\Views\WikiAdmin\ReviseModel.cs" />
     <Compile Include="Areas\Admin\Views\WikiAdmin\RevisionsModel.cs" />
     <Compile Include="Controllers\TagController.cs" />
@@ -342,19 +349,18 @@
     <Content Include="Themes\Default\Content\Styles\Theme.css" />
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\Admin\Views\WikiAdmin\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\WikiAdmin\Recent.cshtml" />
     <Content Include="Areas\Admin\Views\WikiAdmin\Revisions.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="packages.config" />
     <Content Include="My.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Macros\TwitterStream.cshtml" />
     <None Include="Themes\BoringTheme\Views\Wiki\Recent.cshtml" />
     <Content Include="Areas\Admin\Views\Upload\Index.cshtml" />
     <Content Include="Views\Wiki\Search.cshtml" />
     <Content Include="Views\Wiki\Page.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Shared\DisplayTemplates\Markdown.cshtml" />
     <Content Include="Views\Wiki\Recent.cshtml" />
     <Content Include="Views\Wiki\Revisions.cshtml" />
     <Content Include="Views\Wiki\SiteMap.cshtml" />
@@ -366,15 +372,15 @@
     <Content Include="Themes\Twitter\Views\Shared\PageTemplates\Default.cshtml" />
     <Content Include="Themes\Twitter\Views\Shared\PageTemplates\Homepage.cshtml" />
     <Content Include="Views\Tagged\Index.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Entries.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Tags.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\EntrySummary.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Tag.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Public.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FunnelWeb.DatabaseDeployer\FunnelWeb.DatabaseDeployer.csproj">
-      <Project>{D3182161-B0E5-47A7-8968-654489F0C60E}</Project>
-      <Name>FunnelWeb.DatabaseDeployer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FunnelWeb\FunnelWeb.csproj">
       <Project>{3E448C45-F459-45D7-950C-5ABEF926513D}</Project>
       <Name>FunnelWeb</Name>
@@ -385,12 +391,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Code\EntryList.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Code\TagList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\Paginator.cshtml" />
@@ -405,8 +405,8 @@
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target> -->
-  <Target Name="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
-    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(ProjectDir)" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
   </Target>
   <ProjectExtensions>
     <VisualStudio>
@@ -414,7 +414,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>51930</DevelopmentServerPort>
+          <DevelopmentServerPort>15261</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:51930/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
@@ -426,8 +426,4 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-  </PropertyGroup>
 </Project>

@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunnelWeb.Web", "FunnelWeb.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunnelWeb.Tests", "FunnelWeb.Tests\FunnelWeb.Tests.csproj", "{D9FD02F0-96B4-43EE-8FD9-455658B00EE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunnelWeb.DatabaseDeployer", "FunnelWeb.DatabaseDeployer\FunnelWeb.DatabaseDeployer.csproj", "{D3182161-B0E5-47A7-8968-654489F0C60E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunnelWeb", "FunnelWeb\FunnelWeb.csproj", "{3E448C45-F459-45D7-950C-5ABEF926513D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunnelWeb.Extensions.CommentNotification", "FunnelWeb.Extensions.CommentNotification\FunnelWeb.Extensions.CommentNotification.csproj", "{5C5EFCF0-454D-42E0-AA89-7F69FB5457BA}"
@@ -71,28 +69,6 @@ Global
 		{D9FD02F0-96B4-43EE-8FD9-455658B00EE5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{D9FD02F0-96B4-43EE-8FD9-455658B00EE5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D9FD02F0-96B4-43EE-8FD9-455658B00EE5}.Release|x86.ActiveCfg = Release|Any CPU
-		{D3182161-B0E5-47A7-8968-654489F0C60E}.CodeCoverage|Any CPU.ActiveCfg = Release|Any CPU
-		{D3182161-B0E5-47A7-8968-654489F0C60E}.CodeCoverage|Any CPU.Build.0 = Release|Any CPU
-		{D3182161-B0E5-47A7-8968-654489F0C60E}.CodeCoverage|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{D3182161-B0E5-47A7-8968-654489F0C60E}.CodeCoverage|Mixed Platforms.Build.0 = Release|Any CPU
-		{D3182161-B0E5-47A7-8968-654489F0C60E}.CodeCoverage|x86.ActiveCfg = Release|Any CPU
-		{D3182161-B0E5-47A7-8968-654489F0C60E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D3182161-B0E5-47A7-8968-654489F0C60E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D3182161-B0E5-47A7-8968-654489F0C60E}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{D3182161-B0E5-47A7-8968-654489F0C60E}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{D3182161-B0E5-47A7-8968-654489F0C60E}.Debug|x86.ActiveCfg = Debug|x86
-		{D3182161-B0E5-47A7-8968-654489F0C60E}.Debug|x86.Build.0 = Debug|x86
-		{D3182161-B0E5-47A7-8968-654489F0C60E}.FxCop|Any CPU.ActiveCfg = Release|Any CPU
-		{D3182161-B0E5-47A7-8968-654489F0C60E}.FxCop|Any CPU.Build.0 = Release|Any CPU
-		{D3182161-B0E5-47A7-8968-654489F0C60E}.FxCop|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{D3182161-B0E5-47A7-8968-654489F0C60E}.FxCop|Mixed Platforms.Build.0 = Release|Any CPU
-		{D3182161-B0E5-47A7-8968-654489F0C60E}.FxCop|x86.ActiveCfg = Release|Any CPU
-		{D3182161-B0E5-47A7-8968-654489F0C60E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D3182161-B0E5-47A7-8968-654489F0C60E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D3182161-B0E5-47A7-8968-654489F0C60E}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{D3182161-B0E5-47A7-8968-654489F0C60E}.Release|Mixed Platforms.Build.0 = Release|x86
-		{D3182161-B0E5-47A7-8968-654489F0C60E}.Release|x86.ActiveCfg = Release|x86
-		{D3182161-B0E5-47A7-8968-654489F0C60E}.Release|x86.Build.0 = Release|x86
 		{3E448C45-F459-45D7-950C-5ABEF926513D}.CodeCoverage|Any CPU.ActiveCfg = Release|Any CPU
 		{3E448C45-F459-45D7-950C-5ABEF926513D}.CodeCoverage|Any CPU.Build.0 = Release|Any CPU
 		{3E448C45-F459-45D7-950C-5ABEF926513D}.CodeCoverage|Mixed Platforms.ActiveCfg = Release|Any CPU

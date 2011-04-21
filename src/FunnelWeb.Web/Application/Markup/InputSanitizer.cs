@@ -1,8 +1,10 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
+using System.Web.Mvc;
 
 namespace FunnelWeb.Web.Application.Markup
 {
-    public static class InputSanitizer
+    public class InputSanitizer : IContentEnricher
     {
         private static readonly Regex AnyTag = new Regex("<[^>]*(>|$)", RegexOptions.Singleline | RegexOptions.ExplicitCapture | RegexOptions.Compiled);
         private static readonly Regex Whitelist = new Regex(@"
@@ -22,10 +24,18 @@ namespace FunnelWeb.Web.Application.Markup
             (\stitle=""[^""<>]*"")?
             \s?/?>$", RegexOptions.Singleline | RegexOptions.ExplicitCapture | RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace);
 
-        /// <summary>
-        /// Sanitize any potentially dangerous tags from the provided raw HTML input using a whitelist based approach, leaving the "safe" HTML tags.
-        /// </summary>
-        public static string Sanitize(string html)
+
+        public string Enrich(string content, bool isContentTrusted, HtmlHelper html)
+        {
+            if (isContentTrusted)
+            {
+                // We don't sanitize trusted input (blog posts, etc.)
+                return content;
+            }
+            return Sanitize(content);
+        }
+
+        private static string Sanitize(string html)
         {
             if (string.IsNullOrEmpty(html))
                 return html;

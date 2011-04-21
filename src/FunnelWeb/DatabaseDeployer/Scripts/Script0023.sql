@@ -133,7 +133,6 @@ declare @hasFullText bit
 select @hasFullText = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled')
 if (@hasFullText = 1)
 begin
-begin try
 	exec sp_fulltext_table 'Entry', 'create', 'FTCatalog', 'PK_Entry_Id' 
 	exec sp_fulltext_column 'Entry', 'Name', 'add', 0x0409
 	exec sp_fulltext_column 'Entry', 'Title', 'add', 0x0409
@@ -144,10 +143,5 @@ begin try
 	exec sp_fulltext_catalog 'FTCatalog', 'start_full' 
 	exec sp_fulltext_table 'Entry', 'start_change_tracking'
     exec sp_fulltext_table 'Entry', 'start_background_updateindex'
-end try
-begin catch
---Full text not installed 
-PRINT 'Full text catalog not installed'
-end catch
 end
 

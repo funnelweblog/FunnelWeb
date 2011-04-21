@@ -17,7 +17,7 @@
 }
 
 @section Summary {
-  @Html.DisplayFor(model => model.Entry.Summary)
+  @Html.RenderTrusted(Model.Entry.Summary, Formats.Markdown)
 }
 
 @if (Model.Entry.Status == FunnelWeb.Model.EntryStatus.Private)
@@ -136,7 +136,7 @@
           </div>
           <div class="comment-body">
             <div class="comment-date">@Html.Date(comment.Posted)</div>
-            @Html.DisplayFor(_ => comment.Body, new { Sanitize = true })
+            @Html.RenderUntrusted(comment.Body, Formats.Markdown)
           </div>
           <div class="clear">
           </div>

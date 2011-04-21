@@ -1,6 +1,5 @@
-﻿using System;
-using System.Web;
-using Autofac;
+﻿using Autofac;
+using FunnelWeb.Model;
 
 namespace FunnelWeb.Web.Application.Markup
 {
@@ -8,10 +7,32 @@ namespace FunnelWeb.Web.Application.Markup
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(c => new MarkdownProvider(
-                c.Resolve<HttpContextBase>().Request.Url.GetLeftPart(UriPartial.Authority)))
-                .As<IMarkdownProvider>()
-                .InstancePerLifetimeScope();
+            builder
+                .RegisterType<ContentRenderer>()
+                .As<IContentRenderer>()
+                .InstancePerDependency();
+
+            // Formatters
+            builder
+                .RegisterType<MarkdownFormatter>()
+                .Named<IContentFormatter>(Formats.Markdown)
+                .InstancePerDependency();
+
+            builder
+                .RegisterType<HtmlFormatter>()
+                .Named<IContentFormatter>(Formats.Html)
+                .InstancePerDependency();
+
+            // Enrichers
+            builder
+                .RegisterType<MacroEnricher>()
+                .As<IContentEnricher>()
+                .InstancePerDependency();
+
+            builder
+                .RegisterType<InputSanitizer>()
+                .As<IContentEnricher>()
+                .InstancePerDependency();
         }
     }
 }

@@ -113,18 +113,18 @@
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
     <Compile Include="Core\Filters\FunnelWebRequestFilterTests.cs" />
+    <Compile Include="Integration\Queries\EntryByNameAndRevisionQueryTests.cs" />
+    <Compile Include="Core\Repositories\FileRepositoryTests.cs" />
     <Compile Include="DatabaseDeployer\DatabaseModuleTests.cs" />
     <Compile Include="DatabaseDeployer\DatabaseUpgradeDetectorTests.cs" />
     <Compile Include="Helpers\AdHocSqlRunner.cs" />
     <Compile Include="Helpers\Requires.cs" />
     <Compile Include="Helpers\TemporaryDatabase.cs" />
-    <Compile Include="Integration\CanCreateNewBlogPosts.cs" />
     <Compile Include="Integration\CanDeployDatabase.cs" />
     <Compile Include="Helpers\RouteExtensions.cs" />
     <Compile Include="Helpers\Specification.cs" />
     <Compile Include="Helpers\ThenAttribute.cs" />
     <Compile Include="Helpers\IntegrationTest.cs" />
-    <Compile Include="Integration\CanLogIn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LifetimeJustifications.cs" />
     <Compile Include="Web\Application\ActionResults\XmlActionResultTests.cs" />
@@ -142,13 +142,10 @@
     <Compile Include="Web\RoutingTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Core\Repositories\Queries\" />
     <Folder Include="Web\Application\Spam\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FunnelWeb.DatabaseDeployer\FunnelWeb.DatabaseDeployer.csproj">
-      <Project>{D3182161-B0E5-47A7-8968-654489F0C60E}</Project>
-      <Name>FunnelWeb.DatabaseDeployer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FunnelWeb.Extensions.SqlAuthentication\FunnelWeb.Extensions.SqlAuthentication.csproj">
       <Project>{067F23F1-909D-4512-A2F4-1E5C8E4F0E52}</Project>
       <Name>FunnelWeb.Extensions.SqlAuthentication</Name>

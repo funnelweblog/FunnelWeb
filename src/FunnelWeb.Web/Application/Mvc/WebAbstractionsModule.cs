@@ -11,6 +11,9 @@ namespace FunnelWeb.Web.Application.Mvc
 
             builder.Register<HttpContextBase>(x => new HttpContextWrapper(HttpContext.Current))
                 .InstancePerLifetimeScope();
+
+            builder.Register<HttpRequestBase>(x => new HttpContextWrapper(HttpContext.Current).Request)
+                .InstancePerLifetimeScope();
         
             builder.Register<HttpServerUtilityBase>(x => new HttpServerUtilityWrapper(HttpContext.Current.Server))
                 .InstancePerLifetimeScope();

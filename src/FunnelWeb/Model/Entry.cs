@@ -7,14 +7,20 @@ using NHibernate.Validator.Constraints;
 
 namespace FunnelWeb.Model
 {
-    public class Entry
+    public class Entry : EntrySummary
     {
         public Entry()
         {
             Title = string.Empty;
             Name = string.Empty;
             Summary = string.Empty;
+            MetaDescription = string.Empty;
+            MetaTitle = string.Empty;
+            Status = string.Empty;
+            Author = string.Empty;
+            HideChrome = false;
             Published = DateTime.UtcNow;
+            PageTemplate = null;
             Revisions = new HashedSet<Revision>();
             Comments = new HashedSet<Comment>();
             Pingbacks = new HashedSet<Pingback>();
@@ -23,17 +29,9 @@ namespace FunnelWeb.Model
         }
 
         public virtual int Id { get; private set; }
-        public virtual string Title { get; set; }
-        public virtual PageName Name { get; set; }
 		public virtual string PageTemplate { get; set; }
 
-        [DataType("Markdown")]
-        public virtual string Summary { get; set; }
-
-        public virtual DateTime Published { get; set; }
         public virtual bool IsDiscussionEnabled { get; set; }
-        public virtual int CommentCount { get; set; }
-        public virtual string MetaDescription { get; set; }
         public virtual string MetaTitle { get; set; }
         public virtual bool HideChrome { get; set; }
         public virtual string Status { get; set; }
@@ -45,13 +43,11 @@ namespace FunnelWeb.Model
         public virtual ISet<Revision> Revisions { get; private set; }
         public virtual ISet<Comment> Comments { get; set; }
         public virtual ISet<Pingback> Pingbacks { get; set; }
-        public virtual ISet<Tag> Tags { get; set; }
         
         public virtual string TagsCommaSeparated
         {
             get { return string.Join(", ", Tags.Select(x => x.Name)); }
         }
-
 
         public virtual Revision Revise()
         {
@@ -64,6 +60,7 @@ namespace FunnelWeb.Model
             }
             revision.Entry = this;
             revision.Revised = DateTime.UtcNow;
+            revision.RevisionNumber = Revisions.Count + 1;
             LatestRevision = revision;
             Revisions.Add(revision);
             return revision;

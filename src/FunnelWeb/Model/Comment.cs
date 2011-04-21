@@ -11,7 +11,6 @@ namespace FunnelWeb.Model
 
         public virtual int Id { get; set; }
 
-        [DataType("Markdown")]
         public virtual string Body { get; set; }
         public virtual string AuthorName { get; set; }
         public virtual string AuthorUrl { get; set; }

@@ -58,6 +58,7 @@ namespace FunnelWeb.Web
             builder.RegisterModule(new MimeSupportModule());
             builder.RegisterModule(new ThemesModule());
             builder.RegisterModule(new SpamModule());
+            builder.RegisterModule(new MarkupModule());
             builder.RegisterModule(new RoutesModule(RouteTable.Routes));
 
             return builder.Build();

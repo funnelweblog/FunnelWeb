@@ -2,19 +2,24 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using Autofac;
 using DbUp;
 using DbUp.ScriptProviders;
 using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.Extensions.SqlAuthentication;
+using FunnelWeb.Model.Repositories;
+using FunnelWeb.Repositories;
+using NHibernate;
 
 namespace FunnelWeb.Tests.Helpers
 {
-    public class TemporaryDatabase : IDisposable
+    public class TemporaryDatabase : IDisposable, IConnectionStringProvider
     {
         private readonly string connectionString;
         private readonly AdHocSqlRunner database;
         private readonly string databaseName;
         private readonly AdHocSqlRunner master;
+        private readonly IContainer container;
 
         public TemporaryDatabase()
         {
@@ -26,11 +31,34 @@ namespace FunnelWeb.Tests.Helpers
             builder.InitialCatalog = "master";
 
             master = new AdHocSqlRunner(builder.ToString());
+
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterInstance(this).As<IConnectionStringProvider>();
+            containerBuilder.RegisterModule(new RepositoriesModule());
+            container = containerBuilder.Build();
+        }
+
+        public void WithRepository(Action<IRepository> callback)
+        {
+            using (var scope = container.BeginLifetimeScope())
+            {
+                var session = scope.Resolve<ISession>();
+                var repo = scope.Resolve<IRepository>();
+
+                var txn = session.BeginTransaction();
+
+                callback(repo);
+
+                session.Flush();
+
+                txn.Commit();
+            }
         }
 
         public string ConnectionString
         {
             get { return connectionString; }
+            set { }
         }
 
         public AdHocSqlRunner AdHoc
@@ -61,10 +89,10 @@ namespace FunnelWeb.Tests.Helpers
         public ScriptedExtension ScriptProviderFor<T>(T extensionWithScripts) where T : IRequireDatabaseScripts
         {
             var provider = new EmbeddedScriptProvider(
-                typeof (T).Assembly,
+                typeof(T).Assembly,
                 x => x.EndsWith(".sql", StringComparison.InvariantCultureIgnoreCase));
 
-            return new ScriptedExtension(extensionWithScripts.SourceIdentifier, typeof (T).Assembly, provider);
+            return new ScriptedExtension(extensionWithScripts.SourceIdentifier, typeof(T).Assembly, provider);
         }
 
         public void Dispose()

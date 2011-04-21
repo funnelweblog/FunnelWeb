@@ -10,12 +10,11 @@ namespace FunnelWeb.Web.Application.Markup
 	/// This markup renderer is courtesy Brian Jeremy.
 	/// http://www.brianjeremy.com/2007/12/07/revisied-markdownnet-library/
 	/// </summary>
-	public class MarkdownRenderer
+	public class MarkdownNetByBrianJeremy
 	{
-		private readonly bool sanitize;
 		private readonly string relativePathUrlPrefix;
 
-		static MarkdownRenderer()
+		static MarkdownNetByBrianJeremy()
 		{
 			nestedBrackets += RepeatString(@"(?>[^\[\]]+|\[", nestedBracketDepth);
 			nestedBrackets += RepeatString(@"\])*", nestedBracketDepth);
@@ -51,9 +50,8 @@ namespace FunnelWeb.Web.Application.Markup
 				backslashEscapeTable[@"\" + key] = escapeTable[key];
 		}
 
-		public MarkdownRenderer(bool sanitize, string relativePathUrlPrefix)
+		public MarkdownNetByBrianJeremy(string relativePathUrlPrefix)
 		{
-			this.sanitize = sanitize;
 			this.relativePathUrlPrefix = relativePathUrlPrefix;
 			urls = new Hashtable();
 			titles = new Hashtable();
@@ -95,11 +93,6 @@ namespace FunnelWeb.Web.Application.Markup
 			text = UnescapeSpecialChars(text);
 
 			text = text.Replace("href=\"/", "href=\"" + relativePathUrlPrefix + "/");
-
-			if (sanitize)
-			{
-				text = InputSanitizer.Sanitize(text);
-			}
 
 			return text + "\n";
 		}

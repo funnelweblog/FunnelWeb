@@ -5,14 +5,14 @@ using NUnit.Framework;
 namespace FunnelWeb.Tests.Integration
 {
     [TestFixture]
-    public class CanDeployDatabase : IntegrationTest
+    public class DatabaseDeploymentTests : IntegrationTest
     {
-        public CanDeployDatabase() : base(TheDatabase.MustBeFresh)
+        public DatabaseDeploymentTests() : base(TheDatabase.MustBeFresh)
         {
-            
         }
 
-        protected override void Execute()
+        [Test]
+        public void TablesAreCreated()
         {
             var tables = Database.AdHoc.ExecuteReader("select * from sys.Tables order by [name] desc");
 

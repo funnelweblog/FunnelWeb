@@ -1,18 +1,15 @@
 @model FunnelWeb.Web.Views.Wiki.RecentModel
-
 @section Meta 
 {
-  <meta name="description" content="@Html.Settings().SearchDescription" />
-  <meta name="keywords" content="@Html.Settings().SearchKeywords" />  
+    <meta name="description" content="@Html.Settings().SearchDescription" />
+    <meta name="keywords" content="@Html.Settings().SearchKeywords" />
 }
-
 @section Summary 
 {
-  @Html.DisplayFor(_ => Html.Settings().Introduction) 
+    @Html.RenderTrusted(Html.Settings().Introduction, Formats.Markdown)
 }
-
 <h1>@Model.Title</h1>
 
-@EntryList.Render(Model.Entries)
+@Html.DisplayFor(x => x.Entries)
 
 @Paginator.Render(Model.ActionName, Model.PageNumber, Model.TotalPages)
