@@ -86,9 +86,15 @@ exec (@str)
 
 if (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled')) 
 begin
+begin try
     alter fulltext index on dbo.[Entry] disable
     alter fulltext index on dbo.[Entry] drop (MetaKeywords)
     alter fulltext index on dbo.[Entry] enable
+end try
+begin catch
+--Full text not installed 
+PRINT 'Full text catalog not installed'
+end catch
 end
 
 alter table dbo.Entry
