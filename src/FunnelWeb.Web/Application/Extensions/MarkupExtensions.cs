@@ -107,7 +107,10 @@ namespace FunnelWeb.Web.Application.Extensions
 
         public static IHtmlString CommentedAtRevision(this HtmlHelper html, Comment comment, Revision revision)
         {
-            if(comment.EntryRevisionNumber != revision.RevisionNumber)
+            if (Settings(html).EnablePublicHistory == false)
+                return MvcHtmlString.Empty;
+
+            if (comment.EntryRevisionNumber != revision.RevisionNumber)
             {
                 if(comment.EntryRevisionNumber == comment.Entry.LatestRevision.RevisionNumber)
                     return MvcHtmlString.Create("@ " +
