@@ -4,5 +4,5 @@
 }
 
 <div class='entry @String.Join(" ", Html.CssKeywordsFor(Model.Entry))'>
-  @Html.RenderTrusted(Model.Entry.LatestRevision.Body, Model.Entry.LatestRevision.Format)
+  @Html.RenderTrusted(Model.Entry.Revisions.First().Body, Model.Entry.LatestRevision.Format)
 </div>
