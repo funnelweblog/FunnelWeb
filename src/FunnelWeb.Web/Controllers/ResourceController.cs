@@ -13,15 +13,33 @@ namespace FunnelWeb.Web.Controllers
             Response.Cache.SetExpires(DateTime.UtcNow.AddDays(10));
 
             string fileToRender = fileName;
-            if (fileToRender.Contains("{Theme}"))
-            {
-                fileToRender = fileToRender.Replace("{Theme}", "/Themes/" + SettingsProvider.GetSettings<FunnelWebSettings>().Theme);
-                var localFile = Server.MapPath(fileToRender);
-                if (System.IO.File.Exists(localFile))
-                    return File(fileToRender, contentType);
-            }
 
-            return File(fileName2, contentType);
+            return RenderUploadedFileIfExists(fileToRender, contentType)
+                ?? RenderThemedFileIfExists(fileToRender, contentType)
+                ?? File(fileName2, contentType);
+        }
+
+        private FileResult RenderThemedFileIfExists(string fileToRender, string contentType)
+        {
+            return RenderWhileReplacingTokenWith(fileToRender, contentType, "{Theme}", "/Themes/" + SettingsProvider.GetSettings<FunnelWebSettings>().Theme);
+        }
+
+        private FileResult RenderUploadedFileIfExists(string fileToRender, string contentType)
+        {
+            return RenderWhileReplacingTokenWith(fileToRender, contentType, "{Theme}", SettingsProvider.GetSettings<FunnelWebSettings>().UploadPath);
+        }
+
+        private FileResult RenderWhileReplacingTokenWith(string fileToRender, string contentType, string token, string replacement)
+        {
+            if (fileToRender.Contains(token))
+            {
+                fileToRender = fileToRender.Replace(token, replacement);
+                var localFile = Server.MapPath(fileToRender);
+
+                if (System.IO.File.Exists(localFile))
+                    return File(localFile, contentType);
+            }
+            return null;
         }
     }
 }
