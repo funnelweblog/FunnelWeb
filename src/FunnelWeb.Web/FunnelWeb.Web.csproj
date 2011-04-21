@@ -250,10 +250,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\busy.gif" />
-    <Content Include="Content\Images\add.png" />
     <Content Include="Content\Images\fail.png" />
     <Content Include="Content\Images\success.png" />
-    <Content Include="Content\Images\delete.png" />
     <Content Include="Content\Scripts\JQuery\jquery-ui-1.8.7.custom.min.js" />
     <Content Include="Content\Scripts\Site\taggy.js" />
     <Content Include="Content\Styles\Layout\images\del_sprite_tagComplete.png" />
@@ -306,7 +304,6 @@
     <Content Include="Areas\Admin\Views\Install\UpgradeReport.cshtml" />
     <Content Include="Areas\Admin\Views\Install\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Login\Login.cshtml" />
-    <Content Include="Content\Images\favicon.ico" />
     <Content Include="Content\Images\editorbuttons.png" />
     <Content Include="Content\Images\external.png" />
     <Content Include="Content\Images\FileTypes\bmp.png" />
