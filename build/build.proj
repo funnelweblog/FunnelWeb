@@ -101,16 +101,15 @@
 
     <!-- Rename web.config -->
     <Copy 
-    	SourceFiles="$(Root)\build\Published\web.config" 
-		DestinationFiles="$(Root)\build\Published\web.config.sample"
-		Condition="!Exists('$(Root)\src\FunnelWeb.Web\obj\Release\TransformWebConfig\transformed\Web.config')">
+    	SourceFiles="$(Root)\build\Published\My.config" 
+		DestinationFiles="$(Root)\build\Published\My.config.sample">
 	</Copy>
 	<Copy 
     	SourceFiles="$(Root)\src\FunnelWeb.Web\obj\Release\TransformWebConfig\transformed\Web.config" 
 		DestinationFiles="$(Root)\build\Published\web.config"
 		Condition="Exists('$(Root)\src\FunnelWeb.Web\obj\Release\TransformWebConfig\transformed\Web.config')">
 	</Copy>
-	<Delete Files="$(Root)\build\Published\web.config"
+	<Delete Files="$(Root)\build\Published\My.config"
             Condition="!Exists('$(Root)\src\FunnelWeb.Web\obj\Release\TransformWebConfig\transformed\Web.config')" />
 	<Delete Files="$(Root)\build\Published\web.Debug.config"
             Condition="Exists('$(Root)\build\Published\web.Debug.config')" />
