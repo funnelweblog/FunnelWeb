@@ -16,7 +16,7 @@ namespace FunnelWeb.Web.Controllers
 
             return RenderUploadedFileIfExists(fileToRender, contentType)
                 ?? RenderThemedFileIfExists(fileToRender, contentType)
-                ?? File(fileName2, contentType);
+                ?? File(fileName2 ?? fileToRender, contentType);
         }
 
         private FileResult RenderThemedFileIfExists(string fileToRender, string contentType)

@@ -252,6 +252,7 @@
     <Content Include="Content\Images\busy.gif" />
     <Content Include="Content\Images\fail.png" />
     <Content Include="Content\Images\success.png" />
+    <Content Include="Content\Resources\Humans.txt" />
     <Content Include="Content\Scripts\JQuery\jquery-ui-1.8.7.custom.min.js" />
     <Content Include="Content\Scripts\Site\taggy.js" />
     <Content Include="Content\Styles\Layout\images\del_sprite_tagComplete.png" />

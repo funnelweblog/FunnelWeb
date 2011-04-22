@@ -1,0 +1,46 @@
+Hello!
+
+This site is made possible by FunnelWeb, an open source ASP.NET MVC blog 
+engine. Our goal is to build a blog engine that .NET bloggers can be proud 
+of using.
+
+FunnelWeb started as the personal blog engine of Paul Stovell. With the 
+help of Matt Hamilton and Aaron Powell, and contributions from an amazing 
+and growing community, we turned it into the amazing little blog engine 
+that could. 
+
+We hope you enjoy using FunnelWeb. Find out more at http://funnelweblog.com
+
+The core team of project maintainers are:
+
+- Paul Stovell: http://www.paulstovell.com/
+- Matt Hamilton: http://matthamilton.net/
+- Aaron Powell: http://www.aaron-powell.com/
+- Jake Ginnivan: http://jake.ginnivan.net/
+
+Special thanks to the community members who have contributed patches, features
+and time to make FunnelWeb shine. Below is just a short list:
+
+- Paul Jenkins: http://www.theleagueofpaul.com/
+- Corneliu Tusnea: http://corneliutusnea.wordpress.com/
+- Brendan Kowitz: http://www.kowitz.net/
+- Ducas Francis: http://blog.duc.as/
+- Andrey Chumak: https://bitbucket.org/andrex
+- Mehdi Khalili: http://mehdi-khalili.com/
+- Justin Taylor: http://blog.jtango.net/
+- Joshua McKinney: http://joshka.net/
+- Miguel Madero: http://miguelmadero.blogspot.com/
+
+Thanks also to the owners of projects and services that we depend on. These 
+include:
+
+- The StackOverflow team, for the WMD editor and XSS protection
+- Markdown.net
+- NHibernate
+- Autofac
+- ClientDependency
+- Prettify.js
+- NUnit
+- NSubstitute
+- Akismet
+- BlogML
