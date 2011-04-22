@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Model.Strings;
+using FunnelWeb.Settings;
 using FunnelWeb.Web.Application.Spam;
 using FunnelWeb.Web.Controllers;
 using FunnelWeb.Web.Views.Wiki;
@@ -34,13 +35,15 @@ namespace FunnelWeb.Tests.Web.Controllers
                                  EntryRepository = EntryRepository = Substitute.For<IEntryRepository>(),
                                  TagRepository = FeedRepository = Substitute.For<ITagRepository>(),
                                  SpamChecker = SpamChecker = Substitute.For<ISpamChecker>(),
-                                 ControllerContext = ControllerContext = CreateControllerContext()
+                                 ControllerContext = ControllerContext = CreateControllerContext(),
+                                 SettingsProvider = Substitute.For<ISettingsProvider>()
                              };
 
             Identity = Substitute.For<IIdentity>();
             User = Substitute.For<IPrincipal>();
             User.Identity.Returns(Identity);
             ControllerContext.HttpContext.User.Returns(User);
+            Controller.SettingsProvider.GetSettings<FunnelWebSettings>().Returns(new FunnelWebSettings {EnablePublicHistory = true});
         }
 
         [Test]
