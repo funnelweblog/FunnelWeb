@@ -109,7 +109,7 @@ namespace FunnelWeb.Web.Controllers
 
         private HtmlHelper CreateHelper()
         {
-            return new HtmlHelper(new ViewContext(ControllerContext, null, new ViewDataDictionary(), new TempDataDictionary(), new StringWriter()), new CustomViewDataContainer());
+            return new HtmlHelper(new ViewContext(ControllerContext, new DummyView(), new ViewDataDictionary(), new TempDataDictionary(), new StringWriter()), new CustomViewDataContainer());
         }
 
         public virtual ActionResult CommentFeed()
@@ -137,6 +137,14 @@ namespace FunnelWeb.Web.Controllers
                 };
 
             return FeedResult(items);
+        }
+    }
+
+    internal class DummyView : IView
+    {
+        public void Render(ViewContext viewContext, TextWriter writer)
+        {
+            
         }
     }
 }

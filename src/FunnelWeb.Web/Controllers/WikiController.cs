@@ -60,6 +60,7 @@ namespace FunnelWeb.Web.Controllers
             return View("Search", new SearchModel(searchText, is404 ?? false, results));
         }
 
+        [OutputCache(VaryByParam = "*", Duration = 600)]
         public virtual ActionResult Page(PageName page, int? revision)
         {
             if (revision != null && !SettingsProvider.GetSettings<FunnelWebSettings>().EnablePublicHistory)
