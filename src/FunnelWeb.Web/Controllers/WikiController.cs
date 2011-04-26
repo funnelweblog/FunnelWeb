@@ -101,6 +101,7 @@ namespace FunnelWeb.Web.Controllers
                 model.Entry = entry;
                 model.IsPriorVersion = false;
                 model.Page = page;
+                model.Revision = entry.Revisions.Last();
                 ViewData.Model = model;
                 return new PageTemplateActionResult(entry.PageTemplate, "Page");
             }
