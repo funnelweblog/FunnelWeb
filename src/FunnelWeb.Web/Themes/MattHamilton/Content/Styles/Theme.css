@@ -1,7 +1,12 @@
-﻿body
+﻿html
 {
-    margin: 30px auto;
-    background: white url(backgnd.png) repeat-x scroll 0 0;
+    border-top: 10px solid #93AD8A;
+}
+
+body
+{
+    margin: 20px auto;
+    /* background: white url(backgnd.png) repeat-x scroll 0 0; */
 }
 
 a
