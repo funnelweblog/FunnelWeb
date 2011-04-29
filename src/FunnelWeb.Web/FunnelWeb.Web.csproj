@@ -296,7 +296,6 @@
     <Content Include="Themes\Evolve\Content\Images\background.png" />
     <Content Include="Themes\Evolve\Content\Styles\Theme.css" />
     <Content Include="Themes\Official\Content\Styles\Theme.css" />
-    <Content Include="Themes\MattHamilton\Content\Styles\backgnd.png" />
     <Content Include="Areas\Admin\Views\Admin\PageList.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Tasks.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Task.cshtml" />
