@@ -254,9 +254,9 @@
     <Content Include="Content\Images\success.png" />
     <Content Include="Content\Resources\Humans.txt" />
     <Content Include="Scripts\taggy.js" />
-    <Content Include="Content\Styles\Layout\images\del_sprite_tagComplete.png" />
-    <Content Include="Content\Styles\Layout\Mobile.css" />
-    <Content Include="Content\Styles\Layout\TagEditor.css" />
+    <Content Include="Content\themes\base\images\del_sprite_tagComplete.png" />
+    <Content Include="Content\themes\base\Mobile.css" />
+    <Content Include="Content\themes\base\TagEditor.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -303,7 +303,7 @@
     <Content Include="Views\Shared\EditorTemplates\Tags.cshtml" />
     <Content Include="Views\Shared\_Mobile.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Markdown.cshtml" />
-    <Content Include="Content\Styles\Layout\Admin.css" />
+    <Content Include="Content\themes\base\Admin.css" />
     <Content Include="Themes\Pastel\Content\Styles\Bar.png" />
     <Content Include="Themes\Pastel\Content\Styles\Theme.css" />
     <Content Include="Themes\Twitter\Content\Styles\Background.png" />
@@ -358,7 +358,7 @@
     <Content Include="Scripts\showdown.js" />
     <Content Include="Scripts\wmd.js" />
     <Content Include="Scripts\site.js" />
-    <Content Include="Content\Styles\Layout\Base.css" />
+    <Content Include="Content\themes\base\Base.css" />
     <Content Include="Themes\AaronPowell\Content\Styles\Theme.css" />
     <Content Include="Themes\Default\Content\Styles\Theme.css" />
     <Content Include="Areas\Admin\Views\Web.config" />

@@ -6,11 +6,10 @@
   <meta name="language" content="english" />
   <meta name="viewport" content="width=device-width" />
   @{ 
-    Html.RequiresCss("Mobile.css", "Layout", 0);
+    Html.RequiresCss("Mobile.css", "Base", 0);
   }
   @MvcHtmlString.Create(Html.RenderCssHere(new List<IClientDependencyPath> {
-      new BasicPath("Layout", "/Content/Styles/Layout"),
-      new BasicPath("UI", "/Content/themes/base")
+      new BasicPath("Base", "/Content/themes/base")
     }))
   @RenderSection("Meta", required: false)
   @MvcHtmlString.Create(Html.Settings().HtmlHead)
