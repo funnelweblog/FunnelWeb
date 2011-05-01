@@ -56,7 +56,7 @@ inner join dbo.UserRoles on UserRoles.RoleId = (select Id from dbo.[Role] where 
 
 --Disable SQL authentication if for some reason we have no admin users
 if @adminUsers = 0
-	update Settings
+	update Setting
 	set Value = 'False'
 	where Name = 'sql-authentication'
 go
