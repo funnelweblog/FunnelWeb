@@ -193,12 +193,17 @@
     <Compile Include="Application\Markup\MarkdownNetByBrianJeremy.cs" />
     <Compile Include="Application\Mime\IMimeTypeLookup.cs" />
     <Compile Include="Application\Mime\RegistryMimeTypeLookup.cs" />
-    <Compile Include="Application\Authentication\FormsAuthenticationModule.cs" />
+    <Compile Include="Application\Authentication\AuthenticationModule.cs" />
     <Compile Include="Application\Mvc\Binders\BindersModule.cs" />
     <Compile Include="Application\Mime\MimeSupportModule.cs" />
     <Content Include="App_Code\HelperPage.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\SqlAuthenticationController.cs" />
     <Compile Include="Areas\Admin\Controllers\WikiAdminController.cs" />
+    <Compile Include="Areas\Admin\Views\SqlAuthentication\AddRoleModel.cs" />
+    <Compile Include="Areas\Admin\Views\SqlAuthentication\IndexModel.cs" />
+    <Compile Include="Areas\Admin\Views\SqlAuthentication\NewUser.cs" />
+    <Compile Include="Areas\Admin\Views\SqlAuthentication\SetupModel.cs" />
     <Compile Include="Areas\Admin\Views\Install\ExtensionVersion.cs" />
     <Compile Include="Areas\Admin\Views\WikiAdmin\EditModel.cs" />
     <Compile Include="Areas\Admin\Views\WikiAdmin\ReviseModel.cs" />
@@ -370,6 +375,10 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Macros\TwitterStream.cshtml" />
+    <Content Include="Areas\Admin\Views\SqlAuthentication\AddRole.cshtml" />
+    <Content Include="Areas\Admin\Views\SqlAuthentication\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SqlAuthentication\NewAccount.cshtml" />
+    <Content Include="Areas\Admin\Views\SqlAuthentication\Setup.cshtml" />
     <None Include="Themes\BoringTheme\Views\Wiki\Recent.cshtml" />
     <Content Include="Areas\Admin\Views\Upload\Index.cshtml" />
     <Content Include="Views\Wiki\Search.cshtml" />

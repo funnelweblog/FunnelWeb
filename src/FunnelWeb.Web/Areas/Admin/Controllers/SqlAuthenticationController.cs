@@ -1,46 +1,51 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using FunnelWeb.Authentication.Internal;
-using FunnelWeb.Extensions.SqlAuthentication.Model;
 using FunnelWeb.Filters;
+using FunnelWeb.Model.Authentication;
 using FunnelWeb.Settings;
+using FunnelWeb.Web.Areas.Admin.Views.SqlAuthentication;
 using NHibernate;
 
-namespace FunnelWeb.Extensions.SqlAuthentication.Controllers
+namespace FunnelWeb.Web.Areas.Admin.Controllers
 {
     [FunnelWebRequest]
     [Authorize(Roles="Admin")]
     public class SqlAuthenticationController : Controller
     {
-        private readonly IFunnelWebSqlMembership _sqlMembership;
-        private readonly ISettingsProvider _settingsProvider;
-        private readonly SqlRoleProvider _sqlRoleProvider;
-        private readonly FormsAuthenticator _formsAuthenticator;
-        private readonly SqlAuthenticator _sqlAuthenticator;
-        private readonly SqlAuthSettings _sqlAuthSettings;
+        private readonly Func<ISession> sessionFactory;
+        private readonly SqlFunnelWebMembership sqlMembership;
+        private readonly ISettingsProvider settingsProvider;
+        private readonly SqlRoleProvider sqlRoleProvider;
+        private readonly FormsAuthenticator formsAuthenticator;
+        private readonly SqlAuthenticator sqlAuthenticator;
+        private readonly SqlAuthSettings sqlAuthSettings;
 
         public SqlAuthenticationController(
-            IFunnelWebSqlMembership sqlMembership, 
+            Func<ISession> sessionFactory,
+            SqlFunnelWebMembership sqlMembership, 
             ISettingsProvider settingsProvider,
             SqlRoleProvider sqlRoleProvider, 
             FormsAuthenticator formsAuthenticator, 
             SqlAuthenticator sqlAuthenticator)
         {
-            _sqlMembership = sqlMembership;
-            _settingsProvider = settingsProvider;
-            _sqlRoleProvider = sqlRoleProvider;
-            _formsAuthenticator = formsAuthenticator;
-            _sqlAuthenticator = sqlAuthenticator;
-            _sqlAuthSettings = _settingsProvider.GetSettings<SqlAuthSettings>();
+            this.sessionFactory = sessionFactory;
+            this.sqlMembership = sqlMembership;
+            this.settingsProvider = settingsProvider;
+            this.sqlRoleProvider = sqlRoleProvider;
+            this.formsAuthenticator = formsAuthenticator;
+            this.sqlAuthenticator = sqlAuthenticator;
+            sqlAuthSettings = this.settingsProvider.GetSettings<SqlAuthSettings>();
         }
 
         public ActionResult Index()
         {
-            var users = _sqlAuthSettings.SqlAuthenticationEnabled ? _sqlMembership.GetUsers() : Enumerable.Empty<User>();
+            var users = sqlAuthSettings.SqlAuthenticationEnabled ? sqlMembership.GetUsers() : Enumerable.Empty<User>();
 
             var indexModel = new IndexModel
                                  {
-                                     IsUsingSqlAuthentication = _sqlAuthSettings.SqlAuthenticationEnabled,
+                                     IsUsingSqlAuthentication = sqlAuthSettings.SqlAuthenticationEnabled,
                                      Users = users
                                  };
             return View(indexModel);
@@ -48,27 +53,28 @@ namespace FunnelWeb.Extensions.SqlAuthentication.Controllers
 
         public ActionResult EnableSqlAuthentication()
         {
-            if (!_sqlMembership.HasAdminAccount())
+            if (!sqlMembership.HasAdminAccount())
             {
                 return RedirectToAction("Setup");
             }
-            var sqlAuthSettings = _sqlAuthSettings;
+
             sqlAuthSettings.SqlAuthenticationEnabled = true;
-            _settingsProvider.SaveSettings(sqlAuthSettings);
-            _formsAuthenticator.Logout();
+            settingsProvider.SaveSettings(sqlAuthSettings);
+
+            formsAuthenticator.Logout();
             return RedirectToAction("Index");
         }
 
         public ActionResult DisableSqlAuthentication()
         {
-            if (!_sqlMembership.HasAdminAccount())
+            if (!sqlMembership.HasAdminAccount())
             {
                 return RedirectToAction("Setup");
             }
-            var sqlAuthSettings = _sqlAuthSettings;
+
             sqlAuthSettings.SqlAuthenticationEnabled = false;
-            _settingsProvider.SaveSettings(sqlAuthSettings);
-            _sqlAuthenticator.Logout();
+            settingsProvider.SaveSettings(sqlAuthSettings);
+            sqlAuthenticator.Logout();
             return RedirectToAction("Index");
         }
 
@@ -88,7 +94,7 @@ namespace FunnelWeb.Extensions.SqlAuthentication.Controllers
                 return RedirectToAction("Setup", new { user });
             }
 
-            _sqlMembership.CreateAccount(user.Name, user.Email, user.Username, user.Password);
+            sqlMembership.CreateAccount(user.Name, user.Email, user.Username, user.Password);
 
             return RedirectToAction("Index");
         }
@@ -98,7 +104,7 @@ namespace FunnelWeb.Extensions.SqlAuthentication.Controllers
         {
             var setupModel = new SetupModel
                                  {
-                                     HasAdminAccount = _sqlMembership.HasAdminAccount()
+                                     HasAdminAccount = sqlMembership.HasAdminAccount()
                                  };
 
             return View(setupModel);
@@ -112,7 +118,7 @@ namespace FunnelWeb.Extensions.SqlAuthentication.Controllers
 
         public ActionResult CreateAdminAccount(SetupModel setupModel)
         {
-            if (!_sqlMembership.HasAdminAccount())
+            if (!sqlMembership.HasAdminAccount())
             {
                 if (setupModel.Password != setupModel.RepeatPassword)
                 {
@@ -121,23 +127,25 @@ namespace FunnelWeb.Extensions.SqlAuthentication.Controllers
                     return RedirectToAction("Setup", new{setupModel});
                 }
 
-                var user = _sqlMembership.CreateAccount(setupModel.Name, setupModel.Email, setupModel.Username, setupModel.Password);
-                _sqlRoleProvider.AddUserToRoles(user, "Admin", "Moderator");
+                var user = sqlMembership.CreateAccount(setupModel.Name, setupModel.Email, setupModel.Username, setupModel.Password);
+                sqlRoleProvider.AddUserToRoles(user, "Admin", "Moderator");
             }
 
-            var sqlAuthSettings = _sqlAuthSettings;
             sqlAuthSettings.SqlAuthenticationEnabled = true;
-            _settingsProvider.SaveSettings(sqlAuthSettings);
-            _formsAuthenticator.Logout();
+            settingsProvider.SaveSettings(sqlAuthSettings);
+
+            formsAuthenticator.Logout();
             return RedirectToAction("Index");
         }
             
         public ActionResult RemoveRole(int userId, int roleId)
         {
-            var user = DependencyResolver.Current.GetService<ISession>()
-                .Get<User>(userId);
+            var user = sessionFactory().Get<User>(userId);
 
             var role = user.Roles.SingleOrDefault(r => r.Id == roleId);
+
+            if (role == null)
+                return RedirectToAction("Index");
 
             user.Roles.Remove(role);
             role.Users.Remove(user);
@@ -147,13 +155,13 @@ namespace FunnelWeb.Extensions.SqlAuthentication.Controllers
 
         public ActionResult AddRole(int userId)
         {
-            var service = DependencyResolver.Current.GetService<ISession>();
-            var user = service.QueryOver<User>()
+            var session = sessionFactory();
+            var user = session.QueryOver<User>()
                 .Where(u => u.Id == userId)
                 .Left.JoinQueryOver(u => u.Roles)
                 .SingleOrDefault();
 
-            var roles = service
+            var roles = session
                 .QueryOver<Role>()
                 .List()
                 .Except(user.Roles)
@@ -164,15 +172,16 @@ namespace FunnelWeb.Extensions.SqlAuthentication.Controllers
 
         public ActionResult AddUserToRole(int userId, int roleId)
         {
-            var service = DependencyResolver.Current.GetService<ISession>();
-            var user = service.QueryOver<User>()
+            var session = sessionFactory();
+
+            var user = session.QueryOver<User>()
                 .Where(u => u.Id == userId)
                 .Left.JoinQueryOver(u => u.Roles)
                 .SingleOrDefault();
 
             if (user.Roles.SingleOrDefault(r => r.Id == roleId) == null)
             {
-                var role = service
+                var role = session
                     .Get<Role>(roleId);
                 user.Roles.Add(role);
                 role.Users.Add(user);

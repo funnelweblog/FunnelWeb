@@ -1,7 +1,7 @@
-﻿using System.ComponentModel;
-using FunnelWeb.Settings;
+﻿using System;
+using System.ComponentModel;
 
-namespace FunnelWeb.Extensions.SqlAuthentication
+namespace FunnelWeb.Settings
 {
     public class SqlAuthSettings : ISettings
     {

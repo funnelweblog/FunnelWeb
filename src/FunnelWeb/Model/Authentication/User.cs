@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 // ReSharper disable UnusedAutoPropertyAccessor.Local
-namespace FunnelWeb.Extensions.SqlAuthentication.Model
+namespace FunnelWeb.Model.Authentication
 {
     public class User
     {

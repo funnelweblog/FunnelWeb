@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-namespace FunnelWeb.Extensions.SqlAuthentication.Model
+namespace FunnelWeb.Model.Authentication
 {
     public class Role
     {

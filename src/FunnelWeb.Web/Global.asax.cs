@@ -53,7 +53,7 @@ namespace FunnelWeb.Web
             // FunnelWeb Web
             builder.RegisterModule(new WebAbstractionsModule());
             builder.RegisterModule(new MarkupModule());
-            builder.RegisterModule(new FormsAuthenticationModule());
+            builder.RegisterModule(new AuthenticationModule());
             builder.RegisterModule(new BindersModule(ModelBinders.Binders));
             builder.RegisterModule(new MimeSupportModule());
             builder.RegisterModule(new ThemesModule());

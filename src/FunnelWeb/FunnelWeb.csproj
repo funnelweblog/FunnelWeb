@@ -87,9 +87,14 @@
     <Compile Include="..\Information\VersionInfo.cs">
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
+    <Compile Include="Authentication\IFunnelWebMembership.cs" />
     <Compile Include="Authentication\Internal\FormsAuthenticator.cs" />
     <Compile Include="Authentication\Internal\FormsRoleProvider.cs" />
     <Compile Include="Authentication\IAuthenticator.cs" />
+    <Compile Include="Authentication\Internal\FormsFunnelWebMembership.cs" />
+    <Compile Include="Authentication\Internal\SqlFunnelWebMembership.cs" />
+    <Compile Include="Authentication\Internal\SqlAuthenticator.cs" />
+    <Compile Include="Authentication\Internal\SqlRoleProvider.cs" />
     <Compile Include="Authentication\IRoleProvider.cs" />
     <Compile Include="DatabaseDeployer\ApplicationDatabase.cs" />
     <Compile Include="DatabaseDeployer\DatabaseModule.cs" />
@@ -108,6 +113,10 @@
     <Compile Include="IFunnelWebExtension.cs" />
     <Compile Include="IFunnelWebExtensionMetaData.cs" />
     <Compile Include="IRequireDatabaseScripts.cs" />
+    <Compile Include="Model\Authentication\Mappings\RoleMapping.cs" />
+    <Compile Include="Model\Authentication\Mappings\UserMapping.cs" />
+    <Compile Include="Model\Authentication\Role.cs" />
+    <Compile Include="Model\Authentication\User.cs" />
     <Compile Include="Model\EntryExtensions.cs" />
     <Compile Include="Model\Mappings\RevisionFilter.cs" />
     <Compile Include="Model\EntrySummary.cs" />
@@ -120,6 +129,7 @@
     <Compile Include="Settings\IBootstrapSettings.cs" />
     <Compile Include="Settings\ISettings.cs" />
     <Compile Include="Settings\SettingsModule.cs" />
+    <Compile Include="Settings\SqlAuthenticationSettings.cs" />
     <Compile Include="Settings\XmlBootstrapSettings.cs" />
     <Compile Include="Tasks\TaskModule.cs" />
     <Compile Include="Tasks\ITask.cs" />
@@ -254,6 +264,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0025.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0026.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -2,14 +2,12 @@
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using FunnelWeb.Authentication;
-using FunnelWeb.Authentication.Internal;
 using FunnelWeb.DatabaseDeployer;
-using FunnelWeb.Extensions.SqlAuthentication.Model;
+using FunnelWeb.Model.Authentication;
 using FunnelWeb.Settings;
 using NHibernate;
 
-namespace FunnelWeb.Extensions.SqlAuthentication
+namespace FunnelWeb.Authentication.Internal
 {
     public class SqlAuthenticator : IAuthenticator
     {
@@ -18,7 +16,11 @@ namespace FunnelWeb.Extensions.SqlAuthentication
         private readonly Func<ISettingsProvider> settingsProvider;
         private readonly ISession session;
 
-        public SqlAuthenticator(FormsAuthenticator formsAuthenticator, Func<IDatabaseUpgradeDetector> upgradeDetector, Func<ISettingsProvider> settingsProvider, ISession session)
+        public SqlAuthenticator(
+            FormsAuthenticator formsAuthenticator, 
+            Func<IDatabaseUpgradeDetector> upgradeDetector, 
+            Func<ISettingsProvider> settingsProvider, 
+            ISession session)
         {
             this.formsAuthenticator = formsAuthenticator;
             this.upgradeDetector = upgradeDetector;
@@ -64,7 +66,7 @@ namespace FunnelWeb.Extensions.SqlAuthentication
         private bool SqlAuthenticateAndLogin(string username, string password)
         {
             var user = session.QueryOver<User>()
-                .Where(u => u.Username == username && u.Password == FunnelWebSqlMembership.HashPassword(password))
+                .Where(u => u.Username == username && u.Password == SqlFunnelWebMembership.HashPassword(password))
                 .SingleOrDefault();
 
             if (user != null)

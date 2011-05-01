@@ -32,6 +32,12 @@ namespace FunnelWeb.Web.Areas.Admin
                 new {controller = "Install", action = "Index"}
                 );
 
+            context.MapRoute(
+                "Admin_SqlAuthentication",
+                "admin/sqlauthentication/{action}",
+                new { controller = "SqlAuthentication", action = "Index" }
+                );
+
             context.MapRoute("Admin_Get", "get/{*path}", new { controller = "Upload", action = "Render" });
 
             //need to do this route explicitly otherwise we can't handle nice URLs when directory browsing

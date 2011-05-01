@@ -1,8 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using FunnelWeb.Web.Application.Mvc;
 
-namespace FunnelWeb.Extensions.SqlAuthentication.Model
+namespace FunnelWeb.Web.Areas.Admin.Views.SqlAuthentication
 {
     public class SetupModel
     {

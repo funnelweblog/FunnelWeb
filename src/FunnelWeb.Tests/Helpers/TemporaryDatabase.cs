@@ -6,7 +6,6 @@ using Autofac;
 using DbUp;
 using DbUp.ScriptProviders;
 using FunnelWeb.DatabaseDeployer;
-using FunnelWeb.Extensions.SqlAuthentication;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Repositories;
 using NHibernate;
@@ -80,10 +79,7 @@ namespace FunnelWeb.Tests.Helpers
             master.ExecuteNonQuery("create database [" + databaseName + "]");
 
             var app = new ApplicationDatabase();
-            app.PerformUpgrade(connectionString, new List<ScriptedExtension>
-                                                     {
-                                                         ScriptProviderFor(new SqlAuthenticationExtension())
-                                                     }, new TraceLog());
+            app.PerformUpgrade(connectionString, new List<ScriptedExtension>(), new TraceLog());
         }
 
         public ScriptedExtension ScriptProviderFor<T>(T extensionWithScripts) where T : IRequireDatabaseScripts

@@ -62,7 +62,7 @@ namespace FunnelWeb.Tests
 
             //// FunnelWeb Web
             builder.RegisterModule(new WebAbstractionsModule());
-            builder.RegisterModule(new FormsAuthenticationModule());
+            builder.RegisterModule(new AuthenticationModule());
             builder.RegisterModule(new BindersModule(new ModelBinderDictionary()));
             builder.RegisterModule(new MimeSupportModule());
             builder.RegisterModule(new ThemesModule());
@@ -97,9 +97,15 @@ namespace FunnelWeb.Tests
             // Per request just for performance, could otherwise be per dependency
             PerLifetimeScope<IEventPublisher>("This component takes a list of handlers; to save finding them all each time we raise an event during a request, we build this once");
             PerLifetimeScope<ISettingsProvider>("We refer to settings many times as the application runs, so it does a little caching. However, it relies on the database, thus a session, thus at most it should be per request.");
-            PerLifetimeScope<IAuthenticator>("The forms authenticator just calls into ASP.NET code - may as well re-use the same instance in a request.");
+            PerLifetimeScope<IAuthenticator>("Could be anything, but authentication should be done per request");
+            PerLifetimeScope<IRoleProvider>("Could be anything, but authentication should be done per request.");
+            PerLifetimeScope<IFunnelWebMembership>("Could be anything, but authentication should be done per request.");
             PerLifetimeScope<FormsAuthenticator>("The forms authenticator just calls into ASP.NET code - may as well re-use the same instance in a request.");
-            PerLifetimeScope<IRoleProvider>("The forms authenticator just calls into ASP.NET code - may as well re-use the same instance in a request.");
+            PerLifetimeScope<FormsRoleProvider>("The forms authenticator just calls into ASP.NET code - may as well re-use the same instance in a request.");
+            PerLifetimeScope<FormsFunnelWebMembership>("The forms authenticator just calls into ASP.NET code - may as well re-use the same instance in a request.");
+            PerLifetimeScope<SqlAuthenticator>("Uses factories to get as session, so could be anything really.");
+            PerLifetimeScope<SqlRoleProvider>("Uses factories to get as session, so could be anything really.");
+            PerLifetimeScope<SqlFunnelWebMembership>("Uses factories to get as session, so could be anything really.");
 
             // HTTP abstractions, therefore obviously per request   
             PerLifetimeScope<HttpServerUtilityBase>("Comes from HTTP context");

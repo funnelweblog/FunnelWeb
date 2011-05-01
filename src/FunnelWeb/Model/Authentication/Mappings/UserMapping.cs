@@ -1,6 +1,7 @@
-﻿using FluentNHibernate.Mapping;
+﻿using System;
+using FluentNHibernate.Mapping;
 
-namespace FunnelWeb.Extensions.SqlAuthentication.Model.Mappings
+namespace FunnelWeb.Model.Authentication.Mappings
 {
     public class UserMapping : ClassMap<User>
     {

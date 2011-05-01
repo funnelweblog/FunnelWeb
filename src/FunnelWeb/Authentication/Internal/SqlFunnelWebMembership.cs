@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Security;
-using FunnelWeb.Extensions.SqlAuthentication.Model;
+using FunnelWeb.Model.Authentication;
 using NHibernate;
 
-namespace FunnelWeb.Extensions.SqlAuthentication
+namespace FunnelWeb.Authentication.Internal
 {
-    public class FunnelWebSqlMembership : IFunnelWebSqlMembership
+    public class SqlFunnelWebMembership : IFunnelWebMembership
     {
         public bool HasAdminAccount()
         {

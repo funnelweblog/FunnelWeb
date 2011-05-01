@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Linq;
-using FunnelWeb.Authentication;
 using FunnelWeb.DatabaseDeployer;
-using FunnelWeb.Extensions.SqlAuthentication.Model;
+using FunnelWeb.Model.Authentication;
 using FunnelWeb.Settings;
 using NHibernate;
 
-namespace FunnelWeb.Extensions.SqlAuthentication
+namespace FunnelWeb.Authentication.Internal
 {
     public class SqlRoleProvider : IRoleProvider
     {

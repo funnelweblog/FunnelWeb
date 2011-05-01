@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using FunnelWeb.Model.Authentication;
 
-namespace FunnelWeb.Extensions.SqlAuthentication.Model
+namespace FunnelWeb.Web.Areas.Admin.Views.SqlAuthentication
 {
     public class IndexModel
     {

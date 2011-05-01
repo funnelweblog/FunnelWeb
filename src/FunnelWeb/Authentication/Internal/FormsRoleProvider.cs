@@ -1,4 +1,6 @@
-﻿namespace FunnelWeb.Authentication
+﻿using System;
+
+namespace FunnelWeb.Authentication.Internal
 {
     public class FormsRoleProvider : IRoleProvider
     {
