@@ -36,6 +36,7 @@ namespace FunnelWeb.Web.Areas.Admin.Views.SqlAuthentication
         [StringLength(50)]
         [HintSize(HintSize.Medium)]
         [DataType(DataType.Password)]
+        [DisplayName("Repeat Password")]
         public string RepeatPassword { get; set; }
     }
 }
