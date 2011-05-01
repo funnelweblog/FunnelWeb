@@ -1647,6 +1647,11 @@
             <param name="attribute"></param>
             <returns></returns>
         </member>
+        <member name="T:NHibernate.Validator.Util.NHibernateHelper">
+            <summary>
+            Ported from NHibernate with changes
+            </summary>
+        </member>
         <member name="T:NHibernate.Validator.Util.TypeUtils">
             <summary>
             Utils methods for type issues.

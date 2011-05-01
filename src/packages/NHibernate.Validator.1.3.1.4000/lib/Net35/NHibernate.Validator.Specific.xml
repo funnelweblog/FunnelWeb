@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NHibernate.Validator.Specific</name>
+    </assembly>
+    <members>
+        <member name="T:NHibernate.Validator.Specific.Br.CEPAttribute">
+            <summary>
+            This expression matches the Brazilian Zip-Code (CEP)
+            </summary>
+        </member>
+        <member name="T:NHibernate.Validator.Specific.Br.CPFAttribute">
+            <summary>
+            This expression matches the Brazilian Zip-Code (CEP)
+            </summary>
+        </member>
+        <member name="T:NHibernate.Validator.Specific.Hr.OIBAttribute">
+            <summary>
+            This expression matches the Croatian Personal Identification Number (OIB - Osobni Identifikacijski Broj).
+            </summary>
+        </member>
+        <member name="T:NHibernate.Validator.Specific.Hr.OIBValidator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NHibernate.Validator.Specific.Hr.OIBValidator.IsValid(System.Object,NHibernate.Validator.Engine.IConstraintValidatorContext)">
+            <summary>
+            does the object/element pass the constraints
+            </summary>
+            <param name="value">Object to be validated</param>
+            <param name="constraintValidatorContext">Context for the validator constraint</param>
+            <returns>if the instance is valid</returns>
+        </member>
+        <member name="M:NHibernate.Validator.Specific.Hr.OIBValidator.CheckOib(System.String)">
+            <summary>
+            Checks the Croatian Personal Identification Number (OIB - Osobni Identifikacijski Broj). 
+            Algoritham is ISO7064 MOD 11,10
+            </summary>
+            <param name="oib">The oib.</param>
+            <returns>True if OIB is valid else false.</returns>
+        </member>
+        <member name="T:NHibernate.Validator.Specific.It.CodiceFiscaleAttribute">
+            <summary>
+            This expression matches the Italian Fiscal Code.
+            </summary>
+        </member>
+        <member name="T:NHibernate.Validator.Specific.It.PartitaIvaAttribute">
+            <summary>
+            This expression matches an Italian Partita Iva Code.
+            </summary>
+        </member>
+        <member name="T:NHibernate.Validator.Specific.It.PartitaIvaValidator">
+            <summary>
+            Validator Partita IVA
+            </summary>
+        </member>
+        <member name="T:NHibernate.Validator.Specific.Pl.NIPAttribute">
+            <summary>
+            This expression matches the Polish Tax Number (NIP)
+            </summary>
+        </member>
+        <member name="T:NHibernate.Validator.Specific.Pl.PESELAttribute">
+            <summary>
+            This expression matches the Polish Identification Number (PESEL)
+            </summary>
+        </member>
+        <member name="T:NHibernate.Validator.Specific.Pl.PostalCodeAttribute">
+            <summary>
+            This expression matches the Polish postal code
+            </summary>
+        </member>
+        <member name="T:NHibernate.Validator.Specific.Pl.REGONAttribute">
+            <summary>
+            This expression matches the Polish National Business Register Number (REGON)
+            </summary>
+        </member>
+        <member name="T:NHibernate.Validator.Specific.Uy.CedulaIdentidadAttribute">
+            <summary>
+            This expression matches an Uruguayan identity card.
+            </summary>
+        </member>
+        <member name="T:NHibernate.Validator.Specific.Uy.CedulaIdentidadValidator">
+            <summary>
+            Validator Cedula identidad
+            </summary>
+        </member>
+    </members>
+</doc>

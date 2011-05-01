@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="nhv-configuration" targetNamespace="urn:nhv-configuration-1.0" xmlns="urn:nhv-configuration-1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:NS="urn:nhv-configuration-1.0">
+	<xs:element name="mapping">
+		<xs:annotation>
+			<xs:documentation>
+			There are 3 possible combinations of mapping attributes
+			1 - resource &amp; assembly:  NHV will read the mapping resource from the specified assembly
+			2 - file only: NHV will read the mapping from the file.
+			3 - assembly only: NHV will find all the resources ending in nvv.xml from the assembly.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="resource" />
+			<xs:attribute name="file" />
+			<xs:attribute name="assembly" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="entity-type-inspector">
+		<xs:complexType>
+			<xs:attribute name="class" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="property">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="name" use="required">
+						<xs:simpleType>
+							<xs:annotation>
+								<xs:documentation>
+									Default values:
+									apply_to_ddl= true;
+									autoregister_listeners= true;
+									message_interpolator_class=null (example: YourNameSpace.YourInterpolator, YourAssembly);
+									external_mappings_loader_class=NHibernate.Validator.Cfg.XmlMappingLoader;
+									default_validator_mode= UseAttribute (see NHibernate.Validator.Engine.ValidatorMode for others values)
+									resource_manager=null (example: YourFullNameSpace.TheBaseNameOfTheResourceFileWithoutExtensionNorCulture, YourAssembly);
+								</xs:documentation>
+							</xs:annotation>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="apply_to_ddl" />
+								<xs:enumeration value="autoregister_listeners" />
+								<xs:enumeration value="external_mappings_loader_class" />
+								<xs:enumeration value="message_interpolator_class" />
+								<xs:enumeration value="default_validator_mode" />
+								<xs:enumeration value="constraint_validator_factory" />
+								<xs:enumeration value="resource_manager" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="nhv-configuration">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="property" minOccurs="0" maxOccurs="unbounded" />
+				<xs:element ref="mapping" minOccurs="0" maxOccurs="unbounded" />
+				<xs:element ref="entity-type-inspector" minOccurs="0" maxOccurs="unbounded" />
+				<xs:element ref="shared_engine_provider" minOccurs="0" maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="shared_engine_provider">
+		<xs:complexType>
+			<xs:sequence>
+			</xs:sequence>
+			<xs:attribute name="class" type="xs:string" />
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
