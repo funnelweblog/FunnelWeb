@@ -7,14 +7,14 @@ namespace FunnelWeb.Web.Views.Wiki
 {
     public class SiteMapModel
     {
-        public SiteMapModel(IEnumerable<Entry> entries)
+        public SiteMapModel(IEnumerable<EntryRevision> entries)
         {
-            Entries = entries.OrderByDescending(x => Prioritize(x)).ToList();
+            Entries = entries.OrderByDescending(Prioritize).ToList();
         }
 
-        public IEnumerable<Entry> Entries { get; set; }
+        public IEnumerable<EntryRevision> Entries { get; set; }
 
-        public double Prioritize(Entry entry)
+        public double Prioritize(EntryRevision entry)
         {
             // I use the number of comments as an indicator of the popularity. For example:
             //  15+ comments => 0.5 + (1*0.5) = 1.0

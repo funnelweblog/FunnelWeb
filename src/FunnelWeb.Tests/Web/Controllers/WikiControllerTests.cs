@@ -49,7 +49,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         [Test]
         public void Search()
         {
-            var entries = Substitute.For<IEnumerable<Entry>>();
+            var entries = Substitute.For<IEnumerable<EntryRevision>>();
             EntryRepository.Search(Arg.Is("search")).Returns(entries);
 
             var result = (ViewResult)Controller.Search("search", false);
@@ -75,7 +75,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         [Test]
         public void WikiControllerTestsPageReturnsNotFoundForNewPageAndNotLoggedIn()
         {
-            var entries = new List<Entry>();
+            var entries = new List<EntryRevision>();
             EntryRepository.GetEntry(Arg.Any<PageName>(), Arg.Any<int>()).Returns(x => null);
             EntryRepository.Search(Arg.Any<string>()).Returns(entries);
             Identity.IsAuthenticated.Returns(false);
@@ -96,7 +96,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         [Test]
         public void WikiControllerTestsPageReturnsFoundPage()
         {
-            var entry = new Entry { Name = "page" };
+            var entry = new EntryRevision { Name = "page" };
             EntryRepository.GetEntry(Arg.Any<PageName>(), Arg.Any<int>()).Returns(entry);
 
             Controller.Page(entry.Name, (int?)null);

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Strings;
+using FunnelWeb.Mvc;
 using FunnelWeb.Web.Application.Mvc;
 
 namespace FunnelWeb.Web.Views.Wiki
@@ -15,18 +16,14 @@ namespace FunnelWeb.Web.Views.Wiki
             
         }
 
-        public PageModel(PageName page, Entry entry, int? revision = null)
+        public PageModel(PageName page, EntryRevision entry)
         {
             Page = page;
             Entry = entry;
-            Revision = entry.Revision(revision);
-            IsPriorVersion = revision > 0 && revision < entry.LatestRevision.RevisionNumber;
         }
 
-        public bool IsPriorVersion { get; set; }
         public PageName Page { get; set; }
-        public Entry Entry { get; set; }
-        public Revision Revision { get; set; }
+        public EntryRevision Entry { get; set; }
 
         [DisplayName("Name")]
         [Required]

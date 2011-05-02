@@ -1,4 +1,6 @@
-﻿namespace FunnelWeb.Web.Application.Mvc
+﻿using System;
+
+namespace FunnelWeb.Mvc
 {
     public enum HintSize
     {

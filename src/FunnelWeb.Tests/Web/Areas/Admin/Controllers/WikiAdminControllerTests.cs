@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
-using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
-using FunnelWeb.Model.Repositories.Internal;
 using FunnelWeb.Model.Strings;
 using FunnelWeb.Web.Application.Spam;
 using FunnelWeb.Web.Areas.Admin.Controllers;
-using FunnelWeb.Web.Areas.Admin.Views.WikiAdmin;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -43,14 +40,12 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
             User = Substitute.For<IPrincipal>();
             User.Identity.Returns(Identity);
             ControllerContext.HttpContext.User.Returns(User);
-
         }
-
 
         [Test]
         public void EditReturnsExistingPageWhenFound()
         {
-            var entry = new Entry { Name = "awesome-post", LatestRevision = new Revision() };
+            var entry = new EntryRevision { Name = "awesome-post" };
             EntryRepository.GetEntry(Arg.Any<PageName>(), Arg.Any<int>()).Returns(entry);
 
             var feeds = new List<Tag>().AsQueryable();
@@ -59,8 +54,8 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
             var result = (ViewResult)AdminController.Edit(entry.Name, null);
 
             Assert.AreEqual("Edit", result.ViewName);
-            Assert.AreEqual(feeds, ((EditModel)result.ViewData.Model).AllTags);
-            Assert.AreEqual(entry.Name.ToString(), ((EditModel)result.ViewData.Model).Page);
+            Assert.AreEqual(feeds, ((EntryRevision)result.ViewData.Model).AllTags);
+            Assert.AreEqual(entry.Name.ToString(), ((EntryRevision)result.ViewData.Model).Name.ToString());
 
             EntryRepository.Received().GetEntry(Arg.Any<PageName>(), Arg.Any<int>());
             FeedRepository.Received().GetTags();

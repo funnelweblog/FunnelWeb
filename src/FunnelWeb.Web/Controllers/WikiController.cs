@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Web.Mvc;
 using FunnelWeb.Eventing;
 using FunnelWeb.Filters;
@@ -37,7 +36,7 @@ namespace FunnelWeb.Web.Controllers
                 {
                     ViewData.Model = new PageModel(entry.Name, entry);
                     return new PageTemplateActionResult(
-                        pageTemplate: entry.PageTemplate, 
+                        pageTemplate: entry.PageTemplate,
                         actionName: "Page"
                     );
                 }
@@ -50,7 +49,8 @@ namespace FunnelWeb.Web.Controllers
         {
             var entries = FeedRepository.GetRecentEntries(pageNumber * ItemsPerPage, ItemsPerPage);
             var totalItems = FeedRepository.GetEntryCount();
-            ViewData.Model = new RecentModel("Recent Posts", entries, pageNumber, (int)((decimal)totalItems / ItemsPerPage + 1), ControllerContext.RouteData.Values["action"].ToString());
+            var totalPages = (int)((decimal)totalItems / ItemsPerPage + 1);
+            ViewData.Model = new RecentModel("Recent Posts", entries, pageNumber, totalPages, ControllerContext.RouteData.Values["action"].ToString());
             return View("Recent");
         }
 
@@ -64,16 +64,17 @@ namespace FunnelWeb.Web.Controllers
         {
             if (revision != null && !SettingsProvider.GetSettings<FunnelWebSettings>().EnablePublicHistory)
             {
-                return RedirectToAction("Page", "Wiki", new { page, revision = (int?)null});
+                return RedirectToAction("Page", "Wiki", new { page, revision = (int?)null });
             }
 
-            var entry = EntryRepository.GetEntry(page, revision ?? 0);
+            var entry = revision == null
+                            ? EntryRepository.GetEntry(page)
+                            : EntryRepository.GetEntry(page, revision.Value);
+
             if (entry == null)
             {
                 if (HttpContext.User.Identity.IsAuthenticated)
-                {
-					return RedirectToAction("Edit", "WikiAdmin", new { Area = "Admin", page });
-                }
+                    return RedirectToAction("Edit", "WikiAdmin", new { Area = "Admin", page });
                 return Search(page, true);
             }
 
@@ -82,7 +83,7 @@ namespace FunnelWeb.Web.Controllers
                 return Search(page, true);
             }
 
-            ViewData.Model = new PageModel(page, entry, revision);
+            ViewData.Model = new PageModel(page, entry);
             return new PageTemplateActionResult(
                 pageTemplate: entry.PageTemplate
             );
@@ -99,19 +100,17 @@ namespace FunnelWeb.Web.Controllers
             if (!ModelState.IsValid)
             {
                 model.Entry = entry;
-                model.IsPriorVersion = false;
                 model.Page = page;
-                model.Revision = entry.Revisions.Last();
                 ViewData.Model = model;
                 return new PageTemplateActionResult(entry.PageTemplate, "Page");
             }
 
-            var comment = entry.Comment();
+            var comment = entry.Entry.Value.Comment();
             comment.AuthorEmail = model.CommenterEmail ?? string.Empty;
             comment.AuthorName = model.CommenterName ?? string.Empty;
             comment.AuthorUrl = model.CommenterBlog ?? string.Empty;
             comment.AuthorIp = Request.UserHostAddress;
-            comment.EntryRevisionNumber = entry.LatestRevision.RevisionNumber;
+            comment.EntryRevisionNumber = entry.LatestRevisionNumber;
             comment.Body = model.Comments;
 
             try
@@ -130,12 +129,12 @@ namespace FunnelWeb.Web.Controllers
                 comment.IsSpam = true;
             }
 
-            EntryRepository.Save(entry);
+            EntryRepository.Save(entry.Entry.Value);
 
-            EventPublisher.Publish(new CommentPostedEvent(entry, comment));
+            EventPublisher.Publish(new CommentPostedEvent(entry.Entry.Value, comment));
 
             return RedirectToAction("Page", new { page })
-				.AndFlash("Thanks, your comment has been posted.");
+                .AndFlash("Thanks, your comment has been posted.");
         }
 
         public virtual ActionResult Revisions(PageName page)
@@ -152,14 +151,14 @@ namespace FunnelWeb.Web.Controllers
                 return RedirectToAction("Edit", "WikiAdmin", new { page });
             }
 
-            ViewData.Model = new RevisionsModel(page, entry);
+            ViewData.Model = new RevisionsModel(page, entry.Entry.Value);
             return View();
         }
 
         public virtual ActionResult SiteMap()
         {
-            var allPosts = EntryRepository.GetEntries().OrderBy(x => x.Published).ToList();
-            ViewData.Model = new SiteMapModel(allPosts);
+            var allPosts = EntryRepository.GetEntries(0, null);
+            ViewData.Model = new SiteMapModel(allPosts.Item1);
             return View();
         }
     }

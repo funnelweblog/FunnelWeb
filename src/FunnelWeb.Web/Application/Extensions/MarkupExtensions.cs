@@ -14,6 +14,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using FunnelWeb.Model;
+using FunnelWeb.Mvc;
 using FunnelWeb.Settings;
 using FunnelWeb.Web.Application.Markup;
 using FunnelWeb.Web.Application.Mvc;
@@ -105,7 +106,7 @@ namespace FunnelWeb.Web.Application.Extensions
                 ));
         }
 
-        public static IHtmlString CommentedAtRevision(this HtmlHelper html, Comment comment, Revision revision)
+        public static IHtmlString CommentedAtRevision(this HtmlHelper html, Comment comment, EntryRevision revision)
         {
             if (Settings(html).EnablePublicHistory == false)
                 return MvcHtmlString.Empty;
@@ -178,7 +179,19 @@ namespace FunnelWeb.Web.Application.Extensions
         static readonly Regex keywordReplace = new Regex(@"[ &\.#]+", RegexOptions.Compiled);
         public static IEnumerable<MvcHtmlString> CssKeywordsFor(this HtmlHelper html, EntrySummary entry)
         {
-            return from k in entry.Tags.Select(x => keywordReplace.Replace(x.Name, "-"))
+            var tags = entry.Tags;
+            return CssKeywordsFor(tags);
+        }
+
+        public static IEnumerable<MvcHtmlString> CssKeywordsFor(this HtmlHelper html, EntryRevision entry)
+        {
+            var tags = entry.Tags;
+            return CssKeywordsFor(tags);
+        }
+
+        private static IEnumerable<MvcHtmlString> CssKeywordsFor(IEnumerable<Tag> tags)
+        {
+            return from k in tags.Select(x => keywordReplace.Replace(x.Name, "-"))
                    let w = k.Trim()
                    where keyword.IsMatch(w)
                    select MvcHtmlString.Create("keyword-" + w);

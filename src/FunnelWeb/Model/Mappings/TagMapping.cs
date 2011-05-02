@@ -12,7 +12,6 @@ namespace FunnelWeb.Model.Mappings
                 .Table("TagItem")
                 .ParentKeyColumn("TagId")
                 .ChildKeyColumn("EntryId")
-                .AsSet()
                 .Inverse()
                 .LazyLoad();
         }

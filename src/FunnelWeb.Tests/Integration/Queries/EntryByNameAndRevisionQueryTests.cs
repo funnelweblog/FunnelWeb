@@ -2,6 +2,7 @@
 using FunnelWeb.Model;
 using FunnelWeb.Repositories.Queries;
 using FunnelWeb.Tests.Helpers;
+using NHibernate;
 using NUnit.Framework;
 
 namespace FunnelWeb.Tests.Integration.Queries
@@ -9,7 +10,8 @@ namespace FunnelWeb.Tests.Integration.Queries
     [TestFixture]
     public class EntryByNameAndRevisionQueryTests : IntegrationTest
     {
-        public EntryByNameAndRevisionQueryTests() : base(TheDatabase.CanBeDirty)
+        public EntryByNameAndRevisionQueryTests()
+            : base(TheDatabase.CanBeDirty)
         {
         }
 
@@ -60,10 +62,10 @@ namespace FunnelWeb.Tests.Integration.Queries
                 repo =>
                 {
                     var entry = repo.FindFirst(new EntryByNameAndRevisionQuery(name, 1));
-                    Assert.AreEqual("Hello", entry.LatestRevision.Body);
+                    Assert.AreEqual("Hello", entry.Body);
 
                     entry = repo.FindFirst(new EntryByNameAndRevisionQuery(name, 2));
-                    Assert.AreEqual("Goodbye", entry.LatestRevision.Body);
+                    Assert.AreEqual("Goodbye", entry.Body);
                 });
         }
     }

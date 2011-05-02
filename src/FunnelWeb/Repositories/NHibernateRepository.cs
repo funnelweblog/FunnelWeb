@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using NHibernate;
 
 namespace FunnelWeb.Repositories
@@ -18,16 +19,21 @@ namespace FunnelWeb.Repositories
             return session.Load<TEntity>(id);
         }
 
-        public IList<TEntity> FindAll<TEntity>() where TEntity : class
+        public IEnumerable<TEntity> FindAll<TEntity>() where TEntity : class
         {
             return session
-                .CreateCriteria<TEntity>()
+                .QueryOver<TEntity>()
                 .List<TEntity>();
         }
 
-        public IList<TEntity> Find<TEntity>(IQuery<TEntity> query) where TEntity : class
+        public IEnumerable<TEntity> Find<TEntity>(IQuery<TEntity> query) where TEntity : class
         {
             return query.Execute(session);
+        }
+
+        public IEnumerable<TEntity> Find<TEntity>(IQueryWithCount<TEntity> query, int skip, int take, out int totalCount) where TEntity : class
+        {
+            return query.Execute(session, skip, take, out totalCount);
         }
 
         public TEntity FindFirst<TEntity>(IQuery<TEntity> query) where TEntity : class
@@ -55,14 +61,15 @@ namespace FunnelWeb.Repositories
             session.Delete(entity);
         }
 
-        private T One<T>(IList<T> items, bool throwIfNone)
+        private T One<T>(IEnumerable<T> items, bool throwIfNone)
         {
-            if (throwIfNone && items.Count == 0)
+            var itemsList = items.ToList();
+            if (throwIfNone && itemsList.Count == 0)
             {
                 throw new Exception(string.Format("Expected at least one '{0}' in the query results", typeof(T).Name));
             }
-            return items.Count > 0 
-                       ? items[0] 
+            return itemsList.Count > 0
+                       ? itemsList[0]
                        : default(T);
         }
     }

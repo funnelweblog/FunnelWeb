@@ -7,7 +7,6 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
-using Autofac;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Web.Application.Spam;
@@ -56,7 +55,7 @@ namespace FunnelWeb.Web.Application.Pingbacks
                 }
 
                 var pingback = new Pingback();
-                pingback.Entry = entry;
+                pingback.Entry = entry.Entry.Value;
                 pingback.TargetUri = sourceUri.ToString().ToLowerInvariant();
                 pingback.TargetTitle = string.Empty;
 

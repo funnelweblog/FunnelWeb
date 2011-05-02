@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NHibernate;
+using NHibernate.Criterion;
 using NHibernate.Linq;
 
 namespace FunnelWeb.Model.Repositories.Internal
@@ -15,19 +16,19 @@ namespace FunnelWeb.Model.Repositories.Internal
             this.session = session;
         }
 
-        public IQueryable<Tag> GetTags()
+        public IEnumerable<Tag> GetTags()
         {
             return GetTags(string.Empty);
         }
 
-        public IQueryable<Tag> GetTags(string tagName)
+        public IEnumerable<Tag> GetTags(string tagName)
         {
             tagName = tagName ?? string.Empty;
 
-            return from tag in session.Query<Tag>()
-                   where tag.Name.Contains(tagName)
-                   select tag;
-
+            return session
+                .QueryOver<Tag>()
+                .WhereRestrictionOn(tag=>tag.Name).IsLike(tagName, MatchMode.Anywhere)
+                .Future();
         }
 
         public IEnumerable<Entry> GetTaggedItems(string tagName, int skip, int take)
@@ -36,8 +37,7 @@ namespace FunnelWeb.Model.Repositories.Internal
                 .Where(t => t.Name == tagName);
 
             var entries = tags
-                .Left
-                    .JoinQueryOver<Entry>(i => i.Entries);
+                .Left.JoinQueryOver<Entry>(i => i.Entries);
 
             var results = entries
                 .Where(e => e.Published < DateTime.UtcNow.Date.AddDays(1))

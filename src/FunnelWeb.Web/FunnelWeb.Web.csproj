@@ -167,14 +167,12 @@
     <Compile Include="Application\Mvc\ActionResults\FeedResult.cs" />
     <Compile Include="Application\Mvc\ActionResults\XmlActionResult.cs" />
     <Compile Include="Application\Mvc\FunnelWebControllerFactory.cs" />
-    <Compile Include="Application\Mvc\HintSize.cs" />
     <Compile Include="Application\Mvc\Binders\ArrayBinder.cs" />
     <Compile Include="Application\Mvc\Binders\ImplicitAssignmentBinder.cs" />
     <Compile Include="Application\Mvc\Binders\UploadBinder.cs" />
     <Compile Include="Application\Extensions\MarkupExtensions.cs" />
     <Compile Include="Application\Extensions\ViewDataDictionaryExtensions.cs" />
     <Compile Include="Application\ForceLowercaseUrlHttpModule.cs" />
-    <Compile Include="Application\Mvc\HintSizeAttribute.cs" />
     <Compile Include="Application\Mvc\HtmlHelperExtensions.cs" />
     <Compile Include="Application\Mvc\LowercaseRoute.cs" />
     <Compile Include="Application\Extensions\MobileExtensions.cs" />
@@ -206,7 +204,6 @@
     <Compile Include="Areas\Admin\Views\SqlAuthentication\NewUser.cs" />
     <Compile Include="Areas\Admin\Views\SqlAuthentication\SetupModel.cs" />
     <Compile Include="Areas\Admin\Views\Install\ExtensionVersion.cs" />
-    <Compile Include="Areas\Admin\Views\WikiAdmin\EditModel.cs" />
     <Compile Include="Areas\Admin\Views\WikiAdmin\ReviseModel.cs" />
     <Compile Include="Areas\Admin\Views\WikiAdmin\RevisionsModel.cs" />
     <Compile Include="Controllers\TagController.cs" />
@@ -222,7 +219,7 @@
     <Compile Include="Areas\Admin\Views\Install\UpgradeModel.cs" />
     <Compile Include="Areas\Admin\Views\Login\LoginModel.cs" />
     <Compile Include="Areas\Admin\Views\Upload\IndexModel.cs" />
-    <Compile Include="Application\Mvc\Binders\EditModelBinder.cs" />
+    <Compile Include="Application\Mvc\Binders\EntryRevisionBinder.cs" />
     <Compile Include="Application\Mvc\NotFromValuesListConstraint.cs" />
     <Compile Include="Controllers\TaggedController.cs" />
     <Compile Include="Application\Extensibility.cs" />

@@ -144,6 +144,8 @@ namespace FunnelWeb.Tests
                 .Where(x => !seenTypes.Any(s => s == x.ServiceType))
                 .Where(x => !x.ServiceType.Namespace.StartsWith("Autofac"))                 // We don't care about internal Autofac types
                 .Where(x => !x.ServiceType.FullName.Contains("IContainerAwareComponent"))   // Some whacky Autofac thing I don't understand
+                //new version of autofac seems to register a IEnumerable<Autofac.IStartable>
+                .Where(x => x.ServiceType.IsGenericType && !x.ServiceType.GetGenericArguments()[0].Namespace.StartsWith("Autofac")) 
                 .ToList();
 
             if (typesNotTested.Count == 0)

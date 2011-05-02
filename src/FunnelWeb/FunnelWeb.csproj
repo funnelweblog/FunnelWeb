@@ -125,14 +125,21 @@
     <Compile Include="Model\Authentication\Mappings\UserMapping.cs" />
     <Compile Include="Model\Authentication\Role.cs" />
     <Compile Include="Model\Authentication\User.cs" />
-    <Compile Include="Model\EntryExtensions.cs" />
+    <Compile Include="Model\EntryRevision.cs" />
     <Compile Include="Model\Mappings\RevisionFilter.cs" />
     <Compile Include="Model\EntrySummary.cs" />
-    <Compile Include="Repositories\Queries\EntryByNameAndRevisionQuery.cs" />
+    <Compile Include="Mvc\HintSize.cs" />
+    <Compile Include="Mvc\HintSizeAttribute.cs" />
+    <Compile Include="Repositories\Queries\EntriesSortColumn.cs" />
     <Compile Include="Repositories\ICommand.cs" />
     <Compile Include="Repositories\IQuery.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\NHibernateRepository.cs" />
+    <Compile Include="Repositories\Projections\EntryRevisionProjections.cs" />
+    <Compile Include="Repositories\Queries\EntryByNameQuery.cs" />
+    <Compile Include="Repositories\Queries\EntryByNameAndRevisionQuery.cs" />
+    <Compile Include="Repositories\Queries\GetEntriesQuery.cs" />
+    <Compile Include="Repositories\IQueryWithCount.cs" />
     <Compile Include="RoutableFunnelWebExtension.cs" />
     <Compile Include="Settings\IBootstrapSettings.cs" />
     <Compile Include="Settings\ISettings.cs" />
@@ -150,10 +157,6 @@
     <Compile Include="Model\TaskState.cs" />
     <Compile Include="Model\Tag.cs" />
     <Compile Include="Model\Comment.cs" />
-    <Compile Include="Model\Comparers\CommentComparer.cs" />
-    <Compile Include="Model\Comparers\PingbackComparer.cs" />
-    <Compile Include="Model\Comparers\RevisionComparer.cs" />
-    <Compile Include="Model\Comparers\RevisionWithSameEntityComparer.cs" />
     <Compile Include="Model\Entry.cs" />
     <Compile Include="Model\EntryStatus.cs" />
     <Compile Include="Model\Repositories\IFeedRepository.cs" />
@@ -275,6 +278,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0026.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0027.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

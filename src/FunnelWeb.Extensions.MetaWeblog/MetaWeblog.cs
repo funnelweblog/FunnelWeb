@@ -14,25 +14,25 @@ namespace FunnelWeb.Extensions.MetaWeblog
 {
     public class MetaWeblog : XmlRpcService, IMetaWeblog
     {
-        private readonly FunnelWebSettings _funnelWebSettings;
-        private readonly ISettingsProvider _settingsProvider;
-        private readonly IEntryRepository _entryRepository;
-        private readonly ISession _session;
-        private readonly IFileRepository _fileRepository;
-        private readonly IAuthenticator _authenticator;
-        private readonly ITagRepository _tagRepository;
+        private readonly FunnelWebSettings funnelWebSettings;
+        private readonly ISettingsProvider settingsProvider;
+        private readonly IEntryRepository entryRepository;
+        private readonly ISession session;
+        private readonly IFileRepository fileRepository;
+        private readonly IAuthenticator authenticator;
+        private readonly ITagRepository tagRepository;
 
         public MetaWeblog(ISettingsProvider settingsProvider, IEntryRepository entryRepository, 
             ISession session, IFileRepository fileRepository, IAuthenticator authenticator,
             ITagRepository tagRepository)
         {
-            _settingsProvider = settingsProvider;
-            _entryRepository = entryRepository;
-            _session = session;
-            _fileRepository = fileRepository;
-            _authenticator = authenticator;
-            _tagRepository = tagRepository;
-            _funnelWebSettings = _settingsProvider.GetSettings<FunnelWebSettings>();
+            this.settingsProvider = settingsProvider;
+            this.entryRepository = entryRepository;
+            this.session = session;
+            this.fileRepository = fileRepository;
+            this.authenticator = authenticator;
+            this.tagRepository = tagRepository;
+            funnelWebSettings = this.settingsProvider.GetSettings<FunnelWebSettings>();
         }
 
         public string AddPost(string blogid, string username, string password, Post post, bool publish)
@@ -55,10 +55,10 @@ namespace FunnelWeb.Extensions.MetaWeblog
         {
             if (ValidateUser(username, password))
             {
-                using (var transaction = _session.BeginTransaction(IsolationLevel.Serializable))
+                using (var transaction = session.BeginTransaction(IsolationLevel.Serializable))
                 {
-                    var author = _authenticator.GetName();
-                    var entry = _entryRepository.GetEntry(Int32.Parse(postid)) ?? new Entry { Author = author};
+                    var author = authenticator.GetName();
+                    var entry = entryRepository.GetEntry(Int32.Parse(postid)) ?? new Entry { Author = author};
                     entry.Name = post.permalink;
                     entry.Title = post.title ?? string.Empty;
                     entry.Summary = post.mt_excerpt ?? string.Empty;
@@ -89,18 +89,18 @@ namespace FunnelWeb.Extensions.MetaWeblog
                         tag.Remove(entry);
                     foreach (var tag in toAdd)
                     {
-                        var existingTag = _tagRepository.GetTag(tag);
+                        var existingTag = tagRepository.GetTag(tag);
                         if (existingTag == null)
                         {
                             existingTag = new Tag { Name = tag };
-                            _tagRepository.Save(existingTag);
+                            tagRepository.Save(existingTag);
                         }
                         existingTag.Add(entry);
                     }
 
-                    _entryRepository.Save(entry);
+                    entryRepository.Save(entry);
 
-                    _session.Flush();
+                    session.Flush();
                     transaction.Commit();
 
                     return entry;
@@ -113,7 +113,7 @@ namespace FunnelWeb.Extensions.MetaWeblog
         {
             if (ValidateUser(username, password))
             {
-                var entry = _entryRepository.GetEntry(Int32.Parse(postid));
+                var entry = entryRepository.GetEntry(Int32.Parse(postid));
 
                 return entry != null ? ConvertToPost(entry) : new Post();
             }
@@ -126,7 +126,7 @@ namespace FunnelWeb.Extensions.MetaWeblog
             {
                 //TODO implement a tagged rss feed, and update url
 
-                return _tagRepository.GetTags()
+                return tagRepository.GetTags()
                     .ToList()
                     .Select(t => new CategoryInfo
                                      {
@@ -147,8 +147,9 @@ namespace FunnelWeb.Extensions.MetaWeblog
         {
             if (ValidateUser(username, password))
             {
-                var entries = _entryRepository.GetEntries().Take(numberOfPosts)
-                    .Select(ConvertToPost)
+                var entries = entryRepository.GetEntries(0, numberOfPosts)
+                    .Item1
+                    .Select(p=>ConvertToPost(p.Entry.Value))
                     .ToArray();
 
                 return entries;
@@ -167,11 +168,11 @@ namespace FunnelWeb.Extensions.MetaWeblog
                 using (var memoryStream = new MemoryStream(mediaObject.bits))
                 {
                     var fileName = Path.GetFileNameWithoutExtension(mediaObject.name) + "_" + DateTime.Now.Ticks + Path.GetExtension(mediaObject.name);
-                    var fullPath = _fileRepository.MapPath(fileName);
+                    var fullPath = fileRepository.MapPath(fileName);
 
-                    objectInfo.url = VirtualPathUtility.ToAbsolute(_funnelWebSettings.UploadPath + "/" + fileName);
+                    objectInfo.url = VirtualPathUtility.ToAbsolute(funnelWebSettings.UploadPath + "/" + fileName);
 
-                    _fileRepository.Save(memoryStream, fullPath, false);
+                    fileRepository.Save(memoryStream, fullPath, false);
                 }
 
                 return objectInfo;
@@ -183,11 +184,11 @@ namespace FunnelWeb.Extensions.MetaWeblog
         {
             if (ValidateUser(username, password))
             {
-                using (var transaction = _session.BeginTransaction(IsolationLevel.Serializable))
+                using (var transaction = session.BeginTransaction(IsolationLevel.Serializable))
                 {
-                    _entryRepository.Delete(Int32.Parse(postid));
+                    entryRepository.Delete(Int32.Parse(postid));
 
-                    _session.Flush();
+                    session.Flush();
                     transaction.Commit();
                 }
                 return true;
@@ -204,7 +205,7 @@ namespace FunnelWeb.Extensions.MetaWeblog
 
                 var blogInfo = new BlogInfo
                                    {
-                                       blogName = _funnelWebSettings.SiteTitle,
+                                       blogName = funnelWebSettings.SiteTitle,
                                        url = homepageUri.ToString(),
                                        blogid = "FunnelWeb"
                                    };
@@ -229,7 +230,7 @@ namespace FunnelWeb.Extensions.MetaWeblog
 
         private bool ValidateUser(string username, string password)
         {
-            return _authenticator.AuthenticateAndLogin(username, password);
+            return authenticator.AuthenticateAndLogin(username, password);
         }
 
         private static Post ConvertToPost(Entry entry)

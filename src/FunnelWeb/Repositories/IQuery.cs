@@ -3,8 +3,9 @@ using NHibernate;
 
 namespace FunnelWeb.Repositories
 {
-    public interface IQuery<TResult>
+    public interface IQuery<out TResult>
     {
-        IList<TResult> Execute(ISession session);
+        IEnumerable<TResult> Execute(ISession session);
+        IEnumerable<TResult> Execute(ISession session, int skip, int take);
     }
 }

@@ -1,18 +1,17 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using FunnelWeb.Model.Strings;
 
 namespace FunnelWeb.Model.Repositories
 {
     public interface IEntryRepository
     {
-        IQueryable<Entry> GetEntries();
-        IEnumerable<Entry> GetUnpublished();
+        Tuple<IEnumerable<EntryRevision>, int> GetEntries(int skip, int? take);
         Entry GetEntry(int id);
-        Entry GetEntry(PageName name);
-        Entry GetEntry(PageName name, int revision);
+        EntryRevision GetEntry(PageName name);
+        EntryRevision GetEntry(PageName name, int revision);
         void Save(Entry entry);
-        IEnumerable<Entry> Search(string searchText);
+        IEnumerable<EntryRevision> Search(string searchText);
         void Delete(int id);
     }
 }

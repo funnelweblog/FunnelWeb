@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using FunnelWeb.Model.Strings;
-using Iesi.Collections.Generic;
 
 namespace FunnelWeb.Model
 {
@@ -18,7 +18,6 @@ namespace FunnelWeb.Model
         public virtual DateTime Published { get; set; }
         
         [DataType("Tags")]
-        public virtual ISet<Tag> Tags { get; set; }
-
+        public virtual IList<Tag> Tags { get; set; }
     }
 }

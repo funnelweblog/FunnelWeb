@@ -1,16 +1,15 @@
 ﻿using System.Web.Mvc;
-using FunnelWeb.Web.Areas.Admin.Views.WikiAdmin;
-using FunnelWeb.Web.Views.Wiki;
+using FunnelWeb.Model;
 
 namespace FunnelWeb.Web.Application.Mvc.Binders
 {
-    [ModelBinder(typeof(EditModel))]
-    public class EditModelBinder : DefaultModelBinder
+    [ModelBinder(typeof(EntryRevision))]
+    public class EntryRevisionBinder : DefaultModelBinder
     {
         public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
-            var model = base.BindModel(controllerContext, bindingContext) as EditModel;
-            model.TagsString =
+            var model = base.BindModel(controllerContext, bindingContext) as EntryRevision;
+            model.TagsCommaSeparated =
                 controllerContext.HttpContext.Request["SelectedTags-Ids"];
             return model;
         }

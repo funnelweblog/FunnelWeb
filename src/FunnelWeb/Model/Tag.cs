@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Iesi.Collections.Generic;
 
 namespace FunnelWeb.Model
 {
@@ -9,12 +9,12 @@ namespace FunnelWeb.Model
         public Tag()
         {
             Name = string.Empty;
-            Entries = new HashedSet<Entry>();
+            Entries = new List<Entry>();
         }
 
         public virtual int Id { get; private set; }
         public virtual string Name { get; set; }
-        public virtual ISet<Entry> Entries { get; private set; }
+        public virtual IList<Entry> Entries { get; private set; }
 
         public virtual void Add(Entry entry)
         {

@@ -1,12 +1,11 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using FunnelWeb.Model.Strings;
-using Iesi.Collections.Generic;
+using FunnelWeb.Repositories.Queries;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Linq;
-using NHibernate.Transform;
 
 namespace FunnelWeb.Model.Repositories.Internal
 {
@@ -19,53 +18,37 @@ namespace FunnelWeb.Model.Repositories.Internal
             this.session = session;
         }
 
-        public IQueryable<Entry> GetEntries()
+        public System.Tuple<IEnumerable<EntryRevision>, int> GetEntries(int skip, int? take)
         {
-            return session.Query<Entry>();
-        }
+            var total = default(int);
+            var entries = take == null ? 
+                new GetEntriesQuery().Execute(session) : 
+                new GetEntriesQuery().Execute(session, skip, take.Value, out total);
 
-        public IEnumerable<Entry> GetUnpublished()
-        {
-            return session.Query<Entry>().Where(x => x.Status != EntryStatus.PublicBlog)
-                .OrderByDescending(x => x.Published);
+            return Tuple.Create(entries.Select(e =>
+                                                   {
+                                                       //Entry property is lazy loaded, as majority of the time we don't need to access it
+                                                       e.Entry = session.QueryOver<Entry>().Where(entry => entry.Id == e.Id).FutureValue();
+                                                       return e;
+                                                   }), total);
         }
 
         public Entry GetEntry(int id)
         {
-            return session.QueryOver<Entry>()
+            return session
+                .QueryOver<Entry>()
                 .Where(x => x.Id == id)
-                .Fetch(x => x.Revisions).Eager()
-                .Fetch(x => x.Tags).Eager()
                 .SingleOrDefault();
         }
 
-        public Entry GetEntry(PageName name)
+        public EntryRevision GetEntry(PageName name)
         {
-            var entry = session
-                .QueryOver<Entry>()
-                .Where(e => e.Name == name)
-                .Left.JoinQueryOver(e => e.Comments)
-                .SingleOrDefault<Entry>();
-            return entry;
+            return new EntryByNameQuery(name).Execute(session).FirstOrDefault();
         }
 
-        public Entry GetEntry(PageName name, int revisionNumber)
+        public EntryRevision GetEntry(PageName name, int revisionNumber)
         {
-            if (revisionNumber <= 0) 
-                return GetEntry(name);
-
-            var entryQuery = session.QueryOver<Entry>()
-                .Where(x => x.Name == name)
-                .Fetch(x => x.Revisions).Eager;
-            session.EnableFilter("RevisionFilter").SetParameter("revisionNumber", revisionNumber);
-
-            var entry = entryQuery.SingleOrDefault();
-            var comments = session.CreateFilter(entry.Comments, "")
-                .SetFirstResult(0)
-                .SetMaxResults(500)
-                .List();
-            entry.Comments = new HashedSet<Comment>(comments.Cast<Comment>().ToList());
-            return entry;
+            return new EntryByNameAndRevisionQuery(name, revisionNumber).Execute(session).FirstOrDefault();
         }
 
         public void Delete(int id)
@@ -84,11 +67,11 @@ namespace FunnelWeb.Model.Repositories.Internal
             }
         }
 
-        public IEnumerable<Entry> Search(string searchText)
+        public IEnumerable<EntryRevision> Search(string searchText)
         {
             if (string.IsNullOrEmpty(searchText) || searchText.Trim().Length == 0)
             {
-                return new Entry[0];
+                return new EntryRevision[0];
             }
 
             var isFullTextEnabled = session.CreateSQLQuery(
@@ -100,7 +83,7 @@ namespace FunnelWeb.Model.Repositories.Internal
                 : SearchUsingLike(searchText);
         }
 
-        private IEnumerable<Entry> SearchUsingFullText(string searchText)
+        private IEnumerable<EntryRevision> SearchUsingFullText(string searchText)
         {
             var searchTerms = searchText.Split(' ', '-', '_').Where(x => !string.IsNullOrEmpty(x)).Select(x => "\"" + x + "*\"");
             var searchQuery = string.Join(" OR ", searchTerms.ToArray());
@@ -109,12 +92,12 @@ namespace FunnelWeb.Model.Repositories.Internal
                 .Where(Expression.Sql("CONTAINS(*, ?)", searchQuery, NHibernateUtil.String))
                 .And(e => e.Status != EntryStatus.Private)
                 .Take(15)
-                .List<Entry>();
+                .List<EntryRevision>();
 
             return query;
         }
 
-        public IEnumerable<Entry> SearchUsingLike(string searchText)
+        public IEnumerable<EntryRevision> SearchUsingLike(string searchText)
         {
             var searchTerms = new string(searchText.Where(x => char.IsLetterOrDigit(x) || x == ' ').ToArray());
             searchTerms = searchTerms.Replace(" ", "%");
@@ -127,7 +110,7 @@ namespace FunnelWeb.Model.Repositories.Internal
                     Restrictions.On<Entry>(e => e.Title).IsLike(searchTerms, MatchMode.Anywhere)
                 )
                 .Take(15)
-                .List<Entry>();
+                .List<EntryRevision>();
 
             return query;
         }

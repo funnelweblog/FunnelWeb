@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Linq;
-using FunnelWeb.Model.Strings;
+using System.Collections.Generic;
 using Iesi.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using NHibernate.Validator.Constraints;
 
 namespace FunnelWeb.Model
@@ -21,10 +19,10 @@ namespace FunnelWeb.Model
             HideChrome = false;
             Published = DateTime.UtcNow;
             PageTemplate = null;
-            Revisions = new HashedSet<Revision>();
-            Comments = new HashedSet<Comment>();
-            Pingbacks = new HashedSet<Pingback>();
-            Tags = new HashedSet<Tag>();
+            Revisions = new List<Revision>();
+            Comments = new List<Comment>();
+            Pingbacks = new List<Pingback>();
+            Tags = new List<Tag>();
             IsDiscussionEnabled = true;
         }
 
@@ -40,14 +38,9 @@ namespace FunnelWeb.Model
         [Valid]
         public virtual Revision LatestRevision { get; set; }
 
-        public virtual ISet<Revision> Revisions { get; private set; }
-        public virtual ISet<Comment> Comments { get; set; }
-        public virtual ISet<Pingback> Pingbacks { get; set; }
-        
-        public virtual string TagsCommaSeparated
-        {
-            get { return string.Join(", ", Tags.Select(x => x.Name)); }
-        }
+        public virtual IList<Revision> Revisions { get; private set; }
+        public virtual IList<Comment> Comments { get; set; }
+        public virtual IList<Pingback> Pingbacks { get; set; }
 
         public virtual Revision Revise()
         {

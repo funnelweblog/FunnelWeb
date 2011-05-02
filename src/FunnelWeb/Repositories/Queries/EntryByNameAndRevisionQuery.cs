@@ -1,16 +1,14 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Strings;
-using Iesi.Collections.Generic;
+using FunnelWeb.Repositories.Projections;
 using NHibernate;
-using NHibernate.Criterion;
 using NHibernate.Transform;
 
 namespace FunnelWeb.Repositories.Queries
 {
-    public class EntryByNameAndRevisionQuery : IQuery<Entry>
+    public class EntryByNameAndRevisionQuery : IQuery<EntryRevision>
     {
         private readonly PageName name;
         private readonly int revision;
@@ -21,28 +19,25 @@ namespace FunnelWeb.Repositories.Queries
             this.revision = revision;
         }
 
-        public IList<Entry> Execute(ISession session)
+        public IEnumerable<EntryRevision> Execute(ISession session)
         {
-            var items = session.CreateCriteria<Entry>().List<Entry>();
+            var entryAlias = default(Entry);
 
-            var entryQuery = (Hashtable)session.CreateCriteria<Entry>("entry")
-                .Add(Restrictions.Eq("entry.Name", name))
-                .CreateCriteria("Revisions", "rev")
-                .Add(Restrictions.Eq("rev.RevisionNumber", revision))
-                .AddOrder(Order.Desc("rev.Revised"))
-                .SetMaxResults(1)
-                .SetResultTransformer(Transformers.AliasToEntityMap)
-                .UniqueResult();
+            var entryQuery = session
+               .QueryOver<Revision>()
+               .Where(r => r.RevisionNumber == revision)
+               .Left.JoinQueryOver(r => r.Entry, () => entryAlias)
+               .Where(e => e.Name == name)
+                //.WithSubquery.WhereProperty(e => e.Id).In(QueryOver.Of<Entry>().Where(e => e.Name == name))
+               .SelectList(EntryRevisionProjections.FromRevision(entryAlias))
+               .TransformUsing(Transformers.AliasToBean<EntryRevision>());
 
-            var entry = (Entry)entryQuery["entry"];
-            entry.LatestRevision = (Revision)entryQuery["rev"];
+            return entryQuery.Future<EntryRevision>();
+        }
 
-            var comments = session.CreateFilter(entry.Comments, "")
-                .SetFirstResult(0)
-                .SetMaxResults(500)
-                .List();
-            entry.Comments = new HashedSet<Comment>(comments.Cast<Comment>().ToList());
-            return new[] { entry };
+        public IEnumerable<EntryRevision> Execute(ISession session, int skip, int take)
+        {
+            return Execute(session);
         }
     }
 }

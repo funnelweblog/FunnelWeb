@@ -48,7 +48,7 @@ namespace FunnelWeb.Tests.Web.Controllers
             var result = controller.Index() as JsonResult;
 
             //Assert
-            Assert.IsTrue(((IQueryable<object>)result.Data).Count() == 5);
+            Assert.IsTrue(((IEnumerable<object>)result.Data).Count() == 5);
         }
 
         [Test]

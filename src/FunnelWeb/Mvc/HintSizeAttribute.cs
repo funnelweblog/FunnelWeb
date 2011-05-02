@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FunnelWeb.Web.Application.Mvc
+namespace FunnelWeb.Mvc
 {
     [AttributeUsage(AttributeTargets.Property)]
     public class HintSizeAttribute : Attribute

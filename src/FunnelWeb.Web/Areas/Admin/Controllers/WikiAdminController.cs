@@ -12,8 +12,6 @@ using FunnelWeb.Model.Strings;
 using FunnelWeb.Settings;
 using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Application.Spam;
-using FunnelWeb.Web.Areas.Admin.Views.WikiAdmin;
-using RecentModel = FunnelWeb.Web.Views.Wiki.RecentModel;
 
 namespace FunnelWeb.Web.Areas.Admin.Controllers
 {
@@ -31,56 +29,36 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         public ISettingsProvider SettingsProvider { get; set; }
 
         [Authorize(Roles = "Moderator")]
-        public virtual ActionResult Unpublished()
-        {
-            var allPosts = EntryRepository.GetUnpublished();
-            return View("Recent", new RecentModel("Unpublished Posts", allPosts, 1, 1, "Unpublished"));
-        }
-
-        [Authorize(Roles = "Moderator")]
         public virtual ActionResult Edit(PageName page, int? revertToRevision)
         {
+            //Keep this call before the call to entry repository, they will be issued in a single query
+            var allTags = TagRepository.GetTags(); 
+
             var entry = EntryRepository.GetEntry(page, revertToRevision ?? 0)
-                ?? new Entry
+                ?? new EntryRevision
                 {
                     Title = "New post",
                     MetaTitle = "New post",
                     Name = page,
-                    Status = EntryStatus.PublicBlog,
-                    LatestRevision = new Revision()
+                    Status = EntryStatus.PublicBlog
                 };
-            var revision = entry.Revision(revertToRevision);
-            var allTags = TagRepository.GetTags();
-            var model = new EditModel(page, entry.Id, allTags)
-                            {
-                                DisableComments = !entry.IsDiscussionEnabled,
-                                Content = revision.Body,
-                                Format = revision.Format,
-                                HideChrome = entry.HideChrome,
-                                Status = entry.Status,
-                                MetaDescription = entry.MetaDescription,
-                                MetaTitle = entry.MetaTitle,
-                                PublishDate = entry.Published.ToLocalTime().ToString("yyyy-MM-dd"),
-                                Sidebar = entry.Summary,
-                                Title = entry.Title,
-                                SelectedTags = entry.Tags,
-                                PreviousRevision = revision.RevisionNumber <= 1 ? 1 : revision.RevisionNumber - 1,
-                                ChangeSummary =
-                                    entry.Id == 0
-                                        ? "Initial create"
-                                        : (revertToRevision == null ? "" : "Reverted to version " + revertToRevision)
-                            };
+
+
+            entry.ChangeSummary = entry.Id == 0
+                                      ? "Initial create"
+                                      : (revertToRevision == null ? "" : "Reverted to version " + revertToRevision);
+            entry.AllTags = allTags;
 
             if (revertToRevision != null)
             {
-                return View("Edit", model).AndFlash("You are editing an old version of this page. This will become the current version when you save.");
+                return View("Edit", entry).AndFlash("You are editing an old version of this page. This will become the current version when you save.");
             }
-            return View("Edit", model);
+            return View("Edit", entry);
         }
 
 		[HttpPost]
         [Authorize(Roles = "Moderator")]
-        public virtual ActionResult Edit(EditModel model)
+        public virtual ActionResult Edit(EntryRevision model)
 		{
 			model.AllTags = TagRepository.GetTags().ToList();
 
@@ -91,21 +69,21 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 			}
 
 			// Does an entry with that name already exist?
-			var existing = EntryRepository.GetEntry(model.Page);
-			if (existing != null && existing.Id != model.OriginalEntryId)
+			var existing = EntryRepository.GetEntry(model.Title);
+			if (existing != null && existing.Id != model.Id)
 			{
                 model.SelectedTags = GetEditTags(model);
-                ModelState.AddModelError("PageExists", string.Format("A page with SLUG '{0}' already exists. You should edit that page instead.", model.Page));
+                ModelState.AddModelError("PageExists", string.Format("A page with SLUG '{0}' already exists. You should edit that page instead.", model.Title));
 				return View(model);
 			}
 
 		    var author = Authenticator.GetName();
 
-		    var entry = EntryRepository.GetEntry(model.OriginalEntryId) ?? new Entry { Author = author };
-			entry.Name = model.Page;
+		    var entry = EntryRepository.GetEntry(model.Id) ?? new Entry { Author = author };
+			entry.Name = model.Title;
 			entry.PageTemplate = string.IsNullOrEmpty(model.PageTemplate) ? null : model.PageTemplate;
 			entry.Title = model.Title ?? string.Empty;
-			entry.Summary = model.Sidebar ?? string.Empty;
+			entry.Summary = model.Summary ?? string.Empty;
 			entry.MetaTitle = string.IsNullOrWhiteSpace(model.MetaTitle) ? model.Title : model.MetaTitle;
 			entry.IsDiscussionEnabled = !model.DisableComments;
 			entry.MetaDescription = model.MetaDescription ?? string.Empty;
@@ -115,7 +93,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
 			var revision = entry.Revise();
 		    revision.Author = author;
-			revision.Body = model.Content;
+			revision.Body = model.Body;
 			revision.Reason = model.ChangeSummary ?? string.Empty;
 			revision.Format = model.Format;
 
@@ -134,13 +112,13 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
 			EntryRepository.Save(entry);
 
-		    return RedirectToAction("Page", "Wiki", new { Area = "", page = model.Page});
+		    return RedirectToAction("Page", "Wiki", new { page = model.Title});
 		}
 
-        private List<Tag> GetEditTags(EditModel model)
+        private List<Tag> GetEditTags(EntryRevision model)
         {
             var tagList = new List<Tag>();
-            foreach (var tagName in model.TagsString.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Where(s => s != "0"))
+            foreach (var tagName in model.TagsCommaSeparated.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Where(s => s != "0"))
             {
                 int id;
                 Tag tag;

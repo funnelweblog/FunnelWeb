@@ -1,5 +1,4 @@
 ﻿using FluentNHibernate.Mapping;
-using FunnelWeb.Model.Comparers;
 using FunnelWeb.Model.Mappings.UserTypes;
 
 namespace FunnelWeb.Model.Mappings
@@ -29,25 +28,24 @@ namespace FunnelWeb.Model.Mappings
                         c.Map(r => r.RevisionNumber);
                         c.Map(r => r.Author).Column("RevisionAuthor");
                         c.Map(r => r.Body).Length(int.MaxValue);
+                        c.Map(r => r.Revised).Column("LastRevised");
+                        c.Map(r => r.Format).Column("LatestRevisionFormat");
                     });
 
             HasManyToMany(x => x.Tags)
                 .Table("TagItem")
                 .ParentKeyColumn("EntryId")
-                .ChildKeyColumn("TagId")
-                .AsSet();
+                .ChildKeyColumn("TagId");
 
             HasMany(x => x.Pingbacks)
                 .KeyColumn("EntryId")
                 .Inverse()
-                .AsSet<PingbackComparer>()
                 .LazyLoad()
                 .Cascade.All();
 
             HasMany(x => x.Revisions)
                 .KeyColumn("EntryId")
                 .Inverse()
-                .AsSet<RevisionComparer>()
                 .LazyLoad()
                 .ApplyFilter<RevisionFilter>("RevisionNumber = :revisionNumber")
                 .Cascade.All();
@@ -55,7 +53,6 @@ namespace FunnelWeb.Model.Mappings
             HasMany(x => x.Comments)
                 .KeyColumn("EntryId")
                 .Inverse()
-                .AsSet<CommentComparer>()
                 .LazyLoad()
                 .Cascade.All();
         }

@@ -4,12 +4,13 @@ using System.Linq;
 using System.Web.Mvc;
 using FunnelWeb.Filters;
 using FunnelWeb.Model.Repositories;
+using FunnelWeb.Repositories.Queries;
 using FunnelWeb.Settings;
 using FunnelWeb.Tasks;
-using FunnelWeb.Web.Application;
 using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Application.Themes;
 using FunnelWeb.Web.Areas.Admin.Views.Admin;
+using NHibernate;
 
 namespace FunnelWeb.Web.Areas.Admin.Controllers
 {
@@ -24,6 +25,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         public IThemeProvider ThemeProvider { get; set; }
         public IEntryRepository EntryRepository { get; set; }
         public ITaskStateRepository TaskRepository { get; set; }
+        public ISession DatabaseSession { get; set; }
         public ITaskExecutor<BlogMLImportTask> ImportTask { get; set; }
 
         public virtual ActionResult Index()
@@ -160,33 +162,19 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
             upload.SaveTo(fullPath);
 
             var id = ImportTask.Execute(new { inputFile = fullPath });
-            return RedirectToAction("Task", new { id = id });
+            return RedirectToAction("Task", new { id });
         }
 
         #endregion
 
-        public virtual ActionResult PageList(PageListSortColumn? sort, bool? asc)
+        public virtual ActionResult PageList(EntriesSortColumn? sort, bool? asc)
         {
-            var entries = EntryRepository.GetEntries();
             if (sort == null)
-                sort = PageListSortColumn.Slug;
-            switch (sort.Value)
-            {
-                case PageListSortColumn.Slug:
-                    entries = asc.GetValueOrDefault() ? entries.OrderBy(e => e.Name) : entries.OrderByDescending(e => e.Name);
-                    break;
-                case PageListSortColumn.Title:
-                    entries = asc.GetValueOrDefault() ? entries.OrderBy(e => e.Title) : entries.OrderByDescending(e => e.Title);
-                    break;
-                case PageListSortColumn.Comments:
-                    entries = asc.GetValueOrDefault() ? entries.OrderBy(e => e.CommentCount) : entries.OrderByDescending(e => e.CommentCount);
-                    break;
-                case PageListSortColumn.Published:
-                    entries = asc.GetValueOrDefault() ? entries.OrderBy(e => e.Published) : entries.OrderByDescending(e => e.Published);
-                    break;
-            }
+                sort = EntriesSortColumn.Slug;
 
-            return View(new PageListModel(entries.ToList()) { SortAscending = asc.GetValueOrDefault() });
+            var entries = new GetEntriesQuery(sort.Value, asc ?? true).Execute(DatabaseSession);
+
+            return View(new PageListModel(entries) { SortAscending = asc.GetValueOrDefault() });
         }
 
         public virtual ActionResult DeletePage(int id)

@@ -32,8 +32,6 @@ namespace FunnelWeb.Tasks
                 throw new ArgumentException("The file: '{0}' does not exist.");
             }
             
-            var tags = tagRepository.GetTags().ToList();
-
             var progress = 0;
             yield return new TaskStep(progress++, "Input file '{0}' found", inputFile);
 
@@ -110,7 +108,7 @@ namespace FunnelWeb.Tasks
                         var existingTag = tagRepository.GetTag(tagName);
                         if (existingTag == null)
                         {
-                            existingTag = new Tag() {Name = tagName};
+                            existingTag = new Tag {Name = tagName};
                             tagRepository.Save(existingTag);
                         }
 
