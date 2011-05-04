@@ -64,7 +64,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
                 return File(fullPath, MimeHelper.GetMimeType(fullPath));
             }
-            return Redirect("/");
+            return HttpNotFound();
         }
     }
 }
