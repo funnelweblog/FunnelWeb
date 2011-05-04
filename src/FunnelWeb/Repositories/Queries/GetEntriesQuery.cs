@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using FunnelWeb.Model;
 using FunnelWeb.Repositories.Projections;
 using NHibernate;
@@ -8,7 +7,7 @@ using NHibernate.Transform;
 
 namespace FunnelWeb.Repositories.Queries
 {
-    public class GetEntriesQuery : IQueryWithCount<EntryRevision>
+    public class GetEntriesQuery : IPagedQuery<EntryRevision>
     {
         private readonly EntriesSortColumn sortColumn;
         private readonly bool asc;
@@ -19,20 +18,22 @@ namespace FunnelWeb.Repositories.Queries
             this.asc = asc;
         }
 
-        public IEnumerable<EntryRevision> Execute(ISession session)
+        public PagedResult<EntryRevision> Execute(ISession session, int skip, int take)
         {
-            return Query(session).List<EntryRevision>();
-        }
+            var total = session
+               .QueryOver<Entry>()
+               .ToRowCountQuery()
+               .FutureValue<int>();
 
-        public IEnumerable<EntryRevision> Execute(ISession session, int skip, int take)
-        {
-            return Query(session)
+            var entries = Query(session)
                 .Skip(skip)
                 .Take(take)
                 .List<EntryRevision>();
+
+            return new PagedResult<EntryRevision>(entries, total.Value, skip, take);
         }
 
-        private IQueryOver<Entry, Entry> Query(ISession session)
+        protected IQueryOver<Entry, Entry> Query(ISession session)
         {
             var entries = session
                 .QueryOver<Entry>()
@@ -61,22 +62,5 @@ namespace FunnelWeb.Repositories.Queries
 
             return entries;
         }
-
-        public IEnumerable<EntryRevision> Execute(ISession session, int skip, int take, out int totalCount)
-        {
-            var total = session
-                .QueryOver<Entry>()
-                .ToRowCountQuery()
-                .FutureValue<int>();
-
-            var query = Query(session)
-                .Skip(skip)
-                .Take(take)
-                .Future<EntryRevision>();
-
-            totalCount = total.Value;
-            return query;
-        }
-
     }
 }

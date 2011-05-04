@@ -204,8 +204,6 @@
     <Compile Include="Areas\Admin\Views\SqlAuthentication\NewUser.cs" />
     <Compile Include="Areas\Admin\Views\SqlAuthentication\SetupModel.cs" />
     <Compile Include="Areas\Admin\Views\Install\ExtensionVersion.cs" />
-    <Compile Include="Areas\Admin\Views\WikiAdmin\ReviseModel.cs" />
-    <Compile Include="Areas\Admin\Views\WikiAdmin\RevisionsModel.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Areas\Admin\Views\Admin\BlogMLImportModel.cs" />
     <Compile Include="Areas\Admin\Views\Admin\CommentsModel.cs" />
@@ -226,7 +224,6 @@
     <Compile Include="Views\Wiki\SearchModel.cs" />
     <Compile Include="Views\Wiki\PageModel.cs" />
     <Compile Include="Views\Wiki\RecentModel.cs" />
-    <Compile Include="Views\Wiki\ReviseModel.cs" />
     <Compile Include="Views\Wiki\RevisionsModel.cs" />
     <Compile Include="Views\Wiki\SiteMapModel.cs" />
     <Compile Include="Application\Mvc\HyphenatedRouteHandler.cs" />
@@ -366,7 +363,6 @@
     <Content Include="Themes\Default\Content\Styles\Theme.css" />
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\Admin\Views\WikiAdmin\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\WikiAdmin\Revisions.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="packages.config" />
     <Content Include="My.config">

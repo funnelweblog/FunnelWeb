@@ -5,7 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
-using FunnelWeb.Model.Strings;
+using FunnelWeb.Repositories;
+using FunnelWeb.Repositories.Queries;
 using FunnelWeb.Settings;
 using FunnelWeb.Web.Application.Spam;
 using FunnelWeb.Web.Controllers;
@@ -21,7 +22,7 @@ namespace FunnelWeb.Tests.Web.Controllers
     {
         protected WikiController Controller { get; set; }
         protected ControllerContext ControllerContext { get; set; }
-        protected IEntryRepository EntryRepository { get; set; }
+        protected IRepository Repository { get; set; }
         protected ITagRepository FeedRepository { get; set; }
         protected ISpamChecker SpamChecker { get; set; }
         protected IIdentity Identity { get; set; }
@@ -32,7 +33,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         {
             Controller = new WikiController
                              {
-                                 EntryRepository = EntryRepository = Substitute.For<IEntryRepository>(),
+                                 Repository = Repository = Substitute.For<IRepository>(),
                                  TagRepository = FeedRepository = Substitute.For<ITagRepository>(),
                                  SpamChecker = SpamChecker = Substitute.For<ISpamChecker>(),
                                  ControllerContext = ControllerContext = CreateControllerContext(),
@@ -49,12 +50,12 @@ namespace FunnelWeb.Tests.Web.Controllers
         [Test]
         public void Search()
         {
-            var entries = Substitute.For<IEnumerable<EntryRevision>>();
-            EntryRepository.Search(Arg.Is("search")).Returns(entries);
+            var entries = new PagedResult<EntryRevision>(new List<EntryRevision>(), 0, 0, 50);
+            Repository.Find(Arg.Is<SearchEntriesQuery>(q=>q.SearchText == "search"), Arg.Any<int>(), Arg.Any<int>()).Returns(entries);
 
             var result = (ViewResult)Controller.Search("search", false);
 
-            EntryRepository.Received().Search(Arg.Is("search"));
+            Repository.Received().Find(Arg.Is<SearchEntriesQuery>(q => q.SearchText == "search"), Arg.Any<int>(), Arg.Any<int>());
             Assert.That(result.ViewName, Is.EqualTo("Search"));
             Assert.IsInstanceOf<SearchModel>(result.ViewData.Model);
             Assert.AreEqual(entries, ((SearchModel)result.ViewData.Model).Results);
@@ -63,21 +64,22 @@ namespace FunnelWeb.Tests.Web.Controllers
         [Test]
         public void PageLoggedInAndNew()
         {
-            EntryRepository.GetEntry(Arg.Any<PageName>(), Arg.Any<int>()).Returns(x => null);
+            Repository.FindFirstOrDefault(Arg.Any<EntryByNameQuery>()).Returns(x => null);
             Identity.IsAuthenticated.Returns(true);
             
             var result = (RedirectToRouteResult)Controller.Page("page", 0);
 
             Assert.AreEqual("Edit", result.RouteValues["Action"]);
-            EntryRepository.Received().GetEntry(Arg.Is<PageName>("page"), Arg.Is(0));
+            Repository.Received().FindFirstOrDefault(Arg.Is<EntryByNameAndRevisionQuery>(q=>q.PageName =="page" && q.Revision == 0));
         }
 
         [Test]
         public void WikiControllerTestsPageReturnsNotFoundForNewPageAndNotLoggedIn()
         {
             var entries = new List<EntryRevision>();
-            EntryRepository.GetEntry(Arg.Any<PageName>(), Arg.Any<int>()).Returns(x => null);
-            EntryRepository.Search(Arg.Any<string>()).Returns(entries);
+            var searchResults = new PagedResult<EntryRevision>(entries, 0, 0, 50);
+            Repository.FindFirstOrDefault(Arg.Any<EntryByNameQuery>()).Returns(x => null);
+            Repository.Find(Arg.Any<SearchEntriesQuery>(), Arg.Any<int>(), Arg.Any<int>()).Returns(searchResults);
             Identity.IsAuthenticated.Returns(false);
             
             var result = (ViewResult)Controller.Page("page", 0);
@@ -87,17 +89,17 @@ namespace FunnelWeb.Tests.Web.Controllers
             Assert.IsInstanceOf(typeof(SearchModel), result.ViewData.Model);
 
             var model = (SearchModel)result.ViewData.Model;
-            Assert.AreSame(entries, model.Results);
+            Assert.AreSame(searchResults, model.Results);
 
-            EntryRepository.Received().Search(Arg.Is("page"));
-            EntryRepository.Received().GetEntry(Arg.Is<PageName>("page"), Arg.Is(0));
+            Repository.Received().Find(Arg.Is<SearchEntriesQuery>(q=>q.SearchText == "page"), Arg.Any<int>(), Arg.Any<int>());
+            Repository.Received().FindFirstOrDefault(Arg.Is<EntryByNameAndRevisionQuery>(q => q.PageName == "page" && q.Revision == 0));
         }
 
         [Test]
         public void WikiControllerTestsPageReturnsFoundPage()
         {
             var entry = new EntryRevision { Name = "page" };
-            EntryRepository.GetEntry(Arg.Any<PageName>(), Arg.Any<int>()).Returns(entry);
+            Repository.FindFirstOrDefault(Arg.Any<EntryByNameQuery>()).Returns(entry);
 
             Controller.Page(entry.Name, (int?)null);
 
@@ -106,7 +108,7 @@ namespace FunnelWeb.Tests.Web.Controllers
 
             var model = (PageModel)Controller.ViewData.Model;
             Assert.AreEqual(entry, model.Entry);
-            EntryRepository.Received().GetEntry(Arg.Is(entry.Name), Arg.Is(0));
+            Repository.Received().FindFirstOrDefault(Arg.Is<EntryByNameQuery>(q=>q.PageName == entry.Name));
         }
 
         private static ControllerContext CreateControllerContext()

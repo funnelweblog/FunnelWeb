@@ -130,6 +130,7 @@
     <Compile Include="Model\EntrySummary.cs" />
     <Compile Include="Mvc\HintSize.cs" />
     <Compile Include="Mvc\HintSizeAttribute.cs" />
+    <Compile Include="Repositories\PagedResult.cs" />
     <Compile Include="Repositories\Queries\EntriesSortColumn.cs" />
     <Compile Include="Repositories\ICommand.cs" />
     <Compile Include="Repositories\IQuery.cs" />
@@ -138,8 +139,10 @@
     <Compile Include="Repositories\Projections\EntryRevisionProjections.cs" />
     <Compile Include="Repositories\Queries\EntryByNameQuery.cs" />
     <Compile Include="Repositories\Queries\EntryByNameAndRevisionQuery.cs" />
+    <Compile Include="Repositories\Queries\GetCommentsQuery.cs" />
     <Compile Include="Repositories\Queries\GetEntriesQuery.cs" />
-    <Compile Include="Repositories\IQueryWithCount.cs" />
+    <Compile Include="Repositories\IPagedQuery.cs" />
+    <Compile Include="Repositories\Queries\SearchEntriesQuery.cs" />
     <Compile Include="RoutableFunnelWebExtension.cs" />
     <Compile Include="Settings\IBootstrapSettings.cs" />
     <Compile Include="Settings\ISettings.cs" />
@@ -175,10 +178,8 @@
     <Compile Include="Model\Redirect.cs" />
     <Compile Include="Model\Repositories\IAdminRepository.cs" />
     <Compile Include="Model\Repositories\ITagRepository.cs" />
-    <Compile Include="Model\Repositories\IEntryRepository.cs" />
     <Compile Include="Model\Repositories\IFileRepository.cs" />
     <Compile Include="Model\Repositories\Internal\AdminRepository.cs" />
-    <Compile Include="Model\Repositories\Internal\EntryRepository.cs" />
     <Compile Include="Model\Repositories\Internal\FeedRepository.cs" />
     <Compile Include="Model\Repositories\Internal\FileRepository.cs" />
     <Compile Include="Model\Repositories\RepositoriesModule.cs" />

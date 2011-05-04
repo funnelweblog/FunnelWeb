@@ -3,7 +3,9 @@ using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using FunnelWeb.Filters;
+using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
+using FunnelWeb.Repositories;
 using FunnelWeb.Repositories.Queries;
 using FunnelWeb.Settings;
 using FunnelWeb.Tasks;
@@ -23,7 +25,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         public ITagRepository FeedRepository { get; set; }
         public ISettingsProvider SettingsProvider { get; set; }
         public IThemeProvider ThemeProvider { get; set; }
-        public IEntryRepository EntryRepository { get; set; }
+        public IRepository Repository { get; set; }
         public ITaskStateRepository TaskRepository { get; set; }
         public ISession DatabaseSession { get; set; }
         public ITaskExecutor<BlogMLImportTask> ImportTask { get; set; }
@@ -172,14 +174,14 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
             if (sort == null)
                 sort = EntriesSortColumn.Slug;
 
-            var entries = new GetEntriesQuery(sort.Value, asc ?? true).Execute(DatabaseSession);
+            var entries = Repository.Find(new GetEntriesQuery(sort.Value, asc ?? true), 0, 500);
 
             return View(new PageListModel(entries) { SortAscending = asc.GetValueOrDefault() });
         }
 
         public virtual ActionResult DeletePage(int id)
 		{
-			EntryRepository.Delete(id);
+			Repository.Remove(Repository.Get<Entry>(id));
 			return RedirectToAction("PageList");
 		}
     }

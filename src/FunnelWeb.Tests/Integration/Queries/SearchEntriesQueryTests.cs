@@ -7,9 +7,9 @@ using NUnit.Framework;
 namespace FunnelWeb.Tests.Integration.Queries
 {
     [TestFixture]
-    public class GetEntriesQueryTests : IntegrationTest
+    public class SearchEntriesQueryTests : IntegrationTest
     {
-        public GetEntriesQueryTests()
+        public SearchEntriesQueryTests()
             : base(TheDatabase.CanBeDirty)
         {
         }
@@ -17,17 +17,17 @@ namespace FunnelWeb.Tests.Integration.Queries
         [Test]
         public void ReturnsEntry()
         {
-            var name = "test-" + Guid.NewGuid();
+            var name = Guid.NewGuid();
 
             Database.WithRepository(
                 repo =>
                 {
-                    var entry1 = new Entry { Name = name, Author = "A1" };
+                    var entry1 = new Entry { Name = "bar-" + name, Title = name.ToString(), Author = "A1" };
                     var revision1 = entry1.Revise();
                     revision1.Body = "Hello";
                     repo.Add(entry1);
 
-                    var entry2 = new Entry { Name = name, Author = "A1" };
+                    var entry2 = new Entry { Name = "foo-" + name, Title = name.ToString(), Author = "A1" };
                     var revision2 = entry2.Revise();
                     revision2.Body = "Goodbye";
                     repo.Add(entry2);
@@ -36,9 +36,9 @@ namespace FunnelWeb.Tests.Integration.Queries
             Database.WithRepository(
                 repo =>
                 {
-                    var result = repo.Find(new GetEntriesQuery(), 0, 1);
+                    var result = repo.Find(new SearchEntriesQuery(name.ToString()), 0, 1);
                     Assert.AreEqual(1, result.Count);
-                    Assert.GreaterOrEqual(result.TotalResults, 2);
+                    Assert.GreaterOrEqual(2, result.TotalResults);
                 });
         }
     }

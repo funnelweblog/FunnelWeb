@@ -19,15 +19,25 @@ namespace FunnelWeb.Repositories.Queries
             this.revision = revision;
         }
 
+        public PageName PageName
+        {
+            get { return name; }
+        }
+
+        public int Revision
+        {
+            get { return revision; }
+        }
+
         public IEnumerable<EntryRevision> Execute(ISession session)
         {
             var entryAlias = default(Entry);
 
             var entryQuery = session
                .QueryOver<Revision>()
-               .Where(r => r.RevisionNumber == revision)
+               .Where(r => r.RevisionNumber == Revision)
                .Left.JoinQueryOver(r => r.Entry, () => entryAlias)
-               .Where(e => e.Name == name)
+               .Where(e => e.Name == PageName)
                 //.WithSubquery.WhereProperty(e => e.Id).In(QueryOver.Of<Entry>().Where(e => e.Name == name))
                .SelectList(EntryRevisionProjections.FromRevision(entryAlias))
                .TransformUsing(Transformers.AliasToBean<EntryRevision>());

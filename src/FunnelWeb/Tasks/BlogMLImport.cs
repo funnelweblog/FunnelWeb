@@ -8,18 +8,20 @@ using BlogML.Xml;
 using FunnelWeb.Authentication;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
+using FunnelWeb.Repositories;
+using FunnelWeb.Repositories.Queries;
 
 namespace FunnelWeb.Tasks
 {
     public class BlogMLImportTask : ITask
     {
-        private readonly IEntryRepository entryRepository;
+        private readonly IRepository repository;
         private readonly ITagRepository tagRepository;
         private readonly IAuthenticator authenticator;
 
-        public BlogMLImportTask(IEntryRepository entryRepository, IAuthenticator authenticator, ITagRepository tagRepository)
+        public BlogMLImportTask(IRepository repository, IAuthenticator authenticator, ITagRepository tagRepository)
         {
-            this.entryRepository = entryRepository;
+            this.repository = repository;
             this.authenticator = authenticator;
             this.tagRepository = tagRepository;
         }
@@ -51,7 +53,7 @@ namespace FunnelWeb.Tasks
                 foreach (var post in blog.Posts)
                 {
                     postIndex++;
-                    progress = (int)(((double)postIndex / (double)postCount) * (double)remainingProgress);
+                    progress = (int)(((double)postIndex / postCount) * (double)remainingProgress);
                         
                     var entry = new Entry();
                     entry.Author = authenticator.GetName();
@@ -65,7 +67,7 @@ namespace FunnelWeb.Tasks
                     entry.Name = NoLongerThan(100, (post.PostUrl ?? post.PostName).Trim('/'));
 
                     // Ensure this post wasn't already imported
-                    var existing = entryRepository.GetEntry(entry.Name);
+                    var existing = repository.FindFirstOrDefault(new EntryByNameQuery(entry.Name));
                     if (existing != null)
                     {
                         yield return new TaskStep(progress, "Did NOT import post '{0}', because a post by this name already exists", entry.Name);
@@ -115,7 +117,7 @@ namespace FunnelWeb.Tasks
                         existingTag.Add(entry);
                     }
 
-                    entryRepository.Save(entry);
+                    repository.Add(entry);
 
                     yield return new TaskStep(progress, "Imported post '{0}'", entry.Name);
                 }

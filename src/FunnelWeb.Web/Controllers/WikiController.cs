@@ -5,6 +5,8 @@ using FunnelWeb.Filters;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Model.Strings;
+using FunnelWeb.Repositories;
+using FunnelWeb.Repositories.Queries;
 using FunnelWeb.Settings;
 using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Application.Mvc.ActionResults;
@@ -19,7 +21,7 @@ namespace FunnelWeb.Web.Controllers
     public class WikiController : Controller
     {
         private const int ItemsPerPage = 30;
-        public IEntryRepository EntryRepository { get; set; }
+        public IRepository Repository { get; set; }
         public ITagRepository TagRepository { get; set; }
         public IFeedRepository FeedRepository { get; set; }
         public ISpamChecker SpamChecker { get; set; }
@@ -31,7 +33,7 @@ namespace FunnelWeb.Web.Controllers
             var settings = SettingsProvider.GetSettings<FunnelWebSettings>();
             if (!string.IsNullOrWhiteSpace(settings.CustomHomePage))
             {
-                var entry = EntryRepository.GetEntry(settings.CustomHomePage);
+                var entry = Repository.FindFirstOrDefault(new EntryByNameQuery(settings.CustomHomePage));
                 if (entry != null)
                 {
                     ViewData.Model = new PageModel(entry.Name, entry);
@@ -56,7 +58,7 @@ namespace FunnelWeb.Web.Controllers
 
         public virtual ActionResult Search([Bind(Prefix = "q")] string searchText, bool? is404)
         {
-            var results = EntryRepository.Search(searchText);
+            var results = Repository.Find(new SearchEntriesQuery(searchText), 0, 30);
             return View("Search", new SearchModel(searchText, is404 ?? false, results));
         }
 
@@ -68,8 +70,8 @@ namespace FunnelWeb.Web.Controllers
             }
 
             var entry = revision == null
-                            ? EntryRepository.GetEntry(page)
-                            : EntryRepository.GetEntry(page, revision.Value);
+                            ? Repository.FindFirstOrDefault(new EntryByNameQuery(page))
+                            : Repository.FindFirstOrDefault(new EntryByNameAndRevisionQuery(page, revision.Value));
 
             if (entry == null)
             {
@@ -93,7 +95,7 @@ namespace FunnelWeb.Web.Controllers
         [HttpPost]
         public virtual ActionResult Page(PageName page, PageModel model)
         {
-            var entry = EntryRepository.GetEntry(page);
+            var entry = Repository.FindFirstOrDefault(new EntryByNameQuery(page));
             if (entry == null)
                 return RedirectToAction("Recent");
 
@@ -129,8 +131,6 @@ namespace FunnelWeb.Web.Controllers
                 comment.IsSpam = true;
             }
 
-            EntryRepository.Save(entry.Entry.Value);
-
             EventPublisher.Publish(new CommentPostedEvent(entry.Entry.Value, comment));
 
             return RedirectToAction("Page", new { page })
@@ -145,7 +145,7 @@ namespace FunnelWeb.Web.Controllers
                 return RedirectToAction("Page", "Wiki", new { page });
             }
 
-            var entry = EntryRepository.GetEntry(page);
+            var entry = Repository.FindFirstOrDefault(new EntryByNameQuery(page));
             if (entry == null)
             {
                 return RedirectToAction("Edit", "WikiAdmin", new { page });
@@ -157,8 +157,8 @@ namespace FunnelWeb.Web.Controllers
 
         public virtual ActionResult SiteMap()
         {
-            var allPosts = EntryRepository.GetEntries(0, null);
-            ViewData.Model = new SiteMapModel(allPosts.Item1);
+            var allPosts = Repository.Find(new GetEntriesQuery(), 0, 500);
+            ViewData.Model = new SiteMapModel(allPosts);
             return View();
         }
     }

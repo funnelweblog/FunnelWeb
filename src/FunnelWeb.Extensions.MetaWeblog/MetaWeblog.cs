@@ -7,6 +7,8 @@ using CookComputing.XmlRpc;
 using FunnelWeb.Authentication;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
+using FunnelWeb.Repositories;
+using FunnelWeb.Repositories.Queries;
 using FunnelWeb.Settings;
 using NHibernate;
 
@@ -16,18 +18,22 @@ namespace FunnelWeb.Extensions.MetaWeblog
     {
         private readonly FunnelWebSettings funnelWebSettings;
         private readonly ISettingsProvider settingsProvider;
-        private readonly IEntryRepository entryRepository;
+        private readonly IRepository repository;
         private readonly ISession session;
         private readonly IFileRepository fileRepository;
         private readonly IAuthenticator authenticator;
         private readonly ITagRepository tagRepository;
 
-        public MetaWeblog(ISettingsProvider settingsProvider, IEntryRepository entryRepository, 
-            ISession session, IFileRepository fileRepository, IAuthenticator authenticator,
+        public MetaWeblog(
+            ISettingsProvider settingsProvider,
+            IRepository repository, 
+            ISession session, 
+            IFileRepository fileRepository,
+            IAuthenticator authenticator,
             ITagRepository tagRepository)
         {
             this.settingsProvider = settingsProvider;
-            this.entryRepository = entryRepository;
+            this.repository = repository;
             this.session = session;
             this.fileRepository = fileRepository;
             this.authenticator = authenticator;
@@ -58,7 +64,13 @@ namespace FunnelWeb.Extensions.MetaWeblog
                 using (var transaction = session.BeginTransaction(IsolationLevel.Serializable))
                 {
                     var author = authenticator.GetName();
-                    var entry = entryRepository.GetEntry(Int32.Parse(postid)) ?? new Entry { Author = author};
+                    var entry = repository.Get<Entry>(Int32.Parse(postid));
+                    if (entry == null)
+                    {
+                        entry = new Entry { Author = author };
+                        repository.Add(entry);
+                    }
+
                     entry.Name = post.permalink;
                     entry.Title = post.title ?? string.Empty;
                     entry.Summary = post.mt_excerpt ?? string.Empty;
@@ -98,8 +110,6 @@ namespace FunnelWeb.Extensions.MetaWeblog
                         existingTag.Add(entry);
                     }
 
-                    entryRepository.Save(entry);
-
                     session.Flush();
                     transaction.Commit();
 
@@ -113,7 +123,7 @@ namespace FunnelWeb.Extensions.MetaWeblog
         {
             if (ValidateUser(username, password))
             {
-                var entry = entryRepository.GetEntry(Int32.Parse(postid));
+                var entry = repository.Get<Entry>(Int32.Parse(postid));
 
                 return entry != null ? ConvertToPost(entry) : new Post();
             }
@@ -147,8 +157,7 @@ namespace FunnelWeb.Extensions.MetaWeblog
         {
             if (ValidateUser(username, password))
             {
-                var entries = entryRepository.GetEntries(0, numberOfPosts)
-                    .Item1
+                var entries = repository.Find(new GetEntriesQuery(), 0, numberOfPosts)
                     .Select(p=>ConvertToPost(p.Entry.Value))
                     .ToArray();
 
@@ -186,7 +195,7 @@ namespace FunnelWeb.Extensions.MetaWeblog
             {
                 using (var transaction = session.BeginTransaction(IsolationLevel.Serializable))
                 {
-                    entryRepository.Delete(Int32.Parse(postid));
+                    repository.Remove(repository.Get<Entry>(Int32.Parse(postid)));
 
                     session.Flush();
                     transaction.Commit();

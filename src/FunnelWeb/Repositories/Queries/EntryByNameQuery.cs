@@ -18,29 +18,34 @@ namespace FunnelWeb.Repositories.Queries
             this.name = name;
         }
 
+        public PageName PageName
+        {
+            get { return name; }
+        }
+
         public IEnumerable<EntryRevision> Execute(ISession session)
         {
             var comments = session
                             .QueryOver<Comment>()
                             .JoinQueryOver(c => c.Entry)
-                            .Where(e => e.Name == name)
+                            .Where(e => e.Name == PageName)
                             .Future<Comment>();
 
             var pingbacks = session
                             .QueryOver<Pingback>()
                             .JoinQueryOver(c => c.Entry)
-                            .Where(e => e.Name == name)
+                            .Where(e => e.Name == PageName)
                             .Future<Pingback>();
 
             var tags = session
                         .QueryOver<Tag>()
                         .JoinQueryOver<Entry>(t => t.Entries)
-                        .Where(e => e.Name == name)
+                        .Where(e => e.Name == PageName)
                         .Future<Tag>();
 
             var singleOrDefault = session
                 .QueryOver<Entry>()
-                .Where(e => e.Name == name)
+                .Where(e => e.Name == PageName)
                 .SelectList(EntryRevisionProjections.FromEntry())
                 .TransformUsing(Transformers.AliasToBean<EntryRevision>())
                 .SingleOrDefault<EntryRevision>();

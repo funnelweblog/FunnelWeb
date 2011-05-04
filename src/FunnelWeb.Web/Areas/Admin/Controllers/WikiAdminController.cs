@@ -9,6 +9,8 @@ using FunnelWeb.Filters;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Model.Strings;
+using FunnelWeb.Repositories;
+using FunnelWeb.Repositories.Queries;
 using FunnelWeb.Settings;
 using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Application.Spam;
@@ -21,7 +23,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
     public class WikiAdminController : Controller
     {
         public IAuthenticator Authenticator { get; set; }
-        public IEntryRepository EntryRepository { get; set; }
+        public IRepository Repository { get; set; }
         public ITagRepository TagRepository { get; set; }
         public IFeedRepository FeedRepository { get; set; }
         public ISpamChecker SpamChecker { get; set; }
@@ -32,17 +34,19 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         public virtual ActionResult Edit(PageName page, int? revertToRevision)
         {
             //Keep this call before the call to entry repository, they will be issued in a single query
-            var allTags = TagRepository.GetTags(); 
+            var allTags = TagRepository.GetTags();
 
-            var entry = EntryRepository.GetEntry(page, revertToRevision ?? 0)
-                ?? new EntryRevision
-                {
-                    Title = "New post",
-                    MetaTitle = "New post",
-                    Name = page,
-                    Status = EntryStatus.PublicBlog
-                };
-
+            var entry =
+                revertToRevision == null
+                    ? Repository.FindFirstOrDefault(new EntryByNameQuery(page))
+                    : Repository.FindFirstOrDefault(new EntryByNameAndRevisionQuery(page, revertToRevision.Value))
+                    ?? new EntryRevision
+                             {
+                                 Title = "New post",
+                                 MetaTitle = "New post",
+                                 Name = page,
+                                 Status = EntryStatus.PublicBlog
+                             };
 
             entry.ChangeSummary = entry.Id == 0
                                       ? "Initial create"
@@ -56,7 +60,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
             return View("Edit", entry);
         }
 
-		[HttpPost]
+        [HttpPost]
         [Authorize(Roles = "Moderator")]
         public virtual ActionResult Edit(EntryRevision model)
 		{
@@ -69,7 +73,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 			}
 
 			// Does an entry with that name already exist?
-			var existing = EntryRepository.GetEntry(model.Title);
+            var existing = Repository.FindFirstOrDefault(new EntryByNameQuery(model.Title));
 			if (existing != null && existing.Id != model.Id)
 			{
                 model.SelectedTags = GetEditTags(model);
@@ -79,7 +83,12 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
 		    var author = Authenticator.GetName();
 
-		    var entry = EntryRepository.GetEntry(model.Id) ?? new Entry { Author = author };
+		    var entry = Repository.Get<Entry>(model.Id);
+            if (entry == null)
+            {
+                entry = new Entry { Author = author };
+                Repository.Add(entry);
+            }
 			entry.Name = model.Title;
 			entry.PageTemplate = string.IsNullOrEmpty(model.PageTemplate) ? null : model.PageTemplate;
 			entry.Title = model.Title ?? string.Empty;
@@ -110,8 +119,6 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
                 tag.Add(entry);
             }
 
-			EntryRepository.Save(entry);
-
 		    return RedirectToAction("Page", "Wiki", new { page = model.Title});
 		}
 
@@ -121,18 +128,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
             foreach (var tagName in model.TagsCommaSeparated.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Where(s => s != "0"))
             {
                 int id;
-                Tag tag;
-                if (int.TryParse(tagName, out id))
-                {
-                    tag = TagRepository.GetTag(id);
-                }
-                else
-                {
-                    tag = new Tag
-                              {
-                                  Name = tagName
-                              };
-                }
+                var tag = int.TryParse(tagName, out id) ? TagRepository.GetTag(id) : new Tag {Name = tagName};
                 tagList.Add(tag);
             }
 

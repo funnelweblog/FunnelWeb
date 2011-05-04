@@ -7,6 +7,8 @@ using System.Web.Mvc;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Model.Strings;
+using FunnelWeb.Repositories;
+using FunnelWeb.Repositories.Queries;
 using FunnelWeb.Web.Application.Spam;
 using FunnelWeb.Web.Areas.Admin.Controllers;
 using NSubstitute;
@@ -19,7 +21,7 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
     {
         protected WikiAdminController AdminController { get; set; }
         protected ControllerContext ControllerContext { get; set; }
-        protected IEntryRepository EntryRepository { get; set; }
+        protected IRepository Repository { get; set; }
         protected ITagRepository FeedRepository { get; set; }
         protected ISpamChecker SpamChecker { get; set; }
         protected IIdentity Identity { get; set; }
@@ -30,7 +32,7 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
         {
             AdminController = new WikiAdminController
                                   {
-                                      EntryRepository = EntryRepository = Substitute.For<IEntryRepository>(),
+                                      Repository = Repository = Substitute.For<IRepository>(),
                                       TagRepository = FeedRepository = Substitute.For<ITagRepository>(),
                                       SpamChecker = SpamChecker = Substitute.For<ISpamChecker>(),
                                       ControllerContext = ControllerContext = CreateControllerContext()
@@ -46,7 +48,7 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
         public void EditReturnsExistingPageWhenFound()
         {
             var entry = new EntryRevision { Name = "awesome-post" };
-            EntryRepository.GetEntry(Arg.Any<PageName>(), Arg.Any<int>()).Returns(entry);
+            Repository.FindFirstOrDefault(Arg.Any<EntryByNameAndRevisionQuery>()).Returns(entry);
 
             var feeds = new List<Tag>().AsQueryable();
             FeedRepository.GetTags().Returns(feeds);
@@ -57,7 +59,7 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
             Assert.AreEqual(feeds, ((EntryRevision)result.ViewData.Model).AllTags);
             Assert.AreEqual(entry.Name.ToString(), ((EntryRevision)result.ViewData.Model).Name.ToString());
 
-            EntryRepository.Received().GetEntry(Arg.Any<PageName>(), Arg.Any<int>());
+            Repository.Received().FindFirstOrDefault(Arg.Any<EntryByNameAndRevisionQuery>());
             FeedRepository.Received().GetTags();
         }
 

@@ -31,9 +31,10 @@ namespace FunnelWeb.Repositories
             return query.Execute(session);
         }
 
-        public IEnumerable<TEntity> Find<TEntity>(IQueryWithCount<TEntity> query, int skip, int take, out int totalCount) where TEntity : class
+        public PagedResult<TEntity> Find<TEntity>(IPagedQuery<TEntity> query, int pageNumber, int itemsPerPage) where TEntity : class
         {
-            return query.Execute(session, skip, take, out totalCount);
+            var skip = pageNumber*itemsPerPage;
+            return query.Execute(session, skip, itemsPerPage);
         }
 
         public TEntity FindFirst<TEntity>(IQuery<TEntity> query) where TEntity : class

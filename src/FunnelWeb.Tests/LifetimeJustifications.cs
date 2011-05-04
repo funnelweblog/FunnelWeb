@@ -117,7 +117,6 @@ namespace FunnelWeb.Tests
             PerLifetimeScope<IFileRepository>(repositoriesReason);
             PerLifetimeScope<ITagRepository>(repositoriesReason);
             PerLifetimeScope<IAdminRepository>(repositoriesReason);
-            PerLifetimeScope<IEntryRepository>(repositoriesReason);
             PerLifetimeScope<IFeedRepository>(repositoriesReason);
             PerLifetimeScope<ITaskStateRepository>(repositoriesReason);
             PerLifetimeScope<IRepository>(repositoriesReason);

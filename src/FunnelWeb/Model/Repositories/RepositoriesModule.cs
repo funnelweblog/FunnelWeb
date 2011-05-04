@@ -20,13 +20,10 @@ namespace FunnelWeb.Model.Repositories
             builder.Register<IFileRepository>(x => new FileRepository(x.Resolve<ISettingsProvider>(), x.Resolve<HttpServerUtilityBase>())).InstancePerLifetimeScope();
             builder.RegisterType<TagRepository>().As<ITagRepository>().InstancePerLifetimeScope();
             builder.RegisterType<AdminRepository>().As<IAdminRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<EntryRepository>().As<IEntryRepository>().InstancePerLifetimeScope();
             builder.RegisterType<FeedRepository>().As<IFeedRepository>().InstancePerLifetimeScope();
             builder.RegisterType<TaskStateRepository>().As<ITaskStateRepository>().InstancePerLifetimeScope();
 
-            builder.RegisterType<NHibernateRepository>()
-                .As<IRepository>()
-                .InstancePerLifetimeScope();
+            builder.RegisterType<NHibernateRepository>().As<IRepository>().InstancePerLifetimeScope();
 
             builder.Register(ConfigureSessionFactory).As<ISessionFactory>().SingleInstance();
             builder.Register(c => c.Resolve<ISessionFactory>().OpenSession()).As<ISession>().InstancePerLifetimeScope();
