@@ -39,16 +39,16 @@
 @Html.HiddenFor(m => m.Id)
 <div class="form-body">
   <div class="editor-label">
-    @Html.LabelFor(m => m.Title)
+    @Html.LabelFor(m => m.Name)
   </div>
   <div class="editor-field">
-    @Html.TextBoxFor(m => m.Title, Html.AttributesFor(m => m.Title))
-    @if (!string.IsNullOrWhiteSpace(Model.Title))
+    @Html.TextBoxFor(m => m.Name, Html.AttributesFor(m => m.Name))
+    @if (!string.IsNullOrWhiteSpace(Model.Name))
     {
-      <span>@Html.ActionLink(Model.Title, "Page", "Wiki", new { page = Model.Title }, null)</span>
+      <span>@Html.ActionLink(Model.Name, "Page", "Wiki", new { page = Model.Name }, null)</span>
     }      
-    @Html.ValidationMessageFor(m => m.Title)
-    @Html.HintFor(m => m.Title)
+    @Html.ValidationMessageFor(m => m.Name)
+    @Html.HintFor(m => m.Name)
   </div>
 
   <div class="editor-label">

@@ -62,7 +62,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         }
 
         [Test]
-        public void PageLoggedInAndNew()
+        public void PageLoggedInAndRedirectsToNewEntry()
         {
             Repository.FindFirstOrDefault(Arg.Any<EntryByNameQuery>()).Returns(x => null);
             Identity.IsAuthenticated.Returns(true);

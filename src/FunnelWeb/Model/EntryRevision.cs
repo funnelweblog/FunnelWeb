@@ -28,10 +28,16 @@ namespace FunnelWeb.Model
             HideChrome = false;
             Published = DateTime.UtcNow;
             PageTemplate = null;
+            Format = Formats.Markdown;
+            IsDiscussionEnabled = true;
+            Status = EntryStatus.PublicBlog;
+
             Comments = new List<Comment>();
+            Pingbacks = new List<Pingback>();
+            Tags = new List<Tag>();
         }
 
-        public virtual int Id { get; protected set; }
+        public virtual int Id { get; set; }
 
         public virtual bool IsNew { get { return Id == 0; } }
 
@@ -48,8 +54,8 @@ namespace FunnelWeb.Model
         [Description("Choose the markup format you'd like to use for this page")]
         public virtual string Format { get; set; }
         public virtual DateTime Revised { get; set; }
-        public virtual int RevisionNumber { get; protected set; }
-        public virtual int LatestRevisionNumber { get; protected set; }
+        public virtual int RevisionNumber { get; set; }
+        public virtual int LatestRevisionNumber { get; set; }
 
         [DisplayName("Change summary")]
         [StringLength(300)]
@@ -67,7 +73,7 @@ namespace FunnelWeb.Model
 
         [Required]
         [DisplayName("SLUG")]
-        [StringLength(200)]
+        [EnforcedStringLength(200)] //StringLength throws a cast exception for PageName
         [Description("This will form the URL to your page.")]
         [RegularExpression("[a-z0-9\\-\\/]+", ErrorMessage = "Page names can only include lowercase alpha characters, numbers, dashes and forward slashes (/)")]
         [HintSize(HintSize.Medium)]

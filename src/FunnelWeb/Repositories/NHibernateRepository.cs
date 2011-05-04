@@ -16,7 +16,7 @@ namespace FunnelWeb.Repositories
 
         public TEntity Get<TEntity>(object id)
         {
-            return session.Load<TEntity>(id);
+            return session.Get<TEntity>(id);
         }
 
         public IEnumerable<TEntity> FindAll<TEntity>() where TEntity : class
@@ -54,7 +54,7 @@ namespace FunnelWeb.Repositories
 
         public void Add(object entity)
         {
-            session.Save(entity);
+            session.Persist(entity);
         }
 
         public void Remove(object entity)

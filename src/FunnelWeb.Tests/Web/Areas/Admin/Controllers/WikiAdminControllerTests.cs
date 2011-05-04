@@ -63,6 +63,21 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
             FeedRepository.Received().GetTags();
         }
 
+        [Test]
+        public void EditReturnsNewModelWhenEntryNotFound()
+        {
+            // arrange
+            const string newPostName = "new-awesome-post";
+
+            // act
+            var result = (ViewResult)AdminController.Edit(newPostName, null);
+
+            // assert
+            Assert.IsNotNull(result.ViewData.Model);
+            Assert.IsInstanceOf(typeof(EntryRevision), result.ViewData.Model);
+            Assert.NotNull(((EntryRevision)result.ViewData.Model).Tags);
+            Assert.AreEqual("new-awesome-post", ((EntryRevision)result.ViewData.Model).Name.ToString());
+        }
 
         private static ControllerContext CreateControllerContext()
         {

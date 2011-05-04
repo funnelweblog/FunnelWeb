@@ -39,14 +39,17 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
             var entry =
                 revertToRevision == null
                     ? Repository.FindFirstOrDefault(new EntryByNameQuery(page))
-                    : Repository.FindFirstOrDefault(new EntryByNameAndRevisionQuery(page, revertToRevision.Value))
-                    ?? new EntryRevision
-                             {
-                                 Title = "New post",
-                                 MetaTitle = "New post",
-                                 Name = page,
-                                 Status = EntryStatus.PublicBlog
-                             };
+                    : Repository.FindFirstOrDefault(new EntryByNameAndRevisionQuery(page, revertToRevision.Value));
+
+            if (entry == null)
+            {
+                entry = new EntryRevision
+                            {
+                                Title = "New post",
+                                MetaTitle = "New post",
+                                Name = page
+                            };
+            }
 
             entry.ChangeSummary = entry.Id == 0
                                       ? "Initial create"
@@ -73,7 +76,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 			}
 
 			// Does an entry with that name already exist?
-            var existing = Repository.FindFirstOrDefault(new EntryByNameQuery(model.Title));
+            var existing = Repository.FindFirstOrDefault(new EntryByNameQuery(model.Name));
 			if (existing != null && existing.Id != model.Id)
 			{
                 model.SelectedTags = GetEditTags(model);
@@ -83,13 +86,9 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
 		    var author = Authenticator.GetName();
 
-		    var entry = Repository.Get<Entry>(model.Id);
-            if (entry == null)
-            {
-                entry = new Entry { Author = author };
-                Repository.Add(entry);
-            }
-			entry.Name = model.Title;
+		    var entry = Repository.Get<Entry>(model.Id) ?? new Entry { Author = author };
+
+            entry.Name = model.Title;
 			entry.PageTemplate = string.IsNullOrEmpty(model.PageTemplate) ? null : model.PageTemplate;
 			entry.Title = model.Title ?? string.Empty;
 			entry.Summary = model.Summary ?? string.Empty;
@@ -119,7 +118,10 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
                 tag.Add(entry);
             }
 
-		    return RedirectToAction("Page", "Wiki", new { page = model.Title});
+            if (model.IsNew)
+                Repository.Add(entry);
+
+		    return RedirectToAction("Page", "Wiki", new { Area = "", page = model.Name});
 		}
 
         private List<Tag> GetEditTags(EntryRevision model)
