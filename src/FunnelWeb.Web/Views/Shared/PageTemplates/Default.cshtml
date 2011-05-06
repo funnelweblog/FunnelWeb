@@ -70,7 +70,7 @@
     </div>
     }
   
-    @Html.DisplayFor(x => x.Entry.Tags)
+    @Html.DisplayFor(x => x.Entry.TagsCommaSeparated)
   
     <div class='entry-tools'>
       <span>Posted by: @Model.Entry.Author@{if(@Model.Entry.RevisionAuthor != Model.Entry.Author) { Write(string.Format(", Last edit by: {0}", @Model.Entry.RevisionAuthor)); }}</span><br />

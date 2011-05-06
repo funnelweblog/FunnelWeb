@@ -20,6 +20,7 @@ namespace FunnelWeb.Model.Mappings
 			Map(x => x.PageTemplate);
             Map(x => x.Author);
             Map(x => x.CommentCount).Formula("(SELECT COUNT(*) from Comment where Comment.EntryID = ID and Comment.Status = 1)");
+            Map(x => x.TagsCommaSeparated);
 
             Component(o => o.LatestRevision,
                 c=>
@@ -27,7 +28,7 @@ namespace FunnelWeb.Model.Mappings
                         c.Map(r => r.Id, "LatestRevisionId");
                         c.Map(r => r.RevisionNumber);
                         c.Map(r => r.Author).Column("RevisionAuthor");
-                        c.Map(r => r.Body).Length(int.MaxValue);
+                        c.Map(r => r.Body).Column("Body").Length(int.MaxValue);
                         c.Map(r => r.Revised).Column("LastRevised");
                         c.Map(r => r.Format).Column("LatestRevisionFormat");
                     });

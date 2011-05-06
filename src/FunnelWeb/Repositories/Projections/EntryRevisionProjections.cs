@@ -4,34 +4,60 @@ using NHibernate.Criterion.Lambda;
 
 namespace FunnelWeb.Repositories.Projections
 {
+    public static class EntrySummaryProjections
+    {
+        public static Func<QueryOverProjectionBuilder<Entry>, QueryOverProjectionBuilder<Entry>> FromEntry(EntrySummary entrySummaryAlias)
+        {
+            return list =>
+                       {
+                           list
+                               .Select(e => e.TagsCommaSeparated).WithAlias(() => entrySummaryAlias.TagsCommaSeparated)
+                               .Select(e => e.CommentCount).WithAlias(() => entrySummaryAlias.CommentCount)
+                               .Select(e => e.MetaDescription).WithAlias(() => entrySummaryAlias.MetaDescription)
+                               .Select(e => e.Name).WithAlias(() => entrySummaryAlias.Name)
+                               .Select(e => e.Published).WithAlias(() => entrySummaryAlias.Published)
+                               .Select(e => e.Summary).WithAlias(() => entrySummaryAlias.Summary)
+                               .Select(e => e.Title).WithAlias(() => entrySummaryAlias.Title)
+                               .Select(e => e.LatestRevision.Revised).WithAlias(() => entrySummaryAlias.LastRevised);
+
+                return list;
+            };
+        }
+    }
+
     public static class EntryRevisionProjections
     {
         public static Func<QueryOverProjectionBuilder<Entry>, QueryOverProjectionBuilder<Entry>> FromEntry()
         {
             var entryRevision = new EntryRevision();
 
+            return FromEntry(entryRevision);
+        }
+
+        public static Func<QueryOverProjectionBuilder<Entry>, QueryOverProjectionBuilder<Entry>> FromEntry(EntryRevision entryRevisionAlias)
+        {
             return list =>
                        {
                            list
-                               .Select(e => e.Id).WithAlias(() => entryRevision.Id)
-                               .Select(e => e.Author).WithAlias(() => entryRevision.Author)
-                               .Select(e => e.LatestRevision.Author).WithAlias(()=>entryRevision.RevisionAuthor)
-                               .Select(e => e.LatestRevision.Body).WithAlias(() => entryRevision.Body)
-                               .Select(e => e.CommentCount).WithAlias(() => entryRevision.CommentCount)
-                               .Select(e => e.LatestRevision.Format).WithAlias(() => entryRevision.Format)
-                               .Select(e => e.HideChrome).WithAlias(() => entryRevision.HideChrome)
-                               .Select(e => e.IsDiscussionEnabled).WithAlias(() => entryRevision.IsDiscussionEnabled)
-                               .Select(e => e.LatestRevision.RevisionNumber).WithAlias(() => entryRevision.LatestRevisionNumber)
-                               .Select(e => e.LatestRevision.RevisionNumber).WithAlias(() => entryRevision.RevisionNumber)
-                               .Select(e => e.MetaDescription).WithAlias(() => entryRevision.MetaDescription)
-                               .Select(e => e.MetaTitle).WithAlias(() => entryRevision.MetaTitle)
-                               .Select(e => e.Title).WithAlias(() => entryRevision.Title)
-                               .Select(e => e.Name).WithAlias(() => entryRevision.Name)
-                               .Select(e => e.PageTemplate).WithAlias(() => entryRevision.PageTemplate)
-                               .Select(e => e.Published).WithAlias(() => entryRevision.Published)
-                               .Select(e => e.LatestRevision.Revised).WithAlias(() => entryRevision.Revised)
-                               .Select(e => e.Status).WithAlias(() => entryRevision.Status)
-                               .Select(e => e.Summary).WithAlias(() => entryRevision.Summary);
+                               .Select(e => e.Id).WithAlias(() => entryRevisionAlias.Id)
+                               .Select(e => e.Author).WithAlias(() => entryRevisionAlias.Author)
+                               .Select(e => e.LatestRevision.Author).WithAlias(() => entryRevisionAlias.RevisionAuthor)
+                               .Select(e => e.LatestRevision.Body).WithAlias(() => entryRevisionAlias.Body)
+                               .Select(e => e.CommentCount).WithAlias(() => entryRevisionAlias.CommentCount)
+                               .Select(e => e.LatestRevision.Format).WithAlias(() => entryRevisionAlias.Format)
+                               .Select(e => e.HideChrome).WithAlias(() => entryRevisionAlias.HideChrome)
+                               .Select(e => e.IsDiscussionEnabled).WithAlias(() => entryRevisionAlias.IsDiscussionEnabled)
+                               .Select(e => e.LatestRevision.RevisionNumber).WithAlias(() => entryRevisionAlias.LatestRevisionNumber)
+                               .Select(e => e.LatestRevision.RevisionNumber).WithAlias(() => entryRevisionAlias.RevisionNumber)
+                               .Select(e => e.MetaDescription).WithAlias(() => entryRevisionAlias.MetaDescription)
+                               .Select(e => e.MetaTitle).WithAlias(() => entryRevisionAlias.MetaTitle)
+                               .Select(e => e.Title).WithAlias(() => entryRevisionAlias.Title)
+                               .Select(e => e.Name).WithAlias(() => entryRevisionAlias.Name)
+                               .Select(e => e.PageTemplate).WithAlias(() => entryRevisionAlias.PageTemplate)
+                               .Select(e => e.Published).WithAlias(() => entryRevisionAlias.Published)
+                               .Select(e => e.LatestRevision.Revised).WithAlias(() => entryRevisionAlias.Revised)
+                               .Select(e => e.Status).WithAlias(() => entryRevisionAlias.Status)
+                               .Select(e => e.Summary).WithAlias(() => entryRevisionAlias.Summary);
 
                            return list;
                        };

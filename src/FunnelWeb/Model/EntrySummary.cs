@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using FunnelWeb.Model.Strings;
 
@@ -16,8 +15,10 @@ namespace FunnelWeb.Model
         public virtual int CommentCount { get; set; }
         public virtual string MetaDescription { get; set; }
         public virtual DateTime Published { get; set; }
-        
-        [DataType("Tags")]
-        public virtual IList<Tag> Tags { get; set; }
+        public virtual DateTime LastRevised { get; set; }
+
+        [DataType("TagsList")]
+        public virtual string TagsCommaSeparated { get; set; }
+
     }
 }

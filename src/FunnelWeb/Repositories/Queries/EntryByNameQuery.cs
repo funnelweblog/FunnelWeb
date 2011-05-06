@@ -48,7 +48,8 @@ namespace FunnelWeb.Repositories.Queries
                 .Where(e => e.Name == PageName)
                 .SelectList(EntryRevisionProjections.FromEntry())
                 .TransformUsing(Transformers.AliasToBean<EntryRevision>())
-                .SingleOrDefault<EntryRevision>();
+                .Future<EntryRevision>()
+                .SingleOrDefault();
 
             if (singleOrDefault == null)
                 return Enumerable.Empty<EntryRevision>();

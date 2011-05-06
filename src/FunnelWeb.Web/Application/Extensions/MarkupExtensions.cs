@@ -179,27 +179,25 @@ namespace FunnelWeb.Web.Application.Extensions
         static readonly Regex keywordReplace = new Regex(@"[ &\.#]+", RegexOptions.Compiled);
         public static IEnumerable<MvcHtmlString> CssKeywordsFor(this HtmlHelper html, EntrySummary entry)
         {
-            var tags = entry.Tags;
-            return CssKeywordsFor(tags);
+            var tags = entry.TagsCommaSeparated.Split(new[]{","}, StringSplitOptions.RemoveEmptyEntries);
+            return from tagName in tags
+                   select CssKeywordsForTag(html, tagName);
         }
 
         public static IEnumerable<MvcHtmlString> CssKeywordsFor(this HtmlHelper html, EntryRevision entry)
         {
-            var tags = entry.Tags;
-            return CssKeywordsFor(tags);
+            return html.CssKeywordsFor(entry.Tags);
         }
 
-        private static IEnumerable<MvcHtmlString> CssKeywordsFor(IEnumerable<Tag> tags)
+        private static IEnumerable<MvcHtmlString> CssKeywordsFor(this HtmlHelper html, IEnumerable<Tag> tags)
         {
-            return from k in tags.Select(x => keywordReplace.Replace(x.Name, "-"))
-                   let w = k.Trim()
-                   where keyword.IsMatch(w)
-                   select MvcHtmlString.Create("keyword-" + w);
+            return from tagName in tags.Select(x => x.Name)
+                   select CssKeywordsForTag(html, tagName);
         }
 
-        public static MvcHtmlString CssKeywordsFor(this HtmlHelper html, Tag tag)
+        public static MvcHtmlString CssKeywordsForTag(this HtmlHelper html, string tag)
         {
-            var fixedTag = keywordReplace.Replace(tag.Name, "-");
+            var fixedTag = keywordReplace.Replace(tag, "-");
             return keyword.IsMatch(fixedTag)
                 ? MvcHtmlString.Create("keyword-" + fixedTag) 
                 : MvcHtmlString.Empty;

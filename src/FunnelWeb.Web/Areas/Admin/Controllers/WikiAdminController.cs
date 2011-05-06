@@ -88,7 +88,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
 		    var entry = Repository.Get<Entry>(model.Id) ?? new Entry { Author = author };
 
-            entry.Name = model.Title;
+            entry.Name = model.Name;
 			entry.PageTemplate = string.IsNullOrEmpty(model.PageTemplate) ? null : model.PageTemplate;
 			entry.Title = model.Title ?? string.Empty;
 			entry.Summary = model.Summary ?? string.Empty;

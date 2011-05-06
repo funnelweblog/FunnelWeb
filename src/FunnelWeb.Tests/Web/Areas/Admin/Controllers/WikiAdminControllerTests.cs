@@ -27,7 +27,7 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
         protected IIdentity Identity { get; set; }
         protected IPrincipal User { get; set; }
         
-        [TestFixtureSetUp]
+        [SetUp]
         public void Setup()
         {
             AdminController = new WikiAdminController

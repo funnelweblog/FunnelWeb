@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using Iesi.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using FunnelWeb.Model.Strings;
 using NHibernate.Validator.Constraints;
 
 namespace FunnelWeb.Model
 {
-    public class Entry : EntrySummary
+    public class Entry
     {
+        private string tagsCommaSeparated;
+
         public Entry()
         {
             Title = string.Empty;
@@ -28,6 +32,26 @@ namespace FunnelWeb.Model
 
         public virtual int Id { get; private set; }
 		public virtual string PageTemplate { get; set; }
+
+
+        public virtual PageName Name { get; set; }
+        public virtual string Title { get; set; }
+
+        [DataType("Markdown")]
+        public virtual string Summary { get; set; }
+
+        public virtual int CommentCount { get; set; }
+        public virtual string MetaDescription { get; set; }
+        public virtual DateTime Published { get; set; }
+
+        [DataType("Tags")]
+        public virtual IList<Tag> Tags { get; set; }
+
+        public virtual string TagsCommaSeparated
+        {
+            get { return tagsCommaSeparated ?? string.Join(",", Tags.Select(t=>t.Name)); }
+            set { tagsCommaSeparated = value; }
+        }
 
         public virtual bool IsDiscussionEnabled { get; set; }
         public virtual string MetaTitle { get; set; }

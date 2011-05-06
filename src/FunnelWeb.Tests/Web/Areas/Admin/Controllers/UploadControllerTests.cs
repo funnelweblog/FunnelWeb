@@ -2,7 +2,6 @@
 using System.Web;
 using System.Web.Mvc;
 using FunnelWeb.Model.Repositories;
-using FunnelWeb.Web.Application;
 using FunnelWeb.Web.Application.Mime;
 using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Areas.Admin.Controllers;
@@ -129,17 +128,17 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
         }
 
         [Test]
-        public void RenderMissingFile()
+        public void Return404OnMissingFile()
         {
             FileRepository.IsFile(Arg.Is("file")).Returns(false);
 
-            var result = (RedirectResult)Controller.Render("file");
+            var result = Controller.Render("file");
 
             FileRepository.Received().IsFile(Arg.Is("file"));
             FileRepository.DidNotReceive().MapPath(Arg.Any<string>());
             MimeTypeLookup.DidNotReceive().GetMimeType(Arg.Any<string>());
 
-            Assert.That(result.Url, Is.EqualTo("/"));
+            Assert.IsInstanceOf(typeof (HttpNotFoundResult), result);
         }
 
         private static ControllerContext CreateControllerContext()

@@ -1,26 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using FunnelWeb.Model;
+using FunnelWeb.Repositories;
 
 namespace FunnelWeb.Web.Views.Wiki
 {
     public class RecentModel
     {
-        public RecentModel(string title, IEnumerable<Entry> revisions, int pageNumber, int totalPages, string actionName)
+        public RecentModel(string title, PagedResult<EntrySummary> results, string actionName)
         {
             Title = title;
-            Entries = revisions;
-            PageNumber = pageNumber;
-            TotalPages = totalPages;
+            Results = results;
             ActionName = actionName;
         }
 
         public string Title { get; set; }
-        [DataType("Entries")]
-        public IEnumerable<EntrySummary> Entries { get; set; }
-        public int PageNumber { get; set; }
-        public int TotalPages { get; set; }
+        [UIHint("EntrySummaries")]
+        public PagedResult<EntrySummary> Results { get; set; }
         public string ActionName { get; set; }
     }
 }

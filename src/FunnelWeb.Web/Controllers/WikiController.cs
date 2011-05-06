@@ -49,10 +49,8 @@ namespace FunnelWeb.Web.Controllers
 
         public virtual ActionResult Recent(int pageNumber)
         {
-            var entries = FeedRepository.GetRecentEntries(pageNumber * ItemsPerPage, ItemsPerPage);
-            var totalItems = FeedRepository.GetEntryCount();
-            var totalPages = (int)((decimal)totalItems / ItemsPerPage + 1);
-            ViewData.Model = new RecentModel("Recent Posts", entries, pageNumber, totalPages, ControllerContext.RouteData.Values["action"].ToString());
+            var result = Repository.Find(new GetEntriesQuery(), pageNumber, ItemsPerPage);
+            ViewData.Model = new RecentModel("Recent Posts", result, ControllerContext.RouteData.Values["action"].ToString());
             return View("Recent");
         }
 
@@ -157,7 +155,7 @@ namespace FunnelWeb.Web.Controllers
 
         public virtual ActionResult SiteMap()
         {
-            var allPosts = Repository.Find(new GetEntriesQuery(), 0, 500);
+            var allPosts = Repository.Find(new GetFullEntriesQuery(true), 0, 500);
             ViewData.Model = new SiteMapModel(allPosts);
             return View();
         }

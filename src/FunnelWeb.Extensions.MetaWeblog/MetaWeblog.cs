@@ -157,13 +157,45 @@ namespace FunnelWeb.Extensions.MetaWeblog
         {
             if (ValidateUser(username, password))
             {
-                var entries = repository.Find(new GetEntriesQuery(), 0, numberOfPosts)
-                    .Select(p=>ConvertToPost(p.Entry.Value))
+                var entries = repository.Find(new GetFullEntriesQuery(), 0, numberOfPosts)
+                    .Select(ConvertToPost)
                     .ToArray();
 
                 return entries;
             }
             throw new XmlRpcFaultException(0, "User is not valid!");
+        }
+
+        private Post ConvertToPost(Entry entry)
+        {
+            return new Post
+            {
+                dateCreated = entry.LatestRevision.Revised,
+                categories = entry.Tags.Select(t => t.Name).ToArray(),
+                description = entry.LatestRevision.Body,
+                permalink = entry.Name.ToString(),
+                postid = entry.Id,
+                title = entry.Title,
+                userid = "FunnelWeb",
+                wp_slug = entry.Name.ToString(),
+                mt_excerpt = entry.MetaDescription
+            };
+        }
+
+        private static Post ConvertToPost(EntryRevision entry)
+        {
+            return new Post
+            {
+                dateCreated = entry.Revised,
+                categories = entry.Tags.Select(t => t.Name).ToArray(),
+                description = entry.Body,
+                permalink = entry.Name.ToString(),
+                postid = entry.Id,
+                title = entry.Title,
+                userid = "FunnelWeb",
+                wp_slug = entry.Name.ToString(),
+                mt_excerpt = entry.MetaDescription
+            };
         }
 
         public MediaObjectInfo NewMediaObject(string blogid, string username, string password,
@@ -240,22 +272,6 @@ namespace FunnelWeb.Extensions.MetaWeblog
         private bool ValidateUser(string username, string password)
         {
             return authenticator.AuthenticateAndLogin(username, password);
-        }
-
-        private static Post ConvertToPost(Entry entry)
-        {
-            return new Post
-                       {
-                           dateCreated = entry.LatestRevision.Revised,
-                           categories = entry.Tags.Select(t => t.Name).ToArray(),
-                           description = entry.LatestRevision.Body,
-                           permalink = entry.Name.ToString(),
-                           postid = entry.Id,
-                           title = entry.Title,
-                           userid = "FunnelWeb",
-                           wp_slug = entry.Name.ToString(),
-                           mt_excerpt = entry.MetaDescription
-                       };
         }
     }
 }

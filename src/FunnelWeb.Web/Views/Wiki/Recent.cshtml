@@ -10,6 +10,6 @@
 }
 <h1>@Model.Title</h1>
 
-@Html.DisplayFor(x => x.Entries)
+@Html.DisplayFor(x => x.Results)
 
-@Paginator.Render(Model.ActionName, Model.PageNumber, Model.TotalPages)
+@Paginator.Render(Model.ActionName, Model.Results.Page, Model.Results.TotalPages)
