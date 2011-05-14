@@ -33,6 +33,27 @@ namespace FunnelWeb.Tests.Integration.Queries
                     repo.Add(entry2);
                 });
 
+            //todo: TableFullTextChangeTrackingOn doesn't check if full text is enabled for that table, need to find IsFullTextIndexEnabled property
+            var isFullTextEnabled = (int)Database.AdHoc.ExecuteScalar(
+                "SELECT FullTextServiceProperty('IsFullTextInstalled') + OBJECTPROPERTY(OBJECT_ID('Entry'), 'TableFullTextChangeTrackingOn')");
+
+            //Idealy the test will run when full text is installed and enabled, if not, still test like based search
+            if (isFullTextEnabled == 2)
+            {
+                //Database.AdHoc.ExecuteNonQuery("ALTER FULLTEXT INDEX ON Entry START UPDATE POPULATION");
+
+                //Database.WithRepository(
+                //repo =>
+                //{
+                //    var result = repo.Find(new SearchEntriesQuery(name.ToString()), 0, 1);
+                //    Assert.AreEqual(1, result.Count);
+                //    Assert.GreaterOrEqual(2, result.TotalResults);
+                //});
+
+                Database.AdHoc.ExecuteNonQuery("ALTER FULLTEXT INDEX ON [dbo].[Entry] SET CHANGE_TRACKING = OFF");
+                Database.AdHoc.ExecuteNonQuery("EXEC dbo.sp_fulltext_table @tabname=N'Entry', @action=N'deactivate'");
+            }
+
             Database.WithRepository(
                 repo =>
                 {
@@ -40,6 +61,11 @@ namespace FunnelWeb.Tests.Integration.Queries
                     Assert.AreEqual(1, result.Count);
                     Assert.GreaterOrEqual(2, result.TotalResults);
                 });
+
+            if (isFullTextEnabled == 2)
+            {
+                //Database.AdHoc.ExecuteNonQuery("EXEC dbo.sp_fulltext_table @tabname=N'Entry', @action=N'activate'");
+            }
         }
     }
 }

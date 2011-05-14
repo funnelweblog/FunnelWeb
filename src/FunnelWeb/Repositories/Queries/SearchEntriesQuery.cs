@@ -82,7 +82,6 @@ namespace FunnelWeb.Repositories.Queries
 
         private IQueryOver<Entry, Entry> Search(ISession session)
         {
-            
             var isFullTextEnabled = session.CreateSQLQuery(
                 "SELECT FullTextServiceProperty('IsFullTextInstalled') + OBJECTPROPERTY(OBJECT_ID('Entry'), 'TableFullTextChangeTrackingOn')")
                 .List()[0];

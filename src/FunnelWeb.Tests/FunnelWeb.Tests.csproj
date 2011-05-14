@@ -106,6 +106,7 @@
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
     <Compile Include="Core\Filters\FunnelWebRequestFilterTests.cs" />
+    <Compile Include="Integration\Queries\GetFullEntriesQueryTests.cs" />
     <Compile Include="Integration\Queries\GetEntriesByTagQueryTests.cs" />
     <Compile Include="Integration\Queries\SearchEntriesQueryTests.cs" />
     <Compile Include="Integration\Queries\EntryByNameQueryTests.cs" />
