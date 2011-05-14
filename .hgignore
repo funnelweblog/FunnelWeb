@@ -65,3 +65,4 @@ glob:build/TestResult.xml
 [pP]ublish
 glob:Tools\*.nupkg
 Views\Extensions\*
+glob:src/FunnelWeb.sln.docstates

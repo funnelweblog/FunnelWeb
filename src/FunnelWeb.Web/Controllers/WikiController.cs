@@ -22,8 +22,6 @@ namespace FunnelWeb.Web.Controllers
     {
         private const int ItemsPerPage = 30;
         public IRepository Repository { get; set; }
-        public ITagRepository TagRepository { get; set; }
-        public IFeedRepository FeedRepository { get; set; }
         public ISpamChecker SpamChecker { get; set; }
         public IEventPublisher EventPublisher { get; set; }
         public ISettingsProvider SettingsProvider { get; set; }

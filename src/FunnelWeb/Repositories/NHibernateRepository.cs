@@ -47,6 +47,11 @@ namespace FunnelWeb.Repositories
             return One(Find(query), false);
         }
 
+        public TEntity FindFirstOrDefault<TEntity>(IPagedQuery<TEntity> query) where TEntity : class
+        {
+            return One(Find(query, 0, 1), false);
+        }
+
         public void Execute(ICommand command)
         {
             command.Execute(session);

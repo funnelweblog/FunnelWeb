@@ -12,7 +12,6 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
     {
         protected AdminController Controller { get; set; }
         protected IAdminRepository AdminRepository { get; set; }
-        protected ITagRepository FeedRepository { get; set; }
 
         [SetUp]
         public void SetUp()
@@ -20,7 +19,6 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
             Controller = new AdminController
                              {
                                  AdminRepository = AdminRepository = Substitute.For<IAdminRepository>(),
-                                 FeedRepository = FeedRepository = Substitute.For<ITagRepository>(),
                                  ControllerContext = CreateControllerContext()
                              };
         }

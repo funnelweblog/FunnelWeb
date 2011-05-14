@@ -22,7 +22,6 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
         protected WikiAdminController AdminController { get; set; }
         protected ControllerContext ControllerContext { get; set; }
         protected IRepository Repository { get; set; }
-        protected ITagRepository FeedRepository { get; set; }
         protected ISpamChecker SpamChecker { get; set; }
         protected IIdentity Identity { get; set; }
         protected IPrincipal User { get; set; }
@@ -33,7 +32,6 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
             AdminController = new WikiAdminController
                                   {
                                       Repository = Repository = Substitute.For<IRepository>(),
-                                      TagRepository = FeedRepository = Substitute.For<ITagRepository>(),
                                       SpamChecker = SpamChecker = Substitute.For<ISpamChecker>(),
                                       ControllerContext = ControllerContext = CreateControllerContext()
                                   };
@@ -51,7 +49,7 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
             Repository.FindFirstOrDefault(Arg.Any<EntryByNameAndRevisionQuery>()).Returns(entry);
 
             var feeds = new List<Tag>().AsQueryable();
-            FeedRepository.GetTags().Returns(feeds);
+            Repository.FindAll<Tag>().Returns(feeds);
 
             var result = (ViewResult)AdminController.Edit(entry.Name, null);
 
@@ -60,7 +58,7 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
             Assert.AreEqual(entry.Name.ToString(), ((EntryRevision)result.ViewData.Model).Name.ToString());
 
             Repository.Received().FindFirstOrDefault(Arg.Any<EntryByNameAndRevisionQuery>());
-            FeedRepository.Received().GetTags();
+            Repository.Received().FindAll<Tag>();
         }
 
         [Test]

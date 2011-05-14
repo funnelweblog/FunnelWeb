@@ -18,9 +18,7 @@ namespace FunnelWeb.Model.Repositories
         protected override void Load(ContainerBuilder builder)
         {
             builder.Register<IFileRepository>(x => new FileRepository(x.Resolve<ISettingsProvider>(), x.Resolve<HttpServerUtilityBase>())).InstancePerLifetimeScope();
-            builder.RegisterType<TagRepository>().As<ITagRepository>().InstancePerLifetimeScope();
             builder.RegisterType<AdminRepository>().As<IAdminRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<FeedRepository>().As<IFeedRepository>().InstancePerLifetimeScope();
             builder.RegisterType<TaskStateRepository>().As<ITaskStateRepository>().InstancePerLifetimeScope();
 
             builder.RegisterType<NHibernateRepository>().As<IRepository>().InstancePerLifetimeScope();

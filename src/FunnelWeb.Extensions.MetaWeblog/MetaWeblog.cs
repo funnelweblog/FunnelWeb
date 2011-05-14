@@ -22,22 +22,19 @@ namespace FunnelWeb.Extensions.MetaWeblog
         private readonly ISession session;
         private readonly IFileRepository fileRepository;
         private readonly IAuthenticator authenticator;
-        private readonly ITagRepository tagRepository;
 
         public MetaWeblog(
             ISettingsProvider settingsProvider,
             IRepository repository, 
             ISession session, 
             IFileRepository fileRepository,
-            IAuthenticator authenticator,
-            ITagRepository tagRepository)
+            IAuthenticator authenticator)
         {
             this.settingsProvider = settingsProvider;
             this.repository = repository;
             this.session = session;
             this.fileRepository = fileRepository;
             this.authenticator = authenticator;
-            this.tagRepository = tagRepository;
             funnelWebSettings = this.settingsProvider.GetSettings<FunnelWebSettings>();
         }
 
@@ -101,11 +98,11 @@ namespace FunnelWeb.Extensions.MetaWeblog
                         tag.Remove(entry);
                     foreach (var tag in toAdd)
                     {
-                        var existingTag = tagRepository.GetTag(tag);
+                        var existingTag = repository.FindFirstOrDefault(new SearchTagsByNameQuery(tag));
                         if (existingTag == null)
                         {
                             existingTag = new Tag { Name = tag };
-                            tagRepository.Save(existingTag);
+                            repository.Add(existingTag);
                         }
                         existingTag.Add(entry);
                     }
@@ -136,8 +133,7 @@ namespace FunnelWeb.Extensions.MetaWeblog
             {
                 //TODO implement a tagged rss feed, and update url
 
-                return tagRepository.GetTags()
-                    .ToList()
+                return repository.FindAll<Tag>()
                     .Select(t => new CategoryInfo
                                      {
                                          categoryid = t.Id.ToString(),

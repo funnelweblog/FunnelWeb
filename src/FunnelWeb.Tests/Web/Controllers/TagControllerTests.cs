@@ -3,6 +3,9 @@ using System.Linq;
 using System.Web.Mvc;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
+using FunnelWeb.Repositories;
+using FunnelWeb.Repositories.Queries;
+using FunnelWeb.Tests.Integration.Queries;
 using FunnelWeb.Web.Controllers;
 using NSubstitute;
 using NUnit.Framework;
@@ -17,8 +20,8 @@ namespace FunnelWeb.Tests.Web.Controllers
         public void TagControllerTests_Empty_Repository_Returns_No_Tags()
         {
             //Arrange
-            var repo = Substitute.For<ITagRepository>();
-            repo.GetTags(Arg.Any<string>()).Returns(x => Enumerable.Empty<Tag>().AsQueryable());
+            var repo = Substitute.For<IRepository>();
+            repo.Find(Arg.Any<SearchTagsByNameQuery>()).Returns(x => Enumerable.Empty<Tag>());
             var controller = new TagController(repo);
 
             //Act
@@ -34,8 +37,9 @@ namespace FunnelWeb.Tests.Web.Controllers
         public void TagControllerTests_GetAll_Returns_Entire_Repository()
         {
             //Arrange
-            var repo = Substitute.For<ITagRepository>();
-            repo.GetTags(Arg.Any<string>()).Returns(Enumerable
+            var repo = Substitute.For<IRepository>();
+            repo.Find(Arg.Any<SearchTagsByNameQuery>())
+                .Returns(Enumerable
                                        .Range(0, 5)
                                        .Select(x => new Tag
                                                         {
@@ -55,9 +59,10 @@ namespace FunnelWeb.Tests.Web.Controllers
         public void TagControllerTests_Tag_Accessible_By_Full_Name()
         {
             //Arrange
-            var repo = Substitute.For<ITagRepository>();
+            var repo = Substitute.For<IRepository>();
             var tagName = "Demo";
-            repo.GetTag(Arg.Is(tagName)).Returns(new Tag {Name = tagName});
+            repo.FindFirstOrDefault(Arg.Is<SearchTagsByNameQuery>(q=>q.TagName == tagName))
+                .Returns(new Tag {Name = tagName});
 
             var controller = new TagController(repo);
             //Act
@@ -81,14 +86,16 @@ namespace FunnelWeb.Tests.Web.Controllers
         [Test]
         public void TagControllerTests_Null_Result_When_Tag_Name_Not_Matched()
         {
-            //Arrange
-            var repo = Substitute.For<ITagRepository>();
-            repo.GetTag(Arg.Any<string>()).Returns(x => null);
+            // arrange
+            var repo = Substitute.For<IRepository>();
+            repo.FindFirstOrDefault(Arg.Any<SearchTagsByNameQuery>()).Returns(x => null);
 
             var controller = new TagController(repo);
-            //Act
+
+            // act
             var result = controller.Tag(string.Empty) as JsonResult;
-            //Assert
+            
+            // assert
             Assert.IsNotNull(result);
             Assert.IsNull(result.Data);
         }

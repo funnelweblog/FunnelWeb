@@ -146,6 +146,7 @@
     <Compile Include="Repositories\IPagedQuery.cs" />
     <Compile Include="Repositories\Queries\GetFullEntriesQuery.cs" />
     <Compile Include="Repositories\Queries\SearchEntriesQuery.cs" />
+    <Compile Include="Repositories\Queries\SearchTagsByNameQuery.cs" />
     <Compile Include="RoutableFunnelWebExtension.cs" />
     <Compile Include="Settings\IBootstrapSettings.cs" />
     <Compile Include="Settings\ISettings.cs" />
@@ -165,8 +166,6 @@
     <Compile Include="Model\Comment.cs" />
     <Compile Include="Model\Entry.cs" />
     <Compile Include="Model\EntryStatus.cs" />
-    <Compile Include="Model\Repositories\IFeedRepository.cs" />
-    <Compile Include="Model\Repositories\Internal\TagRepository.cs" />
     <Compile Include="Model\FileItem.cs" />
     <Compile Include="Model\Formats.cs" />
     <Compile Include="Model\Mappings\CommentMapping.cs" />
@@ -180,10 +179,8 @@
     <Compile Include="Model\Pingback.cs" />
     <Compile Include="Model\Redirect.cs" />
     <Compile Include="Model\Repositories\IAdminRepository.cs" />
-    <Compile Include="Model\Repositories\ITagRepository.cs" />
     <Compile Include="Model\Repositories\IFileRepository.cs" />
     <Compile Include="Model\Repositories\Internal\AdminRepository.cs" />
-    <Compile Include="Model\Repositories\Internal\FeedRepository.cs" />
     <Compile Include="Model\Repositories\Internal\FileRepository.cs" />
     <Compile Include="Model\Repositories\RepositoriesModule.cs" />
     <Compile Include="Model\Revision.cs" />

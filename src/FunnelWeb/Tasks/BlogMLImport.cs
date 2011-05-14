@@ -7,7 +7,6 @@ using BlogML;
 using BlogML.Xml;
 using FunnelWeb.Authentication;
 using FunnelWeb.Model;
-using FunnelWeb.Model.Repositories;
 using FunnelWeb.Repositories;
 using FunnelWeb.Repositories.Queries;
 
@@ -16,14 +15,12 @@ namespace FunnelWeb.Tasks
     public class BlogMLImportTask : ITask
     {
         private readonly IRepository repository;
-        private readonly ITagRepository tagRepository;
         private readonly IAuthenticator authenticator;
 
-        public BlogMLImportTask(IRepository repository, IAuthenticator authenticator, ITagRepository tagRepository)
+        public BlogMLImportTask(IRepository repository, IAuthenticator authenticator)
         {
             this.repository = repository;
             this.authenticator = authenticator;
-            this.tagRepository = tagRepository;
         }
 
         public IEnumerable<TaskStep> Execute(Dictionary<string, object> properties)
@@ -107,11 +104,11 @@ namespace FunnelWeb.Tasks
                         if (string.IsNullOrEmpty(tagName))
                             continue;
 
-                        var existingTag = tagRepository.GetTag(tagName);
+                        var existingTag = repository.FindFirstOrDefault(new SearchTagsByNameQuery(tagName));
                         if (existingTag == null)
                         {
                             existingTag = new Tag {Name = tagName};
-                            tagRepository.Save(existingTag);
+                            repository.Add(existingTag);
                         }
 
                         existingTag.Add(entry);

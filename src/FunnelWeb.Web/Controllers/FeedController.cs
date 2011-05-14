@@ -11,14 +11,14 @@ using FunnelWeb.Settings;
 using FunnelWeb.Web.Application.Markup;
 using FunnelWeb.Web.Application.Markup.Macros;
 using FunnelWeb.Web.Application.Mvc.ActionResults;
-
+using FunnelWeb.Repositories;
+using FunnelWeb.Repositories.Queries;
 namespace FunnelWeb.Web.Controllers
 {
     [FunnelWebRequest]
     public class FeedController : Controller
     {
-        public IFeedRepository FeedRepository { get; set; }
-        public ITagRepository TagRepository { get; set; }
+        public IRepository Repository { get; set; }
         public IContentRenderer Renderer { get; set; }
         public ISettingsProvider Settings { get; set; }
 
@@ -50,7 +50,7 @@ namespace FunnelWeb.Web.Controllers
         {
             var settings = Settings.GetSettings<FunnelWebSettings>();
             
-            var entries = FeedRepository.GetRecentEntries(0, 20);
+			var entries = Repository.Find(new GetFullEntriesQuery(), 0, 20);
 
             var items =
                 from e in entries
@@ -58,7 +58,7 @@ namespace FunnelWeb.Web.Controllers
 				let viaFeedUri = new Uri(Request.Url, "/via-feed" + Url.Action("Page", "Wiki", new { page = e.Name }))
                 orderby e.Published descending
                 let content = SyndicationContent.CreateHtmlContent(
-                            BuildFeedItemBody(itemUri, viaFeedUri, e.LatestRevision))
+                            BuildFeedItemBody(itemUri, viaFeedUri, e))
                 select new
                 {
                     Item = new SyndicationItem
@@ -67,7 +67,7 @@ namespace FunnelWeb.Web.Controllers
                         Title = SyndicationContent.CreatePlaintextContent(e.Title),
                         Summary = content,
                         Content = content,
-                        LastUpdatedTime = e.LatestRevision.Revised,
+                        LastUpdatedTime = e.Revised,
                         PublishDate = e.Published,
                         Links =
                             {
@@ -90,7 +90,7 @@ namespace FunnelWeb.Web.Controllers
             }));
         }
 
-        private string BuildFeedItemBody(Uri itemUri, Uri viaFeedUri, Revision latestRevision)
+        private string BuildFeedItemBody(Uri itemUri, Uri viaFeedUri, EntryRevision latestRevision)
         {
             var result = 
                 Renderer.RenderTrusted(latestRevision.Body, latestRevision.Format, CreateHelper())
@@ -114,7 +114,7 @@ namespace FunnelWeb.Web.Controllers
 
         public virtual ActionResult CommentFeed()
         {
-            var comments = FeedRepository.GetRecentComments(0, 20);
+			var comments = Repository.Find(new GetCommentsQuery(), 0, 20);
 
             var items =
                 from e in comments

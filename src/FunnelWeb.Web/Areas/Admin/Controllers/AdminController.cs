@@ -22,7 +22,6 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
     public class AdminController : Controller
     {
         public IAdminRepository AdminRepository { get; set; }
-        public ITagRepository FeedRepository { get; set; }
         public ISettingsProvider SettingsProvider { get; set; }
         public IThemeProvider ThemeProvider { get; set; }
         public IRepository Repository { get; set; }

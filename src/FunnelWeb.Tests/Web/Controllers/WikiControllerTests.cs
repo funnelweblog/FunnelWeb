@@ -23,7 +23,6 @@ namespace FunnelWeb.Tests.Web.Controllers
         protected WikiController Controller { get; set; }
         protected ControllerContext ControllerContext { get; set; }
         protected IRepository Repository { get; set; }
-        protected ITagRepository FeedRepository { get; set; }
         protected ISpamChecker SpamChecker { get; set; }
         protected IIdentity Identity { get; set; }
         protected IPrincipal User { get; set; }
@@ -34,7 +33,6 @@ namespace FunnelWeb.Tests.Web.Controllers
             Controller = new WikiController
                              {
                                  Repository = Repository = Substitute.For<IRepository>(),
-                                 TagRepository = FeedRepository = Substitute.For<ITagRepository>(),
                                  SpamChecker = SpamChecker = Substitute.For<ISpamChecker>(),
                                  ControllerContext = ControllerContext = CreateControllerContext(),
                                  SettingsProvider = Substitute.For<ISettingsProvider>()

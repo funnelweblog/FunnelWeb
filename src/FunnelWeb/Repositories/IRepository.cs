@@ -10,6 +10,7 @@ namespace FunnelWeb.Repositories
         PagedResult<TEntity> Find<TEntity>(IPagedQuery<TEntity> query, int pageNumber, int itemsPerPage) where TEntity : class;
         TEntity FindFirst<TEntity>(IQuery<TEntity> query) where TEntity : class;
         TEntity FindFirstOrDefault<TEntity>(IQuery<TEntity> query) where TEntity : class;
+        TEntity FindFirstOrDefault<TEntity>(IPagedQuery<TEntity> query) where TEntity : class;
         void Execute(ICommand command);
         void Add(object entity);
         void Remove(object entity);

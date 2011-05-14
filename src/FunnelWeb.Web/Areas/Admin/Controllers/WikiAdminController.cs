@@ -24,8 +24,6 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
     {
         public IAuthenticator Authenticator { get; set; }
         public IRepository Repository { get; set; }
-        public ITagRepository TagRepository { get; set; }
-        public IFeedRepository FeedRepository { get; set; }
         public ISpamChecker SpamChecker { get; set; }
         public IEventPublisher EventPublisher { get; set; }
         public ISettingsProvider SettingsProvider { get; set; }
@@ -33,8 +31,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         [Authorize(Roles = "Moderator")]
         public virtual ActionResult Edit(PageName page, int? revertToRevision)
         {
-            //Keep this call before the call to entry repository, they will be issued in a single query
-            var allTags = TagRepository.GetTags();
+			var allTags = Repository.FindAll<Tag>();
 
             var entry =
                 revertToRevision == null
@@ -67,7 +64,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         [Authorize(Roles = "Moderator")]
         public virtual ActionResult Edit(EntryRevision model)
 		{
-			model.AllTags = TagRepository.GetTags().ToList();
+			model.AllTags = Repository.FindAll<Tag>();
 
 			if (!ModelState.IsValid)
 			{
@@ -114,7 +111,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
             foreach (var tag in toAdd)
             {
                 if (tag.Id == 0)
-                    TagRepository.Save(tag);
+                    Repository.Add(tag);
                 tag.Add(entry);
             }
 
@@ -130,7 +127,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
             foreach (var tagName in model.TagsCommaSeparated.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Where(s => s != "0"))
             {
                 int id;
-                var tag = int.TryParse(tagName, out id) ? TagRepository.GetTag(id) : new Tag {Name = tagName};
+                var tag = int.TryParse(tagName, out id) ? Repository.Get<Tag>(id) : new Tag {Name = tagName};
                 tagList.Add(tag);
             }
 

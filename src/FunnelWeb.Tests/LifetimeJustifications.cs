@@ -115,9 +115,7 @@ namespace FunnelWeb.Tests
             // Repositories
             const string repositoriesReason = "Generally we're unlikely to resolve repositories more than once per request, and they are stateless anyway, but just in case let's re-use the same one";
             PerLifetimeScope<IFileRepository>(repositoriesReason);
-            PerLifetimeScope<ITagRepository>(repositoriesReason);
             PerLifetimeScope<IAdminRepository>(repositoriesReason);
-            PerLifetimeScope<IFeedRepository>(repositoriesReason);
             PerLifetimeScope<ITaskStateRepository>(repositoriesReason);
             PerLifetimeScope<IRepository>(repositoriesReason);
         }
