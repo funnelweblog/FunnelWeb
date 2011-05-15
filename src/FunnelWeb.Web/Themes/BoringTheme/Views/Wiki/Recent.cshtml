@@ -9,12 +9,12 @@
 </head>
 <body>
     <h1>@Model.Title</h1>
-    @if (Model.Entries.Any())
+    @if (Model.Results.Any())
     {
         <ul>
-            @foreach (var entry in Model.Entries)
+            @foreach (var entry in Model.Results)
             {
-                <li>@Html.Qualify(Html.ActionLink(entry.Title, "Page", new { page = entry.Name }))</li>
+                <li>@Html.Qualify(Html.ActionLink(entry.Title, "Page", "Wiki", new { page = entry.Name }, null))</li>
             }
         </ul>
     }

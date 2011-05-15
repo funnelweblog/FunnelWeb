@@ -59,13 +59,17 @@ a:hover
 
 .tags
 {
-    display:block;
     display: block;
-    padding: 0;
-    margin:0;
-	list-style:none;
-	clear:both;
-	height:24px;
+    display: block;
+    padding: 5px 5px 10px 0px;
+    margin: 0;
+    list-style: none;
+    clear: both;
+    height: 24px;
+}
+
+.tags li
+{
 }
 
 .tags li, .tags a{
@@ -391,6 +395,11 @@ div.nav div.search input
     -moz-border-radius: 0;
 }
 
+.facebook iframe
+{
+    height: 40px;
+}
+
 pre
 {
     background: #f5f9fa;
@@ -430,6 +439,7 @@ pre
     font-weight: normal;
     background: #1B9FE1;
     color: #ffffff;
+    margin-top: 20px;
 }
 
 .entry-tools a 

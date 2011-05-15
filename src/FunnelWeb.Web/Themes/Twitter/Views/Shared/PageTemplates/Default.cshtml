@@ -10,7 +10,7 @@
   <meta name="keywords" content="@Model.Entry.TagsCommaSeparated" />
   <link rel="canonical" href="@Html.Qualify(Html.ActionUrl("Page", new { page = Model.Entry.Name }))" />
   <link rel="pingback" href="@Html.Qualify("/pingback")" />
-  @if (Model.IsPriorVersion)
+  @if (Model.Entry.IsPriorVersion)
   {
     <meta name="robots" content="noindex, nofollow" />
   }
@@ -32,7 +32,7 @@
 @if (!Model.Entry.HideChrome)
 {
   <h1>
-    @Html.ActionLink(Model.Entry.Title, "Page", new { page = Model.Entry.Name })
+    @Html.ActionLink(Model.Entry.Title, "Page", "Wiki", new { page = Model.Entry.Name }, null)
   </h1>
   <div class="entry-date">
     <span class='month'>@Model.Entry.Published.ToLocalTime().ToString("MMM d")</span>
@@ -40,15 +40,16 @@
   </div>
 }
 <div class="entry-container">
-  @if (!Model.Entry.HideChrome && Model.IsPriorVersion)
+  @if (!Model.Entry.HideChrome && Model.Entry.IsPriorVersion)
   {
     <div class='entry-tools'>
       <div>
-        <span>You are looking at revision @Model.Revision.RevisionNumber of this
-          page, which may be out of date. @Html.ActionLink("View the latest version.", "Page", new { page = Model.Entry.Name })</span>
+        <span>You are looking at revision @Model.Entry.RevisionNumber of this
+          page, which may be out of date. @Html.ActionLink("View the latest version.", "Page", "Wiki", new { page = Model.Entry.Name }, null)</span>
         @if (ViewData.IsLoggedIn())
         {
-          <span>@Html.ActionLink("Revert to this version.", "Revert", "WikiAdmin", new { Area = "Admin", page = Model.Page, revision = Model.Revision.RevisionNumber }, new { })</span>
+          <!--Todo: Revert links broken -->
+          <span>@Html.ActionLink("Revert to this version.", "Revert", "WikiAdmin", new { Area = "Admin", page = Model.Page, revision = Model.Entry.RevisionNumber }, new { })</span>
         }
         <span></span>
       </div>
@@ -67,21 +68,21 @@
     </div>
     }
   
-    @TagList.Render(Model.Entry.Tags)
-  
+    @Html.DisplayFor(x => Model.Entry.TagsCommaSeparated)
+
     <div class='entry-tools'>
-      <span>Last revised: <a href="@Html.ActionUrl("Page", new { page = Model.Page.ToString(), revision = Model.Revision.RevisionNumber })">@Html.Date(Model.Revision.Revised)</a></span>
+      <span>Last revised: <a href="@Html.ActionUrl("Page", new { page = Model.Page.ToString(), revision = Model.Entry.RevisionNumber })">@Html.Date(Model.Entry.Revised)</a></span>
       <span>@Html.ActionLink("History", "Revisions", new { page = Model.Page })</span>
       @if (ViewData.IsLoggedIn())
       {
       
         <span>@Html.ActionLink("Edit", "Edit", "WikiAdmin", new { Area = "Admin", page = Model.Page }, new { })</span>
       }
-      @if (Model.IsPriorVersion)
+      @if (Model.Entry.IsPriorVersion)
       {
         <div>
-          <span>You are looking at revision @Model.Revision.RevisionNumber of this
-            page, which may be out of date. @Html.ActionLink("View the latest version.", "Page", new { page = Model.Entry.Name })</span>
+          <span>You are looking at revision @Model.Entry.RevisionNumber of this
+            page, which may be out of date. @Html.ActionLink("View the latest version.", "Page", "Wiki", new { page = Model.Entry.Name }, null)</span>
         </div>
       }
     </div>

@@ -291,6 +291,8 @@
     <Content Include="Themes\Clean\Content\Styles\Theme.css" />
     <Content Include="Themes\Evolve\Content\Images\background.png" />
     <Content Include="Themes\Evolve\Content\Styles\Theme.css" />
+    <Content Include="Themes\JakeGinnivan\Content\Styles\appbar.feature.search.rest.png" />
+    <Content Include="Themes\JakeGinnivan\Content\Styles\Theme.css" />
     <Content Include="Themes\Official\Content\Styles\Theme.css" />
     <Content Include="Areas\Admin\Views\Admin\PageList.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Tasks.cshtml" />
@@ -388,6 +390,7 @@
     <Content Include="Views\Shared\DisplayTemplates\EntrySummaries.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\TagsList.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\EntrySummary.cshtml" />
+    <Content Include="Themes\JakeGinnivan\Views\Shared\DisplayTemplates\EntrySummary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Public.cshtml" />
