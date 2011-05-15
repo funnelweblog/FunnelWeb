@@ -13,7 +13,7 @@
 @foreach (var item in Model.Entries) {   
   <url>
     <loc>@Html.Qualify(Html.ActionUrl("Page", "Wiki", new { page = item.Name }))</loc>
-    <lastmod>@item.LatestRevision.Revised.ToString("yyyy-MM-dd")</lastmod>
+    <lastmod>@item.Revised.ToString("yyyy-MM-dd")</lastmod>
     <changefreq>@Model.GetChangeFrequency(item)</changefreq>
     <priority>@Model.Prioritize(item).ToString("n3")</priority>
  </url>

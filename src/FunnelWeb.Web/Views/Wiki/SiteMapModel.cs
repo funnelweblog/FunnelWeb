@@ -30,7 +30,7 @@ namespace FunnelWeb.Web.Views.Wiki
             return priority;
         }
 
-        public string GetChangeFrequency(Entry entry)
+        public string GetChangeFrequency(EntryRevision entry)
         {
             return entry.Published.Date.AddDays(7) > DateTime.Now
                 ? "daily"
