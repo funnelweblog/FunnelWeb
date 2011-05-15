@@ -22,12 +22,12 @@ namespace FunnelWeb.Tests.Integration.Queries
             Database.WithRepository(
                 repo =>
                 {
-                    var entry1 = new Entry { Name = name, Author = "A1" };
+                    var entry1 = new Entry { Name = name, Author = "A1", Status = EntryStatus.PublicBlog };
                     var revision1 = entry1.Revise();
                     revision1.Body = "Hello";
                     repo.Add(entry1);
 
-                    var entry2 = new Entry { Name = name, Author = "A1" };
+                    var entry2 = new Entry { Name = name, Author = "A1", Status = EntryStatus.PublicBlog };
                     var revision2 = entry2.Revise();
                     revision2.Body = "Goodbye";
                     repo.Add(entry2);
@@ -50,7 +50,7 @@ namespace FunnelWeb.Tests.Integration.Queries
             Database.WithRepository(
                 repo =>
                 {
-                    var entry = new Entry { Name = name, Author = "A1" };
+                    var entry = new Entry { Name = name, Author = "A1", Status = EntryStatus.PublicBlog };
                     var revision2 = entry.Revise();
                     revision2.Body = "Goodbye";
                     var tag = new Tag{ Name = "Awesome"};
@@ -59,7 +59,7 @@ namespace FunnelWeb.Tests.Integration.Queries
                     repo.Add(entry);
                     repo.Add(tag);
 
-                    var entry1 = new Entry { Name = name, Author = "A1" };
+                    var entry1 = new Entry { Name = name, Author = "A1", Status = EntryStatus.PublicBlog };
                     var revision1 = entry1.Revise();
                     revision1.Body = "Hello";
                     repo.Add(entry1);
