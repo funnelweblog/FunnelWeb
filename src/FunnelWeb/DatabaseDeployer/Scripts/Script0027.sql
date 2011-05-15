@@ -11,6 +11,9 @@ update [Entry] set
 	TagsCommaSeparated = (select Name + ',' from TagItem ti join Tag t on t.Id = ti.TagId where ti.EntryId = [Entry].Id for xml path(''))
 go
 
+update [Entry] set TagsCommaSeparated = '' where TagsCommaSeparated is null
+go
+
 alter table [Entry] alter column LastRevised datetime not null
 alter table [Entry] alter column LatestRevisionFormat nvarchar(20) not null
 alter table [Entry] alter column TagsCommaSeparated nvarchar(255) not null
