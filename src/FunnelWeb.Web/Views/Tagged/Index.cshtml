@@ -1,8 +1,8 @@
-﻿@model IEnumerable<FunnelWeb.Model.EntrySummary>
+﻿@model IEnumerable<EntrySummary>
 
 @using System.Linq
 
-<h2>Posts tagged with <span class="tagName">@ViewBag.Tag</span></h2>
+<h1>Posts tagged with <span class="tagName">@ViewBag.Tag</span></h1>
 
 @if (@Model.Any())
 { 
