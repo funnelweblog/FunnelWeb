@@ -9,8 +9,6 @@ namespace FunnelWeb.Model
 {
     public class Entry
     {
-        private string tagsCommaSeparated;
-
         public Entry()
         {
             Title = string.Empty;
@@ -49,8 +47,8 @@ namespace FunnelWeb.Model
 
         public virtual string TagsCommaSeparated
         {
-            get { return tagsCommaSeparated ?? string.Join(",", Tags.Select(t=>t.Name)); }
-            set { tagsCommaSeparated = value; }
+            get { return string.Join(",", Tags.Select(t=>t.Name)); }
+            set {}
         }
 
         public virtual bool IsDiscussionEnabled { get; set; }
