@@ -36,7 +36,7 @@ namespace FunnelWeb.Tests.Integration.Queries
             Database.WithRepository(
                 repo =>
                 {
-                    var result = repo.Find(new GetEntriesQuery(), 0, 1);
+                    var result = repo.Find(new GetEntriesQuery(EntryStatus.PublicBlog), 0, 1);
                     Assert.AreEqual(1, result.Count);
                     Assert.GreaterOrEqual(result.TotalResults, 2);
                 });
@@ -68,7 +68,7 @@ namespace FunnelWeb.Tests.Integration.Queries
             Database.WithRepository(
                 repo =>
                 {
-                    var result = repo.Find(new GetEntriesQuery(), 0, 2);
+                    var result = repo.Find(new GetEntriesQuery(EntryStatus.PublicBlog), 0, 2);
                     Assert.AreEqual(2, result.Count);
                     Assert.AreEqual(result.TotalResults, 2);
                     Assert.AreEqual(1, result[0].TagsCommaSeparated.Split(new[]{","}, StringSplitOptions.RemoveEmptyEntries).Length);

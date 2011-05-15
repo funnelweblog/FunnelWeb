@@ -46,7 +46,7 @@ namespace FunnelWeb.Web.Controllers
 
         public virtual ActionResult Recent(int pageNumber)
         {
-            var result = Repository.Find(new GetEntriesQuery(), pageNumber, ItemsPerPage);
+            var result = Repository.Find(new GetEntriesQuery(EntryStatus.PublicBlog), pageNumber, ItemsPerPage);
             ViewData.Model = new RecentModel("Recent Posts", result, ControllerContext.RouteData.Values["action"].ToString());
             return View("Recent");
         }

@@ -9,11 +9,13 @@ namespace FunnelWeb.Repositories.Queries
 {
     public class GetEntriesQuery : IPagedQuery<EntrySummary>
     {
+        private readonly string entryStatus;
         private readonly EntriesSortColumn sortColumn;
         private readonly bool asc;
 
-        public GetEntriesQuery(EntriesSortColumn sortColumn = EntriesSortColumn.Published, bool asc = false)
+        public GetEntriesQuery(string entryStatus, EntriesSortColumn sortColumn = EntriesSortColumn.Published, bool asc = false)
         {
+            this.entryStatus = entryStatus;
             this.sortColumn = sortColumn;
             this.asc = asc;
         }
@@ -22,10 +24,12 @@ namespace FunnelWeb.Repositories.Queries
         {
             var total = session
                .QueryOver<Entry>()
+               .Where(e => e.Status == entryStatus)
                .ToRowCountQuery()
                .FutureValue<int>();
 
             var entries = Query(session)
+               .Where(e => e.Status == entryStatus)
                 .Skip(skip)
                 .Take(take)
                 .Future<EntrySummary>()
