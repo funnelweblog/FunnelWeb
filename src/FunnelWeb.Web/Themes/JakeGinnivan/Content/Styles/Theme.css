@@ -238,6 +238,7 @@ div.nav div.search input
 .content h1
 {
     border-bottom: 1px solid #1B9FE1;
+    text-transform: lowercase;
 }
 
 /* Introductions */
