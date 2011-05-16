@@ -173,7 +173,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
             if (sort == null)
                 sort = EntriesSortColumn.Slug;
 
-            var entries = Repository.Find(new GetEntriesQuery(EntryStatus.PublicBlog, sort.Value, asc ?? true), 0, 500);
+            var entries = Repository.Find(new GetEntriesQuery(null, sort.Value, asc ?? true), 0, 500);
 
             return View(new PageListModel(entries) { SortAscending = asc.GetValueOrDefault() });
         }

@@ -45,7 +45,7 @@
         <td>@Html.ActionLink(entry.Title, "Edit", "WikiAdmin", new { Area = "Admin", page = entry.Name }, new { title = "Edit this page" })</td>
         <td>@entry.CommentCount</td>
         <td>@Html.Date(entry.Published)</td>
-        <td>@Html.Date(entry.LatestRevision.Revised) (@Html.ActionLink("History", "Revisions", "Wiki", new { Area = "", page = entry.Name }, new { }))</td>
+        <td>@Html.Date(entry.LastRevised) (@Html.ActionLink("History", "Revisions", "Wiki", new { Area = "", page = entry.Name }, new { }))</td>
       </tr>
   }
     </tbody>

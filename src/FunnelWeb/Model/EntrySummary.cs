@@ -11,6 +11,8 @@ namespace FunnelWeb.Model
         
         [DataType("Markdown")]
         public virtual string Summary { get; set; }
+
+        public virtual string Status { get; set; }
         
         public virtual int CommentCount { get; set; }
         public virtual string MetaDescription { get; set; }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using FunnelWeb.Model;
+using FunnelWeb.Repositories.Projections;
 using NHibernate;
 using NHibernate.Criterion.Lambda;
 using NHibernate.Transform;
@@ -13,7 +14,7 @@ namespace FunnelWeb.Repositories.Queries
         private readonly EntriesSortColumn sortColumn;
         private readonly bool asc;
 
-        public GetEntriesQuery(string entryStatus, EntriesSortColumn sortColumn = EntriesSortColumn.Published, bool asc = false)
+        public GetEntriesQuery(string entryStatus = null, EntriesSortColumn sortColumn = EntriesSortColumn.Published, bool asc = false)
         {
             this.entryStatus = entryStatus;
             this.sortColumn = sortColumn;
@@ -22,14 +23,20 @@ namespace FunnelWeb.Repositories.Queries
 
         public PagedResult<EntrySummary> Execute(ISession session, int skip, int take)
         {
-            var total = session
-               .QueryOver<Entry>()
-               .Where(e => e.Status == entryStatus)
+            var totalQuery = session
+                .QueryOver<Entry>();
+            if (entryStatus != null)
+                totalQuery.Where(e => e.Status == entryStatus);
+
+            var total = totalQuery
                .ToRowCountQuery()
                .FutureValue<int>();
 
-            var entries = Query(session)
-               .Where(e => e.Status == entryStatus)
+            var entriesQuery = Query(session);
+            if (entryStatus != null)
+                entriesQuery.Where(e => e.Status == entryStatus);
+
+            var entries = entriesQuery
                 .Skip(skip)
                 .Take(take)
                 .Future<EntrySummary>()
@@ -44,16 +51,7 @@ namespace FunnelWeb.Repositories.Queries
 
             var entries = session
                 .QueryOver<Entry>()
-                .SelectList(l =>
-                            l
-                                .Select(e => e.TagsCommaSeparated).WithAlias(() => entrySummaryAlias.TagsCommaSeparated)
-                                .Select(e => e.CommentCount).WithAlias(() => entrySummaryAlias.CommentCount)
-                                .Select(e => e.MetaDescription).WithAlias(() => entrySummaryAlias.MetaDescription)
-                                .Select(e => e.Name).WithAlias(() => entrySummaryAlias.Name)
-                                .Select(e => e.Published).WithAlias(() => entrySummaryAlias.Published)
-                                .Select(e => e.Summary).WithAlias(() => entrySummaryAlias.Summary)
-                                .Select(e => e.Title).WithAlias(() => entrySummaryAlias.Title)
-                                .Select(e => e.LatestRevision.Revised).WithAlias(() => entrySummaryAlias.LastRevised))
+                .SelectList(EntrySummaryProjections.FromEntry(entrySummaryAlias))
                 .TransformUsing(Transformers.AliasToBean<EntrySummary>());
 
             IQueryOverOrderBuilder<Entry, Entry> orderBy = null;
