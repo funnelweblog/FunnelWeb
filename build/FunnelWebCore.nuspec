@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>FunnelWeb.Extensibility</id>
+    <version>1.0</version>
+    <title>FunnelWeb.Core</title>
+    <authors>FunnelWeb Team</authors>
+    <owners>Paul Stovell,Aaron Powell,Matt Hamilton,Jake Ginnivan</owners>
+    <projectUrl>http://funnelwebblog.com</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This package enables you to create a FunnelWeb extension.</description>
+    <summary />
+    <language>en-AU</language>
+    <tags>Blog,Extension</tags>
+    <dependencies>
+      <dependency id="Castle.Core" version="2.5.2" />
+      <dependency id="NHibernate" version="3.1.0.4000" />
+      <dependency id="NHibernate.Castle" version="3.1.0.4000" />
+      <dependency id="FluentNHibernate" version="1.2.0.712" />
+      <dependency id="Autofac" version="2.4.5.724" />
+    </dependencies>
+  </metadata>
+</package>

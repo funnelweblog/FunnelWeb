@@ -7,7 +7,6 @@ syntax: glob
 *.[Cc]ache
 *.clw
 *.eto
-*.exe
 *.fb6lck
 *.fbl6
 *.fbpInf
@@ -66,3 +65,4 @@ glob:build/TestResult.xml
 glob:Tools\*.nupkg
 Views\Extensions\*
 glob:src/FunnelWeb.sln.docstates
+glob:build/NuGet/*

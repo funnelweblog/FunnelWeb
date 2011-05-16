@@ -7,6 +7,7 @@
   <PropertyGroup>
     <Root>$(MSBuildStartupDirectory)</Root>
     <nunitconsoleexe>$(Root)\lib\NUnit\exe\nunit-console-x86.exe</nunitconsoleexe>
+    <NuGet>$(Root)\build\lib\NuGet.exe</NuGet>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -77,7 +78,20 @@
     <MSBuild Projects="@(ProjectToBuild)" Targets="Build" Properties="Configuration=Release;DeployOnBuild=true;DeployTarget=Package;PackageLocation=$(PackageLocation);">
       <Output TaskParameter="TargetOutputs" ItemName="AssembliesBuiltByChildProjects" />
     </MSBuild>
-
+    
+    <!-- Output NuGet packages -->
+    <PropertyGroup>
+      <FunnelWebBaseDir>$(Root)\build\NuGet\FunnelWebCore</FunnelWebBaseDir>
+      <FunnelWebManifest>$(Root)\build\FunnelWebCore.nuspec</FunnelWebManifest>
+    </PropertyGroup>
+    <MakeDir Directories="$(FunnelWebBaseDir)\lib\net40\"
+             Condition="!Exists('$(FunnelWebBaseDir)\lib\net40\')" />
+    
+    <Copy SourceFiles="$(Root)\src\FunnelWeb\bin\Release\FunnelWeb.dll" 
+          DestinationFiles="$(FunnelWebBaseDir)\lib\net40\FunnelWeb.dll" />
+    
+    <Exec Command='$(NuGet) pack "$(FunnelWebManifest)" -BasePath "$(FunnelWebBaseDir)" -OutputDirectory "$(Root)\build\Artifacts"' />
+    
     <!-- Publish -->
     <MSBuild 
       Projects="$(Root)\src\FunnelWeb.Web\FunnelWeb.Web.csproj"
