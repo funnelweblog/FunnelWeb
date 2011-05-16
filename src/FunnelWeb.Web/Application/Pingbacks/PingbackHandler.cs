@@ -55,10 +55,13 @@ namespace FunnelWeb.Web.Application.Pingbacks
                     throw new XmlRpcFaultException(48, "A pingback for this URI has already been registered.");
                 }
 
-                var pingback = new Pingback();
-                pingback.Entry = entry.Entry.Value;
-                pingback.TargetUri = sourceUri.ToString().ToLowerInvariant();
-                pingback.TargetTitle = string.Empty;
+                var pingback = new Pingback
+                                   {
+                                       Entry = entry.Entry.Value,
+                                       TargetUri = sourceUri.ToString().ToLowerInvariant(), 
+                                       TargetTitle = string.Empty, 
+                                       Received = DateTime.UtcNow
+                                   };
 
                 // Check the calling page
                 try

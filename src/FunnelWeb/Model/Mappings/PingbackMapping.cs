@@ -10,6 +10,7 @@ namespace FunnelWeb.Model.Mappings
             Map(x => x.IsSpam);
             Map(x => x.TargetTitle);
             Map(x => x.TargetUri);
+            Map(x => x.Received);
             References(x => x.Entry, "EntryId");
         }
     }

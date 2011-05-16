@@ -36,6 +36,7 @@ namespace FunnelWeb.Tests.Web
                 Routes.WillRoute("~/blog", new {controller = "Wiki", action = "Recent", pageNumber = "0" });
                 Routes.WillRoute("~/hello-world", new { controller = "Wiki", action = "Page", page = "hello-world", revision = (int?)null });
                 Routes.WillRoute("~/history-of/hello-world", new { controller = "Wiki", action = "Revisions", page = "hello-world" });
+                Routes.WillRoute("~/trackbacks-for/hello-world", new { controller = "Wiki", action = "Pingbacks", page = "hello-world" });
                 Routes.WillRoute("~/edit/hello-world", new { controller = "WikiAdmin", action = "Edit", page = "hello-world" });
                 
                 // Feeds

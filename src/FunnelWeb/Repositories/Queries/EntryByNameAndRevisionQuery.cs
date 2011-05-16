@@ -38,7 +38,6 @@ namespace FunnelWeb.Repositories.Queries
                .Where(r => r.RevisionNumber == Revision)
                .Left.JoinQueryOver(r => r.Entry, () => entryAlias)
                .Where(e => e.Name == PageName)
-                //.WithSubquery.WhereProperty(e => e.Id).In(QueryOver.Of<Entry>().Where(e => e.Name == name))
                .SelectList(EntryRevisionProjections.FromRevision(entryAlias))
                .TransformUsing(Transformers.AliasToBean<EntryRevision>());
 

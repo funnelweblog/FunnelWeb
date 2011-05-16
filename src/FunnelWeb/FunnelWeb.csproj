@@ -146,6 +146,7 @@
     <Compile Include="Repositories\Queries\GetEntriesQuery.cs" />
     <Compile Include="Repositories\IPagedQuery.cs" />
     <Compile Include="Repositories\Queries\GetFullEntriesQuery.cs" />
+    <Compile Include="Repositories\Queries\GetEntryWithPingbacksQuery.cs" />
     <Compile Include="Repositories\Queries\SearchEntriesQuery.cs" />
     <Compile Include="Repositories\Queries\SearchTagsByNameQuery.cs" />
     <Compile Include="RoutableFunnelWebExtension.cs" />
@@ -283,6 +284,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0027.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0028.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

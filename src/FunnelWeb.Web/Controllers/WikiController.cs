@@ -156,5 +156,11 @@ namespace FunnelWeb.Web.Controllers
             ViewData.Model = new SiteMapModel(allPosts);
             return View();
         }
+
+        public virtual ActionResult Pingbacks(PageName page)
+        {
+            var entry = Repository.FindFirst(new GetEntryWithPingbacksQuery(page));
+            return View(entry);
+        }
     }
 }

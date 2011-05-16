@@ -1,0 +1,14 @@
+﻿@model Entry
+@{
+    ViewBag.Title = string.Format("Trackbacks for {0}", Model.MetaTitle);
+}
+
+<h1>@Model.Title - Trackbacks</h1>
+<ul>
+  @foreach (var pingback in Model.Pingbacks)
+  {
+    <li>@Html.Encode(pingback.TargetTitle) | <a href="@Html.AttributeEncode(pingback.TargetUri)">@Html.Encode(pingback.TargetUri)</a></li>
+  }
+</ul>
+<br />
+@Html.ActionLink("Back to post", "Page", "Wiki", new{page = Model.Name}, null)

@@ -153,6 +153,7 @@ namespace FunnelWeb.Model
         
         public virtual IList<Comment> Comments { get; set; }
         public virtual IList<Pingback> Pingbacks { get; set; }
+        public virtual int PingbackCount { get; set; }
 
         public virtual IFutureValue<Entry> Entry { get; internal set; }
 
@@ -186,5 +187,6 @@ namespace FunnelWeb.Model
         }
 
         public virtual IEnumerable<Tag> AllTags { get; set; }
+
     }
 }

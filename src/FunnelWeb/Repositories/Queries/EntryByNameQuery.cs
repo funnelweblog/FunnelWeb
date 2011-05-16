@@ -31,10 +31,19 @@ namespace FunnelWeb.Repositories.Queries
                             .Where(e => e.Name == PageName)
                             .Future<Comment>();
 
-            var pingbacks = session
-                            .QueryOver<Pingback>()
-                            .JoinQueryOver(c => c.Entry)
-                            .Where(e => e.Name == PageName)
+            var pingbacksQuery = session
+                .QueryOver<Pingback>()
+                .Where(p=>!p.IsSpam)
+                .OrderBy(e=>e.Received).Desc
+                .JoinQueryOver(c => c.Entry)
+                .Where(e => e.Name == PageName);
+
+            var pingbackCountQuery = pingbacksQuery
+                .ToRowCountQuery()
+                .FutureValue<int>();
+
+            var pingbacks = pingbacksQuery
+                            .Take(10)
                             .Future<Pingback>();
 
             var tags = session
@@ -57,6 +66,8 @@ namespace FunnelWeb.Repositories.Queries
             singleOrDefault.Comments = comments.ToList();
             singleOrDefault.Tags = tags.ToList();
             singleOrDefault.Pingbacks = pingbacks.ToList();
+            singleOrDefault.PingbackCount = pingbackCountQuery.Value;
+            singleOrDefault.Entry = session.QueryOver<Entry>().Where(e => e.Name == PageName).FutureValue<Entry>();
 
             return new[]{singleOrDefault};
         }

@@ -391,6 +391,7 @@
     <Content Include="Views\Shared\DisplayTemplates\TagsList.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\EntrySummary.cshtml" />
     <Content Include="Themes\JakeGinnivan\Views\Shared\DisplayTemplates\EntrySummary.cshtml" />
+    <Content Include="Views\Wiki\Pingbacks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Public.cshtml" />
