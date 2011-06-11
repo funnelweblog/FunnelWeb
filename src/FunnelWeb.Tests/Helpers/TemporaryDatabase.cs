@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using Autofac;
 using DbUp;
+using DbUp.Helpers;
 using DbUp.ScriptProviders;
 using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.Model.Repositories;
@@ -19,12 +20,14 @@ namespace FunnelWeb.Tests.Helpers
         private readonly string databaseName;
         private readonly AdHocSqlRunner master;
         private readonly IContainer container;
+        private readonly string schema;
 
         public TemporaryDatabase()
         {
             databaseName = "FunnelWebIntegrationTests";
             connectionString = string.Format("Server=(local)\\SQLEXPRESS;Database={0};Trusted_connection=true;Pooling=false", databaseName);
-            database = new AdHocSqlRunner(connectionString);
+            schema = "dbo";
+            database = new AdHocSqlRunner(connectionString, schema);
 
             var builder = new SqlConnectionStringBuilder(connectionString);
             builder.InitialCatalog = "master";
@@ -60,6 +63,12 @@ namespace FunnelWeb.Tests.Helpers
             set { }
         }
 
+        public string Schema
+        {
+            get { return schema; }
+            set { }
+        }
+
         public AdHocSqlRunner AdHoc
         {
             get { return database; }
@@ -79,7 +88,7 @@ namespace FunnelWeb.Tests.Helpers
             master.ExecuteNonQuery("create database [" + databaseName + "]");
 
             var app = new ApplicationDatabase();
-            app.PerformUpgrade(connectionString, new List<ScriptedExtension>(), new TraceLog());
+            app.PerformUpgrade(connectionString, Schema, new List<ScriptedExtension>(), new TraceLog());
         }
 
         public ScriptedExtension ScriptProviderFor<T>(T extensionWithScripts) where T : IRequireDatabaseScripts

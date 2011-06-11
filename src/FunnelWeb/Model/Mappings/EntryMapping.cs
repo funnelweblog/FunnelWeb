@@ -19,7 +19,8 @@ namespace FunnelWeb.Model.Mappings
             Map(x => x.Status);
 			Map(x => x.PageTemplate);
             Map(x => x.Author);
-            Map(x => x.CommentCount).Formula("(SELECT COUNT(*) from Comment where Comment.EntryID = ID and Comment.Status = 1)");
+            Map(x => x.CommentCount).Formula(
+                string.Format("(SELECT COUNT(*) from {0}.Comment where Comment.EntryID = ID and Comment.Status = 1)", CurrentSchema));
             Map(x => x.TagsCommaSeparated);
 
             Component(o => o.LatestRevision,
@@ -57,5 +58,7 @@ namespace FunnelWeb.Model.Mappings
                 .LazyLoad()
                 .Cascade.All();
         }
+
+        public static string CurrentSchema { get; set; }
     }
 }

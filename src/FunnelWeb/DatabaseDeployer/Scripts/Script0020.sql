@@ -1,10 +1,10 @@
-﻿drop procedure dbo.GetCurrentVersionNumber
+﻿drop procedure $schema$.[GetCurrentVersionNumber]
 go
 
-create procedure dbo.GetCurrentVersionNumber
+create procedure $schema$.[GetCurrentVersionNumber]
 	@sourceIdentifier nvarchar(255)
 as
 begin
-	select max(VersionNumber) from dbo.SchemaVersions where SourceIdentifier = @sourceIdentifier
+	select max(VersionNumber) from $schema$.[SchemaVersions] where [SourceIdentifier] = @sourceIdentifier
 end
 go

@@ -22,5 +22,17 @@ namespace FunnelWeb.Settings
                 settings.Set("funnelweb.configuration.database.connection", value);
             }
         }
+
+        public string Schema
+        {
+            get
+            {
+                return settings.Get("funnelweb.configuration.database.schema") ?? "dbo";
+            }
+            set
+            {
+                settings.Set("funnelweb.configuration.database.schema", value);
+            }
+        }
     }
 }

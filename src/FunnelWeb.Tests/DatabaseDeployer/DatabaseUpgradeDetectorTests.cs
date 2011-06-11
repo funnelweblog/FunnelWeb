@@ -13,7 +13,7 @@ namespace FunnelWeb.Tests.DatabaseDeployer
         private DatabaseUpgradeDetector detector;
         private IConnectionStringProvider connectionString;
         private IApplicationDatabase applicationDatabase;
-        private List<ScriptedExtension> extensions = new List<ScriptedExtension>();
+        private readonly List<ScriptedExtension> extensions = new List<ScriptedExtension>();
 
         [SetUp]
         public void SetUp()
@@ -97,7 +97,7 @@ namespace FunnelWeb.Tests.DatabaseDeployer
         private void CurrentSchemaVersionIs(int version)
         {
             applicationDatabase
-                .GetCoreExecutedScripts(Arg.Any<string>())
+                .GetCoreExecutedScripts(Arg.Any<string>(), "dbo")
                 .Returns(Enumerable.Range(1, version).Select(x => "Script" + x + ".sql").ToArray());
         }
 
@@ -111,7 +111,7 @@ namespace FunnelWeb.Tests.DatabaseDeployer
         private void CurrentExtensionVersionIs(int version)
         {
             applicationDatabase
-                .GetExtensionExecutedScripts(Arg.Any<string>(), Arg.Any<ScriptedExtension>())
+                .GetExtensionExecutedScripts(Arg.Any<string>(), Arg.Any<ScriptedExtension>(), "dbo")
                 .Returns(Enumerable.Range(1, version).Select(x => "Script" + x + ".sql").ToArray());
         }
 

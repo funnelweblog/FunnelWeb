@@ -20,25 +20,25 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         public virtual ActionResult Index()
         {
             var connectionString = ConnectionStringProvider.ConnectionString;
+            var schema = ConnectionStringProvider.Schema;
 
             string error;
             var model = new IndexModel();
             model.CanConnect = Database.TryConnect(connectionString, out error);
             model.ConnectionError = error;
             model.ConnectionString = connectionString;
+            model.Schema = schema;
 
             if (model.CanConnect)
             {
                 var required = Database
                     .GetCoreRequiredScripts()
-                    .Union(
-                        Extensions.SelectMany(x => Database.GetExtensionRequiredScripts(x)))
+                    .Union(Extensions.SelectMany(x => Database.GetExtensionRequiredScripts(x)))
                     .ToArray();
 
                 var executedAlready = Database
-                    .GetCoreExecutedScripts(connectionString)
-                    .Union(
-                        Extensions.SelectMany(x => Database.GetExtensionExecutedScripts(connectionString, x)))
+                    .GetCoreExecutedScripts(connectionString, schema)
+                    .Union(Extensions.SelectMany(x => Database.GetExtensionExecutedScripts(connectionString, x, schema)))
                     .ToArray();
 
                 model.ScriptsToRun = required.Except(executedAlready).ToArray();
@@ -50,9 +50,10 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
         [HttpPost]
         [ActionName("test")]
-        public virtual ActionResult Test(string connectionString)
+        public virtual ActionResult Test(string connectionString, string schema)
         {
             ConnectionStringProvider.ConnectionString = connectionString;
+            ConnectionStringProvider.Schema = schema;
             UpgradeDetector.Reset();
             
             return RedirectToAction("Index");
@@ -63,7 +64,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         {
             var writer = new StringWriter();
             var log = new TextLog(writer);
-            var result = Database.PerformUpgrade(ConnectionStringProvider.ConnectionString, Extensions, log);
+            var result = Database.PerformUpgrade(ConnectionStringProvider.ConnectionString, ConnectionStringProvider.Schema, Extensions, log);
             UpgradeDetector.Reset();
             
             return View("UpgradeReport", new UpgradeModel(result, writer.ToString()));

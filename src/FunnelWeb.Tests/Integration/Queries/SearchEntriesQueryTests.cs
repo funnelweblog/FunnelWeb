@@ -35,12 +35,12 @@ namespace FunnelWeb.Tests.Integration.Queries
 
             //todo: TableFullTextChangeTrackingOn doesn't check if full text is enabled for that table, need to find IsFullTextIndexEnabled property
             var isFullTextEnabled = (int)Database.AdHoc.ExecuteScalar(
-                "SELECT FullTextServiceProperty('IsFullTextInstalled') + OBJECTPROPERTY(OBJECT_ID('Entry'), 'TableFullTextChangeTrackingOn')");
+                "SELECT FullTextServiceProperty('IsFullTextInstalled') + OBJECTPROPERTY(OBJECT_ID('$schema$.Entry'), 'TableFullTextChangeTrackingOn')");
 
             //Idealy the test will run when full text is installed and enabled, if not, still test like based search
             if (isFullTextEnabled == 2)
             {
-                //Database.AdHoc.ExecuteNonQuery("ALTER FULLTEXT INDEX ON Entry START UPDATE POPULATION");
+                //Database.AdHoc.ExecuteNonQuery("ALTER FULLTEXT INDEX ON $schema$.[Entry] START UPDATE POPULATION");
 
                 //Database.WithRepository(
                 //repo =>
@@ -50,8 +50,8 @@ namespace FunnelWeb.Tests.Integration.Queries
                 //    Assert.GreaterOrEqual(2, result.TotalResults);
                 //});
 
-                Database.AdHoc.ExecuteNonQuery("ALTER FULLTEXT INDEX ON [dbo].[Entry] SET CHANGE_TRACKING = OFF");
-                Database.AdHoc.ExecuteNonQuery("EXEC dbo.sp_fulltext_table @tabname=N'Entry', @action=N'deactivate'");
+                Database.AdHoc.ExecuteNonQuery("ALTER FULLTEXT INDEX ON $schema$.[Entry] SET CHANGE_TRACKING = OFF");
+                Database.AdHoc.ExecuteNonQuery("EXEC sys.sp_fulltext_table @tabname=N'$schema$.[Entry]', @action=N'deactivate'");
             }
 
             Database.WithRepository(
@@ -64,7 +64,7 @@ namespace FunnelWeb.Tests.Integration.Queries
 
             if (isFullTextEnabled == 2)
             {
-                //Database.AdHoc.ExecuteNonQuery("EXEC dbo.sp_fulltext_table @tabname=N'Entry', @action=N'activate'");
+                //Database.AdHoc.ExecuteNonQuery("EXEC sys.sp_fulltext_table @tabname=N'$schema$.[Entry]', @action=N'activate'");
             }
         }
     }

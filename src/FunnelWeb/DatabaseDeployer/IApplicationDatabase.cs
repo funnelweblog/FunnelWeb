@@ -8,9 +8,9 @@ namespace FunnelWeb.DatabaseDeployer
     /// </summary>
     public interface IApplicationDatabase
     {
-        string[] GetCoreExecutedScripts(string connectionString);
+        string[] GetCoreExecutedScripts(string connectionString, string schema);
         string[] GetCoreRequiredScripts();
-        string[] GetExtensionExecutedScripts(string connectionString, ScriptedExtension extension);
+        string[] GetExtensionExecutedScripts(string connectionString, ScriptedExtension extension, string schema);
         string[] GetExtensionRequiredScripts(ScriptedExtension extension);
 
         /// <summary>
@@ -30,6 +30,6 @@ namespace FunnelWeb.DatabaseDeployer
         /// <returns>
         /// A container of information about the results of the database upgrade.
         /// </returns>
-        DatabaseUpgradeResult[] PerformUpgrade(string connectionString, IEnumerable<ScriptedExtension> extensions, ILog log);
+        DatabaseUpgradeResult[] PerformUpgrade(string connectionString, string schema, IEnumerable<ScriptedExtension> extensions, ILog log);
     }
 }

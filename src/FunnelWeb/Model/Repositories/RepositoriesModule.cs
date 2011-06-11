@@ -6,6 +6,7 @@ using Autofac;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using FunnelWeb.DatabaseDeployer;
+using FunnelWeb.Model.Mappings;
 using FunnelWeb.Model.Repositories.Internal;
 using FunnelWeb.Repositories;
 using FunnelWeb.Settings;
@@ -29,20 +30,24 @@ namespace FunnelWeb.Model.Repositories
 
         private static ISessionFactory ConfigureSessionFactory(IComponentContext context)
         {
+            var connectionStringProvider = context.Resolve<IConnectionStringProvider>();
+            EntryMapping.CurrentSchema = connectionStringProvider.Schema;
             var configuration =
                 Fluently.Configure()
-                .Database(MsSqlConfiguration.MsSql2008.ConnectionString(context.Resolve<IConnectionStringProvider>().ConnectionString).ShowSql())
-                .Mappings(m =>
-                {
-                    m.FluentMappings.AddFromAssembly(System.Reflection.Assembly.GetExecutingAssembly());
+                    .Database(MsSqlConfiguration.MsSql2008.ConnectionString(connectionStringProvider.ConnectionString)
+                                  .ShowSql()
+                                  .DefaultSchema(connectionStringProvider.Schema))
+                    .Mappings(m =>
+                                  {
+                                      m.FluentMappings.AddFromAssembly(System.Reflection.Assembly.GetExecutingAssembly());
 
-                    //Scan extensions for nHibernate mappings 
-                    var extension = context.Resolve<IEnumerable<ScriptedExtension>>();
-                    foreach (var assembly in extension.Select(provider => provider.SourceAssembly))
-                    {
-                        m.FluentMappings.AddFromAssembly(assembly);
-                    }
-                });
+                                      //Scan extensions for nHibernate mappings 
+                                      var extension = context.Resolve<IEnumerable<ScriptedExtension>>();
+                                      foreach (var assembly in extension.Select(provider => provider.SourceAssembly))
+                                      {
+                                          m.FluentMappings.AddFromAssembly(assembly);
+                                      }
+                                  });
 
             return configuration.BuildSessionFactory();
         }

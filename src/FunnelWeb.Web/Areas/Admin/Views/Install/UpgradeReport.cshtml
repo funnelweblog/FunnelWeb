@@ -21,10 +21,7 @@ else
 
 @if (Model.Results.Any(x => x.Error != null))
 {
-  <h2>Errors</h2>
-  
-  foreach (var result in Model.Results.Select(x => x.Error).Where(x => x != null))
-  {
-    <pre>@result.ToString()</pre>
-  }
+  <h2>Log</h2>
+
+  <pre>@Model.Log</pre>
 }

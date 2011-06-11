@@ -1,6 +1,6 @@
-﻿alter table dbo.Entry
-    add MetaTitle nvarchar(255) not null default('')
+﻿alter table $schema$.[Entry]
+    add [MetaTitle] nvarchar(255) not null default('')
 go
 
-update dbo.Entry set MetaTitle = Title
+update $schema$.[Entry] set [MetaTitle] = [Title]
 go

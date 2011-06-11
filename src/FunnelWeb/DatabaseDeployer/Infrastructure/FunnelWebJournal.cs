@@ -15,9 +15,10 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
     public sealed class FunnelWebJournal : IJournal
     {
         private const string TableName = "SchemaVersions";
-        private const string SchemaTableName = "dbo.SchemaVersions";
+        private readonly string schemaTableName;
         private readonly string dbConnectionString;
         private readonly string sourceIdentifier;
+        private readonly string schema;
         private readonly ILog log;
 
         /// <summary>
@@ -26,12 +27,15 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
         /// <param name="targetDbConnectionString">The connection to the target database.</param>
         /// <param name="sourceIdentifier">The source identifier - usually the ID of the extension or FunnelWeb.DatabaseDeployer.</param>
         /// <param name="logger">The log.</param>
+        /// <param name="schema">Database Schema</param>
         /// <example>
         /// var journal = new TableJournal("Server=server;Database=database;Trusted_Connection=True;");
         /// </example>
-        public FunnelWebJournal(string targetDbConnectionString, string sourceIdentifier, ILog logger)
+        public FunnelWebJournal(string targetDbConnectionString, string sourceIdentifier, ILog logger, string schema)
         {
+            schemaTableName = string.Format("{0}.{1}", schema, TableName);
             dbConnectionString = targetDbConnectionString;
+            this.schema = schema;
             this.sourceIdentifier = sourceIdentifier;
             log = logger;
         }
@@ -46,7 +50,7 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
             var exists = DoesTableExist();
             if (!exists)
             {
-                log.WriteInformation(string.Format("The {0} table could not be found. The database is assumed to be at version 0.", SchemaTableName));
+                log.WriteInformation(string.Format("The {0} table could not be found. The database is assumed to be at version 0.", schemaTableName));
                 return new string[0];
             }
 
@@ -55,7 +59,7 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
             var scripts = new List<string>();
 
             RunCommand(
-                string.Format("select [ScriptName] from {0} where [SourceIdentifier] = @sourceIdentifier order by [ScriptName]", SchemaTableName),
+                string.Format("select [ScriptName] from {0} where [SourceIdentifier] = @sourceIdentifier order by [ScriptName]", schemaTableName),
                 cmd =>
                 {
                     cmd.Parameters.AddWithValue("sourceIdentifier", sourceIdentifier);
@@ -83,7 +87,7 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
                     set SourceIdentifier='FunnelWeb.DatabaseDeployer'           -- This is the new name
                     where SourceIdentifier LIKE 'PaulPad%'                      -- back before we called it FunnelWeb
                        OR SourceIdentifier LIKE 'FunnelWeb.DatabaseDeployer, Ver%' -- when we accidentally included version numbers 
-                    ", SchemaTableName),
+                    ", schemaTableName),
                 cmd => cmd.ExecuteNonQuery());
 
             RunCommand(
@@ -91,7 +95,7 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
                     UPDATE {0} 
                     set ScriptName=REPLACE(ScriptName, 'PaulPad', 'FunnelWeb')
                     where ScriptName LIKE 'PaulPad%'
-                    ", SchemaTableName),
+                    ", schemaTableName),
                 cmd => cmd.ExecuteNonQuery());
         }
 
@@ -104,7 +108,7 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
             var exists = DoesTableExist();
             if (!exists)
             {
-                log.WriteInformation(string.Format("Creating the {0} table", SchemaTableName));
+                log.WriteInformation(string.Format("Creating the {0} table", schemaTableName));
 
                 RunCommand(
                     string.Format(
@@ -114,16 +118,16 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
                         [SourceIdentifier] nvarchar(255) not null,
                         [ScriptName] nvarchar(255) not null, 
 	                    [Applied] datetime not null
-                    )", SchemaTableName),
+                    )", schemaTableName),
                     cmd => cmd.ExecuteNonQuery());
 
-                log.WriteInformation(string.Format("The {0} table has been created", SchemaTableName));
+                log.WriteInformation(string.Format("The {0} table has been created", schemaTableName));
             }
 
             DealWithLegacyScripts();
 
             RunCommand(
-                string.Format("insert into {0} (VersionNumber, SourceIdentifier, ScriptName, Applied) values (-1, @sourceIdentifier, @scriptName, (getutcdate()))", SchemaTableName),
+                string.Format("insert into {0} (VersionNumber, SourceIdentifier, ScriptName, Applied) values (-1, @sourceIdentifier, @scriptName, (getutcdate()))", schemaTableName),
                 cmd =>
                 {
                     cmd.Parameters.AddWithValue("scriptName", script.Name);
@@ -134,7 +138,11 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
 
         private bool DoesTableExist()
         {
-            var query = string.Format("select count(*) from sys.objects where type='U' and name='{0}'", TableName);
+            var query = string.Format(
+@"select count(*)
+from sys.objects 
+inner join sys.schemas on objects.schema_id = schemas.schema_id
+where type='U' and objects.name = '{0}' and schemas.name = '{1}'", TableName, schema);
             var result = 0;
 
             RunCommand(

@@ -15,5 +15,10 @@ namespace FunnelWeb.Web.Areas.Admin.Views.Install
         [Description("Enter the connection string to the Microsoft SQL Server database given to you by your web host.")]
         public string ConnectionString { get; set; }
         public bool IsInstall { get; set; }
+
+        [Required]
+        [DisplayName("Schema Name")]
+        [Description("Enter the database schema to use. (To host multiple FunnelWeb sites in a single database)")]
+        public string Schema { get; set; }
     }
 }

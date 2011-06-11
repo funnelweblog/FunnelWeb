@@ -1,36 +1,37 @@
 ﻿-- Create the new tables required for tagging
 
-create table dbo.Tag (
-    [Id] [int] identity(1,1) not null constraint PK_Tag_Id primary key,
-    [Name] [nvarchar](50) not null
+create table $schema$.[Tag]
+(
+    [Id] int identity(1,1) not null constraint [PK_Tag_Id] primary key,
+    [Name] nvarchar(50) not null
 )
 go
 
-create table dbo.TagItem (
-    [Id] [int] identity(1,1) not null constraint PK_TagItem_Id primary key,
-    [TagId] [int] not null constraint FK_TagItem_TagId foreign key references dbo.Tag(Id),
-    [EntryId] [int] not null constraint FK_TagItem_EntryId foreign key references dbo.Entry(Id),
+create table $schema$.[TagItem]
+(
+    [Id] int identity(1,1) not null constraint [PK_TagItem_Id] primary key,
+    [TagId] int not null constraint [FK_TagItem_TagId] foreign key references $schema$.[Tag](Id),
+    [EntryId] int not null constraint [FK_TagItem_EntryId] foreign key references $schema$.[Entry](Id),
 )
 go
 
 -- Add the status column. The default status is 'Public-Page', since we never had the 
 -- concept of Private pages before now
-alter table dbo.Entry
-	add [Status] nvarchar(20) not null constraint DF_EntryStatus default('Public-Page')
+alter table $schema$.[Entry]
+	add [Status] nvarchar(20) not null constraint [DF_EntryStatus] default('Public-Page')
 go
 
 -- Posts that had appeared in an RSS feed can be assumed to be blog posts
-update dbo.[Entry]
+update $schema$.[Entry]
 	set [Status] = 'Public-Blog'
-	where (Id in (select fi.ItemId from dbo.FeedItem fi));
-
+	where (Id in (select fi.ItemId from $schema$.[FeedItem] fi));
 go
 
-create function [dbo].[SplitTags]
+create function $schema$.[SplitTags]
 (
     @input nvarchar(500)
 )
-returns @tags table ( Tag nvarchar(500) )
+returns @tags table ([Tag] nvarchar(500) )
 as
 begin
     if @input is null return
@@ -61,35 +62,35 @@ go
 
 
 -- Discover a list of all tags from meta keywords
-insert into Tag (Name)
-    select distinct(tags.Tag) as Name from dbo.[Entry] e
-    cross apply dbo.[SplitTags](e.MetaKeywords) as tags
+insert into $schema$.[Tag] ([Name])
+    select distinct(tags.Tag) as [Name] from $schema$.[Entry] e
+    cross apply $schema$.[SplitTags](e.[MetaKeywords]) as tags
 
 -- Associate new tags with posts
-insert into TagItem (TagId, EntryId)
+insert into $schema$.[TagItem] ([TagId], [EntryId])
     select 
-        (select Id from Tag where Name = tags.Tag) as TagId,
-        e.Id as PostId
-    from dbo.[Entry] e
-    cross apply dbo.[SplitTags](e.MetaKeywords) as tags
+        (select [Id] from $schema$.[Tag] where [Name] = tags.[Tag]) as [TagId], 
+		e.[Id] as [PostId]
+    from $schema$.[Entry] e
+    cross apply $schema$.[SplitTags](e.[MetaKeywords]) as tags
 
 -- I normally take care to name constraints, but kept forgetting to do it for defaults, damnit!
 
 declare @defaultConstraintName nvarchar(100)
-select @defaultConstraintName = name
+select @defaultConstraintName = [name]
     from sys.default_constraints 
-    where name like 'DF_%MetaKeywo%'
+    where [name] like 'DF_%MetaKeywo%'
 
 declare @str nvarchar(200)
-set @str = 'alter table dbo.[Entry] drop constraint ' + @defaultConstraintName
+set @str = 'alter table $schema$.[Entry] drop constraint ' + @defaultConstraintName
 exec (@str)
 
 if (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled')) 
 begin
 begin try
-    alter fulltext index on dbo.[Entry] disable
-    alter fulltext index on dbo.[Entry] drop (MetaKeywords)
-    alter fulltext index on dbo.[Entry] enable
+    alter fulltext index on $schema$.[Entry] disable
+    alter fulltext index on $schema$.[Entry] drop ([MetaKeywords])
+    alter fulltext index on $schema$.[Entry] enable
 end try
 begin catch
 --Full text not installed 
@@ -97,14 +98,14 @@ PRINT 'Full text catalog not installed'
 end catch
 end
 
-alter table dbo.Entry
-    drop column MetaKeywords
+alter table $schema$.[Entry]
+    drop column [MetaKeywords]
 go
 
-drop table dbo.FeedItem
+drop table $schema$.[FeedItem]
 go
 
-drop table dbo.Feed
+drop table $schema$.[Feed]
 go
 
-drop function dbo.SplitTags
+drop function $schema$.[SplitTags]

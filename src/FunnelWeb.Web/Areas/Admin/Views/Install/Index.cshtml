@@ -47,6 +47,14 @@ else
       @Html.HintFor(m => m.ConnectionString)
     </div>
     <div class="editor-label">
+      @Html.LabelFor(m => m.Schema)
+    </div>
+    <div class="editor-field">
+      @Html.TextBoxFor(m => m.Schema, Html.AttributesFor(m => m.ConnectionString))
+      @Html.ValidationMessageFor(m => m.Schema)
+      @Html.HintFor(m => m.Schema)
+    </div>
+    <div class="editor-label">
     </div>
     <div class="editor-field">
       <input type="submit" id="submit" class="submit" value="Save and Test" />
