@@ -34,8 +34,9 @@ namespace FunnelWeb.Tests.Integration.Queries
                 });
 
             //todo: TableFullTextChangeTrackingOn doesn't check if full text is enabled for that table, need to find IsFullTextIndexEnabled property
-            var isFullTextEnabled = (int)Database.AdHoc.ExecuteScalar(
+            var executeScalar = Database.AdHoc.ExecuteScalar(
                 "SELECT FullTextServiceProperty('IsFullTextInstalled') + OBJECTPROPERTY(OBJECT_ID('$schema$.Entry'), 'TableFullTextChangeTrackingOn')");
+            var isFullTextEnabled = (int)executeScalar;
 
             //Idealy the test will run when full text is installed and enabled, if not, still test like based search
             if (isFullTextEnabled == 2)

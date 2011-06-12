@@ -19,6 +19,7 @@ namespace FunnelWeb.Tests.DatabaseDeployer
         public void SetUp()
         {
             connectionString = Substitute.For<IConnectionStringProvider>();
+            connectionString.Schema = "dbo";
             applicationDatabase = Substitute.For<IApplicationDatabase>();
             detector = new DatabaseUpgradeDetector(connectionString, extensions, applicationDatabase);
         }

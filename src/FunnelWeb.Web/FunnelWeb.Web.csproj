@@ -61,7 +61,7 @@
       <HintPath>..\packages\ClientDependency-Mvc.1.3.2.0\lib\ClientDependency.Core.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="DbUp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=4b419c53bdfd4cbf, processorArchitecture=MSIL">
-      <HintPath>..\packages\dbup.1.0.44\lib\NET35\DbUp.dll</HintPath>
+      <HintPath>..\packages\dbup.1.0.46\lib\NET35\DbUp.dll</HintPath>
     </Reference>
     <Reference Include="FluentNHibernate, Version=1.2.0.712, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
