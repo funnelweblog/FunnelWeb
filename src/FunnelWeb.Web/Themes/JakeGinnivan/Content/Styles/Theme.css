@@ -1,4 +1,7 @@
-﻿html,body {
+﻿@import url("Colours.css");
+
+html,body 
+{
    margin:0;
    padding:0;
    border:0;
@@ -8,8 +11,6 @@ body
 {
     width:100%;
     max-width:100%;
-    background-color: #ffffff;
-    color: #000000;
 }
 
 .wrap
@@ -24,16 +25,12 @@ body
 
 body .content
 {
-    background: none repeat scroll 0 0 #FFFFFF;
-    border: 1px solid #FFFFFF;
     padding: 10px;
 }
 
 body .top
 {
     margin: 0 auto;
-    background: #000000;
-    border-bottom: 1px solid #1B9FE1;
 }
 
 .top-in
@@ -46,15 +43,6 @@ body .footer
 {
     margin: 0 auto;
     max-width: 950px;
-}
-
-a
-{
-    color: #000000;
-}
-a:hover
-{
-    color: #1B9FE1;
 }
 
 .tags
@@ -72,7 +60,8 @@ a:hover
 {
 }
 
-.tags li, .tags a{
+.tags li, .tags a
+{
 	float:left;
 	height:24px;
 	line-height:24px;
@@ -80,11 +69,10 @@ a:hover
 	font-size:11px;
 	}
 
-.tags a{
+.tags a
+{
 	margin-left:20px;
 	padding:0 10px 0 12px;
-	color:#000000;
-    background-color: #adadad;
 	text-decoration:none;
 	-moz-border-radius-bottomright:4px;
 	-webkit-border-bottom-right-radius:4px;	
@@ -92,8 +80,9 @@ a:hover
 	-moz-border-radius-topright:4px;
 	-webkit-border-top-right-radius:4px;	
 	border-top-right-radius:4px;	
-	} 
-.tags a:before{
+} 
+.tags a:before
+{
 	content:"";
 	float:left;
 	position:absolute;
@@ -101,12 +90,12 @@ a:hover
 	left:-12px;
 	width:0;
 	height:0;
-	border-color:transparent #adadad transparent transparent;
 	border-style:solid;
 	border-width:12px 12px 12px 0;		
-	}
+}
 	
-.tags a:after{
+.tags a:after
+{
 	content:"";
 	position:absolute;
 	top:10px;
@@ -117,41 +106,38 @@ a:hover
 	-moz-border-radius:2px;
 	-webkit-border-radius:2px;
 	border-radius:2px;
-	background:#fff;
-	}
-
-a.tag:hover { background-color: #555; }
-a.tag:hover:before { border-color:transparent #555 transparent transparent; }
+}
 
 h1, h2, h3, h4, h5, h6
 {
-    color: #1B9FE1;
-    font-family: "Segoe UI", Sans-Serif; 
+    font-family: "Segoe WP Semibold", "Segoe UI", Sans-Serif; 
     font-weight: normal;
 }
 
 h1
 {
-    font-size: 28pt;
+    font-size: 24pt;
     font-weight: normal;
     margin:0px;
 }
-h2
+h2 { font-size: 16pt;}
+h3 { font-size: 14pt;}
+h4 { font-size: 12pt;}
+h5 { font-size: 10pt;}
+h6 { font-size: 18pt;}
+
+.entry h1 
 {
-    font-size: 18pt;
+    font-size: 24pt;
+    font-weight: normal;
+    margin:0px;
 }
-h3
-{
-    font-size: 16pt;
-}
-h4
-{
-    font-size: 14pt;
-}
-h5
-{
-    font-size: 12pt;
-}
+.entry h2 { font-size: 18pt;}
+.entry h3 { font-size: 16pt;}
+.entry h4 { font-size: 14pt;}
+.entry h5 { font-size: 12pt;}
+.entry h6 { font-size: 10pt;}
+
 
 /* Header */
 
@@ -160,10 +146,6 @@ h5
     width: 100%;
     font-size: 30pt;
     height:100px;
-    background-color:#000000;
-    background-image:url('/get/MeSmall.jpg');
-    background-repeat:no-repeat;
-    background-position:right top;  
     padding:0px;
 }
 .header a.logo
@@ -189,7 +171,7 @@ h5
     margin: 0 auto;
     clear:both;
     float:none;
-    font-family: "Segoe UI", Sans-Serif; 
+    font-family: "Segoe WP Semibold", "Segoe UI", Sans-Serif; 
     max-width: 100%;
 }
 
@@ -199,15 +181,11 @@ div.nav div.search
     margin-right: 8px;
     clear: none; 
     float:right;
-    background: url("appbar.feature.search.rest.png") no-repeat scroll right center #000000;
-    border: 1px solid #CFCFCF;
     padding:0px;
 }
 
 div.nav div.search input
 {
-    color: #CFCFCF;
-    background-color:#000000;
     margin-right: 40px;
     border:none;
 }
@@ -226,18 +204,15 @@ div.nav div.search input
 {
     font-size: 12pt;
     font-weight: bold;
-    color: #1B9FE1;
 }
 
 .nav ul li a
 {
-    color: #1B9FE1;
     text-decoration: none;
 }
 
 .content h1
 {
-    border-bottom: 1px solid #1B9FE1;
     text-transform: lowercase;
 }
 
@@ -257,7 +232,6 @@ div.nav div.search input
 .intro h1
 {
     margin: 0 0 10px 0;
-    color: #32A700;
     font-size: 14pt;
 }
 .intro p
@@ -265,21 +239,6 @@ div.nav div.search input
     margin: 0;
     font-size: 10pt;
     font-weight: normal;
-}
-
-.intro a
-{
-    color: #ffffff;
-}
-
-.intro a:hover
-{
-    color: #1B9FE1;
-}
-
-.intro code
-{
-    color: #1B9FE1;
 }
 
 .post-list
@@ -295,15 +254,9 @@ div.nav div.search input
     margin: 7px;
 }
 
-.post-line:hover
-{
-    background-color: #D9E0E2;
-}
-
 .post-line .revised
 {
-    color: #000000;
-    font-family: "Segoe UI", Sans-Serif; 
+    font-family: "Segoe WP Semibold", "Segoe UI", Sans-Serif; 
     font-weight:normal;
     border-radius: 0;
     -webkit-border-radius: 0;
@@ -313,17 +266,17 @@ div.nav div.search input
 .post-line .revised .month
 {
     display:inline;
+    font-size: 18px;
 }
 .post-line .revised .year
 {
     display:inline;
+    font-size: 18px;
 }
 
 .post-line .comments 
 {
-    background: #000000;
-    color: #fff;
-    font-family: "Segoe UI", Sans-Serif; 
+    font-family: "Segoe WP Semibold", "Segoe UI", Sans-Serif; 
     font-weight:normal;
     border-radius: 0;
     -webkit-border-radius: 0;
@@ -337,8 +290,6 @@ div.nav div.search input
 
 .post-line .comments .comment-count
 {
-    background: #000000;
-    color: #fff;
     display:inline;
     margin:-1px 0px 0px ;
     padding: 0px 10px;
@@ -351,14 +302,8 @@ div.nav div.search input
     margin-right:5px;
 }
 
-.post-line .comments a
-{
-    color: #fff;
-}
-
 .post-line .summary-container
 {
-    border-left: 5px solid #000000;
     padding-left: 15px;
     margin-left:102px;
 }    
@@ -378,17 +323,6 @@ div.nav div.search input
     width: auto;
 }
 
-.content h1 a
-{
-    border: 0px;
-    color: #000000;
-}
-
-.comment
-{
-    border-bottom: 1px solid #ccc;
-}
-
 .comment .comment-author
 {
     border-radius: 0;
@@ -403,24 +337,15 @@ div.nav div.search input
 
 pre
 {
-    background: #f5f9fa;
     /* 
     SUPER nasty IE8 hack to deal with this bug 
     */ 
     max-height: none\9  
 }
 
-.entry h1, .entry h2, .entry h3, .entry h4, .entry h5, .entry h6
-{
-    border: 0px;
-    color: #1B9FE1;
-}
-
 .entry-date
 {
-    background: #1B9FE1;
-    color: #fff;
-    font-family: "Segoe UI", Sans-Serif; 
+    font-family: "Segoe WP Semibold", "Segoe UI", Sans-Serif; 
     font-weight:normal;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -434,109 +359,20 @@ pre
     font-size: 14pt;
 }
 
+.hidechrome
+{
+    margin-left: 0px;
+}
+
 .entry-tools
 {
-    font-family: "Segoe UI", Sans-Serif;
+    font-family: "Segoe WP Semibold", "Segoe UI", Sans-Serif;
     font-weight: normal;
-    background: #1B9FE1;
-    color: #ffffff;
     margin-top: 20px;
 }
 
 .entry-tools a 
 {
-    color: #fff;
     text-decoration: underline;
 }
 
-.message
-{
-    color: #CC0000;
-}
-
-
-/* keyword colours */
-
-
-/*open source*/
-.keyword-open-source .summary-container
-{
-    border-left: 5px solid #1B9FE1;
-}
-
-.keyword-open-source .comments .comment-count
-{
-    background: #1B9FE1;
-}
-
-a.keyword-open-source:hover{ color:#ffffff; background-color: #1B9FE1; }
-a.keyword-open-source:hover:before{border-color:transparent #1B9FE1 transparent transparent;}
-
-.keyword-open-source .entry-date
-{
-    background-color: #1B9FE1;    
-}
-
-/*.net*/
-.keyword--net .summary-container { border-left: 5px solid #E51400; }
-.keyword--net .comments .comment-count { background: #E51400; }
-a.keyword--net:hover { color:#ffffff; background-color: #E51400; }
-a.keyword--net:hover:before{border-color:transparent #E51400 transparent transparent;}
-.keyword--net .entry-date { background-color: #E51400; }
-
-/*c#*/
-.keyword-c- .summary-container { border-left: 5px solid #A05000; }
-.keyword-c- .comments .comment-count { background: #A05000; }
-a.keyword-c-:hover { color:#ffffff; background-color: #A05000; }
-a.keyword-c-:hover:before{border-color:transparent #A05000 transparent transparent;}
-.keyword-c- .entry-date { background-color: #A05000; }
-
-/*powershell*/
-.keyword-powershell .summary-container { border-left: 5px solid #E671B8; }
-.keyword-powershell .comments .comment-count { background: #E671B8; }
-a.keyword-powershell:hover { color:#ffffff; background-color: #E671B8; }
-a.keyword-powershell:hover:before{border-color:transparent #E671B8 transparent transparent;}
-.keyword-powershell .entry-date { background-color: #E671B8; }
-
-/*patterns and practices*/
-.keyword-patterns-and-practices .summary-container { border-left: 5px solid #8CBF26; }
-.keyword-patterns-and-practices .comments .comment-count { background: #8CBF26; }
-a.keyword-patterns-and-practices:hover { color:#ffffff; background-color: #8CBF26; }
-a.keyword-patterns-and-practices:hover:before{border-color:transparent #8CBF26 transparent transparent;}
-.keyword-patterns-and-practices .entry-date { background-color: #8CBF26; }
-
-/*wpf*/
-.keyword-wpf .summary-container { border-left: 5px solid #F09609; }
-.keyword-wpf .comments .comment-count { background: #F09609; }
-a.keyword-wpf:hover { color:#ffffff; background-color: #F09609; }
-a.keyword-wpf:hover:before{border-color:transparent #F09609 transparent transparent;}
-.keyword-wpf .entry-date { background-color: #F09609; }
-
-/*wp7*/
-.keyword-wp7 .summary-container { border-left: 5px solid #00ABA9; }
-.keyword-wp7 .comments .comment-count { background: #00ABA9; }
-a.keyword-wp7:hover { color:#ffffff; background-color: #00ABA9; }
-a.keyword-wp7:hover:before{border-color:transparent #00ABA9 transparent transparent;}
-.keyword-wp7 .entry-date { background-color: #00ABA9; }
-
-/*vsto*/
-.keyword-vsto .summary-container { border-left: 5px solid #339933; }
-.keyword-vsto .comments .comment-count { background: #339933; }
-a.keyword-vsto:hover { color:#ffffff; background-color: #339933; }
-a.keyword-vsto:hover:before{border-color:transparent #339933 transparent transparent;}
-.keyword-vsto .entry-date { background-color: #339933; }
-
-/*presenting*/
-.keyword-presenting .summary-container { border-left: 5px solid #A200FF; }
-.keyword-presenting .comments .comment-count { background: #A200FF; }
-a.keyword-presenting:hover { color:#ffffff; background-color: #A200FF; }
-a.keyword-presenting:hover:before{border-color:transparent #A200FF transparent transparent;}
-.keyword-presenting .entry-date { background-color: #A200FF; }
-
-/*open-source*/
-.keyword-open-source .summary-container { border-left: 5px solid #1B9FE1; }
-.keyword-open-source .comments .comment-count { background: #1B9FE1; }
-a.keyword-open-source:hover { color:#ffffff; background-color: #1B9FE1; }
-a.keyword-open-source:hover{ color:#ffffff; background-color: #1B9FE1; }
-a.keyword-open-source:hover:before{border-color:transparent #1B9FE1 transparent transparent;}
-.keyword-open-source .entry-date { background-color: #1B9FE1; }
