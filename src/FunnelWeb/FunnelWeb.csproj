@@ -46,7 +46,7 @@
       <HintPath>..\packages\blogml.2.2.0\lib\BlogML.dll</HintPath>
     </Reference>
     <Reference Include="DbUp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=4b419c53bdfd4cbf, processorArchitecture=MSIL">
-      <HintPath>..\packages\dbup.1.0.44\lib\NET35\DbUp.dll</HintPath>
+      <HintPath>..\packages\dbup.1.0.45\lib\NET35\DbUp.dll</HintPath>
     </Reference>
     <Reference Include="FluentNHibernate">
       <HintPath>..\..\lib\FluentNHibernate\FluentNHibernate.dll</HintPath>

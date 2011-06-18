@@ -12,8 +12,8 @@
 
   <PropertyGroup>
     <Major>1</Major>
-    <Minor>0</Minor>
-    <Build>1</Build>
+    <Minor>1</Minor>
+    <Build>0</Build>
     <Revision>0</Revision>
   </PropertyGroup>
   
