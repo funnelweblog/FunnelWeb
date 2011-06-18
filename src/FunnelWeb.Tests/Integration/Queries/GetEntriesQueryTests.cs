@@ -31,6 +31,11 @@ namespace FunnelWeb.Tests.Integration.Queries
                     var revision2 = entry2.Revise();
                     revision2.Body = "Goodbye";
                     repo.Add(entry2);
+
+                    var entry3 = new Entry { Name = name, Author = "A1", Status = EntryStatus.PublicPage };
+                    var revision3 = entry3.Revise();
+                    revision3.Body = "Goodbye";
+                    repo.Add(entry3);
                 });
 
             Database.WithRepository(

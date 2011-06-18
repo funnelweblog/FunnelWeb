@@ -237,6 +237,11 @@
             </summary>
             <param name="script">The script.</param>
         </member>
+        <member name="M:DbUp.Execution.SqlScriptExecutor.VerifySchema">
+            <summary>
+            Verifies the existence of targeted schema. If schema is not verified, will check for the existence of the dbo schema.
+            </summary>
+        </member>
         <member name="M:DbUp.Execution.SqlScriptExecutor.Execute(DbUp.ScriptProviders.SqlScript,System.Collections.Generic.IDictionary{System.String,System.String})">
             <summary>
             Executes the specified script against a database at a given connection string.
