@@ -12,9 +12,9 @@ namespace FunnelWeb.Model
             Entries = new List<Entry>();
         }
 
-        public virtual int Id { get; private set; }
+        public virtual int Id { get; protected set; }
         public virtual string Name { get; set; }
-        public virtual IList<Entry> Entries { get; private set; }
+        public virtual IList<Entry> Entries { get; protected set; }
 
         public virtual void Add(Entry entry)
         {

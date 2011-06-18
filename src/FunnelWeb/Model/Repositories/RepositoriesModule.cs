@@ -11,6 +11,7 @@ using FunnelWeb.Model.Repositories.Internal;
 using FunnelWeb.Repositories;
 using FunnelWeb.Settings;
 using NHibernate;
+using NHibernate.Bytecode;
 
 namespace FunnelWeb.Model.Repositories
 {
@@ -33,7 +34,8 @@ namespace FunnelWeb.Model.Repositories
             var connectionStringProvider = context.Resolve<IConnectionStringProvider>();
             EntryMapping.CurrentSchema = connectionStringProvider.Schema;
             var configuration =
-                Fluently.Configure()
+                Fluently
+                    .Configure()
                     .Database(MsSqlConfiguration.MsSql2008.ConnectionString(connectionStringProvider.ConnectionString)
                                   .ShowSql()
                                   .DefaultSchema(connectionStringProvider.Schema))
@@ -47,7 +49,8 @@ namespace FunnelWeb.Model.Repositories
                                       {
                                           m.FluentMappings.AddFromAssembly(assembly);
                                       }
-                                  });
+                                  })
+                    .ProxyFactoryFactory(typeof (DefaultProxyFactoryFactory));
 
             return configuration.BuildSessionFactory();
         }

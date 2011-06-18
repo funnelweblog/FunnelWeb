@@ -28,7 +28,7 @@ namespace FunnelWeb.Model
             IsDiscussionEnabled = true;
         }
 
-        public virtual int Id { get; private set; }
+        public virtual int Id { get; protected set; }
 		public virtual string PageTemplate { get; set; }
 
 
@@ -60,7 +60,7 @@ namespace FunnelWeb.Model
         [Valid]
         public virtual Revision LatestRevision { get; set; }
 
-        public virtual IList<Revision> Revisions { get; private set; }
+        public virtual IList<Revision> Revisions { get; protected set; }
         public virtual IList<Comment> Comments { get; set; }
         public virtual IList<Pingback> Pingbacks { get; set; }
 

@@ -16,7 +16,7 @@ namespace FunnelWeb.Model
             Format = Formats.Markdown;
         }
 
-        public virtual int Id { get; private set; }
+        public virtual int Id { get; protected set; }
         
         [DataType("Markdown")]
         [NotNullNotEmpty(Message = "Please provide a body for this wiki entry.")]

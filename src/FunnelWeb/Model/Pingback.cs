@@ -4,7 +4,7 @@ namespace FunnelWeb.Model
 {
     public class Pingback
     {
-        public virtual int Id { get; private set; }
+        public virtual int Id { get; protected set; }
         public virtual Entry Entry { get; set; }
         public virtual string TargetUri { get; set; }
         public virtual string TargetTitle { get; set; }

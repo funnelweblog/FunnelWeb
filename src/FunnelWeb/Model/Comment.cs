@@ -1,15 +1,10 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace FunnelWeb.Model
 {
     public class Comment
     {
-        public Comment()
-        {
-        }
-
-        public virtual int Id { get; set; }
+        public virtual int Id { get; protected set; }
 
         public virtual string Body { get; set; }
         public virtual string AuthorName { get; set; }
