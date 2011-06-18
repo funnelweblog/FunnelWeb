@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using FunnelWeb.Model;
 using FunnelWeb.Repositories.Projections;
@@ -12,24 +13,35 @@ namespace FunnelWeb.Repositories.Queries
     public class GetFullEntriesQuery : IPagedQuery<EntryRevision>
     {
         private readonly bool includeComments;
+        private readonly string entryStatus;
         private readonly EntriesSortColumn sortColumn;
         private readonly bool asc;
 
-        public GetFullEntriesQuery(bool includeComments = false, EntriesSortColumn sortColumn = EntriesSortColumn.Published, bool asc = false)
+        public GetFullEntriesQuery(bool includeComments = false, string entryStatus = null,
+            EntriesSortColumn sortColumn = EntriesSortColumn.Published, bool asc = false)
         {
             this.includeComments = includeComments;
+            this.entryStatus = entryStatus;
             this.sortColumn = sortColumn;
             this.asc = asc;
         }
 
         public PagedResult<EntryRevision> Execute(ISession session, int skip, int take)
         {
-            var total = session
-                .QueryOver<Entry>()
+            var totalQuery = session
+                .QueryOver<Entry>();
+            if (entryStatus != null)
+                totalQuery.Where(e => e.Status == entryStatus);
+
+            var total = totalQuery
                 .ToRowCountQuery()
                 .FutureValue<int>();
 
-            var entries = Query(session)
+            var entriesQuery = Query(session);
+            if (entryStatus != null)
+                entriesQuery.Where(e => e.Status == entryStatus);
+
+            var entries = entriesQuery
                 .Skip(skip)
                 .Take(take)
                 .Future<EntryRevision>();
@@ -46,7 +58,9 @@ namespace FunnelWeb.Repositories.Queries
 
                 entries = entries.Select(e =>
                                              {
-                                                 e.Comments = comments[e.Id].ToList();
+                                                 e.Comments = comments.ContainsKey(e.Id) ? 
+                                                     comments[e.Id].ToList() : 
+                                                     new List<Comment>();
                                                  return e;
                                              });
             }

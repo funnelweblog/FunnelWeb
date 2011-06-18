@@ -11,25 +11,36 @@ namespace FunnelWeb.Repositories.Queries
     public class GetEntriesByTagQuery : IPagedQuery<EntrySummary>
     {
         private readonly string tag;
+        private readonly string entryStatus;
         private readonly EntriesSortColumn sortColumn;
         private readonly bool asc;
 
-        public GetEntriesByTagQuery(string tag, EntriesSortColumn sortColumn = EntriesSortColumn.Published, bool asc = false)
+        public GetEntriesByTagQuery(string tag, string entryStatus = null, EntriesSortColumn sortColumn = EntriesSortColumn.Published, bool asc = false)
         {
             this.tag = tag;
+            this.entryStatus = entryStatus;
             this.sortColumn = sortColumn;
             this.asc = asc;
         }
 
         public PagedResult<EntrySummary> Execute(ISession session, int skip, int take)
         {
-            var total = session
-               .QueryOver<Entry>()
+            var totalEntries = session
+                .QueryOver<Entry>();
+
+            if (entryStatus != null)
+                totalEntries.Where(e => e.Status == entryStatus);
+
+            var total = totalEntries
                 .JoinQueryOver<Tag>(e => e.Tags).Where(t => t.Name == tag)
                .ToRowCountQuery()
                .FutureValue<int>();
 
-            var entries = Query(session)
+            var entriesQuery = Query(session);
+            if (entryStatus != null)
+                entriesQuery.Where(e => e.Status == entryStatus);
+
+            var entries = entriesQuery
                 .JoinQueryOver<Tag>(e=>e.Tags).Where(t=>t.Name == tag)
                 .Skip(skip)
                 .Take(take)

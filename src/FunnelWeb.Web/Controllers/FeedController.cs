@@ -50,7 +50,7 @@ namespace FunnelWeb.Web.Controllers
         {
             var settings = Settings.GetSettings<FunnelWebSettings>();
             
-			var entries = Repository.Find(new GetFullEntriesQuery(), 0, 20);
+			var entries = Repository.Find(new GetFullEntriesQuery(entryStatus: EntryStatus.PublicBlog), 0, 20);
 
             var items =
                 from e in entries
