@@ -81,14 +81,16 @@
     
     <!-- Output NuGet packages -->
     <PropertyGroup>
-      <FunnelWebBaseDir>$(Root)\build\NuGet\FunnelWebCore</FunnelWebBaseDir>
-      <FunnelWebManifest>$(Root)\build\FunnelWebCore.nuspec</FunnelWebManifest>
+      <FunnelWebBaseDir>$(Root)\build\NuGet\FunnelWebExtensibility</FunnelWebBaseDir>
+      <FunnelWebManifest>$(Root)\build\FunnelWebExtensibility.nuspec</FunnelWebManifest>
     </PropertyGroup>
     <MakeDir Directories="$(FunnelWebBaseDir)\lib\net40\"
              Condition="!Exists('$(FunnelWebBaseDir)\lib\net40\')" />
     
     <Copy SourceFiles="$(Root)\src\FunnelWeb\bin\Release\FunnelWeb.dll" 
           DestinationFiles="$(FunnelWebBaseDir)\lib\net40\FunnelWeb.dll" />
+    <Copy SourceFiles="$(Root)\lib\FluentNHibernate\FluentNHibernate.dll" 
+          DestinationFiles="$(FunnelWebBaseDir)\lib\net40\FluentNHibernate.dll" />
     
     <Exec Command='$(NuGet) pack "$(FunnelWebManifest)" -BasePath "$(FunnelWebBaseDir)" -OutputDirectory "$(Root)\build\Artifacts"' />
     

@@ -13,11 +13,8 @@
     <language>en-AU</language>
     <tags>Blog,Extension</tags>
     <dependencies>
-      <dependency id="Castle.Core" version="2.5.2" />
-      <dependency id="NHibernate" version="3.1.0.4000" />
-      <dependency id="NHibernate.Castle" version="3.1.0.4000" />
-      <dependency id="FluentNHibernate" version="1.2.0.712" />
       <dependency id="Autofac" version="2.4.5.724" />
+      <dependency id="NHibernate" version="3.2.0.2001" />
     </dependencies>
   </metadata>
 </package>
