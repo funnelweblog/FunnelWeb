@@ -46,7 +46,7 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
         public void EditReturnsExistingPageWhenFound()
         {
             var entry = new EntryRevision { Name = "awesome-post" };
-            Repository.FindFirstOrDefault(Arg.Any<EntryByNameAndRevisionQuery>()).Returns(entry);
+            Repository.FindFirstOrDefault(Arg.Any<EntryByNameQuery>()).Returns(entry);
 
             var feeds = new List<Tag>().AsQueryable();
             Repository.FindAll<Tag>().Returns(feeds);
@@ -57,7 +57,7 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
             Assert.AreEqual(feeds, ((EntryRevision)result.ViewData.Model).AllTags);
             Assert.AreEqual(entry.Name.ToString(), ((EntryRevision)result.ViewData.Model).Name.ToString());
 
-            Repository.Received().FindFirstOrDefault(Arg.Any<EntryByNameAndRevisionQuery>());
+            Repository.Received().FindFirstOrDefault(Arg.Any<EntryByNameQuery>());
             Repository.Received().FindAll<Tag>();
         }
 
