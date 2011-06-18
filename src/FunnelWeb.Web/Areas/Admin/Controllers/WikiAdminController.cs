@@ -7,7 +7,6 @@ using FunnelWeb.Authentication;
 using FunnelWeb.Eventing;
 using FunnelWeb.Filters;
 using FunnelWeb.Model;
-using FunnelWeb.Model.Repositories;
 using FunnelWeb.Model.Strings;
 using FunnelWeb.Repositories;
 using FunnelWeb.Repositories.Queries;

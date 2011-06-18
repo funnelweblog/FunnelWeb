@@ -37,7 +37,7 @@ namespace FunnelWeb.Model
             Tags = new List<Tag>();
         }
 
-        public virtual int Id { get; protected set; }
+        public virtual int Id { get; set; }
 
         public virtual bool IsNew { get { return Id == 0; } }
 

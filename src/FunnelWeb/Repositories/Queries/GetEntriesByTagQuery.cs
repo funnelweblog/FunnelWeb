@@ -15,7 +15,18 @@ namespace FunnelWeb.Repositories.Queries
         private readonly EntriesSortColumn sortColumn;
         private readonly bool asc;
 
-        public GetEntriesByTagQuery(string tag, string entryStatus = null, EntriesSortColumn sortColumn = EntriesSortColumn.Published, bool asc = false)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <param name="entryStatus">When null, will exclude private entries</param>
+        /// <param name="sortColumn"></param>
+        /// <param name="asc"></param>
+        public GetEntriesByTagQuery(
+            string tag, 
+            string entryStatus = null, 
+            EntriesSortColumn sortColumn = EntriesSortColumn.Published, 
+            bool asc = false)
         {
             this.tag = tag;
             this.entryStatus = entryStatus;
@@ -30,6 +41,8 @@ namespace FunnelWeb.Repositories.Queries
 
             if (entryStatus != null)
                 totalEntries.Where(e => e.Status == entryStatus);
+            else
+                totalEntries.Where(e => e.Status != EntryStatus.Private);
 
             var total = totalEntries
                 .JoinQueryOver<Tag>(e => e.Tags).Where(t => t.Name == tag)
@@ -39,6 +52,8 @@ namespace FunnelWeb.Repositories.Queries
             var entriesQuery = Query(session);
             if (entryStatus != null)
                 entriesQuery.Where(e => e.Status == entryStatus);
+            else
+                entriesQuery.Where(e => e.Status != EntryStatus.Private);
 
             var entries = entriesQuery
                 .JoinQueryOver<Tag>(e=>e.Tags).Where(t=>t.Name == tag)

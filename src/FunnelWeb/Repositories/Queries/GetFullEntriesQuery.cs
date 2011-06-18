@@ -17,8 +17,11 @@ namespace FunnelWeb.Repositories.Queries
         private readonly EntriesSortColumn sortColumn;
         private readonly bool asc;
 
-        public GetFullEntriesQuery(bool includeComments = false, string entryStatus = null,
-            EntriesSortColumn sortColumn = EntriesSortColumn.Published, bool asc = false)
+        public GetFullEntriesQuery(
+            bool includeComments = false, 
+            string entryStatus = null,
+            EntriesSortColumn sortColumn = EntriesSortColumn.Published, 
+            bool asc = false)
         {
             this.includeComments = includeComments;
             this.entryStatus = entryStatus;
@@ -32,6 +35,8 @@ namespace FunnelWeb.Repositories.Queries
                 .QueryOver<Entry>();
             if (entryStatus != null)
                 totalQuery.Where(e => e.Status == entryStatus);
+            else
+                totalQuery.Where(e => e.Status != EntryStatus.Private);
 
             var total = totalQuery
                 .ToRowCountQuery()
@@ -40,6 +45,8 @@ namespace FunnelWeb.Repositories.Queries
             var entriesQuery = Query(session);
             if (entryStatus != null)
                 entriesQuery.Where(e => e.Status == entryStatus);
+            else
+                entriesQuery.Where(e => e.Status != EntryStatus.Private);
 
             var entries = entriesQuery
                 .Skip(skip)

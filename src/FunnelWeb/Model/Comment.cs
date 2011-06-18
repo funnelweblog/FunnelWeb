@@ -4,7 +4,7 @@ namespace FunnelWeb.Model
 {
     public class Comment
     {
-        public virtual int Id { get; protected set; }
+        public virtual int Id { get; set; }
 
         public virtual string Body { get; set; }
         public virtual string AuthorName { get; set; }

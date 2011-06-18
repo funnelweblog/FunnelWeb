@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using FunnelWeb.Filters;
+using FunnelWeb.Model;
 using FunnelWeb.Repositories;
 using FunnelWeb.Repositories.Queries;
 
@@ -17,7 +18,7 @@ namespace FunnelWeb.Web.Controllers
 
         public ActionResult Index(string tag)
         {
-            var tagItems = repository.Find(new GetEntriesByTagQuery(tag), 0, 30);
+            var tagItems = repository.Find(new GetEntriesByTagQuery(tag, EntryStatus.PublicBlog), 0, 30);
             ViewBag.Tag = tag;
             return View(tagItems);
         }

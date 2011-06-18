@@ -7,7 +7,7 @@ namespace FunnelWeb.Model
     {
         private StringBuilder outputLogBuilder;
 
-        public virtual int Id { get; protected set; }
+        public virtual int Id { get; set; }
         public virtual string TaskName { get; set; }
         public virtual string Arguments { get; set; }
         public virtual int ProgressEstimate { get; set; }
