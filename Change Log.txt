@@ -1,0 +1,10 @@
+New in v2.0
+
+ - Sql Authentication & Multiple User support
+ - Macro Support [Macro: TwitterFeed { name = "JakeGinnivan" }]
+ - Quite a few bug fixes, including all the issues around not showing latest revisions
+ - My.config, your login/connection string are in My.config now, meaning you can always overwrite web.config with the latest version (stops broken site when we change web.config stuff and you don't update)
+ - Can disable public page history
+ - We use IISExpress now rather than casini
+ - More themes added
+ - Can specify schema as well as connection string, allows multiple FunnelWeb blogs to be hosted in a single database

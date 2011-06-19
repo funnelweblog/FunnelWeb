@@ -11,8 +11,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Major>1</Major>
-    <Minor>1</Minor>
+    <Major>2</Major>
+    <Minor>0</Minor>
     <Build>0</Build>
     <Revision>0</Revision>
   </PropertyGroup>
@@ -116,6 +116,14 @@
     <Delete Files="@(PublishedFilesToDelete)" ContinueOnError="true" />
 
     <!-- Rename web.config -->
+    <Copy 
+    	SourceFiles="$(Root)\Breaking Changes.txt" 
+		DestinationFiles="$(Root)\build\Published\Breaking Changes.txt">
+	</Copy>
+    <Copy 
+    	SourceFiles="$(Root)\Change Log.txt" 
+		DestinationFiles="$(Root)\build\Published\Change Log.txt">
+	</Copy>
     <Copy 
     	SourceFiles="$(Root)\build\Published\My.config" 
 		DestinationFiles="$(Root)\build\Published\My.config.sample">
