@@ -27,7 +27,7 @@ namespace FunnelWeb.Repositories.Queries
                 .QueryOver<Entry>();
             if (entryStatus != null)
                 totalQuery.Where(e => e.Status == entryStatus);
-            else
+            else if (entryStatus != EntryStatus.All)
                 totalQuery.Where(e => e.Status != EntryStatus.Private);
 
             var total = totalQuery

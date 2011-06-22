@@ -24,7 +24,7 @@ Date.IsDate = function(p_Expression) {
 Date.CDate = function(p_Date) {
     if (Date.IsDate(p_Date)) { return new Date(p_Date); }
 
-    var strTry = p_Date.replace(/\-/g, '/').replace(/\./g, '/').replace(/ /g, '/'); // fix separators
+    var strTry = p_Date.toString().replace(/\-/g, '/').replace(/\./g, '/').replace(/ /g, '/'); 
     strTry = strTry.replace(/pm$/i, " pm").replace(/am$/i, " am"); // and meridian spacing
     if (Date.IsDate(strTry)) { return new Date(strTry); }
 
