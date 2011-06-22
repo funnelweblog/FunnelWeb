@@ -1,3 +1,9 @@
+New in v2.0.1
+ - Fixed jQuery reference
+ - Fixed javascript error in Firefox
+ - Fixed page list in admin area
+ - Changed Markdown help link to link to StackOverflow markdown help page
+
 New in v2.0
 
  - Sql Authentication & Multiple User support
