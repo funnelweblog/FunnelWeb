@@ -1,3 +1,6 @@
+New in v2.0.2
+ - Fixed jQuery UI reference
+
 New in v2.0.1
  - Fixed jQuery reference
  - Fixed javascript error in Firefox
