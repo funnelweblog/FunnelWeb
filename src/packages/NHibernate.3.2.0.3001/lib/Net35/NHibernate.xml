@@ -8090,7 +8090,7 @@
             for each System.Web.HttpContext. Works only with web applications.
             </summary>
         </member>
-        <member name="M:NHibernate.Criterion.Lambda.LambdaRestrictionBuilder.#ctor(System.String)">
+        <member name="M:NHibernate.Criterion.Lambda.LambdaRestrictionBuilder.#ctor(NHibernate.Criterion.IProjection)">
             <summary>
             Constructed with property name
             </summary>
@@ -8357,7 +8357,7 @@
             A property value sum
             </summary>
         </member>
-        <member name="M:NHibernate.Criterion.Lambda.QueryOverRestrictionBuilderBase`3.#ctor(`0,System.String)">
+        <member name="M:NHibernate.Criterion.Lambda.QueryOverRestrictionBuilderBase`3.#ctor(`0,NHibernate.Criterion.IProjection)">
             <summary>
             Constructed with property name
             </summary>
@@ -9963,11 +9963,12 @@
         <member name="M:NHibernate.Criterion.ICriteriaQuery.GetIdentifierType(NHibernate.ICriteria)">
             <summary>Get the identifier type of this entity</summary>
         </member>
-        <member name="M:NHibernate.Criterion.ICriteriaQuery.CreatePagingParameter(System.Int32)">
+        <member name="M:NHibernate.Criterion.ICriteriaQuery.NewQueryParameter(NHibernate.Engine.TypedValue)">
             <summary>
-            Creates a dummy parameter index for the supplied paged value.
-            Returns null if the Dialect does not support limit parameters
+            Create a new query parameter to use in a <see cref="T:NHibernate.Criterion.ICriterion"/>
             </summary>
+            <param name="parameter">The value and the <see cref="T:NHibernate.Type.IType"/> of the parameter.</param>
+            <returns>A new instance of a query parameter to be added to a <see cref="T:NHibernate.SqlCommand.SqlString"/>.</returns>
         </member>
         <member name="T:NHibernate.Criterion.IdentifierEqExpression">
             <summary>
@@ -10660,6 +10661,12 @@
             A property value sum
             </summary>
         </member>
+        <member name="M:NHibernate.Criterion.Projections.Concat(System.String[])">
+            <summary>
+            Project SQL function concat()
+            Note: throws an exception outside of a QueryOver expression
+            </summary>
+        </member>
         <member name="M:NHibernate.Criterion.ProjectionsExtensions.WithAlias(NHibernate.Criterion.IProjection,System.Linq.Expressions.Expression{System.Func{System.Object}})">
             <summary>
             Create an alias for a projection
@@ -10668,9 +10675,147 @@
             <param name="alias">LambdaExpression returning an alias</param>
             <returns>return NHibernate.Criterion.IProjection</returns>
         </member>
-        <member name="M:NHibernate.Criterion.ProjectionsExtensions.Year(System.DateTime)">
+        <member name="M:NHibernate.Criterion.ProjectionsExtensions.YearPart(System.DateTime)">
             <summary>
             Project SQL function year()
+            Note: throws an exception outside of a QueryOver expression
+            </summary>
+        </member>
+        <member name="M:NHibernate.Criterion.ProjectionsExtensions.DayPart(System.DateTime)">
+            <summary>
+            Project SQL function day()
+            Note: throws an exception outside of a QueryOver expression
+            </summary>
+        </member>
+        <member name="M:NHibernate.Criterion.ProjectionsExtensions.MonthPart(System.DateTime)">
+            <summary>
+            Project SQL function month()
+            Note: throws an exception outside of a QueryOver expression
+            </summary>
+        </member>
+        <member name="M:NHibernate.Criterion.ProjectionsExtensions.HourPart(System.DateTime)">
+            <summary>
+            Project SQL function hour()
+            Note: throws an exception outside of a QueryOver expression
+            </summary>
+        </member>
+        <member name="M:NHibernate.Criterion.ProjectionsExtensions.MinutePart(System.DateTime)">
+            <summary>
+            Project SQL function minute()
+            Note: throws an exception outside of a QueryOver expression
+            </summary>
+        </member>
+        <member name="M:NHibernate.Criterion.ProjectionsExtensions.SecondPart(System.DateTime)">
+            <summary>
+            Project SQL function second()
+            Note: throws an exception outside of a QueryOver expression
+            </summary>
+        </member>
+        <member name="M:NHibernate.Criterion.ProjectionsExtensions.Sqrt(System.Double)">
+            <summary>
+            Project SQL function sqrt()
+            Note: throws an exception outside of a QueryOver expression
+            </summary>
+        </member>
+        <member name="M:NHibernate.Criterion.ProjectionsExtensions.Sqrt(System.Int32)">
+            <summary>
+            Project SQL function sqrt()
+            Note: throws an exception outside of a QueryOver expression
+            </summary>
+        </member>
+        <member name="M:NHibernate.Criterion.ProjectionsExtensions.Sqrt(System.Int64)">
+            <summary>
+            Project SQL function sqrt()
+            Note: throws an exception outside of a QueryOver expression
+            </summary>
+        </member>
+        <member name="M:NHibernate.Criterion.ProjectionsExtensions.Sqrt(System.Decimal)">
+            <summary>
+            Project SQL function sqrt()
+            Note: throws an exception outside of a QueryOver expression
+            </summary>
+        </member>
+        <member name="M:NHibernate.Criterion.ProjectionsExtensions.Sqrt(System.Byte)">
+            <summary>
+            Project SQL function sqrt()
+            Note: throws an exception outside of a QueryOver expression
+            </summary>
+        </member>
+        <member name="M:NHibernate.Criterion.ProjectionsExtensions.Lower(System.String)">
+            <summary>
+            Project SQL function lower()
+            Note: throws an exception outside of a QueryOver expression
+            </summary>
+        </member>
+        <member name="M:NHibernate.Criterion.ProjectionsExtensions.Upper(System.String)">
+            <summary>
+            Project SQL function upper()
+            Note: throws an exception outside of a QueryOver expression
+            </summary>
+        </member>
+        <member name="M:NHibernate.Criterion.ProjectionsExtensions.Abs(System.Int32)">
+            <summary>
+            Project SQL function abs()
+            Note: throws an exception outside of a QueryOver expression
+            </summary>
+        </member>
+        <member name="M:NHibernate.Criterion.ProjectionsExtensions.Abs(System.Int64)">
+            <summary>
+            Project SQL function abs()
+            Note: throws an exception outside of a QueryOver expression
+            </summary>
+        </member>
+        <member name="M:NHibernate.Criterion.ProjectionsExtensions.Abs(System.Double)">
+            <summary>
+            Project SQL function abs()
+            Note: throws an exception outside of a QueryOver expression
+            </summary>
+        </member>
+        <member name="M:NHibernate.Criterion.ProjectionsExtensions.TrimStr(System.String)">
+            <summary>
+            Project SQL function trim()
+            Note: throws an exception outside of a QueryOver expression
+            </summary>
+        </member>
+        <member name="M:NHibernate.Criterion.ProjectionsExtensions.StrLength(System.String)">
+            <summary>
+            Project SQL function length()
+            Note: throws an exception outside of a QueryOver expression
+            </summary>
+        </member>
+        <member name="M:NHibernate.Criterion.ProjectionsExtensions.BitLength(System.String)">
+            <summary>
+            Project SQL function bit_length()
+            Note: throws an exception outside of a QueryOver expression
+            </summary>
+        </member>
+        <member name="M:NHibernate.Criterion.ProjectionsExtensions.Substr(System.String,System.Int32,System.Int32)">
+            <summary>
+            Project SQL function substring()
+            Note: throws an exception outside of a QueryOver expression
+            </summary>
+        </member>
+        <member name="M:NHibernate.Criterion.ProjectionsExtensions.CharIndex(System.String,System.String,System.Int32)">
+            <summary>
+            Project SQL function locate()
+            Note: throws an exception outside of a QueryOver expression
+            </summary>
+        </member>
+        <member name="M:NHibernate.Criterion.ProjectionsExtensions.Coalesce``1(``0,``0)">
+            <summary>
+            Project SQL function coalesce()
+            Note: throws an exception outside of a QueryOver expression
+            </summary>
+        </member>
+        <member name="M:NHibernate.Criterion.ProjectionsExtensions.Coalesce``1(System.Nullable{``0},``0)">
+            <summary>
+            Project SQL function coalesce()
+            Note: throws an exception outside of a QueryOver expression
+            </summary>
+        </member>
+        <member name="M:NHibernate.Criterion.ProjectionsExtensions.Mod(System.Int32,System.Int32)">
+            <summary>
+            Project SQL function mod()
             Note: throws an exception outside of a QueryOver expression
             </summary>
         </member>
@@ -12503,43 +12648,47 @@
             <param name="value">The boolean value </param>
             <returns> The appropriate SQL literal. </returns>
         </member>
-        <member name="M:NHibernate.Dialect.Dialect.GetLimitString(NHibernate.SqlCommand.SqlString,System.Int32,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:NHibernate.Dialect.Dialect.GetLimitString(NHibernate.SqlCommand.SqlString,NHibernate.SqlCommand.SqlString,NHibernate.SqlCommand.SqlString)">
             <summary>
-            Add a <c>LIMIT</c> clause to the given SQL <c>SELECT</c>
-            when the dialect supports variable limits (i.e. parameters for the limit constraints)
+            Add a <c>LIMIT</c> clause to the given SQL <c>SELECT</c>.
+            Expects any database-specific offset and limit adjustments to have already been performed (ex. UseMaxForLimit, OffsetStartsAtOne).
             </summary>
-            <param name="querySqlString">The <see cref="T:NHibernate.SqlCommand.SqlString"/> to base the limit query off.</param>
-            <param name="offset">Offset of the first row to be returned by the query (zero-based)</param>
-            <param name="limit">Maximum number of rows to be returned by the query</param>
-            <param name="offsetParameterIndex">Optionally, the Offset parameter index</param>
-            <param name="limitParameterIndex">Optionally, the Limit parameter index</param>
+            <param name="queryString">The <see cref="T:NHibernate.SqlCommand.SqlString"/> to base the limit query off.</param>
+            <param name="offset">Offset of the first row to be returned by the query.  This may be represented as a parameter, a string literal, or a null value if no limit is requested.  This should have already been adjusted to account for OffsetStartsAtOne.</param>
+            <param name="limit">Maximum number of rows to be returned by the query.  This may be represented as a parameter, a string literal, or a null value if no offset is requested.  This should have already been adjusted to account for UseMaxForLimit.</param>
             <returns>A new <see cref="T:NHibernate.SqlCommand.SqlString"/> that contains the <c>LIMIT</c> clause.</returns>
         </member>
-        <member name="M:NHibernate.Dialect.Dialect.GetLimitString(NHibernate.SqlCommand.SqlString,System.Int32,System.Int32)">
+        <member name="M:NHibernate.Dialect.Dialect.GetLimitString(NHibernate.SqlCommand.SqlString,System.Nullable{System.Int32},System.Nullable{System.Int32},NHibernate.SqlCommand.Parameter,NHibernate.SqlCommand.Parameter)">
             <summary>
-            Add a <c>LIMIT</c> clause to the given SQL <c>SELECT</c>
+            Generates a string to limit the result set to a number of maximum results with a specified offset into the results.
+            Expects any database-specific offset and limit adjustments to have already been performed (ex. UseMaxForLimit, OffsetStartsAtOne).
+            Performs error checking based on the various dialect limit support options.  If both parameters and fixed valeus are
+            specified, this will use the parameter option if possible.  Otherwise, it will fall back to a fixed string.
             </summary>
-            <param name="querySqlString">A Query in the form of a SqlString.</param>
-            <param name="offset">Offset of the first row to be returned by the query (zero-based)</param>
-            <param name="limit">Maximum number of rows to be returned by the query</param>
-            <returns>A new SqlString that contains the <c>LIMIT</c> clause.</returns>
+            <param name="queryString"></param>
+            <param name="offset"></param>
+            <param name="limit"></param>
+            <param name="offsetParameter"></param>
+            <param name="limitParameter"></param>
+            <returns></returns>
         </member>
-        <member name="M:NHibernate.Dialect.Dialect.GetLimitString(NHibernate.SqlCommand.SqlString,System.Boolean)">
-            <summary> Apply s limit clause to the query. </summary>
-            <param name="querySqlString">The query to which to apply the limit. </param>
-            <param name="hasOffset">Is the query requesting an offset? </param>
-            <returns> the modified SQL </returns>
-            <remarks>
-            Typically dialects utilize <see cref="P:NHibernate.Dialect.Dialect.SupportsVariableLimit"/>
-            limit caluses when they support limits.  Thus, when building the
-            select command we do not actually need to know the limit or the offest
-            since we will just be using placeholders.
-            <p/>
-            Here we do still pass along whether or not an offset was specified
-            so that dialects not supporting offsets can generate proper exceptions.
-            In general, dialects will override one or the other of this method and
-            <see cref="M:NHibernate.Dialect.Dialect.GetLimitString(NHibernate.SqlCommand.SqlString,System.Int32,System.Int32)"/>.
-            </remarks>
+        <member name="M:NHibernate.Dialect.Dialect.GetLimitValue(System.Int32,System.Int32)">
+            <summary>
+            Some databases require that a limit statement contain the maximum row number
+            instead of the number of rows to retrieve.  This method adjusts source
+            limit and offset values to account for this.
+            </summary>
+            <param name="offset"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NHibernate.Dialect.Dialect.GetOffsetValue(System.Int32)">
+            <summary>
+            Some databases use limit row offsets that start at one instead of zero.
+            This method adjusts a desired offset using the OffsetStartsAtOne flag.
+            </summary>
+            <param name="offset"></param>
+            <returns></returns>
         </member>
         <member name="M:NHibernate.Dialect.Dialect.IsQuoted(System.String)">
             <summary>
@@ -12967,21 +13116,6 @@
             Can parameters be used for a statement containing a LIMIT?
             </summary>
         </member>
-        <member name="P:NHibernate.Dialect.Dialect.BindLimitParametersInReverseOrder">
-            <summary>
-            Does the <c>LIMIT</c> clause specify arguments in the "reverse" order
-            limit, offset instead of offset, limit?
-            </summary>
-            <value>False, unless overridden.</value>
-            <remarks>Inheritors should return true if the correct order is limit, offset</remarks>
-        </member>
-        <member name="P:NHibernate.Dialect.Dialect.BindLimitParametersFirst">
-            <summary>
-            Does the <c>LIMIT</c> clause come at the start of the 
-            <c>SELECT</c> statement rather than at the end?
-            </summary>
-            <value>false, unless overridden</value>
-        </member>
         <member name="P:NHibernate.Dialect.Dialect.UseMaxForLimit">
             <summary> 
             Does the <tt>LIMIT</tt> clause take a "maximum" row number instead
@@ -12998,6 +13132,11 @@
             relative to offset (i.e. total number of rows = 20 - 11 = 9)
             So essentially, is limit relative from offset?  Or is limit absolute?
             </remarks>
+        </member>
+        <member name="P:NHibernate.Dialect.Dialect.OffsetStartsAtOne">
+            <summary>
+            For limit clauses, indicates whether to use 0 or 1 as the offset that returns the first row.  Should be true if the first row is at offset 1.
+            </summary>
         </member>
         <member name="P:NHibernate.Dialect.Dialect.OpenQuote">
             <summary>
@@ -13255,17 +13394,6 @@
         <member name="M:NHibernate.Dialect.DB2Dialect.GetDropSequenceString(System.String)">
             <summary></summary>
         </member>
-        <member name="M:NHibernate.Dialect.DB2Dialect.GetLimitString(NHibernate.SqlCommand.SqlString,System.Int32,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32})">
-            <summary>
-            Add a <c>LIMIT</c> clause to the given SQL <c>SELECT</c>
-            </summary>
-            <param name="querySqlString">A Query in the form of a SqlString.</param>
-            <param name="offset">Offset of the first row to be returned by the query (zero-based)</param>
-            <param name="limit">Maximum number of rows to be returned by the query</param>
-            <param name="offsetParameterIndex">Optionally, the Offset parameter index</param>
-            <param name="limitParameterIndex">Optionally, the Limit parameter index</param>
-            <returns>A new <see cref="T:NHibernate.SqlCommand.SqlString"/> that contains the <c>LIMIT</c> clause.</returns>
-        </member>
         <member name="P:NHibernate.Dialect.DB2Dialect.AddColumnString">
             <summary></summary>
         </member>
@@ -13288,9 +13416,6 @@
             <summary></summary>
         </member>
         <member name="P:NHibernate.Dialect.DB2Dialect.SupportsLimit">
-            <summary></summary>
-        </member>
-        <member name="P:NHibernate.Dialect.DB2Dialect.BindLimitParametersInReverseOrder">
             <summary></summary>
         </member>
         <member name="P:NHibernate.Dialect.DB2Dialect.UseMaxForLimit">
@@ -13323,15 +13448,6 @@
             	</item>
             </list>
             </remarks>
-        </member>
-        <member name="M:NHibernate.Dialect.FirebirdDialect.GetLimitString(NHibernate.SqlCommand.SqlString,System.Int32,System.Int32)">
-            <summary>
-            Add a <c>FIRST x [SKIP] y</c> clause to the given SQL <c>SELECT</c>
-            </summary>
-            <param name="querySqlString">A Query in the form of a SqlString.</param>
-            <param name="limit">Maximum number of rows to be returned by the query</param>
-            <param name="offset">Offset of the first row to process in the result set</param>
-            <returns>A new SqlString that contains the <c>FIRST</c> clause.</returns>
         </member>
         <member name="P:NHibernate.Dialect.FirebirdDialect.AddColumnString">
             <summary></summary>
@@ -13432,24 +13548,6 @@
             <param name="value">The boolean value </param>
             <returns> The appropriate SQL literal. </returns>
         </member>
-        <member name="M:NHibernate.Dialect.InformixDialect.GetLimitString(NHibernate.SqlCommand.SqlString,System.Int32,System.Int32)">
-            <summary> Apply s limit clause to the query. </summary>
-            <param name="querySqlString">The query to which to apply the limit. </param>
-            <param name="offset">Offset of the first row to be returned by the query (zero-based)</param>
-            <param name="limit">Maximum number of rows to be returned by the query</param>
-            <returns> the modified SQL </returns>
-            <remarks>
-            Typically dialects utilize <see cref="P:NHibernate.Dialect.InformixDialect.SupportsVariableLimit"/>
-            limit caluses when they support limits.  Thus, when building the
-            select command we do not actually need to know the limit or the offest
-            since we will just be using placeholders.
-            <p/>
-            Here we do still pass along whether or not an offset was specified
-            so that dialects not supporting offsets can generate proper exceptions.
-            In general, dialects will override one or the other of this method and
-            <see cref="M:NHibernate.Dialect.InformixDialect.GetLimitString(NHibernate.SqlCommand.SqlString,System.Int32,System.Int32)"/>.
-            </remarks>
-        </member>
         <member name="P:NHibernate.Dialect.InformixDialect.IdentityInsertString">
             <summary>
             The keyword used to insert a generated value into an identity column (or null).
@@ -13539,13 +13637,6 @@
             <summary>
             Can parameters be used for a statement containing a LIMIT?
             </summary>
-        </member>
-        <member name="P:NHibernate.Dialect.InformixDialect.BindLimitParametersFirst">
-            <summary>
-            Does the <c>LIMIT</c> clause come at the start of the 
-            <c>SELECT</c> statement rather than at the end?
-            </summary>
-            <value>false, unless overridden</value>
         </member>
         <member name="P:NHibernate.Dialect.InformixDialect.SupportsUnionAll">
             <summary> 
@@ -13747,15 +13838,6 @@
             <param name="tableName">The name of the table to drop.</param>
             <returns>The SQL with the <paramref name="tableName" /> inserted.</returns>
         </member>
-        <member name="M:NHibernate.Dialect.MsSql2000Dialect.GetLimitString(NHibernate.SqlCommand.SqlString,System.Int32,System.Int32)">
-            <summary>
-            Add a <c>LIMIT (TOP)</c> clause to the given SQL <c>SELECT</c>
-            </summary>
-            <param name="querySqlString">A Query in the form of a SqlString.</param>
-            <param name="limit">Maximum number of rows to be returned by the query</param>
-            <param name="offset">Offset of the first row to process in the result set</param>
-            <returns>A new SqlString that contains the <c>LIMIT</c> clause.</returns>
-        </member>
         <member name="M:NHibernate.Dialect.MsSql2000Dialect.Quote(System.String)">
             <summary />
             <param name="name"></param>
@@ -13787,20 +13869,6 @@
             instead of a total number of returned rows?
             </summary>
             <returns>false, unless overridden</returns>
-        </member>
-        <member name="M:NHibernate.Dialect.MsSql2005Dialect.GetLimitString(NHibernate.SqlCommand.SqlString,System.Int32,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32})">
-            <summary>
-            Add a <c>LIMIT</c> clause to the given SQL <c>SELECT</c>
-            </summary>
-            <param name="querySqlString">The <see cref="T:NHibernate.SqlCommand.SqlString"/> to base the limit query off.</param>
-            <param name="offset">Offset of the first row to be returned by the query (zero-based)</param>
-            <param name="limit">Maximum number of rows to be returned by the query</param>
-            <param name="offsetParameterIndex">Optionally, the Offset parameter index</param>
-            <param name="limitParameterIndex">Optionally, the Limit parameter index</param>
-            <returns>A new <see cref="T:NHibernate.SqlCommand.SqlString"/> with the <c>LIMIT</c> clause applied.</returns>
-            <remarks>
-            Note that we need to explicitly specify the columns, because we need to be able to use them in a paged subselect [NH-1155]
-            </remarks>
         </member>
         <member name="M:NHibernate.Dialect.MsSql2005Dialect.HasMatchingParens(System.Collections.Generic.IEnumerable{System.Char})">
             <summary>
@@ -13874,17 +13942,6 @@
             	</item>
             </list>
             </remarks>
-        </member>
-        <member name="M:NHibernate.Dialect.MySQLDialect.GetLimitString(NHibernate.SqlCommand.SqlString,System.Int32,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32})">
-            <summary>
-            Add a <c>LIMIT</c> clause to the given SQL <c>SELECT</c>
-            </summary>
-            <param name="querySqlString">The <see cref="T:NHibernate.SqlCommand.SqlString"/> to base the limit query off.</param>
-            <param name="offset">Offset of the first row to be returned by the query (zero-based)</param>
-            <param name="limit">Maximum number of rows to be returned by the query</param>
-            <param name="offsetParameterIndex">Optionally, the Offset parameter index</param>
-            <param name="limitParameterIndex">Optionally, the Limit parameter index</param>
-            <returns>A new <see cref="T:NHibernate.SqlCommand.SqlString"/> that contains the <c>LIMIT</c> clause.</returns>
         </member>
         <member name="M:NHibernate.Dialect.MySQLDialect.GetDropForeignKeyConstraintString(System.String)">
             <summary>
@@ -14055,17 +14112,6 @@
             </list>
             </remarks>
         </member>
-        <member name="M:NHibernate.Dialect.PostgreSQLDialect.GetLimitString(NHibernate.SqlCommand.SqlString,System.Int32,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32})">
-            <summary>
-            Add a <c>LIMIT</c> clause to the given SQL <c>SELECT</c>
-            </summary>
-            <param name="querySqlString">The <see cref="T:NHibernate.SqlCommand.SqlString"/> to base the limit query off.</param>
-            <param name="offset">Offset of the first row to be returned by the query (zero-based)</param>
-            <param name="limit">Maximum number of rows to be returned by the query</param>
-            <param name="offsetParameterIndex">Optionally, the Offset parameter index</param>
-            <param name="limitParameterIndex">Optionally, the Limit parameter index</param>
-            <returns>A new <see cref="T:NHibernate.SqlCommand.SqlString"/> that contains the <c>LIMIT</c> clause.</returns>
-        </member>
         <member name="M:NHibernate.Dialect.PostgreSQLDialect.GetSelectClauseNullString(NHibernate.SqlTypes.SqlType)">
             <summary>PostgreSQL requires to cast NULL values to correctly handle UNION/UNION ALL</summary>
             <remarks>
@@ -14144,15 +14190,6 @@
             <summary>
             
             </summary>
-        </member>
-        <member name="M:NHibernate.Dialect.SQLiteDialect.GetLimitString(NHibernate.SqlCommand.SqlString,System.Int32,System.Int32)">
-            <summary>
-            Add a LIMIT N clause to the given SQL <c>SELECT</c>
-            </summary>
-            <param name="querySqlString">A Query in the form of a SqlString.</param>
-            <param name="limit">Maximum number of rows to be returned by the query</param>
-            <param name="offset">Offset of the first row to process in the result set</param>
-            <returns>A new SqlString that contains the <c>LIMIT</c> clause.</returns>
         </member>
         <member name="P:NHibernate.Dialect.SQLiteDialect.DisableForeignKeyConstraintsString">
             <summary>
@@ -14273,24 +14310,6 @@
              </list>
              </remarks>
         </member>
-        <member name="M:NHibernate.Dialect.SybaseSQLAnywhere10Dialect.GetLimitString(NHibernate.SqlCommand.SqlString,System.Boolean)">
-             <summary>
-             SQL Anywhere 11 uses SELECT TOP n START AT m [ select list items ]
-             for LIMIT/OFFSET support.
-            
-             Produce a parametertized SQL query using positional parameters for
-             TOP and START AT (if specified).
-             </summary>
-        </member>
-        <member name="M:NHibernate.Dialect.SybaseSQLAnywhere10Dialect.GetLimitString(NHibernate.SqlCommand.SqlString,System.Int32,System.Int32)">
-             <summary>
-             SQL Anywhere 11 uses SELECT TOP n START AT m [ select list items ]
-             for LIMIT/OFFSET support.
-            
-             Generate SELECT TOP n START AT m syntax using bound parameters
-             SQL Anywhere constraints: n > 0, m >= 0
-             </summary>
-        </member>
         <member name="M:NHibernate.Dialect.SybaseSQLAnywhere10Dialect.GetForUpdateString(NHibernate.LockMode)">
              <summary>
              SQL Anywhere 10 supports READ, WRITE, and INTENT row
@@ -14335,17 +14354,6 @@
             <summary>
             SQL Anywhere uses <tt>DEFAULT AUTOINCREMENT</tt> to identify an IDENTITY
             column in a <tt>CREATE TABLE</tt> statement.
-            </summary>
-        </member>
-        <member name="P:NHibernate.Dialect.SybaseSQLAnywhere10Dialect.BindLimitParametersInReverseOrder">
-            <summary>
-            SQL Anywhere syntax is SELECT TOP n START AT m
-            </summary>
-        </member>
-        <member name="P:NHibernate.Dialect.SybaseSQLAnywhere10Dialect.BindLimitParametersFirst">
-            <summary>
-            SQL Anywhere 11 uses SELECT TOP n START AT m [ select list items ]
-            for LIMIT/OFFSET support.
             </summary>
         </member>
         <member name="P:NHibernate.Dialect.SybaseSQLAnywhere10Dialect.ForUpdateOfColumns">
@@ -14840,6 +14848,12 @@
             <exception cref="T:NHibernate.HibernateException">
             Thrown when the iAnywhere.Data.AsaClient assembly is not and can not be loaded.
             </exception>
+        </member>
+        <member name="M:NHibernate.Driver.BasicResultSetsCommand.ForEachSqlCommand(System.Action{NHibernate.SqlCommand.ISqlCommand,System.Int32})">
+            <summary>
+            Execute the given <paramref name="actionToDo"/> for each command of the resultset.
+            </summary>
+            <param name="actionToDo">The action to perform where the first parameter is the <see cref="T:NHibernate.SqlCommand.ISqlCommand"/> and the second parameter is the parameters offset of the <see cref="T:NHibernate.SqlCommand.ISqlCommand"/>.</param>
         </member>
         <member name="T:NHibernate.Driver.BatcherDataReaderWrapper">
             <summary>
@@ -16223,21 +16237,6 @@
             Thus OrdinalParameterLocationList[n] represents the location for the nth parameter.
             </remarks>
         </member>
-        <member name="T:NHibernate.Engine.Query.QueryMetadata">
-            <summary> Defines metadata regarding a translated HQL or native-SQL query. </summary>
-        </member>
-        <member name="P:NHibernate.Engine.Query.QueryMetadata.SourceQuery">
-            <summary> Get the source HQL or native-SQL query. </summary>
-        </member>
-        <member name="P:NHibernate.Engine.Query.QueryMetadata.ReturnAliases">
-            <summary> Return source query select clause aliases (if any) </summary>
-        </member>
-        <member name="P:NHibernate.Engine.Query.QueryMetadata.ReturnTypes">
-            <summary> An array of types describing the returns of the source query. </summary>
-        </member>
-        <member name="P:NHibernate.Engine.Query.QueryMetadata.QuerySpaces">
-            <summary> The set of query spaces affected by this source query. </summary>
-        </member>
         <member name="T:NHibernate.Engine.Query.QueryPlanCache">
             <summary> Acts as a cache for compiled query plans, as well as query-parameter metadata. </summary>
         </member>
@@ -16533,16 +16532,16 @@
             which is specific to each CascadingAction type
             </param>
         </member>
-        <member name="M:NHibernate.Engine.Cascade.CascadeProperty(System.Object,NHibernate.Type.IType,NHibernate.Engine.CascadeStyle,System.Object,System.Boolean)">
+        <member name="M:NHibernate.Engine.Cascade.CascadeProperty(System.Object,System.Object,NHibernate.Type.IType,NHibernate.Engine.CascadeStyle,System.Object,System.Boolean)">
             <summary> Cascade an action to the child or children</summary>
         </member>
-        <member name="M:NHibernate.Engine.Cascade.CascadeCollection(System.Object,NHibernate.Engine.CascadeStyle,System.Object,NHibernate.Type.CollectionType)">
+        <member name="M:NHibernate.Engine.Cascade.CascadeCollection(System.Object,System.Object,NHibernate.Engine.CascadeStyle,System.Object,NHibernate.Type.CollectionType)">
             <summary> Cascade an action to a collection</summary>
         </member>
-        <member name="M:NHibernate.Engine.Cascade.CascadeToOne(System.Object,NHibernate.Type.IType,NHibernate.Engine.CascadeStyle,System.Object,System.Boolean)">
+        <member name="M:NHibernate.Engine.Cascade.CascadeToOne(System.Object,System.Object,NHibernate.Type.IType,NHibernate.Engine.CascadeStyle,System.Object,System.Boolean)">
             <summary> Cascade an action to a to-one association or any type</summary>
         </member>
-        <member name="M:NHibernate.Engine.Cascade.CascadeCollectionElements(System.Object,NHibernate.Type.CollectionType,NHibernate.Engine.CascadeStyle,NHibernate.Type.IType,System.Object,System.Boolean)">
+        <member name="M:NHibernate.Engine.Cascade.CascadeCollectionElements(System.Object,System.Object,NHibernate.Type.CollectionType,NHibernate.Engine.CascadeStyle,NHibernate.Type.IType,System.Object,System.Boolean)">
             <summary> Cascade to the collection elements</summary>
         </member>
         <member name="M:NHibernate.Engine.Cascade.DeleteOrphans(System.String,NHibernate.Collection.IPersistentCollection)">
@@ -17496,6 +17495,19 @@
             </returns>
             <seealso cref="P:NHibernate.Engine.IPersistenceContext.DefaultReadOnly"/>
             <seealso cref="M:NHibernate.Engine.IPersistenceContext.SetReadOnly(System.Object,System.Boolean)"/>
+        </member>
+        <member name="M:NHibernate.Engine.IPersistenceContext.AddChildParent(System.Object,System.Object)">
+            <summary>
+            Add child/parent relation to cache for cascading operations
+            </summary>
+            <param name="child">The child.</param>
+            <param name="parent">The parent.</param>
+        </member>
+        <member name="M:NHibernate.Engine.IPersistenceContext.RemoveChildParent(System.Object)">
+            <summary>
+            Remove child/parent relation from cache
+            </summary>
+            <param name="child">The child.</param>
         </member>
         <member name="P:NHibernate.Engine.IPersistenceContext.Session">
             <summary>
@@ -21570,6 +21582,18 @@
             <param name="dialect"></param>
             <returns></returns>
         </member>
+        <member name="M:NHibernate.Loader.Loader.GetOffsetUsingDialect(NHibernate.Engine.RowSelection,NHibernate.Dialect.Dialect)">
+            <summary>
+            Performs dialect-specific manipulations on the offset value before returning it.
+            This method is applicable for use in limit statements only.
+            </summary>
+        </member>
+        <member name="M:NHibernate.Loader.Loader.GetLimitUsingDialect(NHibernate.Engine.RowSelection,NHibernate.Dialect.Dialect)">
+            <summary>
+            Performs dialect-specific manipulations on the limit value before returning it.
+            This method is applicable for use in limit statements only.
+            </summary>
+        </member>
         <member name="M:NHibernate.Loader.Loader.PrepareQueryCommand(NHibernate.Engine.QueryParameters,System.Boolean,NHibernate.Engine.ISessionImplementor)">
             <summary>
             Obtain an <c>IDbCommand</c> with all parameters pre-bound. Bind positional parameters,
@@ -21594,12 +21618,6 @@
             <param name="dialect">The dialect </param>
             <returns> The appropriate value to bind into the limit clause. </returns>
         </member>
-        <member name="M:NHibernate.Loader.Loader.BindLimitParameters(System.Data.IDbCommand,System.Int32,NHibernate.Engine.RowSelection,NHibernate.Engine.ISessionImplementor)">
-            <summary>
-            Bind parameters needed by the dialect-specific LIMIT clause
-            </summary>
-            <returns>The number of parameters bound</returns>
-        </member>
         <member name="M:NHibernate.Loader.Loader.SetMaxRows(System.Data.IDbCommand,NHibernate.Engine.RowSelection)">
             <summary>
             Limits the number of rows returned by the Sql query if necessary.
@@ -21607,16 +21625,6 @@
             <param name="st">The IDbCommand to limit.</param>
             <param name="selection">The RowSelection that contains the MaxResults info.</param>
             <remarks>TODO: This does not apply to ADO.NET at all</remarks>
-        </member>
-        <member name="M:NHibernate.Loader.Loader.BindParameterValues(System.Data.IDbCommand,NHibernate.Engine.QueryParameters,System.Int32,NHibernate.Engine.ISessionImplementor)">
-            <summary> 
-            Bind all parameter values into the prepared statement in preparation for execution. 
-            </summary>
-            <param name="statement">The ADO prepared statement </param>
-            <param name="queryParameters">The encapsulation of the parameter values to be bound. </param>
-            <param name="startIndex">The position from which to start binding parameter values. </param>
-            <param name="session">The originating session. </param>
-            <returns> The number of ADO bind positions actually bound during this method execution. </returns>
         </member>
         <member name="M:NHibernate.Loader.Loader.GetResultSet(System.Data.IDbCommand,System.Boolean,System.Boolean,NHibernate.Engine.RowSelection,NHibernate.Engine.ISessionImplementor)">
             <summary>
@@ -21771,13 +21779,6 @@
             necessarily need to use this algorithm, but it is intended that
             they will in most cases.
             </summary>
-        </member>
-        <member name="M:NHibernate.Hql.Ast.ANTLR.Loader.QueryLoader.GetNamedParameterLocs(System.String)">
-            <summary>
-            Returns the locations of all occurrences of the named parameter.
-            </summary>
-            <param name="name"></param>
-            <returns></returns>
         </member>
         <member name="M:NHibernate.Hql.Ast.ANTLR.Loader.QueryLoader.GetLockModes(System.Collections.Generic.IDictionary{System.String,NHibernate.LockMode})">
             <summary>
@@ -22066,6 +22067,46 @@
             Ported by: Steve Strong
             </summary>
         </member>
+        <member name="T:NHibernate.Hql.Ast.ANTLR.Tree.IParameterContainer">
+            <summary>
+            Currently this is needed in order to deal with {@link FromElement FromElements} which
+            contain "hidden" JDBC parameters from applying filters.
+            Would love for this to go away, but that would require that Hibernate's
+            internal {@link org.hibernate.engine.JoinSequence join handling} be able to either:<ul>
+            <li>render the same AST structures</li>
+            <li>render structures capable of being converted to these AST structures</li>
+            </ul>
+            In the interim, this allows us to at least treat these "hidden" parameters properly which is
+            the most pressing need.
+            Author: Steve Ebersole
+            Ported by: Steve Strong
+            </summary>
+        </member>
+        <member name="M:NHibernate.Hql.Ast.ANTLR.Tree.IParameterContainer.AddEmbeddedParameter(NHibernate.Param.IParameterSpecification)">
+            <summary>
+            Adds a parameter specification for a parameter encountered within this node.  We use the term 'embedded' here
+            because of the fact that the parameter was simply encountered as part of the node's text; it does not exist
+            as part of a subtree as it might in a true AST.
+            </summary>
+            <param name="specification">The generated specification.</param>
+        </member>
+        <member name="M:NHibernate.Hql.Ast.ANTLR.Tree.IParameterContainer.GetEmbeddedParameters">
+            <summary>
+            Retrieve all embedded parameter specifications.
+            </summary>
+            <returns>All embedded parameter specifications; may return null.</returns>
+        </member>
+        <member name="P:NHibernate.Hql.Ast.ANTLR.Tree.IParameterContainer.Text">
+            <summary>
+            Set the renderable text of this node.
+            </summary>
+        </member>
+        <member name="P:NHibernate.Hql.Ast.ANTLR.Tree.IParameterContainer.HasEmbeddedParameters">
+            <summary>
+            Determine whether this node contans embedded parameters.  The implication is that
+            {@link #getEmbeddedParameters()} is allowed to return null if this method returns false.
+            </summary>
+        </member>
         <member name="M:NHibernate.Hql.Ast.ANTLR.Tree.BinaryLogicOperatorNode.Initialize">
             <summary>
             Performs the operator node initialization by seeking out any parameter
@@ -22134,46 +22175,6 @@
             Represents a method call
             Author: josh
             Ported by: Steve Strong
-            </summary>
-        </member>
-        <member name="T:NHibernate.Hql.Ast.ANTLR.Tree.IParameterContainer">
-            <summary>
-            Currently this is needed in order to deal with {@link FromElement FromElements} which
-            contain "hidden" JDBC parameters from applying filters.
-            Would love for this to go away, but that would require that Hibernate's
-            internal {@link org.hibernate.engine.JoinSequence join handling} be able to either:<ul>
-            <li>render the same AST structures</li>
-            <li>render structures capable of being converted to these AST structures</li>
-            </ul>
-            In the interim, this allows us to at least treat these "hidden" parameters properly which is
-            the most pressing need.
-            Author: Steve Ebersole
-            Ported by: Steve Strong
-            </summary>
-        </member>
-        <member name="M:NHibernate.Hql.Ast.ANTLR.Tree.IParameterContainer.AddEmbeddedParameter(NHibernate.Param.IParameterSpecification)">
-            <summary>
-            Adds a parameter specification for a parameter encountered within this node.  We use the term 'embedded' here
-            because of the fact that the parameter was simply encountered as part of the node's text; it does not exist
-            as part of a subtree as it might in a true AST.
-            </summary>
-            <param name="specification">The generated specification.</param>
-        </member>
-        <member name="M:NHibernate.Hql.Ast.ANTLR.Tree.IParameterContainer.GetEmbeddedParameters">
-            <summary>
-            Retrieve all embedded parameter specifications.
-            </summary>
-            <returns>All embedded parameter specifications; may return null.</returns>
-        </member>
-        <member name="P:NHibernate.Hql.Ast.ANTLR.Tree.IParameterContainer.Text">
-            <summary>
-            Set the renderable text of this node.
-            </summary>
-        </member>
-        <member name="P:NHibernate.Hql.Ast.ANTLR.Tree.IParameterContainer.HasEmbeddedParameters">
-            <summary>
-            Determine whether this node contans embedded parameters.  The implication is that
-            {@link #getEmbeddedParameters()} is allowed to return null if this method returns false.
             </summary>
         </member>
         <member name="M:NHibernate.Hql.Ast.ANTLR.Tree.FromElement.#ctor(NHibernate.Hql.Ast.ANTLR.Tree.FromClause,NHibernate.Hql.Ast.ANTLR.Tree.FromElement,System.String)">
@@ -23095,11 +23096,6 @@
             Returns the column names in the generated SQL.
             </summary>
             <returns>the column names in the generated SQL.</returns>
-        </member>
-        <member name="M:NHibernate.Hql.IQueryTranslator.GetParameterTranslations">
-            <summary>
-            Information about any parameters encountered during translation.
-            </summary>
         </member>
         <member name="P:NHibernate.Hql.IQueryTranslator.QuerySpaces">
             <summary>
@@ -26786,13 +26782,20 @@
             <param name="orderDelegate">The appropriate order delegate (order direction)</param>
             <returns>NHibernate Order</returns>
         </member>
-        <member name="M:NHibernate.Impl.ExpressionProcessor.ProcessOrder(System.Linq.Expressions.LambdaExpression,System.Func{System.String,NHibernate.Criterion.Order},System.Boolean)">
+        <member name="M:NHibernate.Impl.ExpressionProcessor.ProcessOrder(System.Linq.Expressions.LambdaExpression,System.Func{System.String,NHibernate.Criterion.Order})">
             <summary>
             Convert a lambda expression to NHibernate Order
             </summary>
             <param name="expression">The lambda expression to convert</param>
             <param name="orderDelegate">The appropriate order delegate (order direction)</param>
-            <param name="isAlias">Indicates if the path is an aliased projection</param>
+            <returns>NHibernate Order</returns>
+        </member>
+        <member name="M:NHibernate.Impl.ExpressionProcessor.ProcessOrder(System.Linq.Expressions.LambdaExpression,System.Func{NHibernate.Criterion.IProjection,NHibernate.Criterion.Order})">
+            <summary>
+            Convert a lambda expression to NHibernate Order
+            </summary>
+            <param name="expression">The lambda expression to convert</param>
+            <param name="orderDelegate">The appropriate order delegate (order direction)</param>
             <returns>NHibernate Order</returns>
         </member>
         <member name="M:NHibernate.Impl.ExpressionProcessor.ProcessSubquery``1(NHibernate.Impl.LambdaSubqueryType,System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
@@ -26825,6 +26828,12 @@
             </summary>
             <param name="function">Lambda expression demonstrating call of custom method</param>
             <param name="functionProcessor">function to convert MethodCallExpression to IProjection</param>
+        </member>
+        <member name="M:NHibernate.Impl.ExpressionProcessor.FindProperty(NHibernate.Criterion.IProjection)">
+            <summary>
+            Retreive the property name from a supplied PropertyProjection
+            Note:  throws is the supplied IProjection is not a PropertyProjection
+            </summary>
         </member>
         <member name="M:NHibernate.Impl.ExpressionQueryImpl.ExpandParameters(System.Collections.Generic.IDictionary{System.String,NHibernate.Engine.TypedValue})">
             <summary> 
@@ -28624,6 +28633,11 @@
             
             </summary>
         </member>
+        <member name="T:NHibernate.Linq.ReWriters.QueryReferenceExpressionFlattener">
+            <summary>
+            This re-writer is responsible to re-write a query without a body (no where-clause and so on).
+            </summary>
+        </member>
         <member name="T:NHibernate.Linq.ReWriters.ResultOperatorRewriter">
             <summary>
             Removes various result operators from a query so that they can be processed at the same
@@ -28685,16 +28699,33 @@
             Performs bottom-up analysis to determine which nodes that match a certain predicate
             </summary>
         </member>
-        <member name="T:NHibernate.Linq.Visitors.WhereJoinDetector">
+        <member name="T:NHibernate.Linq.Visitors.PossibleValueSet">
             <summary>
-            The WhereJoinDetector creates the joins for the where clause, including
-            optimizations for inner joins. The algorithms are explained in 
-            the accompanying text file.
+            Represents a possible set of values for a computation.  For example, an expression may
+            be null, it may be a non-null value, or we may even have a constant value that is known
+            precisely.  This class contains operators that know how to combine these values with
+            each other.  This class is intended to be used to provide static analysis of expressions
+            before we hit the database.  As an example for future improvement, we could handle
+            ranges of numeric values.  We can also improve this by handling operators such as the
+            comparison operators and arithmetic operators.  They are currently handled by naive
+            null checks.
             </summary>
         </member>
-        <member name="M:NHibernate.Linq.Visitors.WhereJoinDetector.#cctor">
+        <!-- El comentario XML con formato incorrecto se omite para el miembro "T:NHibernate.Linq.Visitors.WhereJoinDetector" -->
+        <member name="P:NHibernate.Linq.Visitors.WhereJoinDetector.ExpressionValues.Values">
             <summary>
-            Setup of <see cref="F:NHibernate.Linq.Visitors.WhereJoinDetector.AND"/>, <see cref="F:NHibernate.Linq.Visitors.WhereJoinDetector.OR"/>, <see cref="F:NHibernate.Linq.Visitors.WhereJoinDetector.NOT"/>.
+            Possible values of expression if there's set of values for the requested member expression.
+            For example, if we have an expression "3" and we request the state for "a.B.C", we'll
+            use "3" from Values since it won't exist in MemberExpressionValuesIfEmptyOuterJoined.
+            </summary>
+        </member>
+        <member name="P:NHibernate.Linq.Visitors.WhereJoinDetector.ExpressionValues.MemberExpressionValuesIfEmptyOuterJoined">
+            <summary>
+            Stores the possible values of an expression that would result if the given member expression
+            string was emptily outer joined.  For example a.B.C would result in "null" if we try to
+            outer join to B and there are no rows.  Even if an expression tree does contain a particular
+            member experssion, it may not appear in this list.  In that case, the emptily outer joined
+            value set for that member expression will be whatever's in Values instead.
             </summary>
         </member>
         <member name="M:NHibernate.Linq.ReflectionHelper.GetMethodDefinition``1(System.Linq.Expressions.Expression{System.Action{``0}})">
@@ -28773,6 +28804,11 @@
             <summary>
             Add on association (one-to-one, many-to-one, or a collection) to a list
             of associations to be fetched by outerjoin
+            </summary>
+        </member>
+        <member name="M:NHibernate.Loader.JoinWalker.AddAssociation(System.String,NHibernate.Loader.OuterJoinableAssociation)">
+            <summary>
+            Adds an association and extracts the aliases the association's 'with clause' is dependent on
             </summary>
         </member>
         <member name="M:NHibernate.Loader.JoinWalker.WalkEntityTree(NHibernate.Persister.Entity.IOuterJoinLoadable,System.String)">
@@ -29033,22 +29069,6 @@
             used in Hibernate's auto-flushing mechanism to determine which
             entities need to be checked for pending changes. 
             </summary>
-        </member>
-        <member name="P:NHibernate.Loader.Custom.ICustomQuery.NamedParameterBindPoints">
-            <summary>
-            A map representing positions within the supplied <see cref="P:NHibernate.Loader.Custom.ICustomQuery.SQL"/> query to
-            which we need to bind named parameters.
-            </summary>
-            <remarks>
-            Optional, may return null if no named parameters.
-            The structure of the returned map (if one) as follows:
-            <ol>
-            <li>The keys into the map are the named parameter names</li>
-            <li>The corresponding value is either an if the
-            parameter occurs only once in the query; or a List of int if the
-            parameter occurs more than once</li>
-            </ol>
-            </remarks>
         </member>
         <member name="P:NHibernate.Loader.Custom.ICustomQuery.CustomQueryReturns">
             <summary> 
@@ -29386,6 +29406,13 @@
             list of joins
             </summary>
         </member>
+        <member name="M:NHibernate.Mapping.ByCode.IManyToAnyMapper.MetaValue(System.Object,System.Type)">
+            <summary>
+            Add or modify a value-class pair.
+            </summary>
+            <param name="value">The value of the DB-field dor a given association instance (should override <see cref="M:System.Object.ToString"/>)</param>
+            <param name="entityType">The class associated to the specific <paramref name="value"/>. </param>
+        </member>
         <member name="M:NHibernate.Mapping.ByCode.IAnyMapper.MetaValue(System.Object,System.Type)">
             <summary>
             Add or modify a value-class pair.
@@ -29405,7 +29432,7 @@
             Using the Join, it is possible to split properties of one class to several tables, when there's a 1-to-1 relationship between the table
             </summary>
             <param name="splitGroupId">The split-group identifier. By default it is assigned to the join-table-name</param>
-            <param name="splittedMapping">The lambda to map the join.</param>
+            <param name="splitMapping">The lambda to map the join.</param>
         </member>
         <member name="M:NHibernate.Mapping.ByCode.IComponentAsIdAttributesMapper.Class(System.Type)">
             <summary>
@@ -29460,11 +29487,11 @@
         </member>
         <member name="M:NHibernate.Mapping.ByCode.IKeyMapper.ForeignKey(System.String)">
             <summary>
-            Set the Foreing-Key name
+            Set the Foreign-Key name
             </summary>
-            <param name="foreingKeyName">The name of the Foreing-Key</param>
+            <param name="foreignKeyName">The name of the Foreign-Key</param>
             <remarks>
-            Where the <paramref name="foreingKeyName"/> is "none" or <see cref="F:System.String.Empty"/> or all white-spaces the FK won't be created.
+            Where the <paramref name="foreignKeyName"/> is "none" or <see cref="F:System.String.Empty"/> or all white-spaces the FK won't be created.
             Use null to reset the default NHibernate's behavior.
             </remarks>
         </member>
@@ -31912,21 +31939,33 @@
         </member>
         <member name="T:NHibernate.Param.IParameterSpecification">
             <summary>
-            Maintains information relating to parameters which need to get bound into a
-            JDBC {@link PreparedStatement}.
-            Author: Steve Ebersole
-            Ported by: Steve Strong
+            Maintains information relating to parameters which need to get bound into a <see cref="T:System.Data.IDbCommand"/>.
             </summary>
         </member>
-        <member name="M:NHibernate.Param.IParameterSpecification.Bind(System.Data.IDbCommand,NHibernate.Engine.QueryParameters,NHibernate.Engine.ISessionImplementor,System.Int32)">
+        <member name="M:NHibernate.Param.IParameterSpecification.Bind(System.Data.IDbCommand,System.Collections.Generic.IList{NHibernate.SqlCommand.Parameter},NHibernate.Engine.QueryParameters,NHibernate.Engine.ISessionImplementor)">
             <summary>
-            Bind the appropriate value into the given statement at the specified position.
+            Bind the appropriate value into the given command.
             </summary>
-            <param name="statement">The statement into which the value should be bound.</param>
-            <param name="qp">The defined values for the current query execution.</param>
+            <param name="command">The command into which the value should be bound.</param>
+            <param name="sqlQueryParametersList">The list of Sql query parameter in the exact sequence they are present in the query.</param>
+            <param name="queryParameters">The defined values for the current query execution.</param>
             <param name="session">The session against which the current execution is occuring.</param>
-            <param name="position">The position from which to start binding value(s).</param>
-            <returns>The number of sql bind positions "eaten" by this bind operation.</returns>
+        </member>
+        <member name="M:NHibernate.Param.IParameterSpecification.Bind(System.Data.IDbCommand,System.Collections.Generic.IList{NHibernate.SqlCommand.Parameter},System.Int32,System.Collections.Generic.IList{NHibernate.SqlCommand.Parameter},NHibernate.Engine.QueryParameters,NHibernate.Engine.ISessionImplementor)">
+            <summary>
+            Bind the appropriate value into the given command.
+            </summary>
+            <param name="command">The command into which the value should be bound.</param>
+            <param name="multiSqlQueryParametersList">The parameter-list of the whole query of the command.</param>
+            <param name="singleSqlParametersOffset">The offset from where start the list of <see cref="T:System.Data.IDataParameter"/> in the given <paramref name="command"/> for the query where this <see cref="T:NHibernate.Param.IParameterSpecification"/> was used. </param>
+            <param name="sqlQueryParametersList">The list of Sql query parameter in the exact sequence they are present in the query where this <see cref="T:NHibernate.Param.IParameterSpecification"/> was used.</param>
+            <param name="queryParameters">The defined values for the query where this <see cref="T:NHibernate.Param.IParameterSpecification"/> was used.</param>
+            <param name="session">The session against which the current execution is occuring.</param>
+            <remarks>
+            Suppose the <paramref name="command"/> is composed by two queries. The <paramref name="singleSqlParametersOffset"/> for the first query is zero.
+            If the first query in <paramref name="command"/> has 12 parameters (size of its SqlType array) the offset to bind all <see cref="T:NHibernate.Param.IParameterSpecification"/>s of the second query in the
+            <paramref name="command"/> is 12 (for the first query we are using from 0 to 11).
+            </remarks>
         </member>
         <member name="M:NHibernate.Param.IParameterSpecification.RenderDisplayInfo">
             <summary>
@@ -31934,11 +31973,32 @@
             </summary>
             <returns>The displayable info</returns>
         </member>
+        <member name="M:NHibernate.Param.IParameterSpecification.GetIdsForBackTrack(NHibernate.Engine.IMapping)">
+            <summary>
+            An string array to unique identify this parameter-span inside an <see cref="T:NHibernate.SqlCommand.SqlString"/>.
+            </summary>
+            <param name="sessionFactory">The session-factory (used only because required by IType).</param>
+            <remarks>
+            The each id-for-backtrack is supposed to be unique in the context of a query.
+            <para>
+            The number of elements returned depend on the column-span of the <see cref="P:NHibernate.Param.IParameterSpecification.ExpectedType"/>.
+            </para>
+            </remarks>
+        </member>
         <member name="P:NHibernate.Param.IParameterSpecification.ExpectedType">
             <summary>
             Get or set the type which we are expeting for a bind into this parameter based
             on translated contextual information.
             </summary>
+        </member>
+        <member name="M:NHibernate.Param.IExplicitParameterSpecification.SetEffectiveType(NHibernate.Engine.QueryParameters)">
+            <summary>
+            Explicit parameters may have no set the <see cref="P:NHibernate.Param.IParameterSpecification.ExpectedType"/> during query parse.
+            </summary>
+            <param name="queryParameters">The defined values for the current query execution.</param>
+            <remarks>
+            This method should be removed when the parameter type is inferred during the parse.
+            </remarks>
         </member>
         <member name="P:NHibernate.Param.IExplicitParameterSpecification.SourceLine">
             <summary>
@@ -31965,19 +32025,270 @@
             <param name="keyType">The mapped collection-key type.</param>
             <param name="queryParameterPosition">The position within QueryParameters where we can find the appropriate param value to bind.</param>
         </member>
-        <member name="M:NHibernate.Param.DynamicFilterParameterSpecification.#ctor(System.String,System.String,NHibernate.Type.IType)">
+        <member name="M:NHibernate.Param.DynamicFilterParameterSpecification.#ctor(System.String,System.String,NHibernate.Type.IType,System.Nullable{System.Int32})">
             <summary>
             Constructs a parameter specification for a particular filter parameter.
             </summary>
             <param name="filterName">The name of the filter</param>
             <param name="parameterName">The name of the parameter</param>
-            <param name="definedParameterType">The paremeter type specified on the filter metadata</param>
+            <param name="expectedDefinedType">The paremeter type specified on the filter metadata</param>
+            <param name="collectionSpan"></param>
+        </member>
+        <member name="T:NHibernate.Type.IType">
+            <summary>
+			Defines a mapping from a .NET <see cref="T:System.Type"/> to a SQL datatype.
+			This interface is intended to be implemented by applications that need custom types.
+		</summary><remarks>
+			Implementors should usually be immutable and MUST definately be threadsafe.
+		</remarks>
+        </member>
+        <member name="M:NHibernate.Type.IType.SqlTypes(NHibernate.Engine.IMapping)">
+            <summary>
+		When implemented by a class, returns the SqlTypes for the columns mapped by this IType.
+		</summary><param name="mapping">The <see cref="T:NHibernate.Engine.IMapping"/> that uses this IType.</param><returns>An array of <see cref="T:NHibernate.SqlTypes.SqlType"/>s.</returns> 
+        </member>
+        <member name="M:NHibernate.Type.IType.GetColumnSpan(NHibernate.Engine.IMapping)">
+            <summary>
+		When implemented by a class, returns how many columns are used to persist this type.
+		</summary><param name="mapping">The <see cref="T:NHibernate.Engine.IMapping"/> that uses this IType.</param><returns>The number of columns this IType spans.</returns><exception cref="T:NHibernate.MappingException">MappingException</exception> 
+        </member>
+        <member name="M:NHibernate.Type.IType.IsDirty(System.Object,System.Object,NHibernate.Engine.ISessionImplementor)">
+            <summary>
+		When implemented by a class, should the parent be considered dirty, 
+		given both the old and current field or element value?
+		</summary><param name="old">The old value</param><param name="current">The current value</param><param name="session">The <see cref="T:NHibernate.Engine.ISessionImplementor"/> </param><returns>true if the field is dirty</returns> 
+        </member>
+        <member name="M:NHibernate.Type.IType.NullSafeGet(System.Data.IDataReader,System.String[],NHibernate.Engine.ISessionImplementor,System.Object)">
+            <summary>
+		When implemented by a class, gets an instance of the object mapped by 
+		this IType from the <see cref="T:System.Data.IDataReader"/>.
+		</summary><param name="rs">The <see cref="T:System.Data.IDataReader"/> that contains the values</param><param name="names">
+		The names of the columns in the <see cref="T:System.Data.IDataReader"/> that contain the 
+		value to populate the IType with.
+		</param><param name="session"></param><param name="owner"></param><returns>The object mapped by this IType.</returns><remarks>
+		Implementors should handle possibility of null values.
+		</remarks> 
+        </member>
+        <member name="M:NHibernate.Type.IType.NullSafeGet(System.Data.IDataReader,System.String,NHibernate.Engine.ISessionImplementor,System.Object)">
+            <summary>
+		When implemented by a class, gets an instance of the object 
+		mapped by this IType from the <see cref="T:System.Data.IDataReader"/>.
+		</summary><param name="rs">The <see cref="T:System.Data.IDataReader"/> that contains the values</param><param name="name">The name of the column in the <see cref="T:System.Data.IDataReader"/> that contains the 
+		value to populate the IType with.</param><param name="session"></param><param name="owner"></param><returns>The object mapped by this IType.</returns><remarks>
+		Implementations should handle possibility of null values.
+		This method might be called if the IType is known to be a single-column type.
+		</remarks> 
+        </member>
+        <member name="M:NHibernate.Type.IType.NullSafeSet(System.Data.IDbCommand,System.Object,System.Int32,System.Boolean[],NHibernate.Engine.ISessionImplementor)">
+            <summary>
+		When implemented by a class, puts the value/values from the mapped 
+		class into the <see cref="T:System.Data.IDbCommand"/>.
+		</summary><param name="st">The <see cref="T:System.Data.IDbCommand"/> to put the values into.</param><param name="value">The object that contains the values.</param><param name="index">The index of the <see cref="T:System.Data.IDbDataParameter"/> to start writing the values to.</param><param name="session"></param><param name="settable">Indicates which columns are to be set.</param><remarks>
+		Implementors should handle possibility of null values.
+		A multi-column type should be written to parameters starting from <paramref name="index"/>.
+		</remarks> 
+        </member>
+        <member name="M:NHibernate.Type.IType.NullSafeSet(System.Data.IDbCommand,System.Object,System.Int32,NHibernate.Engine.ISessionImplementor)">
+            <summary>
+			When implemented by a class, puts the value/values from the mapped
+			class into the <see cref="T:System.Data.IDbCommand"/>.
+		</summary><param name="st">
+			The <see cref="T:System.Data.IDbCommand"/> to put the values into.
+		</param><param name="value">The object that contains the values.</param><param name="index">
+			The index of the <see cref="T:System.Data.IDbDataParameter"/> to start writing the values to.
+		</param><param name="session"></param><remarks>
+			Implementors should handle possibility of null values.
+			A multi-column type should be written to parameters starting from <paramref name="index"/>.
+		</remarks> 
+        </member>
+        <member name="M:NHibernate.Type.IType.ToLoggableString(System.Object,NHibernate.Engine.ISessionFactoryImplementor)">
+            <summary>
+		When implemented by a class, a representation of the value to be 
+		embedded in an XML element
+		</summary><param name="value">The object that contains the values.</param><param name="factory"></param><returns>An Xml formatted string.</returns> 
+        </member>
+        <member name="M:NHibernate.Type.IType.DeepCopy(System.Object,NHibernate.EntityMode,NHibernate.Engine.ISessionFactoryImplementor)">
+            <summary>
+		When implemented by a class, returns a deep copy of the persistent 
+		state, stopping at entities and at collections.
+		</summary><param name="val">A Collection element or Entity field</param><param name="entityMode">The entityMode.</param><param name="factory">The session factory.</param><returns>A deep copy of the object.</returns> 
+        </member>
+        <member name="M:NHibernate.Type.IType.Hydrate(System.Data.IDataReader,System.String[],NHibernate.Engine.ISessionImplementor,System.Object)">
+            <summary>
+		When implemented by a class, retrieves an instance of the mapped class, 
+		or the identifier of an entity or collection from a <see cref="T:System.Data.IDataReader"/>.
+		</summary><param name="rs">The <see cref="T:System.Data.IDataReader"/> that contains the values.</param><param name="names">
+		The names of the columns in the <see cref="T:System.Data.IDataReader"/> that contain the 
+		value to populate the IType with.
+		</param><param name="session">the session</param><param name="owner">The parent Entity</param><returns>An identifier or actual object mapped by this IType.</returns><remarks>
+		<para>
+		This is useful for 2-phase property initialization - the second phase is a call to
+		<c>ResolveIdentifier()</c>
+		</para>
+		<para>
+		Most implementors of this method will just pass the call to <c>NullSafeGet()</c>.
+		</para>
+		</remarks> 
+        </member>
+        <member name="M:NHibernate.Type.IType.ResolveIdentifier(System.Object,NHibernate.Engine.ISessionImplementor,System.Object)">
+            <summary>
+		When implemented by a class, maps identifiers to Entities or Collections. 
+		</summary><param name="value">An identifier or value returned by <c>Hydrate()</c></param><param name="session">The session</param><param name="owner">The parent Entity</param><returns>The Entity or Collection referenced by this Identifier.</returns><remarks>
+		This is the second phase of 2-phase property initialization.
+		</remarks> 
+        </member>
+        <member name="M:NHibernate.Type.IType.SemiResolve(System.Object,NHibernate.Engine.ISessionImplementor,System.Object)">
+            <summary>
+            Given a hydrated, but unresolved value, return a value that may be used to
+            reconstruct property-ref associations.
+            </summary>
+        </member>
+        <member name="M:NHibernate.Type.IType.Replace(System.Object,System.Object,NHibernate.Engine.ISessionImplementor,System.Object,System.Collections.IDictionary)">
+            <!-- No se encontraron elementos coincidentes para la siguiente etiqueta de inclusión --><include file="IType.cs.xmldoc" path="//members[@type=&quot;IType&quot;]/member[@name=&quot;M:IType.Copy&quot;]/*"/> 
+        </member>
+        <member name="M:NHibernate.Type.IType.Replace(System.Object,System.Object,NHibernate.Engine.ISessionImplementor,System.Object,System.Collections.IDictionary,NHibernate.Type.ForeignKeyDirection)">
+            <summary> 
+            During merge, replace the existing (target) value in the entity we are merging to
+            with a new (original) value from the detached entity we are merging. For immutable
+            objects, or null values, it is safe to simply return the first parameter. For
+            mutable objects, it is safe to return a copy of the first parameter. For objects
+            with component values, it might make sense to recursively replace component values. 
+            </summary>
+            <param name="original">the value from the detached entity being merged </param>
+            <param name="target">the value in the managed entity </param>
+            <param name="session"></param>
+            <param name="owner"></param>
+            <param name="copyCache"></param>
+            <param name="foreignKeyDirection"></param>
+            <returns> the value to be merged </returns>
+        </member>
+        <member name="M:NHibernate.Type.IType.IsSame(System.Object,System.Object,NHibernate.EntityMode)">
+            <summary> 
+            Compare two instances of the class mapped by this type for persistence
+            "equality" - equality of persistent state - taking a shortcut for
+            entity references.
+            </summary>
+            <param name="x"> </param>
+            <param name="y"> </param>
+            <param name="entityMode"> </param>
+            <returns> boolean </returns>
+        </member>
+        <member name="M:NHibernate.Type.IType.IsEqual(System.Object,System.Object,NHibernate.EntityMode)">
+            <summary> 
+            Compare two instances of the class mapped by this type for persistence
+            "equality" - equality of persistent state.
+            </summary>
+            <param name="x"> </param>
+            <param name="y"> </param>
+            <param name="entityMode"> </param>
+            <returns> boolean </returns>
+        </member>
+        <member name="M:NHibernate.Type.IType.IsEqual(System.Object,System.Object,NHibernate.EntityMode,NHibernate.Engine.ISessionFactoryImplementor)">
+            <summary> 
+            Compare two instances of the class mapped by this type for persistence
+            "equality" - equality of persistent state.
+            </summary>
+            <param name="x"> </param>
+            <param name="y"> </param>
+            <param name="entityMode"> </param>
+            <param name="factory"></param>
+            <returns> boolean </returns>
+        </member>
+        <member name="M:NHibernate.Type.IType.GetHashCode(System.Object,NHibernate.EntityMode)">
+            <summary> Get a hashcode, consistent with persistence "equality"</summary>
+            <param name="x"> </param>
+            <param name="entityMode"> </param>
+        </member>
+        <member name="M:NHibernate.Type.IType.GetHashCode(System.Object,NHibernate.EntityMode,NHibernate.Engine.ISessionFactoryImplementor)">
+            <summary> Get a hashcode, consistent with persistence "equality"</summary>
+            <param name="x"> </param>
+            <param name="entityMode"> </param>
+            <param name="factory"> </param>
+        </member>
+        <member name="M:NHibernate.Type.IType.Compare(System.Object,System.Object,System.Nullable{NHibernate.EntityMode})">
+            <summary> compare two instances of the type</summary>
+            <param name="x"> </param>
+            <param name="y"> </param>
+            <param name="entityMode"> </param>
+        </member>
+        <member name="M:NHibernate.Type.IType.GetSemiResolvedType(NHibernate.Engine.ISessionFactoryImplementor)">
+            <summary> Get the type of a semi-resolved value.</summary>
+        </member>
+        <member name="M:NHibernate.Type.IType.SetToXMLNode(System.Xml.XmlNode,System.Object,NHibernate.Engine.ISessionFactoryImplementor)">
+            <summary> A representation of the value to be embedded in an XML element. </summary>
+            <param name="node"></param>
+            <param name="value"> </param>
+            <param name="factory"> </param>
+        </member>
+        <member name="M:NHibernate.Type.IType.FromXMLNode(System.Xml.XmlNode,NHibernate.Engine.IMapping)">
+            <summary> Parse the XML representation of an instance.</summary>
+            <param name="xml"> </param>
+            <param name="factory"> </param>
+            <returns> an instance of the type </returns>
+        </member>
+        <member name="M:NHibernate.Type.IType.ToColumnNullness(System.Object,NHibernate.Engine.IMapping)">
+            <summary> 
+            Given an instance of the type, return an array of boolean, indicating
+            which mapped columns would be null. 
+            </summary>
+            <param name="value">an instance of the type </param>
+            <param name="mapping"></param>
+        </member>
+        <member name="P:NHibernate.Type.IType.Name">
+            <summary>
+		When implemented by a class, gets the abbreviated name of the type.
+		</summary><value>The NHibernate type name.</value> 
+        </member>
+        <member name="P:NHibernate.Type.IType.ReturnedClass">
+            <summary>
+		When implemented by a class, gets the <see cref="T:System.Type"/> returned 
+		by the <c>NullSafeGet()</c> methods.
+		</summary><value>
+		The <see cref="T:System.Type"/> from the .NET framework.
+		</value><remarks>
+		This is used to establish the class of an array of this Itype
+		</remarks> 
+        </member>
+        <member name="P:NHibernate.Type.IType.IsMutable">
+            <summary>
+		When implemented by a class, gets the value indicating if the objects 
+		of this IType are mutable.
+		</summary><value>true if the objects mapped by this IType are mutable.</value><remarks>
+		With respect to the referencing object...
+		Entities and Collections are considered immutable because they manage their own internal state.
+		</remarks> 
+        </member>
+        <member name="P:NHibernate.Type.IType.IsAssociationType">
+            <summary>
+			When implemented by a class, gets a value indicating if the implementor is castable to an an <see cref="T:NHibernate.Type.IAssociationType"/>
+		</summary><value>true if this is an Association</value><remarks>This does not necessarily imply that the type actually represents an association.</remarks> 
+        </member>
+        <member name="P:NHibernate.Type.IType.IsCollectionType">
+            <summary>
+			When implemented by a class, gets a value indicating if the implementor is a collection type
+		</summary><value>true if this is a <see cref="T:NHibernate.Type.CollectionType"/>.</value> 
+        </member>
+        <member name="P:NHibernate.Type.IType.IsComponentType">
+            <summary>
+		When implemented by a class, gets a value indicating if the implementor 
+		is an <see cref="T:NHibernate.Type.IAbstractComponentType"/>.
+		</summary><value>true if this is an <see cref="T:NHibernate.Type.IAbstractComponentType"/></value><remarks>
+		If true, the implementation must be castable to <see cref="T:NHibernate.Type.IAbstractComponentType"/>.
+		A component type may own collections or associations and hence must provide certain extra functionality.
+		</remarks> 
+        </member>
+        <member name="P:NHibernate.Type.IType.IsEntityType">
+            <summary>
+		When implemented by a class, gets a value indicating if the implementor 
+		extends <see cref="T:NHibernate.Type.EntityType"/>
+		</summary><value>true if this is an <see cref="T:NHibernate.Type.EntityType"/></value> 
+        </member>
+        <member name="P:NHibernate.Type.IType.IsAnyType">
+            <!-- No se encontraron elementos coincidentes para la siguiente etiqueta de inclusión --><include file="IType.cs.xmldoc" path="//members[@type=&quot;IType&quot;]/member[@name=&quot;P:IType.IsAnyType&quot;]/*"/> 
         </member>
         <member name="T:NHibernate.Param.NamedParameterSpecification">
             <summary>
             Parameter bind specification for an explicit named parameter.
-            Author: Steve Ebersole
-            Ported by: Steve Strong
             </summary>
         </member>
         <member name="M:NHibernate.Param.NamedParameterSpecification.#ctor(System.Int32,System.Int32,System.String)">
@@ -31988,34 +32299,14 @@
             <param name="sourceColumn">sourceColumn</param>
             <param name="name">The named parameter name.</param>
         </member>
-        <member name="M:NHibernate.Param.NamedParameterSpecification.Bind(System.Data.IDbCommand,NHibernate.Engine.QueryParameters,NHibernate.Engine.ISessionImplementor,System.Int32)">
-            <summary>
-            Bind the appropriate value into the given statement at the specified position.
-            </summary>
-            <param name="statement">The statement into which the value should be bound.</param>
-            <param name="qp">The defined values for the current query execution.</param>
-            <param name="session">The session against which the current execution is occuring.</param>
-            <param name="position">The position from which to start binding value(s).</param>
-            <returns>The number of sql bind positions "eaten" by this bind operation.</returns>
-        </member>
         <member name="P:NHibernate.Param.NamedParameterSpecification.Name">
             <summary>
-            Getter for property 'name'.
-            </summary>
-        </member>
-        <member name="T:NHibernate.Param.ParameterTranslationsImpl">
-            <summary>
-            Defines the information available for parameters encountered during
-            query translation through the antlr-based parser.
-            Author: Steve Ebersole
-            Ported by: Steve Strong
+            The user parameter name.
             </summary>
         </member>
         <member name="T:NHibernate.Param.PositionalParameterSpecification">
             <summary>
             Parameter bind specification for an explicit  positional (or ordinal) parameter.
-            Author: Steve Ebersole
-            Ported by: Steve Strong
             </summary>
         </member>
         <member name="M:NHibernate.Param.PositionalParameterSpecification.#ctor(System.Int32,System.Int32,System.Int32)">
@@ -32026,19 +32317,19 @@
             <param name="sourceColumn">sourceColumn</param>
             <param name="hqlPosition">The position in the source query, relative to the other source positional parameters.</param>
         </member>
-        <member name="M:NHibernate.Param.PositionalParameterSpecification.Bind(System.Data.IDbCommand,NHibernate.Engine.QueryParameters,NHibernate.Engine.ISessionImplementor,System.Int32)">
-            <summary>
-            Bind the appropriate value into the given statement at the specified position.
-            </summary>
-            <param name="statement">The statement into which the value should be bound.</param>
-            <param name="qp">The defined values for the current query execution.</param>
-            <param name="session">The session against which the current execution is occuring.</param>
-            <param name="position">The position from which to start binding value(s).</param>
-            <returns>The number of sql bind positions "eaten" by this bind operation.</returns>
-        </member>
         <member name="P:NHibernate.Param.PositionalParameterSpecification.HqlPosition">
             <summary>
             Getter for property 'hqlPosition'.
+            </summary>
+        </member>
+        <member name="T:NHibernate.Param.QuerySkipParameterSpecification">
+            <summary>
+            Autogenerated parameter for <see cref="M:NHibernate.IQuery.SetFirstResult(System.Int32)"/>.
+            </summary>
+        </member>
+        <member name="T:NHibernate.Param.QueryTakeParameterSpecification">
+            <summary>
+            Autogenerated parameter for <see cref="M:NHibernate.IQuery.SetMaxResults(System.Int32)"/>.
             </summary>
         </member>
         <member name="T:NHibernate.Persister.Collection.AbstractCollectionPersister">
@@ -35074,7 +35365,7 @@
             A placeholder for an ADO.NET parameter in an <see cref="T:NHibernate.SqlCommand.SqlString"/>.
             </summary>
         </member>
-        <member name="F:NHibernate.SqlCommand.Parameter.ParameterPosition">
+        <member name="F:NHibernate.SqlCommand.Parameter.parameterPosition">
             <summary>
             We need to know what the position of the parameter was in a query
             before we rearranged the query.
@@ -35111,6 +35402,22 @@
             <returns>
             An <see cref="T:System.Int32"/> value for the hash code.
             </returns>
+        </member>
+        <member name="P:NHibernate.SqlCommand.Parameter.ParameterPosition">
+            <summary>
+            Used to determine the parameter's name (p0,p1 etc.)
+            </summary>
+        </member>
+        <member name="P:NHibernate.SqlCommand.Parameter.BackTrack">
+            <summary>
+            Unique identifier of a parameter to be tracked back by its generator.
+            </summary>
+            <remarks>
+            We have various query-systems. Each one, at the end, give us a <see cref="T:NHibernate.SqlCommand.SqlString"/>.
+            At the same time we have various bad-guys playing the game (hql function implementations, the dialect...).
+            A bad guy can rearrange a <see cref="T:NHibernate.SqlCommand.SqlString"/> and the query-system can easly lost organization/sequence of parameters.
+            Using the <see cref="P:NHibernate.SqlCommand.Parameter.BackTrack"/> the query-system can easily find where are its parameters.
+            </remarks>
         </member>
         <member name="P:NHibernate.SqlCommand.Parameter.Placeholder">
             <summary>
@@ -35258,6 +35565,65 @@
             <param name="columnNames">The names of the Columns to Add to the WhereFragment</param>
             <param name="op">The operator to use between the names &amp; values.  For example " = " or "!="</param>
             <returns>A SqlString that contains the WhereFragment</returns>
+        </member>
+        <member name="M:NHibernate.SqlCommand.ISqlCommand.ResetParametersIndexesForTheCommand(System.Int32)">
+            <summary>
+            re-set the index of each parameter in the final <see cref="T:System.Data.IDbCommand">command</see>.
+            </summary>
+            <param name="singleSqlParametersOffset">The offset from where start the list of <see cref="T:System.Data.IDataParameter"/>, in the given command, for the this <see cref="T:NHibernate.SqlCommand.SqlCommandImpl"/>. </param>
+            <remarks>
+            Suppose the final <see cref="T:System.Data.IDbCommand">command</see> is composed by two queries. The <paramref name="singleSqlParametersOffset"/> for the first query is zero.
+            If the first query command has 12 parameters (size of its SqlType array) the offset to bind all <see cref="T:NHibernate.Param.IParameterSpecification"/>s, of the second query in the
+            command, is 12 (for the first query we are using from 0 to 11).
+            <para>
+            This method should be called before call <see cref="M:NHibernate.Engine.IBatcher.PrepareCommand(System.Data.CommandType,NHibernate.SqlCommand.SqlString,NHibernate.SqlTypes.SqlType[])"/>.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:NHibernate.SqlCommand.ISqlCommand.Bind(System.Data.IDbCommand,System.Collections.Generic.IList{NHibernate.SqlCommand.Parameter},System.Int32,NHibernate.Engine.ISessionImplementor)">
+            <summary>
+            Bind the appropriate value into the given command.
+            </summary>
+            <param name="command">The command into which the value should be bound.</param>
+            <param name="commandQueryParametersList">The parameter-list of the whole query of the command.</param>
+            <param name="singleSqlParametersOffset">The offset from where start the list of <see cref="T:System.Data.IDataParameter"/>, in the given <paramref name="command"/>, for the this <see cref="T:NHibernate.SqlCommand.SqlCommandImpl"/>. </param>
+            <param name="session">The session against which the current execution is occuring.</param>
+            <remarks>
+            Suppose the <paramref name="command"/> is composed by two queries. The <paramref name="singleSqlParametersOffset"/> for the first query is zero.
+            If the first query in <paramref name="command"/> has 12 parameters (size of its SqlType array) the offset to bind all <see cref="T:NHibernate.Param.IParameterSpecification"/>s, of the second query in the
+            <paramref name="command"/>, is 12 (for the first query we are using from 0 to 11).
+            </remarks>
+        </member>
+        <member name="M:NHibernate.SqlCommand.ISqlCommand.Bind(System.Data.IDbCommand,NHibernate.Engine.ISessionImplementor)">
+            <summary>
+            Bind the appropriate value into the given command.
+            </summary>
+            <param name="command">The command into which the value should be bound.</param>
+            <param name="session">The session against which the current execution is occuring.</param>
+            <remarks>
+            Use this method when the <paramref name="command"/> contains just 'this' instance of <see cref="T:NHibernate.SqlCommand.ISqlCommand"/>.
+            Use the overload <see cref="M:NHibernate.SqlCommand.ISqlCommand.Bind(System.Data.IDbCommand,System.Collections.Generic.IList{NHibernate.SqlCommand.Parameter},System.Int32,NHibernate.Engine.ISessionImplementor)"/> when the <paramref name="command"/> contains more instances of <see cref="T:NHibernate.SqlCommand.ISqlCommand"/>.
+            </remarks>
+        </member>
+        <member name="M:NHibernate.SqlCommand.SqlCommandImpl.Bind(System.Data.IDbCommand,System.Collections.Generic.IList{NHibernate.SqlCommand.Parameter},System.Int32,NHibernate.Engine.ISessionImplementor)">
+            <summary>
+            Bind the appropriate value into the given command.
+            </summary>
+            <param name="command">The command into which the value should be bound.</param>
+            <param name="commandQueryParametersList">The parameter-list of the whole query of the command.</param>
+            <param name="singleSqlParametersOffset">The offset from where start the list of <see cref="T:System.Data.IDataParameter"/>, in the given <paramref name="command"/>, for the this <see cref="T:NHibernate.SqlCommand.SqlCommandImpl"/>. </param>
+            <param name="session">The session against which the current execution is occuring.</param>
+        </member>
+        <member name="M:NHibernate.SqlCommand.SqlCommandImpl.Bind(System.Data.IDbCommand,NHibernate.Engine.ISessionImplementor)">
+            <summary>
+            Bind the appropriate value into the given command.
+            </summary>
+            <param name="command">The command into which the value should be bound.</param>
+            <param name="session">The session against which the current execution is occuring.</param>
+            <remarks>
+            Use this method when the <paramref name="command"/> contains just 'this' instance of <see cref="T:NHibernate.SqlCommand.ISqlCommand"/>.
+            Use the overload <see cref="M:NHibernate.SqlCommand.SqlCommandImpl.Bind(System.Data.IDbCommand,System.Collections.Generic.IList{NHibernate.SqlCommand.Parameter},System.Int32,NHibernate.Engine.ISessionImplementor)"/> when the <paramref name="command"/> contains more instances of <see cref="T:NHibernate.SqlCommand.ISqlCommand"/>.
+            </remarks>
         </member>
         <member name="T:NHibernate.SqlCommand.SqlDeleteBuilder">
             <summary>
@@ -37244,258 +37610,6 @@
             The base implementation of the <see cref="T:NHibernate.Type.IType"/> interface.
             Mapping of the built in Type hierarchy.
             </summary>
-        </member>
-        <member name="T:NHibernate.Type.IType">
-            <summary>
-			Defines a mapping from a .NET <see cref="T:System.Type"/> to a SQL datatype.
-			This interface is intended to be implemented by applications that need custom types.
-		</summary><remarks>
-			Implementors should usually be immutable and MUST definately be threadsafe.
-		</remarks>
-        </member>
-        <member name="M:NHibernate.Type.IType.SqlTypes(NHibernate.Engine.IMapping)">
-            <summary>
-		When implemented by a class, returns the SqlTypes for the columns mapped by this IType.
-		</summary><param name="mapping">The <see cref="T:NHibernate.Engine.IMapping"/> that uses this IType.</param><returns>An array of <see cref="T:NHibernate.SqlTypes.SqlType"/>s.</returns> 
-        </member>
-        <member name="M:NHibernate.Type.IType.GetColumnSpan(NHibernate.Engine.IMapping)">
-            <summary>
-		When implemented by a class, returns how many columns are used to persist this type.
-		</summary><param name="mapping">The <see cref="T:NHibernate.Engine.IMapping"/> that uses this IType.</param><returns>The number of columns this IType spans.</returns><exception cref="T:NHibernate.MappingException">MappingException</exception> 
-        </member>
-        <member name="M:NHibernate.Type.IType.IsDirty(System.Object,System.Object,NHibernate.Engine.ISessionImplementor)">
-            <summary>
-		When implemented by a class, should the parent be considered dirty, 
-		given both the old and current field or element value?
-		</summary><param name="old">The old value</param><param name="current">The current value</param><param name="session">The <see cref="T:NHibernate.Engine.ISessionImplementor"/> </param><returns>true if the field is dirty</returns> 
-        </member>
-        <member name="M:NHibernate.Type.IType.NullSafeGet(System.Data.IDataReader,System.String[],NHibernate.Engine.ISessionImplementor,System.Object)">
-            <summary>
-		When implemented by a class, gets an instance of the object mapped by 
-		this IType from the <see cref="T:System.Data.IDataReader"/>.
-		</summary><param name="rs">The <see cref="T:System.Data.IDataReader"/> that contains the values</param><param name="names">
-		The names of the columns in the <see cref="T:System.Data.IDataReader"/> that contain the 
-		value to populate the IType with.
-		</param><param name="session"></param><param name="owner"></param><returns>The object mapped by this IType.</returns><remarks>
-		Implementors should handle possibility of null values.
-		</remarks> 
-        </member>
-        <member name="M:NHibernate.Type.IType.NullSafeGet(System.Data.IDataReader,System.String,NHibernate.Engine.ISessionImplementor,System.Object)">
-            <summary>
-		When implemented by a class, gets an instance of the object 
-		mapped by this IType from the <see cref="T:System.Data.IDataReader"/>.
-		</summary><param name="rs">The <see cref="T:System.Data.IDataReader"/> that contains the values</param><param name="name">The name of the column in the <see cref="T:System.Data.IDataReader"/> that contains the 
-		value to populate the IType with.</param><param name="session"></param><param name="owner"></param><returns>The object mapped by this IType.</returns><remarks>
-		Implementations should handle possibility of null values.
-		This method might be called if the IType is known to be a single-column type.
-		</remarks> 
-        </member>
-        <member name="M:NHibernate.Type.IType.NullSafeSet(System.Data.IDbCommand,System.Object,System.Int32,System.Boolean[],NHibernate.Engine.ISessionImplementor)">
-            <summary>
-		When implemented by a class, puts the value/values from the mapped 
-		class into the <see cref="T:System.Data.IDbCommand"/>.
-		</summary><param name="st">The <see cref="T:System.Data.IDbCommand"/> to put the values into.</param><param name="value">The object that contains the values.</param><param name="index">The index of the <see cref="T:System.Data.IDbDataParameter"/> to start writing the values to.</param><param name="session"></param><param name="settable">Indicates which columns are to be set.</param><remarks>
-		Implementors should handle possibility of null values.
-		A multi-column type should be written to parameters starting from <paramref name="index"/>.
-		</remarks> 
-        </member>
-        <member name="M:NHibernate.Type.IType.NullSafeSet(System.Data.IDbCommand,System.Object,System.Int32,NHibernate.Engine.ISessionImplementor)">
-            <summary>
-			When implemented by a class, puts the value/values from the mapped
-			class into the <see cref="T:System.Data.IDbCommand"/>.
-		</summary><param name="st">
-			The <see cref="T:System.Data.IDbCommand"/> to put the values into.
-		</param><param name="value">The object that contains the values.</param><param name="index">
-			The index of the <see cref="T:System.Data.IDbDataParameter"/> to start writing the values to.
-		</param><param name="session"></param><remarks>
-			Implementors should handle possibility of null values.
-			A multi-column type should be written to parameters starting from <paramref name="index"/>.
-		</remarks> 
-        </member>
-        <member name="M:NHibernate.Type.IType.ToLoggableString(System.Object,NHibernate.Engine.ISessionFactoryImplementor)">
-            <summary>
-		When implemented by a class, a representation of the value to be 
-		embedded in an XML element
-		</summary><param name="value">The object that contains the values.</param><param name="factory"></param><returns>An Xml formatted string.</returns> 
-        </member>
-        <member name="M:NHibernate.Type.IType.DeepCopy(System.Object,NHibernate.EntityMode,NHibernate.Engine.ISessionFactoryImplementor)">
-            <summary>
-		When implemented by a class, returns a deep copy of the persistent 
-		state, stopping at entities and at collections.
-		</summary><param name="val">A Collection element or Entity field</param><param name="entityMode">The entityMode.</param><param name="factory">The session factory.</param><returns>A deep copy of the object.</returns> 
-        </member>
-        <member name="M:NHibernate.Type.IType.Hydrate(System.Data.IDataReader,System.String[],NHibernate.Engine.ISessionImplementor,System.Object)">
-            <summary>
-		When implemented by a class, retrieves an instance of the mapped class, 
-		or the identifier of an entity or collection from a <see cref="T:System.Data.IDataReader"/>.
-		</summary><param name="rs">The <see cref="T:System.Data.IDataReader"/> that contains the values.</param><param name="names">
-		The names of the columns in the <see cref="T:System.Data.IDataReader"/> that contain the 
-		value to populate the IType with.
-		</param><param name="session">the session</param><param name="owner">The parent Entity</param><returns>An identifier or actual object mapped by this IType.</returns><remarks>
-		<para>
-		This is useful for 2-phase property initialization - the second phase is a call to
-		<c>ResolveIdentifier()</c>
-		</para>
-		<para>
-		Most implementors of this method will just pass the call to <c>NullSafeGet()</c>.
-		</para>
-		</remarks> 
-        </member>
-        <member name="M:NHibernate.Type.IType.ResolveIdentifier(System.Object,NHibernate.Engine.ISessionImplementor,System.Object)">
-            <summary>
-		When implemented by a class, maps identifiers to Entities or Collections. 
-		</summary><param name="value">An identifier or value returned by <c>Hydrate()</c></param><param name="session">The session</param><param name="owner">The parent Entity</param><returns>The Entity or Collection referenced by this Identifier.</returns><remarks>
-		This is the second phase of 2-phase property initialization.
-		</remarks> 
-        </member>
-        <member name="M:NHibernate.Type.IType.SemiResolve(System.Object,NHibernate.Engine.ISessionImplementor,System.Object)">
-            <summary>
-            Given a hydrated, but unresolved value, return a value that may be used to
-            reconstruct property-ref associations.
-            </summary>
-        </member>
-        <member name="M:NHibernate.Type.IType.Replace(System.Object,System.Object,NHibernate.Engine.ISessionImplementor,System.Object,System.Collections.IDictionary)">
-            <!-- No se encontraron elementos coincidentes para la siguiente etiqueta de inclusión --><include file="IType.cs.xmldoc" path="//members[@type=&quot;IType&quot;]/member[@name=&quot;M:IType.Copy&quot;]/*"/> 
-        </member>
-        <member name="M:NHibernate.Type.IType.Replace(System.Object,System.Object,NHibernate.Engine.ISessionImplementor,System.Object,System.Collections.IDictionary,NHibernate.Type.ForeignKeyDirection)">
-            <summary> 
-            During merge, replace the existing (target) value in the entity we are merging to
-            with a new (original) value from the detached entity we are merging. For immutable
-            objects, or null values, it is safe to simply return the first parameter. For
-            mutable objects, it is safe to return a copy of the first parameter. For objects
-            with component values, it might make sense to recursively replace component values. 
-            </summary>
-            <param name="original">the value from the detached entity being merged </param>
-            <param name="target">the value in the managed entity </param>
-            <param name="session"></param>
-            <param name="owner"></param>
-            <param name="copyCache"></param>
-            <param name="foreignKeyDirection"></param>
-            <returns> the value to be merged </returns>
-        </member>
-        <member name="M:NHibernate.Type.IType.IsSame(System.Object,System.Object,NHibernate.EntityMode)">
-            <summary> 
-            Compare two instances of the class mapped by this type for persistence
-            "equality" - equality of persistent state - taking a shortcut for
-            entity references.
-            </summary>
-            <param name="x"> </param>
-            <param name="y"> </param>
-            <param name="entityMode"> </param>
-            <returns> boolean </returns>
-        </member>
-        <member name="M:NHibernate.Type.IType.IsEqual(System.Object,System.Object,NHibernate.EntityMode)">
-            <summary> 
-            Compare two instances of the class mapped by this type for persistence
-            "equality" - equality of persistent state.
-            </summary>
-            <param name="x"> </param>
-            <param name="y"> </param>
-            <param name="entityMode"> </param>
-            <returns> boolean </returns>
-        </member>
-        <member name="M:NHibernate.Type.IType.IsEqual(System.Object,System.Object,NHibernate.EntityMode,NHibernate.Engine.ISessionFactoryImplementor)">
-            <summary> 
-            Compare two instances of the class mapped by this type for persistence
-            "equality" - equality of persistent state.
-            </summary>
-            <param name="x"> </param>
-            <param name="y"> </param>
-            <param name="entityMode"> </param>
-            <param name="factory"></param>
-            <returns> boolean </returns>
-        </member>
-        <member name="M:NHibernate.Type.IType.GetHashCode(System.Object,NHibernate.EntityMode)">
-            <summary> Get a hashcode, consistent with persistence "equality"</summary>
-            <param name="x"> </param>
-            <param name="entityMode"> </param>
-        </member>
-        <member name="M:NHibernate.Type.IType.GetHashCode(System.Object,NHibernate.EntityMode,NHibernate.Engine.ISessionFactoryImplementor)">
-            <summary> Get a hashcode, consistent with persistence "equality"</summary>
-            <param name="x"> </param>
-            <param name="entityMode"> </param>
-            <param name="factory"> </param>
-        </member>
-        <member name="M:NHibernate.Type.IType.Compare(System.Object,System.Object,System.Nullable{NHibernate.EntityMode})">
-            <summary> compare two instances of the type</summary>
-            <param name="x"> </param>
-            <param name="y"> </param>
-            <param name="entityMode"> </param>
-        </member>
-        <member name="M:NHibernate.Type.IType.GetSemiResolvedType(NHibernate.Engine.ISessionFactoryImplementor)">
-            <summary> Get the type of a semi-resolved value.</summary>
-        </member>
-        <member name="M:NHibernate.Type.IType.SetToXMLNode(System.Xml.XmlNode,System.Object,NHibernate.Engine.ISessionFactoryImplementor)">
-            <summary> A representation of the value to be embedded in an XML element. </summary>
-            <param name="node"></param>
-            <param name="value"> </param>
-            <param name="factory"> </param>
-        </member>
-        <member name="M:NHibernate.Type.IType.FromXMLNode(System.Xml.XmlNode,NHibernate.Engine.IMapping)">
-            <summary> Parse the XML representation of an instance.</summary>
-            <param name="xml"> </param>
-            <param name="factory"> </param>
-            <returns> an instance of the type </returns>
-        </member>
-        <member name="M:NHibernate.Type.IType.ToColumnNullness(System.Object,NHibernate.Engine.IMapping)">
-            <summary> 
-            Given an instance of the type, return an array of boolean, indicating
-            which mapped columns would be null. 
-            </summary>
-            <param name="value">an instance of the type </param>
-            <param name="mapping"></param>
-        </member>
-        <member name="P:NHibernate.Type.IType.Name">
-            <summary>
-		When implemented by a class, gets the abbreviated name of the type.
-		</summary><value>The NHibernate type name.</value> 
-        </member>
-        <member name="P:NHibernate.Type.IType.ReturnedClass">
-            <summary>
-		When implemented by a class, gets the <see cref="T:System.Type"/> returned 
-		by the <c>NullSafeGet()</c> methods.
-		</summary><value>
-		The <see cref="T:System.Type"/> from the .NET framework.
-		</value><remarks>
-		This is used to establish the class of an array of this Itype
-		</remarks> 
-        </member>
-        <member name="P:NHibernate.Type.IType.IsMutable">
-            <summary>
-		When implemented by a class, gets the value indicating if the objects 
-		of this IType are mutable.
-		</summary><value>true if the objects mapped by this IType are mutable.</value><remarks>
-		With respect to the referencing object...
-		Entities and Collections are considered immutable because they manage their own internal state.
-		</remarks> 
-        </member>
-        <member name="P:NHibernate.Type.IType.IsAssociationType">
-            <summary>
-			When implemented by a class, gets a value indicating if the implementor is castable to an an <see cref="T:NHibernate.Type.IAssociationType"/>
-		</summary><value>true if this is an Association</value><remarks>This does not necessarily imply that the type actually represents an association.</remarks> 
-        </member>
-        <member name="P:NHibernate.Type.IType.IsCollectionType">
-            <summary>
-			When implemented by a class, gets a value indicating if the implementor is a collection type
-		</summary><value>true if this is a <see cref="T:NHibernate.Type.CollectionType"/>.</value> 
-        </member>
-        <member name="P:NHibernate.Type.IType.IsComponentType">
-            <summary>
-		When implemented by a class, gets a value indicating if the implementor 
-		is an <see cref="T:NHibernate.Type.IAbstractComponentType"/>.
-		</summary><value>true if this is an <see cref="T:NHibernate.Type.IAbstractComponentType"/></value><remarks>
-		If true, the implementation must be castable to <see cref="T:NHibernate.Type.IAbstractComponentType"/>.
-		A component type may own collections or associations and hence must provide certain extra functionality.
-		</remarks> 
-        </member>
-        <member name="P:NHibernate.Type.IType.IsEntityType">
-            <summary>
-		When implemented by a class, gets a value indicating if the implementor 
-		extends <see cref="T:NHibernate.Type.EntityType"/>
-		</summary><value>true if this is an <see cref="T:NHibernate.Type.EntityType"/></value> 
-        </member>
-        <member name="P:NHibernate.Type.IType.IsAnyType">
-            <!-- No se encontraron elementos coincidentes para la siguiente etiqueta de inclusión --><include file="IType.cs.xmldoc" path="//members[@type=&quot;IType&quot;]/member[@name=&quot;P:IType.IsAnyType&quot;]/*"/> 
         </member>
         <member name="M:NHibernate.Type.AbstractType.Disassemble(System.Object,NHibernate.Engine.ISessionImplementor,System.Object)">
             <summary>
