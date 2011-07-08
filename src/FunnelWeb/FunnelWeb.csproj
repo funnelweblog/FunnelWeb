@@ -72,6 +72,10 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\SqlServerCompact.4.0.8482.1\lib\System.Data.SqlServerCe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
@@ -98,6 +102,10 @@
     <Compile Include="DatabaseDeployer\ApplicationDatabase.cs" />
     <Compile Include="DatabaseDeployer\DatabaseModule.cs" />
     <Compile Include="DatabaseDeployer\DatabaseUpgradeDetector.cs" />
+    <Compile Include="DatabaseDeployer\DbProviders\ProviderMetaData.cs" />
+    <Compile Include="DatabaseDeployer\DbProviders\SqlCeDatabaseProvider.cs" />
+    <Compile Include="DatabaseDeployer\DbProviders\SqlDatabaseProvider.cs" />
+    <Compile Include="DatabaseDeployer\DbProviders\IDatabaseProvider.cs" />
     <Compile Include="DatabaseDeployer\IApplicationDatabase.cs" />
     <Compile Include="DatabaseDeployer\IConnectionStringProvider.cs" />
     <Compile Include="DatabaseDeployer\IDatabaseUpgradeDetector.cs" />
@@ -280,6 +288,13 @@
     <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0028.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
+xcopy /s /y "$(SolutionDir)packages\SqlServerCompact.4.0.8482.1\NativeBinaries\x86\*.*" "$(TargetDir)x86"
+if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
+xcopy /s /y "$(SolutionDir)packages\SqlServerCompact.4.0.8482.1\NativeBinaries\amd64\*.*" "$(TargetDir)amd64"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

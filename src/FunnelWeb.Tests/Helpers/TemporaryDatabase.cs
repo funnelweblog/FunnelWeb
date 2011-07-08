@@ -21,12 +21,14 @@ namespace FunnelWeb.Tests.Helpers
         private readonly AdHocSqlRunner master;
         private readonly IContainer container;
         private readonly string schema;
+        private readonly string databaseProvider;
 
         public TemporaryDatabase()
         {
             databaseName = "FunnelWebIntegrationTests";
             connectionString = string.Format("Server=(local)\\SQLEXPRESS;Database={0};Trusted_connection=true;Pooling=false", databaseName);
             schema = "dbo";
+            databaseProvider = "Sql";
             database = new AdHocSqlRunner(()=>new SqlConnection(connectionString), schema);
 
             var builder = new SqlConnectionStringBuilder(connectionString) {InitialCatalog = "master"};
@@ -36,6 +38,7 @@ namespace FunnelWeb.Tests.Helpers
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterInstance(this).As<IConnectionStringProvider>();
             containerBuilder.RegisterModule(new RepositoriesModule());
+            containerBuilder.RegisterModule(new DatabaseModule());
             container = containerBuilder.Build();
         }
 
@@ -54,6 +57,12 @@ namespace FunnelWeb.Tests.Helpers
 
                 txn.Commit();
             }
+        }
+
+        public string DatabaseProvider
+        {
+            get { return databaseProvider; }
+            set {}
         }
 
         public string ConnectionString
@@ -87,7 +96,7 @@ namespace FunnelWeb.Tests.Helpers
             master.ExecuteNonQuery("create database [" + databaseName + "]");
 
             var app = new ApplicationDatabase();
-            app.PerformUpgrade(connectionString, Schema, new List<ScriptedExtension>(), new TraceLog());
+            app.PerformUpgrade(()=>new SqlConnection(connectionString), Schema, new List<ScriptedExtension>(), new TraceLog());
         }
 
         public ScriptedExtension ScriptProviderFor<T>(T extensionWithScripts) where T : IRequireDatabaseScripts

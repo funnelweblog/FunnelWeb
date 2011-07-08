@@ -1,7 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using Autofac.Features.Indexed;
 using DbUp.Engine;
 using FunnelWeb.DatabaseDeployer;
+using FunnelWeb.DatabaseDeployer.DbProviders;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -14,6 +18,8 @@ namespace FunnelWeb.Tests.DatabaseDeployer
         private IConnectionStringProvider connectionString;
         private IApplicationDatabase applicationDatabase;
         private readonly List<ScriptedExtension> extensions = new List<ScriptedExtension>();
+        private IIndex<string, IDatabaseProvider> databaseProviderLookup;
+        private IDatabaseProvider databaseProvider;
 
         [SetUp]
         public void SetUp()
@@ -21,7 +27,10 @@ namespace FunnelWeb.Tests.DatabaseDeployer
             connectionString = Substitute.For<IConnectionStringProvider>();
             connectionString.Schema = "dbo";
             applicationDatabase = Substitute.For<IApplicationDatabase>();
-            detector = new DatabaseUpgradeDetector(connectionString, extensions, applicationDatabase);
+            databaseProviderLookup = Substitute.For<IIndex<string, IDatabaseProvider>>();
+            databaseProvider = Substitute.For<IDatabaseProvider>();
+            databaseProviderLookup[Arg.Any<string>()].Returns(databaseProvider);
+            detector = new DatabaseUpgradeDetector(connectionString, extensions, applicationDatabase, databaseProviderLookup);
         }
 
         [Test]
@@ -90,7 +99,7 @@ namespace FunnelWeb.Tests.DatabaseDeployer
         private void DatabaseIsOnline(bool isItReally)
         {
             string message;
-            applicationDatabase
+            databaseProvider
                 .TryConnect(Arg.Any<string>(), out message)
                 .Returns(isItReally);
         }
@@ -98,7 +107,7 @@ namespace FunnelWeb.Tests.DatabaseDeployer
         private void CurrentSchemaVersionIs(int version)
         {
             applicationDatabase
-                .GetCoreExecutedScripts(Arg.Any<string>(), "dbo")
+                .GetCoreExecutedScripts(Arg.Any<Func<IDbConnection>>(), "dbo")
                 .Returns(Enumerable.Range(1, version).Select(x => "Script" + x + ".sql").ToArray());
         }
 
@@ -112,7 +121,7 @@ namespace FunnelWeb.Tests.DatabaseDeployer
         private void CurrentExtensionVersionIs(int version)
         {
             applicationDatabase
-                .GetExtensionExecutedScripts(Arg.Any<string>(), Arg.Any<ScriptedExtension>(), "dbo")
+                .GetExtensionExecutedScripts(Arg.Any<Func<IDbConnection>>(), Arg.Any<ScriptedExtension>(), "dbo")
                 .Returns(Enumerable.Range(1, version).Select(x => "Script" + x + ".sql").ToArray());
         }
 

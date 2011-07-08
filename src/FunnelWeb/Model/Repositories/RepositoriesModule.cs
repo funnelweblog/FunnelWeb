@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web;
 using Autofac;
 using FluentNHibernate.Cfg;
-using FluentNHibernate.Cfg.Db;
 using FunnelWeb.DatabaseDeployer;
+using FunnelWeb.DatabaseDeployer.DbProviders;
 using FunnelWeb.Model.Mappings;
 using FunnelWeb.Model.Repositories.Internal;
 using FunnelWeb.Repositories;
@@ -33,12 +33,13 @@ namespace FunnelWeb.Model.Repositories
         {
             var connectionStringProvider = context.Resolve<IConnectionStringProvider>();
             EntryMapping.CurrentSchema = connectionStringProvider.Schema;
+            var databaseProvider = context.ResolveNamed<IDatabaseProvider>(connectionStringProvider.DatabaseProvider.ToLower());
+
+            var databaseConfiguration = databaseProvider.GetDatabaseConfiguration(connectionStringProvider);
             var configuration =
                 Fluently
                     .Configure()
-                    .Database(MsSqlConfiguration.MsSql2008.ConnectionString(connectionStringProvider.ConnectionString)
-                                  .ShowSql()
-                                  .DefaultSchema(connectionStringProvider.Schema))
+                    .Database(databaseConfiguration)
                     .Mappings(m =>
                                   {
                                       m.FluentMappings.AddFromAssembly(System.Reflection.Assembly.GetExecutingAssembly());
