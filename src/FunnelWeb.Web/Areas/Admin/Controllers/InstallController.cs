@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Web.Mvc;
-using DbUp;
+using DbUp.Engine.Output;
 using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.Web.Areas.Admin.Views.Install;
 
@@ -70,7 +70,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
             return View("UpgradeReport", new UpgradeModel(result, writer.ToString()));
         }
 
-        private class TextLog : ILog
+        private class TextLog : IUpgradeLog
         {
             private readonly StringWriter writer;
 

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-using DbUp;
+using DbUp.Engine;
+using DbUp.Engine.Output;
 
 namespace FunnelWeb.DatabaseDeployer
 {
@@ -25,11 +26,12 @@ namespace FunnelWeb.DatabaseDeployer
         /// Performs the upgrade.
         /// </summary>
         /// <param name="connectionString">The connection string.</param>
+        /// <param name="schema">The schema to use</param>
         /// <param name="extensions">The extensions.</param>
         /// <param name="log">The log.</param>
         /// <returns>
         /// A container of information about the results of the database upgrade.
         /// </returns>
-        DatabaseUpgradeResult[] PerformUpgrade(string connectionString, string schema, IEnumerable<ScriptedExtension> extensions, ILog log);
+        DatabaseUpgradeResult[] PerformUpgrade(string connectionString, string schema, IEnumerable<ScriptedExtension> extensions, IUpgradeLog log);
     }
 }

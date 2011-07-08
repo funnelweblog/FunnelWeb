@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using DbUp;
-using DbUp.Execution;
-using DbUp.Journal;
+using DbUp.Engine;
+using DbUp.Engine.Output;
 using DbUp.ScriptProviders;
 using FunnelWeb.DatabaseDeployer.Infrastructure;
 
@@ -78,7 +77,7 @@ namespace FunnelWeb.DatabaseDeployer
         /// <returns>
         /// A container of information about the results of the database upgrade.
         /// </returns>
-        public DatabaseUpgradeResult[] PerformUpgrade(string connectionString, string schema, IEnumerable<ScriptedExtension> scriptedExtensions, ILog log)
+        public DatabaseUpgradeResult[] PerformUpgrade(string connectionString, string schema, IEnumerable<ScriptedExtension> scriptedExtensions, IUpgradeLog log)
         {
             var results = new List<DatabaseUpgradeResult>();
 
@@ -87,25 +86,28 @@ namespace FunnelWeb.DatabaseDeployer
             results.Add(core);
 
             // Upgrade extensions
-            foreach (var extension in scriptedExtensions)
-            {
-                var ex = Upgrade(connectionString, extension.ScriptProvider, log, CreateJournal(connectionString, extension.SourceIdentifier, schema), schema);
-                results.Add(ex);
-            }
+            var databaseUpgradeResults = scriptedExtensions
+                .Select(extension =>
+                        Upgrade(
+                            connectionString,
+                            extension.ScriptProvider, log,
+                            CreateJournal(connectionString, extension.SourceIdentifier, schema),
+                            schema));
+            results.AddRange(databaseUpgradeResults);
 
             return results.ToArray();
         }
 
-        private DatabaseUpgradeResult Upgrade(string connectionString, IScriptProvider scriptProvider, ILog log, IJournal journal, string schema)
+        private static DatabaseUpgradeResult Upgrade(string connectionString, IScriptProvider scriptProvider, IUpgradeLog log, IJournal journal, string schema)
         {
-            var upgrader = new DatabaseUpgrader(
-                connectionString,
-                scriptProvider,
-                journal,
-                new SqlScriptExecutor(connectionString, log, schema));
+            var upgradeEngine = DeployChanges.To
+                .SqlDatabase(connectionString, schema)
+                .WithScripts(scriptProvider)
+                .JournalTo(journal)
+                .LogTo(log)
+                .Build();
 
-            var result = upgrader.PerformUpgrade();
-            return result;
+            return upgradeEngine.PerformUpgrade();
         }
 
         private static EmbeddedScriptProvider CreateScriptProvider()
@@ -119,7 +121,7 @@ namespace FunnelWeb.DatabaseDeployer
 
         private static IJournal CreateJournal(string connectionString, string sourceIdentifier, string schema)
         {
-            return new FunnelWebJournal(connectionString, sourceIdentifier, new ConsoleLog(), schema);
+            return new FunnelWebJournal(connectionString, sourceIdentifier, new ConsoleUpgradeLog(), schema);
         }
     }
 }

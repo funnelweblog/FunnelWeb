@@ -1,4 +1,4 @@
-﻿using DbUp;
+﻿using DbUp.Engine;
 
 namespace FunnelWeb.Web.Areas.Admin.Views.Install
 {

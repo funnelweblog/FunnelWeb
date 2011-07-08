@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using DbUp.Engine;
 using DbUp.ScriptProviders;
 
 namespace FunnelWeb.DatabaseDeployer

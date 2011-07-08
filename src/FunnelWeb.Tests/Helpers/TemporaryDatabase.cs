@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using Autofac;
-using DbUp;
+using DbUp.Engine.Output;
 using DbUp.Helpers;
 using DbUp.ScriptProviders;
 using FunnelWeb.DatabaseDeployer;
@@ -27,12 +27,11 @@ namespace FunnelWeb.Tests.Helpers
             databaseName = "FunnelWebIntegrationTests";
             connectionString = string.Format("Server=(local)\\SQLEXPRESS;Database={0};Trusted_connection=true;Pooling=false", databaseName);
             schema = "dbo";
-            database = new AdHocSqlRunner(connectionString, schema);
+            database = new AdHocSqlRunner(()=>new SqlConnection(connectionString), schema);
 
-            var builder = new SqlConnectionStringBuilder(connectionString);
-            builder.InitialCatalog = "master";
+            var builder = new SqlConnectionStringBuilder(connectionString) {InitialCatalog = "master"};
 
-            master = new AdHocSqlRunner(builder.ToString());
+            master = new AdHocSqlRunner(()=>new SqlConnection(builder.ToString()), schema);
 
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterInstance(this).As<IConnectionStringProvider>();
@@ -105,7 +104,7 @@ namespace FunnelWeb.Tests.Helpers
             master.ExecuteNonQuery("drop database [" + databaseName + "]");
         }
 
-        public class TraceLog : ILog
+        public class TraceLog : IUpgradeLog
         {
             public void WriteInformation(string format, params object[] args)
             {

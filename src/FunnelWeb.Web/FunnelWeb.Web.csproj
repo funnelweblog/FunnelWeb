@@ -57,8 +57,9 @@
     <Reference Include="ClientDependency.Core.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ClientDependency-Mvc.1.3.2.0\lib\ClientDependency.Core.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="DbUp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=4b419c53bdfd4cbf, processorArchitecture=MSIL">
-      <HintPath>..\packages\dbup.1.0.45\lib\NET35\DbUp.dll</HintPath>
+    <Reference Include="DbUp, Version=1.0.56.0, Culture=neutral, PublicKeyToken=4b419c53bdfd4cbf, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\dbup.1.0.56\lib\NET35\DbUp.dll</HintPath>
     </Reference>
     <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\Iesi.Collections.3.2.0.3001\lib\Net35\Iesi.Collections.dll</HintPath>

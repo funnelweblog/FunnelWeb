@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using DbUp;
-using DbUp.Journal;
-using DbUp.ScriptProviders;
+using DbUp.Engine;
+using DbUp.Engine.Output;
 
 namespace FunnelWeb.DatabaseDeployer.Infrastructure
 {
@@ -19,7 +18,7 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
         private readonly string dbConnectionString;
         private readonly string sourceIdentifier;
         private readonly string schema;
-        private readonly ILog log;
+        private readonly IUpgradeLog log;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TableJournal"/> class.
@@ -31,7 +30,7 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
         /// <example>
         /// var journal = new TableJournal("Server=server;Database=database;Trusted_Connection=True;");
         /// </example>
-        public FunnelWebJournal(string targetDbConnectionString, string sourceIdentifier, ILog logger, string schema)
+        public FunnelWebJournal(string targetDbConnectionString, string sourceIdentifier, IUpgradeLog logger, string schema)
         {
             schemaTableName = string.Format("{0}.{1}", schema, TableName);
             dbConnectionString = targetDbConnectionString;
