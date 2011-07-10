@@ -44,8 +44,7 @@ namespace FunnelWeb.Model.Repositories.Internal
 
         public IQueryable<Setting> GetSettings()
         {
-            return session.Query<Setting>()
-                .Take(1000);
+            return session.Query<Setting>();
         }
 
         public IQueryable<Redirect> GetRedirects()

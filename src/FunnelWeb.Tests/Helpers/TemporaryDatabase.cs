@@ -5,7 +5,6 @@ using System.Diagnostics;
 using Autofac;
 using DbUp.Engine.Output;
 using DbUp.Helpers;
-using DbUp.ScriptProviders;
 using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Repositories;
@@ -28,7 +27,7 @@ namespace FunnelWeb.Tests.Helpers
             databaseName = "FunnelWebIntegrationTests";
             connectionString = string.Format("Server=(local)\\SQLEXPRESS;Database={0};Trusted_connection=true;Pooling=false", databaseName);
             schema = "dbo";
-            databaseProvider = "Sql";
+            databaseProvider = "sql";
             database = new AdHocSqlRunner(()=>new SqlConnection(connectionString), schema);
 
             var builder = new SqlConnectionStringBuilder(connectionString) {InitialCatalog = "master"};
@@ -95,15 +94,16 @@ namespace FunnelWeb.Tests.Helpers
             }
             master.ExecuteNonQuery("create database [" + databaseName + "]");
 
-            var app = new ApplicationDatabase();
-            app.PerformUpgrade(()=>new SqlConnection(connectionString), Schema, new List<ScriptedExtension>(), new TraceLog());
+            var app = container.Resolve<IApplicationDatabase>();
+            app.PerformUpgrade(new List<ScriptedExtension>(), new TraceLog());
         }
 
         public ScriptedExtension ScriptProviderFor<T>(T extensionWithScripts) where T : IRequireDatabaseScripts
         {
-            var provider = new EmbeddedScriptProvider(
+            var provider = new FunnelWebScriptProvider(
                 typeof(T).Assembly,
-                x => x.EndsWith(".sql", StringComparison.InvariantCultureIgnoreCase));
+                x => x.EndsWith(".sql", StringComparison.InvariantCultureIgnoreCase),
+                databaseProvider);
 
             return new ScriptedExtension(extensionWithScripts.SourceIdentifier, typeof(T).Assembly, provider);
         }

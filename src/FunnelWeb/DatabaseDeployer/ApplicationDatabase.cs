@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
-using DbUp;
+using Autofac.Features.Indexed;
 using DbUp.Engine;
 using DbUp.Engine.Output;
-using DbUp.ScriptProviders;
+using FunnelWeb.DatabaseDeployer.DbProviders;
 using FunnelWeb.DatabaseDeployer.Infrastructure;
 
 namespace FunnelWeb.DatabaseDeployer
@@ -17,21 +16,31 @@ namespace FunnelWeb.DatabaseDeployer
     /// </summary>
     public class ApplicationDatabase : IApplicationDatabase
     {
+        private readonly IConnectionStringProvider connectionStringProvider;
+        private readonly IIndex<string, IDatabaseProvider> providerLookup;
         private const string CoreSourceIdentifier = "FunnelWeb.DatabaseDeployer";
 
-        public string[] GetCoreExecutedScripts(Func<IDbConnection> connectionFactory, string schema)
+        public ApplicationDatabase(
+            IConnectionStringProvider connectionStringProvider,
+            IIndex<string, IDatabaseProvider> providerLookup)
         {
-            return CreateJournal(connectionFactory, CoreSourceIdentifier, schema).GetExecutedScripts();
+            this.connectionStringProvider = connectionStringProvider;
+            this.providerLookup = providerLookup;
+        }
+
+        public string[] GetCoreExecutedScripts(Func<IDbConnection> connectionFactory)
+        {
+            return CreateJournal(connectionFactory, CoreSourceIdentifier, connectionStringProvider.Schema).GetExecutedScripts();
         }
 
         public string[] GetCoreRequiredScripts()
         {
-            return CreateScriptProvider().GetScripts().Select(x => x.Name).ToArray();
+            return CreateScriptProvider(connectionStringProvider.DatabaseProvider).GetScripts().Select(x => x.Name).ToArray();
         }
 
-        public string[] GetExtensionExecutedScripts(Func<IDbConnection> connectionFactory, ScriptedExtension extension, string schema)
+        public string[] GetExtensionExecutedScripts(Func<IDbConnection> connectionFactory, ScriptedExtension extension)
         {
-            return CreateJournal(connectionFactory, extension.SourceIdentifier, schema).GetExecutedScripts();
+            return CreateJournal(connectionFactory, extension.SourceIdentifier, connectionStringProvider.Schema).GetExecutedScripts();
         }
 
         public string[] GetExtensionRequiredScripts(ScriptedExtension extension)
@@ -45,20 +54,24 @@ namespace FunnelWeb.DatabaseDeployer
         /// <returns>
         /// A container of information about the results of the database upgrade.
         /// </returns>
-        public DatabaseUpgradeResult[] PerformUpgrade(Func<IDbConnection> connectionFactory, string schema, IEnumerable<ScriptedExtension> scriptedExtensions, IUpgradeLog log)
+        public DatabaseUpgradeResult[] PerformUpgrade(IEnumerable<ScriptedExtension> scriptedExtensions, IUpgradeLog log)
         {
             var results = new List<DatabaseUpgradeResult>();
+            var schema = connectionStringProvider.Schema;
+            var provider = providerLookup[connectionStringProvider.DatabaseProvider.ToLower()];
+            var connectionFactory = provider.GetConnectionFactory(connectionStringProvider.ConnectionString);
 
             // Upgrade core
-            var core = Upgrade(connectionFactory, CreateScriptProvider(), log, CreateJournal(connectionFactory, CoreSourceIdentifier, schema), schema);
+            var core = Upgrade(
+                provider, CreateScriptProvider(connectionStringProvider.DatabaseProvider), log,
+                CreateJournal(connectionFactory, CoreSourceIdentifier, schema), schema);
             results.Add(core);
 
             // Upgrade extensions
             var databaseUpgradeResults = scriptedExtensions
                 .Select(extension =>
                         Upgrade(
-                            connectionFactory,
-                            extension.ScriptProvider, log,
+                        provider, extension.ScriptProvider, log,
                             CreateJournal(connectionFactory, extension.SourceIdentifier, schema),
                             schema));
             results.AddRange(databaseUpgradeResults);
@@ -66,10 +79,9 @@ namespace FunnelWeb.DatabaseDeployer
             return results.ToArray();
         }
 
-        private static DatabaseUpgradeResult Upgrade(Func<IDbConnection> connectionFactory, IScriptProvider scriptProvider, IUpgradeLog log, IJournal journal, string schema)
+        private DatabaseUpgradeResult Upgrade(IDatabaseProvider provider, IScriptProvider scriptProvider, IUpgradeLog log, IJournal journal, string schema)
         {
-            var upgradeEngine = DeployChanges.To
-                .SqlDatabase(connectionFactory, schema)
+            var upgradeEngine = provider.GetUpgradeEngineBuilder(connectionStringProvider.ConnectionString, schema)
                 .WithScripts(scriptProvider)
                 .JournalTo(journal)
                 .LogTo(log)
@@ -78,13 +90,14 @@ namespace FunnelWeb.DatabaseDeployer
             return upgradeEngine.PerformUpgrade();
         }
 
-        private static EmbeddedScriptProvider CreateScriptProvider()
+        private static IScriptProvider CreateScriptProvider(string databaseProviderName)
         {
-            return new EmbeddedScriptProvider(
+            return new FunnelWebScriptProvider(
                 Assembly.GetExecutingAssembly(),
                 script =>
                     script.StartsWith("FunnelWeb.DatabaseDeployer.Scripts.Script", StringComparison.InvariantCultureIgnoreCase)
-                    && script.EndsWith(".sql", StringComparison.InvariantCultureIgnoreCase));
+                    && script.EndsWith(".sql", StringComparison.InvariantCultureIgnoreCase),
+                    databaseProviderName);
         }
 
         private static IJournal CreateJournal(Func<IDbConnection> connectionFactory, string sourceIdentifier, string schema)

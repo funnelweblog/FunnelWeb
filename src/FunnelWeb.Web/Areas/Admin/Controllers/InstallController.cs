@@ -52,8 +52,8 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
                 var connectionFactory = databaseProvider.Value.GetConnectionFactory(connectionString);
                 var executedAlready = Database
-                    .GetCoreExecutedScripts(connectionFactory, schema)
-                    .Union(Extensions.SelectMany(x => Database.GetExtensionExecutedScripts(connectionFactory, x, schema)))
+                    .GetCoreExecutedScripts(connectionFactory)
+                    .Union(Extensions.SelectMany(x => Database.GetExtensionExecutedScripts(connectionFactory, x)))
                     .ToArray();
 
                 model.ScriptsToRun = required.Except(executedAlready).ToArray();
@@ -90,11 +90,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         {
             var writer = new StringWriter();
             var log = new TextLog(writer);
-            var databaseProviderList = databaseProviders().ToList();
-            var databaseProvider = databaseProviderList.Single(p => p.Metadata.Name.Equals(ConnectionStringProvider.DatabaseProvider, StringComparison.InvariantCultureIgnoreCase));
-            var result = Database.PerformUpgrade(
-                databaseProvider.Value.GetConnectionFactory(ConnectionStringProvider.ConnectionString),
-                ConnectionStringProvider.Schema, Extensions, log);
+            var result = Database.PerformUpgrade(Extensions, log);
             UpgradeDetector.Reset();
             
             return View("UpgradeReport", new UpgradeModel(result, writer.ToString()));

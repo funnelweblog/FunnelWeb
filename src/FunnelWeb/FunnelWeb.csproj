@@ -45,8 +45,12 @@
     <Reference Include="BlogML, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\blogml.2.2.0\lib\BlogML.dll</HintPath>
     </Reference>
-    <Reference Include="DbUp">
-      <HintPath>..\packages\dbup.1.0.56\lib\NET35\DbUp.dll</HintPath>
+    <Reference Include="DbUp, Version=2.0.64.0, Culture=neutral, PublicKeyToken=4b419c53bdfd4cbf, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\dbup.2.0.64\lib\NET35\DbUp.dll</HintPath>
+    </Reference>
+    <Reference Include="DbUp.SqlCe, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\dbup-sqlce.2.0.64\lib\NET35\DbUp.SqlCe.dll</HintPath>
     </Reference>
     <Reference Include="FluentNHibernate">
       <HintPath>..\..\lib\FluentNHibernate\FluentNHibernate.dll</HintPath>
@@ -102,10 +106,12 @@
     <Compile Include="DatabaseDeployer\ApplicationDatabase.cs" />
     <Compile Include="DatabaseDeployer\DatabaseModule.cs" />
     <Compile Include="DatabaseDeployer\DatabaseUpgradeDetector.cs" />
+    <Compile Include="DatabaseDeployer\DbProviders\FunnelWebCe40Dialect.cs" />
     <Compile Include="DatabaseDeployer\DbProviders\ProviderMetaData.cs" />
     <Compile Include="DatabaseDeployer\DbProviders\SqlCeDatabaseProvider.cs" />
     <Compile Include="DatabaseDeployer\DbProviders\SqlDatabaseProvider.cs" />
     <Compile Include="DatabaseDeployer\DbProviders\IDatabaseProvider.cs" />
+    <Compile Include="DatabaseDeployer\FunnelWebScriptProvider.cs" />
     <Compile Include="DatabaseDeployer\IApplicationDatabase.cs" />
     <Compile Include="DatabaseDeployer\IConnectionStringProvider.cs" />
     <Compile Include="DatabaseDeployer\IDatabaseUpgradeDetector.cs" />
@@ -286,6 +292,45 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0028.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0001_sqlce.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0008_sqlce.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0010_sqlce.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0016_sqlce.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0020_sqlce.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0022_sqlce.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0023_sqlce.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0026_sqlce.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0021_sqlce.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0029.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0024_sqlce.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0025_sqlce.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0027_sqlce.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

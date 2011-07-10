@@ -26,6 +26,7 @@ namespace FunnelWeb.Tests.DatabaseDeployer
         {
             connectionString = Substitute.For<IConnectionStringProvider>();
             connectionString.Schema = "dbo";
+            connectionString.DatabaseProvider = "sql";
             applicationDatabase = Substitute.For<IApplicationDatabase>();
             databaseProviderLookup = Substitute.For<IIndex<string, IDatabaseProvider>>();
             databaseProvider = Substitute.For<IDatabaseProvider>();
@@ -107,7 +108,7 @@ namespace FunnelWeb.Tests.DatabaseDeployer
         private void CurrentSchemaVersionIs(int version)
         {
             applicationDatabase
-                .GetCoreExecutedScripts(Arg.Any<Func<IDbConnection>>(), "dbo")
+                .GetCoreExecutedScripts(Arg.Any<Func<IDbConnection>>())
                 .Returns(Enumerable.Range(1, version).Select(x => "Script" + x + ".sql").ToArray());
         }
 
@@ -121,7 +122,7 @@ namespace FunnelWeb.Tests.DatabaseDeployer
         private void CurrentExtensionVersionIs(int version)
         {
             applicationDatabase
-                .GetExtensionExecutedScripts(Arg.Any<Func<IDbConnection>>(), Arg.Any<ScriptedExtension>(), "dbo")
+                .GetExtensionExecutedScripts(Arg.Any<Func<IDbConnection>>(), Arg.Any<ScriptedExtension>())
                 .Returns(Enumerable.Range(1, version).Select(x => "Script" + x + ".sql").ToArray());
         }
 

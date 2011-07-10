@@ -95,17 +95,11 @@ alter table $schema$.[TagItem]
 	on delete no action 
 go
 
-alter table $schema$.[TagItem] set (lock_escalation = table)
-go
-
 alter table $schema$.[Pingback]
 	add constraint [FK_Pingback_Entry] foreign key ([EntryId])
 	references $schema$.[Entry] ([Id])
 	on update no action 
 	on delete no action
-go
-
-alter table $schema$.Pingback set (lock_escalation = table)
 go
 
 alter table $schema$.[Comment ]

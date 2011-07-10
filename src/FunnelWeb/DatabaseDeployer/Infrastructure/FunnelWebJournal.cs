@@ -129,7 +129,7 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
             DealWithLegacyScripts();
 
             RunCommand(
-                string.Format("insert into {0} (VersionNumber, SourceIdentifier, ScriptName, Applied) values (-1, @sourceIdentifier, @scriptName, (getutcdate()))", schemaTableName),
+                string.Format("insert into {0} (VersionNumber, SourceIdentifier, ScriptName, Applied) values (-1, @sourceIdentifier, @scriptName, @now)", schemaTableName),
                 cmd =>
                 {
                     var scriptName = cmd.CreateParameter();
@@ -140,6 +140,11 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
                     sourceIdentifierParameter.ParameterName = "sourceIdentifier";
                     sourceIdentifierParameter.Value = sourceIdentifier;
                     cmd.Parameters.Add(sourceIdentifierParameter);
+                    var nowParameter = cmd.CreateParameter();
+                    nowParameter.ParameterName = "now";
+                    nowParameter.Value = DateTime.UtcNow;
+                    cmd.Parameters.Add(nowParameter);
+
                     cmd.ExecuteNonQuery();
                 });
         }

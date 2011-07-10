@@ -2,6 +2,8 @@ using System;
 using System.Data;
 using System.Data.SqlServerCe;
 using System.IO;
+using DbUp;
+using DbUp.Builder;
 using FluentNHibernate.Cfg.Db;
 
 namespace FunnelWeb.DatabaseDeployer.DbProviders
@@ -10,7 +12,7 @@ namespace FunnelWeb.DatabaseDeployer.DbProviders
     {
         public string DefaultConnectionString
         {
-            get { return "Data Source=FunnelWeb.sdf; Persist Security Info=False"; }
+            get { return @"Data Source=|DataDirectory|\FunnelWeb.sdf; Persist Security Info=False"; }
         }
 
         public bool SupportSchema
@@ -25,8 +27,12 @@ namespace FunnelWeb.DatabaseDeployer.DbProviders
             try
             {
                 var csb = new SqlCeConnectionStringBuilder(connectionString);
-                if (!File.Exists(csb.DataSource))
+                var replaceDataDirectory = ReplaceDataDirectory(csb.DataSource);
+                if (!File.Exists(replaceDataDirectory))
                 {
+                    var directoryName = Path.GetDirectoryName(replaceDataDirectory);
+                    if (directoryName != null && !Directory.Exists(directoryName))
+                        Directory.CreateDirectory(directoryName);
                     new SqlCeEngine(connectionString).CreateDatabase();
                 }
 
@@ -44,18 +50,24 @@ namespace FunnelWeb.DatabaseDeployer.DbProviders
                 errorMessage = e.Message;
                 return false;
             }
-
         }
 
         public IPersistenceConfigurer GetDatabaseConfiguration(IConnectionStringProvider connectionStringProvider)
         {
             return MsSqlCeConfiguration.Standard.ConnectionString(connectionStringProvider.ConnectionString)
+                .Dialect<FunnelWebMsSqlCe40Dialect>()
                 .ShowSql();
         }
 
         public Func<IDbConnection> GetConnectionFactory(string connectionString)
         {
             return () => new SqlCeConnection(connectionString);
+        }
+
+        public UpgradeEngineBuilder GetUpgradeEngineBuilder(string connectionString, string schema)
+        {
+            return DeployChanges.To
+                .SqlCeDatabase(connectionString);
         }
 
         private static string ReplaceDataDirectory(string inputString)
@@ -81,7 +93,5 @@ namespace FunnelWeb.DatabaseDeployer.DbProviders
             }
             return Path.Combine(data, inputString.Substring(length));
         }
-
-        
     }
 }

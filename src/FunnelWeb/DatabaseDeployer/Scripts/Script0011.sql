@@ -8,6 +8,6 @@
 )
 go
 
-alter table $schema$.[Pingback] with check add constraint [FK_Pingback_Entry] foreign key([EntryId])
+alter table $schema$.[Pingback] add constraint [FK_Pingback_Entry] foreign key([EntryId])
     references $schema$.[Entry] ([Id])
 go

@@ -10,6 +10,7 @@ update $schema$.[Entry] set
 	[RevisionNumber] = (select top 1 [RevisionNumber] from $schema$.[Revision] where [EntryId] = [Entry].[Id] order by [Revised] desc),
 	[Body] = (select top 1 [Body] from $schema$.[Revision] where [EntryId] = [Entry].[Id] order by [Revised] desc)
 go
+
 alter table $schema$.[Entry] alter column [LatestRevisionId] int not null
 go
 alter table $schema$.[Entry] alter column [RevisionNumber] int not null

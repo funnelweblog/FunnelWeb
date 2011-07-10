@@ -5,11 +5,7 @@ alter table $schema$.[Entry] add
 	[TagsCommaSeparated] nvarchar(255) null
 go
 
-update $schema$.[Entry] set
-	LastRevised = (select top 1 [Revised] from $schema$.[Revision] where [EntryId]=$schema$.[Entry].[Id] order by [RevisionNumber] desc),
-	LatestRevisionFormat = (select top 1 [Format] from $schema$.[Revision] where EntryId=$schema$.[Entry].[Id] order by [RevisionNumber] desc),
-	TagsCommaSeparated = (select [Name] + ',' from $schema$.[TagItem] ti join $schema$.[Tag] t on t.[Id] = ti.[TagId] where ti.[EntryId] = $schema$.[Entry].[Id] for xml path(''))
-go
+--sqlce doesnt need data migration yet
 
 update $schema$.[Entry] set [TagsCommaSeparated] = '' where [TagsCommaSeparated] is null
 go

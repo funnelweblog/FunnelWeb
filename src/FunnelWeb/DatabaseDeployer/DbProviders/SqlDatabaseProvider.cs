@@ -1,6 +1,8 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using DbUp;
+using DbUp.Builder;
 using FluentNHibernate.Cfg.Db;
 
 namespace FunnelWeb.DatabaseDeployer.DbProviders
@@ -59,6 +61,12 @@ namespace FunnelWeb.DatabaseDeployer.DbProviders
         public Func<IDbConnection> GetConnectionFactory(string connectionString)
         {
             return () => new SqlConnection(connectionString);
+        }
+
+        public UpgradeEngineBuilder GetUpgradeEngineBuilder(string connectionString, string schema)
+        {
+            return DeployChanges.To
+                .SqlDatabase(GetConnectionFactory(connectionString), schema);
         }
     }
 }

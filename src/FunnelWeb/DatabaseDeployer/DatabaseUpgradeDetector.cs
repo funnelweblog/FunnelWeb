@@ -38,20 +38,19 @@ namespace FunnelWeb.DatabaseDeployer
                     return updateNeeded.Value;
 
                 var connectionString = connectionStringProvider.ConnectionString;
-                var schema = connectionStringProvider.Schema;
 
                 string error;
                 var databaseProvider = currentProviderLookup[connectionStringProvider.DatabaseProvider.ToLower()];
                 if (databaseProvider.TryConnect(connectionString, out error))
                 {
-                    var currentScripts = database.GetCoreExecutedScripts(databaseProvider.GetConnectionFactory(connectionString), schema);
+                    var currentScripts = database.GetCoreExecutedScripts(databaseProvider.GetConnectionFactory(connectionString));
                     var requiredScripts = database.GetCoreRequiredScripts();
                     var notRun = requiredScripts.Select(x => x.Trim().ToLowerInvariant())
                         .Except(currentScripts.Select(x => x.Trim().ToLowerInvariant()))
                         .ToList();
 
                     updateNeeded = notRun.Count > 0
-                        || ExtensionsRequireUpdate(extensions, database, databaseProvider, connectionString, schema);
+                        || ExtensionsRequireUpdate(extensions, database, databaseProvider, connectionString);
                 }
                 else
                 {
@@ -69,10 +68,10 @@ namespace FunnelWeb.DatabaseDeployer
         }
 
         private static bool ExtensionsRequireUpdate(IEnumerable<ScriptedExtension> extensions, IApplicationDatabase applicationDatabase, 
-            IDatabaseProvider databaseProvider, string connectionString, string schema)
+            IDatabaseProvider databaseProvider, string connectionString)
         {
             return (from x in extensions
-                    let current = applicationDatabase.GetExtensionExecutedScripts(databaseProvider.GetConnectionFactory(connectionString), x, schema)
+                    let current = applicationDatabase.GetExtensionExecutedScripts(databaseProvider.GetConnectionFactory(connectionString), x)
                     let required = applicationDatabase.GetExtensionRequiredScripts(x)
                     let notRun = required.Select(z => z.Trim().ToLowerInvariant())
                         .Except(current.Select(z => z.Trim().ToLowerInvariant()))
