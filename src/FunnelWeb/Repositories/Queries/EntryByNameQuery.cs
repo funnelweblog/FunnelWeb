@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FunnelWeb.DatabaseDeployer.DbProviders;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Strings;
 using FunnelWeb.Repositories.Projections;
+using FunnelWeb.DatabaseDeployer.Infrastructure;
 using NHibernate;
 using NHibernate.Transform;
 
@@ -23,13 +25,13 @@ namespace FunnelWeb.Repositories.Queries
             get { return name; }
         }
 
-        public IEnumerable<EntryRevision> Execute(ISession session)
+        public IEnumerable<EntryRevision> Execute(ISession session, IDatabaseProvider databaseProvider)
         {
             var comments = session
                             .QueryOver<Comment>()
                             .JoinQueryOver(c => c.Entry)
                             .Where(e => e.Name == PageName)
-                            .Future<Comment>();
+                            .Future(databaseProvider);
 
             var pingbacksQuery = session
                 .QueryOver<Pingback>()
@@ -40,24 +42,24 @@ namespace FunnelWeb.Repositories.Queries
 
             var pingbackCountQuery = pingbacksQuery
                 .ToRowCountQuery()
-                .FutureValue<int>();
+                .FutureValue<Pingback, int>(databaseProvider);
 
             var pingbacks = pingbacksQuery
                             .Take(10)
-                            .Future<Pingback>();
+                            .Future(databaseProvider);
 
             var tags = session
                         .QueryOver<Tag>()
                         .JoinQueryOver<Entry>(t => t.Entries)
                         .Where(e => e.Name == PageName)
-                        .Future<Tag>();
+                        .Future(databaseProvider);
 
             var singleOrDefault = session
                 .QueryOver<Entry>()
                 .Where(e => e.Name == PageName)
                 .SelectList(EntryRevisionProjections.FromEntry())
                 .TransformUsing(Transformers.AliasToBean<EntryRevision>())
-                .Future<EntryRevision>()
+                .Future<Entry, EntryRevision>(databaseProvider)
                 .SingleOrDefault();
 
             if (singleOrDefault == null)
@@ -67,14 +69,12 @@ namespace FunnelWeb.Repositories.Queries
             singleOrDefault.Tags = tags.ToList();
             singleOrDefault.Pingbacks = pingbacks.ToList();
             singleOrDefault.PingbackCount = pingbackCountQuery.Value;
-            singleOrDefault.Entry = session.QueryOver<Entry>().Where(e => e.Name == PageName).FutureValue<Entry>();
+            singleOrDefault.Entry = session
+                .QueryOver<Entry>()
+                .Where(e => e.Name == PageName)
+                .FutureValue<Entry>();
 
             return new[]{singleOrDefault};
-        }
-
-        public IEnumerable<EntryRevision> Execute(ISession session, int skip, int take)
-        {
-            return Execute(session);
         }
     }
 }

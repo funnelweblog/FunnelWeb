@@ -45,12 +45,12 @@
     <Reference Include="BlogML, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\blogml.2.2.0\lib\BlogML.dll</HintPath>
     </Reference>
-    <Reference Include="DbUp, Version=2.0.64.0, Culture=neutral, PublicKeyToken=4b419c53bdfd4cbf, processorArchitecture=MSIL">
+    <Reference Include="DbUp, Version=2.0.65.0, Culture=neutral, PublicKeyToken=4b419c53bdfd4cbf, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\dbup.2.0.64\lib\NET35\DbUp.dll</HintPath>
+      <HintPath>..\packages\dbup.2.0.65\lib\NET35\DbUp.dll</HintPath>
     </Reference>
     <Reference Include="DbUp.SqlCe, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\dbup-sqlce.2.0.64\lib\NET35\DbUp.SqlCe.dll</HintPath>
+      <HintPath>..\packages\dbup-sqlce.2.0.65\lib\NET35\DbUp.SqlCe.dll</HintPath>
     </Reference>
     <Reference Include="FluentNHibernate">
       <HintPath>..\..\lib\FluentNHibernate\FluentNHibernate.dll</HintPath>
@@ -116,6 +116,7 @@
     <Compile Include="DatabaseDeployer\IConnectionStringProvider.cs" />
     <Compile Include="DatabaseDeployer\IDatabaseUpgradeDetector.cs" />
     <Compile Include="DatabaseDeployer\Infrastructure\FunnelWebJournal.cs" />
+    <Compile Include="DatabaseDeployer\Infrastructure\FunnelWebNHibernateExtensions.cs" />
     <Compile Include="DatabaseDeployer\ScriptedExtension.cs" />
     <Compile Include="Eventing\EventingModule.cs" />
     <Compile Include="Eventing\INotifier.cs" />

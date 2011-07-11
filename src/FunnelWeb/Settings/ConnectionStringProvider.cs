@@ -37,7 +37,7 @@ namespace FunnelWeb.Settings
 
         public string DatabaseProvider
         {
-            get { return settings.Get("funnelweb.configuration.database.provider") ?? "sql"; }
+            get { return (settings.Get("funnelweb.configuration.database.provider") ?? "sql").ToLower(); }
             set { settings.Set("funnelweb.configuration.database.provider", value); }
         }
     }

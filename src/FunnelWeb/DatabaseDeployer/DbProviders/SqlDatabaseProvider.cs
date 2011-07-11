@@ -19,6 +19,11 @@ namespace FunnelWeb.DatabaseDeployer.DbProviders
             get { return true; }
         }
 
+        public bool SupportFuture
+        {
+            get { return true; }
+        }
+
         /// <summary>
         /// Tries to connect to the database.
         /// </summary>

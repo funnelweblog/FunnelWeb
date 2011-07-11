@@ -89,6 +89,7 @@ namespace FunnelWeb.Model
                 Posted = DateTime.UtcNow
             };
             Comments.Add(comment);
+            CommentCount = Comments.Count;
             return comment;
         }
     }

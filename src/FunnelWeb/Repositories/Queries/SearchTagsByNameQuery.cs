@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using FunnelWeb.DatabaseDeployer.DbProviders;
 using FunnelWeb.Model;
 using NHibernate;
 using NHibernate.Criterion;
@@ -20,7 +21,7 @@ namespace FunnelWeb.Repositories.Queries
             get { return tagName; }
         }
 
-        public IEnumerable<Tag> Execute(ISession session)
+        public IEnumerable<Tag> Execute(ISession session, IDatabaseProvider databaseProvider)
         {
             return session
                 .QueryOver<Tag>()

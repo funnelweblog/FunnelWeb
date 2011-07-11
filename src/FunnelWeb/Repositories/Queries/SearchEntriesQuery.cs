@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FunnelWeb.DatabaseDeployer.DbProviders;
 using FunnelWeb.Model;
 using FunnelWeb.Repositories.Projections;
 using NHibernate;
@@ -28,7 +29,7 @@ namespace FunnelWeb.Repositories.Queries
             get { return searchText; }
         }
 
-        public PagedResult<EntryRevision> Execute(ISession session, int skip, int take)
+        public PagedResult<EntryRevision> Execute(ISession session, IDatabaseProvider databaseProvider, int skip, int take)
         {
             if (string.IsNullOrEmpty(SearchText) || SearchText.Trim().Length == 0)
             {

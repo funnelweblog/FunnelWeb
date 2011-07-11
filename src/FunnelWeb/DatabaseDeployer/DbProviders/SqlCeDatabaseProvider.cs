@@ -20,10 +20,13 @@ namespace FunnelWeb.DatabaseDeployer.DbProviders
             get { return false; }
         }
 
+        public bool SupportFuture
+        {
+            get { return false; }
+        }
+
         public bool TryConnect(string connectionString, out string errorMessage)
         {
-            //var file = ReplaceDataDirectory(new SqlCeConnectionStringBuilder(connectionString).DataSource);
-
             try
             {
                 var csb = new SqlCeConnectionStringBuilder(connectionString);
