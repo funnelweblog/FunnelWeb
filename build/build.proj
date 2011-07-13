@@ -12,8 +12,8 @@
 
   <PropertyGroup>
     <Major>2</Major>
-    <Minor>0</Minor>
-    <Build>2</Build>
+    <Minor>1</Minor>
+    <Build>0</Build>
     <Revision>0</Revision>
   </PropertyGroup>
 
@@ -95,10 +95,9 @@
     <Exec Command='$(NuGet) pack "$(FunnelWebManifest)" -BasePath "$(FunnelWebBaseDir)" -OutputDirectory "$(Root)\build\Artifacts"' />
 
     <!-- Publish -->
-    <MSBuild
-      Projects="$(Root)\src\FunnelWeb.Web\FunnelWeb.Web.csproj"
-      Targets="ResolveReferences;_CopyWebApplication"
-      Properties="Configuration=Release;WebProjectOutputDir=$(Root)\build\Published\;OutDir=$(Root)\build\Published\bin\"
+    <MSBuild Projects="$(Root)\src\FunnelWeb.Web\FunnelWeb.Web.csproj"
+             Targets="ResolveReferences;_CopyWebApplication;_CopyBinDeployableAssemblies"
+             Properties="Configuration=Release;WebProjectOutputDir=$(Root)\build\Published\;OutDir=$(Root)\build\Published\bin\"
       />
     <!-- Also copy extensions -->
     <ItemGroup>
@@ -116,44 +115,42 @@
     <Delete Files="@(PublishedFilesToDelete)" ContinueOnError="true" />
 
     <!-- Rename web.config -->
-    <Copy
-    	SourceFiles="$(Root)\Breaking Changes.txt"
-		  DestinationFiles="$(Root)\build\Published\Breaking Changes.txt">
+    <Copy SourceFiles="$(Root)\Breaking Changes.txt"
+          DestinationFiles="$(Root)\build\Published\Breaking Changes.txt">
     </Copy>
-    <Copy
-    	SourceFiles="$(Root)\Change Log.txt"
-		DestinationFiles="$(Root)\build\Published\Change Log.txt">
+    <Copy SourceFiles="$(Root)\Change Log.txt"
+          DestinationFiles="$(Root)\build\Published\Change Log.txt">
     </Copy>
-    <Copy
-    	SourceFiles="$(Root)\build\Published\My.config"
-		DestinationFiles="$(Root)\build\Published\My.config.sample">
+    <Copy SourceFiles="$(Root)\build\Published\My.config"
+          DestinationFiles="$(Root)\build\Published\My.config.sample">
     </Copy>
-    <Copy
-        SourceFiles="$(Root)\src\FunnelWeb.Web\obj\Release\TransformWebConfig\transformed\Web.config"
-      DestinationFiles="$(Root)\build\Published\web.config"
-      Condition="Exists('$(Root)\src\FunnelWeb.Web\obj\Release\TransformWebConfig\transformed\Web.config')">
+    <Copy SourceFiles="$(Root)\src\FunnelWeb.Web\obj\Release\TransformWebConfig\transformed\Web.config"
+          DestinationFiles="$(Root)\build\Published\web.config"
+          Condition="Exists('$(Root)\src\FunnelWeb.Web\obj\Release\TransformWebConfig\transformed\Web.config')">
     </Copy>
     <Delete Files="$(Root)\build\Published\My.config"
-              Condition="!Exists('$(Root)\src\FunnelWeb.Web\obj\Release\TransformWebConfig\transformed\Web.config')" />
+            Condition="!Exists('$(Root)\src\FunnelWeb.Web\obj\Release\TransformWebConfig\transformed\Web.config')" />
     <Delete Files="$(Root)\build\Published\web.Debug.config"
-              Condition="Exists('$(Root)\build\Published\web.Debug.config')" />
+            Condition="Exists('$(Root)\build\Published\web.Debug.config')" />
     <Delete Files="$(Root)\build\Published\web.Release.config"
-              Condition="Exists('$(Root)\build\Published\web.Release.config')" />
+            Condition="Exists('$(Root)\build\Published\web.Release.config')" />
     <!-- Zip the Published folder -->
     <ItemGroup>
       <PublishedFilesToZip Include="$(Root)\build\Published\**\*.*" />
     </ItemGroup>
     <Zip Files="@(PublishedFilesToZip)"
-      WorkingDirectory="$(Root)\build\Published"
-      ZipFileName="$(MSBuildProjectDirectory)\Artifacts\FunnelWeb-$(Major).$(Minor).$(Build).$(Revision).zip"
-      ZipLevel="9"
+         WorkingDirectory="$(Root)\build\Published"
+         ZipFileName="$(MSBuildProjectDirectory)\Artifacts\FunnelWeb-$(Major).$(Minor).$(Build).$(Revision).zip"
+         ZipLevel="9"
       />
 
     <!-- Test -->
     <ItemGroup>
       <TestAssemblies Include="$(Root)\src\FunnelWeb.Tests\bin\Release\FunnelWeb.Tests.dll"/>
     </ItemGroup>
-    <Exec Condition="$(teamcity_dotnet_nunitlauncher) != ''" Command="$(teamcity_dotnet_nunitlauncher) v4.0 x86 NUnit-2.5.0 @(TestAssemblies->'%(FullPath)', '%20')" />
-    <Exec Condition="$(teamcity_dotnet_nunitlauncher) == ''" Command="$(nunitconsoleexe) @(TestAssemblies->'%(FullPath)', '%20')" />
+    <Exec Condition="$(teamcity_dotnet_nunitlauncher) != ''" 
+          Command="$(teamcity_dotnet_nunitlauncher) v4.0 x86 NUnit-2.5.0 @(TestAssemblies->'%(FullPath)', '%20')" />
+    <Exec Condition="$(teamcity_dotnet_nunitlauncher) == ''" 
+          Command="$(nunitconsoleexe) @(TestAssemblies->'%(FullPath)', '%20')" />
   </Target>
 </Project>
