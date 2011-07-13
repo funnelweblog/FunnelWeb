@@ -25,6 +25,11 @@ namespace FunnelWeb.DatabaseDeployer.DbProviders
             get { return false; }
         }
 
+        public bool SupportsFullText
+        {
+            get { return false; }
+        }
+
         public bool TryConnect(string connectionString, out string errorMessage)
         {
             try

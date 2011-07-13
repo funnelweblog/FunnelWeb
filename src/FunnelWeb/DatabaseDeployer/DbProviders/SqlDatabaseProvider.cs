@@ -24,6 +24,11 @@ namespace FunnelWeb.DatabaseDeployer.DbProviders
             get { return true; }
         }
 
+        public bool SupportsFullText
+        {
+            get { return true; }
+        }
+
         /// <summary>
         /// Tries to connect to the database.
         /// </summary>

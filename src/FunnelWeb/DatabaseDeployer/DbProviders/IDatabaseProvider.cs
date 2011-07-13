@@ -10,6 +10,7 @@ namespace FunnelWeb.DatabaseDeployer.DbProviders
         string DefaultConnectionString { get; }
         bool SupportSchema { get; }
         bool SupportFuture { get; }
+        bool SupportsFullText { get; }
 
         /// <summary>
         /// Tries to connect to the database.

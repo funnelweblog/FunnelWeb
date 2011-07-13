@@ -115,6 +115,7 @@
     <Compile Include="Integration\Queries\EntryByNameAndRevisionQueryMatchesEntryByName.cs" />
     <Compile Include="Integration\Queries\EntryByNameQueryMatchesEntryByName.cs" />
     <Compile Include="Integration\Queries\EntryByNameQueryMatchesEntryByNameThatHasComments.cs" />
+    <Compile Include="Integration\Queries\FullTextSearchEntriesQueryReturnsEntry.cs" />
     <Compile Include="Integration\Queries\GetCommentsQueryReturnsComments.cs" />
     <Compile Include="Integration\Queries\GetEntriesQueryByTagReturnsEntryWithWithRequestedTagOnly.cs" />
     <Compile Include="Integration\Queries\GetEntriesQueryReturnsEntry.cs" />

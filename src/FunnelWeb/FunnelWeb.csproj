@@ -147,14 +147,16 @@
     <Compile Include="Repositories\Projections\EntryRevisionProjections.cs" />
     <Compile Include="Repositories\Queries\EntryByNameQuery.cs" />
     <Compile Include="Repositories\Queries\EntryByNameAndRevisionQuery.cs" />
+    <Compile Include="Repositories\Queries\FullTextSearchEntriesQuery.cs" />
     <Compile Include="Repositories\Queries\GetCommentsQuery.cs" />
     <Compile Include="Repositories\Queries\GetEntriesByTagQuery.cs" />
     <Compile Include="Repositories\Queries\GetEntriesQuery.cs" />
     <Compile Include="Repositories\IPagedQuery.cs" />
     <Compile Include="Repositories\Queries\GetFullEntriesQuery.cs" />
     <Compile Include="Repositories\Queries\GetEntryWithPingbacksQuery.cs" />
-    <Compile Include="Repositories\Queries\SearchEntriesQuery.cs" />
+    <Compile Include="Repositories\Queries\SimpleSearchEntriesQuery.cs" />
     <Compile Include="Repositories\Queries\SearchTagsByNameQuery.cs" />
+    <Compile Include="Repositories\Queries\SwitchingSearchEntriesQuery.cs" />
     <Compile Include="RoutableFunnelWebExtension.cs" />
     <Compile Include="Settings\IBootstrapSettings.cs" />
     <Compile Include="Settings\ISettings.cs" />

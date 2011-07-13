@@ -3,7 +3,7 @@
   <Import Project="lib\MSBuild.Community.Tasks.Targets" />
   <Import Project="lib\MSBuild.Deployment.Tasks.Targets" />
   <Import Project="lib\MSBuild.Mercurial.tasks"/>
-  
+
   <PropertyGroup>
     <Root>$(MSBuildStartupDirectory)</Root>
     <nunitconsoleexe>$(Root)\lib\NUnit\exe\nunit-console-x86.exe</nunitconsoleexe>
@@ -16,13 +16,13 @@
     <Build>2</Build>
     <Revision>0</Revision>
   </PropertyGroup>
-  
+
   <Target Name="Version">
     <HgVersion LocalPath=".">
       <Output TaskParameter="Revision" PropertyName="Revision" />
     </HgVersion>
   </Target>
-  
+
   <Target Name="Build" DependsOnTargets="Version">
     <!-- Diagnostics -->
     <Message Text="Diagnostics:"/>
@@ -55,7 +55,7 @@
       AssemblyVersion="$(Major).$(Minor).$(Build).$(Revision)"
       AssemblyFileVersion="$(Major).$(Minor).$(Build).$(Revision)"
       />
-    
+
     <!-- Zip source -->
     <ItemGroup>
       <SourceFilesToZip Include="$(Root)\src\**\*.*" />
@@ -66,11 +66,11 @@
       ZipFileName="$(MSBuildProjectDirectory)\Artifacts\FunnelWeb-$(Major).$(Minor).$(Build).$(Revision)-source.zip"
       ZipLevel="9"
       />
-	  
+
     <PropertyGroup>
-		<PackageLocation>$(MSBuildProjectDirectory)\Artifacts\FunnelWeb-$(Major).$(Minor).$(Build).$(Revision)-msdeploy.zip</PackageLocation>
-	</PropertyGroup>
-	
+      <PackageLocation>$(MSBuildProjectDirectory)\Artifacts\FunnelWeb-$(Major).$(Minor).$(Build).$(Revision)-msdeploy.zip</PackageLocation>
+    </PropertyGroup>
+
     <!-- Compile -->
     <ItemGroup>
       <ProjectToBuild Include="$(Root)\src\FunnelWeb.sln" />
@@ -78,7 +78,7 @@
     <MSBuild Projects="@(ProjectToBuild)" Targets="Build" Properties="Configuration=Release;DeployOnBuild=true;DeployTarget=Package;PackageLocation=$(PackageLocation);">
       <Output TaskParameter="TargetOutputs" ItemName="AssembliesBuiltByChildProjects" />
     </MSBuild>
-    
+
     <!-- Output NuGet packages -->
     <PropertyGroup>
       <FunnelWebBaseDir>$(Root)\build\NuGet\FunnelWebExtensibility</FunnelWebBaseDir>
@@ -86,27 +86,27 @@
     </PropertyGroup>
     <MakeDir Directories="$(FunnelWebBaseDir)\lib\net40\"
              Condition="!Exists('$(FunnelWebBaseDir)\lib\net40\')" />
-    
-    <Copy SourceFiles="$(Root)\src\FunnelWeb\bin\Release\FunnelWeb.dll" 
+
+    <Copy SourceFiles="$(Root)\src\FunnelWeb\bin\Release\FunnelWeb.dll"
           DestinationFiles="$(FunnelWebBaseDir)\lib\net40\FunnelWeb.dll" />
-    <Copy SourceFiles="$(Root)\lib\FluentNHibernate\FluentNHibernate.dll" 
+    <Copy SourceFiles="$(Root)\lib\FluentNHibernate\FluentNHibernate.dll"
           DestinationFiles="$(FunnelWebBaseDir)\lib\net40\FluentNHibernate.dll" />
-    
+
     <Exec Command='$(NuGet) pack "$(FunnelWebManifest)" -BasePath "$(FunnelWebBaseDir)" -OutputDirectory "$(Root)\build\Artifacts"' />
-    
+
     <!-- Publish -->
-    <MSBuild 
+    <MSBuild
       Projects="$(Root)\src\FunnelWeb.Web\FunnelWeb.Web.csproj"
       Targets="ResolveReferences;_CopyWebApplication"
-      Properties="Configuration=Release;WebProjectOutputDir=$(Root)\build\Published\;OutDir=$(Root)\build\Published\bin\" 
+      Properties="Configuration=Release;WebProjectOutputDir=$(Root)\build\Published\;OutDir=$(Root)\build\Published\bin\"
       />
     <!-- Also copy extensions -->
-	<ItemGroup>
+    <ItemGroup>
       <ExtensionsToPublish Include="$(Root)\src\FunnelWeb.Web\bin\Extensions\*.dll" />
-	  <ExtensionViewsToPublish Include="$(Root)\src\FunnelWeb.Web\Views\Extensions\**\*.*" />
+      <ExtensionViewsToPublish Include="$(Root)\src\FunnelWeb.Web\Views\Extensions\**\*.*" />
     </ItemGroup>
     <Copy SourceFiles="@(ExtensionsToPublish)" DestinationFolder="$(Root)\build\Published\bin\Extensions" />
-	<Copy SourceFiles="@(ExtensionViewsToPublish)" DestinationFolder="$(Root)\build\Published\Views\Extensions\%(RecursiveDir)" />
+    <Copy SourceFiles="@(ExtensionViewsToPublish)" DestinationFolder="$(Root)\build\Published\Views\Extensions\%(RecursiveDir)" />
     <!-- And delete PDBs/XML to keep the upload small -->
     <ItemGroup>
       <PublishedFilesToDelete Include="$(Root)\build\Published\**\bin\**\*.pdb" />
@@ -116,29 +116,29 @@
     <Delete Files="@(PublishedFilesToDelete)" ContinueOnError="true" />
 
     <!-- Rename web.config -->
-    <Copy 
-    	SourceFiles="$(Root)\Breaking Changes.txt" 
-		DestinationFiles="$(Root)\build\Published\Breaking Changes.txt">
-	</Copy>
-    <Copy 
-    	SourceFiles="$(Root)\Change Log.txt" 
+    <Copy
+    	SourceFiles="$(Root)\Breaking Changes.txt"
+		  DestinationFiles="$(Root)\build\Published\Breaking Changes.txt">
+    </Copy>
+    <Copy
+    	SourceFiles="$(Root)\Change Log.txt"
 		DestinationFiles="$(Root)\build\Published\Change Log.txt">
-	</Copy>
-    <Copy 
-    	SourceFiles="$(Root)\build\Published\My.config" 
+    </Copy>
+    <Copy
+    	SourceFiles="$(Root)\build\Published\My.config"
 		DestinationFiles="$(Root)\build\Published\My.config.sample">
-	</Copy>
-	<Copy 
-    	SourceFiles="$(Root)\src\FunnelWeb.Web\obj\Release\TransformWebConfig\transformed\Web.config" 
-		DestinationFiles="$(Root)\build\Published\web.config"
-		Condition="Exists('$(Root)\src\FunnelWeb.Web\obj\Release\TransformWebConfig\transformed\Web.config')">
-	</Copy>
-	<Delete Files="$(Root)\build\Published\My.config"
-            Condition="!Exists('$(Root)\src\FunnelWeb.Web\obj\Release\TransformWebConfig\transformed\Web.config')" />
-	<Delete Files="$(Root)\build\Published\web.Debug.config"
-            Condition="Exists('$(Root)\build\Published\web.Debug.config')" />
-	<Delete Files="$(Root)\build\Published\web.Release.config"
-            Condition="Exists('$(Root)\build\Published\web.Release.config')" />
+    </Copy>
+    <Copy
+        SourceFiles="$(Root)\src\FunnelWeb.Web\obj\Release\TransformWebConfig\transformed\Web.config"
+      DestinationFiles="$(Root)\build\Published\web.config"
+      Condition="Exists('$(Root)\src\FunnelWeb.Web\obj\Release\TransformWebConfig\transformed\Web.config')">
+    </Copy>
+    <Delete Files="$(Root)\build\Published\My.config"
+              Condition="!Exists('$(Root)\src\FunnelWeb.Web\obj\Release\TransformWebConfig\transformed\Web.config')" />
+    <Delete Files="$(Root)\build\Published\web.Debug.config"
+              Condition="Exists('$(Root)\build\Published\web.Debug.config')" />
+    <Delete Files="$(Root)\build\Published\web.Release.config"
+              Condition="Exists('$(Root)\build\Published\web.Release.config')" />
     <!-- Zip the Published folder -->
     <ItemGroup>
       <PublishedFilesToZip Include="$(Root)\build\Published\**\*.*" />
