@@ -4,18 +4,17 @@ using FunnelWeb.Repositories.Queries;
 using FunnelWeb.Tests.Helpers;
 using NUnit.Framework;
 
-namespace FunnelWeb.Tests.Integration.SqlCe
+namespace FunnelWeb.Tests.Integration.Queries
 {
     [TestFixture]
-    public class GetCommentsQueryTests : SqlCeIntegrationTest
+    public class GetCommentsQueryReturnsComments : QueryIntegrationTest
     {
-        public GetCommentsQueryTests()
+        public GetCommentsQueryReturnsComments()
             : base(TheDatabase.CanBeDirty)
         {
         }
 
-        [Test]
-        public void ReturnsComments()
+        public override void TestQuery()
         {
             var name = "test-" + Guid.NewGuid();
 

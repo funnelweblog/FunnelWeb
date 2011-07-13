@@ -12,7 +12,15 @@ using NHibernate;
 
 namespace FunnelWeb.Tests.Helpers
 {
-    public class TemporaryDatabase : IDisposable, IConnectionStringProvider
+    public interface ITemporaryDatabase : IDisposable, IConnectionStringProvider
+    {
+        void WithRepository(Action<IRepository> callback);
+        AdHocSqlRunner AdHoc { get; }
+        void CreateAndDeploy();
+        ScriptedExtension ScriptProviderFor<T>(T extensionWithScripts) where T : IRequireDatabaseScripts;
+    }
+
+    public class TemporaryDatabase : ITemporaryDatabase
     {
         private readonly string connectionString;
         private readonly AdHocSqlRunner database;

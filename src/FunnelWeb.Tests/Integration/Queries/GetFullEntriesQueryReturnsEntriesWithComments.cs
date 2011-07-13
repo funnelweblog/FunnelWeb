@@ -8,15 +8,14 @@ using NUnit.Framework;
 namespace FunnelWeb.Tests.Integration.Queries
 {
     [TestFixture]
-    public class GetFullEntriesQueryTests : IntegrationTest
+    public class GetFullEntriesQueryReturnsEntriesWithComments : QueryIntegrationTest
     {
-        public GetFullEntriesQueryTests()
+        public GetFullEntriesQueryReturnsEntriesWithComments()
             : base(TheDatabase.MustBeFresh)
         {
         }
 
-        [Test]
-        public void ReturnsEntriesWithComments()
+        public override void TestQuery()
         {
             var name = "test-" + Guid.NewGuid();
 

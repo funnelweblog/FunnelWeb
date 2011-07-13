@@ -14,7 +14,7 @@ using NHibernate;
 
 namespace FunnelWeb.Tests.Helpers
 {
-    public class SqlCeTemporaryDatabase : IDisposable, IConnectionStringProvider
+    public class SqlCeTemporaryDatabase : ITemporaryDatabase
     {
         private readonly string connectionString;
         private readonly AdHocSqlRunner database;

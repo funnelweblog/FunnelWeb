@@ -7,15 +7,14 @@ using NUnit.Framework;
 namespace FunnelWeb.Tests.Integration.Queries
 {
     [TestFixture]
-    public class GetEntriesQueryByTagTests : IntegrationTest
+    public class GetEntriesQueryByTagReturnsEntryWithWithRequestedTagOnly : QueryIntegrationTest
     {
-        public GetEntriesQueryByTagTests()
+        public GetEntriesQueryByTagReturnsEntryWithWithRequestedTagOnly()
             : base(TheDatabase.MustBeFresh)
         {
         }
 
-        [Test]
-        public void ReturnsEntryWithWithRequestedTagOnly()
+        public override void TestQuery()
         {
             var name = "test-" + Guid.NewGuid();
 
@@ -25,7 +24,7 @@ namespace FunnelWeb.Tests.Integration.Queries
                     var entry = new Entry { Name = name, Author = "A1" };
                     var revision2 = entry.Revise();
                     revision2.Body = "Goodbye";
-                    var tag = new Tag{ Name = "Awesome"};
+                    var tag = new Tag { Name = "Awesome" };
                     tag.Entries.Add(entry);
                     entry.Tags.Add(tag);
                     repo.Add(entry);
@@ -47,7 +46,7 @@ namespace FunnelWeb.Tests.Integration.Queries
                     var result = repo.Find(new GetEntriesByTagQuery("Awesome"), 0, 2);
                     Assert.AreEqual(1, result.Count);
                     Assert.AreEqual(result.TotalResults, 1);
-                    Assert.AreEqual(1, result[0].TagsCommaSeparated.Split(new[]{","}, StringSplitOptions.RemoveEmptyEntries).Length);
+                    Assert.AreEqual(1, result[0].TagsCommaSeparated.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Length);
                 });
         }
     }

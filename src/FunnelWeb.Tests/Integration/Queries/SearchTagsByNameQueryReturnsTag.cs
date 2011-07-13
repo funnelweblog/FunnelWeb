@@ -4,27 +4,26 @@ using FunnelWeb.Repositories.Queries;
 using FunnelWeb.Tests.Helpers;
 using NUnit.Framework;
 
-namespace FunnelWeb.Tests.Integration.SqlCe
+namespace FunnelWeb.Tests.Integration.Queries
 {
     [TestFixture]
-    public class SearchTagsByNameQueryTests : SqlCeIntegrationTest
+    public class SearchTagsByNameQueryReturnsTag : QueryIntegrationTest
     {
-        public SearchTagsByNameQueryTests()
+        public SearchTagsByNameQueryReturnsTag()
             : base(TheDatabase.CanBeDirty)
         {
         }
 
-        [Test]
-        public void ReturnsTag()
+        public override void TestQuery()
         {
             var name = Guid.NewGuid().ToString();
 
             Database.WithRepository(
                 repo =>
-                    {
-                        var tag = new Tag {Name = name};
-                        repo.Add(tag);
-                    });
+                {
+                    var tag = new Tag { Name = name };
+                    repo.Add(tag);
+                });
 
             Database.WithRepository(
                 repo =>
