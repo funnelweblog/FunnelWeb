@@ -1,3 +1,9 @@
+New in v2.1
+ - SqlCe support
+ - Fixed YSOD when database in connection string does not exist
+ - Updated to DbUp 2.0 (currently custom build)
+ - Updated dependencies to latest version
+
 New in v2.0.2
  - Fixed jQuery UI reference
 
