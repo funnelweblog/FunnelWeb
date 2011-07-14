@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Autofac.Features.Indexed;
+using FunnelWeb.DatabaseDeployer;
+using FunnelWeb.DatabaseDeployer.DbProviders;
 using NHibernate;
 
 namespace FunnelWeb.Repositories
@@ -8,10 +11,17 @@ namespace FunnelWeb.Repositories
     public class NHibernateRepository : IRepository
     {
         private readonly ISession session;
+        private readonly IConnectionStringProvider connectionStringProvider;
+        private readonly IIndex<string, IDatabaseProvider> databaseProviderLookup;
 
-        public NHibernateRepository(ISession session)
+        public NHibernateRepository(
+            ISession session, 
+            IConnectionStringProvider connectionStringProvider,
+            IIndex<string, IDatabaseProvider> databaseProviderLookup)
         {
             this.session = session;
+            this.connectionStringProvider = connectionStringProvider;
+            this.databaseProviderLookup = databaseProviderLookup;
         }
 
         public TEntity Get<TEntity>(object id)
@@ -28,13 +38,15 @@ namespace FunnelWeb.Repositories
 
         public IEnumerable<TEntity> Find<TEntity>(IQuery<TEntity> query) where TEntity : class
         {
-            return query.Execute(session);
+            return query.Execute(session, databaseProviderLookup[connectionStringProvider.DatabaseProvider]);
         }
 
         public PagedResult<TEntity> Find<TEntity>(IPagedQuery<TEntity> query, int pageNumber, int itemsPerPage) where TEntity : class
         {
             var skip = pageNumber*itemsPerPage;
-            return query.Execute(session, skip, itemsPerPage);
+            return query.Execute(session, 
+                databaseProviderLookup[connectionStringProvider.DatabaseProvider], 
+                skip, itemsPerPage);
         }
 
         public TEntity FindFirst<TEntity>(IQuery<TEntity> query) where TEntity : class

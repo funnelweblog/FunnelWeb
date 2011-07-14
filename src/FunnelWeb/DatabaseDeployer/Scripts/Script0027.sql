@@ -15,6 +15,8 @@ update $schema$.[Entry] set [TagsCommaSeparated] = '' where [TagsCommaSeparated]
 go
 
 alter table $schema$.[Entry] alter column [LastRevised] datetime not null
+go
 alter table $schema$.[Entry] alter column [LatestRevisionFormat] nvarchar(20) not null
+go
 alter table $schema$.[Entry] alter column [TagsCommaSeparated] nvarchar(255) not null
 go

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using FunnelWeb.DatabaseDeployer.DbProviders;
 using FunnelWeb.Model;
 using NHibernate;
 
@@ -14,7 +15,7 @@ namespace FunnelWeb.Repositories.Queries
             this.name = name;
         }
 
-        public IEnumerable<Entry> Execute(ISession session)
+        public IEnumerable<Entry> Execute(ISession session, IDatabaseProvider databaseProvider)
         {
             return session
                 .QueryOver<Entry>()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using FunnelWeb.DatabaseDeployer.DbProviders;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Strings;
 using FunnelWeb.Repositories.Projections;
@@ -29,7 +30,7 @@ namespace FunnelWeb.Repositories.Queries
             get { return revision; }
         }
 
-        public IEnumerable<EntryRevision> Execute(ISession session)
+        public IEnumerable<EntryRevision> Execute(ISession session, IDatabaseProvider databaseProvider)
         {
             var entryAlias = default(Entry);
 
@@ -42,11 +43,6 @@ namespace FunnelWeb.Repositories.Queries
                .TransformUsing(Transformers.AliasToBean<EntryRevision>());
 
             return entryQuery.Future<EntryRevision>();
-        }
-
-        public IEnumerable<EntryRevision> Execute(ISession session, int skip, int take)
-        {
-            return Execute(session);
         }
     }
 }

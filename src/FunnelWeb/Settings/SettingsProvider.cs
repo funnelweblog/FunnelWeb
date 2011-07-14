@@ -109,7 +109,6 @@ namespace FunnelWeb.Settings
         private static IEnumerable<SettingDescriptor> ReadSettingMetadata<T>()
         {
             return typeof(T).GetProperties()
-                .OfType<PropertyInfo>()
                 .Where(x => x.GetCustomAttributes(true).OfType<SettingStorageAttribute>().Any())
                 .Select(x => new SettingDescriptor(x))
                 .ToArray();

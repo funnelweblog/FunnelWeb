@@ -7,15 +7,14 @@ using NUnit.Framework;
 namespace FunnelWeb.Tests.Integration.Queries
 {
     [TestFixture]
-    public class SearchEntriesQueryTests : IntegrationTest
+    public class SimpleSearchEntriesQueryReturnsEntry : QueryIntegrationTest
     {
-        public SearchEntriesQueryTests()
+        public SimpleSearchEntriesQueryReturnsEntry()
             : base(TheDatabase.CanBeDirty)
         {
         }
 
-        [Test]
-        public void ReturnsEntry()
+        public override void TestQuery()
         {
             var name = Guid.NewGuid();
 
@@ -33,40 +32,13 @@ namespace FunnelWeb.Tests.Integration.Queries
                     repo.Add(entry2);
                 });
 
-            //todo: TableFullTextChangeTrackingOn doesn't check if full text is enabled for that table, need to find IsFullTextIndexEnabled property
-            var executeScalar = Database.AdHoc.ExecuteScalar(
-                "SELECT FullTextServiceProperty('IsFullTextInstalled') + OBJECTPROPERTY(OBJECT_ID('$schema$.Entry'), 'TableFullTextChangeTrackingOn')");
-            var isFullTextEnabled = (int)executeScalar;
-
-            //Idealy the test will run when full text is installed and enabled, if not, still test like based search
-            if (isFullTextEnabled == 2)
-            {
-                //Database.AdHoc.ExecuteNonQuery("ALTER FULLTEXT INDEX ON $schema$.[Entry] START UPDATE POPULATION");
-
-                //Database.WithRepository(
-                //repo =>
-                //{
-                //    var result = repo.Find(new SearchEntriesQuery(name.ToString()), 0, 1);
-                //    Assert.AreEqual(1, result.Count);
-                //    Assert.GreaterOrEqual(2, result.TotalResults);
-                //});
-
-                Database.AdHoc.ExecuteNonQuery("ALTER FULLTEXT INDEX ON $schema$.[Entry] SET CHANGE_TRACKING = OFF");
-                Database.AdHoc.ExecuteNonQuery("EXEC sys.sp_fulltext_table @tabname=N'$schema$.[Entry]', @action=N'deactivate'");
-            }
-
             Database.WithRepository(
                 repo =>
                 {
-                    var result = repo.Find(new SearchEntriesQuery(name.ToString()), 0, 1);
+                    var result = repo.Find(new SimpleSearchEntriesQuery(name.ToString()), 0, 1);
                     Assert.AreEqual(1, result.Count);
                     Assert.GreaterOrEqual(2, result.TotalResults);
                 });
-
-            if (isFullTextEnabled == 2)
-            {
-                //Database.AdHoc.ExecuteNonQuery("EXEC sys.sp_fulltext_table @tabname=N'$schema$.[Entry]', @action=N'activate'");
-            }
         }
     }
 }

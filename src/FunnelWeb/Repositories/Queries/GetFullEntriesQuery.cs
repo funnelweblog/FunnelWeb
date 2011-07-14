@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FunnelWeb.DatabaseDeployer.DbProviders;
 using FunnelWeb.Model;
 using FunnelWeb.Repositories.Projections;
+using FunnelWeb.DatabaseDeployer.Infrastructure;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Criterion.Lambda;
@@ -29,7 +31,7 @@ namespace FunnelWeb.Repositories.Queries
             this.asc = asc;
         }
 
-        public PagedResult<EntryRevision> Execute(ISession session, int skip, int take)
+        public PagedResult<EntryRevision> Execute(ISession session, IDatabaseProvider databaseProvider, int skip, int take)
         {
             var totalQuery = session
                 .QueryOver<Entry>();
@@ -40,7 +42,7 @@ namespace FunnelWeb.Repositories.Queries
 
             var total = totalQuery
                 .ToRowCountQuery()
-                .FutureValue<int>();
+                .FutureValue<Entry, int>(databaseProvider);
 
             var entriesQuery = Query(session);
             if (entryStatus != null)
@@ -51,7 +53,7 @@ namespace FunnelWeb.Repositories.Queries
             var entries = entriesQuery
                 .Skip(skip)
                 .Take(take)
-                .Future<EntryRevision>();
+                .Future<Entry, EntryRevision>(databaseProvider);
 
             if (includeComments)
             {
@@ -59,7 +61,7 @@ namespace FunnelWeb.Repositories.Queries
                 var comments =
                     session.QueryOver<Comment>()
                         .WithSubquery.WhereProperty(c => c.Entry.Id).In(QueryOver.Of<Entry>().Select(e => e.Id).Skip(skip).Take(take))
-                        .Future()
+                        .Future(databaseProvider)
                         .GroupBy(k=>k.Entry.Id)
                         .ToDictionary(k=>k.Key);
 

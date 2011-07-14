@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using DbUp.Engine;
 using DbUp.Engine.Output;
@@ -15,26 +16,25 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
     {
         private const string TableName = "SchemaVersions";
         private readonly string schemaTableName;
-        private readonly string dbConnectionString;
         private readonly string sourceIdentifier;
-        private readonly string schema;
+        private readonly Func<IDbConnection> connectionFactory;
         private readonly IUpgradeLog log;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TableJournal"/> class.
+        /// Initializes a new instance of the <see cref="FunnelWebJournal"/> class.
         /// </summary>
-        /// <param name="targetDbConnectionString">The connection to the target database.</param>
+        /// <param name="connectionFactory"></param>
         /// <param name="sourceIdentifier">The source identifier - usually the ID of the extension or FunnelWeb.DatabaseDeployer.</param>
         /// <param name="logger">The log.</param>
         /// <param name="schema">Database Schema</param>
         /// <example>
         /// var journal = new TableJournal("Server=server;Database=database;Trusted_Connection=True;");
         /// </example>
-        public FunnelWebJournal(string targetDbConnectionString, string sourceIdentifier, IUpgradeLog logger, string schema)
+        public FunnelWebJournal(Func<IDbConnection> connectionFactory, string sourceIdentifier, IUpgradeLog logger, string schema)
         {
-            schemaTableName = string.Format("{0}.{1}", schema, TableName);
-            dbConnectionString = targetDbConnectionString;
-            this.schema = schema;
+
+            schemaTableName = string.IsNullOrEmpty(schema) ? TableName : string.Format("{0}.{1}", schema, TableName);
+            this.connectionFactory = connectionFactory;
             this.sourceIdentifier = sourceIdentifier;
             log = logger;
         }
@@ -61,7 +61,10 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
                 string.Format("select [ScriptName] from {0} where [SourceIdentifier] = @sourceIdentifier order by [ScriptName]", schemaTableName),
                 cmd =>
                 {
-                    cmd.Parameters.AddWithValue("sourceIdentifier", sourceIdentifier);
+                    var parameter = cmd.CreateParameter();
+                    parameter.ParameterName = "sourceIdentifier";
+                    parameter.Value = sourceIdentifier;
+                    cmd.Parameters.Add(parameter);
                     using (var reader = cmd.ExecuteReader())
                     {
                         if (reader == null)
@@ -126,34 +129,55 @@ namespace FunnelWeb.DatabaseDeployer.Infrastructure
             DealWithLegacyScripts();
 
             RunCommand(
-                string.Format("insert into {0} (VersionNumber, SourceIdentifier, ScriptName, Applied) values (-1, @sourceIdentifier, @scriptName, (getutcdate()))", schemaTableName),
+                string.Format("insert into {0} (VersionNumber, SourceIdentifier, ScriptName, Applied) values (-1, @sourceIdentifier, @scriptName, @now)", schemaTableName),
                 cmd =>
                 {
-                    cmd.Parameters.AddWithValue("scriptName", script.Name);
-                    cmd.Parameters.AddWithValue("sourceIdentifier", sourceIdentifier);
+                    var scriptName = cmd.CreateParameter();
+                    scriptName.ParameterName = "scriptName";
+                    scriptName.Value = script.Name;
+                    cmd.Parameters.Add(scriptName);
+                    var sourceIdentifierParameter = cmd.CreateParameter();
+                    sourceIdentifierParameter.ParameterName = "sourceIdentifier";
+                    sourceIdentifierParameter.Value = sourceIdentifier;
+                    cmd.Parameters.Add(sourceIdentifierParameter);
+                    var nowParameter = cmd.CreateParameter();
+                    nowParameter.ParameterName = "now";
+                    nowParameter.Value = DateTime.UtcNow;
+                    cmd.Parameters.Add(nowParameter);
+
                     cmd.ExecuteNonQuery();
                 });
         }
 
         private bool DoesTableExist()
         {
-            var query = string.Format(
-@"select count(*)
-from sys.objects 
-inner join sys.schemas on objects.schema_id = schemas.schema_id
-where type='U' and objects.name = '{0}' and schemas.name = '{1}'", TableName, schema);
-            var result = 0;
-
-            RunCommand(
-                query,
-                cmd => int.TryParse(cmd.ExecuteScalar().ToString(), out result));
-
-            return result != 0;
+            try
+            {
+                using (var connection = connectionFactory())
+                {
+                    using (var command = connection.CreateCommand())
+                    {
+                        command.CommandText = string.Format("select count(*) from {0}", schemaTableName);
+                        command.CommandType = CommandType.Text;
+                        connection.Open();
+                        command.ExecuteScalar();
+                        return true;
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
+            catch (DbException)
+            {
+                return false;
+            }
         }
 
-        private void RunCommand(string commandText, Action<SqlCommand> executeCallback)
+        private void RunCommand(string commandText, Action<IDbCommand> executeCallback)
         {
-            using (var connection = new SqlConnection(dbConnectionString))
+            using (var connection = connectionFactory())
             {
                 connection.Open();
                 using (var txn = connection.BeginTransaction())

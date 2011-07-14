@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using FunnelWeb.DatabaseDeployer.DbProviders;
 using FunnelWeb.Model;
+using FunnelWeb.DatabaseDeployer.Infrastructure;
 using FunnelWeb.Repositories.Projections;
 using NHibernate;
 using NHibernate.Criterion.Lambda;
@@ -34,7 +36,7 @@ namespace FunnelWeb.Repositories.Queries
             this.asc = asc;
         }
 
-        public PagedResult<EntrySummary> Execute(ISession session, int skip, int take)
+        public PagedResult<EntrySummary> Execute(ISession session, IDatabaseProvider databaseProvider, int skip, int take)
         {
             var totalEntries = session
                 .QueryOver<Entry>();
@@ -47,7 +49,7 @@ namespace FunnelWeb.Repositories.Queries
             var total = totalEntries
                 .JoinQueryOver<Tag>(e => e.Tags).Where(t => t.Name == tag)
                .ToRowCountQuery()
-               .FutureValue<int>();
+               .FutureValue<Entry, int>(databaseProvider);
 
             var entriesQuery = Query(session);
             if (entryStatus != null)
@@ -59,7 +61,7 @@ namespace FunnelWeb.Repositories.Queries
                 .JoinQueryOver<Tag>(e=>e.Tags).Where(t=>t.Name == tag)
                 .Skip(skip)
                 .Take(take)
-                .Future<EntrySummary>()
+                .Future<Entry, EntrySummary>(databaseProvider)
                 .ToList();
 
             return new PagedResult<EntrySummary>(entries, total.Value, skip, take);

@@ -1,4 +1,5 @@
 ﻿using System;
+using FunnelWeb.DatabaseDeployer.DbProviders;
 using FunnelWeb.Model;
 using NHibernate;
 using NHibernate.Criterion;
@@ -7,7 +8,7 @@ namespace FunnelWeb.Repositories.Queries
 {
     public class GetCommentsQuery : IPagedQuery<Comment>
     {
-        public PagedResult<Comment> Execute(ISession session, int skip, int take)
+        public PagedResult<Comment> Execute(ISession session, IDatabaseProvider databaseProvider, int skip, int take)
         {
             var total = session
                 .QueryOver<Comment>()

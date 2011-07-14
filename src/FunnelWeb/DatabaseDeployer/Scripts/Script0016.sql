@@ -11,7 +11,7 @@ create table $schema$.[TagItem]
 (
     [Id] int identity(1,1) not null constraint [PK_TagItem_Id] primary key,
     [TagId] int not null constraint [FK_TagItem_TagId] foreign key references $schema$.[Tag](Id),
-    [EntryId] int not null constraint [FK_TagItem_EntryId] foreign key references $schema$.[Entry](Id),
+    [EntryId] int not null constraint [FK_TagItem_EntryId] foreign key references $schema$.[Entry](Id)
 )
 go
 
@@ -23,8 +23,8 @@ go
 
 -- Posts that had appeared in an RSS feed can be assumed to be blog posts
 update $schema$.[Entry]
-	set [Status] = 'Public-Blog'
-	where (Id in (select fi.ItemId from $schema$.[FeedItem] fi));
+set [Status] = 'Public-Blog'
+where (Id in (select fi.ItemId from $schema$.[FeedItem] fi))
 go
 
 create function $schema$.[SplitTags]

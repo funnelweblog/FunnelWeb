@@ -19,8 +19,9 @@ namespace FunnelWeb.Model.Mappings
             Map(x => x.Status);
 			Map(x => x.PageTemplate);
             Map(x => x.Author);
-            Map(x => x.CommentCount).Formula(
-                string.Format("(SELECT COUNT(*) from {0}.Comment where Comment.EntryID = ID and Comment.Status = 1)", CurrentSchema));
+            Map(x => x.CommentCount);//.Formula(
+            //    string.Format("(SELECT COUNT(*) from {0}{1}Comment where Comment.EntryID = ID and Comment.Status = 1)",
+            //    CurrentSchema, string.IsNullOrEmpty(CurrentSchema) ? string.Empty : "."));
             Map(x => x.TagsCommaSeparated);
 
             Component(o => o.LatestRevision,

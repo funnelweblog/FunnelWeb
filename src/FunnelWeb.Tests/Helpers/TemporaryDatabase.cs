@@ -5,7 +5,6 @@ using System.Diagnostics;
 using Autofac;
 using DbUp.Engine.Output;
 using DbUp.Helpers;
-using DbUp.ScriptProviders;
 using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Repositories;
@@ -13,7 +12,15 @@ using NHibernate;
 
 namespace FunnelWeb.Tests.Helpers
 {
-    public class TemporaryDatabase : IDisposable, IConnectionStringProvider
+    public interface ITemporaryDatabase : IDisposable, IConnectionStringProvider
+    {
+        void WithRepository(Action<IRepository> callback);
+        AdHocSqlRunner AdHoc { get; }
+        void CreateAndDeploy();
+        ScriptedExtension ScriptProviderFor<T>(T extensionWithScripts) where T : IRequireDatabaseScripts;
+    }
+
+    public class TemporaryDatabase : ITemporaryDatabase
     {
         private readonly string connectionString;
         private readonly AdHocSqlRunner database;
@@ -21,12 +28,14 @@ namespace FunnelWeb.Tests.Helpers
         private readonly AdHocSqlRunner master;
         private readonly IContainer container;
         private readonly string schema;
+        private readonly string databaseProvider;
 
         public TemporaryDatabase()
         {
             databaseName = "FunnelWebIntegrationTests";
             connectionString = string.Format("Server=(local)\\SQLEXPRESS;Database={0};Trusted_connection=true;Pooling=false", databaseName);
             schema = "dbo";
+            databaseProvider = "sql";
             database = new AdHocSqlRunner(()=>new SqlConnection(connectionString), schema);
 
             var builder = new SqlConnectionStringBuilder(connectionString) {InitialCatalog = "master"};
@@ -36,6 +45,7 @@ namespace FunnelWeb.Tests.Helpers
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterInstance(this).As<IConnectionStringProvider>();
             containerBuilder.RegisterModule(new RepositoriesModule());
+            containerBuilder.RegisterModule(new DatabaseModule());
             container = containerBuilder.Build();
         }
 
@@ -54,6 +64,12 @@ namespace FunnelWeb.Tests.Helpers
 
                 txn.Commit();
             }
+        }
+
+        public string DatabaseProvider
+        {
+            get { return databaseProvider; }
+            set {}
         }
 
         public string ConnectionString
@@ -86,15 +102,16 @@ namespace FunnelWeb.Tests.Helpers
             }
             master.ExecuteNonQuery("create database [" + databaseName + "]");
 
-            var app = new ApplicationDatabase();
-            app.PerformUpgrade(connectionString, Schema, new List<ScriptedExtension>(), new TraceLog());
+            var app = container.Resolve<IApplicationDatabase>();
+            app.PerformUpgrade(new List<ScriptedExtension>(), new TraceLog());
         }
 
         public ScriptedExtension ScriptProviderFor<T>(T extensionWithScripts) where T : IRequireDatabaseScripts
         {
-            var provider = new EmbeddedScriptProvider(
+            var provider = new FunnelWebScriptProvider(
                 typeof(T).Assembly,
-                x => x.EndsWith(".sql", StringComparison.InvariantCultureIgnoreCase));
+                x => x.EndsWith(".sql", StringComparison.InvariantCultureIgnoreCase),
+                databaseProvider);
 
             return new ScriptedExtension(extensionWithScripts.SourceIdentifier, typeof(T).Assembly, provider);
         }

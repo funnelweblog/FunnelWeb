@@ -38,8 +38,12 @@
     <Reference Include="Autofac.Configuration">
       <HintPath>..\packages\Autofac.2.4.5.724\lib\NET40\Autofac.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="DbUp">
-      <HintPath>..\packages\dbup.1.0.56\lib\NET35\DbUp.dll</HintPath>
+    <Reference Include="DbUp, Version=2.0.65.0, Culture=neutral, PublicKeyToken=4b419c53bdfd4cbf, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\dbup.2.0.65\lib\NET35\DbUp.dll</HintPath>
+    </Reference>
+    <Reference Include="DbUp.SqlCe, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\dbup-sqlce.2.0.65\lib\NET35\DbUp.SqlCe.dll</HintPath>
     </Reference>
     <Reference Include="FluentNHibernate">
       <HintPath>..\..\lib\FluentNHibernate\FluentNHibernate.dll</HintPath>
@@ -65,6 +69,10 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\SqlServerCompact.4.0.8482.1\lib\System.Data.SqlServerCe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -100,14 +108,21 @@
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
     <Compile Include="Core\Filters\FunnelWebRequestFilterTests.cs" />
-    <Compile Include="Integration\Queries\SearchTagsByNameQueryTests.cs" />
-    <Compile Include="Integration\Queries\GetFullEntriesQueryTests.cs" />
-    <Compile Include="Integration\Queries\GetEntriesByTagQueryTests.cs" />
+    <Compile Include="DatabaseDeployer\FunnelWebScriptProviderTests.cs" />
+    <Compile Include="Helpers\SqlCeIntegrationTest.cs" />
+    <Compile Include="Helpers\SqlCeTemporaryDatabase.cs" />
+    <Compile Include="Integration\Queries\EntryByNameAndRevisionQueryLoadsSpecifiedRevisionAsLatest.cs" />
+    <Compile Include="Integration\Queries\EntryByNameAndRevisionQueryMatchesEntryByName.cs" />
+    <Compile Include="Integration\Queries\EntryByNameQueryMatchesEntryByName.cs" />
+    <Compile Include="Integration\Queries\EntryByNameQueryMatchesEntryByNameThatHasComments.cs" />
+    <Compile Include="Integration\Queries\FullTextSearchEntriesQueryReturnsEntry.cs" />
+    <Compile Include="Integration\Queries\GetCommentsQueryReturnsComments.cs" />
+    <Compile Include="Integration\Queries\GetEntriesQueryByTagReturnsEntryWithWithRequestedTagOnly.cs" />
+    <Compile Include="Integration\Queries\GetEntriesQueryReturnsEntry.cs" />
+    <Compile Include="Integration\Queries\GetEntriesQueryReturnsEntryWithTags.cs" />
+    <Compile Include="Integration\Queries\GetFullEntriesQueryReturnsEntriesWithComments.cs" />
     <Compile Include="Integration\Queries\SearchEntriesQueryTests.cs" />
-    <Compile Include="Integration\Queries\EntryByNameQueryTests.cs" />
-    <Compile Include="Integration\Queries\GetCommentsQueryTests.cs" />
-    <Compile Include="Integration\Queries\GetEntriesQueryTests.cs" />
-    <Compile Include="Integration\Queries\EntryByNameAndRevisionQueryTests.cs" />
+    <Compile Include="Integration\Queries\SearchTagsByNameQueryReturnsTag.cs" />
     <Compile Include="Core\Repositories\FileRepositoryTests.cs" />
     <Compile Include="DatabaseDeployer\DatabaseModuleTests.cs" />
     <Compile Include="DatabaseDeployer\DatabaseUpgradeDetectorTests.cs" />
@@ -154,7 +169,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>dir</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

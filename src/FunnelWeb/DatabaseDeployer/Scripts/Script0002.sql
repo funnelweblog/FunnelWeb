@@ -20,7 +20,7 @@ create table $schema$.[Feed]
 (
 	[Id] int identity(1,1) not null constraint PK_Feed_Id primary key,
 	[Name] nvarchar(100) not null,
-	[Title] nvarchar(255) not null,
+	[Title] nvarchar(255) not null
 )
 go
 
@@ -35,7 +35,7 @@ create table $schema$.[Revision]
 	[Tags] nvarchar(1000) not null,
 	[Status] int not null,
 	[IsVisible] bit not null,
-	[RevisionNumber] int not null,
+	[RevisionNumber] int not null
 )
 go
 
@@ -44,7 +44,7 @@ create table $schema$.[FeedItem]
 	[Id] int identity(1,1) not null constraint PK_FeedItem_Id primary key,
 	[FeedId] int not null,
 	[ItemId] int not null,
-	[SortDate] datetime not null,
+	[SortDate] datetime not null
 )
 go
 
@@ -62,33 +62,22 @@ create table $schema$.[Comment]
 )
 go
 
-alter table $schema$.[Revision] with check add constraint [FK_Revision_Entry] foreign key([EntryId])
+alter table $schema$.[Revision] add constraint [FK_Revision_Entry] foreign key([EntryId])
 	references $schema$.[Entry] ([Id])
 go
 
-alter table $schema$.[Revision] check constraint [FK_Revision_Entry]
+alter table $schema$.[Revision] add constraint [DF_Revision_RevisionNumber] default ((0)) FOR [RevisionNumber]
 go
 
-alter table $schema$.[Revision] add constraint [DF_Revision_RevisionNumber]  default ((0)) FOR [RevisionNumber]
-go
-
-alter table $schema$.[FeedItem] with check add constraint [FK_FeedItem_Entry] foreign key([ItemId])
+alter table $schema$.[FeedItem] add constraint [FK_FeedItem_Entry] foreign key([ItemId])
 	references $schema$.[Entry] ([Id])
 go
 
-alter table $schema$.[FeedItem] check constraint [FK_FeedItem_Entry]
-go
-
-alter table $schema$.[FeedItem] with check add constraint [FK_FeedItem_Feed] foreign key([FeedId])
+alter table $schema$.[FeedItem] add constraint [FK_FeedItem_Feed] foreign key([FeedId])
 	references $schema$.[Feed] ([Id])
 go
 
-alter table $schema$.[FeedItem] check constraint [FK_FeedItem_Feed]
-go
-
-alter table $schema$.[Comment] with check add constraint [FK_Comment_Comment] foreign key([EntryId])
+alter table $schema$.[Comment] add constraint [FK_Comment_Comment] foreign key([EntryId])
 	references $schema$.[Entry] ([Id])
 go
 
-alter table $schema$.[Comment] check constraint [FK_Comment_Comment]
-go

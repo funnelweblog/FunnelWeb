@@ -53,7 +53,7 @@ namespace FunnelWeb.Web.Controllers
 
         public virtual ActionResult Search([Bind(Prefix = "q")] string searchText, bool? is404)
         {
-            var results = Repository.Find(new SearchEntriesQuery(searchText), 0, 30);
+            var results = Repository.Find(new SwitchingSearchEntriesQuery(searchText), 0, 30);
             return View("Search", new SearchModel(searchText, is404 ?? false, results));
         }
 
