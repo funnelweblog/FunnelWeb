@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web.Hosting;
 using System.Xml.Serialization;
 
 namespace FunnelWeb.Settings
@@ -84,8 +83,7 @@ namespace FunnelWeb.Settings
                 var existing = Settings.FirstOrDefault(x => x.Key == name);
                 if (existing == null)
                 {
-                    existing = new Setting();
-                    existing.Key = name;
+                    existing = new Setting { Key = name };
                     Settings.Add(existing);
                 }
 

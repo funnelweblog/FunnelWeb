@@ -14,18 +14,18 @@ namespace FunnelWeb.Authentication.Internal
         private readonly FormsAuthenticator formsAuthenticator;
         private readonly Func<IDatabaseUpgradeDetector> upgradeDetector;
         private readonly Func<ISettingsProvider> settingsProvider;
-        private readonly ISession session;
+        private readonly Func<ISession> sessionFactory;
 
         public SqlAuthenticator(
             FormsAuthenticator formsAuthenticator, 
             Func<IDatabaseUpgradeDetector> upgradeDetector, 
             Func<ISettingsProvider> settingsProvider, 
-            ISession session)
+            Func<ISession> sessionFactory)
         {
             this.formsAuthenticator = formsAuthenticator;
             this.upgradeDetector = upgradeDetector;
             this.settingsProvider = settingsProvider;
-            this.session = session;
+            this.sessionFactory = sessionFactory;
         }
 
         public string GetName()
@@ -65,7 +65,7 @@ namespace FunnelWeb.Authentication.Internal
 
         private bool SqlAuthenticateAndLogin(string username, string password)
         {
-            var user = session.QueryOver<User>()
+            var user = sessionFactory().QueryOver<User>()
                 .Where(u => u.Username == username && u.Password == SqlFunnelWebMembership.HashPassword(password))
                 .SingleOrDefault();
 
