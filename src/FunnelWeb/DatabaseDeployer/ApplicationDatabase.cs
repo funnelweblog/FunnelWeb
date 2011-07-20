@@ -57,8 +57,9 @@ namespace FunnelWeb.DatabaseDeployer
         public DatabaseUpgradeResult[] PerformUpgrade(IEnumerable<ScriptedExtension> scriptedExtensions, IUpgradeLog log)
         {
             var results = new List<DatabaseUpgradeResult>();
-            var schema = connectionStringProvider.Schema;
+            
             var provider = providerLookup[connectionStringProvider.DatabaseProvider.ToLower()];
+            var schema = provider.SupportSchema ? connectionStringProvider.Schema : "";
             var connectionFactory = provider.GetConnectionFactory(connectionStringProvider.ConnectionString);
 
             // Upgrade core
