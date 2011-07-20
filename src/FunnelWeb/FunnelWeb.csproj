@@ -61,6 +61,9 @@
     <Reference Include="Iesi.Collections">
       <HintPath>..\packages\Iesi.Collections.3.2.0.3001\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="MvcMiniProfiler">
+      <HintPath>..\packages\MiniProfiler.1.4\lib\MvcMiniProfiler.dll</HintPath>
+    </Reference>
     <Reference Include="NHibernate">
       <HintPath>..\packages\NHibernate.3.2.0.3001\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
@@ -107,6 +110,17 @@
     <Compile Include="DatabaseDeployer\DatabaseModule.cs" />
     <Compile Include="DatabaseDeployer\DatabaseUpgradeDetector.cs" />
     <Compile Include="DatabaseDeployer\DbProviders\FunnelWebCe40Dialect.cs" />
+    <Compile Include="DatabaseDeployer\DbProviders\ProfiledClientBatchingBatcherFactory.cs" />
+    <Compile Include="DatabaseDeployer\DbProviders\ProfiledSqlClientBatchingBatcher.cs" />
+    <Compile Include="DatabaseDeployer\DbProviders\ProfiledSqlClientBatchingBatcherFactory.cs" />
+    <Compile Include="DatabaseDeployer\DbProviders\ProfiledSqlClientDriver.cs" />
+    <Compile Include="DatabaseDeployer\DbProviders\ProfiledSqlDbCommand.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DatabaseDeployer\DbProviders\ProfiledSqlDbConnection.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DatabaseDeployer\DbProviders\ProfiledSqlDbTransaction.cs" />
     <Compile Include="DatabaseDeployer\DbProviders\ProviderMetaData.cs" />
     <Compile Include="DatabaseDeployer\DbProviders\SqlCeDatabaseProvider.cs" />
     <Compile Include="DatabaseDeployer\DbProviders\SqlDatabaseProvider.cs" />
@@ -337,7 +351,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

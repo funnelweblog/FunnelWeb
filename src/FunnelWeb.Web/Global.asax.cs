@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
@@ -19,6 +20,7 @@ using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Application.Mvc.Binders;
 using FunnelWeb.Web.Application.Spam;
 using FunnelWeb.Web.Application.Themes;
+using MvcMiniProfiler;
 
 namespace FunnelWeb.Web
 {
@@ -63,6 +65,19 @@ namespace FunnelWeb.Web
             return builder.Build();
         }
 
+        protected void Application_BeginRequest()
+        {
+            MiniProfiler.Start();
+        }
+
+        protected void Application_AuthenticateRequest(Object sender, EventArgs e)
+        {
+            if (!Request.IsAuthenticated)
+            {
+                MiniProfiler.Stop(discardResults: true);
+            }
+        }
+
         private void Application_Start()
         {
             var container = BuildContainer();
@@ -74,6 +89,11 @@ namespace FunnelWeb.Web
             ViewEngines.Engines.Add(new FunnelWebViewEngine());
 
             ControllerBuilder.Current.SetControllerFactory(new FunnelWebControllerFactory(container));
+        }
+
+        protected void Application_EndRequest()
+        {
+            MiniProfiler.Stop();
         }
     }
 }

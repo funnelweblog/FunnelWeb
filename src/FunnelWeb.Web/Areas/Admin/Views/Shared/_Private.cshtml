@@ -57,6 +57,7 @@
     Html.RequiresJs("showdown.js", "Scripts", 1);
     Html.RequiresJs("wmd.js", "Scripts", 1);
     Html.RequiresJs("site.js", "Scripts", 1);
+    @MvcMiniProfiler.MiniProfiler.RenderIncludes()
   }
   @MvcHtmlString.Create(Html.RenderJsHere(new BasicPath("Scripts", "~/Scripts")))
 </body>

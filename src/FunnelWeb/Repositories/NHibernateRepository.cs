@@ -1,10 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 using Autofac.Features.Indexed;
 using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.DatabaseDeployer.DbProviders;
+using MvcMiniProfiler;
+using MvcMiniProfiler.Data;
 using NHibernate;
+using NHibernate.AdoNet;
+using NHibernate.AdoNet.Util;
+using NHibernate.Driver;
+using NHibernate.Engine;
+using NHibernate.Exceptions;
+using NHibernate.SqlCommand;
+using NHibernate.SqlTypes;
+using NHibernate.Util;
 
 namespace FunnelWeb.Repositories
 {

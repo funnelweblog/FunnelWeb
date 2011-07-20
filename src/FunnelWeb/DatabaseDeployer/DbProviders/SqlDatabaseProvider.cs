@@ -64,6 +64,7 @@ namespace FunnelWeb.DatabaseDeployer.DbProviders
         public IPersistenceConfigurer GetDatabaseConfiguration(IConnectionStringProvider connectionStringProvider)
         {
             return MsSqlConfiguration.MsSql2008.ConnectionString(connectionStringProvider.ConnectionString)
+                .Driver<ProfiledSqlClientDriver>()
                 .ShowSql()
                 .DefaultSchema(connectionStringProvider.Schema);
         }
