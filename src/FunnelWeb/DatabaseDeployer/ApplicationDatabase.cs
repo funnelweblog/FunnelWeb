@@ -30,7 +30,9 @@ namespace FunnelWeb.DatabaseDeployer
 
         public string[] GetCoreExecutedScripts(Func<IDbConnection> connectionFactory)
         {
-            return CreateJournal(connectionFactory, CoreSourceIdentifier, connectionStringProvider.Schema).GetExecutedScripts();
+            var provider = providerLookup[connectionStringProvider.DatabaseProvider.ToLower()];
+
+            return CreateJournal(connectionFactory, CoreSourceIdentifier, provider.SupportSchema ? connectionStringProvider.Schema : null).GetExecutedScripts();
         }
 
         public string[] GetCoreRequiredScripts()
@@ -59,7 +61,7 @@ namespace FunnelWeb.DatabaseDeployer
             var results = new List<DatabaseUpgradeResult>();
             
             var provider = providerLookup[connectionStringProvider.DatabaseProvider.ToLower()];
-            var schema = provider.SupportSchema ? connectionStringProvider.Schema : "";
+            var schema = provider.SupportSchema ? connectionStringProvider.Schema : null;
             var connectionFactory = provider.GetConnectionFactory(connectionStringProvider.ConnectionString);
 
             // Upgrade core

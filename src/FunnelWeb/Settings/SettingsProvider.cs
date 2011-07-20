@@ -142,11 +142,6 @@ namespace FunnelWeb.Settings
                 }
             }
 
-            public PropertyInfo Property
-            {
-                get { return property; }
-            }
-
             public object DefaultValue
             {
                 get { return defaultValue; }

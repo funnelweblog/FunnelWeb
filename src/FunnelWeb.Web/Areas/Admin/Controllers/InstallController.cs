@@ -40,7 +40,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
             model.CanConnect = databaseProvider.Value.TryConnect(connectionString, out error);
             model.ConnectionError = error;
             model.ConnectionString = connectionString;
-            model.Schema = schema;
+            model.Schema = databaseProvider.Value.SupportSchema ? schema : null;
             model.DatabaseProviderSupportsSchema = databaseProvider.Value.SupportSchema;
 
             if (model.CanConnect)
@@ -69,6 +69,8 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
             ConnectionStringProvider.ConnectionString = provider.Value.DefaultConnectionString;
             ConnectionStringProvider.DatabaseProvider = databaseProvider;
+            if (!provider.Value.SupportSchema)
+                ConnectionStringProvider.Schema = null;
             UpgradeDetector.Reset();
             
             return RedirectToAction("Index");

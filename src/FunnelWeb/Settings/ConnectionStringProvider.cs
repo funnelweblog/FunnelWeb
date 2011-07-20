@@ -27,7 +27,7 @@ namespace FunnelWeb.Settings
         {
             get
             {
-                return settings.Get("funnelweb.configuration.database.schema") ?? "dbo";
+                return settings.Get("funnelweb.configuration.database.schema");
             }
             set
             {
