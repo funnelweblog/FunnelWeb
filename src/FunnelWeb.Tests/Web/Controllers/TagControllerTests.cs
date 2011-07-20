@@ -2,10 +2,8 @@
 using System.Linq;
 using System.Web.Mvc;
 using FunnelWeb.Model;
-using FunnelWeb.Model.Repositories;
 using FunnelWeb.Repositories;
 using FunnelWeb.Repositories.Queries;
-using FunnelWeb.Tests.Integration.Queries;
 using FunnelWeb.Web.Controllers;
 using NSubstitute;
 using NUnit.Framework;
@@ -15,7 +13,6 @@ namespace FunnelWeb.Tests.Web.Controllers
     [TestFixture]
     public class TagControllerTests
     {
-
         [Test]
         public void TagControllerTests_Empty_Repository_Returns_No_Tags()
         {

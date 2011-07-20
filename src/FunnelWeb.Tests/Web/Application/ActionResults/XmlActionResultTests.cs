@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using FunnelWeb.Web.Application.Mvc.ActionResults;
 using NUnit.Framework;
@@ -42,7 +40,7 @@ namespace FunnelWeb.Tests.Web.Application.ActionResults
             //Act
 
             //Assert
-            Assert.AreEqual(System.Text.Encoding.UTF8, actionResult.Encoding);
+            Assert.AreEqual(Encoding.UTF8, actionResult.Encoding);
         }
     }
 }

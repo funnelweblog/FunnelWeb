@@ -1,6 +1,6 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using FunnelWeb.Model.Repositories;
+using FunnelWeb.Tests.Web.Controllers;
 using FunnelWeb.Web.Areas.Admin.Controllers;
 using NSubstitute;
 using NUnit.Framework;
@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
 {
     [TestFixture]
-    public class AdminControllerTests
+    public class AdminControllerTests : ControllerTests
     {
         protected AdminController Controller { get; set; }
         protected IAdminRepository AdminRepository { get; set; }
@@ -19,7 +19,7 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
             Controller = new AdminController
                              {
                                  AdminRepository = AdminRepository = Substitute.For<IAdminRepository>(),
-                                 ControllerContext = CreateControllerContext()
+                                 ControllerContext = ControllerContext
                              };
         }
 
@@ -69,17 +69,6 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
             var result = (RedirectToRouteResult)Controller.TogglePingbackSpam(0);
 
             Assert.That(result.RouteValues["Action"], Is.EqualTo("Pingbacks"));
-        }
-
-        private static ControllerContext CreateControllerContext()
-        {
-            var controllerContext = new ControllerContext();
-            var httpContext = Substitute.For<HttpContextBase>();
-            var httpServer = Substitute.For<HttpServerUtilityBase>();
-            httpServer.MapPath(Arg.Any<string>()).Returns(@"C:\Windows");
-            httpContext.Server.Returns(httpServer);
-            controllerContext.HttpContext = httpContext;
-            return controllerContext;
         }
     }
 }

@@ -9,10 +9,12 @@ namespace FunnelWeb.Web.Application.Mvc.ActionResults
     public class FeedResult : ActionResult
     {
         private readonly SyndicationFeedFormatter feed;
+        private readonly DateTime lastModified;
 
-        public FeedResult(SyndicationFeedFormatter feed)
+        public FeedResult(SyndicationFeedFormatter feed, DateTime lastModified)
         {
             this.feed = feed;
+            this.lastModified = lastModified;
         }
 
         public Encoding ContentEncoding { get; set; }
@@ -30,6 +32,7 @@ namespace FunnelWeb.Web.Application.Mvc.ActionResults
 
             var response = context.HttpContext.Response;
             response.ContentType = !string.IsNullOrEmpty(ContentType) ? ContentType : "application/rss+xml";
+            context.HttpContext.Response.Cache.SetLastModified(lastModified);
 
             if (ContentEncoding != null)
                 response.ContentEncoding = ContentEncoding;

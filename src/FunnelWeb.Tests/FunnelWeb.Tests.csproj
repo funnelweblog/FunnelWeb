@@ -73,6 +73,7 @@
       <Private>True</Private>
       <HintPath>..\packages\SqlServerCompact.4.0.8482.1\lib\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -109,6 +110,7 @@
     </Compile>
     <Compile Include="Core\Filters\FunnelWebRequestFilterTests.cs" />
     <Compile Include="DatabaseDeployer\FunnelWebScriptProviderTests.cs" />
+    <Compile Include="Helpers\QueryIntegrationTest.cs" />
     <Compile Include="Helpers\SqlCeIntegrationTest.cs" />
     <Compile Include="Helpers\SqlCeTemporaryDatabase.cs" />
     <Compile Include="Integration\Queries\EntryByNameAndRevisionQueryLoadsSpecifiedRevisionAsLatest.cs" />
@@ -142,6 +144,8 @@
     <Compile Include="Web\Application\Mime\RegistryMimeTypeLookupTests.cs" />
     <Compile Include="Web\Areas\Admin\Controllers\AdminControllerTests.cs" />
     <Compile Include="Web\Areas\Admin\Controllers\WikiAdminControllerTests.cs" />
+    <Compile Include="Web\Controllers\ControllerTests.cs" />
+    <Compile Include="Web\Controllers\FeedControllerTests.cs" />
     <Compile Include="Web\Controllers\TagControllerTests.cs" />
     <Compile Include="Web\Areas\Admin\Controllers\UploadControllerTests.cs" />
     <Compile Include="Web\Controllers\WikiControllerTests.cs" />

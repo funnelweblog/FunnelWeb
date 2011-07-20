@@ -2,6 +2,7 @@
 using System.Web;
 using System.Web.Mvc;
 using FunnelWeb.Model.Repositories;
+using FunnelWeb.Tests.Web.Controllers;
 using FunnelWeb.Web.Application.Mime;
 using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Areas.Admin.Controllers;
@@ -11,7 +12,7 @@ using NUnit.Framework;
 namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
 {
     [TestFixture]
-    public class UploadControllerTests
+    public class UploadControllerTests : ControllerTests
     {
         protected UploadController Controller { get; set; }
         protected IFileRepository FileRepository { get; set; }
@@ -24,7 +25,7 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
                              {
                                  FileRepository = FileRepository = Substitute.For<IFileRepository>(),
                                  MimeHelper = MimeTypeLookup = Substitute.For<IMimeTypeLookup>(),
-                                 ControllerContext = CreateControllerContext()
+                                 ControllerContext = ControllerContext
                              };
         }
 
@@ -139,14 +140,6 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
             MimeTypeLookup.DidNotReceive().GetMimeType(Arg.Any<string>());
 
             Assert.IsInstanceOf(typeof (HttpNotFoundResult), result);
-        }
-
-        private static ControllerContext CreateControllerContext()
-        {
-            var controllerContext = new ControllerContext();
-            var httpContext = Substitute.For<HttpContextBase>();
-            controllerContext.HttpContext = httpContext;
-            return controllerContext;
         }
     }
 }

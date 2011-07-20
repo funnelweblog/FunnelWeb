@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Principal;
-using System.Web;
 using System.Web.Mvc;
 using FunnelWeb.Model;
 using FunnelWeb.Repositories;
 using FunnelWeb.Repositories.Queries;
-using FunnelWeb.Settings;
 using FunnelWeb.Web.Application.Spam;
 using FunnelWeb.Web.Controllers;
 using FunnelWeb.Web.Views.Wiki;
@@ -17,31 +14,21 @@ using PageModel = FunnelWeb.Web.Views.Wiki.PageModel;
 namespace FunnelWeb.Tests.Web.Controllers
 {
     [TestFixture]
-    public class WikiControllerTests
+    public class WikiControllerTests: ControllerTests
     {
         protected WikiController Controller { get; set; }
-        protected ControllerContext ControllerContext { get; set; }
-        protected IRepository Repository { get; set; }
         protected ISpamChecker SpamChecker { get; set; }
-        protected IIdentity Identity { get; set; }
-        protected IPrincipal User { get; set; }
         
         [SetUp]
         public void SetUp()
         {
             Controller = new WikiController
                              {
-                                 Repository = Repository = Substitute.For<IRepository>(),
+                                 Repository = Repository,
                                  SpamChecker = SpamChecker = Substitute.For<ISpamChecker>(),
-                                 ControllerContext = ControllerContext = CreateControllerContext(),
-                                 SettingsProvider = Substitute.For<ISettingsProvider>()
+                                 ControllerContext = ControllerContext,
+                                 SettingsProvider = SettingsProvider
                              };
-
-            Identity = Substitute.For<IIdentity>();
-            User = Substitute.For<IPrincipal>();
-            User.Identity.Returns(Identity);
-            ControllerContext.HttpContext.User.Returns(User);
-            Controller.SettingsProvider.GetSettings<FunnelWebSettings>().Returns(new FunnelWebSettings {EnablePublicHistory = true});
         }
 
         [Test]
@@ -106,17 +93,6 @@ namespace FunnelWeb.Tests.Web.Controllers
             var model = (PageModel)Controller.ViewData.Model;
             Assert.AreEqual(entry, model.Entry);
             Repository.Received().FindFirstOrDefault(Arg.Is<EntryByNameQuery>(q=>q.PageName == entry.Name));
-        }
-
-        private static ControllerContext CreateControllerContext()
-        {
-            var controllerContext = new ControllerContext();
-            var httpContext = Substitute.For<HttpContextBase>();
-            var httpRequest = Substitute.For<HttpRequestBase>();
-            httpRequest.Url.Returns(new Uri("http://www.google.com"));
-            httpContext.Request.Returns(httpRequest);
-            controllerContext.HttpContext = httpContext;
-            return controllerContext;
         }
     }
 }

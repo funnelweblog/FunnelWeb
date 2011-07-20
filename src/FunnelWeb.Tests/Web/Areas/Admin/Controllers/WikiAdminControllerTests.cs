@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
-using System.Web;
 using System.Web.Mvc;
 using FunnelWeb.Model;
-using FunnelWeb.Model.Repositories;
-using FunnelWeb.Model.Strings;
 using FunnelWeb.Repositories;
 using FunnelWeb.Repositories.Queries;
+using FunnelWeb.Tests.Web.Controllers;
 using FunnelWeb.Web.Application.Spam;
 using FunnelWeb.Web.Areas.Admin.Controllers;
 using NSubstitute;
@@ -17,14 +15,10 @@ using NUnit.Framework;
 namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
 {
     [TestFixture]
-    public class WikiAdminControllerTests
+    public class WikiAdminControllerTests : ControllerTests
     {
         protected WikiAdminController AdminController { get; set; }
-        protected ControllerContext ControllerContext { get; set; }
-        protected IRepository Repository { get; set; }
         protected ISpamChecker SpamChecker { get; set; }
-        protected IIdentity Identity { get; set; }
-        protected IPrincipal User { get; set; }
         
         [SetUp]
         public void Setup()
@@ -33,7 +27,7 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
                                   {
                                       Repository = Repository = Substitute.For<IRepository>(),
                                       SpamChecker = SpamChecker = Substitute.For<ISpamChecker>(),
-                                      ControllerContext = ControllerContext = CreateControllerContext()
+                                      ControllerContext = ControllerContext = ControllerContext
                                   };
 
             Identity = Substitute.For<IIdentity>();
@@ -75,17 +69,6 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
             Assert.IsInstanceOf(typeof(EntryRevision), result.ViewData.Model);
             Assert.NotNull(((EntryRevision)result.ViewData.Model).Tags);
             Assert.AreEqual("new-awesome-post", ((EntryRevision)result.ViewData.Model).Name.ToString());
-        }
-
-        private static ControllerContext CreateControllerContext()
-        {
-            var controllerContext = new ControllerContext();
-            var httpContext = Substitute.For<HttpContextBase>();
-            var httpRequest = Substitute.For<HttpRequestBase>();
-            httpRequest.Url.Returns(new Uri("http://www.google.com"));
-            httpContext.Request.Returns(httpRequest);
-            controllerContext.HttpContext = httpContext;
-            return controllerContext;
         }
 
     }
