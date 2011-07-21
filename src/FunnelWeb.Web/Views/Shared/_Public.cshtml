@@ -8,7 +8,7 @@
   <meta name="author" content="@Html.Settings().SiteTitle" />
   <link href="@Html.Qualify(Html.ActionUrl("Feed", "Feed", null))" type="application/atom+xml" rel="alternate" title="Blog Feed" />
   <link href="@Html.Qualify(Html.ActionUrl("CommentFeed", "Feed", null))" type="application/atom+xml" rel="alternate" title="Comments Feed" />
-  <link rel="icon" type="image/png" href="@Html.Qualify("/favicon.png")" />
+  <link rel="icon" type="image/png" href="@Html.Qualify("~/favicon.png")" />
   @{ 
     Html.RequiresCss("Base.css", "Base", 0);
     Html.RequiresCss("Theme.css", "Theme", 10000);
@@ -25,7 +25,7 @@
     <div class="top">
       <div class="top-in">
         <div class="header">
-          <a class="logo" href="@Url.Content("~/")" title="@Html.Settings().SiteTitle">@Html.Settings().SiteTitle</a>
+          <a class="logo" href="@Html.Qualify("~/")" title="@Html.Settings().SiteTitle">@Html.Settings().SiteTitle</a>
         </div>
         <div class="nav">
           <ul>

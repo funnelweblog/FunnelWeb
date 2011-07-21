@@ -9,7 +9,7 @@
 @if (Model.Results.All(x => x.Successful)) 
 {
   <p class='good'>The upgrade completed successfully. @Model.Results.Sum(x => x.Scripts.Count()) scripts were run.</p>
-  <p class='important'><a href="@Url.Content("/")">Woohoo!</a></p>
+  <p class='important'><a href="@Html.Qualify("~/")">Woohoo!</a></p>
 }
 else
 {
