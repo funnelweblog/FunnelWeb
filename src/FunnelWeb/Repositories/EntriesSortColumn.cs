@@ -1,6 +1,6 @@
 using System;
 
-namespace FunnelWeb.Repositories.Queries
+namespace FunnelWeb.Repositories
 {
     public enum EntriesSortColumn
     {

@@ -43,7 +43,8 @@ namespace FunnelWeb.Repositories.Queries
                     Restrictions.On<Entry>(e => e.LatestRevision.Body).IsLike(searchTerms, MatchMode.Anywhere)
                     ||
                     Restrictions.On<Entry>(e => e.Title).IsLike(searchTerms, MatchMode.Anywhere)
-                );
+                )
+                .And(e => e.Status != EntryStatus.Private);
 
             var total =
                 query

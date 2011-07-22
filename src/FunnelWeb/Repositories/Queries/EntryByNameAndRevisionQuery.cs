@@ -32,7 +32,7 @@ namespace FunnelWeb.Repositories.Queries
 
         public IEnumerable<EntryRevision> Execute(ISession session, IDatabaseProvider databaseProvider)
         {
-            var entryAlias = default(Entry);
+            var entryAlias = Alias.For<Entry>();
 
             var entryQuery = session
                .QueryOver<Revision>()

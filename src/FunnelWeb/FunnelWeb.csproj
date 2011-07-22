@@ -151,9 +151,11 @@
     <Compile Include="Model\Strings\EnforcedStringLengthAttribute.cs" />
     <Compile Include="Mvc\HintSize.cs" />
     <Compile Include="Mvc\HintSizeAttribute.cs" />
+    <Compile Include="Repositories\Filters.cs" />
     <Compile Include="Repositories\PagedResult.cs" />
     <Compile Include="Repositories\Projections\EntrySummaryProjections.cs" />
-    <Compile Include="Repositories\Queries\EntriesSortColumn.cs" />
+    <Compile Include="Repositories\Alias.cs" />
+    <Compile Include="Repositories\EntriesSortColumn.cs" />
     <Compile Include="Repositories\ICommand.cs" />
     <Compile Include="Repositories\IQuery.cs" />
     <Compile Include="Repositories\IRepository.cs" />

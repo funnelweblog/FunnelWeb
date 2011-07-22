@@ -113,6 +113,9 @@
     <Compile Include="Helpers\QueryIntegrationTest.cs" />
     <Compile Include="Helpers\SqlCeIntegrationTest.cs" />
     <Compile Include="Helpers\SqlCeTemporaryDatabase.cs" />
+    <Compile Include="Integration\Queries\GetEntriesQueryCanReturnAllStatuses.cs" />
+    <Compile Include="Integration\Queries\GetEntriesQueryDoesNotReturnPrivate.cs" />
+    <Compile Include="Integration\Queries\SearchEntriesQueryDoesNotReturnPrivate.cs" />
     <Compile Include="Integration\Queries\EntryByNameAndRevisionQueryLoadsSpecifiedRevisionAsLatest.cs" />
     <Compile Include="Integration\Queries\EntryByNameAndRevisionQueryMatchesEntryByName.cs" />
     <Compile Include="Integration\Queries\EntryByNameQueryMatchesEntryByName.cs" />

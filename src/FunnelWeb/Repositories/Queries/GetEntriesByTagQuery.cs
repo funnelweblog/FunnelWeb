@@ -39,23 +39,16 @@ namespace FunnelWeb.Repositories.Queries
         public PagedResult<EntrySummary> Execute(ISession session, IDatabaseProvider databaseProvider, int skip, int take)
         {
             var totalEntries = session
-                .QueryOver<Entry>();
-
-            if (entryStatus != null)
-                totalEntries.Where(e => e.Status == entryStatus);
-            else if (entryStatus != EntryStatus.All)
-                totalEntries.Where(e => e.Status != EntryStatus.Private);
+                .QueryOver<Entry>()
+                .ApplyEntryStatusFilter(entryStatus);
 
             var total = totalEntries
                 .JoinQueryOver<Tag>(e => e.Tags).Where(t => t.Name == tag)
                .ToRowCountQuery()
                .FutureValue<Entry, int>(databaseProvider);
 
-            var entriesQuery = Query(session);
-            if (entryStatus != null)
-                entriesQuery.Where(e => e.Status == entryStatus);
-            else
-                entriesQuery.Where(e => e.Status != EntryStatus.Private);
+            var entriesQuery = Query(session)
+                .ApplyEntryStatusFilter(entryStatus);
 
             var entries = entriesQuery
                 .JoinQueryOver<Tag>(e=>e.Tags).Where(t=>t.Name == tag)

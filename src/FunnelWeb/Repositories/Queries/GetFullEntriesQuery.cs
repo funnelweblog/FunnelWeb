@@ -34,21 +34,15 @@ namespace FunnelWeb.Repositories.Queries
         public PagedResult<EntryRevision> Execute(ISession session, IDatabaseProvider databaseProvider, int skip, int take)
         {
             var totalQuery = session
-                .QueryOver<Entry>();
-            if (entryStatus != null)
-                totalQuery.Where(e => e.Status == entryStatus);
-            else if (entryStatus != EntryStatus.All)
-                totalQuery.Where(e => e.Status != EntryStatus.Private);
+                .QueryOver<Entry>()
+                .ApplyEntryStatusFilter(entryStatus);
 
             var total = totalQuery
                 .ToRowCountQuery()
                 .FutureValue<Entry, int>(databaseProvider);
 
-            var entriesQuery = Query(session);
-            if (entryStatus != null)
-                entriesQuery.Where(e => e.Status == entryStatus);
-            else
-                entriesQuery.Where(e => e.Status != EntryStatus.Private);
+            var entriesQuery = Query(session)
+                .ApplyEntryStatusFilter(entryStatus);
 
             var entries = entriesQuery
                 .Skip(skip)
