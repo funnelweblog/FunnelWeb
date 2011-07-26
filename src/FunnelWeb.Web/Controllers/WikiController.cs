@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using FunnelWeb.Eventing;
 using FunnelWeb.Filters;
@@ -124,6 +125,7 @@ namespace FunnelWeb.Web.Controllers
             if (settings.DisableCommentsOlderThan > 0 && DateTime.UtcNow.AddDays(settings.DisableCommentsOlderThan) > entry.Published)
             {
                 comment.IsSpam = true;
+                entry.Entry.Value.CommentCount = entry.Entry.Value.Comments.Count(c => !c.IsSpam);
             }
 
             EventPublisher.Publish(new CommentPostedEvent(entry.Entry.Value, comment));

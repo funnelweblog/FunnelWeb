@@ -110,6 +110,7 @@
     </Compile>
     <Compile Include="Core\Filters\FunnelWebRequestFilterTests.cs" />
     <Compile Include="DatabaseDeployer\FunnelWebScriptProviderTests.cs" />
+    <Compile Include="Helpers\ITemporaryDatabase.cs" />
     <Compile Include="Helpers\QueryIntegrationTest.cs" />
     <Compile Include="Helpers\SqlCeIntegrationTest.cs" />
     <Compile Include="Helpers\SqlCeTemporaryDatabase.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="Helpers\Specification.cs" />
     <Compile Include="Helpers\ThenAttribute.cs" />
     <Compile Include="Helpers\IntegrationTest.cs" />
+    <Compile Include="Integration\UpdateCommentCountTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LifetimeJustifications.cs" />
     <Compile Include="Web\Application\ActionResults\XmlActionResultTests.cs" />

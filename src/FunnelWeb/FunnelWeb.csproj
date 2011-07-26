@@ -170,6 +170,7 @@
     <Compile Include="Repositories\IPagedQuery.cs" />
     <Compile Include="Repositories\Queries\GetFullEntriesQuery.cs" />
     <Compile Include="Repositories\Queries\GetEntryWithPingbacksQuery.cs" />
+    <Compile Include="Repositories\Queries\GetSpamQuery.cs" />
     <Compile Include="Repositories\Queries\SimpleSearchEntriesQuery.cs" />
     <Compile Include="Repositories\Queries\SearchTagsByNameQuery.cs" />
     <Compile Include="Repositories\Queries\SwitchingSearchEntriesQuery.cs" />

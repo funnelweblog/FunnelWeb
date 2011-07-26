@@ -45,8 +45,6 @@ namespace FunnelWeb.Repositories.Queries
             return new PagedResult<EntrySummary>(entries, total.Value, skip, take);
         }
 
-        
-
         protected IQueryOver<Entry, Entry> Query(ISession session)
         {
             var entrySummaryAlias = new EntrySummary();

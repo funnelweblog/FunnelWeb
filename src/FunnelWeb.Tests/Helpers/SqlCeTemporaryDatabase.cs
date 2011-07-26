@@ -56,6 +56,22 @@ namespace FunnelWeb.Tests.Helpers
             }
         }
 
+        public void WithSession(Action<ISession> callback)
+        {
+            using (var scope = container.BeginLifetimeScope())
+            {
+                var session = scope.Resolve<ISession>();
+
+                var txn = session.BeginTransaction();
+
+                callback(session);
+
+                session.Flush();
+
+                txn.Commit();
+            }
+        }
+
         public string DatabaseProvider
         {
             get { return databaseProviderName; }

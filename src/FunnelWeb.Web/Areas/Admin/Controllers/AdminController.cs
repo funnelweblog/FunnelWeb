@@ -65,33 +65,38 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
         public virtual ActionResult Comments(int? pageNumber)
         {
-            var commentCount = (int)Math.Ceiling(AdminRepository.GetComments(0, int.MaxValue).Count()/20.00);
-            var comments = AdminRepository.GetComments((pageNumber??0) * 20, 20);
-            return View(new CommentsModel((pageNumber ?? 0), commentCount, comments));
+            var page = pageNumber ?? 0;
+            var comments = Repository.Find(new GetCommentsQuery(), page, 20);
+            return View(new CommentsModel(page, comments.Count, comments));
         }
 
         public virtual ActionResult DeleteComment(int id)
         {
-            var item = AdminRepository.GetComment(id);
-            AdminRepository.Delete(item);
+            var item = Repository.Get<Comment>(id);
+            Repository.Remove(item);
+            AdminRepository.UpdateCommentCountFor(item.Entry.Id);
             return RedirectToAction("Comments", "Admin");
         }
 
         public virtual ActionResult DeleteAllSpam()
         {
-            var comments = AdminRepository.GetSpam().ToList();
+            var comments = Repository.Find(new GetSpamQuery()).ToList();
             foreach (var comment in comments)
-                AdminRepository.Delete(comment);
+                Repository.Remove(comment);
+            foreach (var entryToUpdate in comments.Select(c=>c.Entry.Id).GroupBy(id=>id))
+            {
+                AdminRepository.UpdateCommentCountFor(entryToUpdate.Key);
+            }
             return RedirectToAction("Comments", "Admin");
         }
 
         public virtual ActionResult ToggleSpam(int id)
         {
-            var item = AdminRepository.GetComment(id);
+            var item = Repository.Get<Comment>(id);
             if (item != null)
             {
                 item.IsSpam = !item.IsSpam;
-                AdminRepository.Save(item);
+                AdminRepository.UpdateCommentCountFor(item.Entry.Id);
             }
             return RedirectToAction("Comments", "Admin");
         }
@@ -102,24 +107,23 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
         public virtual ActionResult Pingbacks()
         {
-            var pingbacks = AdminRepository.GetPingbacks();
+            var pingbacks = Repository.FindAll<Pingback>();
             return View(new PingbacksModel(pingbacks));
         }
 
         public virtual ActionResult DeletePingback(int id)
         {
-            var item = AdminRepository.GetPingback(id);
-            AdminRepository.Delete(item);
+            var item = Repository.Get<Pingback>(id);
+            Repository.Remove(item);
             return RedirectToAction("Pingbacks", "Admin");
         }
 
         public virtual ActionResult TogglePingbackSpam(int id)
         {
-            var item = AdminRepository.GetPingback(id);
+            var item = Repository.Get<Pingback>(id);
             if (item != null)
             {
                 item.IsSpam = !item.IsSpam;
-                AdminRepository.Save(item);
             }
             return RedirectToAction("Pingbacks", "Admin");
         }

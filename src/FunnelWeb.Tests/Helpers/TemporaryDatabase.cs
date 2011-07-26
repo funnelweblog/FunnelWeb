@@ -12,14 +12,6 @@ using NHibernate;
 
 namespace FunnelWeb.Tests.Helpers
 {
-    public interface ITemporaryDatabase : IDisposable, IConnectionStringProvider
-    {
-        void WithRepository(Action<IRepository> callback);
-        AdHocSqlRunner AdHoc { get; }
-        void CreateAndDeploy();
-        ScriptedExtension ScriptProviderFor<T>(T extensionWithScripts) where T : IRequireDatabaseScripts;
-    }
-
     public class TemporaryDatabase : ITemporaryDatabase
     {
         private readonly string connectionString;
@@ -59,6 +51,22 @@ namespace FunnelWeb.Tests.Helpers
                 var txn = session.BeginTransaction();
 
                 callback(repo);
+
+                session.Flush();
+
+                txn.Commit();
+            }
+        }
+
+        public void WithSession(Action<ISession> callback)
+        {
+            using (var scope = container.BeginLifetimeScope())
+            {
+                var session = scope.Resolve<ISession>();
+
+                var txn = session.BeginTransaction();
+
+                callback(session);
 
                 session.Flush();
 
