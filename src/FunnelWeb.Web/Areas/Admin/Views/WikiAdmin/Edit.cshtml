@@ -19,19 +19,19 @@
 }
 
 @section Summary {
-  @if (Model.IsNew) {     
+  @if (Model.IsNew) {
   <p>The page you navigated to has not been created yet. Use the editor below to create the first version of this page.</p>
   } else {
   <p>Use the editor below to update this page. Alternatively, you can @Html.ActionLink("go back to the previous page", "Edit", new { Area = "Admin", page = Model.Title, revertToRevision = Model.LatestRevisionNumber - 1 }).</p>
-  }  
+  }
 }
 
 @if (Model.IsNew) {
 <h1>Create: @Model.Title</h1>
-} else {     
+} else {
 <h1>Edit: @Model.Title</h1>
 }
-    
+
 @Html.ValidationSummary("Edit unsuccessful. Please correct the errors below.")
 
 @using (Html.BeginForm("Edit", "WikiAdmin", FormMethod.Post, new { Area = "Admin" }))
@@ -45,8 +45,9 @@
     @Html.TextBoxFor(m => m.Name, Html.AttributesFor(m => m.Name))
     @if (!string.IsNullOrWhiteSpace(Model.Name))
     {
+      // This link is broken. I'm not sure where is must go
       <span>@Html.ActionLink(Model.Name, "Page", "Wiki", new { page = Model.Name }, null)</span>
-    }      
+    }
     @Html.ValidationMessageFor(m => m.Name)
     @Html.HintFor(m => m.Name)
   </div>
@@ -68,7 +69,7 @@
     @Html.ValidationMessageFor(m => m.MetaTitle)
     @Html.HintFor(m => m.MetaTitle)
   </div>
-      
+
   <div class="editor-label">
     @Html.LabelFor(m => m.PageTemplate)
   </div>
@@ -86,7 +87,7 @@
     @Html.ValidationMessageFor(m => m.PublishDate)
     @Html.HintFor(m => m.PublishDate)
   </div>
-      
+
   <div class="editor-label">
     @Html.LabelFor(m => m.MetaDescription)
   </div>
@@ -104,7 +105,7 @@
     @Html.ValidationMessageFor(m => m.Summary)
     @Html.HintFor(m => m.Summary)
   </div>
-      
+
   <div class="editor-label">
     @Html.LabelFor(m => m.SelectedTags)
   </div>
@@ -113,14 +114,14 @@
     @Html.ValidationMessageFor(m => m.SelectedTags)
     @Html.HintFor(m => m.SelectedTags)
   </div>
-      
+
   <div class="editor-label">
     @Html.Label("Upload")
   </div>
   <div class="editor-field">
     <span>@Html.ActionLink("Click here to upload files...", "Index", "Upload", new { Area = "Admin" }, new { target = "_blank" })</span>
   </div>
-  
+
   <div class="editor-label">
     @Html.LabelFor(m => m.Format)
   </div>
@@ -140,7 +141,7 @@
     @Html.ValidationMessageFor(m => m.Body)
     @Html.HintFor(m => m.Body)
   </div>
-        
+
   <div class="editor-label">
     @Html.LabelFor(m => m.ChangeSummary)
   </div>
@@ -159,7 +160,7 @@
     @Html.HintFor(m => m.DisableComments)
   </div>
   <br />
-  
+
   <div class="editor-label">
     @Html.LabelFor(m => m.HideChrome)
   </div>
@@ -168,7 +169,7 @@
     @Html.ValidationMessageFor(m => m.HideChrome)
     @Html.HintFor(m => m.HideChrome)
   </div>
-  
+
   <div class="editor-label">
     @Html.LabelFor(m => m.Status)
   </div>

@@ -27,7 +27,7 @@
     @foreach (var item in ViewData.Model.Items)
     {
     <tr>
-      <td><img width="16" height="16" src="/Content/Images/FileTypes/@item.Image" alt="@item.Extension" /></td>
+      <td><img width="16" height="16" src="@Url.Content("~/Content/Images/FileTypes/" + item.Image)" alt="@item.Extension" /></td>
       <td class="firstcolumn">
       @if (item.IsDirectory)
       {
