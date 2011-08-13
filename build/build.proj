@@ -45,8 +45,8 @@
 
     <!-- Ensure directories exists -->
     <MakeDir Directories="$(MSBuildProjectDirectory)\Artifacts" Condition="!Exists('$(MSBuildProjectDirectory)\Artifacts')" />
-    <MakeDir Directories="$(MSBuildProjectDirectory)\Published" Condition="!Exists('$(MSBuildProjectDirectory)\Artifacts')" />
-    <MakeDir Directories="$(MSBuildProjectDirectory)\Published\Files" Condition="!Exists('$(MSBuildProjectDirectory)\Artifacts\Files')" />
+    <MakeDir Directories="$(MSBuildProjectDirectory)\Published" Condition="!Exists('$(MSBuildProjectDirectory)\Published')" />
+    <MakeDir Directories="$(MSBuildProjectDirectory)\Published\Files" Condition="!Exists('$(MSBuildProjectDirectory)\Published\Files')" />
 
     <!-- Version Info -->
     <AssemblyInfo
