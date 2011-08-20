@@ -1,5 +1,5 @@
-﻿using System.Web.Mvc;
-using System.Web.Routing;
+﻿using System.Web.Routing;
+using FunnelWeb.Routing;
 
 namespace FunnelWeb.Web.Application.Mvc
 {
@@ -12,7 +12,7 @@ namespace FunnelWeb.Web.Application.Mvc
 
         public static Route MapLowerCaseRoute(this RouteCollection routes, string url, object defaults, object constraints)
         {
-            Route route = new LowercaseRoute(url, new MvcRouteHandler())
+            Route route = new LowercaseRoute(url, new FunnelWebMvcRouteHandler())
             {
                 Defaults = new RouteValueDictionary(defaults),
                 Constraints = new RouteValueDictionary(constraints)

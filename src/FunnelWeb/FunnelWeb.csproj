@@ -175,6 +175,12 @@
     <Compile Include="Repositories\Queries\SearchTagsByNameQuery.cs" />
     <Compile Include="Repositories\Queries\SwitchingSearchEntriesQuery.cs" />
     <Compile Include="RoutableFunnelWebExtension.cs" />
+    <Compile Include="Routing\FunnelWebMvcHandler.cs" />
+    <Compile Include="Routing\FunnelWebMvcRouteHandler.cs" />
+    <Compile Include="Routing\HttpContextDecorator.cs" />
+    <Compile Include="Routing\HttpContextProxy.cs" />
+    <Compile Include="Routing\HttpRequestDecorator.cs" />
+    <Compile Include="Routing\HttpRequestProxy.cs" />
     <Compile Include="Settings\IBootstrapSettings.cs" />
     <Compile Include="Settings\ISettings.cs" />
     <Compile Include="Settings\SettingsModule.cs" />
