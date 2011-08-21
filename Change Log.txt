@@ -4,6 +4,7 @@ New in v2.1
  - Updated to DbUp 2.0 (currently custom build)
  - Updated dependencies to latest version
  - RSS Feed specifies last updated in response headers
+ - Fixed comment count bug
 
 New in v2.0.2
  - Fixed jQuery UI reference
