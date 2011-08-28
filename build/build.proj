@@ -92,7 +92,7 @@
     <Copy SourceFiles="$(Root)\lib\FluentNHibernate\FluentNHibernate.dll"
           DestinationFiles="$(FunnelWebBaseDir)\lib\net40\FluentNHibernate.dll" />
 
-    <Exec Command='$(NuGet) pack "$(FunnelWebManifest)" -BasePath "$(FunnelWebBaseDir)" -OutputDirectory "$(Root)\build\Artifacts"' />
+    <Exec Command='"$(NuGet)" pack "$(FunnelWebManifest)" -BasePath "$(FunnelWebBaseDir)" -OutputDirectory "$(Root)\build\Artifacts"' />
 
     <!-- Publish -->
     <MSBuild Projects="$(Root)\src\FunnelWeb.Web\FunnelWeb.Web.csproj"
@@ -151,6 +151,6 @@
     <Exec Condition="$(teamcity_dotnet_nunitlauncher) != ''" 
           Command="$(teamcity_dotnet_nunitlauncher) v4.0 x86 NUnit-2.5.0 @(TestAssemblies->'%(FullPath)', '%20')" />
     <Exec Condition="$(teamcity_dotnet_nunitlauncher) == ''" 
-          Command="$(nunitconsoleexe) @(TestAssemblies->'%(FullPath)', '%20')" />
+          Command="&quot;$(nunitconsoleexe)&quot; &quot;@(TestAssemblies->'%(FullPath)', '%20')&quot;" />
   </Target>
 </Project>

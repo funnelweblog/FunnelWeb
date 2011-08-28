@@ -40,7 +40,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         public virtual ActionResult Logout()
         {
             Authenticator.Logout();
-            return Redirect("/");  
+            return Redirect(Url.Content("~/"));  
         }
     }
 }
