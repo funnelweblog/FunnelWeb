@@ -178,7 +178,7 @@ namespace FunnelWeb.Model
                 var tagStrings = (TagsCommaSeparated ?? string.Empty).Split(',', ';', ' ')
                     .Select(x => x.Trim().ToLowerInvariant())
                     .Where(x => x.Length > 0);
-                return tagStrings.Select(s => AllTags.FirstOrDefault(t => t.Name == s) ?? new Tag { Name = s });
+                return tagStrings.Select(s => AllTags.FirstOrDefault(t => t.Name.Trim() == s.Trim()) ?? new Tag { Name = s });
             }
             set
             {
