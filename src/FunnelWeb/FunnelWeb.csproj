@@ -109,6 +109,7 @@
     <Compile Include="DatabaseDeployer\ApplicationDatabase.cs" />
     <Compile Include="DatabaseDeployer\DatabaseModule.cs" />
     <Compile Include="DatabaseDeployer\DatabaseUpgradeDetector.cs" />
+    <Compile Include="DatabaseDeployer\DbProviders\FunnelWebSqlServerCeDriver.cs" />
     <Compile Include="DatabaseDeployer\DbProviders\FunnelWebCe40Dialect.cs" />
     <Compile Include="DatabaseDeployer\DbProviders\ProfiledClientBatchingBatcherFactory.cs" />
     <Compile Include="DatabaseDeployer\DbProviders\ProfiledSqlClientBatchingBatcher.cs" />
