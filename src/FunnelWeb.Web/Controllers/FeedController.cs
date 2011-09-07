@@ -81,7 +81,7 @@ namespace FunnelWeb.Web.Controllers
                                 new SyndicationPerson {Name = settings.Author}
                             },
                     },
-                    Keywords = e.Tags.Select(x => x.Name).ToArray()
+                    Keywords = e.TagsCommaSeparated.Split(',')
                 };
 
             return FeedResult(items.Select(i =>
