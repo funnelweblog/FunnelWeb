@@ -1,10 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.ServiceModel.Activation;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
-using FunnelWeb.Routing;
 using FunnelWeb.Web.Application.Mvc;
 
 namespace FunnelWeb.Web
@@ -89,8 +87,8 @@ namespace FunnelWeb.Web
             routes.MapLowerCaseRoute("trackbacks-for/{*page}", new { controller = "Wiki", action = "Pingbacks" });
 
             // Remove .aspx
-            routes.Add(new RedirectRoute("(?<page>[a-zA-Z0-9/\\-\\._\\+ ]+)\\.aspx", new FunnelWebMvcRouteHandler()) { ReplacePattern = "/$1" });
-            routes.Add(new RedirectRoute("(?<page>rss)$", new FunnelWebMvcRouteHandler()) { ReplacePattern = "feed", ResponseCode = 302});
+            routes.Add(new RedirectRoute("(?<page>[a-zA-Z0-9/\\-\\._\\+ ]+)\\.aspx", new MvcRouteHandler()) { ReplacePattern = "/$1" });
+            routes.Add(new RedirectRoute("(?<page>rss)$", new MvcRouteHandler()) { ReplacePattern = "feed", ResponseCode = 302 });
 
             routes.MapLowerCaseRoute("{*page}", new { controller = "Wiki", action = "Page" }, defaultConstraint);
 

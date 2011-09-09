@@ -16,7 +16,7 @@ namespace FunnelWeb.Web.Application
 
         private static void BeginRequest(object sender, EventArgs e)
         {
-            var context = HttpContext.Current;
+            var context = new FunnelWeb.Routing.HttpContextDecorator(HttpContext.Current.Request.RequestContext.HttpContext);
 
             if (context.Request.Url.AbsolutePath.StartsWith("get", StringComparison.InvariantCultureIgnoreCase) || context.Request.Url.AbsolutePath.StartsWith("/get", StringComparison.InvariantCultureIgnoreCase))
             {
@@ -38,9 +38,9 @@ namespace FunnelWeb.Web.Application
                 idealUrl += context.Request.Url.Query;
             }
 
-            if (context.Request.Url.AbsoluteUri == idealUrl || context.Request.Url.AbsoluteUri == idealUrl + "/") 
+            if (context.Request.Url.AbsoluteUri == idealUrl || context.Request.Url.AbsoluteUri == idealUrl + "/")
                 return;
-            
+
             HttpContext.Current.Response.Clear();
             HttpContext.Current.Response.Status = "301 Moved Permanently";
             HttpContext.Current.Response.AddHeader("Location", idealUrl);

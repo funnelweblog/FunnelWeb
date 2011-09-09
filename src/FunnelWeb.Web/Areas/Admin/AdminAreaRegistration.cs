@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Web.Mvc;
-using System.Web.Routing;
-using FunnelWeb.Routing;
+﻿using System.Web.Mvc;
 
 namespace FunnelWeb.Web.Areas.Admin
 {
@@ -63,12 +60,6 @@ namespace FunnelWeb.Web.Areas.Admin
                 "admin/{action}/{id}",
                 new { controller = "Admin", action = "Index", id = UrlParameter.Optional }
                 );
-
-            var routes = context.Routes.OfType<Route>().Where(r => r.RouteHandler is MvcRouteHandler);
-            foreach (var route in routes)
-            {
-                route.RouteHandler = new FunnelWebMvcRouteHandler();
-            }
         }
     }
 }
