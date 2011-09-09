@@ -164,8 +164,14 @@ namespace FunnelWeb.Model
         [DataType("TagsList")]
         public virtual string TagsCommaSeparated
         {
-            get { return tagsString ?? string.Join(", ", Tags.Select(x => x.Name)); }
-            set { tagsString = value; }
+            get
+            {
+                return tagsString ?? string.Join(",", Tags.Select(x => x.Name));
+            }
+            set
+            {
+                tagsString = value;
+            }
         }
 
         [Description("Comma-separated tags that will appear in the &lt;meta&gt; tags of the page.")]
@@ -178,11 +184,11 @@ namespace FunnelWeb.Model
                 var tagStrings = (TagsCommaSeparated ?? string.Empty).Split(',', ';', ' ')
                     .Select(x => x.Trim().ToLowerInvariant())
                     .Where(x => x.Length > 0);
-                return tagStrings.Select(s => AllTags.FirstOrDefault(t => t.Name == s) ?? new Tag { Name = s });
+                return tagStrings.Select(s => AllTags.FirstOrDefault(t => t.Name.Trim() == s.Trim()) ?? new Tag { Name = s });
             }
             set
             {
-                TagsCommaSeparated = string.Join(", ", value.Select(x => x.Name));
+                TagsCommaSeparated = string.Join(",", value.Select(x => x.Name));
             }
         }
 

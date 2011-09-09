@@ -61,7 +61,7 @@ namespace FunnelWeb.Tasks
                     entry.Published = post.DateCreated < DateTime.Today.AddYears(-100) ? DateTime.UtcNow : post.DateCreated;
                     entry.Summary = post.HasExcerpt ? NoLongerThan(500, StripHtml(post.Excerpt.UncodedText)) : "";
                     entry.MetaDescription = post.HasExcerpt ? NoLongerThan(200, StripHtml(post.Excerpt.UncodedText)) : NoLongerThan(200, StripHtml(post.Content.UncodedText));
-                    entry.Name = NoLongerThan(100, (post.PostUrl ?? post.PostName).Trim('/'));
+                    entry.Name = NoLongerThan(100, (post.PostUrl ?? post.PostName ?? post.ID).Trim('/'));
 
                     // Ensure this post wasn't already imported
                     var existing = repository.FindFirstOrDefault(new EntryByNameQuery(entry.Name));

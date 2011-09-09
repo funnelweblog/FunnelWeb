@@ -63,7 +63,7 @@ namespace FunnelWeb.DatabaseDeployer.DbProviders
         public IPersistenceConfigurer GetDatabaseConfiguration(IConnectionStringProvider connectionStringProvider)
         {
             return MsSqlCeConfiguration.Standard.ConnectionString(connectionStringProvider.ConnectionString)
-                .Dialect<FunnelWebMsSqlCe40Dialect>()
+                .Dialect<FunnelWebMsSqlCe40Dialect>().Driver<FunnelWebSqlServerCeDriver>()
                 .ShowSql();
         }
 
