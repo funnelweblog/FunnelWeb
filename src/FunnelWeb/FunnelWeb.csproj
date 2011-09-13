@@ -165,6 +165,7 @@
     <Compile Include="Repositories\Queries\EntryByNameQuery.cs" />
     <Compile Include="Repositories\Queries\EntryByNameAndRevisionQuery.cs" />
     <Compile Include="Repositories\Queries\FullTextSearchEntriesQuery.cs" />
+    <Compile Include="Repositories\Queries\GetAllCommentsQuery.cs" />
     <Compile Include="Repositories\Queries\GetCommentsQuery.cs" />
     <Compile Include="Repositories\Queries\GetEntriesByTagQuery.cs" />
     <Compile Include="Repositories\Queries\GetEntriesQuery.cs" />
