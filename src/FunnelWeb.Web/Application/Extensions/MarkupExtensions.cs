@@ -17,7 +17,6 @@ using FunnelWeb.Model;
 using FunnelWeb.Mvc;
 using FunnelWeb.Settings;
 using FunnelWeb.Web.Application.Markup;
-using FunnelWeb.Web.Application.Mvc;
 
 namespace FunnelWeb.Web.Application.Extensions
 {
@@ -37,7 +36,8 @@ namespace FunnelWeb.Web.Application.Extensions
 
         public static MvcHtmlString Qualify(this HtmlHelper html, string url)
         {
-            var requestUrl = html.ViewContext.HttpContext.Request.Url;
+            var request = new FunnelWeb.Routing.HttpRequestDecorator(html.ViewContext.HttpContext.Request);
+            var requestUrl = request.Url;
             var prefix = requestUrl.GetLeftPart(UriPartial.Authority);
             if (url.StartsWith("<a"))
             {
@@ -263,17 +263,17 @@ namespace FunnelWeb.Web.Application.Extensions
             return attributes;
         }
 
-		/// <summary>
-		/// Create an action link to an action in the Admin area.
-		/// </summary>
-		public static MvcHtmlString AdminActionLink(this HtmlHelper htmlHelper, string linkText, string actionName, string adminControllerName)
-		{	// http://stackoverflow.com/questions/2036305/how-to-specify-an-area-name-in-an-action-link
-			return htmlHelper.ActionLink(linkText, actionName, adminControllerName, new {Area = "Admin"}, new {});
-		}
+        /// <summary>
+        /// Create an action link to an action in the Admin area.
+        /// </summary>
+        public static MvcHtmlString AdminActionLink(this HtmlHelper htmlHelper, string linkText, string actionName, string adminControllerName)
+        {	// http://stackoverflow.com/questions/2036305/how-to-specify-an-area-name-in-an-action-link
+            return htmlHelper.ActionLink(linkText, actionName, adminControllerName, new {Area = "Admin"}, new {});
+        }
 
-		public static string ThemePath(this HtmlHelper helper)
-		{
-			return "~/Themes/" + helper.Settings().Theme;
-		}
+        public static string ThemePath(this HtmlHelper helper)
+        {
+            return "~/Themes/" + helper.Settings().Theme;
+        }
     }
 }

@@ -24,7 +24,12 @@ namespace FunnelWeb.Routing
 				Uri url = base.Url;
 				UriBuilder urlBuilder = new UriBuilder(url);
 
-				if (IsSecureConnection)
+				if (IsLocal)
+				{
+					// Do nothing
+					// When we're running the application from localhost (e.g. debugging from Visual Studio), we still need the port number
+				}
+				else if (IsSecureConnection)
 				{
 					urlBuilder.Port = 443;
 					urlBuilder.Scheme = "https";

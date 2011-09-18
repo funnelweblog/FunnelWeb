@@ -13,6 +13,7 @@ using FunnelWeb.Web.Application.Markup.Macros;
 using FunnelWeb.Web.Application.Mvc.ActionResults;
 using FunnelWeb.Repositories;
 using FunnelWeb.Repositories.Queries;
+
 namespace FunnelWeb.Web.Controllers
 {
     [FunnelWebRequest]
@@ -27,18 +28,20 @@ namespace FunnelWeb.Web.Controllers
             var settings = Settings.GetSettings<FunnelWebSettings>();
 
             Debug.Assert(Request.Url != null, "Request.Url != null");
-            var baseUri = Request.Url;
+
+            var request = new FunnelWeb.Routing.HttpRequestDecorator(Request);
+            var baseUri = request.Url;
             var feedUrl = new Uri(baseUri, Url.Action("Recent", "Wiki"));
             return new FeedResult(
                 new Atom10FeedFormatter(
                     new SyndicationFeed(settings.SiteTitle, settings.SearchDescription, feedUrl, items)
                     {
                         Id = baseUri.ToString(),
-                        Links = 
-                        { 
-                            new SyndicationLink(baseUri) 
-                            { 
-                                RelationshipType = "self" 
+                        Links =
+                        {
+                            new SyndicationLink(baseUri)
+                            {
+                                RelationshipType = "self"
                             }
                         },
                         LastUpdatedTime = items.Count() == 0 ? DateTime.Now : items.First().LastUpdatedTime
@@ -51,15 +54,16 @@ namespace FunnelWeb.Web.Controllers
         public virtual ActionResult Feed()
         {
             var settings = Settings.GetSettings<FunnelWebSettings>();
-            
-			var entries = Repository.Find(new GetFullEntriesQuery(entryStatus: EntryStatus.PublicBlog), 0, 20);
 
-            var baseUri = Request.Url;
+            var entries = Repository.Find(new GetFullEntriesQuery(entryStatus: EntryStatus.PublicBlog), 0, 20);
+
+            var request = new FunnelWeb.Routing.HttpRequestDecorator(Request);
+            var baseUri = request.Url;
 
             var items =
                 from e in entries
-				let itemUri = new Uri(baseUri, Url.Action("Page", "Wiki", new { page = e.Name }))
-				let viaFeedUri = new Uri(baseUri, "/via-feed" + Url.Action("Page", "Wiki", new { page = e.Name }))
+                let itemUri = new Uri(baseUri, Url.Action("Page", "Wiki", new { page = e.Name }))
+                let viaFeedUri = new Uri(baseUri, "/via-feed" + Url.Action("Page", "Wiki", new { page = e.Name }))
                 orderby e.Published descending
                 let content = SyndicationContent.CreateHtmlContent(BuildFeedItemBody(itemUri, viaFeedUri, e))
                 select new
@@ -96,7 +100,7 @@ namespace FunnelWeb.Web.Controllers
 
         private string BuildFeedItemBody(Uri itemUri, Uri viaFeedUri, EntryRevision latestRevision)
         {
-            var result = 
+            var result =
                 Renderer.RenderTrusted(latestRevision.Body, latestRevision.Format, CreateHelper())
                 + string.Format("<img src=\"{0}\" />", viaFeedUri);
 
@@ -118,12 +122,13 @@ namespace FunnelWeb.Web.Controllers
 
         public virtual ActionResult CommentFeed()
         {
-			var comments = Repository.Find(new GetCommentsQuery(), 0, 20);
+            var comments = Repository.Find(new GetCommentsQuery(), 0, 20);
 
-            var baseUri = Request.Url;
+            var request = new FunnelWeb.Routing.HttpRequestDecorator(Request);
+            var baseUri = request.Url;
             var items =
                 from e in comments
-				let itemUri = new Uri(baseUri, Url.Action("Page", "Wiki", new { page = e.Entry.Name }) + "#comment-" + e.Id)
+                let itemUri = new Uri(baseUri, Url.Action("Page", "Wiki", new { page = e.Entry.Name }) + "#comment-" + e.Id)
                 select new SyndicationItem
                 {
                     Id = itemUri.ToString(),
@@ -132,13 +137,13 @@ namespace FunnelWeb.Web.Controllers
                     Content = SyndicationContent.CreateHtmlContent(Renderer.RenderUntrusted(e.Body, Formats.Markdown, CreateHelper())),
                     LastUpdatedTime = e.Posted,
                     PublishDate = e.Posted,
-                    Links = 
+                    Links =
                     {
-                        new SyndicationLink(itemUri) 
+                        new SyndicationLink(itemUri)
                     },
-                    Authors = 
+                    Authors =
                     {
-                        new SyndicationPerson { Name = e.AuthorName, Uri = e.AuthorUrl } 
+                        new SyndicationPerson { Name = e.AuthorName, Uri = e.AuthorUrl }
                     },
                 };
 

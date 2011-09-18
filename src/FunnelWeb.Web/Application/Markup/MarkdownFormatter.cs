@@ -9,12 +9,20 @@ namespace FunnelWeb.Web.Application.Markup
 
         public MarkdownFormatter(HttpRequestBase request)
         {
-            this.request = request;
+            this.request = new FunnelWeb.Routing.HttpRequestDecorator(request);
         }
 
         public string Format(string content)
         {
-            var renderer = new MarkdownNetByBrianJeremy(request.Url.GetLeftPart(UriPartial.Authority) + request.ApplicationPath);
+            var relativePathUrlPrefix = request.Url.GetLeftPart(UriPartial.Authority) + request.ApplicationPath;
+            var relativePathUrlPrefixLength = relativePathUrlPrefix.Length;
+
+            // This fixes the issue where links such as <a href="/some/thing"></a> are rendered as http://domain//some/thing
+            // Notice the double slash after the domain (or application name)
+            relativePathUrlPrefix =
+                relativePathUrlPrefix[relativePathUrlPrefixLength - 1] == '/' ? relativePathUrlPrefix.Substring(0, relativePathUrlPrefixLength - 1) : relativePathUrlPrefix;
+
+            var renderer = new MarkdownNetByBrianJeremy(relativePathUrlPrefix);
             return renderer.Render(content);
         }
     }
