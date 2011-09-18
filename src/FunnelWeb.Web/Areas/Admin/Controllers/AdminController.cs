@@ -66,7 +66,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         public virtual ActionResult Comments(int? pageNumber)
         {
             var page = pageNumber ?? 0;
-            var comments = Repository.Find(new GetCommentsQuery(), page, 20);
+            var comments = Repository.Find(new GetAllCommentsQuery(), page, 20);
             return View(new CommentsModel(page, comments.Count, comments));
         }
 
