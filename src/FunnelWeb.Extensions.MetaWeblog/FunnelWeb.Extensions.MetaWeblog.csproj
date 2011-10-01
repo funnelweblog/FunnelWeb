@@ -80,8 +80,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(TargetPath)" "$(SolutionDir)FunnelWeb.Web\bin\Extensions\" /Y
-xcopy "$(TargetDir)CookComputing.XmlRpcV2.dll" "$(SolutionDir)FunnelWeb.Web\bin\Extensions\" /Y</PostBuildEvent>
+    <PostBuildEvent>start /MIN xcopy "$(TargetPath)" "$(SolutionDir)FunnelWeb.Web\bin\Extensions\" /R /S /Y
+start /MIN xcopy "$(TargetDir)CookComputing.XmlRpcV2.dll" "$(SolutionDir)FunnelWeb.Web\bin\Extensions\" /R /S /Y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

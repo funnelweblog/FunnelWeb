@@ -10,6 +10,7 @@ using FunnelWeb.Model.Repositories;
 using FunnelWeb.Repositories;
 using FunnelWeb.Repositories.Queries;
 using FunnelWeb.Settings;
+using FunnelWeb.Utilities;
 using NHibernate;
 
 namespace FunnelWeb.Extensions.MetaWeblog
@@ -140,9 +141,9 @@ namespace FunnelWeb.Extensions.MetaWeblog
                                          title = t.Name,
                                          description = t.Name,
                                          htmlUrl =
-                                             new Uri(HttpContext.Current.Request.Url, "/tagged/" + t.Name).ToString(),
+                                             new Uri(HttpContext.Current.Request.GetOriginalUrl(), "/tagged/" + t.Name).ToString(),
                                          rssUrl =
-                                             new Uri(HttpContext.Current.Request.Url, "/tagged/" + t.Name).ToString()
+                                             new Uri(HttpContext.Current.Request.GetOriginalUrl(), "/tagged/" + t.Name).ToString()
                                      })
                     .ToArray();
             }
@@ -238,7 +239,7 @@ namespace FunnelWeb.Extensions.MetaWeblog
             if (ValidateUser(username, password))
             {
                 // FunnelWeb only has a single blog
-                var homepageUri = new Uri(Context.Request.Url, "/");
+                var homepageUri = new Uri(Context.Request.GetOriginalUrl(), "/");
 
                 var blogInfo = new BlogInfo
                                    {

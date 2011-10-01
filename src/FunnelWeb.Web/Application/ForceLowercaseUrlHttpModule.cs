@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Web;
+using FunnelWeb.Utilities;
 
 namespace FunnelWeb.Web.Application
 {
@@ -16,29 +17,30 @@ namespace FunnelWeb.Web.Application
 
         private static void BeginRequest(object sender, EventArgs e)
         {
-            var context = new FunnelWeb.Routing.HttpContextDecorator(HttpContext.Current.Request.RequestContext.HttpContext);
+            var request = HttpContext.Current.Request;
+            var uri = request.GetOriginalUrl();
 
-            if (context.Request.Url.AbsolutePath.StartsWith("get", StringComparison.InvariantCultureIgnoreCase) || context.Request.Url.AbsolutePath.StartsWith("/get", StringComparison.InvariantCultureIgnoreCase))
+            if (uri.AbsolutePath.StartsWith("get", StringComparison.InvariantCultureIgnoreCase) || uri.AbsolutePath.StartsWith("/get", StringComparison.InvariantCultureIgnoreCase))
             {
                 return;
             }
 
-            if (context.Request.Url.AbsolutePath.EndsWith(".axd", StringComparison.InvariantCultureIgnoreCase) || context.Request.HttpMethod == "POST" || extensions.Any(x => context.Request.Url.AbsolutePath.EndsWith(x, StringComparison.InvariantCultureIgnoreCase)))
+            if (uri.AbsolutePath.EndsWith(".axd", StringComparison.InvariantCultureIgnoreCase) || request.HttpMethod == "POST" || extensions.Any(x => uri.AbsolutePath.EndsWith(x, StringComparison.InvariantCultureIgnoreCase)))
             {
                 return;
             }
 
-            var idealUrl = context.Request.Url.GetLeftPart(UriPartial.Path).ToLower(CultureInfo.InvariantCulture);
-            if (idealUrl.EndsWith("/") && context.Request.Url.AbsolutePath.LastIndexOf('/') > 0)
+            var idealUrl = uri.GetLeftPart(UriPartial.Path).ToLower(CultureInfo.InvariantCulture);
+            if (idealUrl.EndsWith("/") && uri.AbsolutePath.LastIndexOf('/') > 0)
             {
                 idealUrl = idealUrl.Substring(0, idealUrl.LastIndexOf('/'));
             }
-            if (!string.IsNullOrEmpty(context.Request.Url.Query))
+            if (!string.IsNullOrEmpty(uri.Query))
             {
-                idealUrl += context.Request.Url.Query;
+                idealUrl += uri.Query;
             }
 
-            if (context.Request.Url.AbsoluteUri == idealUrl || context.Request.Url.AbsoluteUri == idealUrl + "/")
+            if (uri.AbsoluteUri == idealUrl || uri.AbsoluteUri == idealUrl + "/")
                 return;
 
             HttpContext.Current.Response.Clear();

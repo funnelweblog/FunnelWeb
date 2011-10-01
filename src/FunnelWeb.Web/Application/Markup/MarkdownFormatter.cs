@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web;
+using FunnelWeb.Utilities;
 
 namespace FunnelWeb.Web.Application.Markup
 {
@@ -9,12 +10,12 @@ namespace FunnelWeb.Web.Application.Markup
 
         public MarkdownFormatter(HttpRequestBase request)
         {
-            this.request = new FunnelWeb.Routing.HttpRequestDecorator(request);
+            this.request = request;
         }
 
         public string Format(string content)
         {
-            var relativePathUrlPrefix = request.Url.GetLeftPart(UriPartial.Authority) + request.ApplicationPath;
+            var relativePathUrlPrefix = request.GetOriginalUrl().GetLeftPart(UriPartial.Authority) + request.ApplicationPath;
             var relativePathUrlPrefixLength = relativePathUrlPrefix.Length;
 
             // This fixes the issue where links such as <a href="/some/thing"></a> are rendered as http://domain//some/thing
