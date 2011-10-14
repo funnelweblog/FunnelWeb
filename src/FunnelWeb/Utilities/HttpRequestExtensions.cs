@@ -29,13 +29,18 @@ namespace FunnelWeb.Utilities
 			Uri url = request.Url;
 			UriBuilder uriBuilder = new UriBuilder(url);
 
-			if (String.Equals(hostUrl.Host, "localhost", StringComparison.OrdinalIgnoreCase))
+			if (String.Equals(hostUrl.Host, "localhost", StringComparison.OrdinalIgnoreCase) || hostUrl.Host == "127.0.0.1")
 			{
 				// Do nothing
-				// When we're running the application from localhost (e.g. debugging from Visual Studio), we still need the port number
+				// When we're running the application from localhost (e.g. debugging from Visual Studio), we'll keep everything as it is.
+				// We're not using request.IsLocal because it returns true as long as the request sender and receiver are in same machine.
+				// What we want is to only ignore the requests to 'localhost' or the loopback IP '127.0.0.1'.
 				return uriBuilder.Uri;
 			}
 
+			// When the application is run behind a load-balancer (or forward proxy), request.IsSecureConnection returns 'true' or 'false'
+			// based on the request from the load-balancer to the web server (e.g. IIS) and not the actual request to the load-balancer.
+			// The same is also applied to request.Url.Scheme (or uriBuilder.Scheme, as in our case).
 			bool isSecureConnection = String.Equals(request.Headers["X-Forwarded-Proto"], "https", StringComparison.OrdinalIgnoreCase);
 
 			if (isSecureConnection)
@@ -61,7 +66,7 @@ namespace FunnelWeb.Utilities
 
 		public static string GetOriginalUserHostAddress(this HttpRequestBase request)
 		{
-			var forwardedFor = request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+			var forwardedFor = request.Headers["X-Forwarded-For"];
 
 			if (String.IsNullOrEmpty(forwardedFor))
 			{
