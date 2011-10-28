@@ -51,12 +51,26 @@ namespace FunnelWeb.Tests.Web.Controllers
 
         private static ControllerContext CreateControllerContext()
         {
-            var controllerContext = new ControllerContext();
-            var httpContext = Substitute.For<HttpContextBase>();
+            string host = "www.google.com";
+            string proto = "http";
+            string userIP = "127.0.0.1";
+
+            var headers = new System.Collections.Specialized.NameValueCollection {
+                {"Host", host},
+                {"X-Forwarded-Proto", proto},
+                {"X-Forwarded-For", userIP}
+            };
+
             var httpRequest = Substitute.For<HttpRequestBase>();
-            httpRequest.Url.Returns(new Uri("http://www.google.com"));
+            httpRequest.Url.Returns(new Uri(proto + "://" + host));
+            httpRequest.Headers.Returns(headers);
+
+            var httpContext = Substitute.For<HttpContextBase>();
             httpContext.Request.Returns(httpRequest);
+
+            var controllerContext = new ControllerContext();
             controllerContext.HttpContext = httpContext;
+
             return controllerContext;
         }
 
