@@ -1,0 +1,22 @@
+﻿@model Comment
+
+<div class="comment">
+    <a name="comment-@Model.Id"></a>
+    <div class="comment-author vcard">
+        <img class="gravatar photo" src="@Html.Gravatar(Model.AuthorEmail)" alt="@Html.Encode(Model.AuthorName)" />
+        <br />
+        @Html.UrlLink(Model.AuthorUrl, Model.AuthorName, "fn url")
+    </div>
+    <div class="comment-body">
+        <div class="comment-date">@Html.Date(Model.Posted)
+            @Html.CommentedAtRevision(Model, (EntryRevision)ViewBag.Entry)
+            @if (ViewData.IsLoggedIn())
+            {
+                @Html.ActionLink(Model.IsSpam ? "Unspam" : "Spam", "ToggleSpam", "Admin", new { Area = "Admin", id = Model.Id }, null)
+            }
+        </div>
+        @Html.RenderUntrusted(Model.Body, Formats.Markdown)
+    </div>
+    <div class="clear">
+    </div>
+</div>

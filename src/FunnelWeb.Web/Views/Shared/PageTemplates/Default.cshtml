@@ -120,43 +120,7 @@
 </div>
 @if (Model.Entry.IsDiscussionEnabled)
 {
-    <div class="comments">
-        <div class="comments-in">
-            <a name="comments"></a>
-            <h2>
-                Comments</h2>
-            @if (Model.Entry.Comments.Count == 0)
-            {
-                <div class="empty">
-                    <p>
-                        No comments yet. Be the first!</p>
-                </div>
-            }
-            @foreach (var comment in Model.Entry.Comments.Where(x => !x.IsSpam))
-            {
-                <div class="comment">
-                    <a name="comment-@comment.Id"></a>
-                    <div class="comment-author vcard">
-                        <img class="gravatar photo" src="@Html.Gravatar(comment.AuthorEmail)" alt="@Html.Encode(comment.AuthorName)" />
-                        <br />
-                        @Html.UrlLink(comment.AuthorUrl, comment.AuthorName, "fn url")
-                    </div>
-                    <div class="comment-body">
-                        <div class="comment-date">@Html.Date(comment.Posted)
-                            @Html.CommentedAtRevision(comment, Model.Entry)
-                            @if (ViewData.IsLoggedIn())
-                            {
-                                @Html.ActionLink(comment.IsSpam ? "Unspam" : "Spam", "ToggleSpam", "Admin", new { Area = "Admin", id = comment.Id }, null)
-                            }
-                        </div>
-                        @Html.RenderUntrusted(comment.Body, Formats.Markdown)
-                    </div>
-                    <div class="clear">
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
+    @Html.DisplayFor(x => x.Entry.Comments, new {Model.Entry})
 
     if (Html.Settings().DisableCommentsOlderThan > 0 && DateTime.UtcNow.AddDays(-Html.Settings().DisableCommentsOlderThan) > Model.Entry.Published)
     {

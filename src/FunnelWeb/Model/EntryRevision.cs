@@ -151,6 +151,7 @@ namespace FunnelWeb.Model
         public virtual string Author { get; set; }
         public virtual string RevisionAuthor { get; set; }
         
+        [DataType("Comments")]
         public virtual IList<Comment> Comments { get; set; }
         public virtual IList<Pingback> Pingbacks { get; set; }
         public virtual int PingbackCount { get; set; }
