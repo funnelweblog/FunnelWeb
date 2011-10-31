@@ -306,6 +306,7 @@ div.nav div.search
 	padding-bottom: 20px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
+    border-radius: 5px;
 }
 .comment .comment-author .fn
 {
@@ -328,7 +329,6 @@ div.nav div.search
 	padding-top: 6px;
 	display: inline-block;
 	width: 120px;
-	margin-bottom: 10px;
 }
 .form-body .editor-field
 {
