@@ -148,6 +148,15 @@
     @Html.HintFor(m => m.EnableDisqusCommenting)
   </div>
 
+  <div class="editor-label">
+    @Html.LabelFor(m => m.DisqusShortname)
+  </div>
+  <div class="editor-field">
+    @Html.TextBoxFor(m => m.DisqusShortname, new { @class = "medium" })
+    @Html.ValidationMessageFor(m => m.DisqusShortname)
+    @Html.HintFor(m => m.DisqusShortname)
+  </div>
+
   <h3>History</h3>
   <div class="editor-label">
     @Html.LabelFor(m => m.EnablePublicHistory)

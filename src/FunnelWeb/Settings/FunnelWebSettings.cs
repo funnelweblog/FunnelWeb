@@ -190,5 +190,11 @@ namespace FunnelWeb.Settings
         [Description("Enable the Disqus commenting system. Note - this will still require the theme to also use Disqus.")]
         [SettingStorage(StorageLocation.Database, "enable-disqus-comments")]
         public bool EnableDisqusCommenting { get; set; }
+
+        [DisplayName("Shortname for Disqus")]
+        [DefaultValue("")]
+        [Description("The shortname of your Disqus comments, configured on the Disqus website.")]
+        [SettingStorage(StorageLocation.Database, "disqus-shortname")]
+        public string DisqusShortname { get; set; }
     }
 }
