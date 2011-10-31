@@ -1,0 +1,58 @@
+﻿@model FunnelWeb.Web.Views.Wiki.PageModel
+
+@if (Html.Settings().EnableDisqusCommenting)
+{
+    Html.RenderPartial("_Disqus");
+}
+else
+{
+    <h2>Your Comments</h2>
+
+    @Html.ValidationSummary("Comment unsuccessful. Please correct the errors below.")
+
+    <div class='entry-comment'>
+        @using (Html.BeginForm("Page", "Wiki", new { page = Model.Page }, FormMethod.Post, new { @class = "promptBeforeUnload" }))
+        {
+            <div class="form-body">
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.CommenterName)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(m => m.CommenterName, Html.AttributesFor(m => m.CommenterName))
+                    @Html.ValidationMessageFor(m => m.CommenterName)
+                    @Html.HintFor(m => m.CommenterName)
+                </div>
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.CommenterBlog)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(m => m.CommenterBlog, Html.AttributesFor(m => m.CommenterBlog))
+                    @Html.ValidationMessageFor(m => m.CommenterBlog)
+                    @Html.HintFor(m => m.CommenterBlog)
+                </div>
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.CommenterEmail)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(m => m.CommenterEmail, Html.AttributesFor(m => m.CommenterEmail))
+                    @Html.ValidationMessageFor(m => m.CommenterEmail)
+                    @Html.HintFor(m => m.CommenterEmail)
+                </div>
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.Comments)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(m => m.Comments, Html.AttributesFor(m => m.Comments))
+                    @Html.ValidationMessageFor(m => m.Comments)
+                    @Html.HintFor(m => m.Comments)
+                </div>
+                <div class="editor-field">
+                    <input type="submit" id="submit" class="submit" value="Submit" />
+                </div>
+            </div>
+        }
+    </div>
+    <h3>Preview</h3>
+    <div id="wmd-preview" class="wmd-panel">
+    </div>
+}
