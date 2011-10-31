@@ -184,5 +184,11 @@ namespace FunnelWeb.Settings
         [Description("Enter the name of a page to use as your custom home page. Use 'blog' to show a list of recent posts.")]
         [SettingStorage(StorageLocation.Database, "home-page")]
         public string CustomHomePage { get; set; }
+
+        [DisplayName("Enable Disqus commenting")]
+        [DefaultValue(false)]
+        [Description("Enable the Disqus commenting system. Note - this will still require the theme to also use Disqus.")]
+        [SettingStorage(StorageLocation.Database, "enable-disqus-comments")]
+        public bool EnableDisqusCommenting { get; set; }
     }
 }

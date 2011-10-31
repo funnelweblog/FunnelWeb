@@ -111,6 +111,7 @@
   </div>
 
   <h3>Comments</h3>
+
   <div class="editor-label">
     @Html.LabelFor(m => m.DisableCommentsOlderThan)
   </div>
@@ -136,6 +137,15 @@
     @Html.TextAreaFor(m => m.SpamWords, new { @class = "large" })
     @Html.ValidationMessageFor(m => m.SpamWords)
     @Html.HintFor(m => m.SpamWords)
+  </div>
+
+  <div class="editor-label">
+    @Html.LabelFor(m => m.EnableDisqusCommenting)
+  </div>
+  <div class="editor-field">
+    @Html.CheckBoxFor(m => m.EnableDisqusCommenting)
+    @Html.ValidationMessageFor(m => m.EnableDisqusCommenting)
+    @Html.HintFor(m => m.EnableDisqusCommenting)
   </div>
 
   <h3>History</h3>
