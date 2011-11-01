@@ -132,5 +132,13 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
             return tagList;
         }
+
+        [HttpPost]
+        public virtual ActionResult DeletePage(int id)
+        {
+            Repository.Remove(Repository.Get<Entry>(id));
+            return RedirectToAction("PageList", "Admin");
+        }
+
     }
 }

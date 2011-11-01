@@ -6,6 +6,8 @@ namespace FunnelWeb.Model
 {
     public class EntrySummary
     {
+        public virtual int Id { get; set; }
+
         public virtual PageName Name { get; set; }
         public virtual string Title { get; set; }
         

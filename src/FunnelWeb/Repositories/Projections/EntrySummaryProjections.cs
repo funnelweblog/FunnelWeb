@@ -19,7 +19,8 @@ namespace FunnelWeb.Repositories.Projections
                                .Select(e => e.Summary).WithAlias(() => entrySummaryAlias.Summary)
                                .Select(e => e.Title).WithAlias(() => entrySummaryAlias.Title)
                                .Select(e=>e.Status).WithAlias(()=>entrySummaryAlias.Status)
-                               .Select(e => e.LatestRevision.Revised).WithAlias(() => entrySummaryAlias.LastRevised);
+                               .Select(e => e.LatestRevision.Revised).WithAlias(() => entrySummaryAlias.LastRevised)
+                               .Select(x => x.Id).WithAlias(() => entrySummaryAlias.Id);
 
                            return list;
                        };

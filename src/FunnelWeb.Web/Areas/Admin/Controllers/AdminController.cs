@@ -181,11 +181,5 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
             return View(new PageListModel(entries) { SortAscending = asc.GetValueOrDefault() });
         }
-
-        public virtual ActionResult DeletePage(int id)
-		{
-			Repository.Remove(Repository.Get<Entry>(id));
-			return RedirectToAction("PageList");
-		}
     }
 }

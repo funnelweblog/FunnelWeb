@@ -35,6 +35,7 @@
         <td>@Html.ActionLink("Comments", "PageList", "Admin", new { Area = "Admin", sort = "Comments", asc = !Model.SortAscending }, null)</td>
         <td>@Html.ActionLink("Published", "PageList", "Admin", new { Area = "Admin", sort = "Published", asc = !Model.SortAscending }, null)</td>
         <td>Last revision</td>
+        <td>Delete</td>
       </tr>
     </thead>
     <tbody>
@@ -46,6 +47,12 @@
         <td>@entry.CommentCount</td>
         <td>@Html.Date(entry.Published)</td>
         <td>@Html.Date(entry.LastRevised) (@Html.ActionLink("History", "Revisions", "Wiki", new { Area = "", page = entry.Name }, new { }))</td>
+        <td>
+            @using(Html.BeginForm("DeletePage", "WikiAdmin", new { Area = "Admin", id = entry.Id }, FormMethod.Post, null))
+             {
+                 <button type="submit">Delete</button>
+             }
+        </td>
       </tr>
   }
     </tbody>
