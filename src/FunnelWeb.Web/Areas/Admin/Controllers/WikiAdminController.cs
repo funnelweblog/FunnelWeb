@@ -92,7 +92,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 			entry.IsDiscussionEnabled = !model.DisableComments;
 			entry.MetaDescription = model.MetaDescription ?? string.Empty;
 			entry.HideChrome = model.HideChrome;
-			entry.Published = DateTime.Parse(model.PublishDate, CultureInfo.InvariantCulture).ToUniversalTime();
+			entry.Published = DateTime.Parse(model.PublishDate + " " + DateTime.Now.ToShortTimeString(), CultureInfo.InvariantCulture).ToUniversalTime();
 			entry.Status = model.Status;
 
 			var revision = entry.Revise();
