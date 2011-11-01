@@ -30,7 +30,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         [Authorize(Roles = "Moderator")]
         public virtual ActionResult Edit(PageName page, int? revertToRevision)
         {
-			var allTags = Repository.FindAll<Tag>();
+            var allTags = Repository.FindAll<Tag>();
 
             var entry =
                 revertToRevision == null
@@ -62,51 +62,57 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         [HttpPost]
         [Authorize(Roles = "Moderator")]
         public virtual ActionResult Edit(EntryRevision model)
-		{
-			model.AllTags = Repository.FindAll<Tag>();
+        {
+            model.AllTags = Repository.FindAll<Tag>();
 
-			if (!ModelState.IsValid)
-			{
-			    model.SelectedTags = GetEditTags(model);
-				return View(model);
-			}
+            if (!ModelState.IsValid)
+            {
+                model.SelectedTags = GetEditTags(model);
+                return View(model);
+            }
 
-			// Does an entry with that name already exist?
+            // Does an entry with that name already exist?
             var existing = Repository.FindFirstOrDefault(new EntryByNameQuery(model.Name));
-			if (existing != null && existing.Id != model.Id)
-			{
+            if (existing != null && existing.Id != model.Id)
+            {
                 model.SelectedTags = GetEditTags(model);
                 ModelState.AddModelError("PageExists", string.Format("A page with SLUG '{0}' already exists. You should edit that page instead.", model.Title));
-				return View(model);
-			}
+                return View(model);
+            }
 
-		    var author = Authenticator.GetName();
+            var author = Authenticator.GetName();
 
-		    var entry = Repository.Get<Entry>(model.Id) ?? new Entry { Author = author };
+            var entry = Repository.Get<Entry>(model.Id) ?? new Entry { Author = author };
 
             entry.Name = model.Name;
-			entry.PageTemplate = string.IsNullOrEmpty(model.PageTemplate) ? null : model.PageTemplate;
-			entry.Title = model.Title ?? string.Empty;
-			entry.Summary = model.Summary ?? string.Empty;
-			entry.MetaTitle = string.IsNullOrWhiteSpace(model.MetaTitle) ? model.Title : model.MetaTitle;
-			entry.IsDiscussionEnabled = !model.DisableComments;
-			entry.MetaDescription = model.MetaDescription ?? string.Empty;
-			entry.HideChrome = model.HideChrome;
-			entry.Published = DateTime.Parse(model.PublishDate + " " + DateTime.Now.ToShortTimeString(), CultureInfo.InvariantCulture).ToUniversalTime();
-			entry.Status = model.Status;
+            entry.PageTemplate = string.IsNullOrEmpty(model.PageTemplate) ? null : model.PageTemplate;
+            entry.Title = model.Title ?? string.Empty;
+            entry.Summary = model.Summary ?? string.Empty;
+            entry.MetaTitle = string.IsNullOrWhiteSpace(model.MetaTitle) ? model.Title : model.MetaTitle;
+            entry.IsDiscussionEnabled = !model.DisableComments;
+            entry.MetaDescription = model.MetaDescription ?? string.Empty;
+            entry.HideChrome = model.HideChrome;
+            
+            //Only change the publish date if the dates no longer match, this means that
+            //time changes wont be tracked.
+            var published = DateTime.Parse(model.PublishDate + " " + DateTime.Now.ToShortTimeString(), CultureInfo.InvariantCulture).ToUniversalTime();
+            if(entry.Published.Date != published.Date)
+                entry.Published = published;
 
-			var revision = entry.Revise();
-		    revision.Author = author;
-			revision.Body = model.Body;
-			revision.Reason = model.ChangeSummary ?? string.Empty;
-			revision.Format = model.Format;
+            entry.Status = model.Status;
+
+            var revision = entry.Revise();
+            revision.Author = author;
+            revision.Body = model.Body;
+            revision.Reason = model.ChangeSummary ?? string.Empty;
+            revision.Format = model.Format;
 
             var editTags = GetEditTags(model);
             var toDelete = entry.Tags.Where(t => !editTags.Contains(t)).ToList();
             var toAdd = editTags.Where(t => !entry.Tags.Contains(t)).ToList();
 
-		    foreach (var tag in toDelete)
-		        tag.Remove(entry);
+            foreach (var tag in toDelete)
+                tag.Remove(entry);
             foreach (var tag in toAdd)
             {
                 if (tag.Id == 0)
@@ -117,8 +123,8 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
             if (model.IsNew)
                 Repository.Add(entry);
 
-		    return RedirectToAction("Page", "Wiki", new { Area = "", page = model.Name});
-		}
+            return RedirectToAction("Page", "Wiki", new { Area = "", page = model.Name});
+        }
 
         private List<Tag> GetEditTags(EntryRevision model)
         {
