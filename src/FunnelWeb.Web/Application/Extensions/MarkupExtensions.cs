@@ -75,7 +75,7 @@ namespace FunnelWeb.Web.Application.Extensions
         public static IHtmlString Gravatar(this HtmlHelper html, string emailAddress)
         {
             var md5Hasher = MD5.Create();
-            var data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(emailAddress));
+            var data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(emailAddress.ToLower()));
             var sBuilder = new StringBuilder();
             for (var i = 0; i < data.Length; i++)
             {
