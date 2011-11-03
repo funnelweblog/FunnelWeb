@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DbUp.SqlCe</name>
+    </assembly>
+    <members>
+        <member name="T:SqlCeExtensions">
+            <summary>
+            Configuration extension methods for SQL CE.
+            </summary>
+        </member>
+        <member name="M:SqlCeExtensions.SqlCeDatabase(DbUp.Builder.SupportedDatabases,System.Func{System.Data.SqlServerCe.SqlCeConnection})">
+            <summary>
+            Creates an upgrader for SQL CE databases.
+            </summary>
+            <param name="supported">Fluent helper type.</param>
+            <param name="connectionFactory">The connection factory.</param>
+            <returns>
+            A builder for a database upgrader designed for SQL Server databases.
+            </returns>
+        </member>
+        <member name="M:SqlCeExtensions.SqlCeDatabase(DbUp.Builder.SupportedDatabases,System.String)">
+            <summary>
+            Creates an upgrader for SQL CE databases.
+            </summary>
+            <param name="supported">Fluent helper type.</param>
+            <param name="connectionString">The connection string.</param>
+            <returns>
+            A builder for a database upgrader designed for SQL Server databases.
+            </returns>
+        </member>
+        <member name="T:DbUp.SqlCe.SqlCePreprocessor">
+            <summary>
+            This preprocessor makes minor adjustments to your sql to make it compatible with SqlCe
+            </summary>
+        </member>
+        <member name="M:DbUp.SqlCe.SqlCePreprocessor.Process(System.String)">
+            <summary>
+            Performs some proprocessing step on a script
+            </summary>
+        </member>
+    </members>
+</doc>
