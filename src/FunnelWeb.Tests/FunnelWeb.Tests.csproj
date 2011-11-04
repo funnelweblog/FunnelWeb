@@ -160,10 +160,7 @@
     <Compile Include="Web\Model\Strings\PageNameTests.cs" />
     <Compile Include="Web\RoutingTests.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Repositories\Queries\" />
-    <Folder Include="Web\Application\Spam\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\FunnelWeb.Web\FunnelWeb.Web.csproj">
       <Project>{64FAABD6-F45B-4ED1-A3AD-6989C1934405}</Project>

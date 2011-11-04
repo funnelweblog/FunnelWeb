@@ -92,7 +92,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
             entry.IsDiscussionEnabled = !model.DisableComments;
             entry.MetaDescription = model.MetaDescription ?? string.Empty;
             entry.HideChrome = model.HideChrome;
-            
+
             //Only change the publish date if the dates no longer match, this means that
             //time changes wont be tracked.
             var published = DateTime.Parse(model.PublishDate + " " + DateTime.Now.ToShortTimeString(), CultureInfo.InvariantCulture).ToUniversalTime();
@@ -145,6 +145,5 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
             Repository.Remove(Repository.Get<Entry>(id));
             return RedirectToAction("PageList", "Admin");
         }
-
     }
 }

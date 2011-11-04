@@ -86,7 +86,7 @@ namespace FunnelWeb.Web.Application.Mvc
 
         public ViewEngineResult FindView(ControllerContext controllerContext, string viewName, string masterName, bool useCache)
         {
-            return CreateRealViewEngine().FindView(controllerContext, viewName, masterName, useCache);            
+            return CreateRealViewEngine().FindView(controllerContext, viewName, masterName, useCache);
         }
 
         public void ReleaseView(ControllerContext controllerContext, IView view)
