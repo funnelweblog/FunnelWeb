@@ -153,6 +153,7 @@ namespace FunnelWeb.Model
         
         [DataType("Comments")]
         public virtual IList<Comment> Comments { get; set; }
+        [DataType("Pingbacks")]
         public virtual IList<Pingback> Pingbacks { get; set; }
         public virtual int PingbackCount { get; set; }
 
@@ -192,7 +193,7 @@ namespace FunnelWeb.Model
                 TagsCommaSeparated = string.Join(",", value.Select(x => x.Name));
             }
         }
-
+        [DataType("Tags")]
         public virtual IEnumerable<Tag> AllTags { get; set; }
 
     }

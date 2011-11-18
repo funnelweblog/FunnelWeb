@@ -89,22 +89,7 @@
                 </div>
             }
         </div>
-        if (Model.Entry.Pingbacks.Count > 0)
-        {
-            <div class="trackbacks">
-                <h2>Trackbacks</h2>
-                <ul>
-                    @foreach (var pingback in Model.Entry.Pingbacks)
-                    {
-                        <li>@Html.Encode(pingback.TargetTitle) | <a href="@Html.AttributeEncode(pingback.TargetUri)">@Html.Encode(pingback.TargetUri)</a></li>
-                    }
-                </ul>
-                @if (Model.Entry.PingbackCount > Model.Entry.Pingbacks.Count)
-                {
-                    @Html.ActionLink(string.Format("View all {0} Trackbacks", Model.Entry.PingbackCount), "Pingbacks", "Wiki", new { page = Model.Entry.Name }, null)
-                }
-            </div>
-        }
+        @Html.DisplayFor(x => x.Entry.Pingbacks, new { Model.Entry.PingbackCount, Model.Entry.Name })
     }
     else
     {

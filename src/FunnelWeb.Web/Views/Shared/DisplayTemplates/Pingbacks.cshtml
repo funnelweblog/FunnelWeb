@@ -1,0 +1,19 @@
+﻿@using FunnelWeb.Model.Strings
+@model IList<Pingback>
+
+@if (Model.Count > 0)
+{
+    <div class="trackbacks">
+        <h2>Trackbacks</h2>
+        <ul>
+            @foreach (var pingback in Model)
+            {
+                <li>@Html.Encode(pingback.TargetTitle) | <a href="@Html.AttributeEncode(pingback.TargetUri)">@Html.Encode(pingback.TargetUri)</a></li>
+            }
+        </ul>
+        @if ((int)ViewData["PingbackCount"] > Model.Count)
+        {
+            @Html.ActionLink(string.Format("View all {0} Trackbacks", (int)ViewData["PingbackCount"]), "Pingbacks", "Wiki", new { page = (PageName)ViewData["Name"] }, null)
+        }
+    </div>
+}
