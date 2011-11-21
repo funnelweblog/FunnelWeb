@@ -21,12 +21,7 @@
 @Html.ValidationSummary("Comment unsuccessful. Please correct the errors below.")
 @if (Model.Entry.Status == FunnelWeb.Model.EntryStatus.Private)
 {
-    <div class='validation-summary-errors'>
-        This is a <strong>private</strong> page. Only logged in users will be able to see
-        it.
-        @Html.ActionLink("Edit this page ", "Edit", "WikiAdmin", new { Area = "Admin", page = Model.Page }, new { })
-        to make it public.
-    </div>    
+    Html.RenderPartial("_PrivateEntryNotification", Model.Page);
 }
 @if (!Model.Entry.HideChrome)
 {
