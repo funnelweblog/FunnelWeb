@@ -317,6 +317,7 @@
     <Content Include="Views\Shared\DisplayTemplates\Pingbacks.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Paginator.cshtml" />
     <Content Include="Views\Shared\_PrivateEntryNotification.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\FacebookLike.cshtml" />
     <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\README_ENU.txt" />
     <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\msvcr90.dll" />
     <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
