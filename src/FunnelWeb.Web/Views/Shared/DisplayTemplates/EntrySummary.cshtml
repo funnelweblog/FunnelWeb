@@ -1,10 +1,7 @@
 ﻿@model EntrySummary
 
 <div class='post-line @String.Join(" ", Html.CssKeywordsFor(Model))'>
-    <div class='revised'>
-        <span class='month'>@Model.Published.ToLocalTime().ToString("MMM d")</span> 
-        <span class='year'>@Model.Published.ToLocalTime().ToString("yyyy")</span>
-    </div>
+    @Html.DisplayFor(x => x.Published, new { @class = "revised" })
     <div class='comments'>
         <a href='@Url.Action("Page", "Wiki", new { page = Model.Name })#comments'>
             <span class='comment-count'>@Model.CommentCount</span>

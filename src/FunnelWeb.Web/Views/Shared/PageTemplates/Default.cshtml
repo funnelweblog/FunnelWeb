@@ -32,7 +32,7 @@
     <h1>
         @Html.ActionLink(Model.Entry.Title, "Page", "Wiki", new { page = Model.Entry.Name }, null)
     </h1>
-    @Html.DisplayFor(x => x.Entry.Published)
+    @Html.DisplayFor(x => x.Entry.Published, new { @class = "entry-date" })
 }
 <div class="entry-container@{if (Model.Entry.HideChrome) {<text> hidechrome</text>}}">
     @if (!Model.Entry.HideChrome && Model.Entry.IsPriorVersion)

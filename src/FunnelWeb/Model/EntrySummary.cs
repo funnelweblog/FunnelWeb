@@ -18,6 +18,7 @@ namespace FunnelWeb.Model
         
         public virtual int CommentCount { get; set; }
         public virtual string MetaDescription { get; set; }
+        [DataType("PublishedDate")]
         public virtual DateTime Published { get; set; }
         public virtual DateTime LastRevised { get; set; }
 
