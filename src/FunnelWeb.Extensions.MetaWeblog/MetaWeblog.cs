@@ -61,12 +61,14 @@ namespace FunnelWeb.Extensions.MetaWeblog
             {
                 using (var transaction = session.BeginTransaction(IsolationLevel.Serializable))
                 {
+                    var isOldPost = true;
                     var author = authenticator.GetName();
                     var entry = repository.Get<Entry>(Int32.Parse(postid));
+                    
                     if (entry == null)
                     {
                         entry = new Entry { Author = author };
-                        repository.Add(entry);
+                        isOldPost = false;
                     }
 
                     entry.Name = post.permalink;
@@ -108,6 +110,12 @@ namespace FunnelWeb.Extensions.MetaWeblog
                         existingTag.Add(entry);
                     }
 
+                    //Does it need to be added?
+                    if (!isOldPost)
+                    {
+                        repository.Add(entry);
+                    }
+                    
                     session.Flush();
                     transaction.Commit();
 
