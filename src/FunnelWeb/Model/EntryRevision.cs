@@ -112,6 +112,7 @@ namespace FunnelWeb.Model
             set { Published = DateTime.Parse(value, CultureInfo.InvariantCulture).ToUniversalTime(); }
         }
 
+        [DataType("PublishedDate")]
         public virtual DateTime Published { get; set; }
         
         [DataType("Tags")]
