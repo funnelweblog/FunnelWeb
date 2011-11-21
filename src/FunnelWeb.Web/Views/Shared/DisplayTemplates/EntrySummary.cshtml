@@ -3,10 +3,17 @@
 <div class='post-line @String.Join(" ", Html.CssKeywordsFor(Model))'>
     @Html.DisplayFor(x => x.Published, new { @class = "revised" })
     <div class='comments'>
-        <a href='@Url.Action("Page", "Wiki", new { page = Model.Name })#comments'>
-            <span class='comment-count'>@Model.CommentCount</span>
-            <span>comment@(Model.CommentCount == 1 ? "" : "s")</span>
-        </a>
+            @if (Html.Settings().EnableDisqusCommenting)
+            {
+                <a href="@Url.Action("Page", "Wiki", new { page = Model.Name })#disqus_thread" data-disqus-identifier="@Model.Name">Comment(s)</a>
+            }
+            else
+            {
+                <a href='@Url.Action("Page", "Wiki", new { page = Model.Name })#comments'>
+                    <span class='comment-count'>@Model.CommentCount</span>
+                    <span>comment@(Model.CommentCount == 1 ? "" : "s")</span>
+                </a>
+            }
     </div>
     <div class='summary'>
         <h2>@Html.ActionLink(Model.Title, "Page", "Wiki", new { page = Model.Name }, null)</h2>
