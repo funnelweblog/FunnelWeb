@@ -1,0 +1,33 @@
+﻿@model FunnelWeb.Web.Views.Wiki.PageModel
+
+@if (!Model.Entry.HideChrome)
+{
+    <div class='entry-tools'>
+        <span>
+            Posted by: @Model.Entry.Author@{if (@Model.Entry.RevisionAuthor != Model.Entry.Author) { Write(string.Format(", Last edit by: {0}", @Model.Entry.RevisionAuthor)); }}
+        </span>
+        <br />
+        <span>Last revised: <a href="@Html.ActionUrl("Page", new { page = Model.Page.ToString(), revision = Model.Entry.RevisionNumber })">@Html.Date(Model.Entry.Revised)</a></span>
+        @if (Html.Settings().EnablePublicHistory)
+        {
+            <span>@Html.ActionLink("History", "Revisions", "Wiki", new { page = Model.Page }, null)</span>
+        }
+        @if (ViewData.IsLoggedIn())
+        { 
+            <span>@Html.ActionLink("Edit", "Edit", "WikiAdmin", new { Area = "Admin", page = Model.Page }, new { })</span>
+        }
+        @if (Model.Entry.IsPriorVersion)
+        {
+            <div>
+                <span>You are looking at revision @Model.Entry.RevisionNumber of this page, which may
+                    be out of date. @Html.ActionLink("View the latest version.", "Page", "Wiki", new { page = Model.Entry.Name }, null)</span>
+            </div>
+        }
+    </div>
+}
+else if (ViewData.IsLoggedIn())
+{
+    <div class='entry-tools'>
+        <span>@Html.ActionLink("Edit", "Edit", "WikiAdmin", new { Area = "Admin", page = Model.Page }, new { })</span>
+    </div>
+}

@@ -1,0 +1,9 @@
+﻿@using FunnelWeb.Model.Strings
+@model PageName
+
+<div class='validation-summary-errors'>
+    This is a <strong>private</strong> page. Only logged in users will be able to see
+    it.
+    @Html.ActionLink("Edit this page ", "Edit", "WikiAdmin", new { Area = "Admin", page = Model }, new { })
+    to make it public.
+</div>

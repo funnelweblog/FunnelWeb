@@ -1,5 +1,4 @@
-﻿@using FunnelWeb.Utilities;
-@model FunnelWeb.Web.Views.Wiki.PageModel
+﻿@model FunnelWeb.Web.Views.Wiki.PageModel
 @{
     // This is the default template that renders a blog post.
     // The actual "Page" does nothing except render the body of the post and meta data.
@@ -18,25 +17,22 @@
 @section Summary {
     @Html.RenderTrusted(Model.Entry.Summary, Formats.Markdown)
 }
-@Html.ValidationSummary("Comment unsuccessful. Please correct the errors below.")
+
+@if (!Html.Settings().EnableDisqusCommenting)
+{
+    @Html.ValidationSummary("Comment unsuccessful. Please correct the errors below.")
+}
+
 @if (Model.Entry.Status == FunnelWeb.Model.EntryStatus.Private)
 {
-    <div class='validation-summary-errors'>
-        This is a <strong>private</strong> page. Only logged in users will be able to see
-        it.
-        @Html.ActionLink("Edit this page ", "Edit", "WikiAdmin", new { Area = "Admin", page = Model.Page }, new { })
-        to make it public.
-    </div>    
+    Html.RenderPartial("_PrivateEntryNotification", Model.Page);
 }
 @if (!Model.Entry.HideChrome)
 {
     <h1>
         @Html.ActionLink(Model.Entry.Title, "Page", "Wiki", new { page = Model.Entry.Name }, null)
     </h1>
-    <div class="entry-date">
-        <span class='month'>@Model.Entry.Published.ToLocalTime().ToString("MMM d")</span>
-        <span class='year'>@Model.Entry.Published.ToLocalTime().ToString("yyyy")</span>
-    </div>
+    @Html.DisplayFor(x => x.Entry.Published, new { @class = "entry-date" })
 }
 <div class="entry-container@{if (Model.Entry.HideChrome) {<text> hidechrome</text>}}">
     @if (!Model.Entry.HideChrome && Model.Entry.IsPriorVersion)
@@ -57,72 +53,26 @@
     @RenderBody()
     @if (!Model.Entry.HideChrome)
     {
-        if (Html.Settings().FacebookLike)
-        {
-        <div class="facebook">
-            <iframe src="http://www.facebook.com/plugins/like.php?href=@Url.Encode(Request.GetOriginalUrl().AbsoluteUri)&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true">
-            </iframe>
-        </div>
-        }
+        @Html.DisplayFor(x => Html.Settings().FacebookLike)
   
         @Html.DisplayFor(x => x.Entry.TagsCommaSeparated)
   
-        <div class='entry-tools'>
-            <span>
-                Posted by: @Model.Entry.Author@{if (@Model.Entry.RevisionAuthor != Model.Entry.Author) { Write(string.Format(", Last edit by: {0}", @Model.Entry.RevisionAuthor)); }}
-            </span>
-            <br />
-            <span>Last revised: <a href="@Html.ActionUrl("Page", new { page = Model.Page.ToString(), revision = Model.Entry.RevisionNumber })">@Html.Date(Model.Entry.Revised)</a></span>
-            @if (Html.Settings().EnablePublicHistory)
-            {
-                <span>@Html.ActionLink("History", "Revisions", "Wiki", new { page = Model.Page }, null)</span>
-            }
-            @if (ViewData.IsLoggedIn())
-            { 
-                <span>@Html.ActionLink("Edit", "Edit", "WikiAdmin", new { Area = "Admin", page = Model.Page }, new { })</span>
-            }
-            @if (Model.Entry.IsPriorVersion)
-            {
-                <div>
-                    <span>You are looking at revision @Model.Entry.RevisionNumber of this page, which may
-                        be out of date. @Html.ActionLink("View the latest version.", "Page", "Wiki", new { page = Model.Entry.Name }, null)</span>
-                </div>
-            }
-        </div>
-        if (Model.Entry.Pingbacks.Count > 0)
-        {
-            <div class="trackbacks">
-                <h2>Trackbacks</h2>
-                <ul>
-                    @foreach (var pingback in Model.Entry.Pingbacks)
-                    {
-                        <li>@Html.Encode(pingback.TargetTitle) | <a href="@Html.AttributeEncode(pingback.TargetUri)">@Html.Encode(pingback.TargetUri)</a></li>
-                    }
-                </ul>
-                @if (Model.Entry.PingbackCount > Model.Entry.Pingbacks.Count)
-                {
-                    @Html.ActionLink(string.Format("View all {0} Trackbacks", Model.Entry.PingbackCount), "Pingbacks", "Wiki", new { page = Model.Entry.Name }, null)
-                }
-            </div>
-        }
+        Html.RenderPartial("_EntryTools", Model, ViewData);
+        
+        @Html.DisplayFor(x => x.Entry.Pingbacks, new { Model.Entry.PingbackCount, Model.Entry.Name })
     }
     else
     {
-        if (ViewData.IsLoggedIn())
-        {
-        <div class='entry-tools'>
-            <span>@Html.ActionLink("Edit", "Edit", "WikiAdmin", new { Area = "Admin", page = Model.Page }, new { })</span>
-        </div>
-        }
+        Html.RenderPartial("_EntryTools", Model, ViewData);
     }
 </div>
 <div class="clear">
 </div>
 @if (Model.Entry.IsDiscussionEnabled)
 {
-    @Html.DisplayFor(x => x.Entry.Comments, new {Model.Entry})
+    @Html.DisplayFor(x => x.Entry.Comments, new { Model.Entry })
 
-    if (Html.Settings().DisableCommentsOlderThan > 0 && DateTime.UtcNow.AddDays(-Html.Settings().DisableCommentsOlderThan) > Model.Entry.Published)
+    if (Html.Settings().DisableCommentsOlderThan > 0 && DateTime.UtcNow.AddDays(-Html.Settings().DisableCommentsOlderThan) > Model.Entry.Published && !Html.Settings().EnableDisqusCommenting)
     {
         <p>No new comments are allowed on this post.</p>
     }

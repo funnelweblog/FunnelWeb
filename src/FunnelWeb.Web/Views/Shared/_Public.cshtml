@@ -19,6 +19,13 @@
   }))
   @RenderSection("Meta", required: false)
   @MvcHtmlString.Create(Html.Settings().HtmlHead)
+  <script>
+      /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+      window.disqus_shortname = '@Html.Settings().DisqusShortname'; // required: replace example with your forum shortname
+      window.disqus_identifier = document.title || 'Home';
+      window.disqus_developer = !! ~document.location.href.indexOf("localhost") ? 1 : 0;
+      window.disqus_url = document.location.href;
+  </script>
 </head>
 <body>
   <div class="wrap">
@@ -84,15 +91,22 @@
         Html.RequiresJs("showdown.js", "Scripts", 1);
         Html.RequiresJs("wmd.js", "Scripts", 1);
         Html.RequiresJs("site.js", "Scripts", 1);
-        @MvcMiniProfiler.MiniProfiler.RenderIncludes()
     }
-    @MvcHtmlString.Create(Html.RenderJsHere(new List<IClientDependencyPath> {
-    new BasicPath("Scripts", "~/Scripts"),
-    new BasicPath("ThemeScripts", "~/Themes/" + Html.Settings().Theme  + "/Content/Scripts/")
-  }))
     @MvcHtmlString.Create(Html.Settings().HtmlFooter)
   </div>
   <!-- Powered by FunnelWeb, the blog engine of real developers -->
   <!-- FunnelWeb version: @Html.Version() -->
+
+    @MvcHtmlString.Create(Html.RenderJsHere(new List<IClientDependencyPath> {
+            new BasicPath("Scripts", "~/Scripts"),
+            new BasicPath("ThemeScripts", "~/Themes/" + Html.Settings().Theme  + "/Content/Scripts/")
+        })
+    )
+
+  @MvcMiniProfiler.MiniProfiler.RenderIncludes()
+  @if (IsSectionDefined("Scripts"))
+  {
+      @RenderSection("Scripts")
+  }
 </body>
 </html>

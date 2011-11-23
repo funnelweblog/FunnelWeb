@@ -1,0 +1,6 @@
+﻿@model DateTime
+
+<div class="@ViewData["class"]">
+    <span class='month'>@Model.ToLocalTime().ToString("MMM d")</span>
+    <span class='year'>@Model.ToLocalTime().ToString("yyyy")</span>
+</div>

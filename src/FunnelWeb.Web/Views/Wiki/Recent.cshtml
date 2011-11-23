@@ -8,8 +8,19 @@
 {
     @Html.RenderTrusted(Html.Settings().Introduction, Formats.Markdown)
 }
+@section Scripts {
+<script>
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    } ());
+</script>
+}
 <h1>@Model.Title</h1>
 
 @Html.DisplayFor(x => x.Results)
 
-@Paginator.Render(Model.ActionName, Model.Results.Page, Model.Results.TotalPages)
+@Html.DisplayFor(x => x.Paginator)

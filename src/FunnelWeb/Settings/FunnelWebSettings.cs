@@ -171,6 +171,7 @@ namespace FunnelWeb.Settings
         [DefaultValue(true)]
         [Description("Show a Facebook 'Like' button under each page")]
         [SettingStorage(StorageLocation.Database, "facebook-like")]
+        [DataType("FacebookLike")]
         public bool FacebookLike { get; set; }
 
         [DisplayName("Public History")]
