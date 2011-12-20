@@ -45,7 +45,7 @@ namespace FunnelWeb.Web.Controllers
                             }
                         },
                         LastUpdatedTime = items.Count() == 0 ? DateTime.Now : items.First().LastUpdatedTime
-                    }), items.Max(i => i.LastUpdatedTime.LocalDateTime))
+                    }), items.Count() == 0 ? DateTime.Now : items.Max(i => i.LastUpdatedTime.LocalDateTime))
             {
                 ContentType = "application/atom+xml"
             };
