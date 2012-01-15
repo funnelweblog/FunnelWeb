@@ -34,8 +34,10 @@ namespace FunnelWeb.Repositories.Queries
             if (string.IsNullOrEmpty(SearchText) || SearchText.Trim().Length == 0)
                 return new PagedResult<EntryRevision>(new List<EntryRevision>(), 0, skip, take);
 
+            var entityPersister = session.SessionFactory.GetClassMetadata(typeof(Entry)) as NHibernate.Persister.Entity.AbstractEntityPersister;
+
             var isFullTextEnabled = session.CreateSQLQuery(
-                "SELECT FullTextServiceProperty('IsFullTextInstalled') + OBJECTPROPERTY(OBJECT_ID('Entry'), 'TableFullTextChangeTrackingOn')")
+                (String.Format("SELECT FullTextServiceProperty('IsFullTextInstalled') + OBJECTPROPERTY(OBJECT_ID('{0}'), 'TableFullTextChangeTrackingOn')", entityPersister.TableName)))
                 .List()[0];
 
             if ((int)isFullTextEnabled != 2)
