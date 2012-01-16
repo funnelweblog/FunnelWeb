@@ -8,7 +8,7 @@
     <meta name="description" content="@Model.Entry.MetaDescription" />
     <meta name="keywords" content="@Model.Entry.TagsCommaSeparated" />
     <link rel="canonical" href="@Html.Qualify(Html.ActionUrl("Page", new { page = Model.Entry.Name }))" />
-    <link rel="pingback"  href="@String.Concat(Request.Url.ToString().Substring(0, Request.Url.ToString().LastIndexOf("/")), "/pingback")" />
+    <link rel="pingback" href="@Html.Qualify("/pingback")" />
     @if (Model.Entry.IsPriorVersion)
     {
         <meta name="robots" content="noindex, nofollow" />
