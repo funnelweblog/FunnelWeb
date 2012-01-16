@@ -25,7 +25,7 @@
   <table width="90%" class='comment @(comment.IsSpam ? "spam" : "")'>
     <tr>
       <td colspan="2" width="90%">
-        <strong><a href="/@comment.Entry.Name/#comment-@comment.Id">@comment.Entry.Title</a></strong><br />
+        <strong><a href="@Url.Content("~/" + @comment.Entry.Name)/#comment-@comment.Id">@comment.Entry.Title</a></strong><br />
         @Html.RenderUntrusted(comment.Body, Formats.Markdown)
       </td>
     </tr>
