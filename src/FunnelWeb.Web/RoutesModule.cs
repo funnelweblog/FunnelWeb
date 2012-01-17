@@ -3,6 +3,7 @@ using System.ServiceModel.Activation;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
+using FunnelWeb.Web.Application.MetaWeblog;
 using FunnelWeb.Web.Application.Mvc;
 
 namespace FunnelWeb.Web
@@ -89,6 +90,12 @@ namespace FunnelWeb.Web
             // Remove .aspx
             routes.Add(new RedirectRoute("(?<page>[a-zA-Z0-9/\\-\\._\\+ ]+)\\.aspx", new MvcRouteHandler()) { ReplacePattern = "/$1" });
             routes.Add(new RedirectRoute("(?<page>rss)$", new MvcRouteHandler()) { ReplacePattern = "feed", ResponseCode = 302 });
+
+            builder.RegisterType<MetaWeblog>().As<IMetaWeblog>().InstancePerLifetimeScope();
+            // http://www.cookcomputing.com/blog/archives/xml-rpc-and-asp-net-mvc
+            routes.MapLowerCaseRoute("wlwmanifest.xml", new { controller = "MetaWeblog", action = "WlwManifest" });
+            routes.MapLowerCaseRoute("rsd.xml", new { controller = "MetaWeblog", action = "Rsd" });
+            routes.Add(new Route("{weblog}", null, new RouteValueDictionary(new { weblog = "blogapi" }), new MetaWeblogRouteHandler()));
 
             routes.MapLowerCaseRoute("{*page}", new { controller = "Wiki", action = "Page" }, defaultConstraint);
 

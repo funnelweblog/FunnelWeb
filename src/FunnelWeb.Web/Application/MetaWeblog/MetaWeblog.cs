@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -13,7 +13,7 @@ using FunnelWeb.Settings;
 using FunnelWeb.Utilities;
 using NHibernate;
 
-namespace FunnelWeb.Extensions.MetaWeblog
+namespace FunnelWeb.Web.Application.MetaWeblog
 {
     public class MetaWeblog : XmlRpcService, IMetaWeblog
     {
@@ -26,8 +26,8 @@ namespace FunnelWeb.Extensions.MetaWeblog
 
         public MetaWeblog(
             ISettingsProvider settingsProvider,
-            IRepository repository, 
-            ISession session, 
+            IRepository repository,
+            ISession session,
             IFileRepository fileRepository,
             IAuthenticator authenticator)
         {
@@ -64,7 +64,7 @@ namespace FunnelWeb.Extensions.MetaWeblog
                     var isOldPost = true;
                     var author = authenticator.GetName();
                     var entry = repository.Get<Entry>(Int32.Parse(postid));
-                    
+
                     if (entry == null)
                     {
                         entry = new Entry { Author = author };
@@ -95,7 +95,7 @@ namespace FunnelWeb.Extensions.MetaWeblog
 
                     var editTags = post.categories;
                     var toDelete = entry.Tags.Where(t => !editTags.Contains(t.Name)).ToList();
-                    var toAdd = editTags.Where(t => !entry.Tags.Any(tag=>tag.Name == t)).ToList();
+                    var toAdd = editTags.Where(t => !entry.Tags.Any(tag => tag.Name == t)).ToList();
 
                     foreach (var tag in toDelete)
                         tag.Remove(entry);
@@ -115,7 +115,7 @@ namespace FunnelWeb.Extensions.MetaWeblog
                     {
                         repository.Add(entry);
                     }
-                    
+
                     session.Flush();
                     transaction.Commit();
 
@@ -144,15 +144,15 @@ namespace FunnelWeb.Extensions.MetaWeblog
 
                 return repository.FindAll<Tag>()
                     .Select(t => new CategoryInfo
-                                     {
-                                         categoryid = t.Id.ToString(),
-                                         title = t.Name,
-                                         description = t.Name,
-                                         htmlUrl =
-                                             new Uri(HttpContext.Current.Request.GetOriginalUrl(), "/tagged/" + t.Name).ToString(),
-                                         rssUrl =
-                                             new Uri(HttpContext.Current.Request.GetOriginalUrl(), "/tagged/" + t.Name).ToString()
-                                     })
+                    {
+                        categoryid = t.Id.ToString(),
+                        title = t.Name,
+                        description = t.Name,
+                        htmlUrl =
+                            new Uri(HttpContext.Current.Request.GetOriginalUrl(), "/tagged/" + t.Name).ToString(),
+                        rssUrl =
+                            new Uri(HttpContext.Current.Request.GetOriginalUrl(), "/tagged/" + t.Name).ToString()
+                    })
                     .ToArray();
             }
             throw new XmlRpcFaultException(0, "User is not valid!");
@@ -250,11 +250,11 @@ namespace FunnelWeb.Extensions.MetaWeblog
                 var homepageUri = new Uri(Context.Request.GetOriginalUrl(), "/");
 
                 var blogInfo = new BlogInfo
-                                   {
-                                       blogName = funnelWebSettings.SiteTitle,
-                                       url = homepageUri.ToString(),
-                                       blogid = "FunnelWeb"
-                                   };
+                {
+                    blogName = funnelWebSettings.SiteTitle,
+                    url = homepageUri.ToString(),
+                    blogid = "FunnelWeb"
+                };
 
                 return new[] { blogInfo };
             }

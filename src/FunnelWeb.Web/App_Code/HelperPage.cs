@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using System.Web.WebPages;
 
-namespace FunnelWeb.Web.App_Code
+namespace FunnelWeb.Web
 {
     public class HelperPage : System.Web.WebPages.HelperPage 
     {

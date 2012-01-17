@@ -58,6 +58,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\ClientDependency-Mvc.1.4.0.0\lib\ClientDependency.Core.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="CookComputing.XmlRpcV2">
+      <HintPath>..\packages\xmlrpcnet.2.5.0\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
+    </Reference>
     <Reference Include="DbUp, Version=2.0.67.0, Culture=neutral, PublicKeyToken=4b419c53bdfd4cbf, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\dbup.2.0.67\lib\NET35\DbUp.dll</HintPath>
@@ -162,6 +165,11 @@
     <Compile Include="Application\Markup\Macros\IMacroExecutor.cs" />
     <Compile Include="Application\Markup\Macros\RazorMacroExecutor.cs" />
     <Compile Include="Application\Markup\MarkdownFormatter.cs" />
+    <Compile Include="Application\MetaWeblog\IMetaWeblog.cs" />
+    <Compile Include="Application\MetaWeblog\MetaWeblog.cs" />
+    <Compile Include="Application\MetaWeblog\MetaWeblogRouteHandler.cs" />
+    <Compile Include="Application\MetaWeblog\MetaWeblogSettings.cs" />
+    <Compile Include="Application\MetaWeblog\Structs.cs" />
     <Compile Include="Application\Mvc\ActionResults\FeedResult.cs" />
     <Compile Include="Application\Mvc\ActionResults\XmlActionResult.cs" />
     <Compile Include="Application\Mvc\FunnelWebControllerFactory.cs" />
@@ -193,6 +201,7 @@
     <Compile Include="Application\Authentication\AuthenticationModule.cs" />
     <Compile Include="Application\Mvc\Binders\BindersModule.cs" />
     <Compile Include="Application\Mime\MimeSupportModule.cs" />
+    <EmbeddedResource Include="Application\MetaWeblog\wlwmanifest.xml" />
     <Content Include="App_Code\HelperPage.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\SqlAuthenticationController.cs" />
@@ -202,6 +211,7 @@
     <Compile Include="Areas\Admin\Views\SqlAuthentication\NewUser.cs" />
     <Compile Include="Areas\Admin\Views\SqlAuthentication\SetupModel.cs" />
     <Compile Include="Areas\Admin\Views\Install\ExtensionVersion.cs" />
+    <Compile Include="Controllers\MetaWeblogController.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Areas\Admin\Views\Admin\BlogMLImportModel.cs" />
     <Compile Include="Areas\Admin\Views\Admin\CommentsModel.cs" />

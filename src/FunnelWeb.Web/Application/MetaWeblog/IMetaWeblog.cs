@@ -1,7 +1,8 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using CookComputing.XmlRpc;
 
-namespace FunnelWeb.Extensions.MetaWeblog
+namespace FunnelWeb.Web.Application.MetaWeblog
 {
 	public interface IMetaWeblog : IHttpHandler
     {

@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunnelWeb", "FunnelWeb\Funn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunnelWeb.Extensions.CommentNotification", "FunnelWeb.Extensions.CommentNotification\FunnelWeb.Extensions.CommentNotification.csproj", "{5C5EFCF0-454D-42E0-AA89-7F69FB5457BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunnelWeb.Extensions.MetaWeblog", "FunnelWeb.Extensions.MetaWeblog\FunnelWeb.Extensions.MetaWeblog.csproj", "{F891547C-2C79-470E-AE48-3F8813551A61}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CodeCoverage|Any CPU = CodeCoverage|Any CPU
@@ -107,26 +105,6 @@ Global
 		{5C5EFCF0-454D-42E0-AA89-7F69FB5457BA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{5C5EFCF0-454D-42E0-AA89-7F69FB5457BA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{5C5EFCF0-454D-42E0-AA89-7F69FB5457BA}.Release|x86.ActiveCfg = Release|Any CPU
-		{F891547C-2C79-470E-AE48-3F8813551A61}.CodeCoverage|Any CPU.ActiveCfg = Release|Any CPU
-		{F891547C-2C79-470E-AE48-3F8813551A61}.CodeCoverage|Any CPU.Build.0 = Release|Any CPU
-		{F891547C-2C79-470E-AE48-3F8813551A61}.CodeCoverage|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{F891547C-2C79-470E-AE48-3F8813551A61}.CodeCoverage|Mixed Platforms.Build.0 = Release|Any CPU
-		{F891547C-2C79-470E-AE48-3F8813551A61}.CodeCoverage|x86.ActiveCfg = Release|Any CPU
-		{F891547C-2C79-470E-AE48-3F8813551A61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F891547C-2C79-470E-AE48-3F8813551A61}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F891547C-2C79-470E-AE48-3F8813551A61}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{F891547C-2C79-470E-AE48-3F8813551A61}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{F891547C-2C79-470E-AE48-3F8813551A61}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{F891547C-2C79-470E-AE48-3F8813551A61}.FxCop|Any CPU.ActiveCfg = Release|Any CPU
-		{F891547C-2C79-470E-AE48-3F8813551A61}.FxCop|Any CPU.Build.0 = Release|Any CPU
-		{F891547C-2C79-470E-AE48-3F8813551A61}.FxCop|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{F891547C-2C79-470E-AE48-3F8813551A61}.FxCop|Mixed Platforms.Build.0 = Release|Any CPU
-		{F891547C-2C79-470E-AE48-3F8813551A61}.FxCop|x86.ActiveCfg = Release|Any CPU
-		{F891547C-2C79-470E-AE48-3F8813551A61}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F891547C-2C79-470E-AE48-3F8813551A61}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F891547C-2C79-470E-AE48-3F8813551A61}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{F891547C-2C79-470E-AE48-3F8813551A61}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{F891547C-2C79-470E-AE48-3F8813551A61}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

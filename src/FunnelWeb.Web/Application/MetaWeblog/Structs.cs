@@ -2,13 +2,14 @@
 using CookComputing.XmlRpc;
 
 // ReSharper disable InconsistentNaming
-namespace FunnelWeb.Extensions.MetaWeblog
+
+namespace FunnelWeb.Web.Application.MetaWeblog
 {
     public struct BlogInfo
     {
+        public string blogName;
         public string blogid;
         public string url;
-        public string blogName;
     }
 
     public struct Category
@@ -20,11 +21,11 @@ namespace FunnelWeb.Extensions.MetaWeblog
     [Serializable]
     public struct CategoryInfo
     {
+        public string categoryid;
         public string description;
         public string htmlUrl;
         public string rssUrl;
         public string title;
-        public string categoryid;
     }
 
     [XmlRpcMissingMapping(MappingAction.Ignore)]
@@ -38,17 +39,16 @@ namespace FunnelWeb.Extensions.MetaWeblog
     [XmlRpcMissingMapping(MappingAction.Ignore)]
     public struct Post
     {
+        public string[] categories;
         public DateTime dateCreated;
         public string description;
-        public string title;
-        public string[] categories;
+        public string mt_excerpt;
         public string permalink;
         public object postid;
+        public string title;
         public string userid;
         public string wp_slug;
-		public string mt_excerpt;
     }
-
 
     [XmlRpcMissingMapping(MappingAction.Ignore)]
     public struct Source
@@ -59,20 +59,20 @@ namespace FunnelWeb.Extensions.MetaWeblog
 
     public struct UserInfo
     {
-        public string userid;
+        public string email;
         public string firstname;
         public string lastname;
         public string nickname;
-        public string email;
         public string url;
+        public string userid;
     }
 
     [XmlRpcMissingMapping(MappingAction.Ignore)]
     public struct MediaObject
     {
+        public byte[] bits;
         public string name;
         public string type;
-        public byte[] bits;
     }
 
     [Serializable]
@@ -81,4 +81,5 @@ namespace FunnelWeb.Extensions.MetaWeblog
         public string url;
     }
 }
+
 // ReSharper restore InconsistentNaming

@@ -8,6 +8,7 @@
   <meta name="author" content="@Html.Settings().SiteTitle" />
   <link href="@Html.Qualify(Html.ActionUrl("Feed", "Feed", null))" type="application/atom+xml" rel="alternate" title="Blog Feed" />
   <link href="@Html.Qualify(Html.ActionUrl("CommentFeed", "Feed", null))" type="application/atom+xml" rel="alternate" title="Comments Feed" />
+  <link title="RSD" href="@Href("~/rsd.xml")" type="application/rsd+xml" rel="EditURI" />
   <link rel="icon" type="image/png" href="@Url.Content("~/Content/Resources/favicon.png")" />
   @{ 
     Html.RequiresCss("Base.css", "Base", 0);
