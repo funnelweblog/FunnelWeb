@@ -58,5 +58,10 @@
   }
   @MvcHtmlString.Create(Html.RenderJsHere(new BasicPath("Scripts", "~/Scripts")))
   @MvcHtmlString.Create(Html.Settings().HtmlFooter)
+  
+  @if (IsSectionDefined("Scripts"))
+  {
+    @RenderSection("Scripts")
+  }
 </body>
 </html>
