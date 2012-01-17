@@ -82,7 +82,7 @@ namespace FunnelWeb.Web.Application.MetaWeblog
                     revision.Author = author;
                     revision.Body = post.description;
                     revision.Reason = "API";
-                    revision.Format = Formats.Html;
+                    revision.Format = string.Equals(post.format, Formats.Markdown, StringComparison.InvariantCultureIgnoreCase) ? Formats.Markdown : Formats.Html;
 
                     if (string.IsNullOrWhiteSpace(entry.Name))
                         entry.Name = post.title.Replace(" ", "-");

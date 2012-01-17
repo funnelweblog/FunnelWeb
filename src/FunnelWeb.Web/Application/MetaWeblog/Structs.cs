@@ -42,6 +42,7 @@ namespace FunnelWeb.Web.Application.MetaWeblog
         public string[] categories;
         public DateTime dateCreated;
         public string description;
+        public string format;
         public string mt_excerpt;
         public string permalink;
         public object postid;
