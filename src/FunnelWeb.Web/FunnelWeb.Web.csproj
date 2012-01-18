@@ -186,6 +186,7 @@
     <Compile Include="Application\Mvc\RedirectRoute.cs" />
     <Compile Include="Application\Mvc\RegexRoutes.cs" />
     <Compile Include="Application\Mvc\RouteCollectionExtension.cs" />
+    <Compile Include="Application\Mvc\UrlHelperExtension.cs" />
     <Compile Include="Application\Mvc\ValidUrlAttribute.cs" />
     <Compile Include="Application\Mvc\ActionResults\PageTemplateActionResult.cs" />
     <Compile Include="Application\Mvc\WebAbstractionsModule.cs" />

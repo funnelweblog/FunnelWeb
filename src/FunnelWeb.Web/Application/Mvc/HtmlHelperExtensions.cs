@@ -10,6 +10,5 @@ namespace FunnelWeb.Web.Application.Mvc
         {
             return html.ViewData.TemplateInfo.GetFullHtmlFieldName(ExpressionHelper.GetExpressionText(expression));
         }
-
     }
 }
