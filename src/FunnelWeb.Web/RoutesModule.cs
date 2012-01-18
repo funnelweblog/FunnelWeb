@@ -91,7 +91,6 @@ namespace FunnelWeb.Web
             routes.Add(new RedirectRoute("(?<page>[a-zA-Z0-9/\\-\\._\\+ ]+)\\.aspx", new MvcRouteHandler()) { ReplacePattern = "/$1" });
             routes.Add(new RedirectRoute("(?<page>rss)$", new MvcRouteHandler()) { ReplacePattern = "feed", ResponseCode = 302 });
 
-            builder.RegisterType<MetaWeblog>().As<IMetaWeblog>().InstancePerLifetimeScope();
             // http://www.cookcomputing.com/blog/archives/xml-rpc-and-asp-net-mvc
             routes.MapLowerCaseRoute("wlwmanifest.xml", new { controller = "MetaWeblog", action = "WlwManifest" });
             routes.MapLowerCaseRoute("rsd.xml", new { controller = "MetaWeblog", action = "Rsd" });
