@@ -95,7 +95,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
             //Only change the publish date if the dates no longer match, this means that
             //time changes wont be tracked.
-            var published = DateTime.Parse(model.PublishDate + " " + DateTime.Now.ToShortTimeString(), CultureInfo.InvariantCulture).ToUniversalTime();
+            var published = DateTime.Parse(model.PublishDate + " " + DateTime.Now.ToShortTimeString(), CultureInfo.CurrentCulture).ToUniversalTime();
             if(entry.Published.Date != published.Date)
                 entry.Published = published;
 
