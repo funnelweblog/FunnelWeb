@@ -19,5 +19,11 @@
         /// <param name="name">The setting name.</param>
         /// <param name="value">The value to set it to.</param>
         void Set(string name, string value);
+
+        /// <summary>
+        /// Used to check if the settings file/provider exists
+        /// </summary>
+        /// <returns></returns>
+        bool ConfigFileMissing();
     }
 }

@@ -1,5 +1,7 @@
+using System;
 using System.Web.Mvc;
 using FunnelWeb.Authentication;
+using FunnelWeb.Settings;
 using FunnelWeb.Web.Areas.Admin.Views.Login;
 
 namespace FunnelWeb.Web.Areas.Admin.Controllers
@@ -7,12 +9,25 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
     [ValidateInput(false)]
     public class LoginController : Controller
     {
+        readonly Lazy<IBootstrapSettings> bootstrapSettings;
+
+        public LoginController(Lazy<IBootstrapSettings> bootstrapSettings)
+        {
+            this.bootstrapSettings = bootstrapSettings;
+        }
+
         public IAuthenticator Authenticator { get; set; }
 
         [HttpGet]
         public virtual ActionResult Login(LoginModel model)
         {
             ModelState.Clear();
+
+            if (model.DatabaseIssue == true)
+            {
+                model.ConfigFileMissing = bootstrapSettings.Value.ConfigFileMissing();
+            }
+
             return View(model);
         }
         

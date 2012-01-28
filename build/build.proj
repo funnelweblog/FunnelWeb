@@ -36,8 +36,8 @@
 
     <!-- Clean up -->
     <ItemGroup>
-      <FilesToDelete Include="$(Root)\src\**\bin\**\*.*" />
-      <FilesToDelete Include="$(Root)\src\**\obj\**\*.*" />
+      <FilesToDelete Include="$(Root)\src\**\bin\**\*.*" Exclude="**\_ReSharper*\**\*.*" />
+      <FilesToDelete Include="$(Root)\src\**\obj\**\*.*" Exclude="**\_ReSharper*\**\*.*" />
       <FilesToDelete Include="$(Root)\build\Published\**\*.*" />
       <FilesToDelete Include="$(Root)\build\Artifacts\**\*.*" />
     </ItemGroup>
@@ -97,8 +97,7 @@
     <!-- Publish -->
     <MSBuild Projects="$(Root)\src\FunnelWeb.Web\FunnelWeb.Web.csproj"
              Targets="ResolveReferences;_CopyWebApplication;_CopyBinDeployableAssemblies"
-             Properties="Configuration=Release;WebProjectOutputDir=$(Root)\build\Published\;OutDir=$(Root)\build\Published\bin\"
-      />
+             Properties="Configuration=Release;WebProjectOutputDir=$(Root)\build\Published\;OutDir=$(Root)\build\Published\bin\" />
     <!-- Also copy extensions -->
     <ItemGroup>
       <ExtensionsToPublish Include="$(Root)\src\FunnelWeb.Web\bin\Extensions\*.dll" />
@@ -114,26 +113,14 @@
     </ItemGroup>
     <Delete Files="@(PublishedFilesToDelete)" ContinueOnError="true" />
 
-    <!-- Rename web.config -->
+    <!-- Copy additional files -->
     <Copy SourceFiles="$(Root)\Breaking Changes.txt"
-          DestinationFiles="$(Root)\build\Published\Breaking Changes.txt">
-    </Copy>
+          DestinationFiles="$(Root)\build\Published\Breaking Changes.txt" />
     <Copy SourceFiles="$(Root)\Change Log.txt"
-          DestinationFiles="$(Root)\build\Published\Change Log.txt">
-    </Copy>
-    <Copy SourceFiles="$(Root)\build\Published\My.config"
-          DestinationFiles="$(Root)\build\Published\My.config.sample">
-    </Copy>
-    <Copy SourceFiles="$(Root)\src\FunnelWeb.Web\obj\Release\TransformWebConfig\transformed\Web.config"
-          DestinationFiles="$(Root)\build\Published\web.config"
-          Condition="Exists('$(Root)\src\FunnelWeb.Web\obj\Release\TransformWebConfig\transformed\Web.config')">
-    </Copy>
-    <Delete Files="$(Root)\build\Published\My.config"
-            Condition="!Exists('$(Root)\src\FunnelWeb.Web\obj\Release\TransformWebConfig\transformed\Web.config')" />
-    <Delete Files="$(Root)\build\Published\web.Debug.config"
-            Condition="Exists('$(Root)\build\Published\web.Debug.config')" />
-    <Delete Files="$(Root)\build\Published\web.Release.config"
-            Condition="Exists('$(Root)\build\Published\web.Release.config')" />
+          DestinationFiles="$(Root)\build\Published\Change Log.txt" />
+    <Move SourceFiles="$(Root)\build\Published\My.config"
+          DestinationFiles="$(Root)\build\Published\My.config.sample" />
+    
     <!-- Zip the Published folder -->
     <ItemGroup>
       <PublishedFilesToZip Include="$(Root)\build\Published\**\*.*" />
@@ -141,8 +128,7 @@
     <Zip Files="@(PublishedFilesToZip)"
          WorkingDirectory="$(Root)\build\Published"
          ZipFileName="$(MSBuildProjectDirectory)\Artifacts\FunnelWeb-$(Major).$(Minor).$(Build).$(Revision).zip"
-         ZipLevel="9"
-      />
+         ZipLevel="9" />
 
     <!-- Test -->
     <ItemGroup>

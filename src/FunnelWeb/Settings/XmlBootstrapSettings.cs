@@ -46,9 +46,14 @@ namespace FunnelWeb.Settings
             }
         }
 
+        public bool ConfigFileMissing()
+        {
+            return !File.Exists(bootstrapSettingsFilePath);
+        }
+
         private FunnelWebConfiguration OpenConfiguration()
         {
-            if (!File.Exists(bootstrapSettingsFilePath))
+            if (ConfigFileMissing())
             {
                 return new FunnelWebConfiguration();
             }

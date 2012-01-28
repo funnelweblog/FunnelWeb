@@ -1,16 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using FunnelWeb.Mvc;
-using FunnelWeb.Web.Application.Mvc;
 
 namespace FunnelWeb.Web.Areas.Admin.Views.Login
 {
     public class LoginModel
     {
-        public LoginModel()
-        {
-        }
-
         public bool? DatabaseIssue { get; set; }
+        public bool? ConfigFileMissing { get; set; }
         public string ReturnUrl { get; set; }
 
         [Required]
