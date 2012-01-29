@@ -17,7 +17,7 @@ namespace FunnelWeb.Settings
         {
             get
             {
-                var apphbConnectionString = ConfigurationManager.AppSettings["SQLSERVER_URI"];
+                var apphbConnectionString = ConfigurationManager.AppSettings["SQLSERVER_CONNECTION_STRING"];
 
                 if (!string.IsNullOrEmpty(apphbConnectionString))
                     return apphbConnectionString;
@@ -26,12 +26,12 @@ namespace FunnelWeb.Settings
             }
             set
             {
-                var apphbConnectionString = ConfigurationManager.AppSettings["SQLSERVER_URI"];
+                var apphbConnectionString = ConfigurationManager.AppSettings["SQLSERVER_CONNECTION_STRING"];
 
                 if (!string.IsNullOrEmpty(apphbConnectionString))
                 {
                     var config = WebConfigurationManager.OpenWebConfiguration("~");
-                    config.AppSettings.Settings["SQLSERVER_URI"].Value = value;
+                    config.AppSettings.Settings["SQLSERVER_CONNECTION_STRING"].Value = value;
                     config.Save(ConfigurationSaveMode.Modified);
                     ConfigurationManager.RefreshSection("appSettings");
 
