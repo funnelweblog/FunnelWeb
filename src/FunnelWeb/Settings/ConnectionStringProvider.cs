@@ -1,4 +1,6 @@
-﻿using FunnelWeb.DatabaseDeployer;
+﻿using System.Configuration;
+using System.Web.Configuration;
+using FunnelWeb.DatabaseDeployer;
 
 namespace FunnelWeb.Settings
 {
@@ -15,10 +17,27 @@ namespace FunnelWeb.Settings
         {
             get
             {
+                var apphbConnectionString = ConfigurationManager.AppSettings["SQLSERVER_URI"];
+
+                if (!string.IsNullOrEmpty(apphbConnectionString))
+                    return apphbConnectionString;
+
                 return settings.Get("funnelweb.configuration.database.connection");
             }
             set
             {
+                var apphbConnectionString = ConfigurationManager.AppSettings["SQLSERVER_URI"];
+
+                if (!string.IsNullOrEmpty(apphbConnectionString))
+                {
+                    var config = WebConfigurationManager.OpenWebConfiguration("~");
+                    config.AppSettings.Settings["SQLSERVER_URI"].Value = value;
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("appSettings");
+
+                    return;
+                }
+
                 settings.Set("funnelweb.configuration.database.connection", value);
             }
         }
