@@ -11,6 +11,7 @@ using FunnelWeb.Model.Strings;
 using FunnelWeb.Repositories;
 using FunnelWeb.Repositories.Queries;
 using FunnelWeb.Settings;
+using FunnelWeb.Utilities;
 using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Application.Spam;
 
@@ -83,8 +84,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
             var author = Authenticator.GetName();
 
             var entry = Repository.Get<Entry>(model.Id) ?? new Entry { Author = author };
-
-            entry.Name = model.Name;
+            entry.Name = string.IsNullOrWhiteSpace(model.Name) ? model.Title.Slugify() : model.Name.ToString();
             entry.PageTemplate = string.IsNullOrEmpty(model.PageTemplate) ? null : model.PageTemplate;
             entry.Title = model.Title ?? string.Empty;
             entry.Summary = model.Summary ?? string.Empty;
