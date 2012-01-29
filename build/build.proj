@@ -12,7 +12,7 @@
 
   <PropertyGroup>
     <Major>2</Major>
-    <Minor>1</Minor>
+    <Minor>2</Minor>
     <Build>0</Build>
     <Revision>0</Revision>
   </PropertyGroup>
