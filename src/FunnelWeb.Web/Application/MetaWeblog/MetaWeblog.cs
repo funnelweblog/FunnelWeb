@@ -192,7 +192,7 @@ namespace FunnelWeb.Web.Application.MetaWeblog
             return new Post
             {
                 dateCreated = entry.Revised,
-                categories = entry.Tags.Select(t => t.Name).ToArray(),
+                categories = entry.TagsCommaSeparated.Split(',').ToArray(),
                 description = entry.Body,
                 permalink = entry.Name.ToString(),
                 postid = entry.Id,

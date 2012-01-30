@@ -1,32 +1,30 @@
-﻿using System.Configuration;
-using FunnelWeb.DatabaseDeployer;
+﻿using FunnelWeb.DatabaseDeployer;
 
 namespace FunnelWeb.Settings
 {
     public class ConnectionStringProvider : IConnectionStringProvider
     {
         private readonly IBootstrapSettings settings;
+        private readonly IAppHarborSettings appHarborSettings;
 
-        public ConnectionStringProvider(IBootstrapSettings settings)
+        public ConnectionStringProvider(IBootstrapSettings settings, IAppHarborSettings appHarborSettings)
         {
             this.settings = settings;
+            this.appHarborSettings = appHarborSettings;
         }
 
         public string ConnectionString
         {
             get
             {
-                var appharborConnectionString = ConfigurationManager.AppSettings["SQLSERVER_CONNECTION_STRING"];
-                if (!string.IsNullOrEmpty(appharborConnectionString))
-                {
-                    return appharborConnectionString;
-                }
-
-                return settings.Get("funnelweb.configuration.database.connection");
+                return appHarborSettings.SqlServerConnectionString ?? settings.Get("funnelweb.configuration.database.connection");
             }
             set
             {
-                settings.Set("funnelweb.configuration.database.connection", value);
+                if (appHarborSettings.SqlServerConnectionString != null)
+                    appHarborSettings.SqlServerConnectionString = value;
+                else
+                    settings.Set("funnelweb.configuration.database.connection", value);
             }
         }
 
@@ -34,12 +32,6 @@ namespace FunnelWeb.Settings
         {
             get
             {
-                var appharborConnectionString = ConfigurationManager.AppSettings["SQLSERVER_CONNECTION_STRING"];
-                if (!string.IsNullOrEmpty(appharborConnectionString))
-                {
-                    return "dbo";
-                }
-
                 return settings.Get("funnelweb.configuration.database.schema");
             }
             set
@@ -50,10 +42,7 @@ namespace FunnelWeb.Settings
 
         public string DatabaseProvider
         {
-            get
-            {
-                return (settings.Get("funnelweb.configuration.database.provider") ?? "sql").ToLower();
-            }
+            get { return (settings.Get("funnelweb.configuration.database.provider") ?? "sql").ToLower(); }
             set { settings.Set("funnelweb.configuration.database.provider", value); }
         }
     }
