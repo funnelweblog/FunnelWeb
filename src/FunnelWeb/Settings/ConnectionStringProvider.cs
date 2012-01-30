@@ -1,25 +1,32 @@
-﻿using FunnelWeb.DatabaseDeployer;
+﻿using System.Configuration;
+using System.Web.Configuration;
+using FunnelWeb.DatabaseDeployer;
 
 namespace FunnelWeb.Settings
 {
     public class ConnectionStringProvider : IConnectionStringProvider
     {
         private readonly IBootstrapSettings settings;
+        private readonly IAppHarborSettings appHarborSettings;
 
-        public ConnectionStringProvider(IBootstrapSettings settings)
+        public ConnectionStringProvider(IBootstrapSettings settings, IAppHarborSettings appHarborSettings)
         {
             this.settings = settings;
+            this.appHarborSettings = appHarborSettings;
         }
 
         public string ConnectionString
         {
             get
             {
-                return settings.Get("funnelweb.configuration.database.connection");
+                return appHarborSettings.SqlServerConnectionString ?? settings.Get("funnelweb.configuration.database.connection");
             }
             set
             {
-                settings.Set("funnelweb.configuration.database.connection", value);
+                if (appHarborSettings.SqlServerConnectionString != null)
+                    appHarborSettings.SqlServerConnectionString = value;
+                else
+                    settings.Set("funnelweb.configuration.database.connection", value);
             }
         }
 
