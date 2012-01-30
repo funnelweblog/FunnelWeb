@@ -7,38 +7,26 @@ namespace FunnelWeb.Settings
     public class ConnectionStringProvider : IConnectionStringProvider
     {
         private readonly IBootstrapSettings settings;
+        private readonly IAppHarborSettings appHarborSettings;
 
-        public ConnectionStringProvider(IBootstrapSettings settings)
+        public ConnectionStringProvider(IBootstrapSettings settings, IAppHarborSettings appHarborSettings)
         {
             this.settings = settings;
+            this.appHarborSettings = appHarborSettings;
         }
 
         public string ConnectionString
         {
             get
             {
-                var apphbConnectionString = ConfigurationManager.AppSettings["SQLSERVER_CONNECTION_STRING"];
-
-                if (!string.IsNullOrEmpty(apphbConnectionString))
-                    return apphbConnectionString;
-
-                return settings.Get("funnelweb.configuration.database.connection");
+                return appHarborSettings.SqlServerConnectionString ?? settings.Get("funnelweb.configuration.database.connection");
             }
             set
             {
-                var apphbConnectionString = ConfigurationManager.AppSettings["SQLSERVER_CONNECTION_STRING"];
-
-                if (!string.IsNullOrEmpty(apphbConnectionString))
-                {
-                    var config = WebConfigurationManager.OpenWebConfiguration("~");
-                    config.AppSettings.Settings["SQLSERVER_CONNECTION_STRING"].Value = value;
-                    config.Save(ConfigurationSaveMode.Modified);
-                    ConfigurationManager.RefreshSection("appSettings");
-
-                    return;
-                }
-
-                settings.Set("funnelweb.configuration.database.connection", value);
+                if (appHarborSettings.SqlServerConnectionString != null)
+                    appHarborSettings.SqlServerConnectionString = value;
+                else
+                    settings.Set("funnelweb.configuration.database.connection", value);
             }
         }
 

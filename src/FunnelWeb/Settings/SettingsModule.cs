@@ -25,6 +25,10 @@ namespace FunnelWeb.Settings
                 .As<IBootstrapSettings>()
                 .SingleInstance();
 
+            builder.RegisterType<AppHarborSettings>()
+                .As<IAppHarborSettings>()
+                .SingleInstance();
+
             builder.Register(c => new SettingsProvider(c.Resolve<IAdminRepository>()))
                 .As<ISettingsProvider>()
                 .InstancePerLifetimeScope();
