@@ -44,7 +44,8 @@ if (Test-Path "C:\Program Files (x86)\Git\bin\git.exe")
 
 if (Test-Path "$env:temp\FunnelWebAppHarbour")
 {
-    Remove-Item "$env:temp\FunnelWebAppHarbour\*" -recurse
+    Remove-Item "$env:temp\FunnelWebAppHarbour\*" -recurse -force
+    Remove-Item "$env:temp\FunnelWebAppHarbour" -force
 }
 
 if (!(Test-Path "$env:temp\FunnelWebAppHarbour"))
