@@ -114,10 +114,10 @@
     <Delete Files="@(PublishedFilesToDelete)" ContinueOnError="true" />
 
     <!-- Copy additional files -->
-    <Copy SourceFiles="$(Root)\Breaking Changes.txt"
-          DestinationFiles="$(Root)\build\Published\Breaking Changes.txt" />
-    <Copy SourceFiles="$(Root)\Change Log.txt"
-          DestinationFiles="$(Root)\build\Published\Change Log.txt" />
+    <Copy SourceFiles="$(Root)\docs\Breaking Changes.md"
+          DestinationFiles="$(Root)\build\Published\Breaking Changes.md" />
+    <Copy SourceFiles="$(Root)\docs\Change Log.md"
+          DestinationFiles="$(Root)\build\Published\Change Log.md" />
     <Move SourceFiles="$(Root)\build\Published\My.config"
           DestinationFiles="$(Root)\build\Published\My.config.sample" />
     

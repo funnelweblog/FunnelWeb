@@ -55,6 +55,9 @@ pushd "$env:temp\FunnelWebAppHarbour"
 . $git clone $repo .
 . $git checkout
 
+# copy new stuff over
+copy "$root\build\published\*" "$env:temp\FunnelWebAppHarbour" -recurse -force
+
 if (!(Test-Path "$env:temp\FunnelWebAppHarbour\my.config"))
 {
     $myConfig = New-Object XML
@@ -67,8 +70,8 @@ if (!(Test-Path "$env:temp\FunnelWebAppHarbour\my.config"))
      {
           switch($setting.key)
           {
-            "funnelweb.configuration.authentication.username" { $setting.value = $funnelWebUsername }
-            "funnelweb.configuration.authentication.password" { $setting.value = $funnelWebPassword }
+            "funnelweb.configuration.authentication.username" { $setting.SetAttribute("value", $funnelWebUsername) }
+            "funnelweb.configuration.authentication.password" { $setting.SetAttribute("value", $funnelWebPassword) }
           } 
      }
      
@@ -79,8 +82,6 @@ if (!(Test-Path "$env:temp\FunnelWebAppHarbour\my.config"))
 #Remove Obsolete Extensions
 
 
-# copy new stuff over
-copy "$root\build\published\*" "$env:temp\FunnelWebAppHarbour" -recurse -force
 #Update repo
 & $git add "-A"
 & $git commit "-m Update FunnelWeb build"

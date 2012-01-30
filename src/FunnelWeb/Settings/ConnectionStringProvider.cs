@@ -1,4 +1,5 @@
-﻿using FunnelWeb.DatabaseDeployer;
+﻿using System.Configuration;
+using FunnelWeb.DatabaseDeployer;
 
 namespace FunnelWeb.Settings
 {
@@ -15,6 +16,12 @@ namespace FunnelWeb.Settings
         {
             get
             {
+                var appharborConnectionString = ConfigurationManager.AppSettings["SQLSERVER_CONNECTION_STRING"];
+                if (!string.IsNullOrEmpty(appharborConnectionString))
+                {
+                    return appharborConnectionString;
+                }
+
                 return settings.Get("funnelweb.configuration.database.connection");
             }
             set
@@ -27,6 +34,12 @@ namespace FunnelWeb.Settings
         {
             get
             {
+                var appharborConnectionString = ConfigurationManager.AppSettings["SQLSERVER_CONNECTION_STRING"];
+                if (!string.IsNullOrEmpty(appharborConnectionString))
+                {
+                    return "dbo";
+                }
+
                 return settings.Get("funnelweb.configuration.database.schema");
             }
             set
@@ -37,7 +50,10 @@ namespace FunnelWeb.Settings
 
         public string DatabaseProvider
         {
-            get { return (settings.Get("funnelweb.configuration.database.provider") ?? "sql").ToLower(); }
+            get
+            {
+                return (settings.Get("funnelweb.configuration.database.provider") ?? "sql").ToLower();
+            }
             set { settings.Set("funnelweb.configuration.database.provider", value); }
         }
     }
