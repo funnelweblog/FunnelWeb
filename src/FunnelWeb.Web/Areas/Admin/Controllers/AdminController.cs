@@ -67,7 +67,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         {
             var page = pageNumber ?? 0;
             var comments = Repository.Find(new GetAllCommentsQuery(), page, 20);
-            return View(new CommentsModel(page, comments.Count, comments));
+            return View(new CommentsModel(page, comments));
         }
 
         public virtual ActionResult DeleteComment(int id)
