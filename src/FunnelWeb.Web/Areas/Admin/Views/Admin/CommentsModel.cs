@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using FunnelWeb.Model;
+using FunnelWeb.Repositories;
 using FunnelWeb.Web.Models;
 
 namespace FunnelWeb.Web.Areas.Admin.Views.Admin
 {
     public class CommentsModel
     {
-        public CommentsModel(int pageNumber, IEnumerable<Comment> comments)
+        public CommentsModel(int pageNumber, PagedResult<Comment> comments)
         {
             PageNumber = pageNumber;
             Comments = comments;
@@ -15,7 +16,7 @@ namespace FunnelWeb.Web.Areas.Admin.Views.Admin
             {
                 ActionName = "Comments",
                 CurrentPage = pageNumber,
-                TotalPages = 1
+                TotalPages = comments.TotalPages
             };
         }
 
