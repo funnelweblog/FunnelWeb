@@ -10,7 +10,7 @@ $(function () {
             if (tagCache.hasOwnProperty(request.term)) {
                 response(tagCache[request.term]);
             } else {
-                $.getJSON('/tag/' + request.term, function (data) {
+                $.getJSON(getApplicationPath() + 'tag/' + request.term, function (data) {
                     var termExists = false;
                     for (var i = 0, l = data.length; i < l; i++) {
                         if (data[i].Name === request.term) {
@@ -71,3 +71,8 @@ $(function () {
     });
 
 });
+
+function getApplicationPath()
+{
+    return window.location.pathname.split('admin/wikiadmin')[0];
+}
