@@ -7,14 +7,14 @@
 	background: #fafafa;
 }
 
-.header
+header
 {
     font-size: 14pt;
     font-weight: bold;
     text-align: center;
     margin-top: 10px;
 }
-.header a 
+header a 
 {
     color: #32A700;
     text-decoration: none;
@@ -56,7 +56,7 @@ a
     font-weight: bold;
 }
 
-.nav ul li 
+header nav ul li 
 {
     display: inline-block;
     margin: 0;
@@ -64,13 +64,13 @@ a
     margin-left: 5px;
     margin-right: 5px;
 }
-.nav ul 
+header nav ul 
 {
     margin: 0;
     padding: 0;
 }
 
-.nav 
+header nav 
 {
     text-align: center;
     font-weight: bold;
@@ -87,7 +87,7 @@ a
     text-align: right;
 }
 
-.footer 
+footer 
 {
     text-align: center;
     margin-top: 20px;
