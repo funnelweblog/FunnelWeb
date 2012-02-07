@@ -35,25 +35,27 @@
 <body>
     <header>
         <a class="logo" href="@Url.Content("~/")" title="@Html.Settings().SiteTitle">@Html.Settings().SiteTitle</a>
-        <nav>
-            <ul>
-                @MvcHtmlString.Create(Html.Settings().MainLinks)
-                @if (ViewData.IsLoggedIn())
+        <div>
+            <nav>
+                <ul>
+                    @MvcHtmlString.Create(Html.Settings().MainLinks)
+                    @if (ViewData.IsLoggedIn())
+                    {
+                      <li>@Html.AdminActionLink("New Post", "Edit", "WikiAdmin")</li>
+                      <li>@Html.AdminActionLink("Admin", "Index", "Admin")</li>
+                      <li>@Html.AdminActionLink("Logout", "Logout", "Login")</li>
+                    }
+                </ul>
+            </nav>
+            <div class="search">
+                @using (Html.BeginForm("Search", "Wiki", FormMethod.Get))
                 {
-                  <li>@Html.AdminActionLink("New Post", "Edit", "WikiAdmin")</li>
-                  <li>@Html.AdminActionLink("Admin", "Index", "Admin")</li>
-                  <li>@Html.AdminActionLink("Logout", "Logout", "Login")</li>
+                  <p>
+                    @Html.TextBox("q", Request.QueryString["q"], new { alt = "Search", @class = "medium" })
+                    <input type="submit" id="search" class="submit" value="Search" />
+                  </p>
                 }
-            </ul>
-        </nav>
-        <div class="search">
-            @using (Html.BeginForm("Search", "Wiki", FormMethod.Get))
-            {
-              <p>
-                @Html.TextBox("q", Request.QueryString["q"], new { alt = "Search", @class = "medium" })
-                <input type="submit" id="search" class="submit" value="Search" />
-              </p>
-            }
+            </div>
         </div>
     </header>
     <div role="main">

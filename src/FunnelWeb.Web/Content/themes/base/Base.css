@@ -19,9 +19,7 @@ a
 {
 	color: #3865C6;
 }
-a:hover
-{
-}
+
 a.new-window
 {
 	background: transparent url('../../Images/external.png') no-repeat scroll right center;
@@ -63,35 +61,36 @@ h5
 
 /* Header */
 
-.header
+header
 {
 	font-weight: bold;
 	font-size: 14pt;
-	height: 95px;
 	padding: 3px;
-	float: left;
-	width: 280px;
+	width: 100%;
+    overflow: hidden;
 }
-.header a.logo
+header a.logo
 {
 	text-decoration: none;
 	display: block;
 	margin-left: 0px;
 	height: 90px;
+	float:left;
 }
 
 /* Navigation */
 
-.nav
+header > div {
+    float: right;
+}
+
+header nav
 {
 	margin-bottom: 10px;
 	font-family: "Trebuchet MS";
-	float: right;
 	text-align: right;
-	margin-top: 30px;
-	max-width: 620px;
 }
-.nav ul
+header nav ul
 {
 	list-style: none;
 	display: inline;
@@ -99,7 +98,7 @@ h5
 	margin: 0;
 	padding: 0;
 }
-.nav ul li
+header nav ul li
 {
 	font-weight: bold;
 	font-size: 12pt;
@@ -110,21 +109,21 @@ h5
 	margin-right: 0px;
 	margin-top: 5px;
 }
-.nav ul li a
+header nav ul li a
 {
 	display: block;
 	padding: 3px 10px 3px 10px;
 	text-align: center;
 	text-decoration: underline;
 }
-.nav ul li a:hover, .nav ul li.active a:hover
+header nav ul li a:hover, header nav ul li.active a:hover
 {
 	text-decoration: underline;
 }
-div.nav div.search
+header div.search
 {
 	padding-top: 10px;
-	clear: both;
+    float: right;
 }
 
 /* Introductions */
@@ -781,7 +780,7 @@ span.close
 }
 /* Footer */
 
-.footer
+footer
 {
 	border-top: 1px solid #f0f0f0;
 	clear: both;
@@ -790,11 +789,11 @@ span.close
 	margin: 10px 0 30px 0;
 	text-align: center;
 }
-.footer a
+footer a
 {
 	color: #797979;
 }
-.footer a:hover
+footer a:hover
 {
 	color: #3865C6;
 }
