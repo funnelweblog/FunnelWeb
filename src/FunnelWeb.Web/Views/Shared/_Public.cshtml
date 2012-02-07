@@ -33,23 +33,20 @@
     </script>
 </head>
 <body>
-  <div class="wrap">
-    <div class="top">
-      <div class="top-in">
-        <div class="header">
-          <a class="logo" href="@Url.Content("~/")" title="@Html.Settings().SiteTitle">@Html.Settings().SiteTitle</a>
-        </div>
-        <div class="nav">
-          <ul>
-            @MvcHtmlString.Create(Html.Settings().MainLinks)
-            @if (ViewData.IsLoggedIn())
-            {
-              <li>@Html.AdminActionLink("New Post", "Edit", "WikiAdmin")</li>
-              <li>@Html.AdminActionLink("Admin", "Index", "Admin")</li>
-              <li>@Html.AdminActionLink("Logout", "Logout", "Login")</li>
-            }
-          </ul>
-          <div class="search">
+    <header>
+        <a class="logo" href="@Url.Content("~/")" title="@Html.Settings().SiteTitle">@Html.Settings().SiteTitle</a>
+        <nav>
+            <ul>
+                @MvcHtmlString.Create(Html.Settings().MainLinks)
+                @if (ViewData.IsLoggedIn())
+                {
+                  <li>@Html.AdminActionLink("New Post", "Edit", "WikiAdmin")</li>
+                  <li>@Html.AdminActionLink("Admin", "Index", "Admin")</li>
+                  <li>@Html.AdminActionLink("Logout", "Logout", "Login")</li>
+                }
+            </ul>
+        </nav>
+        <div class="search">
             @using (Html.BeginForm("Search", "Wiki", FormMethod.Get))
             {
               <p>
@@ -57,48 +54,38 @@
                 <input type="submit" id="search" class="submit" value="Search" />
               </p>
             }
+        </div>
+    </header>
+    <div role="main">
+        @if (TempData.ContainsKey("Flash"))
+        {
+          <div class="flash">
+            <p>@TempData["Flash"]</p>
+          </div>
+        }
+        <div class="body">
+          @if (IsSectionDefined("Summary"))
+          {
+            <div class="intro" id="_summary">
+              <div class="intro-in">
+                @RenderSection("Summary", required: false)
+              </div>
+            </div>
+          }
+          <div class="content">
+            @RenderBody()
           </div>
         </div>
-        <div class="clear">&nbsp;</div>
-      </div>
     </div>
-    @if (TempData.ContainsKey("Flash"))
-    {
-      <div class="flash">
-        <p>@TempData["Flash"]</p>
-      </div>
-    }
-    <div class="body">
-      @if (IsSectionDefined("Summary"))
-      {
-        <div class="intro" id="_summary">
-          <div class="intro-in">
-            @RenderSection("Summary", required: false)
-          </div>
-        </div>
-      }
-      <div class="content">
-        @RenderBody()
-      </div>
-    </div>
-    <div class="footer">
+    <footer>
       @MvcHtmlString.Create(Html.Settings().Footer)
       @if (!ViewData.IsLoggedIn())
       {
         <p>
           Is this your blog? @Html.AdminActionLink("Log in and update it", "Login", "Login").</p>
       }
-    </div>
-    @{ 
-        Html.RequiresJs("jquery-1.7.min.js", "Scripts", 0);
-        Html.RequiresJs("jsdate.js", "Scripts", 1);
-        Html.RequiresJs("prettify.js", "Scripts", 1);
-        Html.RequiresJs("showdown.js", "Scripts", 1);
-        Html.RequiresJs("wmd.js", "Scripts", 1);
-        Html.RequiresJs("site.js", "Scripts", 1);
-    }
-    @MvcHtmlString.Create(Html.Settings().HtmlFooter)
-  </div>
+    </footer>
+
   <!-- Powered by FunnelWeb, the blog engine of real developers -->
   <!-- FunnelWeb version: @Html.Version() -->
 
