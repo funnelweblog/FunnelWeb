@@ -4,55 +4,39 @@
 	font-size: 62.5%;
 }
 
-p
-{
-}
-
-span
-{
-}
-
 .wrapper
 {
 	font-size: 1em;
 }
 /* Header section */
-.top
-{
-}
-
-.top .header
-{
-}
-
-.top a
+header a
 {
 	color: #1F9DF6;
 	text-shadow: 2px 2px 2px #000;
 }
 
-.top a:hover
+header a:hover
 {
 	color: orange;
 }
 
-.top .header
+header a.logo
 {
-	float: none;
+    float: none;
 	padding: 0px;
 	line-height: 40px;
 	font-size: 2.5em;
 	width: 100%;
 	height: auto;
 	padding-left: 10px;
-}
-
-.top .header .logo
-{
 	height: auto;
 }
 
-.top .nav
+header > div {
+    float: none;
+}
+
+header nav
 {
 	padding: 0px;
 	margin: 0px;
@@ -60,51 +44,27 @@ span
 	max-width: 950px;
 }
 
-.top .nav ul
+header nav ul
 {
 	float: left;
 }
 
-.top .nav ul li
+header nav ul li
 {
 	background-color: #eee;
 	border-radius: 5px;
 	margin-right: 5px;
 }
 
-.top .nav ul li a, .top .nav ul li a:hover
+header nav ul li a, header nav ul li a:hover
 {
 	color: #1a1a1a;
 	text-shadow: 0px 0px;
 	text-decoration: none;
-}
-
-.top .nav .search
-{
-}
-
-/* body */
-.body
-{
-}
-
-.intro
-{
-}
-
-.content
-{
-}
-
-.content h1
-{
+    line-height: normal;
 }
 
 /* recent posts */
-.post-list
-{
-}
-
 .post-list .post-line
 {
 	border: 1px solid #fff;
@@ -127,25 +87,9 @@ span
 	text-align: center;
 }
 
-.post-list .post-line .revised .month
-{
-}
-
-.post-list .post-line .revised .year
-{
-}
-
 .post-list .post-line .comments
 {
 	float: right;
-}
-
-.post-list .post-line .comments .comment-count
-{
-}
-
-.post-list .post-line .comments span
-{
 }
 
 .post-list .post-line .summary
@@ -159,15 +103,7 @@ span
 	font-size:1.2em;
 }
 
-.post-list .post-line .summary h2
-{
-}
-
 .post-list .post-line .tags
 {
 	font-size:1.1em;
-}
-
-.post-list .post-line .tags .tag
-{
 }
