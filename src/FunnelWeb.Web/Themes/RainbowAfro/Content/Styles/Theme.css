@@ -6,9 +6,6 @@
     color: #222;
 }
 
-.body
-{
-}
 .body .intro 
 {
     background: #fafafa;
@@ -110,23 +107,21 @@ h1, h2, h3, h4, h5, h6
 }
 
 /* Header */
-
-.header
-{
+header {
+    margin-top: 30px;
 }
-
-.header a.logo
+header a.logo
 {
     text-shadow: rgba(255, 255, 255, 0.398438) 0px 1px 1px;
     text-indent: 0;
     font-size: 20pt;
     color: #092f4a;
     width: 300px;
-    margin-top: 35px;
+    margin-top: 5px;
     font-weight: bold;
 }
 
-.nav ul li
+header nav ul li
 {
 	color: #32A700;
     background: rgba(0,0,0,0.39);
@@ -143,7 +138,7 @@ h1, h2, h3, h4, h5, h6
 	margin-left: 10px;
 }
 
-.nav ul li a
+header nav ul li a
 {
 	color: #fff;
     margin: 0;
@@ -313,7 +308,7 @@ pre
     margin-bottom: 10px;
 }
 
-.footer, .footer a 
+footer, footer a 
 {
     color: #aaa;
     border: 0;
