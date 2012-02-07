@@ -18,14 +18,14 @@ h1, h2, h3, h4, h5, h6
 
 /* Header */
 
-.header
+header
 {
 	height: 95px;
 	padding: 0;
 	margin: 15px 0;
 }
 
-.header a.logo
+header a.logo
 {
 	background: transparent url(/Content/Images/title.png) no-repeat scroll 0 0;
 	background: transparent url(/Content/Images/banner.gif) no-repeat scroll 0 20px;
@@ -33,12 +33,12 @@ h1, h2, h3, h4, h5, h6
 	height: 90px;
 }
 
-.nav ul li
+header nav ul li
 {
 	color: #C16932;
 }
 
-.nav ul li a
+header nav ul li a
 {
 	color: #C16932;
 }
