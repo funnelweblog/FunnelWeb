@@ -18,11 +18,7 @@ h1, h2, h3, h4, h5, h6
 
 /* Header */
 
-.header
-{
-}
-
-.header a.logo
+header a.logo
 {
     text-shadow: #f0f0f0 0px 3px 3px;
     text-indent: 0;
@@ -32,12 +28,16 @@ h1, h2, h3, h4, h5, h6
     margin-top: 35px;
 }
 
-.nav ul li
+header nav {
+    margin-top: 30px;
+}
+
+header nav ul li
 {
 	color: #32A700;
 }
 
-.nav ul li a
+header nav ul li a
 {
 	color: #32A700;
 }

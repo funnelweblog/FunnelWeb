@@ -85,6 +85,8 @@ header > div {
 
 header nav
 {
+    overflow: hidden;
+    width: 100%;
 	margin-bottom: 10px;
 	font-family: "Trebuchet MS";
 	text-align: right;
