@@ -4,7 +4,7 @@
     font-family: Segoe UI;
     color: #111;
     max-width: none;
-    background: #ddd5b1;
+    background: #ddd5b1 url(../images/header.png) repeat-x;
 }
 
 .body
@@ -89,33 +89,22 @@ h1, h2, h3, h4, h5, h6
 
 /* Header */
 
-.nav .search 
+header .search 
 {
     display: none;
 }
-.top 
+header 
 {
-    background: #11110f;
     text-align: center;
-    width: 100%;
-    height: 60px;    
-    border-bottom: 5px solid #479731;
-}
-.top-in 
-{
-    width: 950px;
+    width: 960px;
+    height: 65px;
     margin-left: auto;
     margin-right: auto;
 }
-.header
+header a.logo
 {
-    margin: 0;
     padding: 0;
     height: 60px;
-    width:240px;
-}
-.header a.logo
-{
     text-align: left;
     text-shadow: black 0px 1px 1px;
     text-indent: 0;
@@ -125,10 +114,10 @@ h1, h2, h3, h4, h5, h6
     margin-top: 15px;
     font-weight: bold;
 }
-.nav 
+header nav 
 {
     margin-top: 15px;
-    width:700px;
+    width:650px;
 }
 .body .intro 
 {
@@ -148,7 +137,7 @@ h1, h2, h3, h4, h5, h6
     padding-top: 20px;
     padding-bottom: 20px;
 }
-.nav ul li
+header nav ul li
 {
     font-family: Segoe UI;
 	color: #32A700;
@@ -157,7 +146,7 @@ h1, h2, h3, h4, h5, h6
     text-shadow: rgba(255, 255, 255, 0.398438) 0px 1px 1px;
 }
 
-.nav ul li a
+header nav ul li a
 {
 	color: white;
     margin: 0;
@@ -165,7 +154,7 @@ h1, h2, h3, h4, h5, h6
     text-decoration: none;
 }
 
-.nav ul li a:hover
+header nav ul li a:hover
 {
 	color: #ffa302;
     text-decoration: underline;
@@ -183,9 +172,6 @@ h1, h2, h3, h4, h5, h6
     margin-top: 0;
     padding-top: 0;
     text-shadow: white 0px 1px 1px;
-}
-.intro p
-{
 }
 
 .post-list 
@@ -251,13 +237,6 @@ h1, h2, h3, h4, h5, h6
     margin-right: 222px;
 }
 
-.post-line .revised .month
-{
-}
-
-.content h1, .content h2
-{
-}
 .comment
 {
 	border-bottom: 1px solid #CCCCCC;
@@ -283,10 +262,6 @@ pre
 	color: #32A700;
 }
 
-.entry-date
-{
-}
-
 .entry-tools
 {
 	background: #FFFFC6;
@@ -294,7 +269,7 @@ pre
 
 .message 
 {
-		color: #CC0000;
+	color: #CC0000;
 }
 .flash 
 {
@@ -351,14 +326,14 @@ pre
     margin-bottom: 10px;
 }
 
-.footer 
+footer 
 {
     padding-top: 20px;
     padding-bottom: 20px;
     border-top: 2px solid #cac29e;
     margin: 0;
 }
-.footer, .footer a 
+footer, footer a 
 {
     color: #777463;
 }
