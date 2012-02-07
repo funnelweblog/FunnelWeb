@@ -362,7 +362,6 @@
     <Content Include="Content\themes\base\images\del_sprite_tagComplete.png" />
     <Content Include="Content\themes\base\Mobile.css" />
     <Content Include="Content\themes\base\TagEditor.css" />
-    <Content Include="Themes\BoringTheme\Content\Styles\Theme.css" />
     <Content Include="Themes\Clean\Content\Styles\Theme.css" />
     <Content Include="Themes\Evolve\Content\Images\background.png" />
     <Content Include="Themes\Evolve\Content\Styles\Theme.css" />
@@ -447,7 +446,6 @@
     <Content Include="Areas\Admin\Views\SqlAuthentication\Index.cshtml" />
     <Content Include="Areas\Admin\Views\SqlAuthentication\NewAccount.cshtml" />
     <Content Include="Areas\Admin\Views\SqlAuthentication\Setup.cshtml" />
-    <None Include="Themes\BoringTheme\Views\Wiki\Recent.cshtml" />
     <Content Include="Areas\Admin\Views\Upload\Index.cshtml" />
     <Content Include="Views\Wiki\Search.cshtml" />
     <Content Include="Views\Wiki\Page.cshtml" />
