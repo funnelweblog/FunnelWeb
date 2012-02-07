@@ -107,12 +107,14 @@ h1, h2, h3, h4, h5, h6
 
 /* Header */
 
-.header
+header
 {
     height: auto;
+    padding-bottom: 0px;
+    margin-top: 30px;
 }
 
-.header a.logo
+header a.logo
 {
     height: auto;
     text-shadow: rgba(255, 255, 255, 0.398438) 0px 1px 1px;
@@ -123,17 +125,18 @@ h1, h2, h3, h4, h5, h6
     font-family: Trebuchet MS, Segoe UI, Arial, Sans-Serif;
 }
 
-.nav 
-{
-    float: none;
-    max-width:950px;
-}
-.nav ul 
-{
+header > div {
     float: left;
 }
 
-.nav ul li
+header nav 
+{
+    float: none;
+    max-width:950px;
+    margin-bottom: 0px;
+}
+
+header nav ul li
 {
     -moz-border-radius: 5px 5px 0 0;
 	border-radius: 5px 5px 0 0;
@@ -147,12 +150,12 @@ h1, h2, h3, h4, h5, h6
     text-shadow: rgba(255, 255, 255, 0.398438) 0px 1px 1px;
 }
 
-.nav .search 
+header .search 
 {
     display: none;
 }
 
-.nav ul li a
+header nav ul li a
 {
 	color: #fff;
     margin: 0;
