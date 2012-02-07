@@ -2,19 +2,21 @@
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
 <head>
     <title>@(ViewBag.Title == null ? "" : (ViewBag.Title + " - "))@Html.Settings().SiteTitle
     </title>
-     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  @{ 
-    Html.RequiresCss("Base.css", "Base", 0);
-    Html.RequiresCss("Admin.css", "Base", 1);
-  }
-  @MvcHtmlString.Create(Html.RenderCssHere(new List<IClientDependencyPath> {
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    @{ 
+        Html.RequiresCss("Base.css", "Base", 0);
+        Html.RequiresCss("Admin.css", "Base", 1);
+    }
+    @MvcHtmlString.Create(Html.RenderCssHere(new List<IClientDependencyPath> {
       new BasicPath("Base", "~/Content/themes/base")
     }))
-  @RenderSection("Meta", required: false)
+    @RenderSection("Meta", required: false)
 </head>
 <body>
     <header>
@@ -22,17 +24,19 @@
         <div>
             <nav>
                 <ul>
-                @if (ViewData.IsLoggedIn()) {
-                    <li>@Html.AdminActionLink("New Post", "Edit", "WikiAdmin")</li>
-                    <li>@Html.AdminActionLink("Admin", "Index", "Admin")</li>
-                    <li>@Html.AdminActionLink("Logout", "Logout", "Login")</li>
-                }
-            </ul>
+                    @if (ViewData.IsLoggedIn())
+                    {
+                        <li>@Html.AdminActionLink("New Post", "Edit", "WikiAdmin")</li>
+                        <li>@Html.AdminActionLink("Admin", "Index", "Admin")</li>
+                        <li>@Html.AdminActionLink("Logout", "Logout", "Login")</li>
+                    }
+                </ul>
             </nav>
         </div>
     </header>
     <div class="body" role="main">
-        @if (TempData.ContainsKey("Flash")) {
+        @if (TempData.ContainsKey("Flash"))
+        {
             <div class="flash">
                 <p>@TempData["Flash"]</p>
             </div>
@@ -45,14 +49,16 @@
                 </div>
             </div>
         }
-
         <div class="content">
             @RenderBody()
         </div>
     </div>
     <footer>
-        <p>This is an admin page, so you won't see the standard header, footer and styles being applied. It's for your own protection.</p>
-        <p>Powered by <a href="http://www.funnelweblog.com/">FunnelWeb</a> @Html.Version()</p>
+        <p>
+            This is an admin page, so you won't see the standard header, footer and styles being
+            applied. It's for your own protection.</p>
+        <p>
+            Powered by <a href="http://www.funnelweblog.com/">FunnelWeb</a> @Html.Version()</p>
     </footer>
     @{ 
         Html.RequiresJs("jquery-1.7.min.js", "Scripts", 0);
