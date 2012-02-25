@@ -32,43 +32,37 @@ a:hover
 /* Tags Base Colours */
 .tags a
 {
-    color: #000000;
+	color:#000000;
     background-color: #adadad;
 }
 .tags a:before
 {
-    border-color: transparent #adadad transparent transparent;
+	border-color:transparent #adadad transparent transparent;    
 }
 .tags a:after
 {
-    background: #fff;
+	background:#fff;
 }
-a.tag:hover
-{
-    background-color: #555;
-}
-a.tag:hover:before
-{
-    border-color: transparent #555 transparent transparent;
-}
+a.tag:hover { background-color: #555; }
+a.tag:hover:before { border-color:transparent #555 transparent transparent; }
 
 h1, h2, h3, h4, h5, h6
 {
-    color: #1B9FE1;
+    color: #1B9FE1;    
 }
 
 .header
 {
     color: #ffffff;
-    background-color: #000000;
-    background-image: url('/get/MeSmall.jpg');
-    background-repeat: no-repeat;
-    background-position: right top;
+    background-color:#000000;
+    background-image:url('/get/MeSmall.jpg');
+    background-repeat:no-repeat;
+    background-position:right top;
 }
 
 .nav
 {
-    background-color: #000000;
+    background-color:#000000;
 }
 
 /* Search Box */
@@ -81,7 +75,7 @@ div.nav div.search
 div.nav div.search input
 {
     color: #CFCFCF;
-    background-color: #000000;
+    background-color:#000000;
 }
 
 /* Content Page */
@@ -138,7 +132,7 @@ div.nav div.search input
     color: #000000;
 }
 
-.post-line .comments
+.post-line .comments 
 {
     background: #000000;
     color: #fff;
@@ -150,8 +144,7 @@ div.nav div.search input
     color: #ffffff;
 }
 
-.post-line .comments .comment-count a
-{
+.post-line .comments .comment-count a {
     font-size: 15px;
     font-weight: 900;
     vertical-align: 1px;
@@ -199,7 +192,7 @@ pre
     color: #ffffff;
 }
 
-.entry-tools a
+.entry-tools a 
 {
     color: #fff;
 }
@@ -223,229 +216,74 @@ pre
     background: #1B9FE1;
 }
 
-a.keyword-open-source:hover
-{
-    color: #ffffff;
-    background-color: #1B9FE1;
-}
-a.keyword-open-source:hover:before
-{
-    border-color: transparent #1B9FE1 transparent transparent;
-}
+a.keyword-open-source:hover{ color:#ffffff; background-color: #1B9FE1; }
+a.keyword-open-source:hover:before{border-color:transparent #1B9FE1 transparent transparent;}
 
 .keyword-open-source .entry-date
 {
-    background-color: #1B9FE1;
+    background-color: #1B9FE1;    
 }
 
 /*.net*/
-.keyword--net .summary-container
-{
-    border-left: 5px solid #E51400;
-}
-.keyword--net .comments .comment-count
-{
-    background: #E51400;
-}
-a.keyword--net:hover
-{
-    color: #ffffff;
-    background-color: #E51400;
-}
-a.keyword--net:hover:before
-{
-    border-color: transparent #E51400 transparent transparent;
-}
-.keyword--net .entry-date
-{
-    background-color: #E51400;
-}
+.keyword--net .summary-container { border-left: 5px solid #E51400; }
+.keyword--net .comments .comment-count { background: #E51400; }
+a.keyword--net:hover { color:#ffffff; background-color: #E51400; }
+a.keyword--net:hover:before{border-color:transparent #E51400 transparent transparent;}
+.keyword--net .entry-date { background-color: #E51400; }
 
 /*c#*/
-.keyword-c- .summary-container
-{
-    border-left: 5px solid #A05000;
-}
-.keyword-c- .comments .comment-count
-{
-    background: #A05000;
-}
-a.keyword-c-:hover
-{
-    color: #ffffff;
-    background-color: #A05000;
-}
-a.keyword-c-:hover:before
-{
-    border-color: transparent #A05000 transparent transparent;
-}
-.keyword-c- .entry-date
-{
-    background-color: #A05000;
-}
+.keyword-c- .summary-container { border-left: 5px solid #A05000; }
+.keyword-c- .comments .comment-count { background: #A05000; }
+a.keyword-c-:hover { color:#ffffff; background-color: #A05000; }
+a.keyword-c-:hover:before{border-color:transparent #A05000 transparent transparent;}
+.keyword-c- .entry-date { background-color: #A05000; }
 
 /*powershell*/
-.keyword-powershell .summary-container
-{
-    border-left: 5px solid #E671B8;
-}
-.keyword-powershell .comments .comment-count
-{
-    background: #E671B8;
-}
-a.keyword-powershell:hover
-{
-    color: #ffffff;
-    background-color: #E671B8;
-}
-a.keyword-powershell:hover:before
-{
-    border-color: transparent #E671B8 transparent transparent;
-}
-.keyword-powershell .entry-date
-{
-    background-color: #E671B8;
-}
+.keyword-powershell .summary-container { border-left: 5px solid #E671B8; }
+.keyword-powershell .comments .comment-count { background: #E671B8; }
+a.keyword-powershell:hover { color:#ffffff; background-color: #E671B8; }
+a.keyword-powershell:hover:before{border-color:transparent #E671B8 transparent transparent;}
+.keyword-powershell .entry-date { background-color: #E671B8; }
 
 /*patterns and practices*/
-.keyword-patterns-and-practices .summary-container
-{
-    border-left: 5px solid #8CBF26;
-}
-.keyword-patterns-and-practices .comments .comment-count
-{
-    background: #8CBF26;
-}
-a.keyword-patterns-and-practices:hover
-{
-    color: #ffffff;
-    background-color: #8CBF26;
-}
-a.keyword-patterns-and-practices:hover:before
-{
-    border-color: transparent #8CBF26 transparent transparent;
-}
-.keyword-patterns-and-practices .entry-date
-{
-    background-color: #8CBF26;
-}
+.keyword-patterns-and-practices .summary-container { border-left: 5px solid #8CBF26; }
+.keyword-patterns-and-practices .comments .comment-count { background: #8CBF26; }
+a.keyword-patterns-and-practices:hover { color:#ffffff; background-color: #8CBF26; }
+a.keyword-patterns-and-practices:hover:before{border-color:transparent #8CBF26 transparent transparent;}
+.keyword-patterns-and-practices .entry-date { background-color: #8CBF26; }
 
 /*wpf*/
-.keyword-wpf .summary-container
-{
-    border-left: 5px solid #F09609;
-}
-.keyword-wpf .comments .comment-count
-{
-    background: #F09609;
-}
-a.keyword-wpf:hover
-{
-    color: #ffffff;
-    background-color: #F09609;
-}
-a.keyword-wpf:hover:before
-{
-    border-color: transparent #F09609 transparent transparent;
-}
-.keyword-wpf .entry-date
-{
-    background-color: #F09609;
-}
+.keyword-wpf .summary-container { border-left: 5px solid #F09609; }
+.keyword-wpf .comments .comment-count { background: #F09609; }
+a.keyword-wpf:hover { color:#ffffff; background-color: #F09609; }
+a.keyword-wpf:hover:before{border-color:transparent #F09609 transparent transparent;}
+.keyword-wpf .entry-date { background-color: #F09609; }
 
 /*wp7*/
-.keyword-wp7 .summary-container
-{
-    border-left: 5px solid #00ABA9;
-}
-.keyword-wp7 .comments .comment-count
-{
-    background: #00ABA9;
-}
-a.keyword-wp7:hover
-{
-    color: #ffffff;
-    background-color: #00ABA9;
-}
-a.keyword-wp7:hover:before
-{
-    border-color: transparent #00ABA9 transparent transparent;
-}
-.keyword-wp7 .entry-date
-{
-    background-color: #00ABA9;
-}
+.keyword-wp7 .summary-container { border-left: 5px solid #00ABA9; }
+.keyword-wp7 .comments .comment-count { background: #00ABA9; }
+a.keyword-wp7:hover { color:#ffffff; background-color: #00ABA9; }
+a.keyword-wp7:hover:before{border-color:transparent #00ABA9 transparent transparent;}
+.keyword-wp7 .entry-date { background-color: #00ABA9; }
 
 /*vsto*/
-.keyword-vsto .summary-container
-{
-    border-left: 5px solid #339933;
-}
-.keyword-vsto .comments .comment-count
-{
-    background: #339933;
-}
-a.keyword-vsto:hover
-{
-    color: #ffffff;
-    background-color: #339933;
-}
-a.keyword-vsto:hover:before
-{
-    border-color: transparent #339933 transparent transparent;
-}
-.keyword-vsto .entry-date
-{
-    background-color: #339933;
-}
+.keyword-vsto .summary-container { border-left: 5px solid #339933; }
+.keyword-vsto .comments .comment-count { background: #339933; }
+a.keyword-vsto:hover { color:#ffffff; background-color: #339933; }
+a.keyword-vsto:hover:before{border-color:transparent #339933 transparent transparent;}
+.keyword-vsto .entry-date { background-color: #339933; }
 
 /*presenting*/
-.keyword-presenting .summary-container
-{
-    border-left: 5px solid #A200FF;
-}
-.keyword-presenting .comments .comment-count
-{
-    background: #A200FF;
-}
-a.keyword-presenting:hover
-{
-    color: #ffffff;
-    background-color: #A200FF;
-}
-a.keyword-presenting:hover:before
-{
-    border-color: transparent #A200FF transparent transparent;
-}
-.keyword-presenting .entry-date
-{
-    background-color: #A200FF;
-}
+.keyword-presenting .summary-container { border-left: 5px solid #A200FF; }
+.keyword-presenting .comments .comment-count { background: #A200FF; }
+a.keyword-presenting:hover { color:#ffffff; background-color: #A200FF; }
+a.keyword-presenting:hover:before{border-color:transparent #A200FF transparent transparent;}
+.keyword-presenting .entry-date { background-color: #A200FF; }
 
 /*open-source*/
-.keyword-open-source .summary-container
-{
-    border-left: 5px solid #1B9FE1;
-}
-.keyword-open-source .comments .comment-count
-{
-    background: #1B9FE1;
-}
-a.keyword-open-source:hover
-{
-    color: #ffffff;
-    background-color: #1B9FE1;
-}
-a.keyword-open-source:hover
-{
-    color: #ffffff;
-    background-color: #1B9FE1;
-}
-a.keyword-open-source:hover:before
-{
-    border-color: transparent #1B9FE1 transparent transparent;
-}
-.keyword-open-source .entry-date
-{
-    background-color: #1B9FE1;
-}
+.keyword-open-source .summary-container { border-left: 5px solid #1B9FE1; }
+.keyword-open-source .comments .comment-count { background: #1B9FE1; }
+a.keyword-open-source:hover { color:#ffffff; background-color: #1B9FE1; }
+a.keyword-open-source:hover{ color:#ffffff; background-color: #1B9FE1; }
+a.keyword-open-source:hover:before{border-color:transparent #1B9FE1 transparent transparent;}
+.keyword-open-source .entry-date { background-color: #1B9FE1; }
