@@ -1,9 +1,9 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
-using MvcMiniProfiler;
 using NHibernate.AdoNet;
 using NHibernate.Driver;
+using StackExchange.Profiling;
 
 namespace FunnelWeb.DatabaseDeployer.DbProviders
 {

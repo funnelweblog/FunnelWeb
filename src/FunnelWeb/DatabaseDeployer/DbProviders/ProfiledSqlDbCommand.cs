@@ -1,8 +1,8 @@
 using System;
 using System.Data.Common;
 using System.Data.SqlClient;
-using MvcMiniProfiler;
-using MvcMiniProfiler.Data;
+using StackExchange.Profiling;
+using StackExchange.Profiling.Data;
 
 namespace FunnelWeb.DatabaseDeployer.DbProviders
 {

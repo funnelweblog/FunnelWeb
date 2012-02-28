@@ -103,7 +103,7 @@
       Html.RequiresJs("wmd.js", "Scripts", 1);
       Html.RequiresJs("site.js", "Scripts", 1);
     }
-    @MvcMiniProfiler.MiniProfiler.RenderIncludes()
+    @MiniProfiler.RenderIncludes()
     @if (IsSectionDefined("Scripts"))
     {
         @RenderSection("Scripts")

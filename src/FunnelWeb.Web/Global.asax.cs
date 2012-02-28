@@ -21,7 +21,7 @@ using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Application.Mvc.Binders;
 using FunnelWeb.Web.Application.Spam;
 using FunnelWeb.Web.Application.Themes;
-using MvcMiniProfiler;
+using StackExchange.Profiling;
 
 namespace FunnelWeb.Web
 {
