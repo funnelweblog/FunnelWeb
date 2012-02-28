@@ -1,8 +1,8 @@
-﻿@model IEnumerable<FunnelWeb.Model.Tag>
+﻿@model IEnumerable<Tag>
 
 @{
     Html.RequiresJs("taggy.js", "Scripts", 10);
-    Html.RequiresJs("jquery-ui-1.8.16.min.js", "Scripts", 10);
+    Html.RequiresJs("jquery-ui-1.8.17.min.js", "Scripts", 10);
     // can't require jquery.ui.all or jquery.ui.base because CD doesn't like the multiple @import directives
     Html.RequiresCss("jquery.ui.core.css", "Base", 10);
     Html.RequiresCss("jquery.ui.autocomplete.css", "Base", 11);
