@@ -96,7 +96,14 @@
             new BasicPath("ThemeScripts", "~/Themes/" + Html.Settings().Theme  + "/Content/Scripts/")
         })
     )
-    @MvcMiniProfiler.MiniProfiler.RenderIncludes()
+    @{Html.RequiresJs("jquery-1.7.min.js", "Scripts", 0);
+      Html.RequiresJs("jsdate.js", "Scripts", 1);
+      Html.RequiresJs("prettify.js", "Scripts", 1);
+      Html.RequiresJs("showdown.js", "Scripts", 1);
+      Html.RequiresJs("wmd.js", "Scripts", 1);
+      Html.RequiresJs("site.js", "Scripts", 1);
+      MvcMiniProfiler.MiniProfiler.RenderIncludes()
+    }
     @if (IsSectionDefined("Scripts"))
     {
         @RenderSection("Scripts")
