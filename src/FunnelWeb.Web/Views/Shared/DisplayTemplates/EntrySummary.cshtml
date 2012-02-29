@@ -1,5 +1,7 @@
 ﻿@model EntrySummary
-
+@{
+    Html.RequiresJs("disqus-count.js", "Scripts");
+}
 <div class='post-line @String.Join(" ", Html.CssKeywordsFor(Model))'>
     @Html.DisplayFor(x => x.Published, new { @class = "revised" })
     <div class='comments'>

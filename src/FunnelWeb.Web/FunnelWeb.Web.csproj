@@ -312,6 +312,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Scripts\disqus-count.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -434,7 +435,9 @@
     <Content Include="Content\themes\base\Base.css" />
     <Content Include="Themes\AaronPowell\Content\Styles\Theme.css" />
     <Content Include="Themes\Default\Content\Styles\Theme.css" />
-    <Content Include="Areas\Admin\Views\Web.config" />
+    <Content Include="Areas\Admin\Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Areas\Admin\Views\WikiAdmin\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="packages.config" />
