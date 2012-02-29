@@ -461,8 +461,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Shared\PageTemplates\Default.cshtml" />
-    <Content Include="Themes\Twitter\Views\Shared\PageTemplates\Default.cshtml" />
-    <Content Include="Themes\Twitter\Views\Shared\PageTemplates\Homepage.cshtml" />
     <Content Include="Views\Tagged\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\EntrySummaries.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\TagsList.cshtml" />
