@@ -1,12 +1,11 @@
 ﻿@model EntrySummary
-@{
-    Html.RequiresJs("disqus-count.js", "Scripts");
-}
+
 <div class='post-line @String.Join(" ", Html.CssKeywordsFor(Model))'>
     @Html.DisplayFor(x => x.Published, new { @class = "revised" })
     <div class='comments'>
             @if (Html.Settings().EnableDisqusCommenting)
             {
+                Html.RequiresJs("disqus-count.js", "Scripts");
                 <a href="@Url.Action("Page", "Wiki", new { page = Model.Name })#disqus_thread" data-disqus-identifier="@(Model.Title == null ? "" : (Model.Title + " - "))@Html.Settings().SiteTitle">Comment(s)</a>
             }
             else
