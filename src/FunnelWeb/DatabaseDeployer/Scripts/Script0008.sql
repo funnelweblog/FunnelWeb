@@ -1,5 +1,6 @@
-﻿declare @hasFullText bit
-select @hasFullText = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled')
+﻿declare @hasFullText int
+select @hasFullText = convert(int, SERVERPROPERTY('IsFullTextInstalled'))
+
 if (@hasFullText = 1)
 begin
 begin try

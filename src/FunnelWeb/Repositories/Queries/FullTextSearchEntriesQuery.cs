@@ -37,7 +37,7 @@ namespace FunnelWeb.Repositories.Queries
             var entityPersister = session.SessionFactory.GetClassMetadata(typeof(Entry)) as NHibernate.Persister.Entity.AbstractEntityPersister;
 
             var isFullTextEnabled = session.CreateSQLQuery(
-                (String.Format("SELECT FullTextServiceProperty('IsFullTextInstalled') + OBJECTPROPERTY(OBJECT_ID('{0}'), 'TableFullTextChangeTrackingOn')", entityPersister.TableName)))
+                (String.Format("SELECT convert(int, SERVERPROPERTY('IsFullTextInstalled')) + OBJECTPROPERTY(OBJECT_ID('{0}'), 'TableFullTextChangeTrackingOn')", entityPersister.TableName)))
                 .List()[0];
 
             if ((int)isFullTextEnabled != 2)

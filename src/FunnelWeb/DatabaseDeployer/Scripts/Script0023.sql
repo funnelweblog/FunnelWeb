@@ -109,21 +109,33 @@ alter table $schema$.[Comment ]
 	on delete no action 	
 go
 
-alter table $schema$.[Comment] set (lock_escalation = table)
-go
+declare @engineEdition int
+select @engineEdition = convert(int, SERVERPROPERTY('EngineEdition'))
+
+declare @str nvarchar(200)
+
+if @engineEdition <> 5
+	begin
+		set @str = 'alter table $schema$.[Comment] set (lock_escalation = table)'
+		exec(@str)
+	end
 
 alter table $schema$.[Revision]
 	add constraint [FK_Revision_Entry] foreign key ([EntryId])
 	references $schema$.[Entry] ([Id])
     on update no action 
     on delete no action	
-go
 
-alter table $schema$.[Revision] set (lock_escalation = table)
-go
+
+if @engineEdition <> 5
+	begin
+		set @str = 'alter table $schema$.[Revision] set (lock_escalation = table)'
+		exec (@str)
+	end
+
 
 declare @hasFullText bit
-select @hasFullText = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled')
+select @hasFullText = convert(int, SERVERPROPERTY('IsFullTextInstalled'))
 if (@hasFullText = 1)
 begin
 begin try

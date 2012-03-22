@@ -85,12 +85,17 @@ declare @str nvarchar(200)
 set @str = 'alter table $schema$.[Entry] drop constraint ' + @defaultConstraintName
 exec (@str)
 
-if (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled')) 
+if (1 = convert(int, SERVERPROPERTY('IsFullTextInstalled'))) 
 begin
 begin try
-    alter fulltext index on $schema$.[Entry] disable
-    alter fulltext index on $schema$.[Entry] drop ([MetaKeywords])
-    alter fulltext index on $schema$.[Entry] enable
+    set @str = 'alter fulltext index on $schema$.[Entry] disable'
+	exec (@str)
+
+    set @str = 'alter fulltext index on $schema$.[Entry] drop ([MetaKeywords])'
+	exec (@str)
+
+    set @str = 'alter fulltext index on $schema$.[Entry] enable'
+	exec (@str)
 end try
 begin catch
 --Full text not installed 

@@ -1,6 +1,6 @@
 ﻿declare @hasFullText bit
 declare @hasFullTextIndex bit
-select @hasFullText = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled')
+select @hasFullText = convert(int, SERVERPROPERTY('IsFullTextInstalled'))
 select @hasFullTextIndex = OBJECTPROPERTY(OBJECT_ID('$schema$.[Entry]'), 'TableHasActiveFulltextIndex')
 
 if (@hasFullText = 1 AND @hasFullTextIndex = 1)
