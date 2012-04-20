@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.Model.Repositories;
 
@@ -29,7 +30,7 @@ namespace FunnelWeb.Settings
                 .As<IAppHarborSettings>()
                 .SingleInstance();
 
-            builder.Register(c => new SettingsProvider(c.Resolve<IAdminRepository>()))
+            builder.Register(c => new SettingsProvider(c.Resolve<Lazy<IAdminRepository>>()))
                 .As<ISettingsProvider>()
                 .InstancePerLifetimeScope();
         }

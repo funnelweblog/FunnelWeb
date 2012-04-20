@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using System.Web;
 using System.Web.Hosting;
@@ -35,7 +36,8 @@ namespace FunnelWeb.Web
         public static void BeforeApplicationStart()
         {
             extensionsPath = HostingEnvironment.MapPath("~/bin/Extensions") ?? string.Empty;
-            Extensibility.EnableAspNetIntegration(extensionsPath);
+            if (Directory.Exists(extensionsPath))
+                Extensibility.EnableAspNetIntegration(extensionsPath);
         }
 
         private static IContainer BuildContainer()

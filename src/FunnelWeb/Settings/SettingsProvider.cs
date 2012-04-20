@@ -11,10 +11,10 @@ namespace FunnelWeb.Settings
     public class SettingsProvider : ISettingsProvider
     {
         private readonly object @lock = new object();
-        private readonly IAdminRepository repository;
+        private readonly Lazy<IAdminRepository> repository;
         private readonly Dictionary<Type, ISettings> settingsStore = new Dictionary<Type, ISettings>();
 
-        public SettingsProvider(IAdminRepository repository)
+        public SettingsProvider(Lazy<IAdminRepository> repository)
         {
             this.repository = repository;
         }
@@ -56,7 +56,7 @@ namespace FunnelWeb.Settings
             var settings = Activator.CreateInstance<T>();
             settingsStore.Add(typeof(T), settings);
             var settingMetadata = ReadSettingMetadata<T>();
-            var databaseSettings = repository.GetSettings().ToList();
+            var databaseSettings = repository.Value.GetSettings().ToList();
             
             foreach (var setting in settingMetadata)
             {
@@ -88,7 +88,7 @@ namespace FunnelWeb.Settings
                 settingsStore.Add(settingsType, settingsToSave);
 
             var settingsMetadata = ReadSettingMetadata<T>();
-            var databaseSettings = repository.GetSettings().ToList();
+            var databaseSettings = repository.Value.GetSettings().ToList();
 
             foreach (var setting in settingsMetadata)
             {
@@ -118,7 +118,7 @@ namespace FunnelWeb.Settings
                 }
             }
 
-            repository.Save(databaseSettings);
+            repository.Value.Save(databaseSettings);
         }
 
         private static IEnumerable<SettingDescriptor> ReadSettingMetadata<T>()
