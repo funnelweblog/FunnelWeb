@@ -13,6 +13,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
+using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.Model;
 using FunnelWeb.Mvc;
 using FunnelWeb.Settings;
@@ -228,7 +229,13 @@ namespace FunnelWeb.Web.Application.Extensions
 
         public static FunnelWebSettings Settings(this HtmlHelper helper)
         {
-            return DependencyResolver.Current.GetService<ISettingsProvider>().GetSettings<FunnelWebSettings>();
+            var settingsProvider = DependencyResolver.Current.GetService<ISettingsProvider>();
+
+            // A database upgrade is required, lets just use the default settings
+            if (DependencyResolver.Current.GetService<IDatabaseUpgradeDetector>().UpdateNeeded())
+                return settingsProvider.GetDefaultSettings<FunnelWebSettings>();
+
+            return settingsProvider.GetSettings<FunnelWebSettings>();
         }
 
         #endregion
