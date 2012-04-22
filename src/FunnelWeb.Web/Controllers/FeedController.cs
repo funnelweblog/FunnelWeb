@@ -73,8 +73,8 @@ namespace FunnelWeb.Web.Controllers
                         Title = SyndicationContent.CreatePlaintextContent(e.Title),
                         Summary = content,
                         Content = content,
-                        LastUpdatedTime = e.Revised,
-                        PublishDate = e.Published,
+                        LastUpdatedTime = TimeZoneInfo.ConvertTimeFromUtc(e.Revised, TimeZoneInfo.Local),
+                        PublishDate = TimeZoneInfo.ConvertTimeFromUtc(e.Published, TimeZoneInfo.Local),
                         Links =
                             {
                                 new SyndicationLink(itemUri)
