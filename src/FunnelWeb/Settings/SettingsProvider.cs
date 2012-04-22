@@ -36,6 +36,21 @@ namespace FunnelWeb.Settings
             return (T)settingsStore[settingsType];
         }
 
+        public T GetDefaultSettings<T>() where T : ISettings
+        {
+            var settings = Activator.CreateInstance<T>();
+            settingsStore.Add(typeof(T), settings);
+            var settingMetadata = ReadSettingMetadata<T>();
+
+            foreach (var setting in settingMetadata)
+            {
+                // Initialize with default values
+                setting.Write(settings, setting.DefaultValue);
+            }
+
+            return settings;
+        }
+
         private void LoadSettings<T>() where T : ISettings
         {
             var settings = Activator.CreateInstance<T>();
