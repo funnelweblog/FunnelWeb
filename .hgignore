@@ -48,7 +48,8 @@ UpgradeLog*.*
 [Rr]elease/
 [Tt]humbs.db
 _UpgradeReport_Files
-_[Rr]e[Ss]harper.*/
+_[Rr]e[Ss]harper.*
+*.[Rr]e[Ss]harper
 hgignore[.-]*
 ignore[.-]*
 svnignore[.-]*
@@ -66,6 +67,8 @@ glob:Tools\*.nupkg
 Views\Extensions\*
 glob:src/FunnelWeb.sln.docstates
 glob:build/NuGet/*
-src/FunnelWeb.Web/App_Data/FunnelWeb.sdf
+*.sdf
+*.mdf
+*.ldf
 AppHarbourConfig.xml
 packages/*
