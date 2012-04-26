@@ -6,7 +6,6 @@ namespace FunnelWeb.Tests.Helpers
     public abstract class QueryIntegrationTest
     {
         private readonly TheDatabase requirements;
-        private static TemporaryDatabase SqlDatabase { get; set; }
         private static SqlCeTemporaryDatabase SqlCeDatabase { get; set; }
 
         protected QueryIntegrationTest(TheDatabase requirements)
@@ -17,8 +16,6 @@ namespace FunnelWeb.Tests.Helpers
         [Test]
         public void RunTestQuery()
         {
-            Database = SqlDatabase;
-            TestQuery();
             Database = SqlCeDatabase;
             TestQuery();
         }
@@ -30,12 +27,6 @@ namespace FunnelWeb.Tests.Helpers
         [SetUp]
         public void SetUp()
         {
-            if ((requirements & TheDatabase.MustBeFresh) == TheDatabase.MustBeFresh || SqlDatabase == null)
-            {
-                SqlDatabase = new TemporaryDatabase();
-                SqlDatabase.CreateAndDeploy();
-            }
-
             if ((requirements & TheDatabase.MustBeFresh) == TheDatabase.MustBeFresh || SqlCeDatabase == null)
             {
                 SqlCeDatabase = new SqlCeTemporaryDatabase();

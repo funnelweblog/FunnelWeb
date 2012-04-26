@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace FunnelWeb.Tests.Integration
 {
     [TestFixture]
-    public class DatabaseDeploymentTests : IntegrationTest
+    public class DatabaseDeploymentTests : SqlCeIntegrationTest
     {
         public DatabaseDeploymentTests() : base(TheDatabase.MustBeFresh)
         {
@@ -14,13 +14,13 @@ namespace FunnelWeb.Tests.Integration
         [Test]
         public void TablesAreCreated()
         {
-            var tables = Database.AdHoc.ExecuteReader("select * from sys.Tables order by [name] desc");
+            var tables = Database.AdHoc.ExecuteReader("select * from INFORMATION_SCHEMA.Tables order by [TABLE_NAME] desc");
 
-            Assert.IsNotNull(tables.FirstOrDefault(table => table["name"] == "Entry"));
-            Assert.IsNotNull(tables.FirstOrDefault(table => table["name"] == "Revision"));
-            Assert.IsNotNull(tables.FirstOrDefault(table => table["name"] == "Comment"));
-            Assert.IsNotNull(tables.FirstOrDefault(table => table["name"] == "SchemaVersions"));
-            Assert.IsNotNull(tables.FirstOrDefault(table => table["name"] == "Tag"));
+            Assert.IsNotNull(tables.FirstOrDefault(table => table["TABLE_NAME"] == "Entry"));
+            Assert.IsNotNull(tables.FirstOrDefault(table => table["TABLE_NAME"] == "Revision"));
+            Assert.IsNotNull(tables.FirstOrDefault(table => table["TABLE_NAME"] == "Comment"));
+            Assert.IsNotNull(tables.FirstOrDefault(table => table["TABLE_NAME"] == "SchemaVersions"));
+            Assert.IsNotNull(tables.FirstOrDefault(table => table["TABLE_NAME"] == "Tag"));
         }
     }
 }
