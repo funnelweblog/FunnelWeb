@@ -50,7 +50,7 @@ namespace FunnelWeb.DatabaseDeployer.DbProviders
 
             string lineWithParameters = null;
             var sqlStatementLogger = Factory.Settings.SqlStatementLogger;
-            if (sqlStatementLogger.IsDebugEnabled || log.IsDebugEnabled)
+            if (sqlStatementLogger.IsDebugEnabled || Log.IsDebugEnabled)
             {
                 lineWithParameters = sqlStatementLogger.GetCommandLineWithParameters(batchUpdate);
                 var formatStyle = sqlStatementLogger.DetermineActualStyle(FormatStyle.Basic);
@@ -60,9 +60,9 @@ namespace FunnelWeb.DatabaseDeployer.DbProviders
                     .Append(":")
                     .AppendLine(lineWithParameters);
             }
-            if (log.IsDebugEnabled)
+            if (Log.IsDebugEnabled)
             {
-                log.Debug("Adding to batch:" + lineWithParameters);
+                Log.Debug("Adding to batch:" + lineWithParameters);
             }
             currentBatch.Append(((ProfiledSqlDbCommand)batchUpdate).Command);
 
@@ -93,7 +93,7 @@ namespace FunnelWeb.DatabaseDeployer.DbProviders
 
         protected override void DoExecuteBatch(IDbCommand ps)
         {
-            log.DebugFormat("Executing batch");
+            Log.DebugFormat("Executing batch");
             CheckReaders();
             ProfiledPrepare(currentBatch.BatchCommand);
             if (Factory.Settings.SqlStatementLogger.IsDebugEnabled)
@@ -130,9 +130,9 @@ namespace FunnelWeb.DatabaseDeployer.DbProviders
                 }
                 catch (Exception e)
                 {
-                    if (log.IsWarnEnabled)
+                    if (Log.IsWarnEnabled)
                     {
-                        log.Warn(e.ToString());
+                        Log.Warn(e.ToString());
                     }
                 }
             }
