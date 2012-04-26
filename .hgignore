@@ -68,3 +68,4 @@ glob:src/FunnelWeb.sln.docstates
 glob:build/NuGet/*
 src/FunnelWeb.Web/App_Data/FunnelWeb.sdf
 AppHarbourConfig.xml
+packages/*
