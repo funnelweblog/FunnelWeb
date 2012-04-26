@@ -7,7 +7,7 @@
   <PropertyGroup>
     <Root>$(MSBuildStartupDirectory)</Root>
     <nunitconsoleexe>$(Root)\lib\NUnit\exe\nunit-console-x86.exe</nunitconsoleexe>
-    <NuGet>$(Root)\build\lib\NuGet.exe</NuGet>
+    <NuGet>$(Root)\src\.nuget\NuGet.exe</NuGet>
   </PropertyGroup>
 
   <PropertyGroup>

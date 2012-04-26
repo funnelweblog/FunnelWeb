@@ -6,6 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{5C5EFCF0-454D-42E0-AA89-7F69FB5457BA}</ProjectGuid>
+    <RestorePackages>true</RestorePackages>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FunnelWeb.Extensions.CommentNotification</RootNamespace>
@@ -67,6 +68,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  
   <PropertyGroup>
     <PostBuildEvent>start /MIN xcopy "$(TargetPath)" "$(SolutionDir)FunnelWeb.Web\bin\Extensions\" /R /S /Y</PostBuildEvent>
   </PropertyGroup>
