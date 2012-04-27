@@ -230,6 +230,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
+    <None Include="_bin_deployableAssemblies\x86\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0001.sql" />
@@ -362,6 +364,34 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0032.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\msvcr90.dll" />
+    <Content Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\README_ENU.txt" />
+    <Content Include="_bin_deployableAssemblies\amd64\sqlceca40.dll" />
+    <Content Include="_bin_deployableAssemblies\amd64\sqlcecompact40.dll" />
+    <Content Include="_bin_deployableAssemblies\amd64\sqlceer40EN.dll" />
+    <Content Include="_bin_deployableAssemblies\amd64\sqlceme40.dll" />
+    <Content Include="_bin_deployableAssemblies\amd64\sqlceqp40.dll" />
+    <Content Include="_bin_deployableAssemblies\amd64\sqlcese40.dll" />
+    <Content Include="_bin_deployableAssemblies\EN\System.Data.SqlServerCe.xml" />
+    <Content Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="_bin_deployableAssemblies\System.Data.SqlServerCe.dll" />
+    <Content Include="_bin_deployableAssemblies\System.Data.SqlServerCe.Entity\System.Data.SqlServerCe.Entity.dll" />
+    <Content Include="_bin_deployableAssemblies\System.Web.Helpers.dll" />
+    <Content Include="_bin_deployableAssemblies\System.Web.Mvc.dll" />
+    <Content Include="_bin_deployableAssemblies\System.Web.Razor.dll" />
+    <Content Include="_bin_deployableAssemblies\System.Web.WebPages.Deployment.dll" />
+    <Content Include="_bin_deployableAssemblies\System.Web.WebPages.dll" />
+    <Content Include="_bin_deployableAssemblies\System.Web.WebPages.Razor.dll" />
+    <Content Include="_bin_deployableAssemblies\x86\Microsoft.VC90.CRT\msvcr90.dll" />
+    <Content Include="_bin_deployableAssemblies\x86\Microsoft.VC90.CRT\README_ENU.txt" />
+    <Content Include="_bin_deployableAssemblies\x86\sqlceca40.dll" />
+    <Content Include="_bin_deployableAssemblies\x86\sqlcecompact40.dll" />
+    <Content Include="_bin_deployableAssemblies\x86\sqlceer40EN.dll" />
+    <Content Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
+    <Content Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
+    <Content Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
