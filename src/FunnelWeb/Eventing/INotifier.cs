@@ -57,4 +57,19 @@ namespace FunnelWeb.Eventing
             get { return comment; }
         }
     }
+
+    public class EntrySavedEvent : Event
+    {
+        private readonly Entry entry;
+
+        public EntrySavedEvent(Entry entry)
+        {
+            this.entry = entry;
+        }
+
+        public Entry Entry
+        {
+            get { return entry; }
+        }
+    }
 }
