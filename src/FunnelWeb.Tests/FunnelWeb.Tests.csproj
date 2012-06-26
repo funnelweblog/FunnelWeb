@@ -5,6 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
+    <RestorePackages>true</RestorePackages>
     <ProjectGuid>{D9FD02F0-96B4-43EE-8FD9-455658B00EE5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -12,6 +13,7 @@
     <AssemblyName>FunnelWeb.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,10 +35,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac">
-      <HintPath>..\packages\Autofac.2.5.2.830\lib\NET40\Autofac.dll</HintPath>
+      <HintPath>..\packages\Autofac.2.6.1.841\lib\NET40\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Autofac.Configuration">
-      <HintPath>..\packages\Autofac.2.5.2.830\lib\NET40\Autofac.Configuration.dll</HintPath>
+      <HintPath>..\packages\Autofac.2.6.1.841\lib\NET40\Autofac.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="DbUp, Version=2.0.67.0, Culture=neutral, PublicKeyToken=4b419c53bdfd4cbf, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -57,9 +59,8 @@
       <HintPath>..\..\lib\Watin\Microsoft.mshtml.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NHibernate, Version=3.2.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NHibernate.3.2.0.4000\lib\Net35\NHibernate.dll</HintPath>
+    <Reference Include="NHibernate">
+      <HintPath>..\packages\NHibernate.3.3.0.4000\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="NSubstitute">
       <HintPath>..\packages\NSubstitute.1.3.0.0\lib\NET40\NSubstitute.dll</HintPath>
@@ -122,7 +123,6 @@
     <Compile Include="Integration\Queries\EntryByNameAndRevisionQueryMatchesEntryByName.cs" />
     <Compile Include="Integration\Queries\EntryByNameQueryMatchesEntryByName.cs" />
     <Compile Include="Integration\Queries\EntryByNameQueryMatchesEntryByNameThatHasComments.cs" />
-    <Compile Include="Integration\Queries\FullTextSearchEntriesQueryReturnsEntry.cs" />
     <Compile Include="Integration\Queries\GetCommentsQueryReturnsComments.cs" />
     <Compile Include="Integration\Queries\GetEntriesQueryByTagReturnsEntryWithWithRequestedTagOnly.cs" />
     <Compile Include="Integration\Queries\GetEntriesQueryReturnsEntry.cs" />
@@ -134,12 +134,10 @@
     <Compile Include="DatabaseDeployer\DatabaseModuleTests.cs" />
     <Compile Include="DatabaseDeployer\DatabaseUpgradeDetectorTests.cs" />
     <Compile Include="Helpers\Requires.cs" />
-    <Compile Include="Helpers\TemporaryDatabase.cs" />
     <Compile Include="Integration\CanDeployDatabase.cs" />
     <Compile Include="Helpers\RouteExtensions.cs" />
     <Compile Include="Helpers\Specification.cs" />
     <Compile Include="Helpers\ThenAttribute.cs" />
-    <Compile Include="Helpers\IntegrationTest.cs" />
     <Compile Include="Integration\UpdateCommentCountTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LifetimeJustifications.cs" />
@@ -177,6 +175,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <PropertyGroup>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

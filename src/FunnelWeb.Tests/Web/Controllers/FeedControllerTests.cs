@@ -51,8 +51,8 @@ namespace FunnelWeb.Tests.Web.Controllers
                                           Author = "Test",
                                           Body = "Some Body",
                                           Name = "Name",
-                                          Published = DateTime.Now.AddDays(-3),
-                                          Revised = published,
+                                          Published = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now.AddDays(-3)),
+                                          Revised = TimeZoneInfo.ConvertTimeToUtc(published),
                                       }
                               };
             Repository.Find(Arg.Any<GetFullEntriesQuery>(), Arg.Any<int>(), Arg.Any<int>())
@@ -73,8 +73,8 @@ namespace FunnelWeb.Tests.Web.Controllers
                                           Author = "Test",
                                           Body = "Some Body",
                                           Name = "Title",
-                                          Published = DateTime.Now.AddDays(-3),
-                                          Revised = DateTime.Now.AddDays(-1),
+                                          Published = DateTime.UtcNow.AddDays(-3),
+                                          Revised = DateTime.UtcNow.AddDays(-1),
                                       }
                               };
             Repository.Find(Arg.Any<GetFullEntriesQuery>(), Arg.Any<int>(), Arg.Any<int>())
