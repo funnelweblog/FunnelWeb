@@ -28,5 +28,9 @@ namespace FunnelWeb.Web.Areas.Admin.Views.Install
         public string DatabaseProvider { get; set; }
 
         public bool DatabaseProviderSupportsSchema { get; set; }
+
+        public bool IsSettingsReadOnly { get; set; }
+
+        public string ReadOnlyReason { get; set; }
     }
 }

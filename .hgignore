@@ -72,3 +72,4 @@ glob:build/NuGet/*
 *.ldf
 AppHarbourConfig.xml
 packages/*
+src/_NCrunch_FunnelWeb

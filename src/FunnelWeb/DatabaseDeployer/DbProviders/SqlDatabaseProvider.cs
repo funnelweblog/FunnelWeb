@@ -39,6 +39,12 @@ namespace FunnelWeb.DatabaseDeployer.DbProviders
         {
             try
             {
+                if (string.IsNullOrEmpty(connectionString))
+                {
+                    errorMessage = "No connection string specified";
+                    return false;
+                }
+
                 var csb = new SqlConnectionStringBuilder(connectionString)
                 {
                     Pooling = false,

@@ -51,6 +51,8 @@ namespace FunnelWeb.Settings
             return !File.Exists(bootstrapSettingsFilePath);
         }
 
+        public string ReadOnlyReason { get { return null; } }
+
         private FunnelWebConfiguration OpenConfiguration()
         {
             if (ConfigFileMissing())

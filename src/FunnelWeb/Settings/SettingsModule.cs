@@ -22,7 +22,7 @@ namespace FunnelWeb.Settings
                 .As<IConnectionStringProvider>()
                 .SingleInstance();
 
-            builder.Register(c => new XmlBootstrapSettings(bootstrapSettingsFilePath))
+            builder.Register(c => new BootstrapSettingsAdapter(new XmlBootstrapSettings(bootstrapSettingsFilePath)))
                 .As<IBootstrapSettings>()
                 .SingleInstance();
 

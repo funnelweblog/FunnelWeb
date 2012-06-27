@@ -25,5 +25,10 @@
         /// </summary>
         /// <returns></returns>
         bool ConfigFileMissing();
+
+        /// <summary>
+        /// Return null if can write to this settings source
+        /// </summary>
+        string ReadOnlyReason { get; }
     }
 }

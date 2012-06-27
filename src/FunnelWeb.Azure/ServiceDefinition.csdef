@@ -11,6 +11,14 @@
     <Endpoints>
       <InputEndpoint name="Endpoint1" protocol="http" port="80" />
     </Endpoints>
-    <Imports></Imports>
+    <Imports>
+    </Imports>
+    <ConfigurationSettings>
+      <Setting name="funnelweb.configuration.database.connection" />
+      <Setting name="funnelweb.configuration.database.schema" />
+      <Setting name="funnelweb.configuration.authentication.username" />
+      <Setting name="funnelweb.configuration.authentication.password" />
+      <Setting name="funnelweb.configuration.database.provider" />
+    </ConfigurationSettings>
   </WebRole>
 </ServiceDefinition>

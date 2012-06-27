@@ -2,6 +2,12 @@
 <ServiceConfiguration serviceName="FunnelWeb.Azure" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="1" osVersion="*" schemaVersion="2012-05.1.7">
   <Role name="FunnelWeb.Web">
     <Instances count="1" />
-    <ConfigurationSettings></ConfigurationSettings>
+    <ConfigurationSettings>
+      <Setting name="funnelweb.configuration.database.connection" value="" />
+      <Setting name="funnelweb.configuration.database.schema" value="dbo" />
+      <Setting name="funnelweb.configuration.authentication.username" value="test" />
+      <Setting name="funnelweb.configuration.authentication.password" value="test" />
+      <Setting name="funnelweb.configuration.database.provider" value="sql" />
+    </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>

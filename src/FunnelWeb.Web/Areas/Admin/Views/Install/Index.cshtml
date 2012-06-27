@@ -9,8 +9,7 @@
     var verb = Model.IsInstall ? "install" : "upgrade";
     var proceed = Model.IsInstall ? "Proceed with Installation" : "Proceed with Upgrade";
 }
-<h1>
-    FunnelWeb @properNoun
+<h1>FunnelWeb @properNoun
 </h1>
 <p class='important'>
     Welcome to your FunnelWeb installation!
@@ -20,72 +19,123 @@
     the database. You will see this page any time you upgrade FunnelWeb.
 </p>
 
-<h2>Change Database Provider</h2>
-@using (Html.BeginForm("ChangeProvider", "Install", FormMethod.Post, new { Area = "Admin" }))
+@if (Model.IsSettingsReadOnly)
 {
+    <h2>Settings Read Only</h2>
+    @Model.ReadOnlyReason
+
+    if (Model.CanConnect)
+    {
+        <p class='good'>
+            The connection string below appears to work. Ready to go.
+        </p>
+    }
+    else
+    {
+        <p class='bad'>
+            The connection string below is invalid. You will need to change it before proceeding
+            with this @verb. The error was:
+        </p>
+        <pre>@Model.ConnectionError</pre>
+    }
+
+    <h3>Current Settings</h3>
+
     <div class="form-body">
         <div class="editor-label">
-            @Html.LabelFor(m => m.DatabaseProvider)
+            @Html.LabelFor(m => m.DatabaseProvider):
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(
-                m => m.DatabaseProvider, 
-                Model.DatabaseProviders.Select(provider=>new SelectListItem
-                                                      {
-                                                          Text = provider, 
-                                                          Value = provider, 
-                                                          Selected = provider == Model.DatabaseProvider
-                                                      }))
-            <input type="submit" id="changeProvider" class="submit" value="Change Provider" />
+            @Html.TextBoxFor(
+                m => m.DatabaseProvider,
+                new{ @readonly = true})
         </div>
+        
+        <div class="editor-label">
+        @Html.LabelFor(m => m.ConnectionString):
     </div>
-}
-<h2>
-    Change Connection String</h2>
-@if (Model.CanConnect)
-{
-    <p class='good'>
-        The connection string below appears to work. However, you can change it if you wish
-        to use an alternative database.
-    </p>
+    <div class="editor-field">
+        @Html.TextAreaFor(m => m.ConnectionString, new{ @readonly = true})
+    </div>
+    @if (Model.DatabaseProviderSupportsSchema)
+    {
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Schema):
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.Schema, new{ @readonly = true})
+        </div>
+    }
+    </div>
 }
 else
 {
-    <p class='bad'>
-        The connection string below is invalid. You will need to change it before proceeding
-        with this @verb. The error was:
-    </p>
-    <pre>@Model.ConnectionError</pre>
-}
-
-@using (Html.BeginForm("Test", "Install", FormMethod.Post, new { Area = "Admin" }))
-{
-    <div class="form-body">
-        <div class="editor-label">
-            @Html.LabelFor(m => m.ConnectionString)
-        </div>
-        <div class="editor-field">
-            @Html.TextAreaFor(m => m.ConnectionString, Html.AttributesFor(m => m.ConnectionString))
-            @Html.ValidationMessageFor(m => m.ConnectionString)
-            @Html.HintFor(m => m.ConnectionString)
-        </div>
-        @if (Model.DatabaseProviderSupportsSchema)
-        {
+    <h2>Change Database Provider</h2>
+    using (Html.BeginForm("ChangeProvider", "Install", FormMethod.Post, new { Area = "Admin" }))
+    {
+        <div class="form-body">
             <div class="editor-label">
-                @Html.LabelFor(m => m.Schema)
+                @Html.LabelFor(m => m.DatabaseProvider)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.Schema, Html.AttributesFor(m => m.ConnectionString))
-                @Html.ValidationMessageFor(m => m.Schema)
-                @Html.HintFor(m => m.Schema)
+                @Html.DropDownListFor(
+                        m => m.DatabaseProvider,
+                        Model.DatabaseProviders.Select(provider => new SelectListItem
+                                                                       {
+                                                                           Text = provider,
+                                                                           Value = provider,
+                                                                           Selected = provider == Model.DatabaseProvider
+                                                                       }))
+                <input type="submit" id="changeProvider" class="submit" value="Change Provider" />
             </div>
-        }
-        <div class="editor-label">
         </div>
-        <div class="editor-field">
-            <input type="submit" id="submit" class="submit" value="Save and Test" />
+    }
+    <h2>Change Connection String</h2>
+    if (Model.CanConnect)
+    {
+        <p class='good'>
+            The connection string below appears to work. However, you can change it if you wish
+            to use an alternative database.
+        </p>
+    }
+    else
+    {
+        <p class='bad'>
+            The connection string below is invalid. You will need to change it before proceeding
+            with this @verb. The error was:
+        </p>
+        <pre>@Model.ConnectionError</pre>
+    }
+    using (Html.BeginForm("Test", "Install", FormMethod.Post, new { Area = "Admin" }))
+    {
+        <div class="form-body">
+            <div class="editor-label">
+                @Html.LabelFor(m => m.ConnectionString)
+            </div>
+            <div class="editor-field">
+                @Html.TextAreaFor(m => m.ConnectionString, Html.AttributesFor(m => m.ConnectionString))
+                @Html.ValidationMessageFor(m => m.ConnectionString)
+                @Html.HintFor(m => m.ConnectionString)
+            </div>
+            @if (Model.DatabaseProviderSupportsSchema)
+            {
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.Schema)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(m => m.Schema, Html.AttributesFor(m => m.ConnectionString))
+                    @Html.ValidationMessageFor(m => m.Schema)
+                    @Html.HintFor(m => m.Schema)
+                </div>
+            }
+            <div class="editor-label">
+            </div>
+            <div class="editor-field">
+                <input type="submit" id="submit" class="submit" value="Save and Test" />
+            </div>
         </div>
-    </div>
+    }
+    
 }
 @if (Model.CanConnect)
 {
@@ -111,9 +161,11 @@ else
     {
         <text>
         <p class='good'>
-            Your database is up to date. No @verb is necessary.</p>
+            Your database is up to date. No @verb is necessary.
+        </p>
         <p class='important'>
-            <a href="@Url.Content("~/")">Sweet!</a></p>
+            <a href="@Url.Content("~/")">Sweet!</a>
+        </p>
         </text>
     }
     else

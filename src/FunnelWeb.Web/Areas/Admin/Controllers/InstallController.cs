@@ -42,6 +42,8 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
             model.ConnectionString = connectionString;
             model.Schema = databaseProvider.Value.SupportSchema ? schema : null;
             model.DatabaseProviderSupportsSchema = databaseProvider.Value.SupportSchema;
+            model.IsSettingsReadOnly = ConnectionStringProvider.ReadOnlyReason != null;
+            model.ReadOnlyReason = ConnectionStringProvider.ReadOnlyReason;
 
             if (model.CanConnect)
             {

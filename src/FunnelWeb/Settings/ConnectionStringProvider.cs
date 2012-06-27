@@ -40,6 +40,11 @@ namespace FunnelWeb.Settings
             }
         }
 
+        public string ReadOnlyReason
+        {
+            get { return settings.ReadOnlyReason; }
+        }
+
         public string DatabaseProvider
         {
             get { return (settings.Get("funnelweb.configuration.database.provider") ?? "sql").ToLower(); }
