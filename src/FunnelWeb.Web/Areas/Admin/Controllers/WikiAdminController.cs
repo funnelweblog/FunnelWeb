@@ -120,10 +120,14 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
                 tag.Add(entry);
             }
 
-            if (model.IsNew)
-                Repository.Add(entry);
+            EventPublisher.Publish(new EntrySavedEvent(entry));
 
-            return RedirectToAction("Page", "Wiki", new { Area = "", page = model.Name});
+            if (model.IsNew)
+            {
+                Repository.Add(entry);
+            }
+
+            return RedirectToAction("Page", "Wiki", new { Area = "", page = entry.Name});
         }
 
         private List<Tag> GetEditTags(EntryRevision model)
