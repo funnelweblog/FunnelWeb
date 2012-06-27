@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Web.Mvc;
 using FunnelWeb.Model.Repositories;
+using FunnelWeb.Utilities;
 using FunnelWeb.Web.Application.Mime;
 using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Areas.Admin.Views.Upload;
@@ -29,8 +30,8 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         [Authorize(Roles = "Moderator")]
         public virtual ActionResult Upload(string path, bool? unzip, FileUpload upload)
         {
-            string fullPath = FileRepository.MapPath(Path.Combine(path, upload.FileName));
-            FileRepository.Save(upload.Stream, fullPath, unzip ?? false);
+            var filePath = Path.Combine(path, upload.FileName);
+            FileRepository.Save(upload.Stream, filePath, unzip ?? false);
             return RedirectToAction("Index", "Upload", new {path});
         }
 
@@ -57,13 +58,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
         public virtual ActionResult Render(string path)
         {
-            if (FileRepository.IsFile(path))
-            {
-                var fullPath = FileRepository.MapPath(path);
-
-                return File(fullPath, MimeHelper.GetMimeType(fullPath));
-            }
-            return HttpNotFound();
+            return FileRepository.Render(path);
         }
     }
 }

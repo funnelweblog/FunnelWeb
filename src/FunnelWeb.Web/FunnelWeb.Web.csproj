@@ -210,7 +210,6 @@
     <Compile Include="Application\Themes\ThemesModule.cs" />
     <Compile Include="Application\Markup\InputSanitizer.cs" />
     <Compile Include="Application\Markup\MarkdownNetByBrianJeremy.cs" />
-    <Compile Include="Application\Mime\IMimeTypeLookup.cs" />
     <Compile Include="Application\Mime\RegistryMimeTypeLookup.cs" />
     <Compile Include="Application\Authentication\AuthenticationModule.cs" />
     <Compile Include="Application\Mvc\Binders\BindersModule.cs" />

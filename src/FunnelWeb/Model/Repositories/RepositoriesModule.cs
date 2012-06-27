@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Autofac;
 using FluentNHibernate.Cfg;
 using FunnelWeb.DatabaseDeployer;
@@ -9,7 +7,6 @@ using FunnelWeb.DatabaseDeployer.DbProviders;
 using FunnelWeb.Model.Mappings;
 using FunnelWeb.Model.Repositories.Internal;
 using FunnelWeb.Repositories;
-using FunnelWeb.Settings;
 using NHibernate;
 using NHibernate.Bytecode;
 
@@ -19,7 +16,8 @@ namespace FunnelWeb.Model.Repositories
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register<IFileRepository>(x => new FileRepository(x.Resolve<ISettingsProvider>(), x.Resolve<HttpServerUtilityBase>())).InstancePerLifetimeScope();
+            //builder.Register<IFileRepository>(x => new FileRepository(x.Resolve<ISettingsProvider>(), x.Resolve<HttpServerUtilityBase>(), x.Resolve<IMimeTypeLookup>())).InstancePerLifetimeScope();
+            builder.Register<IFileRepository>(x => new AzureBlobFileRepository()).InstancePerLifetimeScope();
             builder.RegisterType<AdminRepository>().As<IAdminRepository>().InstancePerLifetimeScope();
             builder.RegisterType<TaskStateRepository>().As<ITaskStateRepository>().InstancePerLifetimeScope();
 

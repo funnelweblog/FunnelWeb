@@ -34,16 +34,18 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
             var databaseProvider = databaseProviderList.Single(p => p.Metadata.Name.Equals(databaseProviderName, StringComparison.InvariantCultureIgnoreCase));
 
             string error;
-            var model = new IndexModel();
-            model.DatabaseProviders = databaseProviderList.Select(p => p.Metadata.Name);
-            model.DatabaseProvider = databaseProviderName;
-            model.CanConnect = databaseProvider.Value.TryConnect(connectionString, out error);
-            model.ConnectionError = error;
-            model.ConnectionString = connectionString;
-            model.Schema = databaseProvider.Value.SupportSchema ? schema : null;
-            model.DatabaseProviderSupportsSchema = databaseProvider.Value.SupportSchema;
-            model.IsSettingsReadOnly = ConnectionStringProvider.ReadOnlyReason != null;
-            model.ReadOnlyReason = ConnectionStringProvider.ReadOnlyReason;
+            var model = new IndexModel
+                            {
+                                DatabaseProviders = databaseProviderList.Select(p => p.Metadata.Name),
+                                DatabaseProvider = databaseProviderName,
+                                CanConnect = databaseProvider.Value.TryConnect(connectionString, out error),
+                                ConnectionError = error,
+                                ConnectionString = connectionString,
+                                Schema = databaseProvider.Value.SupportSchema ? schema : null,
+                                DatabaseProviderSupportsSchema = databaseProvider.Value.SupportSchema,
+                                IsSettingsReadOnly = ConnectionStringProvider.ReadOnlyReason != null,
+                                ReadOnlyReason = ConnectionStringProvider.ReadOnlyReason
+                            };
 
             if (model.CanConnect)
             {

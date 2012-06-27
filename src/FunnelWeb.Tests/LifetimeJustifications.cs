@@ -16,6 +16,7 @@ using FunnelWeb.Model.Repositories;
 using FunnelWeb.Repositories;
 using FunnelWeb.Settings;
 using FunnelWeb.Tasks;
+using FunnelWeb.Utilities;
 using FunnelWeb.Web.Application.Authentication;
 using FunnelWeb.Web.Application.Mime;
 using FunnelWeb.Web.Application.Mvc;

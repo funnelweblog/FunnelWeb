@@ -8,6 +8,7 @@
       <Setting name="funnelweb.configuration.authentication.username" value="test" />
       <Setting name="funnelweb.configuration.authentication.password" value="test" />
       <Setting name="funnelweb.configuration.database.provider" value="sql" />
+      <Setting name="StorageConnectionString" value="UseDevelopmentStorage=true" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>

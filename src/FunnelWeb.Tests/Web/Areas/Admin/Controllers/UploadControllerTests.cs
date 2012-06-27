@@ -3,7 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using FunnelWeb.Model.Repositories;
 using FunnelWeb.Tests.Web.Controllers;
-using FunnelWeb.Web.Application.Mime;
+using FunnelWeb.Utilities;
 using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Areas.Admin.Controllers;
 using NSubstitute;
@@ -61,11 +61,8 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
 
             var upload = new FileUpload(file);
 
-            FileRepository.MapPath(Arg.Any<string>()).Returns("path");
-            
             var result = (RedirectToRouteResult)Controller.Upload("path", false, upload);
 
-            FileRepository.Received().MapPath(Arg.Is("path"));
             FileRepository.Received().Save(Arg.Is<Stream>(stream), Arg.Is("path"), Arg.Is(false));
 
             Assert.That(result.RouteValues["Action"], Is.EqualTo("Index"));
@@ -81,11 +78,8 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
 
             var upload = new FileUpload(file);
 
-            FileRepository.MapPath(Arg.Any<string>()).Returns("path");
-
             var result = (RedirectToRouteResult)Controller.Upload("path", true, upload);
 
-            FileRepository.Received().MapPath(Arg.Is("path"));
             FileRepository.Received().Save(Arg.Is<Stream>(stream), Arg.Is("path"), Arg.Is(true));
 
             Assert.That(result.RouteValues["Action"], Is.EqualTo("Index"));
@@ -115,7 +109,6 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
         public void RenderExistingFile()
         {
             FileRepository.IsFile(Arg.Is("file")).Returns(true);
-            FileRepository.MapPath(Arg.Is("file")).Returns("file");
 
             MimeTypeLookup.GetMimeType(Arg.Any<string>()).Returns("mime-type");
 
@@ -136,7 +129,6 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
             var result = Controller.Render("file");
 
             FileRepository.Received().IsFile(Arg.Is("file"));
-            FileRepository.DidNotReceive().MapPath(Arg.Any<string>());
             MimeTypeLookup.DidNotReceive().GetMimeType(Arg.Any<string>());
 
             Assert.IsInstanceOf(typeof (HttpNotFoundResult), result);

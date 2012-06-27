@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using FunnelWeb.Utilities;
 using Microsoft.Win32;
 
 namespace FunnelWeb.Web.Application.Mime

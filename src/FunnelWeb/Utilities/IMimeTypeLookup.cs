@@ -1,4 +1,4 @@
-﻿namespace FunnelWeb.Web.Application.Mime
+namespace FunnelWeb.Utilities
 {
     public interface IMimeTypeLookup
     {

@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using FunnelWeb.Utilities;
 
 namespace FunnelWeb.Web.Application.Mime
 {
