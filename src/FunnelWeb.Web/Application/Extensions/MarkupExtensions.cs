@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
@@ -31,6 +32,32 @@ namespace FunnelWeb.Web.Application.Extensions
 
         #region URL's
 
+        /// <summary>
+        /// Fixes up any relative links so they work in all scenarios
+        /// </summary>
+        /// <param name="html"></param>
+        /// <param name="htmlToProcess"></param>
+        /// <returns></returns>
+        public static MvcHtmlString QualifyLinks(this HtmlHelper html, string htmlToProcess)
+        {
+            foreach (Match match in Regex.Matches(htmlToProcess, "href=['\"](?<url>.*?)['\"]"))
+            {
+                var urlGroup = match.Groups["url"];
+                var url = urlGroup.Value;
+
+                if (url[0] == '~')
+                    url = url.Substring(1);
+
+                if (!url.StartsWith("/")) continue;
+
+                var mvcHtmlString = html.Qualify(url);
+                string newValue = mvcHtmlString.ToString();
+                htmlToProcess = htmlToProcess.Replace(urlGroup.Value, newValue);
+            }
+
+            return MvcHtmlString.Create(htmlToProcess);
+        }
+
         public static MvcHtmlString Qualify(this HtmlHelper html, MvcHtmlString url)
         {
             return Qualify(html, url.ToHtmlString());
@@ -38,9 +65,8 @@ namespace FunnelWeb.Web.Application.Extensions
 
         public static MvcHtmlString Qualify(this HtmlHelper html, string url)
         {
-            var requestUrl = html.ViewContext.HttpContext.Request.GetOriginalUrl();
+            var prefix = html.ViewContext.HttpContext.Request.GetBaseUrl().ToString().TrimEnd('/');
 
-            var prefix = requestUrl.GetLeftPart(UriPartial.Authority);
             if (url.StartsWith("<a"))
             {
                 url = url.Replace("href=\"/", "href=\"" + prefix + "/").Replace("href='/", "href='" + prefix + "/");

@@ -40,7 +40,7 @@
         <div>
             <nav>
                 <ul>
-                    @MvcHtmlString.Create(Html.Settings().MainLinks)
+                    @Html.QualifyLinks(Html.Settings().MainLinks)
                     @if (ViewData.IsLoggedIn())
                     {
                         <li>@Html.AdminActionLink("New Post", "Edit", "WikiAdmin")</li>
