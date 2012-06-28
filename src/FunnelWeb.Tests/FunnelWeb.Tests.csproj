@@ -23,7 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac">
@@ -111,6 +112,7 @@
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
     <Compile Include="Core\Filters\FunnelWebRequestFilterTests.cs" />
+    <Compile Include="Core\Utilities\HttpRequestExtensionsTest.cs" />
     <Compile Include="DatabaseDeployer\FunnelWebScriptProviderTests.cs" />
     <Compile Include="Helpers\ITemporaryDatabase.cs" />
     <Compile Include="Helpers\QueryIntegrationTest.cs" />
@@ -144,6 +146,8 @@
     <Compile Include="Web\Application\ActionResults\XmlActionResultTests.cs" />
     <Compile Include="Web\Application\Binders\ArrayBinderTests.cs" />
     <Compile Include="Web\Application\Binders\ImplicitAssignmentBinderTests.cs" />
+    <Compile Include="Web\Application\Extensions\HtmlHelperBuilder.cs" />
+    <Compile Include="Web\Application\Extensions\MarkupExtensionsTests.cs" />
     <Compile Include="Web\Application\Markup\MarkdownTests.cs" />
     <Compile Include="Web\Application\Mime\RegistryMimeTypeLookupTests.cs" />
     <Compile Include="Web\Areas\Admin\Controllers\AdminControllerTests.cs" />

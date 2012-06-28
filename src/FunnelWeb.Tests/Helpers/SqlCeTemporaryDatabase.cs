@@ -90,6 +90,8 @@ namespace FunnelWeb.Tests.Helpers
             set { }
         }
 
+        public string ReadOnlyReason { get; private set; }
+
         public AdHocSqlRunner AdHoc
         {
             get { return database; }

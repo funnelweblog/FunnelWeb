@@ -57,7 +57,7 @@ namespace FunnelWeb.Tests.Web.Controllers
         {
             //Arrange
             var repo = Substitute.For<IRepository>();
-            var tagName = "Demo";
+            const string tagName = "Demo";
             repo.FindFirstOrDefault(Arg.Is<SearchTagsByNameQuery>(q=>q.TagName == tagName))
                 .Returns(new Tag {Name = tagName});
 
@@ -67,17 +67,6 @@ namespace FunnelWeb.Tests.Web.Controllers
             //Assert
             Assert.IsNotNull(result);
             Assert.IsTrue(((dynamic) result.Data).Name == tagName);
-        }
-
-        [Test]
-        public void TagControllerTests_Tag_Accessible_By_Partial_Name()
-        {
-            //Arrange
-
-            //Act
-
-            //Assert
-            Assert.Inconclusive();
         }
 
         [Test]
@@ -95,28 +84,6 @@ namespace FunnelWeb.Tests.Web.Controllers
             // assert
             Assert.IsNotNull(result);
             Assert.IsNull(result.Data);
-        }
-
-        [Test]
-        public void TagControllerTests_Creating_Tag_Returns_As_Result()
-        {
-            //Arrange
-
-            //Act
-
-            //Assert
-            Assert.Inconclusive();
-        }
-
-        [Test]
-        public void TagControllerTests_All_Pages_For_A_Tag_Can_Be_Resolved()
-        {
-            //Arrange
-
-            //Act
-
-            //Assert
-            Assert.Inconclusive();
         }
     }
 }

@@ -30,7 +30,7 @@ namespace FunnelWeb.Settings
         [StringLength(5000)]
         [DataType("Markdown")]
         [Description("The welcome text that is shown on the home page. You can use markdown.")]
-        [DefaultValue("Welcome to your FunnelWeb blog. You can <a href=\"/login\">login</a> and edit this message in the administration section. The default username and password is <code>test/test</code>.")]
+        [DefaultValue("Welcome to your FunnelWeb blog. You can <a href=\"/admin/login\">login</a> and edit this message in the administration section. The default username and password is <code>test/test</code>.")]
         [SettingStorage(StorageLocation.Database, "ui-introduction")]
         public string Introduction { get; set; }
 
