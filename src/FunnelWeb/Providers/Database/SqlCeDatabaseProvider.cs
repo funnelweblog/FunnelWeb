@@ -5,8 +5,10 @@ using System.IO;
 using DbUp;
 using DbUp.Builder;
 using FluentNHibernate.Cfg.Db;
+using FunnelWeb.DatabaseDeployer;
+using FunnelWeb.Providers.Database.SqlCe;
 
-namespace FunnelWeb.DatabaseDeployer.DbProviders
+namespace FunnelWeb.Providers.Database
 {
     public class SqlCeDatabaseProvider : IDatabaseProvider
     {
@@ -36,7 +38,7 @@ namespace FunnelWeb.DatabaseDeployer.DbProviders
             {
                 var csb = new SqlCeConnectionStringBuilder(connectionString);
                 var replaceDataDirectory = ReplaceDataDirectory(csb.DataSource);
-                if (!File.Exists(replaceDataDirectory))
+                if (!System.IO.File.Exists(replaceDataDirectory))
                 {
                     var directoryName = Path.GetDirectoryName(replaceDataDirectory);
                     if (directoryName != null && !Directory.Exists(directoryName))
@@ -60,9 +62,9 @@ namespace FunnelWeb.DatabaseDeployer.DbProviders
             }
         }
 
-        public IPersistenceConfigurer GetDatabaseConfiguration(IConnectionStringProvider connectionStringProvider)
+        public IPersistenceConfigurer GetDatabaseConfiguration(IConnectionStringSettings connectionStringSettings)
         {
-            return MsSqlCeConfiguration.Standard.ConnectionString(connectionStringProvider.ConnectionString)
+            return MsSqlCeConfiguration.Standard.ConnectionString(connectionStringSettings.ConnectionString)
                 .Dialect<FunnelWebMsSqlCe40Dialect>().Driver<FunnelWebSqlServerCeDriver>()
                 .ShowSql();
         }

@@ -1,11 +1,10 @@
-using System;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using StackExchange.Profiling;
 using StackExchange.Profiling.Data;
 
-namespace FunnelWeb.DatabaseDeployer.DbProviders
+namespace FunnelWeb.Providers.Database.Sql
 {
     public class ProfiledSqlDbConnection : ProfiledDbConnection
     {

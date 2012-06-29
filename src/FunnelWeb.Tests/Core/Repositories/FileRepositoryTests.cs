@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web;
 using FunnelWeb.Model.Repositories.Internal;
+using FunnelWeb.Providers.File;
 using FunnelWeb.Settings;
 using FunnelWeb.Utilities;
 using NSubstitute;

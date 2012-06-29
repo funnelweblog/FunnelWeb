@@ -8,7 +8,7 @@ using NHibernate.AdoNet.Util;
 using NHibernate.Exceptions;
 using NHibernate.Util;
 
-namespace FunnelWeb.DatabaseDeployer.DbProviders
+namespace FunnelWeb.Providers.Database.Sql
 {
     public class ProfiledSqlClientBatchingBatcher : AbstractBatcher
     {

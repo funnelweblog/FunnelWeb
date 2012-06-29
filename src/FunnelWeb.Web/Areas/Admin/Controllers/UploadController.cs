@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using System.Web.Mvc;
-using FunnelWeb.Model.Repositories;
+using FunnelWeb.Providers.File;
+using FunnelWeb.Settings;
 using FunnelWeb.Utilities;
-using FunnelWeb.Web.Application.Mime;
 using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Areas.Admin.Views.Upload;
 
@@ -13,6 +13,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
     {
         public IFileRepository FileRepository { get; set; }
         public IMimeTypeLookup MimeHelper { get; set; }
+        public ISettingsProvider SettingsProvider { get; set; }
 
         [Authorize(Roles = "Moderator")]
         public virtual ActionResult Index(string path)
@@ -23,7 +24,10 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
                 return RedirectToAction("Index", "Upload", new {path = Path.GetDirectoryName(path)});
             }
 
-            ViewData.Model = new IndexModel(path, FileRepository.GetItems(path));
+            ViewData.Model = new IndexModel(path, FileRepository.GetItems(path))
+                                 {
+                                     StorageProvider = SettingsProvider.GetSettings<FunnelWebSettings>().StorageProvider
+                                 };
             return View();
         }
 

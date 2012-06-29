@@ -4,10 +4,11 @@ using System.Security;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using FunnelWeb.Model;
 using FunnelWeb.Settings;
 using FunnelWeb.Utilities;
 
-namespace FunnelWeb.Model.Repositories.Internal
+namespace FunnelWeb.Providers.File
 {
     public class FileRepository : FileRepositoryBase
     {
@@ -50,7 +51,7 @@ namespace FunnelWeb.Model.Repositories.Internal
         public override bool IsFile(string path)
         {
             var fullPath = MapPath(path);
-            return File.Exists(fullPath);
+            return System.IO.File.Exists(fullPath);
         }
 
         public override FileItem[] GetItems(string path)
@@ -98,9 +99,9 @@ namespace FunnelWeb.Model.Repositories.Internal
         {
             oldPath = MapPath(oldPath);
             newPath = MapPath(newPath);
-            if (!File.Exists(oldPath)) return;
+            if (!System.IO.File.Exists(oldPath)) return;
             Directory.CreateDirectory(Path.GetDirectoryName(newPath));
-            File.Move(oldPath, newPath);
+            System.IO.File.Move(oldPath, newPath);
         }
 
         public override void Delete(string filePath)
@@ -108,7 +109,7 @@ namespace FunnelWeb.Model.Repositories.Internal
             var fullPath = MapPath(filePath);
             if (IsFile(filePath))
             {
-                File.Delete(fullPath);
+                System.IO.File.Delete(fullPath);
             }
             else
             {

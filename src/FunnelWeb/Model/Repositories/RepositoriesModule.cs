@@ -3,9 +3,10 @@ using System.Linq;
 using Autofac;
 using FluentNHibernate.Cfg;
 using FunnelWeb.DatabaseDeployer;
-using FunnelWeb.DatabaseDeployer.DbProviders;
 using FunnelWeb.Model.Mappings;
 using FunnelWeb.Model.Repositories.Internal;
+using FunnelWeb.Providers.Database;
+using FunnelWeb.Providers.File;
 using FunnelWeb.Repositories;
 using NHibernate;
 using NHibernate.Bytecode;
@@ -16,8 +17,6 @@ namespace FunnelWeb.Model.Repositories
     {
         protected override void Load(ContainerBuilder builder)
         {
-            //builder.Register<IFileRepository>(x => new FileRepository(x.Resolve<ISettingsProvider>(), x.Resolve<HttpServerUtilityBase>(), x.Resolve<IMimeTypeLookup>())).InstancePerLifetimeScope();
-            builder.Register<IFileRepository>(x => new AzureBlobFileRepository()).InstancePerLifetimeScope();
             builder.RegisterType<AdminRepository>().As<IAdminRepository>().InstancePerLifetimeScope();
             builder.RegisterType<TaskStateRepository>().As<ITaskStateRepository>().InstancePerLifetimeScope();
 
@@ -29,7 +28,7 @@ namespace FunnelWeb.Model.Repositories
 
         private static ISessionFactory ConfigureSessionFactory(IComponentContext context)
         {
-            var connectionStringProvider = context.Resolve<IConnectionStringProvider>();
+            var connectionStringProvider = context.Resolve<IConnectionStringSettings>();
             EntryMapping.CurrentSchema = connectionStringProvider.Schema;
             var databaseProvider = context.ResolveNamed<IDatabaseProvider>(connectionStringProvider.DatabaseProvider.ToLower());
 

@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using Autofac.Features.Indexed;
 using DbUp.Engine;
 using FunnelWeb.DatabaseDeployer;
-using FunnelWeb.DatabaseDeployer.DbProviders;
+using FunnelWeb.Providers.Database;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -15,23 +14,20 @@ namespace FunnelWeb.Tests.DatabaseDeployer
     public class DatabaseUpgradeDetectorTests
     {
         private DatabaseUpgradeDetector detector;
-        private IConnectionStringProvider connectionString;
+        private IConnectionStringSettings connectionString;
         private IApplicationDatabase applicationDatabase;
         private readonly List<ScriptedExtension> extensions = new List<ScriptedExtension>();
-        private IIndex<string, IDatabaseProvider> databaseProviderLookup;
         private IDatabaseProvider databaseProvider;
 
         [SetUp]
         public void SetUp()
         {
-            connectionString = Substitute.For<IConnectionStringProvider>();
+            connectionString = Substitute.For<IConnectionStringSettings>();
             connectionString.Schema = "dbo";
             connectionString.DatabaseProvider = "sql";
             applicationDatabase = Substitute.For<IApplicationDatabase>();
-            databaseProviderLookup = Substitute.For<IIndex<string, IDatabaseProvider>>();
             databaseProvider = Substitute.For<IDatabaseProvider>();
-            databaseProviderLookup[Arg.Any<string>()].Returns(databaseProvider);
-            detector = new DatabaseUpgradeDetector(connectionString, extensions, applicationDatabase, databaseProviderLookup);
+            detector = new DatabaseUpgradeDetector(connectionString, extensions, applicationDatabase, databaseProvider);
         }
 
         [Test]

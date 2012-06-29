@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Autofac.Features.Indexed;
-using FunnelWeb.DatabaseDeployer;
-using FunnelWeb.DatabaseDeployer.DbProviders;
+using FunnelWeb.Providers.Database;
 using NHibernate;
 
 namespace FunnelWeb.Repositories
@@ -11,17 +9,12 @@ namespace FunnelWeb.Repositories
     public class NHibernateRepository : IRepository
     {
         private readonly ISession session;
-        private readonly IConnectionStringProvider connectionStringProvider;
-        private readonly IIndex<string, IDatabaseProvider> databaseProviderLookup;
+        private readonly Func<IDatabaseProvider> databaseProvider;
 
-        public NHibernateRepository(
-            ISession session, 
-            IConnectionStringProvider connectionStringProvider,
-            IIndex<string, IDatabaseProvider> databaseProviderLookup)
+        public NHibernateRepository(ISession session, Func<IDatabaseProvider> databaseProvider)
         {
             this.session = session;
-            this.connectionStringProvider = connectionStringProvider;
-            this.databaseProviderLookup = databaseProviderLookup;
+            this.databaseProvider = databaseProvider;
         }
 
         public TEntity Get<TEntity>(object id)
@@ -38,14 +31,14 @@ namespace FunnelWeb.Repositories
 
         public IEnumerable<TEntity> Find<TEntity>(IQuery<TEntity> query) where TEntity : class
         {
-            return query.Execute(session, databaseProviderLookup[connectionStringProvider.DatabaseProvider]);
+            return query.Execute(session, databaseProvider());
         }
 
         public PagedResult<TEntity> Find<TEntity>(IPagedQuery<TEntity> query, int pageNumber, int itemsPerPage) where TEntity : class
         {
             var skip = pageNumber*itemsPerPage;
-            return query.Execute(session, 
-                databaseProviderLookup[connectionStringProvider.DatabaseProvider], 
+            return query.Execute(session,
+                databaseProvider(), 
                 skip, itemsPerPage);
         }
 

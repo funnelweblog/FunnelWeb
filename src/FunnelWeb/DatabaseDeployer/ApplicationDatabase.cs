@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
-using Autofac.Features.Indexed;
 using DbUp.Engine;
 using DbUp.Engine.Output;
-using FunnelWeb.DatabaseDeployer.DbProviders;
 using FunnelWeb.DatabaseDeployer.Infrastructure;
+using FunnelWeb.Providers.Database;
 
 namespace FunnelWeb.DatabaseDeployer
 {
@@ -16,33 +15,31 @@ namespace FunnelWeb.DatabaseDeployer
     /// </summary>
     public class ApplicationDatabase : IApplicationDatabase
     {
-        private readonly IConnectionStringProvider connectionStringProvider;
-        private readonly IIndex<string, IDatabaseProvider> providerLookup;
+        private readonly IConnectionStringSettings connectionStringSettings;
+        private readonly Func<IDatabaseProvider> databaseProvider;
         private const string CoreSourceIdentifier = "FunnelWeb.DatabaseDeployer";
 
         public ApplicationDatabase(
-            IConnectionStringProvider connectionStringProvider,
-            IIndex<string, IDatabaseProvider> providerLookup)
+            IConnectionStringSettings connectionStringSettings,
+            Func<IDatabaseProvider> databaseProvider)
         {
-            this.connectionStringProvider = connectionStringProvider;
-            this.providerLookup = providerLookup;
+            this.connectionStringSettings = connectionStringSettings;
+            this.databaseProvider = databaseProvider;
         }
 
         public string[] GetCoreExecutedScripts(Func<IDbConnection> connectionFactory)
         {
-            var provider = providerLookup[connectionStringProvider.DatabaseProvider.ToLower()];
-
-            return CreateJournal(connectionFactory, CoreSourceIdentifier, provider.SupportSchema ? connectionStringProvider.Schema : null).GetExecutedScripts();
+            return CreateJournal(connectionFactory, CoreSourceIdentifier, databaseProvider().SupportSchema ? connectionStringSettings.Schema : null).GetExecutedScripts();
         }
 
         public string[] GetCoreRequiredScripts()
         {
-            return CreateScriptProvider(connectionStringProvider.DatabaseProvider).GetScripts().Select(x => x.Name).ToArray();
+            return CreateScriptProvider(connectionStringSettings.DatabaseProvider).GetScripts().Select(x => x.Name).ToArray();
         }
 
         public string[] GetExtensionExecutedScripts(Func<IDbConnection> connectionFactory, ScriptedExtension extension)
         {
-            return CreateJournal(connectionFactory, extension.SourceIdentifier, connectionStringProvider.Schema).GetExecutedScripts();
+            return CreateJournal(connectionFactory, extension.SourceIdentifier, connectionStringSettings.Schema).GetExecutedScripts();
         }
 
         public string[] GetExtensionRequiredScripts(ScriptedExtension extension)
@@ -60,13 +57,12 @@ namespace FunnelWeb.DatabaseDeployer
         {
             var results = new List<DatabaseUpgradeResult>();
             
-            var provider = providerLookup[connectionStringProvider.DatabaseProvider.ToLower()];
-            var schema = provider.SupportSchema ? connectionStringProvider.Schema : null;
-            var connectionFactory = provider.GetConnectionFactory(connectionStringProvider.ConnectionString);
+            var schema = databaseProvider().SupportSchema ? connectionStringSettings.Schema : null;
+            var connectionFactory = databaseProvider().GetConnectionFactory(connectionStringSettings.ConnectionString);
 
             // Upgrade core
             var core = Upgrade(
-                provider, CreateScriptProvider(connectionStringProvider.DatabaseProvider), log,
+                databaseProvider(), CreateScriptProvider(connectionStringSettings.DatabaseProvider), log,
                 CreateJournal(connectionFactory, CoreSourceIdentifier, schema), schema);
             results.Add(core);
 
@@ -74,7 +70,7 @@ namespace FunnelWeb.DatabaseDeployer
             var databaseUpgradeResults = scriptedExtensions
                 .Select(extension =>
                         Upgrade(
-                        provider, extension.ScriptProvider, log,
+                        databaseProvider(), extension.ScriptProvider, log,
                             CreateJournal(connectionFactory, extension.SourceIdentifier, schema),
                             schema));
             results.AddRange(databaseUpgradeResults);
@@ -84,7 +80,7 @@ namespace FunnelWeb.DatabaseDeployer
 
         private DatabaseUpgradeResult Upgrade(IDatabaseProvider provider, IScriptProvider scriptProvider, IUpgradeLog log, IJournal journal, string schema)
         {
-            var upgradeEngine = provider.GetUpgradeEngineBuilder(connectionStringProvider.ConnectionString, schema)
+            var upgradeEngine = provider.GetUpgradeEngineBuilder(connectionStringSettings.ConnectionString, schema)
                 .WithScripts(scriptProvider)
                 .JournalTo(journal)
                 .LogTo(log)

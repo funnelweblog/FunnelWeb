@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using FunnelWeb.DatabaseDeployer.DbProviders;
+using FunnelWeb.Providers.Database;
 using NHibernate;
 
 namespace FunnelWeb.DatabaseDeployer.Infrastructure

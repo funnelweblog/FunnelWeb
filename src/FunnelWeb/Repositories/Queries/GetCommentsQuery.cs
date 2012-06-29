@@ -1,6 +1,6 @@
 ﻿using System;
-using FunnelWeb.DatabaseDeployer.DbProviders;
 using FunnelWeb.Model;
+using FunnelWeb.Providers.Database;
 using NHibernate;
 using NHibernate.Criterion;
 

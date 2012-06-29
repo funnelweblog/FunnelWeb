@@ -1,7 +1,8 @@
 ﻿using System.IO;
 using System.Web;
 using System.Web.Mvc;
-using FunnelWeb.Model.Repositories;
+using FunnelWeb.Providers.File;
+using FunnelWeb.Settings;
 using FunnelWeb.Tests.Web.Controllers;
 using FunnelWeb.Utilities;
 using FunnelWeb.Web.Application.Mvc;
@@ -21,11 +22,14 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
         [SetUp]
         public void SetUp()
         {
+            var settingsProvider = Substitute.For<ISettingsProvider>();
+            settingsProvider.GetSettings<FunnelWebSettings>().Returns(new FunnelWebSettings());
             Controller = new UploadController
                              {
                                  FileRepository = FileRepository = Substitute.For<IFileRepository>(),
                                  MimeHelper = MimeTypeLookup = Substitute.For<IMimeTypeLookup>(),
-                                 ControllerContext = ControllerContext
+                                 ControllerContext = ControllerContext,
+                                 SettingsProvider = settingsProvider
                              };
         }
 
@@ -110,28 +114,9 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
         {
             FileRepository.IsFile(Arg.Is("file")).Returns(true);
 
-            MimeTypeLookup.GetMimeType(Arg.Any<string>()).Returns("mime-type");
+            Controller.Render("file");
 
-            var result = (FilePathResult)Controller.Render("file");
-
-            FileRepository.Received().IsFile(Arg.Is("file"));
-            MimeTypeLookup.Received().GetMimeType(Arg.Any<string>());
-
-            Assert.That(result.FileName, Is.EqualTo("file"));
-            Assert.That(result.ContentType, Is.EqualTo("mime-type"));
-        }
-
-        [Test]
-        public void Return404OnMissingFile()
-        {
-            FileRepository.IsFile(Arg.Is("file")).Returns(false);
-
-            var result = Controller.Render("file");
-
-            FileRepository.Received().IsFile(Arg.Is("file"));
-            MimeTypeLookup.DidNotReceive().GetMimeType(Arg.Any<string>());
-
-            Assert.IsInstanceOf(typeof (HttpNotFoundResult), result);
+            FileRepository.Received().Render("file");
         }
     }
 }

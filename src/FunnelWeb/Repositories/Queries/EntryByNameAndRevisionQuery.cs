@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using FunnelWeb.DatabaseDeployer.DbProviders;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Strings;
+using FunnelWeb.Providers.Database;
 using FunnelWeb.Repositories.Projections;
 using NHibernate;
 using NHibernate.Transform;

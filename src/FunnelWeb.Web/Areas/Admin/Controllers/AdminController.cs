@@ -5,6 +5,8 @@ using System.Web.Mvc;
 using FunnelWeb.Filters;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
+using FunnelWeb.Providers;
+using FunnelWeb.Providers.File;
 using FunnelWeb.Repositories;
 using FunnelWeb.Repositories.Queries;
 using FunnelWeb.Settings;
@@ -28,18 +30,18 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         public ITaskStateRepository TaskRepository { get; set; }
         public ISession DatabaseSession { get; set; }
         public ITaskExecutor<BlogMLImportTask> ImportTask { get; set; }
+        public Func<IProviderInfo<IFileRepository>> FileRepositoriesInfo { get; set; }
 
         public virtual ActionResult Index()
         {
             return View(new IndexModel());
         }
 
-        #region Settings
-
         public virtual ActionResult Settings()
         {
             var settings = SettingsProvider.GetSettings<FunnelWebSettings>();
             ViewBag.Themes = ThemeProvider.GetThemes();
+            ViewBag.FileRepositories = FileRepositoriesInfo().Keys;
             return View(settings);
         }
 
@@ -47,6 +49,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         public virtual ActionResult Settings(FunnelWebSettings settings)
         {
             ViewBag.Themes = ThemeProvider.GetThemes();
+            ViewBag.FileRepositories = FileRepositoriesInfo().Keys;
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Your settings could not be saved. Please fix the errors shown below.");
@@ -58,8 +61,6 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
             return RedirectToAction("Settings", "Admin")
                 .AndFlash("Your changes have been saved");
         }
-
-        #endregion
 
         #region Comments
 

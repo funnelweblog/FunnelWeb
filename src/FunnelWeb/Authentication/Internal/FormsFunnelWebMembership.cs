@@ -8,12 +8,12 @@ namespace FunnelWeb.Authentication.Internal
     public class FormsFunnelWebMembership : IFunnelWebMembership
     {
         private readonly Func<ISettingsProvider> settingsProvider;
-        private readonly IBootstrapSettings bootstrapSettings;
+        private readonly IConfigSettings configSettings;
 
-        public FormsFunnelWebMembership(Func<ISettingsProvider> settingsProvider, IBootstrapSettings bootstrapSettings)
+        public FormsFunnelWebMembership(Func<ISettingsProvider> settingsProvider, IConfigSettings configSettings)
         {
             this.settingsProvider = settingsProvider;
-            this.bootstrapSettings = bootstrapSettings;
+            this.configSettings = configSettings;
         }
 
         public bool HasAdminAccount()
@@ -33,7 +33,7 @@ namespace FunnelWeb.Authentication.Internal
                            new User
                                {
                                    Name = settingsProvider().GetSettings<FunnelWebSettings>().Author,
-                                   Username = bootstrapSettings.Get("funnelweb.configuration.authentication.username")
+                                   Username = configSettings.Get("funnelweb.configuration.authentication.username")
                                }
                        };
         }

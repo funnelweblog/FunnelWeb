@@ -6,7 +6,7 @@ using NHibernate;
 
 namespace FunnelWeb.Tests.Helpers
 {
-    public interface ITemporaryDatabase : IDisposable, IConnectionStringProvider
+    public interface ITemporaryDatabase : IDisposable, IConnectionStringSettings
     {
         void WithRepository(Action<IRepository> callback);
         void WithSession(Action<ISession> callback);

@@ -1,8 +1,9 @@
-﻿using System.IO;
+using System.IO;
 using System.Web;
 using System.Web.Mvc;
+using FunnelWeb.Model;
 
-namespace FunnelWeb.Model.Repositories.Internal
+namespace FunnelWeb.Providers.File
 {
     public abstract class FileRepositoryBase : IFileRepository
     {
@@ -11,7 +12,7 @@ namespace FunnelWeb.Model.Repositories.Internal
             if (string.IsNullOrEmpty(extension) || extension == ".") return "default.png";
             if (extension.StartsWith(".")) extension = extension.Substring(1);
             extension = extension.ToLowerInvariant();
-            if (File.Exists(HttpContext.Current.Server.MapPath("/Content/Images/FileTypes/" + extension + ".png")))
+            if (System.IO.File.Exists(HttpContext.Current.Server.MapPath("/Content/Images/FileTypes/" + extension + ".png")))
             {
                 return extension + ".png";
             }

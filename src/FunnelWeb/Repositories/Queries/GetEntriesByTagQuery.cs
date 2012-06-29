@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using FunnelWeb.DatabaseDeployer.DbProviders;
 using FunnelWeb.Model;
 using FunnelWeb.DatabaseDeployer.Infrastructure;
+using FunnelWeb.Providers.Database;
 using FunnelWeb.Repositories.Projections;
 using NHibernate;
 using NHibernate.Criterion.Lambda;

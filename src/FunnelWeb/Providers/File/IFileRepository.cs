@@ -1,7 +1,8 @@
 using System.IO;
 using System.Web.Mvc;
+using FunnelWeb.Model;
 
-namespace FunnelWeb.Model.Repositories
+namespace FunnelWeb.Providers.File
 {
     public interface IFileRepository
     {

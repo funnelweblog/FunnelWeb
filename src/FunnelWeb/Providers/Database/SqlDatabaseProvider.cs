@@ -4,8 +4,10 @@ using System.Data.SqlClient;
 using DbUp;
 using DbUp.Builder;
 using FluentNHibernate.Cfg.Db;
+using FunnelWeb.DatabaseDeployer;
+using FunnelWeb.Providers.Database.Sql;
 
-namespace FunnelWeb.DatabaseDeployer.DbProviders
+namespace FunnelWeb.Providers.Database
 {
     public class SqlDatabaseProvider : IDatabaseProvider
     {
@@ -67,12 +69,12 @@ namespace FunnelWeb.DatabaseDeployer.DbProviders
             }
         }
 
-        public IPersistenceConfigurer GetDatabaseConfiguration(IConnectionStringProvider connectionStringProvider)
+        public IPersistenceConfigurer GetDatabaseConfiguration(IConnectionStringSettings connectionStringSettings)
         {
-            return MsSqlConfiguration.MsSql2008.ConnectionString(connectionStringProvider.ConnectionString)
+            return MsSqlConfiguration.MsSql2008.ConnectionString(connectionStringSettings.ConnectionString)
                 .Driver<ProfiledSqlClientDriver>()
                 .ShowSql()
-                .DefaultSchema(connectionStringProvider.Schema);
+                .DefaultSchema(connectionStringSettings.Schema);
         }
 
         public Func<IDbConnection> GetConnectionFactory(string connectionString)

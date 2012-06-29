@@ -18,12 +18,12 @@ namespace FunnelWeb.Settings
         {
             base.Load(builder);
 
-            builder.RegisterType<ConnectionStringProvider>()
-                .As<IConnectionStringProvider>()
+            builder.RegisterType<ConnectionStringSettings>()
+                .As<IConnectionStringSettings>()
                 .SingleInstance();
 
-            builder.Register(c => new BootstrapSettingsAdapter(new XmlBootstrapSettings(bootstrapSettingsFilePath)))
-                .As<IBootstrapSettings>()
+            builder.Register(c => new ConfigSettingsAdapter(new XmlConfigSettings(bootstrapSettingsFilePath)))
+                .As<IConfigSettings>()
                 .SingleInstance();
 
             builder.RegisterType<AppHarborSettings>()

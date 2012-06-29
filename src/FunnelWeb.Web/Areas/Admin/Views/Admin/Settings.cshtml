@@ -100,7 +100,26 @@
     @Html.HintFor(m => m.SearchDescription)
   </div>
 
-  <h3>File Uploads</h3>
+    <h3>File Uploads</h3>
+      <div class="editor-label">
+    @Html.LabelFor(m => m.StorageProvider)
+  </div>
+  <div class="editor-field">
+      
+      @{
+    var storageProviders = (IEnumerable<string>)ViewBag.FileRepositories;
+      }
+      @Html.DropDownListFor(
+          m => m.StorageProvider,
+          storageProviders.Select(provider => new SelectListItem
+                                                  {
+                                                      Text = provider,
+                                                      Value = provider,
+                                                      Selected = provider == Model.StorageProvider
+                                                  }))
+      @Html.ValidationMessageFor(m => m.StorageProvider)
+      @Html.HintFor(m => m.StorageProvider)
+  </div>
   <div class="editor-label">
     @Html.LabelFor(m => m.UploadPath)
   </div>

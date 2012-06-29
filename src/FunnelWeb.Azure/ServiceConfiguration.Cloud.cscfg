@@ -9,6 +9,7 @@
       <Setting name="funnelweb.configuration.authentication.password" value="test" />
       <Setting name="funnelweb.configuration.database.provider" value="sql" />
       <Setting name="StorageConnectionString" value="" />
+      <Setting name="BlobContainerName" value="FunnelWeb" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>

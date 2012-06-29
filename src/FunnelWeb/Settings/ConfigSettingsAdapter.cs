@@ -2,11 +2,11 @@
 
 namespace FunnelWeb.Settings
 {
-    public class BootstrapSettingsAdapter : IBootstrapSettings
+    public class ConfigSettingsAdapter : IConfigSettings
     {
-        private readonly XmlBootstrapSettings myConfigSettings;
+        private readonly XmlConfigSettings myConfigSettings;
 
-        public BootstrapSettingsAdapter(XmlBootstrapSettings myConfigSettings)
+        public ConfigSettingsAdapter(XmlConfigSettings myConfigSettings)
         {
             this.myConfigSettings = myConfigSettings;
         }

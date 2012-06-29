@@ -7,8 +7,9 @@ using Autofac;
 using DbUp.Engine.Output;
 using DbUp.Helpers;
 using FunnelWeb.DatabaseDeployer;
-using FunnelWeb.DatabaseDeployer.DbProviders;
 using FunnelWeb.Model.Repositories;
+using FunnelWeb.Providers;
+using FunnelWeb.Providers.Database;
 using FunnelWeb.Repositories;
 using NHibernate;
 
@@ -33,7 +34,8 @@ namespace FunnelWeb.Tests.Helpers
             database = new AdHocSqlRunner(() => new SqlCeConnection(connectionString), null);
 
             var containerBuilder = new ContainerBuilder();
-            containerBuilder.RegisterInstance(this).As<IConnectionStringProvider>();
+            containerBuilder.RegisterInstance(this).As<IConnectionStringSettings>();
+            containerBuilder.RegisterModule(new InternalProviderRegistrationModule());
             containerBuilder.RegisterModule(new RepositoriesModule());
             containerBuilder.RegisterModule(new DatabaseModule());
             container = containerBuilder.Build();

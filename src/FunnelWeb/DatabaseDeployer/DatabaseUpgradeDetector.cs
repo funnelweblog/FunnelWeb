@@ -1,30 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Autofac.Features.Indexed;
-using FunnelWeb.DatabaseDeployer.DbProviders;
+using FunnelWeb.Providers.Database;
 
 namespace FunnelWeb.DatabaseDeployer
 {
     public class DatabaseUpgradeDetector : IDatabaseUpgradeDetector
     {
-        private readonly IConnectionStringProvider connectionStringProvider;
+        private readonly IConnectionStringSettings connectionStringSettings;
         private readonly IEnumerable<ScriptedExtension> extensions;
+        private readonly IDatabaseProvider databaseProvider;
         private readonly IApplicationDatabase database;
-        private readonly IIndex<string, IDatabaseProvider> currentProviderLookup;
         private bool? updateNeeded;
         private readonly object @lock = new object();
 
         public DatabaseUpgradeDetector(
-            IConnectionStringProvider connectionStringProvider, 
+            IConnectionStringSettings connectionStringSettings, 
             IEnumerable<ScriptedExtension> extensions, 
             IApplicationDatabase database,
-            IIndex<string, IDatabaseProvider> currentProviderLookup)
+            IDatabaseProvider databaseProvider)
         {
-            this.connectionStringProvider = connectionStringProvider;
+            this.connectionStringSettings = connectionStringSettings;
             this.extensions = extensions;
             this.database = database;
-            this.currentProviderLookup = currentProviderLookup;
+            this.databaseProvider = databaseProvider;
         }
 
         public bool UpdateNeeded()
@@ -37,10 +35,9 @@ namespace FunnelWeb.DatabaseDeployer
                 if (updateNeeded != null)
                     return updateNeeded.Value;
 
-                var connectionString = connectionStringProvider.ConnectionString;
+                var connectionString = connectionStringSettings.ConnectionString;
 
                 string error;
-                var databaseProvider = currentProviderLookup[connectionStringProvider.DatabaseProvider.ToLower()];
                 if (databaseProvider.TryConnect(connectionString, out error))
                 {
                     var currentScripts = database.GetCoreExecutedScripts(databaseProvider.GetConnectionFactory(connectionString));

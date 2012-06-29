@@ -5,7 +5,7 @@ using NHibernate.AdoNet;
 using NHibernate.Driver;
 using StackExchange.Profiling;
 
-namespace FunnelWeb.DatabaseDeployer.DbProviders
+namespace FunnelWeb.Providers.Database.Sql
 {
     public class ProfiledSqlClientDriver : Sql2008ClientDriver, IEmbeddedBatcherFactoryProvider
     {

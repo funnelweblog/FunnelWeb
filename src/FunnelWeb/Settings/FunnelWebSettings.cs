@@ -12,6 +12,13 @@ namespace FunnelWeb.Settings
         [SettingStorage(StorageLocation.Database, "upload-path")]
         public string UploadPath { get; set; }
 
+        [DisplayName("File Storage Provider")]
+        [StringLength(20)]
+        [DefaultValue("Filesystem")]
+        [Description("The storage provider")]
+        [SettingStorage(StorageLocation.Database, "storage-provider")]
+        public string StorageProvider { get; set; }
+
         [DisplayName("Akismet API Key")]
         [StringLength(30)]
         [DefaultValue("37726b9324fe")]

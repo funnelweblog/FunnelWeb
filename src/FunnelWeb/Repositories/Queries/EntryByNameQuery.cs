@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FunnelWeb.DatabaseDeployer.DbProviders;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Strings;
+using FunnelWeb.Providers.Database;
 using FunnelWeb.Repositories.Projections;
 using FunnelWeb.DatabaseDeployer.Infrastructure;
 using NHibernate;

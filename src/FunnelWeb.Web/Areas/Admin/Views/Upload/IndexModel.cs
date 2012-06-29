@@ -22,10 +22,11 @@ namespace FunnelWeb.Web.Areas.Admin.Views.Upload
             Path = parts.ToArray();
         }
 
+        public string StorageProvider { get; set; }
         public string PathString { get; set; }
         public PathPart[] Path { get; set; }
         public FileItem[] Items { get; set; }
-
+        
         public class PathPart
         {
             public PathPart(string name, string path)
