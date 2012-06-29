@@ -1,8 +1,7 @@
-using System;
 using System.Data.SqlClient;
 using StackExchange.Profiling.Data;
 
-namespace FunnelWeb.DatabaseDeployer.DbProviders
+namespace FunnelWeb.Providers.Database.Sql
 {
     public class ProfiledSqlDbTransaction : ProfiledDbTransaction
     {

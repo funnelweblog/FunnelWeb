@@ -1,9 +1,9 @@
-﻿using System.Data;
+using System.Data;
 using System.Data.SqlServerCe;
 using NHibernate.Driver;
 using NHibernate.SqlTypes;
 
-namespace FunnelWeb.DatabaseDeployer.DbProviders
+namespace FunnelWeb.Providers.Database.SqlCe
 {
 
     /// <summary>

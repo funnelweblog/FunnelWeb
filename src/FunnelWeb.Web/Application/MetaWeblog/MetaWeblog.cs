@@ -7,7 +7,8 @@ using CookComputing.XmlRpc;
 using FunnelWeb.Authentication;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
-using FunnelWeb.Repositories;
+﻿using FunnelWeb.Providers.File;
+﻿using FunnelWeb.Repositories;
 using FunnelWeb.Repositories.Queries;
 using FunnelWeb.Settings;
 using FunnelWeb.Utilities;
@@ -214,11 +215,10 @@ namespace FunnelWeb.Web.Application.MetaWeblog
                 using (var memoryStream = new MemoryStream(mediaObject.bits))
                 {
                     var fileName = Path.GetFileNameWithoutExtension(mediaObject.name) + "_" + DateTime.Now.Ticks + Path.GetExtension(mediaObject.name);
-                    var fullPath = fileRepository.MapPath(fileName);
 
                     objectInfo.url = VirtualPathUtility.ToAbsolute(funnelWebSettings.UploadPath + "/" + fileName);
 
-                    fileRepository.Save(memoryStream, fullPath, false);
+                    fileRepository.Save(memoryStream, fileName, false);
                 }
 
                 return objectInfo;

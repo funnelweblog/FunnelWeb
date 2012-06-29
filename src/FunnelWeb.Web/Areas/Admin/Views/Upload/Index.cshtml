@@ -28,16 +28,20 @@
     {
     <tr>
       <td><img width="16" height="16" src="@Url.Content("~/Content/Images/FileTypes/" + item.Image)" alt="@item.Extension" /></td>
-      <td class="firstcolumn">
-      @if (item.IsDirectory)
-      {
-        @Html.ActionLink(item.Name, "Index", new { Area = "Admin", path = item.Path })
-       }
-      else
-      {
-        @Html.ActionLink(item.Name, "Render", new { Area = "Admin", path = item.Path })
-      }
-      </td>
+        <td class="firstcolumn">
+            @if (item.IsPathAbsolute)
+            {
+                @Html.UrlLink(item.Path, item.Name);
+            }
+            else if (item.IsDirectory)
+            {
+                @Html.ActionLink(item.Name, "Index", new {Area = "Admin", path = item.Path});
+            }
+            else
+            {
+                @Html.ActionLink(item.Name, "Render", new {Area = "Admin", path = item.Path});
+            }
+        </td>
       <td>@item.Extension</td>
       <td class="numeric">@item.FileSize</td>
       <td class="date">@item.Modified</td>
@@ -69,4 +73,6 @@
   <input type="text" name="name" />
   <input type="submit" value="Submit" />
 }
+
+Current Storage Provider: @Model.StorageProvider
     

@@ -61,7 +61,13 @@
     <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.1.7.0.1\lib\net35-full\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.WindowsAzure.ServiceRuntime, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.1.7.0.0\lib\net35-full\Microsoft.WindowsAzure.StorageClient.dll</HintPath>
+    </Reference>
     <Reference Include="MiniProfiler">
       <HintPath>..\packages\MiniProfiler.2.0.1\lib\net40\MiniProfiler.dll</HintPath>
     </Reference>
@@ -80,6 +86,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Services.Client" />
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\SqlServerCompact.4.0.8482.1\lib\System.Data.SqlServerCe.dll</HintPath>
@@ -110,22 +117,9 @@
     <Compile Include="DatabaseDeployer\ApplicationDatabase.cs" />
     <Compile Include="DatabaseDeployer\DatabaseModule.cs" />
     <Compile Include="DatabaseDeployer\DatabaseUpgradeDetector.cs" />
-    <Compile Include="DatabaseDeployer\DbProviders\FunnelWebSqlServerCeDriver.cs" />
-    <Compile Include="DatabaseDeployer\DbProviders\FunnelWebCe40Dialect.cs" />
-    <Compile Include="DatabaseDeployer\DbProviders\ProfiledClientBatchingBatcherFactory.cs" />
-    <Compile Include="DatabaseDeployer\DbProviders\ProfiledSqlClientBatchingBatcher.cs" />
-    <Compile Include="DatabaseDeployer\DbProviders\ProfiledSqlClientBatchingBatcherFactory.cs" />
-    <Compile Include="DatabaseDeployer\DbProviders\ProfiledSqlClientDriver.cs" />
-    <Compile Include="DatabaseDeployer\DbProviders\ProfiledSqlDbCommand.cs" />
-    <Compile Include="DatabaseDeployer\DbProviders\ProfiledSqlDbConnection.cs" />
-    <Compile Include="DatabaseDeployer\DbProviders\ProfiledSqlDbTransaction.cs" />
-    <Compile Include="DatabaseDeployer\DbProviders\ProviderMetaData.cs" />
-    <Compile Include="DatabaseDeployer\DbProviders\SqlCeDatabaseProvider.cs" />
-    <Compile Include="DatabaseDeployer\DbProviders\SqlDatabaseProvider.cs" />
-    <Compile Include="DatabaseDeployer\DbProviders\IDatabaseProvider.cs" />
     <Compile Include="DatabaseDeployer\FunnelWebScriptProvider.cs" />
     <Compile Include="DatabaseDeployer\IApplicationDatabase.cs" />
-    <Compile Include="DatabaseDeployer\IConnectionStringProvider.cs" />
+    <Compile Include="DatabaseDeployer\IConnectionStringSettings.cs" />
     <Compile Include="DatabaseDeployer\IDatabaseUpgradeDetector.cs" />
     <Compile Include="DatabaseDeployer\Infrastructure\FunnelWebJournal.cs" />
     <Compile Include="DatabaseDeployer\Infrastructure\FunnelWebNHibernateExtensions.cs" />
@@ -136,7 +130,28 @@
     <Compile Include="Filters\FunnelWebRequestAttribute.cs" />
     <Compile Include="FunnelWebExtensionAttribute.cs" />
     <Compile Include="FunnelWebExtensionLoadException.asax.cs" />
-    <Compile Include="Settings\BootstrapSettingsAdapter.cs" />
+    <Compile Include="Providers\Database\IDatabaseProvider.cs" />
+    <Compile Include="Providers\Database\SqlCeDatabaseProvider.cs" />
+    <Compile Include="Providers\Database\SqlCe\FunnelWebCe40Dialect.cs" />
+    <Compile Include="Providers\Database\SqlCe\FunnelWebSqlServerCeDriver.cs" />
+    <Compile Include="Providers\Database\SqlDatabaseProvider.cs" />
+    <Compile Include="Providers\Database\Sql\ProfiledClientBatchingBatcherFactory.cs" />
+    <Compile Include="Providers\Database\Sql\ProfiledSqlClientBatchingBatcher.cs" />
+    <Compile Include="Providers\Database\Sql\ProfiledSqlClientBatchingBatcherFactory.cs" />
+    <Compile Include="Providers\Database\Sql\ProfiledSqlClientDriver.cs" />
+    <Compile Include="Providers\Database\Sql\ProfiledSqlDbCommand.cs" />
+    <Compile Include="Providers\Database\Sql\ProfiledSqlDbConnection.cs" />
+    <Compile Include="Providers\Database\Sql\ProfiledSqlDbTransaction.cs" />
+    <Compile Include="Providers\File\AzureBlobFileRepository.cs" />
+    <Compile Include="Providers\File\FileRepository.cs" />
+    <Compile Include="Providers\File\FileRepositoryBase.cs" />
+    <Compile Include="Providers\File\IFileRepository.cs" />
+    <Compile Include="Providers\InternalProviderRegistrationModule.cs" />
+    <Compile Include="Providers\IProviderInfo.cs" />
+    <Compile Include="Providers\ProviderInfo.cs" />
+    <Compile Include="Providers\ProviderMetaData.cs" />
+    <Compile Include="Settings\ConfigSettingsAdapter.cs" />
+    <Compile Include="Utilities\IMimeTypeLookup.cs" />
     <Compile Include="Utilities\StringExtensions.cs" />
     <Compile Include="Settings\AppHarborSettings.cs" />
     <Compile Include="Settings\IAppHarborSettings.cs" />
@@ -179,11 +194,11 @@
     <Compile Include="Repositories\Queries\SearchTagsByNameQuery.cs" />
     <Compile Include="Repositories\Queries\SwitchingSearchEntriesQuery.cs" />
     <Compile Include="RoutableFunnelWebExtension.cs" />
-    <Compile Include="Settings\IBootstrapSettings.cs" />
+    <Compile Include="Settings\IConfigSettings.cs" />
     <Compile Include="Settings\ISettings.cs" />
     <Compile Include="Settings\SettingsModule.cs" />
     <Compile Include="Settings\SqlAuthenticationSettings.cs" />
-    <Compile Include="Settings\XmlBootstrapSettings.cs" />
+    <Compile Include="Settings\XmlConfigSettings.cs" />
     <Compile Include="Tasks\TaskModule.cs" />
     <Compile Include="Tasks\ITask.cs" />
     <Compile Include="Tasks\ITaskExecutor.cs" />
@@ -210,9 +225,7 @@
     <Compile Include="Model\Pingback.cs" />
     <Compile Include="Model\Redirect.cs" />
     <Compile Include="Model\Repositories\IAdminRepository.cs" />
-    <Compile Include="Model\Repositories\IFileRepository.cs" />
     <Compile Include="Model\Repositories\Internal\AdminRepository.cs" />
-    <Compile Include="Model\Repositories\Internal\FileRepository.cs" />
     <Compile Include="Model\Repositories\RepositoriesModule.cs" />
     <Compile Include="Model\Revision.cs" />
     <Compile Include="Model\Setting.cs" />
@@ -221,7 +234,7 @@
     <Compile Include="Model\TaskStatus.cs" />
     <Compile Include="Tasks\TaskStep.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings\ConnectionStringProvider.cs" />
+    <Compile Include="Settings\ConnectionStringSettings.cs" />
     <Compile Include="Settings\ISettingsProvider.cs" />
     <Compile Include="Settings\FunnelWebSettings.cs" />
     <Compile Include="Settings\SettingsProvider.cs" />
@@ -395,6 +408,7 @@
     <Content Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <Content Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <PropertyGroup>

@@ -20,7 +20,8 @@ namespace FunnelWeb.Web.Application
             var request = HttpContext.Current.Request;
             var uri = request.GetOriginalUrl();
 
-            if (uri.AbsolutePath.StartsWith("get", StringComparison.InvariantCultureIgnoreCase) || uri.AbsolutePath.StartsWith("/get", StringComparison.InvariantCultureIgnoreCase))
+            if (uri.AbsolutePath.StartsWith("get", StringComparison.InvariantCultureIgnoreCase) || uri.AbsolutePath.StartsWith("/get", StringComparison.InvariantCultureIgnoreCase) ||
+                uri.AbsolutePath.StartsWith("upload", StringComparison.InvariantCultureIgnoreCase) || uri.AbsolutePath.StartsWith("/upload", StringComparison.InvariantCultureIgnoreCase))
             {
                 return;
             }

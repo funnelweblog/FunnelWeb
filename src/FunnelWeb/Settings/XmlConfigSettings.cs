@@ -10,12 +10,12 @@ namespace FunnelWeb.Settings
     /// FunnelWeb initially used Web.config. But uploading new releases of FunnelWeb meant a complicated web.config merge for users. 
     /// Now we use a custom XML file (My.config) which contains user-specified information.
     /// </summary>
-    public class XmlBootstrapSettings : IBootstrapSettings
+    public class XmlConfigSettings : IConfigSettings
     {
         private readonly XmlSerializer serializer = new XmlSerializer(typeof(FunnelWebConfiguration));
         private readonly string bootstrapSettingsFilePath;
 
-        public XmlBootstrapSettings(string bootstrapSettingsFilePath)
+        public XmlConfigSettings(string bootstrapSettingsFilePath)
         {
             this.bootstrapSettingsFilePath = bootstrapSettingsFilePath;
         }

@@ -86,6 +86,9 @@ else
                                                                            Value = provider,
                                                                            Selected = provider == Model.DatabaseProvider
                                                                        }))
+                
+                @Html.ValidationMessageFor(m => m.DatabaseProvider)
+                @Html.HintFor(m => m.DatabaseProvider)
                 <input type="submit" id="changeProvider" class="submit" value="Change Provider" />
             </div>
         </div>

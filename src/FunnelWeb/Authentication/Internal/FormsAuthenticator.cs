@@ -7,12 +7,12 @@ namespace FunnelWeb.Authentication.Internal
     public class FormsAuthenticator : IAuthenticator
     {
         private readonly Func<ISettingsProvider> settingsProvider;
-        private readonly IBootstrapSettings bootstrapSettings;
+        private readonly IConfigSettings configSettings;
 
-        public FormsAuthenticator(Func<ISettingsProvider> settingsProvider, IBootstrapSettings bootstrapSettings)
+        public FormsAuthenticator(Func<ISettingsProvider> settingsProvider, IConfigSettings configSettings)
         {
             this.settingsProvider = settingsProvider;
-            this.bootstrapSettings = bootstrapSettings;
+            this.configSettings = configSettings;
         }
 
         public string GetName()
@@ -22,8 +22,8 @@ namespace FunnelWeb.Authentication.Internal
 
         public bool AuthenticateAndLogin(string username, string password)
         {
-            var requiredUsername = bootstrapSettings.Get("funnelweb.configuration.authentication.username");
-            var requiredPassword = bootstrapSettings.Get("funnelweb.configuration.authentication.password");
+            var requiredUsername = configSettings.Get("funnelweb.configuration.authentication.username");
+            var requiredPassword = configSettings.Get("funnelweb.configuration.authentication.password");
             
             var authenticated = username == requiredUsername && password == requiredPassword;
             

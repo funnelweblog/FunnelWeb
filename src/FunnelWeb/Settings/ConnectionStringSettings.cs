@@ -2,12 +2,12 @@
 
 namespace FunnelWeb.Settings
 {
-    public class ConnectionStringProvider : IConnectionStringProvider
+    public class ConnectionStringSettings : IConnectionStringSettings
     {
-        private readonly IBootstrapSettings settings;
+        private readonly IConfigSettings settings;
         private readonly IAppHarborSettings appHarborSettings;
 
-        public ConnectionStringProvider(IBootstrapSettings settings, IAppHarborSettings appHarborSettings)
+        public ConnectionStringSettings(IConfigSettings settings, IAppHarborSettings appHarborSettings)
         {
             this.settings = settings;
             this.appHarborSettings = appHarborSettings;

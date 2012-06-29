@@ -27,6 +27,9 @@
       <Setting name="funnelweb.configuration.authentication.username" />
       <Setting name="funnelweb.configuration.authentication.password" />
       <Setting name="funnelweb.configuration.database.provider" />
+      <Setting name="StorageConnectionString" />
+      <Setting name="BlobContainerName" />
     </ConfigurationSettings>
+    <LocalResources></LocalResources>
   </WebRole>
 </ServiceDefinition>

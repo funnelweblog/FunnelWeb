@@ -11,6 +11,7 @@ using Autofac.Integration.Wcf;
 using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.Eventing;
 using FunnelWeb.Model.Repositories;
+using FunnelWeb.Providers;
 using FunnelWeb.Settings;
 using FunnelWeb.Tasks;
 using FunnelWeb.Web.Application;
@@ -51,6 +52,7 @@ namespace FunnelWeb.Web
             // FunnelWeb Core
             builder.RegisterModule(new SettingsModule(HostingEnvironment.MapPath("~/My.config")));
             builder.RegisterModule(new TasksModule());
+            builder.RegisterModule(new InternalProviderRegistrationModule());
             builder.RegisterModule(new RepositoriesModule());
             builder.RegisterModule(new EventingModule());
             builder.RegisterModule(new ExtensionsModule(extensionsPath, RouteTable.Routes));

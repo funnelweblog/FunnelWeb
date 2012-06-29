@@ -4,7 +4,7 @@
     /// This interface provides access to settings that cannot possibly be stored in the database. These usually include 
     /// the database connection string, and a backup username/password that can be used to upgrade the database.
     /// </summary>
-    public interface IBootstrapSettings
+    public interface IConfigSettings
     {
         /// <summary>
         /// Gets a setting by the specified name. Returns null if the setting is not set.

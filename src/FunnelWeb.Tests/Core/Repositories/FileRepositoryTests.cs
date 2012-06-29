@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Web;
 using FunnelWeb.Model.Repositories.Internal;
+using FunnelWeb.Providers.File;
 using FunnelWeb.Settings;
+using FunnelWeb.Utilities;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -9,6 +11,13 @@ namespace FunnelWeb.Tests.Core.Repositories
 {
     public class FileRepositoryTests
     {
+        private readonly IMimeTypeLookup mimeTypeLookup;
+
+        public FileRepositoryTests()
+        {
+            mimeTypeLookup = Substitute.For<IMimeTypeLookup>();
+        }
+
         [Test]
         public void RelativePaths()
         {
@@ -18,7 +27,7 @@ namespace FunnelWeb.Tests.Core.Repositories
             var settings = Substitute.For<ISettingsProvider>();
             settings.GetSettings<FunnelWebSettings>().Returns(new FunnelWebSettings { UploadPath = "~/Temp" });
 
-            new FileRepository(settings, server);
+            new FileRepository(settings, server, mimeTypeLookup);
 
             //Act
 
@@ -34,7 +43,7 @@ namespace FunnelWeb.Tests.Core.Repositories
             var settings = Substitute.For<ISettingsProvider>();
             settings.GetSettings<FunnelWebSettings>().Returns(new FunnelWebSettings { UploadPath = "C:\\Temp" });
             
-            new FileRepository(settings, server);
+            new FileRepository(settings, server, mimeTypeLookup);
 
             //Act
 

@@ -13,9 +13,13 @@ using FunnelWeb.Authentication.Internal;
 using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.Eventing;
 using FunnelWeb.Model.Repositories;
+using FunnelWeb.Providers;
+using FunnelWeb.Providers.Database;
+using FunnelWeb.Providers.File;
 using FunnelWeb.Repositories;
 using FunnelWeb.Settings;
 using FunnelWeb.Tasks;
+using FunnelWeb.Utilities;
 using FunnelWeb.Web.Application.Authentication;
 using FunnelWeb.Web.Application.Mime;
 using FunnelWeb.Web.Application.Mvc;
@@ -59,6 +63,7 @@ namespace FunnelWeb.Tests
             builder.RegisterModule(new RepositoriesModule());
             builder.RegisterModule(new EventingModule());
             builder.RegisterModule(new ExtensionsModule("C:\\Foo", routes));
+            builder.RegisterModule(new InternalProviderRegistrationModule());
 
             //// FunnelWeb Web
             builder.RegisterModule(new WebAbstractionsModule());
@@ -83,9 +88,12 @@ namespace FunnelWeb.Tests
             
             // The following are singletons just because there's no need to have more than one - if you have a good 
             // reason feel free to change
-            IsSingleton<IConnectionStringProvider>("This component uses the bootstrap settings to store the connection string. Since the bootstrap settings are opened/closed on the fly, there only needs to be one instance of this type.");
-            IsSingleton<IBootstrapSettings>("This component opens/closes the XML file on the fly; there's no need to have more than one.");
+            IsSingleton<IConnectionStringSettings>("This component uses the bootstrap settings to store the connection string. Since the bootstrap settings are opened/closed on the fly, there only needs to be one instance of this type.");
+            IsSingleton<IConfigSettings>("This component opens/closes the XML file on the fly; there's no need to have more than one.");
             IsSingleton<IMimeTypeLookup>("It just calls the registry/a static list - no need for more than one");
+
+            IsSingleton<IProviderInfo<IDatabaseProvider>>("This type extends the contains, no need to create multiple times");
+            IsSingleton<IProviderInfo<IFileRepository>>("This type extends the contains, no need to create multiple times");
         }
 
         [Test]

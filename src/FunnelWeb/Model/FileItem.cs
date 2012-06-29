@@ -9,5 +9,6 @@ namespace FunnelWeb.Model
         public string Extension { get; set; }
         public string FileSize { get; set; }
         public string Modified { get; set; }
+        public bool IsPathAbsolute { get; set; }
     }
 }

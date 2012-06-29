@@ -1,21 +1,24 @@
-using System;
 using System.IO;
 using System.Linq;
 using System.Security;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Web.Mvc;
+using FunnelWeb.Model;
 using FunnelWeb.Settings;
 using FunnelWeb.Utilities;
 
-namespace FunnelWeb.Model.Repositories.Internal
+namespace FunnelWeb.Providers.File
 {
-    public class FileRepository : IFileRepository
+    public class FileRepository : FileRepositoryBase
     {
+        private readonly IMimeTypeLookup mimeHelper;
         private readonly string root;
 
-        public FileRepository(ISettingsProvider settingsProvider, HttpServerUtilityBase server)
+        public FileRepository(ISettingsProvider settingsProvider, HttpServerUtilityBase server, IMimeTypeLookup mimeHelper)
         {
-            root = settingsProvider.GetSettings<Settings.FunnelWebSettings>().UploadPath;
+            this.mimeHelper = mimeHelper;
+            root = settingsProvider.GetSettings<FunnelWebSettings>().UploadPath;
             // If it's a virtual path then we can map it, otherwise we'll expect that it's a windows path
             if (root.StartsWith("~"))
             {
@@ -45,13 +48,13 @@ namespace FunnelWeb.Model.Repositories.Internal
             return path;
         }
 
-        public bool IsFile(string path)
+        public override bool IsFile(string path)
         {
             var fullPath = MapPath(path);
-            return File.Exists(fullPath);
+            return System.IO.File.Exists(fullPath);
         }
 
-        public FileItem[] GetItems(string path)
+        public override FileItem[] GetItems(string path)
         {
             var directories = GetDirectories(path);
             var files = GetFiles(path);
@@ -71,22 +74,9 @@ namespace FunnelWeb.Model.Repositories.Internal
                     Name = file.Name,
                     Path = UnmapPath(file.FullName),
                     FileSize = file.Length.ToFileSizeString(),
-                    Image = GetImage(file),
+                    Image = GetImage(file.Name, file.Extension),
                     Modified = file.LastWriteTime.ToString("dd-MMM-yyyy")
                 })).ToArray();
-        }
-
-        private static string GetImage(FileSystemInfo file)
-        {
-            var extension = (file.Extension ?? string.Empty).Trim();
-            if (string.IsNullOrEmpty(extension) || extension == ".") return "default.png";
-            if (extension.StartsWith(".")) extension = extension.Substring(1);
-            extension = extension.ToLowerInvariant();
-            if (File.Exists(HttpContext.Current.Server.MapPath("/Content/Images/FileTypes/" + extension + ".png")))
-            {
-                return extension + ".png";
-            }
-            return "default.png";
         }
 
         public DirectoryInfo[] GetDirectories(string path)
@@ -105,21 +95,21 @@ namespace FunnelWeb.Model.Repositories.Internal
                        : new FileInfo[0];
         }
 
-        public void Move(string oldPath, string newPath)
+        public override void Move(string oldPath, string newPath)
         {
             oldPath = MapPath(oldPath);
             newPath = MapPath(newPath);
-            if (!File.Exists(oldPath)) return;
+            if (!System.IO.File.Exists(oldPath)) return;
             Directory.CreateDirectory(Path.GetDirectoryName(newPath));
-            File.Move(oldPath, newPath);
+            System.IO.File.Move(oldPath, newPath);
         }
 
-        public void Delete(string filePath)
+        public override void Delete(string filePath)
         {
             var fullPath = MapPath(filePath);
             if (IsFile(filePath))
             {
-                File.Delete(fullPath);
+                System.IO.File.Delete(fullPath);
             }
             else
             {
@@ -127,14 +117,16 @@ namespace FunnelWeb.Model.Repositories.Internal
             }
         }
 
-        public void CreateDirectory(string path, string name)
+        public override void CreateDirectory(string path, string name)
         {
             var fullPath = MapPath(Path.Combine(path, name));
             Directory.CreateDirectory(fullPath);
         }
 
-        public void Save(Stream inputStream, string fullPath, bool unzip)
+        public override void Save(Stream inputStream, string path, bool unzip)
         {
+            var fullPath = MapPath(path);
+
             if (unzip && IsZipFile(fullPath))
             {
                 inputStream.Extract(fullPath);
@@ -145,10 +137,12 @@ namespace FunnelWeb.Model.Repositories.Internal
             }
         }
 
-        private static bool IsZipFile(string fullPath)
+        public override ActionResult Render(string path)
         {
-            var extension = Path.GetExtension(fullPath).ToLowerInvariant();
-            return extension == "zip" || extension == "gz" || extension == "tar" || extension == "rar";
+            if (IsFile(path))
+                return new FilePathResult(MapPath(path), mimeHelper.GetMimeType(path));
+
+            return new HttpNotFoundResult();
         }
     }
 }

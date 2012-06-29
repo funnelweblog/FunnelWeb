@@ -9,9 +9,9 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
     [ValidateInput(false)]
     public class LoginController : Controller
     {
-        readonly Lazy<IBootstrapSettings> bootstrapSettings;
+        readonly Lazy<IConfigSettings> bootstrapSettings;
 
-        public LoginController(Lazy<IBootstrapSettings> bootstrapSettings)
+        public LoginController(Lazy<IConfigSettings> bootstrapSettings)
         {
             this.bootstrapSettings = bootstrapSettings;
         }

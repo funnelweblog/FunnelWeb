@@ -1,6 +1,6 @@
 ﻿namespace FunnelWeb.DatabaseDeployer
 {
-    public interface IConnectionStringProvider
+    public interface IConnectionStringSettings
     {
         string DatabaseProvider { get; set; }
         string ConnectionString { get; set; }

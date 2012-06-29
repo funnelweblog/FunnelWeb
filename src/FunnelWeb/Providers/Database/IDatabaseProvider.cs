@@ -2,8 +2,9 @@ using System;
 using System.Data;
 using DbUp.Builder;
 using FluentNHibernate.Cfg.Db;
+using FunnelWeb.DatabaseDeployer;
 
-namespace FunnelWeb.DatabaseDeployer.DbProviders
+namespace FunnelWeb.Providers.Database
 {
     public interface IDatabaseProvider
     {
@@ -20,7 +21,7 @@ namespace FunnelWeb.DatabaseDeployer.DbProviders
         /// <returns></returns>
         bool TryConnect(string connectionString, out string errorMessage);
 
-        IPersistenceConfigurer GetDatabaseConfiguration(IConnectionStringProvider connectionStringProvider);
+        IPersistenceConfigurer GetDatabaseConfiguration(IConnectionStringSettings connectionStringSettings);
         Func<IDbConnection> GetConnectionFactory(string connectionString);
         UpgradeEngineBuilder GetUpgradeEngineBuilder(string connectionString, string schema);
     }

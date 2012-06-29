@@ -5,7 +5,8 @@ using System.Linq;
 using System.Web.Mvc;
 using DbUp.Engine.Output;
 using FunnelWeb.DatabaseDeployer;
-using FunnelWeb.DatabaseDeployer.DbProviders;
+using FunnelWeb.Providers;
+using FunnelWeb.Providers.Database;
 using FunnelWeb.Web.Areas.Admin.Views.Install;
 
 namespace FunnelWeb.Web.Areas.Admin.Controllers
@@ -14,36 +15,38 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class InstallController : Controller
     {
-        private readonly Func<IEnumerable<Lazy<IDatabaseProvider, IDatabaseProviderMetadata>>> databaseProviders;
+        private readonly Func<IProviderInfo<IDatabaseProvider>> databaseProvidersInfo;
         public IApplicationDatabase Database { get; set; }
-        public IConnectionStringProvider ConnectionStringProvider { get; set; }
+        public IConnectionStringSettings ConnectionStringSettings { get; set; }
         public IDatabaseUpgradeDetector UpgradeDetector { get; set; }
         public IEnumerable<ScriptedExtension> Extensions { get; set; }
 
-        public InstallController(Func<IEnumerable<Lazy<IDatabaseProvider, IDatabaseProviderMetadata>>> databaseProviders)
+        public InstallController(Func<IProviderInfo<IDatabaseProvider>> databaseProvidersInfo)
         {
-            this.databaseProviders = databaseProviders;
+            this.databaseProvidersInfo = databaseProvidersInfo;
         }
 
         public virtual ActionResult Index()
         {
-            var connectionString = ConnectionStringProvider.ConnectionString;
-            var schema = ConnectionStringProvider.Schema;
-            var databaseProviderName = ConnectionStringProvider.DatabaseProvider;
-            var databaseProviderList = databaseProviders().ToList();
-            var databaseProvider = databaseProviderList.Single(p => p.Metadata.Name.Equals(databaseProviderName, StringComparison.InvariantCultureIgnoreCase));
+            var connectionString = ConnectionStringSettings.ConnectionString;
+            var schema = ConnectionStringSettings.Schema;
+            var databaseProviderName = ConnectionStringSettings.DatabaseProvider;
+            var providerInfo = databaseProvidersInfo();
+            var databaseProvider = providerInfo.GetProviderByName(databaseProviderName);
 
             string error;
-            var model = new IndexModel();
-            model.DatabaseProviders = databaseProviderList.Select(p => p.Metadata.Name);
-            model.DatabaseProvider = databaseProviderName;
-            model.CanConnect = databaseProvider.Value.TryConnect(connectionString, out error);
-            model.ConnectionError = error;
-            model.ConnectionString = connectionString;
-            model.Schema = databaseProvider.Value.SupportSchema ? schema : null;
-            model.DatabaseProviderSupportsSchema = databaseProvider.Value.SupportSchema;
-            model.IsSettingsReadOnly = ConnectionStringProvider.ReadOnlyReason != null;
-            model.ReadOnlyReason = ConnectionStringProvider.ReadOnlyReason;
+            var model = new IndexModel
+                            {
+                                DatabaseProviders = providerInfo.Keys,
+                                DatabaseProvider = databaseProviderName,
+                                CanConnect = databaseProvider.TryConnect(connectionString, out error),
+                                ConnectionError = error,
+                                ConnectionString = connectionString,
+                                Schema = databaseProvider.SupportSchema ? schema : null,
+                                DatabaseProviderSupportsSchema = databaseProvider.SupportSchema,
+                                IsSettingsReadOnly = ConnectionStringSettings.ReadOnlyReason != null,
+                                ReadOnlyReason = ConnectionStringSettings.ReadOnlyReason
+                            };
 
             if (model.CanConnect)
             {
@@ -52,7 +55,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
                     .Union(Extensions.SelectMany(x => Database.GetExtensionRequiredScripts(x)))
                     .ToArray();
 
-                var connectionFactory = databaseProvider.Value.GetConnectionFactory(connectionString);
+                var connectionFactory = databaseProvider.GetConnectionFactory(connectionString);
                 var executedAlready = Database
                     .GetCoreExecutedScripts(connectionFactory)
                     .Union(Extensions.SelectMany(x => Database.GetExtensionExecutedScripts(connectionFactory, x)))
@@ -67,12 +70,12 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
         public ActionResult ChangeProvider(string databaseProvider)
         {
-            var provider = databaseProviders().Single(p => p.Metadata.Name.Equals(databaseProvider, StringComparison.InvariantCultureIgnoreCase));
+            var provider = databaseProvidersInfo().GetProviderByName(databaseProvider);
 
-            ConnectionStringProvider.ConnectionString = provider.Value.DefaultConnectionString;
-            ConnectionStringProvider.DatabaseProvider = databaseProvider;
-            if (!provider.Value.SupportSchema)
-                ConnectionStringProvider.Schema = null;
+            ConnectionStringSettings.ConnectionString = provider.DefaultConnectionString;
+            ConnectionStringSettings.DatabaseProvider = databaseProvider;
+            if (!provider.SupportSchema)
+                ConnectionStringSettings.Schema = null;
             UpgradeDetector.Reset();
             
             return RedirectToAction("Index");
@@ -82,8 +85,8 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
         [ActionName("test")]
         public virtual ActionResult Test(string connectionString, string schema)
         {
-            ConnectionStringProvider.ConnectionString = connectionString;
-            ConnectionStringProvider.Schema = schema;
+            ConnectionStringSettings.ConnectionString = connectionString;
+            ConnectionStringSettings.Schema = schema;
             UpgradeDetector.Reset();
             
             return RedirectToAction("Index");
