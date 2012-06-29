@@ -6,7 +6,6 @@ using System.Web;
 using CookComputing.XmlRpc;
 using FunnelWeb.Authentication;
 using FunnelWeb.Model;
-using FunnelWeb.Model.Repositories;
 ﻿using FunnelWeb.Providers.File;
 ﻿using FunnelWeb.Repositories;
 using FunnelWeb.Repositories.Queries;

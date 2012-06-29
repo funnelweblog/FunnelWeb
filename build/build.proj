@@ -36,8 +36,8 @@
 
     <!-- Clean up -->
     <ItemGroup>
-      <FilesToDelete Include="$(Root)\src\**\bin\**\*.*" Exclude="**\_ReSharper*\**\*.*" />
-      <FilesToDelete Include="$(Root)\src\**\obj\**\*.*" Exclude="**\_ReSharper*\**\*.*" />
+      <FilesToDelete Include="$(Root)\src\**\bin\**\*.*" Exclude="**\_ReSharper*\**\*.*;**\_NCrunch*\**\*.*" />
+      <FilesToDelete Include="$(Root)\src\**\obj\**\*.*" Exclude="**\_ReSharper*\**\*.*;**\_NCrunch*\**\*.*" />
       <FilesToDelete Include="$(Root)\build\Published\**\*.*" />
       <FilesToDelete Include="$(Root)\build\Artifacts\**\*.*" />
     </ItemGroup>
@@ -58,8 +58,8 @@
 
     <!-- Zip source -->
     <ItemGroup>
-      <SourceFilesToZip Include="$(Root)\src\**\*.*" />
-      <SourceFilesToZip Include="$(Root)\lib\**\*.dll" Exclude="$(Root)\lib\NUnit\Exe\**\*.*" />
+      <SourceFilesToZip Include="$(Root)\src\**\*.*" Exclude="$(Root)\**\_ReSharper*\**\*.*;$(Root)\**\_NCrunch*\**\*.*;$(Root)\src\packages\**\*.*;$(Root)\**\*.suo;$(Root)\**\*.user" />
+      <SourceFilesToZip Include="$(Root)\lib\**\*.dll" Exclude="$(Root)\lib\NUnit\Exe\**\*.*;$(Root)\**\_ReSharper*\**\*.*;$(Root)\**\_NCrunch*\**\*.*" />
     </ItemGroup>
     <Zip Files="@(SourceFilesToZip)"
       WorkingDirectory="$(Root)"
@@ -89,8 +89,6 @@
 
     <Copy SourceFiles="$(Root)\src\FunnelWeb\bin\Release\FunnelWeb.dll"
           DestinationFiles="$(FunnelWebBaseDir)\lib\net40\FunnelWeb.dll" />
-    <Copy SourceFiles="$(Root)\lib\FluentNHibernate\FluentNHibernate.dll"
-          DestinationFiles="$(FunnelWebBaseDir)\lib\net40\FluentNHibernate.dll" />
 
     <Exec Command='"$(NuGet)" pack "$(FunnelWebManifest)" -BasePath "$(FunnelWebBaseDir)" -OutputDirectory "$(Root)\build\Artifacts"' />
 
