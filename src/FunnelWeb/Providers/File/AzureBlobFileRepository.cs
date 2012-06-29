@@ -26,11 +26,11 @@ namespace FunnelWeb.Providers.File
             blobClient = storageAccount.CreateCloudBlobClient();
             container = blobClient.GetContainerReference(containerName.ToLower());
 
+            container.CreateIfNotExist();
             container.SetPermissions(new BlobContainerPermissions
             {
                 PublicAccess = BlobContainerPublicAccessType.Blob
             });
-            container.CreateIfNotExist();
         }
 
         public override bool IsFile(string path)

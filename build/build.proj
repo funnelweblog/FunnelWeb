@@ -96,6 +96,10 @@
     <MSBuild Projects="$(Root)\src\FunnelWeb.Web\FunnelWeb.Web.csproj"
              Targets="ResolveReferences;_CopyWebApplication;_CopyBinDeployableAssemblies"
              Properties="Configuration=Release;WebProjectOutputDir=$(Root)\build\Published\;OutDir=$(Root)\build\Published\bin\" />
+	
+	<MSBuild Projects="$(Root)\src\FunnelWeb.Azure\FunnelWeb.Azure.ccproj"
+             Targets="Publish"
+             Properties="Configuration=Release;PublishDir=$(Root)\build\Artifacts\" />
     <!-- Also copy extensions -->
     <ItemGroup>
       <ExtensionsToPublish Include="$(Root)\src\FunnelWeb.Web\bin\Extensions\*.dll" />

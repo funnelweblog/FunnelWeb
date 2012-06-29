@@ -33,6 +33,7 @@ namespace FunnelWeb.Web
     public class MvcApplication : HttpApplication
     {
         private static string extensionsPath;
+        private static string basePath;
 
         public static void BeforeApplicationStart()
         {
@@ -95,6 +96,24 @@ namespace FunnelWeb.Web
             ViewEngines.Engines.Add(new FunnelWebViewEngine());
 
             ControllerBuilder.Current.SetControllerFactory(new FunnelWebControllerFactory(container));
+            basePath = Server.MapPath("/");
+            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+        }
+
+        // Unfortunately this unmanaged dll is required by azure to check if we are running in azure
+        // There is also a x86 and x64 version which is why we have to take this approach
+        static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            if (args.Name.StartsWith("msshrtmi,", StringComparison.OrdinalIgnoreCase))
+            {
+                var fileName = Path.Combine(basePath, "bin", ((IntPtr.Size == 4) ? "x86" : "amd64"), "msshrtmi.dll");
+
+                AppDomain.CurrentDomain.AssemblyResolve -= CurrentDomain_AssemblyResolve;
+
+                return Assembly.LoadFile(fileName);
+            }
+
+            return null;
         }
 
         protected void Application_EndRequest()

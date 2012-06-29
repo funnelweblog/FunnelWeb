@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{19CE1D
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{868A99DF-6AFA-3F46-9F74-A7FB69C37E31}") = "FunnelWeb.Azure", "FunnelWeb.Azure\FunnelWeb.Azure.ccproj", "{9C40F45A-2834-49C4-8304-0E30751D8BF2}"
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "FunnelWeb.Azure", "FunnelWeb.Azure\FunnelWeb.Azure.ccproj", "{9C40F45A-2834-49C4-8304-0E30751D8BF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
