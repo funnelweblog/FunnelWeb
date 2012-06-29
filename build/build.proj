@@ -12,7 +12,7 @@
 
   <PropertyGroup>
     <Major>2</Major>
-    <Minor>2</Minor>
+    <Minor>3</Minor>
     <Build>0</Build>
     <Revision>0</Revision>
   </PropertyGroup>
@@ -75,7 +75,7 @@
     <ItemGroup>
       <ProjectToBuild Include="$(Root)\src\FunnelWeb.sln" />
     </ItemGroup>
-    <MSBuild Projects="@(ProjectToBuild)" Targets="Build" Properties="Configuration=Release;DeployOnBuild=true;DeployTarget=Package;PackageLocation=$(PackageLocation);">
+    <MSBuild Projects="@(ProjectToBuild)" Targets="Build" Properties="Configuration=Release;DeployOnBuild=true;DeployTarget=Package;PackageLocation=$(PackageLocation);_PackageTempDir=C:\MsDeploy\FunnelWeb">
       <Output TaskParameter="TargetOutputs" ItemName="AssembliesBuiltByChildProjects" />
     </MSBuild>
 
