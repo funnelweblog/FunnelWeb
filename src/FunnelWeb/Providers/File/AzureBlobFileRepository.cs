@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using FunnelWeb.Model;
-using FunnelWeb.Model.Repositories.Internal;
+using FunnelWeb.Settings;
 using FunnelWeb.Utilities;
 using ICSharpCode.SharpZipLib.Zip;
 using Microsoft.WindowsAzure;
@@ -18,10 +18,10 @@ namespace FunnelWeb.Providers.File
         private readonly CloudBlobContainer container;
         private readonly string containerName;
 
-        public AzureBlobFileRepository()
+        public AzureBlobFileRepository(IConfigSettings configSettings)
         {
-            var setting = CloudConfigurationManager.GetSetting("StorageConnectionString");
-            containerName = CloudConfigurationManager.GetSetting("BlobContainerName");
+            var setting = configSettings.Get("StorageConnectionString");
+            containerName = configSettings.Get("BlobContainerName");
             storageAccount = CloudStorageAccount.Parse(setting);
             blobClient = storageAccount.CreateCloudBlobClient();
             container = blobClient.GetContainerReference(containerName.ToLower());
