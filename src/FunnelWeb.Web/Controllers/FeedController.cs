@@ -44,8 +44,8 @@ namespace FunnelWeb.Web.Controllers
                                 RelationshipType = "self"
                             }
                         },
-                        LastUpdatedTime = items.Count() == 0 ? DateTime.Now : items.First().LastUpdatedTime
-                    }), items.Count() == 0 ? DateTime.Now : items.Max(i => i.LastUpdatedTime.LocalDateTime))
+                        LastUpdatedTime = !items.Any() ? DateTime.Now : items.First().LastUpdatedTime
+                    }), !items.Any() ? DateTime.Now : items.Max(i => i.LastUpdatedTime.LocalDateTime))
             {
                 ContentType = "application/atom+xml"
             };
