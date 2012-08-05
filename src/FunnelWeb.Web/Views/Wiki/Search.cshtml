@@ -27,7 +27,7 @@
   }
 </div>
       
-@if (Model.Results.Count() == 0) {
+@if (!Model.Results.Any()) {
   <p>
     Sorry, there were no results for your query.
   </p>
