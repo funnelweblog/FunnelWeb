@@ -111,7 +111,7 @@ namespace FunnelWeb.Tests.DatabaseDeployer
         private void RequiredApplicationVersionIs(int version)
         {
             applicationDatabase
-                .GetCoreRequiredScripts()
+                .GetCoreRequiredScripts(Arg.Any<Func<IDbConnection>>())
                 .Returns(Enumerable.Range(1, version).Select(x => "Script" + x + ".sql").ToArray());
         }
 
@@ -125,7 +125,7 @@ namespace FunnelWeb.Tests.DatabaseDeployer
         private void RequiredExtensionVersionIs(int version)
         {
             applicationDatabase
-                .GetExtensionRequiredScripts(Arg.Any<ScriptedExtension>())
+                .GetExtensionRequiredScripts(Arg.Any<Func<IDbConnection>>(), Arg.Any<ScriptedExtension>())
                 .Returns(Enumerable.Range(1, version).Select(x => "Script" + x + ".sql").ToArray());
         }
 
