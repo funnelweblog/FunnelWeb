@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using FunnelWeb.Providers.Database;
 
@@ -40,8 +42,9 @@ namespace FunnelWeb.DatabaseDeployer
                 string error;
                 if (databaseProvider.TryConnect(connectionString, out error))
                 {
-                    var currentScripts = database.GetCoreExecutedScripts(databaseProvider.GetConnectionFactory(connectionString));
-                    var requiredScripts = database.GetCoreRequiredScripts();
+                    var connectionFactory = databaseProvider.GetConnectionFactory(connectionString);
+                    var currentScripts = database.GetCoreExecutedScripts(connectionFactory);
+                    var requiredScripts = database.GetCoreRequiredScripts(connectionFactory);
                     var notRun = requiredScripts.Select(x => x.Trim().ToLowerInvariant())
                         .Except(currentScripts.Select(x => x.Trim().ToLowerInvariant()))
                         .ToList();
@@ -67,9 +70,10 @@ namespace FunnelWeb.DatabaseDeployer
         private static bool ExtensionsRequireUpdate(IEnumerable<ScriptedExtension> extensions, IApplicationDatabase applicationDatabase, 
             IDatabaseProvider databaseProvider, string connectionString)
         {
+            var connectionFactory = databaseProvider.GetConnectionFactory(connectionString);
             return (from x in extensions
-                    let current = applicationDatabase.GetExtensionExecutedScripts(databaseProvider.GetConnectionFactory(connectionString), x)
-                    let required = applicationDatabase.GetExtensionRequiredScripts(x)
+                    let current = applicationDatabase.GetExtensionExecutedScripts(connectionFactory, x)
+                    let required = applicationDatabase.GetExtensionRequiredScripts(connectionFactory, x)
                     let notRun = required.Select(z => z.Trim().ToLowerInvariant())
                         .Except(current.Select(z => z.Trim().ToLowerInvariant()))
                         .ToList()

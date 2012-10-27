@@ -26,6 +26,11 @@ namespace FunnelWeb.Providers.File
             }
         }
 
+        public static string ProviderName
+        {
+            get { return "Filesystem"; }
+        }
+
         public string MapPath(string path)
         {
             path = (path ?? string.Empty).Trim();

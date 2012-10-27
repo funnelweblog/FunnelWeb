@@ -11,10 +11,10 @@ namespace FunnelWeb.Settings
     public class SettingsProvider : ISettingsProvider
     {
         private readonly object @lock = new object();
-        private readonly Lazy<IAdminRepository> repository;
+        private readonly Func<IAdminRepository> repository;
         private readonly Dictionary<Type, ISettings> settingsStore = new Dictionary<Type, ISettings>();
 
-        public SettingsProvider(Lazy<IAdminRepository> repository)
+        public SettingsProvider(Func<IAdminRepository> repository)
         {
             this.repository = repository;
         }
@@ -39,7 +39,6 @@ namespace FunnelWeb.Settings
         public T GetDefaultSettings<T>() where T : ISettings
         {
             var settings = Activator.CreateInstance<T>();
-            settingsStore.Add(typeof(T), settings);
             var settingMetadata = ReadSettingMetadata<T>();
 
             foreach (var setting in settingMetadata)
@@ -56,7 +55,7 @@ namespace FunnelWeb.Settings
             var settings = Activator.CreateInstance<T>();
             settingsStore.Add(typeof(T), settings);
             var settingMetadata = ReadSettingMetadata<T>();
-            var databaseSettings = repository.Value.GetSettings().ToList();
+            var databaseSettings = repository().GetSettings().ToList();
             
             foreach (var setting in settingMetadata)
             {
@@ -88,7 +87,7 @@ namespace FunnelWeb.Settings
                 settingsStore.Add(settingsType, settingsToSave);
 
             var settingsMetadata = ReadSettingMetadata<T>();
-            var databaseSettings = repository.Value.GetSettings().ToList();
+            var databaseSettings = repository().GetSettings().ToList();
 
             foreach (var setting in settingsMetadata)
             {
@@ -118,7 +117,7 @@ namespace FunnelWeb.Settings
                 }
             }
 
-            repository.Value.Save(databaseSettings);
+            repository().Save(databaseSettings);
         }
 
         private static IEnumerable<SettingDescriptor> ReadSettingMetadata<T>()

@@ -15,7 +15,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{19CE1D
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "FunnelWeb.Azure", "FunnelWeb.Azure\FunnelWeb.Azure.ccproj", "{9C40F45A-2834-49C4-8304-0E30751D8BF2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F3121209-3EE6-4E2F-9C72-AD5D85438EDF}"
+	ProjectSection(SolutionItems) = preProject
+		..\build.bat = ..\build.bat
+		..\build\build.proj = ..\build\build.proj
+		..\Deploy_To_Git.ps1 = ..\Deploy_To_Git.ps1
+		..\build\FunnelWebExtensibility.nuspec = ..\build\FunnelWebExtensibility.nuspec
+		..\License.txt = ..\License.txt
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +31,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{64FAABD6-F45B-4ED1-A3AD-6989C1934405}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64FAABD6-F45B-4ED1-A3AD-6989C1934405}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64FAABD6-F45B-4ED1-A3AD-6989C1934405}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64FAABD6-F45B-4ED1-A3AD-6989C1934405}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9FD02F0-96B4-43EE-8FD9-455658B00EE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9FD02F0-96B4-43EE-8FD9-455658B00EE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9FD02F0-96B4-43EE-8FD9-455658B00EE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9FD02F0-96B4-43EE-8FD9-455658B00EE5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3E448C45-F459-45D7-950C-5ABEF926513D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3E448C45-F459-45D7-950C-5ABEF926513D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E448C45-F459-45D7-950C-5ABEF926513D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -31,18 +47,6 @@ Global
 		{5C5EFCF0-454D-42E0-AA89-7F69FB5457BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C5EFCF0-454D-42E0-AA89-7F69FB5457BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C5EFCF0-454D-42E0-AA89-7F69FB5457BA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{64FAABD6-F45B-4ED1-A3AD-6989C1934405}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{64FAABD6-F45B-4ED1-A3AD-6989C1934405}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{64FAABD6-F45B-4ED1-A3AD-6989C1934405}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{64FAABD6-F45B-4ED1-A3AD-6989C1934405}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9C40F45A-2834-49C4-8304-0E30751D8BF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9C40F45A-2834-49C4-8304-0E30751D8BF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9C40F45A-2834-49C4-8304-0E30751D8BF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9C40F45A-2834-49C4-8304-0E30751D8BF2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D9FD02F0-96B4-43EE-8FD9-455658B00EE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D9FD02F0-96B4-43EE-8FD9-455658B00EE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D9FD02F0-96B4-43EE-8FD9-455658B00EE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D9FD02F0-96B4-43EE-8FD9-455658B00EE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -19,7 +19,7 @@ namespace FunnelWeb.Web.Controllers
                 ?? File(fileName2 ?? fileToRender, contentType);
         }
 
-        private FileResult RenderThemedFileIfExists(string fileToRender, string contentType)
+        public FileResult RenderThemedFileIfExists(string fileToRender, string contentType)
         {
             return RenderWhileReplacingTokenWith(fileToRender, contentType, "{Theme}", "/Themes/" + SettingsProvider.GetSettings<FunnelWebSettings>().Theme);
         }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -25,7 +26,7 @@ namespace FunnelWeb.DatabaseDeployer
         /// Gets all scripts that should be executed. 
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<SqlScript> GetScripts()
+        public IEnumerable<SqlScript> GetScripts(Func<IDbConnection> connectionFactory)
         {
             var providerRegex = new Regex(@"_(?<Provider>.*?)\.");
             return assembly

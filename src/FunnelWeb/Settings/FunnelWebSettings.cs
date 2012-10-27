@@ -204,5 +204,16 @@ namespace FunnelWeb.Settings
         [Description("The shortname of your Disqus comments, configured on the Disqus website.")]
         [SettingStorage(StorageLocation.Database, "disqus-shortname")]
         public string DisqusShortname { get; set; }
+
+        [DisplayName("Blob Storage Connection String")]
+        [Description("The connection string to use for blob storage.")]
+        [SettingStorage(StorageLocation.Database, "blob-storage-connection-string")]
+        public string StorageConnectionString { get; set; }
+
+        [DisplayName("Blob Container Name")]
+        [Description("The container to store blobs in.")]
+        [SettingStorage(StorageLocation.Database, "blob-storage-container")]
+        [DefaultValue("FunnelWebBlog")]
+        public string BlobContainerName { get; set; }
     }
 }

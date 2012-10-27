@@ -32,9 +32,9 @@ namespace FunnelWeb.DatabaseDeployer
             return CreateJournal(connectionFactory, CoreSourceIdentifier, databaseProvider().SupportSchema ? connectionStringSettings.Schema : null).GetExecutedScripts();
         }
 
-        public string[] GetCoreRequiredScripts()
+        public string[] GetCoreRequiredScripts(Func<IDbConnection> connectionFactory)
         {
-            return CreateScriptProvider(connectionStringSettings.DatabaseProvider).GetScripts().Select(x => x.Name).ToArray();
+            return CreateScriptProvider(connectionStringSettings.DatabaseProvider).GetScripts(connectionFactory).Select(x => x.Name).ToArray();
         }
 
         public string[] GetExtensionExecutedScripts(Func<IDbConnection> connectionFactory, ScriptedExtension extension)
@@ -42,9 +42,9 @@ namespace FunnelWeb.DatabaseDeployer
             return CreateJournal(connectionFactory, extension.SourceIdentifier, connectionStringSettings.Schema).GetExecutedScripts();
         }
 
-        public string[] GetExtensionRequiredScripts(ScriptedExtension extension)
+        public string[] GetExtensionRequiredScripts(Func<IDbConnection> connectionFactory, ScriptedExtension extension)
         {
-            return extension.ScriptProvider.GetScripts().Select(x => x.Name).ToArray();
+            return extension.ScriptProvider.GetScripts(connectionFactory).Select(x => x.Name).ToArray();
         }
 
         /// <summary>

@@ -34,7 +34,7 @@ namespace FunnelWeb.Web.Application.Mvc
                     settings = DependencyResolver.Current.GetService<ISettingsProvider>().GetSettings<FunnelWebSettings>();
                     if (settings.Theme == lastTheme)
                     {
-                        return lastEngine;
+                        return lastEngine ?? fallbackViewEngine;
                     }
                 }
                 catch (Exception)
