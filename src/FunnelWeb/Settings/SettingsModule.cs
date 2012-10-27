@@ -32,9 +32,9 @@ namespace FunnelWeb.Settings
                 .As<IAppHarborSettings>()
                 .SingleInstance();
 
-            builder.Register(c => new SettingsProvider(c.Resolve<Lazy<IAdminRepository>>()))
+            builder.Register(c => new SettingsProvider(c.Resolve<Func<IAdminRepository>>()))
                 .As<ISettingsProvider>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
         }
     }
 }

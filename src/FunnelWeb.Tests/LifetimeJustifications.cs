@@ -94,6 +94,7 @@ namespace FunnelWeb.Tests
 
             IsSingleton<IProviderInfo<IDatabaseProvider>>("This type extends the contains, no need to create multiple times");
             IsSingleton<IProviderInfo<IFileRepository>>("This type extends the contains, no need to create multiple times");
+            IsSingleton<ISettingsProvider>("Settings provider provides caching, it depends on a factory to connect to the database which will be scoped to http request.");
         }
 
         [Test]
@@ -104,7 +105,6 @@ namespace FunnelWeb.Tests
 
             // Per request just for performance, could otherwise be per dependency
             PerLifetimeScope<IEventPublisher>("This component takes a list of handlers; to save finding them all each time we raise an event during a request, we build this once");
-            PerLifetimeScope<ISettingsProvider>("We refer to settings many times as the application runs, so it does a little caching. However, it relies on the database, thus a session, thus at most it should be per request.");
             PerLifetimeScope<IAuthenticator>("Could be anything, but authentication should be done per request");
             PerLifetimeScope<IRoleProvider>("Could be anything, but authentication should be done per request.");
             PerLifetimeScope<IFunnelWebMembership>("Could be anything, but authentication should be done per request.");
