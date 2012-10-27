@@ -1,47 +1,17 @@
-﻿using System.Linq;
-using System.ServiceModel.Activation;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
-using Autofac;
 using FunnelWeb.Web.Application.MetaWeblog;
 using FunnelWeb.Web.Application.Mvc;
 
-namespace FunnelWeb.Web
+namespace FunnelWeb.Web.App_Start
 {
-    public class RoutesModule : Module
+    public class RouteConfig
     {
-        private readonly RouteCollection routes;
-
-        public RoutesModule(RouteCollection routes)
+        public static void RegisterRoutes(RouteCollection routes)
         {
-            this.routes = routes;
-        }
-
-        protected override void Load(ContainerBuilder builder)
-        {
-            // Due to a bug in the .AddServiceRoute<>() method in WCF we have to do this work around.
-            // see http://wcf.codeplex.com/workitem/9 for bug description
-            // Workaround caches all service route urls, removes the service routes. Adds a constraint to the wiki page route
-            // then re-adds the service routes at the end.
-            var serviceRoutes = routes
-                .OfType<ServiceRoute>()
-                .ToList();
-            var serviceRoutesUrls = serviceRoutes
-                .Select(serviceRoute => serviceRoute.Url.Replace("{*pathInfo}", ""))
-                .ToArray();
-            var notAService = new NotFromValuesListConstraint(serviceRoutesUrls.ToArray());
-            var defaultConstraint = new { page = notAService };
-            foreach (var serviceRoute in serviceRoutes)
-            {
-                routes.Remove(serviceRoute);
-            }
-
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.IgnoreRoute("{*allaxd}", new { allaxd = @".*\.axd(/.*)?" });
             routes.IgnoreRoute("pingback");
-
-            if (builder != null)
-                AreaRegistration.RegisterAllAreas();
 
             // Feeds
             routes.MapLowerCaseRoute("feed", new { controller = "Feed", action = "Feed", feedName = (string)null });
@@ -52,6 +22,7 @@ namespace FunnelWeb.Web
             routes.MapLowerCaseRoute("get/{*path}", new { controller = "Upload", action = "Render", area = "Admin" });
 
             // Resources
+            routes.MapLowerCaseRoute("content/theme.css", new { controller = "Resource", action = "RenderThemedFileIfExists", fileToRender = "{Theme}/Content/Styles/Theme.css", contentType = "text/css" });
             routes.MapLowerCaseRoute("robots", new { controller = "Resource", action = "Render", fileName = "Content/Resources/Robots.txt", contentType = "text/plain" });
             routes.MapLowerCaseRoute("robots.txt", new { controller = "Resource", action = "Render", fileName = "Content/Resources/Robots.txt", contentType = "text/plain" });
             routes.MapLowerCaseRoute("humans.txt", new { controller = "Resource", action = "Render", fileName = "Content/Resources/Humans.txt", contentType = "text/plain" });
@@ -67,9 +38,9 @@ namespace FunnelWeb.Web
 
             // Tags
             routes.MapLowerCaseRoute("tag/{*tagName}", new { controller = "Tag", action = "Index" });
-            
+
             // Tagged Pages
-            routes.MapLowerCaseRoute("tagged/{*tag}", new {controller = "Tagged", action = "Index"});
+            routes.MapLowerCaseRoute("tagged/{*tag}", new { controller = "Tagged", action = "Index" });
 
             // Wiki
             routes.MapLowerCaseRoute("blog", new { controller = "Wiki", action = "Recent", pageNumber = "0" });
@@ -96,12 +67,7 @@ namespace FunnelWeb.Web
             routes.MapLowerCaseRoute("rsd.xml", new { controller = "MetaWeblog", action = "Rsd" });
             routes.Add(new Route("{weblog}", null, new RouteValueDictionary(new { weblog = "blogapi" }), new MetaWeblogRouteHandler()));
 
-            routes.MapLowerCaseRoute("{*page}", new { controller = "Wiki", action = "Page" }, defaultConstraint);
-
-            foreach (var serviceRoute in serviceRoutes)
-            {
-                routes.Add(serviceRoute);
-            }
+            routes.MapLowerCaseRoute("{*page}", new { controller = "Wiki", action = "Page" });
         }
     }
 }

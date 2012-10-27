@@ -1,12 +1,11 @@
-@using SelectListItem = System.Web.Mvc.SelectListItem
 @model EntryRevision
 @{
   ViewBag.Title = (Model.IsNew ? "Create - " : "Edit - ") + Model.Title;
 
-  var pageTemplates = new List<SelectListItem>
-                          {
-      new SelectListItem { Text = "(default)", Value = "" }
-    };
+    var pageTemplates = new List<SelectListItem>
+                            {
+                                new SelectListItem {Text = "(default)", Value = ""}
+                            };
     
   var templatesPath = Server.MapPath(Html.ThemePath() + "/Views/Shared/PageTemplates");
   if(Directory.Exists( templatesPath))
@@ -183,7 +182,7 @@
   <div class="editor-label">
   </div>
   <div class="editor-field">
-    <input type="submit" id="submit" class="submit" value="Save!" />
+    <input type="submit" id="submit" value="Save!" />
   </div>
 </div>
 }

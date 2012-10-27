@@ -1,18 +1,16 @@
-﻿@using System.Web.Mvc.Html;
-@using FunnelWeb.Web.Areas.Admin.Views.SqlAuthentication
-@model IndexModel
+﻿@model FunnelWeb.Web.Areas.Admin.Views.SqlAuthentication.IndexModel
 
 <h1>Sql Authentication Provider Setup</h1>
 
 @if (!Model.IsUsingSqlAuthentication)
 {
-  @Html.ActionLink("Enable Sql Authentication", "EnableSqlAuthentication", "SqlAuthentication");
+  @Html.ActionLink("Enable Sql Authentication", "EnableSqlAuthentication", "SqlAuthentication")
 }
 else
 { 
-  @Html.ActionLink("Disable Sql Authentication", "DisableSqlAuthentication", "SqlAuthentication");
-            
-  <h2>Users</h2>                                                                                                                                                                        
+  @Html.ActionLink("Disable Sql Authentication", "DisableSqlAuthentication", "SqlAuthentication")
+
+    <h2>Users</h2>                                                                                                                                                                        
   <table>
     <tr>
       <th>User</th>
@@ -34,5 +32,5 @@ else
     }
   </table>
   
-  @Html.ActionLink("Create User", "NewAccount");
+  @Html.ActionLink("Create User", "NewAccount")
 }

@@ -5,7 +5,7 @@
     <div class='comments'>
             @if (Html.Settings().EnableDisqusCommenting)
             {
-                Html.RequiresJs("disqus-count.js", "Scripts");
+                @Scripts.Render("~/bundles/disqus-count")
                 <a href="@Url.Action("Page", "Wiki", new { page = Model.Name })#disqus_thread" data-disqus-identifier="@(Model.Title == null ? "" : (Model.Title + " - "))@Html.Settings().SiteTitle">Comment(s)</a>
             }
             else

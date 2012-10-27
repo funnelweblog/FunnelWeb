@@ -6,12 +6,9 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="language" content="english" />
     <meta name="viewport" content="width=device-width" />
-    @{ 
-        Html.RequiresCss("Mobile.css", "Base", 0);
-    }
-    @MvcHtmlString.Create(Html.RenderCssHere(new List<IClientDependencyPath> {
-      new BasicPath("Base", "/Content/themes/base")
-    }))
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/themes/base/css")
+    <link href="@Html.Qualify(Href("~/content/theme.css"))" rel="stylesheet"/> 
     @RenderSection("Meta", required: false)
     @MvcHtmlString.Create(Html.Settings().HtmlHead)
 </head>
@@ -50,15 +47,11 @@
     <footer>
         @MvcHtmlString.Create(Html.Settings().Footer)
     </footer>
-    @{ 
-        Html.RequiresJs("jquery-1.7.2.min.js", "Scripts", 0);
-        Html.RequiresJs("jsdate.js", "Scripts", 1);
-        Html.RequiresJs("prettify.js", "Scripts", 1);
-        Html.RequiresJs("showdown.js", "Scripts", 1);
-        Html.RequiresJs("wmd.js", "Scripts", 1);
-        Html.RequiresJs("site.js", "Scripts", 1);
-    }
-    @MvcHtmlString.Create(Html.RenderJsHere(new BasicPath("Scripts", "~/Scripts")))
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jsdate")
+    @Scripts.Render("~/bundles/showdown")
+    @Scripts.Render("~/bundles/prettify")
+
     @MvcHtmlString.Create(Html.Settings().HtmlFooter)
     @if (IsSectionDefined("Scripts"))
     {

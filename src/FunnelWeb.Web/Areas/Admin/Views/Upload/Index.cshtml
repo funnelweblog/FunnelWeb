@@ -31,15 +31,15 @@
         <td class="firstcolumn">
             @if (item.IsPathAbsolute)
             {
-                @Html.UrlLink(item.Path, item.Name);
+                @Html.UrlLink(item.Path, item.Name)
             }
             else if (item.IsDirectory)
             {
-                @Html.ActionLink(item.Name, "Index", new {Area = "Admin", path = item.Path});
+                @Html.ActionLink(item.Name, "Index", new {Area = "Admin", path = item.Path})
             }
             else
             {
-                @Html.ActionLink(item.Name, "Render", new {Area = "Admin", path = item.Path});
+                @Html.ActionLink(item.Name, "Render", new {Area = "Admin", path = item.Path})
             }
         </td>
       <td>@item.Extension</td>
