@@ -2,8 +2,6 @@ param([switch]$init, [switch]$updateConfig, [switch]$dontBuild)
 
 $ErrorActionPreference = "Stop";
 
-
-
 function Get-ScriptDirectory
 {
     $Invocation = (Get-Variable MyInvocation -Scope 1).Value
@@ -14,7 +12,7 @@ $root = Get-ScriptDirectory
 
 if ($dontBuild -ne $true)
 {
-	& $root\build.bat
+	& $root\build.bat NOPAUSE
 }
 
 #Get Configuration File
@@ -101,7 +99,8 @@ if ($updateConfig -eq $false -and !(Test-Path "$deployTempDir\my.config"))
 
 if ($updateConfig -eq $true)
 {
-	& notepad $deployTempDir\my.config
+	write-host "Opening my.config for editing before deployment"
+	& notepad $deployTempDir\my.config | Out-Null
 }
 
 ### Compatibility Steps
