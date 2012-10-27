@@ -47,14 +47,14 @@ namespace FunnelWeb.Providers
         {
             builder
                 .RegisterType<AzureBlobFileRepository>()
-                .Named<IFileRepository>("Azure Blob Storage")
-                .WithMetadata<IProviderMetadata>(c => c.For(m => m.Name, "Azure Blob Storage"))
+                .Named<IFileRepository>(AzureBlobFileRepository.ProviderName)
+                .WithMetadata<IProviderMetadata>(c => c.For(m => m.Name, AzureBlobFileRepository.ProviderName))
                 .InstancePerLifetimeScope();
 
             builder
                 .RegisterType<FileRepository>()
-                .Named<IFileRepository>("Filesystem")
-                .WithMetadata<IProviderMetadata>(c => c.For(m => m.Name, "Filesystem"))
+                .Named<IFileRepository>(FileRepository.ProviderName)
+                .WithMetadata<IProviderMetadata>(c => c.For(m => m.Name, FileRepository.ProviderName))
                 .InstancePerLifetimeScope();
 
             builder

@@ -11,6 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     @Styles.Render("~/Content/adminCss")
     @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/bundles/jquery")
     
     <link href="@Html.Qualify(Href("~/content/theme.css"))" rel="stylesheet"/> 
     @RenderSection("Meta", required: false)
@@ -58,7 +59,6 @@
             Powered by <a href="http://www.funnelweblog.com/">FunnelWeb</a> @Html.Version()</p>
     </footer>
     
-    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/jsdate")
     @Scripts.Render("~/bundles/prettify")

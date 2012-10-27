@@ -17,8 +17,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{19CE1D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F3121209-3EE6-4E2F-9C72-AD5D85438EDF}"
 	ProjectSection(SolutionItems) = preProject
+		..\build.bat = ..\build.bat
 		..\build\build.proj = ..\build\build.proj
+		..\Deploy_To_Git.ps1 = ..\Deploy_To_Git.ps1
 		..\build\FunnelWebExtensibility.nuspec = ..\build\FunnelWebExtensibility.nuspec
+		..\License.txt = ..\License.txt
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Global

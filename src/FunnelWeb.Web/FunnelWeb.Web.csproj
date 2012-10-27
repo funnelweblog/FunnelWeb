@@ -516,6 +516,10 @@
     <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FunnelWeb.Extensions.CommentNotification\FunnelWeb.Extensions.CommentNotification.csproj">
+      <Project>{5c5efcf0-454d-42e0-aa89-7f69fb5457ba}</Project>
+      <Name>FunnelWeb.Extensions.CommentNotification</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FunnelWeb\FunnelWeb.csproj">
       <Project>{3e448c45-f459-45d7-950c-5abef926513d}</Project>
       <Name>FunnelWeb</Name>

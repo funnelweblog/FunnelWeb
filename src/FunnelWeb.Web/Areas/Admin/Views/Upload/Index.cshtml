@@ -29,11 +29,12 @@
     <tr>
       <td><img width="16" height="16" src="@Url.Content("~/Content/Images/FileTypes/" + item.Image)" alt="@item.Extension" /></td>
         <td class="firstcolumn">
-            @if (item.IsPathAbsolute)
+            @*@if (item.IsPathAbsolute)
             {
                 @Html.UrlLink(item.Path, item.Name)
             }
-            else if (item.IsDirectory)
+            else*@ 
+            @if (item.IsDirectory)
             {
                 @Html.ActionLink(item.Name, "Index", new {Area = "Admin", path = item.Path})
             }
@@ -74,5 +75,7 @@
   <input type="submit" value="Submit" />
 }
 
-Current Storage Provider: @Model.StorageProvider (@Html.ActionLink("Change", "Settings", "Admin"))
+@* ReSharper disable Html.IdNotResolved *@
+Current Storage Provider: @Model.StorageProvider (<a href="@Url.Action("Settings", "Admin")#fileUploads">Change</a>)
+@* ReSharper restore Html.IdNotResolved *@
     
