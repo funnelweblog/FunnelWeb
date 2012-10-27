@@ -39,7 +39,6 @@ namespace FunnelWeb.Settings
         public T GetDefaultSettings<T>() where T : ISettings
         {
             var settings = Activator.CreateInstance<T>();
-            settingsStore.Add(typeof(T), settings);
             var settingMetadata = ReadSettingMetadata<T>();
 
             foreach (var setting in settingMetadata)
