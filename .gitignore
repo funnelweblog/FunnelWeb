@@ -103,3 +103,9 @@ packages
 
 # our output folder for build artifacts
 artifacts
+
+src/_NCrunch_FunnelWeb
+GitRepoConfig.xml
+build/NuGet/*
+build/Published/*
+Views\Extensions\*

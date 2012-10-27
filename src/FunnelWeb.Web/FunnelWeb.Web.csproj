@@ -374,12 +374,6 @@
     <Content Include="Content\themes\base\TagEditor.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\disqus-count.js" />
-    <Content Include="Areas\Admin\Views\Admin\Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Areas\Admin\Views\Install\Web.config">
-      <SubType>Designer</SubType>
-    </Content>
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -543,7 +537,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>8471</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:54860/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

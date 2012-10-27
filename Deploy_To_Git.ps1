@@ -1,6 +1,8 @@
-param([switch]$InitialDeploy)
+param([switch]$init, [switch]$updateConfig, [switch]$dontBuild)
 
 $ErrorActionPreference = "Stop";
+
+
 
 function Get-ScriptDirectory
 {
@@ -9,6 +11,11 @@ function Get-ScriptDirectory
 }
 
 $root = Get-ScriptDirectory
+
+if ($dontBuild -ne $true)
+{
+	& $root\build.bat
+}
 
 #Get Configuration File
 if (!(Test-Path $root\GitRepoConfig.xml))
@@ -55,9 +62,11 @@ if (!(Test-Path "$deployTempDir"))
 {
     [System.IO.Directory]::CreateDirectory("$deployTempDir")
 }
+
+write-host "Temporary directory is $deployTempDir"
 pushd "$deployTempDir"
 
-if ($InitialDeploy -eq $false)
+if ($init -eq $false)
 {
     & $git clone $repo .
 	& $git checkout
@@ -70,7 +79,7 @@ else
 # copy new stuff over
 copy "$root\build\published\*" "$deployTempDir" -recurse -force
 
-if (!(Test-Path "$deployTempDir\my.config"))
+if ($updateConfig -eq $false -and !(Test-Path "$deployTempDir\my.config"))
 {
     $myConfig = New-Object XML
     $myConfig.Load("$deployTempDir\my.config.sample")
@@ -88,6 +97,11 @@ if (!(Test-Path "$deployTempDir\my.config"))
     }
 
     $myConfig.Save("$deployTempDir\my.config")
+}
+
+if ($updateConfig -eq $true)
+{
+	& notepad $deployTempDir\my.config
 }
 
 ### Compatibility Steps
