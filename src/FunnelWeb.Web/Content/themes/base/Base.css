@@ -833,6 +833,12 @@ footer a:hover
 	color: #CC3954;
 	display: block;
 }
+
+.validation-summary-valid
+{
+    display: none;
+}
+
 .admin-link
 {
 	padding: 10px 0;
@@ -1153,7 +1159,7 @@ pre.prettyprint
 }
 .box3
 {
-	width: 216;
+	width: 216px;
 	margin-right: 20px;
 	float: left;
 }

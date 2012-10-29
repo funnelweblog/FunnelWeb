@@ -50,12 +50,12 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
             if (model.CanConnect)
             {
+                var connectionFactory = databaseProvider.GetConnectionFactory(connectionString);
                 var required = Database
-                    .GetCoreRequiredScripts()
-                    .Union(Extensions.SelectMany(x => Database.GetExtensionRequiredScripts(x)))
+                    .GetCoreRequiredScripts(connectionFactory)
+                    .Union(Extensions.SelectMany(x => Database.GetExtensionRequiredScripts(connectionFactory, x)))
                     .ToArray();
 
-                var connectionFactory = databaseProvider.GetConnectionFactory(connectionString);
                 var executedAlready = Database
                     .GetCoreExecutedScripts(connectionFactory)
                     .Union(Extensions.SelectMany(x => Database.GetExtensionExecutedScripts(connectionFactory, x)))

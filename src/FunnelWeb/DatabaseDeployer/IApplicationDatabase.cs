@@ -12,9 +12,9 @@ namespace FunnelWeb.DatabaseDeployer
     public interface IApplicationDatabase
     {
         string[] GetCoreExecutedScripts(Func<IDbConnection> connectionFactory);
-        string[] GetCoreRequiredScripts();
+        string[] GetCoreRequiredScripts(Func<IDbConnection> connectionFactory);
         string[] GetExtensionExecutedScripts(Func<IDbConnection> connectionFactory, ScriptedExtension extension);
-        string[] GetExtensionRequiredScripts(ScriptedExtension extension);
+        string[] GetExtensionRequiredScripts(Func<IDbConnection> connectionFactory, ScriptedExtension extension);
 
         /// <summary>
         /// Performs the upgrade.
