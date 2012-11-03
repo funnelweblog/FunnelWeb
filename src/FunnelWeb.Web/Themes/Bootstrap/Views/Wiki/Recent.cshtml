@@ -1,0 +1,97 @@
+﻿@model FunnelWeb.Web.Views.Wiki.RecentModel
+@{
+    Layout = "~/Themes/Bootstrap/Views/Shared/_Public.cshtml";
+}
+@section Meta 
+{
+    <meta name="description" content="@Html.Settings().SearchDescription" />
+    <meta name="keywords" content="@Html.Settings().SearchKeywords" />
+}
+@section Summary 
+{
+    @Html.RenderTrusted(Html.Settings().Introduction, Formats.Markdown)
+}
+
+<aside class="span4" role="complementary">
+    <div class="well">
+        @Html.Partial("../Extensions/Widgets/_Disclaimer")
+        @Html.Partial("../Extensions/Widgets/_TagCloud")
+    </div>
+</aside>
+<div class="span12" role="main">
+    @if (!Model.Results.Any())
+    {
+        <p>No posts have been published yet.</p>
+        if (ViewData.IsLoggedIn())
+        {
+        <p>
+            Use the @Html.AdminActionLink("New Post", "Edit", "WikiAdmin") link at the top of
+        the page to create a post.
+        </p>
+        }
+    }
+    else
+    {
+        foreach (var entry in Model.Results)
+        {
+        @Html.DisplayFor(x => entry)
+        }
+        @Paging(Model.ActionName, Model.Results.Page, Model.Results.TotalPages)
+    }
+</div>
+
+@helper Paging(string actionName, int currentPageNumber, int totalPages)
+{
+    if (totalPages > 1)
+    { 
+    <div class="pagination">
+        <ul>
+            @for (var i = 0; i < totalPages; i++)
+            {
+                if (i == 0)
+                {
+                    if (currentPageNumber == 0)
+                    {
+                <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+                <li class="active"><a href="@Html.ActionUrl(actionName, new { })">@Html.Raw((i + 1).ToString())</a></li>
+                    }
+                    else if (currentPageNumber == 1)
+                    {
+                <li class="prev"><a href="@Html.ActionUrl(actionName, new { })">&larr; Previous</a></li>
+                <li><a href="@Html.ActionUrl(actionName, new { })">@Html.Raw((i + 1).ToString())</a></li>
+                    }
+                    else
+                    {
+                <li class="prev"><a href="@Html.ActionUrl(actionName, new { pageNumber = currentPageNumber - 1 })">&larr; Previous</a></li>
+                <li><a href="@Html.ActionUrl(actionName, new { })">@Html.Raw((i + 1).ToString())</a></li>
+                    }
+                }
+                else if (i == totalPages - 1)
+                {
+                    if (currentPageNumber == totalPages - 1)
+                    {
+                <li><a href="@Html.ActionUrl(actionName, new { pageNumber = i })">@Html.Raw((i + 1).ToString())</a></li>
+                <li class="next disabled"><a href="#">&rarr; Next</a></li>
+                    }
+                    else
+                    {
+                <li><a href="@Html.ActionUrl(actionName, new { pageNumber = i })">@Html.Raw((i + 1).ToString())</a></li>
+                <li class="next"><a href="@Html.ActionUrl(actionName, new { pageNumber = currentPageNumber + 1 })">&rarr; Next</a></li>
+                    }
+                }
+                else
+                {
+                    if (i == currentPageNumber)
+                    {
+                <li class="active"><a href="@Html.ActionUrl(actionName, new { pageNumber = i })">@Html.Raw((i + 1).ToString())</a></li>
+                    }
+                    else
+                    {
+                <li>@Html.ActionLink((i + 1).ToString(), actionName, new { pageNumber = i })</li>
+                    }
+                }
+            }
+        </ul>
+    </div>
+    }
+}

@@ -1,0 +1,334 @@
+/* ------------
+ Boostrapper 
+------------- */
+html, body {
+background-color: #eee;
+}
+body {
+padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
+}
+.container > footer p {
+text-align: center; /* center align it with the container */
+}
+
+/* The white background content wrapper */
+.content {
+background-color: #fff;
+padding: 20px;
+margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+-webkit-border-radius: 0 0 6px 6px;
+    -moz-border-radius: 0 0 6px 6px;
+        border-radius: 0 0 6px 6px;
+-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+        box-shadow: 0 1px 2px rgba(0,0,0,.15);
+}
+
+/* Page header tweaks */
+.page-header {
+background-color: #f5f5f5;
+padding: 20px 20px 10px;
+margin: -20px -20px 20px;
+}
+
+.topbar .btn {
+border: 0;
+}
+
+.well-hover:hover {
+    background: #eee;
+}
+
+ul.recentTags {margin:0;list-style:none;line-height:20px}
+ul.recentTags li{display:inline;}
+
+      
+      
+/* ------------
+    WMD 
+--------------*/
+
+#wmd-button-bar
+{
+	background-color: White;
+}
+
+#wmd-input
+{
+	/*width: 600px;*/
+}
+
+#wmd-preview
+{
+}
+
+#wmd-output
+{
+}
+
+#wmd-button-row
+{
+	position: relative;
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	margin-top: 10px;
+	padding: 0px;
+	height: 20px;
+}
+
+.content ul li.wmd-spacer
+{
+	width: 1px;
+	height: 20px;
+	margin-left: 14px;
+	padding: 0px;
+	position: absolute;
+	background-color: Silver;
+	display: inline-block;
+	list-style: none;
+}
+
+.content ul li.wmd-button
+{
+	width: 20px;
+	height: 20px;
+	margin-left: 5px;
+	margin-right: 5px;
+	position: absolute;
+	background-image: url('/Content/Images/EditorButtons.png');
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	display: inline-block;
+	list-style: none;
+	padding: 0px;
+}
+
+.wmd-button > a
+{
+	width: 20px;
+	height: 20px;
+	margin-left: 5px;
+	margin-right: 5px;
+	position: absolute;
+	display: inline-block;
+}
+
+
+/* sprite button slicing style information */
+#wmd-button-bar #wmd-bold-button
+{
+	left: 0px;
+	background-position: 0px 0;
+}
+#wmd-button-bar #wmd-italic-button
+{
+	left: 25px;
+	background-position: -20px 0;
+}
+#wmd-button-bar #wmd-spacer1
+{
+	left: 50px;
+}
+#wmd-button-bar #wmd-link-button
+{
+	left: 75px;
+	background-position: -40px 0;
+}
+#wmd-button-bar #wmd-quote-button
+{
+	left: 100px;
+	background-position: -60px 0;
+}
+#wmd-button-bar #wmd-code-button
+{
+	left: 125px;
+	background-position: -80px 0;
+}
+#wmd-button-bar #wmd-image-button
+{
+	left: 150px;
+	background-position: -100px 0;
+}
+#wmd-button-bar #wmd-spacer2
+{
+	left: 175px;
+}
+#wmd-button-bar #wmd-olist-button
+{
+	left: 200px;
+	background-position: -120px 0;
+}
+#wmd-button-bar #wmd-ulist-button
+{
+	left: 225px;
+	background-position: -140px 0;
+}
+#wmd-button-bar #wmd-heading-button
+{
+	left: 250px;
+	background-position: -160px 0;
+}
+#wmd-button-bar #wmd-hr-button
+{
+	left: 275px;
+	background-position: -180px 0;
+}
+#wmd-button-bar #wmd-spacer3
+{
+	left: 300px;
+}
+#wmd-button-bar #wmd-undo-button
+{
+	left: 325px;
+	background-position: -200px 0;
+}
+#wmd-button-bar #wmd-redo-button
+{
+	left: 350px;
+	background-position: -220px 0;
+}
+#wmd-button-bar #wmd-help-button
+{
+	right: 0px;
+	background-position: -240px 0;
+}
+
+
+.wmd-prompt-background
+{
+	background-color: Black;
+}
+
+.wmd-prompt-dialog
+{
+	border: 1px solid #999999;
+	background-color: #F5F5F5;
+}
+
+.wmd-prompt-dialog > div
+{
+	font-size: 0.8em;
+	font-family: arial, helvetica, sans-serif;
+}
+
+
+.wmd-prompt-dialog > form > input[type="text"]
+{
+	border: 1px solid #999999;
+	color: black;
+}
+
+.wmd-prompt-dialog > form > input[type="button"]
+{
+	border: 1px solid #888888;
+	font-family: trebuchet MS, helvetica, sans-serif;
+	font-size: 0.8em;
+	font-weight: bold;
+}
+
+/* ------------
+    PRETTIFY
+-------------- */
+.com { color: #93a1a1; }
+.lit { color: #195f91; }
+.pun, .opn, .clo { color: #93a1a1; }
+.fun { color: #dc322f; }
+.str, .atv { color: #268bd2; }
+.kwd, .tag { color: #195f91; }
+.typ, .atn, .dec, .var { color: #CB4B16; }
+.pln { color: #93a1a1; }
+.prettyprint {
+  background-color: #fefbf3;
+  padding: 9px;
+  border: 1px solid rgba(0,0,0,.2);
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.1);
+     -moz-box-shadow: 0 1px 2px rgba(0,0,0,.1);
+          box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}
+
+/* Specify class=linenums on a pre to get line numbering */
+ol.linenums {
+  margin: 0 0 0 40px;
+}
+/* IE indents via margin-left */
+ol.linenums li {
+  padding: 0 5px;
+  color: rgba(0,0,0,.15);
+  line-height: 20px;
+  -webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+          border-radius: 2px;
+}
+/* Alternate shading for lines */
+li.L1, li.L3, li.L5, li.L7, li.L9 {  }
+
+/*
+$base03:    #002b36;
+$base02:    #073642;
+$base01:    #586e75;
+$base00:    #657b83;
+$base0:     #839496;
+$base1:     #93a1a1;
+$base2:     #eee8d5;
+$base3:     #fdf6e3;
+$yellow:    #b58900;
+$orange:    #cb4b16;
+$red:       #dc322f;
+$magenta:   #d33682;
+$violet:    #6c71c4;
+$blue:      #268bd2;
+$cyan:      #2aa198;
+$green:     #859900;
+*/
+
+
+/*
+#1d1f21 Background
+#282a2e Current Line
+#373b41 Selection
+#c5c8c6 Foreground
+#969896 Comment
+#cc6666 Red
+#de935f Orange
+#f0c674 Yellow
+#b5bd68 Green
+#8abeb7 Aqua
+#81a2be Blue
+#b294bb Purple
+*/
+
+
+/* DARK THEME */
+/* ---------- */
+
+.prettyprint
+{
+  background-color: #1d1f21;
+  border: 0;
+  padding: 10px;
+}
+.prettyprint code 
+{
+     background-color: #1d1f21
+}
+.prettyprint .linenums li {
+  color: #444;
+}
+.prettyprint .linenums li:hover {
+  background-color: #282a2e;
+}
+/* tags in html */
+.prettyprint .kwd,
+.prettyprint .tag { color: #cc6666; }
+/* html attr */
+.prettyprint .typ,
+.prettyprint .atn,
+.prettyprint .dec,
+.prettyprint .var { color: #de935f; }
+/* html attr values */
+.prettyprint .str,
+.prettyprint .atv { color: #b5bd68; }
+
+
+

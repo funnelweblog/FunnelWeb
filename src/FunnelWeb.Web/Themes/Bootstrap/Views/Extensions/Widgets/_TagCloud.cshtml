@@ -1,0 +1,34 @@
+﻿@using NHibernate
+@using NHibernate.Transform
+@{
+    <strong style="font-style: italic">Tags</strong><br/>
+    <ul class="recentTags">
+        @foreach (var tag in GetGags())
+        {
+            <li class="tagLabel"><a href="/tagged/@tag.TagName">@tag.TagName (@tag.TagCount)</a></li>
+        }
+    </ul>
+    <br/>
+}
+
+@functions 
+{
+    class Tag
+    {
+        public string TagName { get; set; }
+        public int TagCount { get; set; }
+    }
+    
+    IEnumerable<Tag> GetGags()
+    {
+        var session = DependencyResolver.Current.GetService<ISession>();
+        return session
+            .CreateSQLQuery("SELECT Tag.Name as TagName, count(Tag.Name) AS TagCount FROM Tag INNER JOIN TagItem ON Tag.Id = TagItem.TagId GROUP BY Tag.Name")
+            .AddScalar("TagName", NHibernateUtil.String)
+            .AddScalar("TagCount", NHibernateUtil.Int32)
+            .SetResultTransformer(new AliasToBeanResultTransformer(typeof(Tag)))
+            .List<Tag>();
+    }
+}
+
+

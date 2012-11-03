@@ -1,0 +1,20 @@
+﻿@model string
+@{ var tags = (Model ?? "").Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+   if (tags.Any())
+   {
+    <div>
+        <div style="float: left;">
+            <span class="ui-icon ui-icon-tag"></span>
+        </div>
+        @foreach (var tag in tags)
+        {
+            @Html.ActionLink(tag, "Index", "Tagged", new { tag }, new { title = "Posts tagged " + tag, @class = "tagLabel " + @Html.CssKeywordsForTag(tag) })
+            @Html.Raw(" ")
+        }
+    </div>
+   }
+   else
+   {
+    <div>&nbsp;</div>
+   }
+}

@@ -1,0 +1,61 @@
+﻿@using System.ComponentModel
+@using FunnelWeb.Web.Views.Wiki
+@model PageModel
+
+@if (Html.Settings().EnableDisqusCommenting)
+{
+    Html.RenderPartial("_Disqus");
+}
+else
+{             
+    <div class="alert-message block-message info">
+        @if(!Html.Settings().EnableDisqusCommenting)
+        {
+            @Html.ValidationSummary("Comment unsuccessful. Please correct the errors below.", new {@class = "alert-message block-message error"})
+        }
+        @using (Html.BeginForm("Page", "Wiki", new { page = Model.Page }, FormMethod.Post, new { @class = "promptBeforeUnload" }))
+        {
+            <div class="row">
+                <div class="span10">
+                    @Html.EditorFor(m => m.Comments, Html.AttributesFor(m => m.Comments))
+                    @Html.ValidationMessageFor(m => m.Comments, "", new { @class = "help-block label important" })
+                    @GetHelpBlock(Model, "Comments")
+                </div>
+                <div class="span5">
+                    <div class="clearfix">
+                        @Html.TextBoxFor(m => m.CommenterName, new { maxlength = "50", @class = "xlarge", placeholder = "Name", required = "required" })
+                        @Html.ValidationMessageFor(m => m.CommenterName, "", new { @class = "help-block label important" })
+                        @GetHelpBlock(Model, "CommenterName")
+                    </div>
+                    <div class="clearfix">
+                        @Html.TextBoxFor(m => m.CommenterBlog, new { @class = "xlarge", maxlength = "200", placeholder = "Blog URL" })
+                        @Html.ValidationMessageFor(m => m.CommenterBlog, "", new { @class = "help-block label important" })
+                        @GetHelpBlock(Model, "CommenterBlog")
+                    </div>
+                    <div class="clearfix">
+                        @Html.TextBoxFor(m => m.CommenterEmail, new { @class = "xlarge", maxlength = "100", type = "email", placeholder = "E-mail" })
+                        @Html.ValidationMessageFor(m => m.CommenterEmail, "", new { @class = "help-block label important" })
+                        @GetHelpBlock(Model, "CommenterEmail")
+                    </div>
+                    <div class="actions">
+                        <input type="submit" id="submit" class="btn primary" value="Submit" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <h3>Preview</h3>
+    <div id="wmd-preview" class="wmd-panel alert-message block-message">
+    </div>
+}
+
+@helper GetHelpBlock(object model, string property)
+    {
+        var attributes = TypeDescriptor.GetProperties(model)[property].Attributes;
+        var description = (DescriptionAttribute)attributes[typeof(DescriptionAttribute)];
+        var value = description.Description;
+        if (!string.IsNullOrEmpty(value))
+        {
+        <span class="help-block">@Html.Raw(value)</span>
+        }
+}

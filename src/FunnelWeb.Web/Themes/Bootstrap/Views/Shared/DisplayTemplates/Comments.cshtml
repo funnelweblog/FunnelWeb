@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Comment>
+<section id="comments">
+    <h4>Comments</h4>
+    @if (!Model.Any())
+    {
+        <div class="alert-message block-message info">
+            <p>No comments yet. Be the first!</p>
+        </div>
+    }
+    @foreach (var comment in Model.Where(x => !x.IsSpam))
+    {
+        @Html.DisplayFor(_ => comment, new {ViewBag.Entry})
+    }
+</section>

@@ -1,0 +1,54 @@
+@model FunnelWeb.Web.Views.Wiki.SearchModel
+@{
+  if (Model.Is404) {
+    Response.StatusCode = 404;
+  }
+  ViewBag.Title = "Search: " + Model.SearchText;
+  Layout = "~/Themes/Bootstrap/Views/Shared/_Public.cshtml";
+}
+
+@section Summary {
+  <p>
+    A team of ninjas have scoured the land, looking for the results to your query. 
+  </p>
+}
+
+<div class="span16" role="main">
+<h1>Search Results: @Model.SearchText</h1>
+      
+@if (Model.Is404) {
+<p>
+  The page you requested does not exist. Below are some pages that may be related.
+</p>
+}
+      
+<div class="clearfix">
+  @using (Html.BeginForm("Search", "Wiki", FormMethod.Get)) {
+  <label>Search again:</label>
+  <div class="input">
+    <input type="search" name="q" value="@Model.SearchText" />
+    <input type="submit" id="research" class="btn" value="Search" />
+  </div>
+  }
+</div>
+      
+@if (Model.Results.Count() == 0) {
+  <p>
+    Sorry, there were no results for your query.
+  </p>
+} else {
+<section id="search-list">
+  @foreach (var entry in Model.Results) {
+  <article class="well">
+    <header>
+        <h2>@Html.Qualify(Html.ActionLink(entry.Title, "Page", new { page = entry.Name }))</h2>
+    </header>
+    @if (!string.IsNullOrEmpty(entry.MetaDescription)) {
+    <p>@entry.MetaDescription</p>
+    }
+    <time datetime="@entry.Published.ToUniversalTime().ToString("yyyy-M-ddTHH:mm:ssZ")" pubdate="pubdate">@entry.Published.ToUniversalTime().ToString("MMM d yyyy")</time>
+  </article>
+  }
+</section>
+}
+</div>

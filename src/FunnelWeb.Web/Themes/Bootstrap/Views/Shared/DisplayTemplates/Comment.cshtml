@@ -1,0 +1,35 @@
+﻿@model Comment
+
+<article id="comment-@Model.Id" class="well">
+    <div class="row">
+    <div class="span2">
+        @SetHCard()
+    </div>
+    <div>
+        <time datetime="@Model.Posted.ToUniversalTime().ToString("yyyy-M-ddTHH:mm:ssZ")" pubdate="pubdate">@Model.Posted.ToUniversalTime().ToString("MMM d yyyy")
+        @Html.CommentedAtRevision(Model, (EntryRevision)ViewBag.Entry)
+        @if (ViewData.IsLoggedIn())
+        {
+            @Html.ActionLink(Model.IsSpam ? "Unspam" : "Spam", "ToggleSpam", "Admin", new { Area = "Admin", id = Model.Id }, null)
+        }
+        </time>
+        @Html.RenderUntrusted(Model.Body, Formats.Markdown)
+    </div>
+    </div>
+</article>
+
+@helper SetHCard()
+{
+    if(string.IsNullOrEmpty(Model.AuthorUrl))
+    {
+        <div class="media-grid">            
+            <a href="#" rel="profile" title="@Model.AuthorName"><img src="@Html.Gravatar(Model.AuthorEmail)" alt="@Model.AuthorName on comment-@Model.Id" /></a>
+        </div>
+    }
+    else
+    {
+        <div class="media-grid vcard">            
+            <a class="fn url" href="@Model.AuthorUrl" rel="profile" title="@Model.AuthorName"><img src="@Html.Gravatar(Model.AuthorEmail)" alt="@Model.AuthorName on comment-@Model.Id" /></a>
+        </div>
+    }
+}

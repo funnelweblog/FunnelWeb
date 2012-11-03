@@ -1,0 +1,18 @@
+﻿@model IEnumerable<EntrySummary>
+@{
+    Layout = "~/Themes/Bootstrap/Views/Shared/_Public.cshtml";
+}
+
+@using System.Linq
+
+<div class="span16" role="main">
+<h1>Posts tagged with <span class="tagName">@ViewBag.Tag</span></h1>
+
+@if (@Model.Any())
+{ 
+    @Html.DisplayFor(x => Model)
+}
+else { 
+    <p>Aww snap! That tag isn't being used anyway</p>
+}
+</div>
