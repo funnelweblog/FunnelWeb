@@ -83,6 +83,8 @@ namespace FunnelWeb.Web
 
         private void Application_Start()
         {
+            MvcHandler.DisableMvcResponseHeader = true;
+
             AreaRegistration.RegisterAllAreas();
 
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
