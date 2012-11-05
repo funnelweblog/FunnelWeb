@@ -380,6 +380,7 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.9.0.js" />
     <Content Include="Scripts\jquery-ui-1.9.0.min.js" />
+    <Content Include="Scripts\jquery.tinycaroussel.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jsdate.js" />
@@ -408,6 +409,11 @@
     <Content Include="Scripts\taggy.js" />
     <Content Include="Scripts\wmd.js" />
     <Content Include="Themes\AaronPowell\Content\Styles\Theme.css" />
+    <Content Include="Themes\Bootstrap\Content\Scripts\bootstrap-dropdown.js" />
+    <Content Include="Themes\Bootstrap\Content\Scripts\bootstrap-twipsy.js" />
+    <Content Include="Themes\Bootstrap\Content\Scripts\site.js" />
+    <Content Include="Themes\Bootstrap\Content\Styles\Bootstrap.css" />
+    <Content Include="Themes\Bootstrap\Content\Styles\Theme.css" />
     <Content Include="Themes\Clean\Content\Styles\Theme.css" />
     <Content Include="Themes\Default\Content\Styles\Theme.css" />
     <Content Include="Themes\Evolve\Content\Images\background.png" />
@@ -482,6 +488,22 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Themes\JakeGinnivan\Views\Shared\DisplayTemplates\EntrySummary.cshtml" />
+    <Content Include="Themes\Bootstrap\Views\Extensions\Widgets\_Disclaimer.cshtml" />
+    <Content Include="Themes\Bootstrap\Views\Extensions\Widgets\_TagCloud.cshtml" />
+    <Content Include="Themes\Bootstrap\Views\Shared\DisplayTemplates\Comment.cshtml" />
+    <Content Include="Themes\Bootstrap\Views\Shared\DisplayTemplates\Comments.cshtml" />
+    <Content Include="Themes\Bootstrap\Views\Shared\DisplayTemplates\EntrySummary.cshtml" />
+    <Content Include="Themes\Bootstrap\Views\Shared\DisplayTemplates\TagsList.cshtml" />
+    <Content Include="Themes\Bootstrap\Views\Shared\EditorTemplates\Markdown.cshtml" />
+    <Content Include="Themes\Bootstrap\Views\Shared\PageTemplates\Default.cshtml" />
+    <Content Include="Themes\Bootstrap\Views\Shared\PageTemplates\TwoCol.cshtml" />
+    <Content Include="Themes\Bootstrap\Views\Shared\_EditComments.cshtml" />
+    <Content Include="Themes\Bootstrap\Views\Shared\_Public.cshtml" />
+    <Content Include="Themes\Bootstrap\Views\Tagged\Index.cshtml" />
+    <Content Include="Themes\Bootstrap\Views\Wiki\Recent.cshtml" />
+    <Content Include="Themes\Bootstrap\Views\Web.config" />
+    <Content Include="Themes\Bootstrap\Views\Wiki\Search.cshtml" />
+    <Content Include="Themes\Bootstrap\Views\Wiki\SiteMap.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
