@@ -412,9 +412,6 @@
     <Content Include="Themes\Default\Content\Styles\Theme.css" />
     <Content Include="Themes\Evolve\Content\Images\background.png" />
     <Content Include="Themes\Evolve\Content\Styles\Theme.css" />
-    <Content Include="Themes\JakeGinnivan\Content\Styles\appbar.feature.search.rest.png" />
-    <Content Include="Themes\JakeGinnivan\Content\Styles\Colours.css" />
-    <Content Include="Themes\JakeGinnivan\Content\Styles\Theme.css" />
     <Content Include="Themes\MattHamilton\Content\Styles\Theme.css" />
     <Content Include="Themes\MattHamilton\Content\Styles\Title.png" />
     <Content Include="Themes\Official\Content\Images\header.png" />
@@ -481,7 +478,6 @@
     <Content Include="My.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Themes\JakeGinnivan\Views\Shared\DisplayTemplates\EntrySummary.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
