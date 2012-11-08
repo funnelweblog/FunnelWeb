@@ -73,10 +73,7 @@ namespace FunnelWeb.Web.Application.MetaWeblog
 
                     entry.Name = post.permalink;
                     entry.Title = post.title ?? string.Empty;
-                    if (string.IsNullOrEmpty(post.mt_excerpt))
-                        entry.Summary = entry.Summary;
-                    else
-                        entry.Summary = post.mt_excerpt;
+                    entry.Summary = string.IsNullOrEmpty(post.mt_excerpt) ? entry.Summary : post.mt_excerpt;
                     entry.MetaTitle = post.title;
                     entry.Published = (post.dateCreated < DateTime.Today.AddYears(10) ? DateTime.Today : post.dateCreated).ToUniversalTime();
                     entry.Status = publish ? EntryStatus.PublicBlog : EntryStatus.Private;
