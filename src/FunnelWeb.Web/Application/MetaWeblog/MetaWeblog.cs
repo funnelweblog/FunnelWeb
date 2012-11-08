@@ -73,7 +73,10 @@ namespace FunnelWeb.Web.Application.MetaWeblog
 
                     entry.Name = post.permalink;
                     entry.Title = post.title ?? string.Empty;
-                    entry.Summary = post.mt_excerpt ?? string.Empty;
+                    if (string.IsNullOrEmpty(post.mt_excerpt))
+                        entry.Summary = entry.Summary;
+                    else
+                        entry.Summary = post.mt_excerpt;
                     entry.MetaTitle = post.title;
                     entry.Published = (post.dateCreated < DateTime.Today.AddYears(10) ? DateTime.Today : post.dateCreated).ToUniversalTime();
                     entry.Status = publish ? EntryStatus.PublicBlog : EntryStatus.Private;
@@ -91,7 +94,7 @@ namespace FunnelWeb.Web.Application.MetaWeblog
                     if (!string.IsNullOrEmpty(post.wp_slug))
                         entry.Name = post.wp_slug;
 
-                    entry.MetaDescription = entry.Summary;
+                    entry.MetaDescription = entry.MetaDescription ?? post.mt_excerpt;
 
                     var editTags = post.categories;
                     var toDelete = entry.Tags.Where(t => !editTags.Contains(t.Name)).ToList();
@@ -203,11 +206,11 @@ namespace FunnelWeb.Web.Application.MetaWeblog
             };
         }
 
-        public MediaObjectInfo NewMediaObject(string blogid, string username, string password,
-            MediaObject mediaObject)
+        public MediaObjectInfo NewMediaObject(string blogid, string username, string password, MediaObject mediaObject)
         {
             if (ValidateUser(username, password))
-            {	// WLR sends images with the name "imge.png". Very resourcefull
+            {
+                // WLR sends images with the name "imge.png". Very resourcefull
                 var objectInfo = new MediaObjectInfo();
 
                 // image
@@ -215,9 +218,8 @@ namespace FunnelWeb.Web.Application.MetaWeblog
                 {
                     var fileName = Path.GetFileNameWithoutExtension(mediaObject.name) + "_" + DateTime.Now.Ticks + Path.GetExtension(mediaObject.name);
 
-                    objectInfo.url = VirtualPathUtility.ToAbsolute(funnelWebSettings.UploadPath + "/" + fileName);
-
                     fileRepository.Save(memoryStream, fileName, false);
+                    objectInfo.url = new Uri(HttpContext.Current.Request.GetOriginalUrl(), "/get/" + fileName.TrimStart('/')).ToString();
                 }
 
                 return objectInfo;
