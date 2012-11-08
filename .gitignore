@@ -109,3 +109,6 @@ GitRepoConfig.xml
 build/NuGet/*
 build/Published/*
 Views\Extensions\*
+
+Thumbs.db
+src/FunnelWeb.Web/files/
