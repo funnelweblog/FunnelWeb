@@ -1,8 +1,9 @@
 ﻿using System.Web.Optimization;
+using FunnelWeb.Web.Application.Mvc;
 
 namespace FunnelWeb.Web.App_Start
 {
-    public class BundleConfig
+    public static class BundleConfig
     {
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725
         public static void RegisterBundles(BundleCollection bundles)
@@ -41,6 +42,9 @@ namespace FunnelWeb.Web.App_Start
                         "~/Content/themes/base/jquery.ui.datepicker.css",
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css"));
+
+            ViewBundleRegistrar.RegisterViewBundles(bundles);
         }
+
     }
 }

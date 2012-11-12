@@ -167,6 +167,7 @@
     <Compile Include="Application\Authentication\FunnelWebRoleProvider.cs" />
     <Compile Include="Application\CacheStaticFilesHttpModule.cs" />
     <Compile Include="Application\Extensibility.cs" />
+    <Compile Include="Application\Extensions\WebViewPageExtensions.cs" />
     <Compile Include="Application\Extensions\MarkupExtensions.cs" />
     <Compile Include="Application\Extensions\MobileExtensions.cs" />
     <Compile Include="Application\Extensions\ViewDataDictionaryExtensions.cs" />
@@ -199,6 +200,7 @@
     <Compile Include="Application\Mvc\Binders\EntryRevisionBinder.cs" />
     <Compile Include="Application\Mvc\Binders\ImplicitAssignmentBinder.cs" />
     <Compile Include="Application\Mvc\Binders\UploadBinder.cs" />
+    <Compile Include="Application\Mvc\ViewBundleRegistrar.cs" />
     <Compile Include="Application\Mvc\FileUpload.cs" />
     <Compile Include="Application\Mvc\FunnelWebControllerFactory.cs" />
     <Compile Include="Application\Mvc\FunnelWebViewEngine.cs" />
@@ -225,12 +227,14 @@
     <Compile Include="Application\Themes\ThemesModule.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\BundleConfig.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\InstallController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\SqlAuthenticationController.cs" />
     <Compile Include="Areas\Admin\Controllers\UploadController.cs" />
     <Compile Include="Areas\Admin\Controllers\WikiAdminController.cs" />
+    <Compile Include="Areas\Admin\RouteConfig.cs" />
     <Compile Include="Areas\Admin\Views\Admin\BlogMLImportModel.cs" />
     <Compile Include="Areas\Admin\Views\Admin\CommentsModel.cs" />
     <Compile Include="Areas\Admin\Views\Admin\IndexModel.cs" />
@@ -268,6 +272,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <EmbeddedResource Include="Application\MetaWeblog\wlwmanifest.xml" />
+    <Content Include="Areas\Admin\Scripts\Views\WikiAdmin\Edit.js" />
     <Content Include="Content\Images\Busy.gif" />
     <Content Include="Content\Images\editorbuttons.png" />
     <Content Include="Content\Images\external.png" />
@@ -504,6 +509,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\Views\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
