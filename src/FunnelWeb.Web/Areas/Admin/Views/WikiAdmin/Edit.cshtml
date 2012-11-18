@@ -187,5 +187,9 @@
 </div>
 }
 
-<h3>Preview</h3>
+<h3>Preview</h3> <input type="button" id="apply-pretty-print" value="Apply Pretty Print" />
 <div id="wmd-preview" class="wmd-panel"></div>
+
+@section Scripts{                    
+    @Scripts.Render(this.GetViewBundlePath())
+}

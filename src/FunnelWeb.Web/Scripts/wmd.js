@@ -1,5 +1,7 @@
 var Attacklab = Attacklab || {};
 
+Attacklab.showdown = Showdown;
+
 Attacklab.wmdBase = function () {
 
     // A few handy aliases for readability.
@@ -1936,7 +1938,7 @@ Attacklab.wmdBase = function () {
             }
 
             if (wmd.panels.preview) {
-                wmd.panels.preview.innerHTML = text;
+                wmd.panels.preview.innerHTML = text;                
             }
 
             setPanelScrollTops();
