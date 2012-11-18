@@ -64,6 +64,11 @@
     @Scripts.Render("~/bundles/showdown")
     @Scripts.Render("~/bundles/wmd")
     @Scripts.Render("~/bundles/site")
+    
+    @if (IsSectionDefined("Scripts"))
+    {
+        @RenderSection("Scripts")
+    }
 
     @MiniProfiler.RenderIncludes()
 </body>
