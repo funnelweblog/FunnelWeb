@@ -68,15 +68,9 @@
         });
     }
 
-    function hideFlashes() {
-        $(".flash").delay(3000).fadeOut('slow');
-    }
-
-
     enablePrettyPrinting();
     enablePrettyDates();
     enableNewWindowLinks();
-
     enableChangeDetection();
 
     if ($("#wmd-input").size() > 0) {
