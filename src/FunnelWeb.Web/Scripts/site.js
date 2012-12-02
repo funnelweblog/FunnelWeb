@@ -67,13 +67,16 @@
             return false;
         });
     }
+    
+    function enableMarkdown() {
+        if ($("#wmd-input").size() > 0) {
+            initializeWmd();
+        }
+    }
 
     enablePrettyPrinting();
     enablePrettyDates();
     enableNewWindowLinks();
     enableChangeDetection();
-
-    if ($("#wmd-input").size() > 0) {
-        initializeWmd();
-    }
+    enableMarkdown();    
 });
