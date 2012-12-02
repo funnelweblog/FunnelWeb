@@ -67,19 +67,16 @@
             return false;
         });
     }
-
-    function hideFlashes() {
-        $(".flash").delay(3000).fadeOut('slow');
+    
+    function enableMarkdown() {
+        if ($("#wmd-input").size() > 0) {
+            initializeWmd();
+        }
     }
-
 
     enablePrettyPrinting();
     enablePrettyDates();
     enableNewWindowLinks();
-
     enableChangeDetection();
-
-    if ($("#wmd-input").size() > 0) {
-        initializeWmd();
-    }
+    enableMarkdown();    
 });
