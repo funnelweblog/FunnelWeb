@@ -19,7 +19,7 @@ namespace FunnelWeb.Tests.Web
             Routes = new RouteCollection();
 
             var httpContextBase = Substitute.For<HttpContextBase>();
-            httpContextBase.Server.MapPath(Arg.Any<string>()).Returns(@"c:\");
+            httpContextBase.Server.MapPath(Arg.Any<string>()).Returns(@"c:\folderthatdoesntexist");
             var adminAreaRegistration = new AdminAreaRegistration(new Lazy<HttpContextBase>(()=>httpContextBase));
             var areaRegistrationContext = new AreaRegistrationContext(adminAreaRegistration.AreaName, Routes);
             adminAreaRegistration.RegisterArea(areaRegistrationContext);
