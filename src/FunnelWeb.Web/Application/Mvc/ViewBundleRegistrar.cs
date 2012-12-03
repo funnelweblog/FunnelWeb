@@ -16,9 +16,10 @@ namespace FunnelWeb.Web.Application.Mvc
         /// </summary>
         /// <param name="bundles">The collection to add the bundles to</param>
         /// <param name="context">The context of the area registration</param>
-        public static void RegisterViewBundlesForArea(BundleCollection bundles, AreaRegistrationContext context)
+        /// <param name="httpContext"></param>
+        public static void RegisterViewBundlesForArea(BundleCollection bundles, AreaRegistrationContext context, HttpContextBase httpContext)
         {
-            string path = HttpContext.Current.Server.MapPath("Areas/" + context.AreaName + "/Scripts/Views");
+            string path = httpContext.Server.MapPath("Areas/" + context.AreaName + "/Scripts/Views");
 
             foreach (string jsFile in Directory.EnumerateFiles(path, "*.js", SearchOption.AllDirectories))
             {

@@ -1,8 +1,11 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web;
+using System.Web.Mvc;
 using System.Web.Routing;
 using FunnelWeb.Tests.Helpers;
 using FunnelWeb.Web.App_Start;
 using FunnelWeb.Web.Areas.Admin;
+using NSubstitute;
 using NUnit.Framework;
 
 namespace FunnelWeb.Tests.Web
@@ -15,7 +18,9 @@ namespace FunnelWeb.Tests.Web
         {
             Routes = new RouteCollection();
 
-            var adminAreaRegistration = new AdminAreaRegistration();
+            var httpContextBase = Substitute.For<HttpContextBase>();
+            httpContextBase.Server.MapPath(Arg.Any<string>()).Returns(@"c:\temp");
+            var adminAreaRegistration = new AdminAreaRegistration(new Lazy<HttpContextBase>(()=>httpContextBase));
             var areaRegistrationContext = new AreaRegistrationContext(adminAreaRegistration.AreaName, Routes);
             adminAreaRegistration.RegisterArea(areaRegistrationContext);
 
