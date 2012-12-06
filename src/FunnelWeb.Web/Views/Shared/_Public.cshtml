@@ -94,6 +94,7 @@
     @Scripts.Render("~/bundles/prettify")
 
     @MiniProfiler.RenderIncludes()
+    @MvcHtmlString.Create(Html.Settings().HtmlFooter)
     @if (IsSectionDefined("Scripts"))
     {
         @RenderSection("Scripts")
