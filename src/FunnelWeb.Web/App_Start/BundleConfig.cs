@@ -26,8 +26,8 @@ namespace FunnelWeb.Web.App_Start
             bundles.Add(new ScriptBundle("~/bundles/site").Include("~/Scripts/site.js"));
             bundles.Add(new ScriptBundle("~/bundles/wmd").Include("~/Scripts/wmd.js"));
             
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/themes/base/Base.css"));
-            bundles.Add(new StyleBundle("~/Content/adminCss").Include("~/Content/themes/base/Base.css", "~/Content/themes/base/Admin.css"));
+            bundles.Add(new StyleBundle("~/Content/themes/base/baseCss").Include("~/Content/themes/base/Base.css"));
+            bundles.Add(new StyleBundle("~/Content/themes/base/adminCss").Include("~/Content/themes/base/Base.css", "~/Content/themes/base/Admin.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",
