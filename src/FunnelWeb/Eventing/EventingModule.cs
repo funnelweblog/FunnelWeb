@@ -8,7 +8,7 @@ namespace FunnelWeb.Eventing
         {
             base.Load(builder);
 
-            builder.RegisterType<EventPublisher>().As<IEventPublisher>().InstancePerLifetimeScope();
+            builder.Register(x => new AutofacEventPublisher(x)).AsImplementedInterfaces().InstancePerLifetimeScope();
         }
     }
 }

@@ -11,21 +11,20 @@ using FunnelWeb.Settings;
 
 namespace FunnelWeb.Extensions.CommentNotification
 {
-    public class CommentPostedListener : IEventListener
+    /// <summary>
+    /// Will send an email to the admin when a new comment has arrived.
+    /// </summary>
+    public class NotifyAdminOfNewComment : IEventListener<CommentPostedEvent>
     {
         private readonly ISettingsProvider settingsProvider;
 
-        public CommentPostedListener(ISettingsProvider settingsProvider)
+        public NotifyAdminOfNewComment(ISettingsProvider settingsProvider)
         {
             this.settingsProvider = settingsProvider;
         }
 
-        public void Handle(Event payload)
+        public void Handle(CommentPostedEvent commentDetails)
         {
-            var commentDetails = payload as CommentPostedEvent;
-            if (commentDetails == null)
-                return;
-
             var settings = settingsProvider.GetSettings<FunnelWebSettings>();
             if (!settings.CommentNotification)
             {
