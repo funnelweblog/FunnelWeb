@@ -16,11 +16,11 @@
             var localTimeOffset = utcDate.getTimezoneOffset() * 60000;
 
             var localDate = new Date(utcDateValue - (localTimeOffset));
-            $(this).attr("title", Date.Format(localDate, "dd MMM, yyyy hh:nn"));
+            $(this).attr("title", Date.Format(localDate, "yyyy-MM-dd hh:nn"));
 
             var pretty = prettyDate(localDate);
             if (pretty == undefined) {
-                var local = Date.Format(localDate, "dd MMM, yyyy");
+                var local = Date.Format(localDate, "yyyy-MM-dd");
                 localTimeOffset / 360000;
                 $(this).html(local);
             } else {

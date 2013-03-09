@@ -243,11 +243,12 @@ Date.FormatDateTime = function(p_Date, p_NamedFormat) {
     var dt = Date.CDate(p_Date);
 
     switch (parseInt(p_NamedFormat)) {
-        case vbGeneralDate: return dt.toString();
-        case vbLongDate: return Format(p_Date, 'DDDD, MMMM D, YYYY');
-        case vbShortDate: return Format(p_Date, 'MM/DD/YYYY');
+        //case vbGeneralDate: return dt.toString();
+        case vbGeneralDate: return Format(p_Date, 'yyyy-MM-dd') ;
+        case vbLongDate: return Format(p_Date, 'yyyy-MM-dd');
+        case vbShortDate: return Format(p_Date, 'yyyy-MM-dd');
         case vbLongTime: return dt.toLocaleTimeString();
-        case vbShortTime: return Format(p_Date, 'HH:MM:SS');
+        case vbShortTime: return Format(p_Date, 'HH:mm:ss');
         default: return "invalid NamedFormat: '" + p_NamedFormat + "'";
     }
 }
@@ -392,13 +393,13 @@ function prettyDate(date) {
         return;
 
     return day_diff == 0 && (
-			diff < 60 && "Just now" ||
-			diff < 120 && "1 minute ago" ||
-			diff < 3600 && Math.floor(diff / 60) + " minutes ago" ||
-			diff < 7200 && "1 hour ago" ||
-			diff < 86400 && Math.floor(diff / 3600) + " hours ago") ||
-		day_diff == 1 && "Yesterday" ||
-		day_diff < 7 && day_diff + " days ago" ||
-		day_diff < 31 && Math.ceil(day_diff / 7) + " weeks ago";
+			diff < 60 && "刚刚" ||
+			diff < 120 && "1分钟之前" ||
+			diff < 3600 && Math.floor(diff / 60) + "分钟之前" ||
+			diff < 7200 && "1小时之前" ||
+			diff < 86400 && Math.floor(diff / 3600) + "小时之前") ||
+		day_diff == 1 && "昨天" ||
+		day_diff < 7 && day_diff + "天之前" ||
+		day_diff < 31 && Math.ceil(day_diff / 7) + "周之前";
 }
 

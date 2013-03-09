@@ -164,16 +164,16 @@ namespace FunnelWeb.Web.Application.Extensions
         {
             var date = (DateTime)value;
             return MvcHtmlString.Create(string.Format("<span class=\"date\" title=\"{0}\">{1}</span>",
-                date.ToString("dd MMM, yyyy HH:mm"),
-                date.ToString("dd MMM, yyyy hh:mm tt")));
+                date.ToString( "yyyy-MM-dd HH:mm" ),
+                date.ToString( "yyyy-MM-dd HH:mm" ) ) );
         }
 
         public static IHtmlString DateWithoutTime(this HtmlHelper html, object value)
         {
             var date = (DateTime)value;
             return MvcHtmlString.Create(string.Format("<span class=\"date\" title=\"{0}\">{1}</span>",
-                date.ToString("dd MMM, yyyy"),
-                date.ToString("dd MMM, yyyy")));
+                date.ToString( "yyyy-MM-dd" ),
+                date.ToString( "yyyy-MM-dd" ) ) );
         }
 
         public static MvcHtmlString RenderTrusted(this HtmlHelper html, object content, string format)
