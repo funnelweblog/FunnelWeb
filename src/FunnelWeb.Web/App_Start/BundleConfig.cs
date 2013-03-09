@@ -22,7 +22,12 @@ namespace FunnelWeb.Web.App_Start
             bundles.Add(new ScriptBundle("~/bundles/jsdate").Include("~/Scripts/jsdate.js"));
             bundles.Add(new ScriptBundle("~/bundles/showdown").Include("~/Scripts/showdown.js"));
             bundles.Add(new ScriptBundle("~/bundles/taggy").Include("~/Scripts/taggy.js"));
-            bundles.Add(new ScriptBundle("~/bundles/prettify").Include("~/Scripts/Prettify/prettify.js", "~/Scripts/Prettify/lang-*"));
+            
+            //bundles.Add(new ScriptBundle("~/bundles/prettify").Include("~/Scripts/Prettify/prettify.js", "~/Scripts/Prettify/lang-*"));
+            // Issue #30. Prettify.js + lang-*.js are already minified
+            // Switch to base Bundle that by default does not include any transforms
+            bundles.Add( new Bundle( "~/bundles/prettify" ).Include( "~/Scripts/Prettify/prettify.js", "~/Scripts/Prettify/lang-*" ) );
+
             bundles.Add(new ScriptBundle("~/bundles/site").Include("~/Scripts/site.js"));
             bundles.Add(new ScriptBundle("~/bundles/wmd").Include("~/Scripts/wmd.js"));
             
