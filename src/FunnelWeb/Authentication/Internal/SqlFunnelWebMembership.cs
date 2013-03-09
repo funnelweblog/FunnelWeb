@@ -43,9 +43,21 @@ namespace FunnelWeb.Authentication.Internal
                 .List();
         }
 
-        internal static string HashPassword(string password)
-        {
-            return FormsAuthentication.HashPasswordForStoringInConfigFile(password, FormsAuthPasswordFormat.SHA1.ToString());
+      // original method
+        //internal static string HashPassword(string password)
+        //{
+        //    return FormsAuthentication.HashPasswordForStoringInConfigFile(password, FormsAuthPasswordFormat.SHA1.ToString());
+        //}
+
+      /// <summary>
+      /// 更安全的验证方式。Jerin.2013.3.9
+      /// </summary>
+      /// <param name="password"></param>
+      /// <returns></returns>
+        internal static string HashPassword( string password ) {
+          // should add Salt to User first
+          return FormsAuthentication.HashPasswordForStoringInConfigFile( password, FormsAuthPasswordFormat.SHA1.ToString() );
         }
+
     }
 }
