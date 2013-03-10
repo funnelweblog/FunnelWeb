@@ -1,0 +1,12 @@
+last updated: 2013-3-10
+
+1. enhance security: accomplished@0000-00-00
+(1. [database] add Salt to User
+(2. update related classes in FunnelWeb.Model.Authentication
+(3. update the method HashPassword(password, salt) in FunnelWeb.Authentication.Internal.SqlFunnelWebMembership; the detailed algorithm can reference www.chuci.info.
+
+2. create a mechanism to integrate with existed system: accomplished@0000-00-00
+try 1: add prefix to table name in database
+try 2: drop the User table in FunnelWeb and use the related tables in existed system
+
+3. update the content editor to integrate with knowledges from www.chuci.info: accomplished@0000-00-00
