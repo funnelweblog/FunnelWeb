@@ -55,7 +55,7 @@
     <Compile Include="..\Information\VersionInfo.cs">
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
-    <Compile Include="CommentPostedListener.cs" />
+    <Compile Include="NotifyAdminOfNewComment.cs" />
     <Compile Include="Extension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

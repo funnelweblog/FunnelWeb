@@ -130,7 +130,11 @@
     <Compile Include="DatabaseDeployer\Infrastructure\FunnelWebJournal.cs" />
     <Compile Include="DatabaseDeployer\Infrastructure\FunnelWebNHibernateExtensions.cs" />
     <Compile Include="DatabaseDeployer\ScriptedExtension.cs" />
+    <Compile Include="Eventing\AutofacEventPublisher.cs" />
+    <Compile Include="Eventing\Event.cs" />
     <Compile Include="Eventing\EventingModule.cs" />
+    <Compile Include="Eventing\IEventListener.cs" />
+    <Compile Include="Eventing\IEventPublisher.cs" />
     <Compile Include="Eventing\INotifier.cs" />
     <Compile Include="ExtensionsModule.cs" />
     <Compile Include="Filters\FunnelWebRequestAttribute.cs" />
