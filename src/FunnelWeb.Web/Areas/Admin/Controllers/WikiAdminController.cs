@@ -72,12 +72,17 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
                 return View(model);
             }
 
-            // Does an entry with that name already exist?
-            var existing = Repository.FindFirstOrDefault(new EntryByNameQuery(model.Name));
-            if (existing != null && existing.Id != model.Id)
+            if (CurrentEntryExistsWithName(model.Name))
             {
                 model.SelectedTags = GetEditTags(model);
-                ModelState.AddModelError("PageExists", string.Format("A page with SLUG '{0}' already exists. You should edit that page instead.", model.Title));
+                ModelState.AddModelError("PageExists", string.Format("A page with SLUG '{0}' already exists. You should edit that page instead", model.Name));
+                return View(model);
+            }
+
+            if (CurrentEntryExistsWithName(model.Title) && model.Name == "")
+            {
+                model.SelectedTags = GetEditTags(model);
+                ModelState.AddModelError("PageExists", string.Format("A page with SLUG '{0}' already exists. Please add a unique SLUG here.", model.Title));
                 return View(model);
             }
 
@@ -128,6 +133,11 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
             }
 
             return RedirectToAction("Page", "Wiki", new { Area = "", page = entry.Name});
+        }
+
+        private bool CurrentEntryExistsWithName(string name)
+        {
+            return Repository.FindFirstOrDefault(new EntryByNameQuery(name)) != null;
         }
 
         private List<Tag> GetEditTags(EntryRevision model)
