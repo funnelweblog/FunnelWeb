@@ -72,23 +72,23 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
                 return View(model);
             }
 
-            if (CurrentEntryExistsWithName(model.Name))
+            var author = Authenticator.GetName();
+            var entry = Repository.Get<Entry>(model.Id);
+            if (entry == null && CurrentEntryExistsWithName(model.Name))
             {
                 model.SelectedTags = GetEditTags(model);
                 ModelState.AddModelError("PageExists", string.Format("A page with SLUG '{0}' already exists. You should edit that page instead", model.Name));
                 return View(model);
             }
 
-            if (CurrentEntryExistsWithName(model.Title) && model.Name == "")
+            if (entry == null && CurrentEntryExistsWithName(model.Title) && model.Name == "")
             {
                 model.SelectedTags = GetEditTags(model);
                 ModelState.AddModelError("PageExists", string.Format("A page with SLUG '{0}' already exists. Please add a unique SLUG here.", model.Title));
                 return View(model);
             }
 
-            var author = Authenticator.GetName();
-
-            var entry = Repository.Get<Entry>(model.Id) ?? new Entry { Author = author };
+            entry = entry ?? new Entry {Author = author};
             entry.Name = string.IsNullOrWhiteSpace(model.Name) ? model.Title.Slugify() : model.Name.ToString();
             entry.PageTemplate = string.IsNullOrEmpty(model.PageTemplate) ? null : model.PageTemplate;
             entry.Title = model.Title ?? string.Empty;
