@@ -49,9 +49,12 @@ namespace FunnelWeb.Web.Application.Mvc
         {
             string path = HttpContext.Current.Server.MapPath("Scripts/Views");
 
-            foreach (string jsFile in Directory.EnumerateFiles(path, "*.js", SearchOption.AllDirectories))
+            if (Directory.Exists(path))
             {
-                bundles.Add(CreateScriptBundle(jsFile, path));
+                foreach (string jsFile in Directory.EnumerateFiles(path, "*.js", SearchOption.AllDirectories))
+                {
+                    bundles.Add(CreateScriptBundle(jsFile, path));
+                }
             }
         }
 
