@@ -22,7 +22,7 @@ namespace FunnelWeb.Providers.File
         protected static bool IsZipFile(string fullPath)
         {
             var extension = Path.GetExtension(fullPath).ToLowerInvariant();
-            return extension == "zip" || extension == "gz" || extension == "tar" || extension == "rar";
+            return extension == ".zip" || extension == ".gz" || extension == ".tar" || extension == ".rar";
         }
 
         public abstract bool IsFile(string path);
