@@ -26,6 +26,8 @@ Lastly you need to modify the `my.config` file which contains your login informa
 
 FunnelWeb is licensed under the New BSD license.
 
+# Merged with original master @May 28, 2013
+
 ==============================================================================
 
 Copyright (c) 2009, FunnelWeb Contributors
