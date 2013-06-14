@@ -12,6 +12,7 @@ namespace FunnelWeb.Model.Authentication.Mappings
             Map(x => x.Username);
             Map(x => x.Email);
             Map(x => x.Password);
+            Map( x => x.Salt );
             HasManyToMany(x => x.Roles)
                 .AsBag()
                 .Table("UserRoles")

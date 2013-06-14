@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 namespace FunnelWeb.Utilities
 {
@@ -20,5 +21,14 @@ namespace FunnelWeb.Utilities
             value = Regex.Replace(value, @"\s", "-"); // hyphens   
             return value; 
         }
+
+        /// <summary>
+        /// 创建一个Guid字符串，去掉了所有符号，只剩32位数字或小写字母，如bea8b23f69574b0c8832b5723c3aae71
+        /// </summary>
+        /// <returns></returns>
+        public static string NewGuid_PlainLower() {
+          return Guid.NewGuid().ToString().Replace( "-", "" ).ToLower();
+        }
+
     }
 }
