@@ -37,7 +37,10 @@ namespace FunnelWeb.Utilities
 			// When the application is run behind a load-balancer (or forward proxy), request.IsSecureConnection returns 'true' or 'false'
 			// based on the request from the load-balancer to the web server (e.g. IIS) and not the actual request to the load-balancer.
 			// The same is also applied to request.Url.Scheme (or uriBuilder.Scheme, as in our case).
-			bool isSecureConnection = String.Equals(request.Headers["X-Forwarded-Proto"], "https", StringComparison.OrdinalIgnoreCase);
+      bool isSecureConnection =
+           string.IsNullOrWhiteSpace( request.Headers["X-Forwarded-Proto"] )
+               ? request.IsSecureConnection
+               : String.Equals( request.Headers["X-Forwarded-Proto"], "https", StringComparison.OrdinalIgnoreCase );
 
 			if (isSecureConnection)
 			{
