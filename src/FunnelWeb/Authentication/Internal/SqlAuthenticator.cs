@@ -65,9 +65,17 @@ namespace FunnelWeb.Authentication.Internal
 
         private bool SqlAuthenticateAndLogin(string username, string password)
         {
-            var user = sessionFactory().QueryOver<User>()
-                .Where(u => u.Username == username && u.Password == SqlFunnelWebMembership.HashPassword(password, u.Salt))
-                .SingleOrDefault();
+            //var user = sessionFactory().QueryOver<User>()
+            //    .Where(u => u.Username == username && u.Password == SqlFunnelWebMembership.HashPassword(password, u.Salt))
+            //    .SingleOrDefault();
+
+          var user = sessionFactory().QueryOver<User>()
+                .Where( u => u.Username == username ).SingleOrDefault();
+          if ( user != null ) {
+            string pwd = SqlFunnelWebMembership.HashPassword( password, user.Salt );
+            if ( pwd != user.Password )
+              user = null;
+          }
 
             if (user != null)
             {
