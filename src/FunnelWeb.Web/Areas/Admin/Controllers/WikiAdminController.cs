@@ -153,6 +153,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
             return tagList;
         }
 
+        [Authorize(Roles = "Moderator")]
         [HttpPost]
         public virtual ActionResult DeletePage(int id)
         {
