@@ -68,10 +68,10 @@
 </div>
 <div class="clear">
 </div>
+
+@Html.DisplayFor(x => x.Entry.Comments, new { Model.Entry })
 @if (Model.Entry.IsDiscussionEnabled)
 {
-    @Html.DisplayFor(x => x.Entry.Comments, new { Model.Entry })
-
     if (Html.Settings().DisableCommentsOlderThan > 0 && DateTime.UtcNow.AddDays(-Html.Settings().DisableCommentsOlderThan) > Model.Entry.Published && !Html.Settings().EnableDisqusCommenting)
     {
         <p>No new comments are allowed on this post.</p>
