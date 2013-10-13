@@ -1,12 +1,10 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using FunnelWeb.Model;
 using FunnelWeb.Settings;
 using FunnelWeb.Utilities;
-using ICSharpCode.SharpZipLib.Zip;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.StorageClient;
 
@@ -198,22 +196,22 @@ namespace FunnelWeb.Providers.File
             }
         }
 
-        public void Extract(Stream stream, string fullPath)
-        {
-            var strings = fullPath.Split(new[] {'/'}, StringSplitOptions.RemoveEmptyEntries);
-            var basePath = string.Join("/", strings.Take(strings.Length - 1));
+				//public void Extract(Stream stream, string fullPath)
+				//{
+				//		var strings = fullPath.Split(new[] {'/'}, StringSplitOptions.RemoveEmptyEntries);
+				//		var basePath = string.Join("/", strings.Take(strings.Length - 1));
 
-            using (var input = stream)
-            using (var zipInput = new ZipInputStream(input))
-            {
-                ZipEntry entry;
-                while ((entry = zipInput.GetNextEntry()) != null)
-                {
-                    var blob = Container.GetBlobReference(Path.Combine(basePath, entry.Name));
-                    blob.UploadFromStream(zipInput);
-                }
-            }
-        }
+				//		using (var input = stream)
+				//		using (var zipInput = new ZipInputStream(input))
+				//		{
+				//				ZipEntry entry;
+				//				while ((entry = zipInput.GetNextEntry()) != null)
+				//				{
+				//						var blob = Container.GetBlobReference(Path.Combine(basePath, entry.Name));
+				//						blob.UploadFromStream(zipInput);
+				//				}
+				//		}
+				//}
 
         public override ActionResult Render(string path)
         {
