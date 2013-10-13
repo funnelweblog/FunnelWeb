@@ -58,6 +58,7 @@
     };
 
     function enableNewWindowLinks() {
+// ReSharper disable once CssNotResolved
         $(".content a:external")
         .not(".comment-author a")
         .addClass("new-window");
