@@ -1,0 +1,21 @@
+﻿@model dynamic
+@{
+	ViewBag.Title = "FunnelWeb Login";
+	Layout = "~/Areas/Admin/Views/Shared/_Private.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>@ViewBag.Title</title>
+</head>
+<body>
+	<div>
+		<div id="IPDiv" />
+	</div>
+</body>
+</html>
+
+@Scripts.Render("~/scripts/Account.js");
+<script src="@ViewBag.MetaDataScript" type="text/javascript"></script>

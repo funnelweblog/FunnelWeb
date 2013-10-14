@@ -20,6 +20,8 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
 		[SetUp]
 		public void SetUp()
 		{
+			TestAuthenticationAndAuthorization.SetTestUserToCurrentPrincipal();
+
 			var settingsProvider = Substitute.For<ISettingsProvider>();
 			settingsProvider.GetSettings<FunnelWebSettings>().Returns(new FunnelWebSettings());
 			Controller = new UploadController

@@ -20,6 +20,8 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
 		[SetUp]
 		public void Setup()
 		{
+			TestAuthenticationAndAuthorization.SetTestUserToCurrentPrincipal();
+
 			AdminController = new WikiAdminController
 														{
 															Repository = Repository = Substitute.For<IRepository>(),

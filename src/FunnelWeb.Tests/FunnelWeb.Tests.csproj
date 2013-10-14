@@ -88,6 +88,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
+    <Reference Include="System.IdentityModel.Tokens.ValidatingIssuerNameRegistry">
+      <HintPath>..\packages\System.IdentityModel.Tokens.ValidatingIssuerNameRegistry.4.5.1\lib\net45\System.IdentityModel.Tokens.ValidatingIssuerNameRegistry.dll</HintPath>
+    </Reference>
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -181,6 +184,7 @@
     <Compile Include="Web\Application\Markup\MarkdownTests.cs" />
     <Compile Include="Web\Application\Mime\RegistryMimeTypeLookupTests.cs" />
     <Compile Include="Web\Areas\Admin\Controllers\AdminControllerTests.cs" />
+    <Compile Include="Web\Areas\Admin\Controllers\TestAuthenticationAndAuthorization.cs" />
     <Compile Include="Web\Areas\Admin\Controllers\WikiAdminControllerTests.cs" />
     <Compile Include="Web\Controllers\ControllerTests.cs" />
     <Compile Include="Web\Controllers\FeedControllerTests.cs" />
