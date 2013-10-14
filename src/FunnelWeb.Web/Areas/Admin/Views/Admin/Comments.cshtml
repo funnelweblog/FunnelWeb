@@ -1,47 +1,61 @@
 @model FunnelWeb.Web.Areas.Admin.Views.Admin.CommentsModel
 @{
-  ViewBag.Title = "FunnelWeb Administration - Comments";
-  Layout = "~/Areas/Admin/Views/Shared/_Private.cshtml";
+	ViewBag.Title = "FunnelWeb Administration - Comments";
+	Layout = "~/Areas/Admin/Views/Shared/_Private.cshtml";
 }
+<style type="text/css">
+	.width90 {
+		width: 90%;
+	}
+	.width75 {
+		width: 75%;
+	}
+	.width25 {
+		width: 25%;
+	}
+</style>
 
 <h1>Comments</h1>
 
 @if (Html.Settings().EnableDisqusCommenting)
 {
-    <p class="message">Disqus comments are enabled. The comments listed here are only those stored in the FunnelWeb database. For your Disqus comments you need to log into <a href="http://disqus.com" title="Disqus">Disqus</a>.</p>
+	<p class="message">Disqus comments are enabled. The comments listed here are only those stored in the FunnelWeb database. For your Disqus comments you need to log into <a href="http://disqus.com" title="Disqus">Disqus</a>.</p>
 }
 
 <p>
-  FunnelWeb comments are automatically sent to <strong><a href="http://akismet.com">Akismet</a></strong> for spam filtering.
-  You can also add your own blacklist of naughty words considered as spam on the @Html.AdminActionLink("general settings", "Settings", "Admin") page.
+	FunnelWeb comments are automatically sent to <strong><a href="http://akismet.com">Akismet</a></strong> for spam filtering.
+	You can also add your own blacklist of naughty words considered as spam on the @Html.AdminActionLink("general settings", "Settings", "Admin") page.
 </p>
 
 <p>
-  @Html.AdminActionLink("Delete all Spam", "DeleteAllSpam", "Admin")
+	@Html.AdminActionLink("Delete all Spam", "DeleteAllSpam", "Admin")
 </p>
 
-@foreach (var comment in Model.Comments) {
-<div class='comment-admin'>
-  <table width="90%" class='comment @(comment.IsSpam ? "spam" : "")'>
-    <tr>
-      <td colspan="2" width="90%">
-        <strong><a href="@Url.Content("~/" + @comment.Entry.Name)/#comment-@comment.Id">@comment.Entry.Title</a></strong><br />
-        @Html.RenderUntrusted(comment.Body, Formats.Markdown)
-      </td>
-    </tr>
-    <tr>
-      <td width="75%">
-        <strong>Author: </strong> @comment.AuthorName <br />
-        <strong>URL: </strong> @comment.AuthorUrl <br />
-        <strong>Email: </strong> @comment.AuthorEmail
-      </td>
-      <td width="25%">
-        @Html.ActionLink("Delete", "DeleteComment", "Admin", new { Area = "Admin", id = comment.Id }, null)
-        @Html.ActionLink(comment.IsSpam ? "Unspam" : "Spam", "ToggleSpam", "Admin", new { Area = "Admin", id = comment.Id }, null)
-      </td>
-    </tr>
-  </table>
-</div>
+@foreach (var comment in Model.Comments)
+{
+	<div class='comment-admin'>
+		<table class="comment width90 @(comment.IsSpam ? "spam" : "")">
+			<tr>
+				<td colspan="2" class="width90">
+					<strong><a href="@Url.Content("~/" + @comment.Entry.Name)/#comment-@comment.Id">@comment.Entry.Title</a></strong><br />
+					@Html.RenderUntrusted(comment.Body, Formats.Markdown)
+				</td>
+			</tr>
+			<tr>
+				<td class="width75">
+					<strong>Author: </strong>@comment.AuthorName
+					<br />
+					<strong>URL: </strong>@comment.AuthorUrl
+					<br />
+					<strong>Email: </strong>@comment.AuthorEmail
+				</td>
+				<td class="width25">
+					@Html.ActionLink("Delete", "DeleteComment", "Admin", new { Area = "Admin", id = comment.Id }, null)
+					@Html.ActionLink(comment.IsSpam ? "Unspam" : "Spam", "ToggleSpam", "Admin", new { Area = "Admin", id = comment.Id }, null)
+				</td>
+			</tr>
+		</table>
+	</div>
 }
 
 @Html.DisplayFor(x => x.Paginator)

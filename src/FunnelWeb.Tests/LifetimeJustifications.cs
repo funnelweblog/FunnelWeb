@@ -111,8 +111,10 @@ namespace FunnelWeb.Tests
             PerLifetimeScope<FormsAuthenticator>("The forms authenticator just calls into ASP.NET code - may as well re-use the same instance in a request.");
             PerLifetimeScope<FormsRoleProvider>("The forms authenticator just calls into ASP.NET code - may as well re-use the same instance in a request.");
             PerLifetimeScope<FormsFunnelWebMembership>("The forms authenticator just calls into ASP.NET code - may as well re-use the same instance in a request.");
-            PerLifetimeScope<SqlAuthenticator>("Uses factories to get as session, so could be anything really.");
-            PerLifetimeScope<SqlRoleProvider>("Uses factories to get as session, so could be anything really.");
+						//PerLifetimeScope<SqlAuthenticator>("Uses factories to get as session, so could be anything really.");
+            PerLifetimeScope<SqlClaimsAuthenticator>("Uses factories to get as session, so could be anything really.");
+						//PerLifetimeScope<SqlRoleProvider>("Uses factories to get as session, so could be anything really.");
+            PerLifetimeScope<ClaimsRoleProvider>("Uses factories to get as session, so could be anything really.");
             PerLifetimeScope<SqlFunnelWebMembership>("Uses factories to get as session, so could be anything really.");
 
             // HTTP abstractions, therefore obviously per request   

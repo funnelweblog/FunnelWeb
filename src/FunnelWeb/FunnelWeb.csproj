@@ -99,6 +99,8 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.identitymodel.services" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
@@ -114,13 +116,18 @@
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
     <Compile Include="Authentication\IFunnelWebMembership.cs" />
-    <Compile Include="Authentication\Internal\FormsAuthenticator.cs" />
+    <Compile Include="Authentication\Internal\Authorization.cs" />
+    <Compile Include="Authentication\Internal\ClaimsPrincipalExtensions.cs" />
+    <Compile Include="Authentication\Internal\ClaimsRoleProvider.cs" />
+    <Compile Include="Authentication\Internal\ClaimsSessionHelper.cs" />
+    <Compile Include="Authentication\Internal\CustomAuthenticationManager.cs" />
+    <Compile Include="Authentication\Internal\CustomAuthorizationManager.cs" />
     <Compile Include="Authentication\Internal\FormsRoleProvider.cs" />
+    <Compile Include="Authentication\Internal\SqlClaimsAuthenticator.cs" />
+    <Compile Include="Authentication\Internal\FormsAuthenticator.cs" />
     <Compile Include="Authentication\IAuthenticator.cs" />
     <Compile Include="Authentication\Internal\FormsFunnelWebMembership.cs" />
     <Compile Include="Authentication\Internal\SqlFunnelWebMembership.cs" />
-    <Compile Include="Authentication\Internal\SqlAuthenticator.cs" />
-    <Compile Include="Authentication\Internal\SqlRoleProvider.cs" />
     <Compile Include="Authentication\IRoleProvider.cs" />
     <Compile Include="DatabaseDeployer\ApplicationDatabase.cs" />
     <Compile Include="DatabaseDeployer\DatabaseModule.cs" />

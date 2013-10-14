@@ -105,6 +105,11 @@
       <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.identitymodel.services" />
+    <Reference Include="System.IdentityModel.Tokens.ValidatingIssuerNameRegistry">
+      <HintPath>..\packages\System.IdentityModel.Tokens.ValidatingIssuerNameRegistry.4.5.1\lib\net45\System.IdentityModel.Tokens.ValidatingIssuerNameRegistry.dll</HintPath>
+    </Reference>
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -380,6 +385,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="Content\themes\base\Mobile.css" />
     <Content Include="Content\themes\base\TagEditor.css" />
+    <Content Include="FederationMetadata\2007-06\FederationMetadata.xml" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\disqus-count.js" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
@@ -432,7 +438,9 @@
     <Content Include="Themes\Twitter\Content\Styles\Background.png" />
     <Content Include="Themes\Twitter\Content\Styles\Bar.png" />
     <Content Include="Themes\Twitter\Content\Styles\Theme.css" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Macros\TwitterStream.cshtml" />
     <Content Include="Views\Shared\_Disqus.cshtml" />
@@ -462,7 +470,7 @@
     <Content Include="Views\Wiki\SiteMap.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Admin\Views\Admin\BlogMLImport.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\BlogMlImport.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Comments.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\PageList.cshtml" />
