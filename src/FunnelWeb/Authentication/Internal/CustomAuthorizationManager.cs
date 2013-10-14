@@ -7,6 +7,9 @@ using Roles = FunnelWeb.Authentication.Internal.Authorization.Roles;
 
 namespace FunnelWeb.Authentication.Internal
 {
+	/// <summary>
+	/// This class implements mappnigs between database roles and code claims to enable claims based auth in the app.
+	/// </summary>
 	public class CustomAuthorizationManager : ClaimsAuthorizationManager
 	{
 		private static AuthorizationSetting[] adminAuthorizations;
