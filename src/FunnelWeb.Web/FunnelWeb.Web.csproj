@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FunnelWeb.Web</RootNamespace>
     <AssemblyName>FunnelWeb.Web</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -32,6 +32,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -40,6 +41,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Antlr3.Runtime">
@@ -103,14 +105,19 @@
       <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.identitymodel.services" />
+    <Reference Include="System.IdentityModel.Tokens.ValidatingIssuerNameRegistry">
+      <HintPath>..\packages\System.IdentityModel.Tokens.ValidatingIssuerNameRegistry.4.5.1\lib\net45\System.IdentityModel.Tokens.ValidatingIssuerNameRegistry.dll</HintPath>
+    </Reference>
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
@@ -251,6 +258,7 @@
     <Compile Include="Areas\Admin\Views\SqlAuthentication\NewUser.cs" />
     <Compile Include="Areas\Admin\Views\SqlAuthentication\SetupModel.cs" />
     <Compile Include="Areas\Admin\Views\Upload\IndexModel.cs" />
+    <Compile Include="Areas\Admin\Controllers\ClaimsController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Controllers\MetaWeblogController.cs" />
     <Compile Include="Controllers\ResourceController.cs" />
@@ -377,6 +385,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="Content\themes\base\Mobile.css" />
     <Content Include="Content\themes\base\TagEditor.css" />
+    <Content Include="FederationMetadata\2007-06\FederationMetadata.xml" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\disqus-count.js" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
@@ -429,7 +438,9 @@
     <Content Include="Themes\Twitter\Content\Styles\Background.png" />
     <Content Include="Themes\Twitter\Content\Styles\Bar.png" />
     <Content Include="Themes\Twitter\Content\Styles\Theme.css" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Macros\TwitterStream.cshtml" />
     <Content Include="Views\Shared\_Disqus.cshtml" />
@@ -459,7 +470,7 @@
     <Content Include="Views\Wiki\SiteMap.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Admin\Views\Admin\BlogMLImport.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\BlogMlImport.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Comments.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\PageList.cshtml" />
@@ -483,6 +494,7 @@
     <Content Include="My.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Areas\Admin\Views\Claims\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

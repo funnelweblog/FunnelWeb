@@ -56,6 +56,12 @@ namespace FunnelWeb.Web.Areas.Admin
                 new { controller = "WikiAdmin", action = "DeletePage" }
                 );
 
+            context.MapRoute(
+                "Claims_List",
+                "admin/claims",
+                new { controller = "Claims", action = "Index" }
+                );
+
             //anything else we expect is on the admin controller, so just route to it
             context.MapRoute(
                 "Admin_default",

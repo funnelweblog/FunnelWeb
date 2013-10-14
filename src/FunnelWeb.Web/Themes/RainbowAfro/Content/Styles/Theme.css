@@ -128,12 +128,14 @@ header nav ul li
     border: 1px solid #333;
     -moz-background-clip: border;
 	-moz-background-inline-policy: continuous;
+	/* ReSharper disable once InvalidValue */
 	-moz-background-origin: padding;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	-webkit-border-radius: 5px;
 	-webkit-background-clip: border;
 	-webkit-background-inline-policy: continuous;
+	/* ReSharper disable once InvalidValue */
 	-webkit-background-origin: padding;
 	margin-left: 10px;
 }

@@ -11,9 +11,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FunnelWeb</RootNamespace>
     <AssemblyName>FunnelWeb</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,6 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac">
@@ -68,7 +71,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.1.7.0.3\lib\net35-full\Microsoft.WindowsAzure.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.ServiceRuntime, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WindowsAzure.Storage.1.7.0.0\lib\net35-full\Microsoft.WindowsAzure.StorageClient.dll</HintPath>
     </Reference>
@@ -97,6 +99,8 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.identitymodel.services" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
@@ -112,13 +116,18 @@
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
     <Compile Include="Authentication\IFunnelWebMembership.cs" />
-    <Compile Include="Authentication\Internal\FormsAuthenticator.cs" />
+    <Compile Include="Authentication\Internal\Authorization.cs" />
+    <Compile Include="Authentication\Internal\ClaimsPrincipalExtensions.cs" />
+    <Compile Include="Authentication\Internal\ClaimsRoleProvider.cs" />
+    <Compile Include="Authentication\Internal\ClaimsSessionHelper.cs" />
+    <Compile Include="Authentication\Internal\CustomAuthenticationManager.cs" />
+    <Compile Include="Authentication\Internal\CustomAuthorizationManager.cs" />
     <Compile Include="Authentication\Internal\FormsRoleProvider.cs" />
+    <Compile Include="Authentication\Internal\SqlClaimsAuthenticator.cs" />
+    <Compile Include="Authentication\Internal\FormsAuthenticator.cs" />
     <Compile Include="Authentication\IAuthenticator.cs" />
     <Compile Include="Authentication\Internal\FormsFunnelWebMembership.cs" />
     <Compile Include="Authentication\Internal\SqlFunnelWebMembership.cs" />
-    <Compile Include="Authentication\Internal\SqlAuthenticator.cs" />
-    <Compile Include="Authentication\Internal\SqlRoleProvider.cs" />
     <Compile Include="Authentication\IRoleProvider.cs" />
     <Compile Include="DatabaseDeployer\ApplicationDatabase.cs" />
     <Compile Include="DatabaseDeployer\DatabaseModule.cs" />
