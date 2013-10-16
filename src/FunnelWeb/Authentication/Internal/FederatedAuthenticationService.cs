@@ -14,9 +14,13 @@ namespace FunnelWeb.Authentication.Internal
 			var claims = new List<Claim>(new[]
 			{
 				new Claim(ClaimTypes.NameIdentifier, user.Username),
-				new Claim(ClaimTypes.Name, user.Name),
-				new Claim(ClaimTypes.Email, user.Email)
+				new Claim(ClaimTypes.Name, user.Name)
 			});
+
+			if (!string.IsNullOrWhiteSpace(user.Email))
+			{
+				claims.Add(new Claim(ClaimTypes.Email, user.Email));
+			}
 
 			claims.AddRange(user.Roles.Select(role => new Claim(ClaimTypes.Role, role.Name)));
 

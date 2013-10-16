@@ -8,7 +8,6 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
-using FunnelWeb.Authentication.Internal;
 using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.Eventing;
 using FunnelWeb.Model.Repositories;
@@ -25,23 +24,15 @@ using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Application.Mvc.Binders;
 using FunnelWeb.Web.Application.Spam;
 using FunnelWeb.Web.Application.Themes;
-using Owin;
 using StackExchange.Profiling;
 
 namespace FunnelWeb.Web
 {
-	public class Startup
-	{
-		public void ConfigureAuth(IAppBuilder appBuilder)
-		{
-			//appBuilder.Use()
-		}
-	}
-
 	public class MvcApplication : HttpApplication
 	{
 		private static string extensionsPath;
 
+		// ReSharper disable once UnusedMember.Global
 		public static void BeforeApplicationStart()
 		{
 			extensionsPath = HostingEnvironment.MapPath("~/bin/Extensions") ?? string.Empty;
