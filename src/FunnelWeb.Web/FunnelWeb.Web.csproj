@@ -47,14 +47,13 @@
     <Reference Include="Antlr3.Runtime">
       <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac">
-      <HintPath>..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.dll</HintPath>
+    <Reference Include="Autofac, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.3.1.3\lib\net40\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac.Configuration">
-      <HintPath>..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Autofac.Integration.Mvc">
-      <HintPath>..\packages\Autofac.Mvc4.2.6.2.859\lib\NET40\Autofac.Integration.Mvc.dll</HintPath>
+    <Reference Include="Autofac.Integration.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.Mvc4.3.1.0\lib\net40\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="CookComputing.XmlRpcServerV2">
       <HintPath>..\packages\xmlrpcnet-server.3.0.0.266\lib\net20\CookComputing.XmlRpcServerV2.dll</HintPath>
@@ -94,6 +93,9 @@
     </Reference>
     <Reference Include="NHibernate.SqlAzure">
       <HintPath>..\packages\NHibernate.SqlAzure.0.9.11\lib\NET40\NHibernate.SqlAzure.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -171,13 +173,11 @@
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
     <Compile Include="Application\Authentication\AuthenticationModule.cs" />
-    <Compile Include="Application\Authentication\FunnelWebRoleProvider.cs" />
     <Compile Include="Application\CacheStaticFilesHttpModule.cs" />
     <Compile Include="Application\Extensibility.cs" />
     <Compile Include="Application\Extensions\WebViewPageExtensions.cs" />
     <Compile Include="Application\Extensions\MarkupExtensions.cs" />
     <Compile Include="Application\Extensions\MobileExtensions.cs" />
-    <Compile Include="Application\Extensions\ViewDataDictionaryExtensions.cs" />
     <Compile Include="Application\ForceLowercaseUrlHttpModule.cs" />
     <Compile Include="Application\Markup\ContentRenderer.cs" />
     <Compile Include="Application\Markup\HtmlFormatter.cs" />
@@ -281,7 +281,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <EmbeddedResource Include="Application\MetaWeblog\wlwmanifest.xml" />
-    <Content Include="Areas\Admin\Scripts\Account.js" />
+    <Content Include="Scripts\Account.js" />
     <Content Include="Areas\Admin\Scripts\Views\WikiAdmin\Edit.js" />
     <Content Include="Content\Images\Busy.gif" />
     <Content Include="Content\Images\editorbuttons.png" />
@@ -390,6 +390,7 @@
     <Content Include="FederationMetadata\2007-06\FederationMetadata.xml" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\disqus-count.js" />
+    <Content Include="Areas\Admin\Views\Admin\AcsSettings.cshtml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />

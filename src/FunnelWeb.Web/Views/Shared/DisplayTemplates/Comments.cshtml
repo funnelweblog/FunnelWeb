@@ -1,19 +1,23 @@
 ﻿@model IEnumerable<Comment>
-<div class="comments">
-    <div class="comments-in">
-        <a name="comments"></a>
-        <h2>
-            Comments</h2>
-        @if (!Model.Any() && !Html.Settings().EnableDisqusCommenting)
-        {
-            <div class="empty">
-                <p>
-                    No comments yet. Be the first!</p>
-            </div>
-        }
-        @foreach (var comment in Model.Where(x => !x.IsSpam))
-        {
-            @Html.DisplayFor(_ => comment, new {ViewBag.Entry})
-        }
-    </div>
-</div>
+
+@if (!Model.Any())
+{
+	<div class="comments">
+		<div class="comments-in">
+			<a name="comments"></a>
+			<h2>Comments</h2>
+			@if (!Model.Any() && !Html.Settings().EnableDisqusCommenting)
+	 {
+				<div class="empty">
+					<p>
+						No comments yet. Be the first!
+					</p>
+				</div>
+	 }
+			@foreach (var comment in Model.Where(x => !x.IsSpam))
+	 {
+				@Html.DisplayFor(_ => comment, new { ViewBag.Entry })
+	 }
+		</div>
+	</div>
+}

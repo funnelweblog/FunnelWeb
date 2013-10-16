@@ -156,14 +156,14 @@
 		</div>
 
 		<script type="text/javascript">
-            @if (Model.StorageProvider == FileRepository.ProviderName)
-						{
-                <text>$("#blobStorageSettings").hide();</text>
-						}
-						else if (Model.StorageProvider == AzureBlobFileRepository.ProviderName)
-						{
-                <text>$("#fileSystemStorageSettings").hide();</text>                
-						}
+						@if (Model.StorageProvider == FileRepository.ProviderName)
+			{
+								<text>$("#blobStorageSettings").hide();</text>
+			}
+			else if (Model.StorageProvider == AzureBlobFileRepository.ProviderName)
+			{
+								<text>$("#fileSystemStorageSettings").hide();</text>                
+			}
 			var fileSystem = @Html.Raw('"' + FileRepository.ProviderName + "\";")
 			$("#storageProviders").change(function () {
 				if ($(this).val() === fileSystem) {

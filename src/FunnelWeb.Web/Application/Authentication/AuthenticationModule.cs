@@ -52,6 +52,10 @@ namespace FunnelWeb.Web.Application.Authentication
 					.As<IFunnelWebMembership>()
 					.AsSelf()
 					.InstancePerLifetimeScope();
+
+			builder.RegisterType<AuthorizationService>().As<IAuthorizationService>();
+
+			builder.RegisterType<FederatedAuthenticationService>().As<IFederatedAuthenticationService>();
 		}
 	}
 }

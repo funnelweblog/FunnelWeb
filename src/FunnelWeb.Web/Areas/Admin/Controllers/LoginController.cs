@@ -1,6 +1,7 @@
 using System;
 using System.Web.Mvc;
 using FunnelWeb.Authentication;
+using FunnelWeb.Authentication.Internal;
 using FunnelWeb.Settings;
 using FunnelWeb.Web.Areas.Admin.Views.Login;
 
@@ -12,12 +13,12 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 	{
 		readonly Lazy<IConfigSettings> bootstrapSettings;
 
+		public IAuthenticator Authenticator { get; set; }
+
 		public LoginController(Lazy<IConfigSettings> bootstrapSettings)
 		{
 			this.bootstrapSettings = bootstrapSettings;
 		}
-
-		public IAuthenticator Authenticator { get; set; }
 
 		[HttpGet]
 		public virtual ActionResult Login(LoginModel model)

@@ -17,7 +17,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 		public IFileRepository FileRepository { get; set; }
 		public ISettingsProvider SettingsProvider { get; set; }
 
-		[Authorize, ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operation.View, Resource = Authorization.Resource.Upload.Index)]
+		[Authorize, ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operations.View, Resource = Authorization.Resources.Upload.Index)]
 		public virtual ActionResult Index(string path)
 		{
 			path = path ?? string.Empty;
@@ -33,7 +33,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 			return View();
 		}
 
-		[Authorize, ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operation.Update, Resource = Authorization.Resource.Upload.Index)]
+		[Authorize, ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operations.Update, Resource = Authorization.Resources.Upload.Index)]
 		public virtual ActionResult Upload(string path, bool? unzip, FileUpload upload)
 		{
 			var filePath = Path.Combine(path, upload.FileName);
@@ -41,21 +41,21 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 			return RedirectToAction("Index", "Upload", new { path });
 		}
 
-		[Authorize, ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operation.Update, Resource = Authorization.Resource.Upload.CreateDirectory)]
+		[Authorize, ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operations.Update, Resource = Authorization.Resources.Upload.CreateDirectory)]
 		public virtual ActionResult CreateDirectory(string path, string name)
 		{
 			FileRepository.CreateDirectory(path, name);
 			return RedirectToAction("Index", "Upload", new { path });
 		}
 
-		[Authorize, ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operation.Update, Resource = Authorization.Resource.Upload.Move)]
+		[Authorize, ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operations.Update, Resource = Authorization.Resources.Upload.Move)]
 		public virtual ActionResult Move(string path, string oldPath, string newPath)
 		{
 			FileRepository.Move(oldPath, newPath);
 			return RedirectToAction("Index", "Upload", new { path });
 		}
 
-		[Authorize, ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operation.Delete, Resource = Authorization.Resource.Upload.Delete)]
+		[Authorize, ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operations.Delete, Resource = Authorization.Resources.Upload.Delete)]
 		public virtual ActionResult Delete(string path, string filePath)
 		{
 			FileRepository.Delete(filePath);

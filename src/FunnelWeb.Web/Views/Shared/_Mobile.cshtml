@@ -18,7 +18,7 @@
         <nav>
             <ul>
                 @MvcHtmlString.Create(Html.Settings().MainLinks)
-                @if (ViewData.IsLoggedIn())
+                @if (User.Identity.IsAuthenticated)
                 {
                     <li>@Html.AdminActionLink("New Post", "Edit", "WikiAdmin")</li>
                     <li>@Html.AdminActionLink("Admin", "Index", "Admin")</li>

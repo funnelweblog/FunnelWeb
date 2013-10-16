@@ -1,6 +1,4 @@
-﻿using System.Security.Claims;
-
-namespace FunnelWeb.Authentication.Internal
+﻿namespace FunnelWeb.Authentication.Internal
 {
 	/// <summary>
 	/// All authorization contexts.
@@ -9,11 +7,23 @@ namespace FunnelWeb.Authentication.Internal
 	{
 		public static class Roles
 		{
-			public static readonly Claim Admin = new Claim(ClaimTypes.Role, "Admin");
-			public static readonly Claim Moderator = new Claim(ClaimTypes.Role, "Moderator");
+			/// <summary>
+			/// Admin can modify blog settings.
+			/// </summary>
+			public static readonly Role Admin = "Admin";
+
+			/// <summary>
+			/// Moderator can modify blog content.
+			/// </summary>
+			public static readonly Role Moderator = "Moderator";
+
+			/// <summary>
+			/// The guest is an authenticated user.
+			/// </summary>
+			public static readonly Role Guest = "Guest";
 		}
 
-		public static class Operation
+		public static class Operations
 		{
 			public const string View = "View";
 			public const string Update = "Update";
@@ -21,13 +31,14 @@ namespace FunnelWeb.Authentication.Internal
 			public const string Insert = "Insert";
 		}
 
-		public static class Resource
+		public static class Resources
 		{
 			public static class Admin
 			{
 				private const string Base = "Admin.";
 				public const string Index = Base + "Index";
 				public const string Settings = Base + "Settings";
+				public const string AcsSettings = Base + "AcsSettings";
 				public const string Comments = Base + "Comments";
 				public const string Comment = Base + "Comment";
 				public const string AllSpam = Base + "AllSpam";
@@ -74,6 +85,12 @@ namespace FunnelWeb.Authentication.Internal
 				public const string ChangeProvider = Base + "ChangeProvider";
 				public const string Test = Base + "Test";
 				public const string Upgrade = Base + "Upgrade";
+			}
+
+			public static class Blog
+			{
+				private const string Base = "Blog.";
+				public const string Comment = Base + "Comment";
 			}
 		}
 	}

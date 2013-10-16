@@ -13,8 +13,8 @@ namespace FunnelWeb.Authentication.Internal
 		{
 			var count = DependencyResolver.Current.GetService<ISession>()
 					.QueryOver<User>()
-					.JoinQueryOver<Role>(x => x.Roles)
-					.Where(r => r.Name == Authorization.Roles.Admin.Value)
+					.JoinQueryOver<Model.Authentication.Role>(x => x.Roles)
+					.Where(r => r.Name == Authorization.Roles.Admin)
 					.RowCount();
 
 			return count > 0;

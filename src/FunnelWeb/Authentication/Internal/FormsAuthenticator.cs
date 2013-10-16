@@ -9,11 +9,13 @@ namespace FunnelWeb.Authentication.Internal
 	{
 		private readonly Func<ISettingsProvider> settingsProvider;
 		private readonly IConfigSettings configSettings;
+		private readonly IFederatedAuthenticationService federatedAuthenticationService;
 
-		public FormsAuthenticator(Func<ISettingsProvider> settingsProvider, IConfigSettings configSettings)
+		public FormsAuthenticator(Func<ISettingsProvider> settingsProvider, IConfigSettings configSettings, IFederatedAuthenticationService federatedAuthenticationService)
 		{
 			this.settingsProvider = settingsProvider;
 			this.configSettings = configSettings;
+			this.federatedAuthenticationService = federatedAuthenticationService;
 		}
 
 		public string GetName()
@@ -28,15 +30,15 @@ namespace FunnelWeb.Authentication.Internal
 
 			if (username == requiredUsername && password == requiredPassword)
 			{
-				ClaimsSessionHelper.Login(new User
+				federatedAuthenticationService.Login(new User
 				{
 					Username = username,
 					Name = username,
-					Roles = new List<Role>
+					Roles = new List<Model.Authentication.Role>
 					{
 						// Hard coded two roles for non-db login.
-						new Role { Name = Authorization.Roles.Admin.Value },
-						new Role { Name = Authorization.Roles.Moderator.Value }
+						new Model.Authentication.Role { Name = Authorization.Roles.Admin },
+						new Model.Authentication.Role { Name = Authorization.Roles.Moderator }
 					}
 				});
 
@@ -48,7 +50,7 @@ namespace FunnelWeb.Authentication.Internal
 
 		public void Logout()
 		{
-			ClaimsSessionHelper.Logout();
+			federatedAuthenticationService.Logout();
 		}
 	}
 }

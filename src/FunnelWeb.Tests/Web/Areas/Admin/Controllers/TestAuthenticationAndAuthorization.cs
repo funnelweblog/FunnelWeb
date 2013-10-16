@@ -7,15 +7,26 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
 {
 	public static class TestAuthenticationAndAuthorization
 	{
-		public static void SetTestUserToCurrentPrincipal()
+		public static void SetTestUserToCurrentPrincipal(bool isAuthenticated = true)
 		{
 			IEnumerable<Claim> claims = new[]
 			{
 				new Claim(ClaimTypes.NameIdentifier, "tester"),
 				new Claim(ClaimTypes.Name, "Test User"),
-				new Claim(ClaimTypes.Role, Authorization.Roles.Admin.Value),
-				new Claim(ClaimTypes.Role, Authorization.Roles.Moderator.Value)
+				Authorization.Roles.Admin,
+				Authorization.Roles.Moderator
 			};
-			Thread.CurrentPrincipal = new ClaimsPrincipal(new ClaimsIdentity(claims, "Test"));
-		}	}
+
+			var claimsIdentity = isAuthenticated ? new ClaimsIdentity(claims, "Test") : new NotAuthenticatedClaimsIdentity();
+			Thread.CurrentPrincipal = new ClaimsPrincipal(claimsIdentity);
+		}
+
+		public class NotAuthenticatedClaimsIdentity : ClaimsIdentity
+		{
+			public override bool IsAuthenticated
+			{
+				get { return false; }
+			}
+		}
+	}
 }

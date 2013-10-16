@@ -21,6 +21,7 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
 		public void SetUp()
 		{
 			TestAuthenticationAndAuthorization.SetTestUserToCurrentPrincipal();
+			CustomResolver.Initiate();
 
 			var settingsProvider = Substitute.For<ISettingsProvider>();
 			settingsProvider.GetSettings<FunnelWebSettings>().Returns(new FunnelWebSettings());

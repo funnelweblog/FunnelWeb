@@ -32,7 +32,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 			this.databaseProvidersInfo = databaseProvidersInfo;
 		}
 
-		[ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operation.View, Resource = Authorization.Resource.Install.Index)]
+		[ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operations.View, Resource = Authorization.Resources.Install.Index)]
 		public virtual ActionResult Index()
 		{
 			var connectionString = ConnectionStringSettings.ConnectionString;
@@ -75,7 +75,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 			return View("Index", model);
 		}
 
-		[ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operation.Update, Resource = Authorization.Resource.Install.ChangeProvider)]
+		[ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operations.Update, Resource = Authorization.Resources.Install.ChangeProvider)]
 		public ActionResult ChangeProvider(string databaseProvider)
 		{
 			var provider = databaseProvidersInfo().GetProviderByName(databaseProvider);
@@ -91,7 +91,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
 		[HttpPost]
 		[ActionName("test")]
-		[ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operation.View, Resource = Authorization.Resource.Install.Test)]
+		[ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operations.View, Resource = Authorization.Resources.Install.Test)]
 		public virtual ActionResult Test(string connectionString, string schema)
 		{
 			ConnectionStringSettings.ConnectionString = connectionString;
@@ -102,7 +102,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 		}
 
 		[HttpPost]
-		[ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operation.Update, Resource = Authorization.Resource.Install.Upgrade)]
+		[ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operations.Update, Resource = Authorization.Resources.Install.Upgrade)]
 		public virtual ActionResult Upgrade()
 		{
 			var writer = new StringWriter();

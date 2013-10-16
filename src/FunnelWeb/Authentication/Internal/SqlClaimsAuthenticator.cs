@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.Model.Authentication;
 using FunnelWeb.Settings;
@@ -15,17 +13,20 @@ namespace FunnelWeb.Authentication.Internal
 		private readonly Func<IDatabaseUpgradeDetector> upgradeDetector;
 		private readonly Func<ISettingsProvider> settingsProvider;
 		private readonly Func<ISession> sessionFactory;
+		private readonly IFederatedAuthenticationService federatedAuthenticationService;
 
 		public SqlClaimsAuthenticator(
 				FormsAuthenticator formsAuthenticator,
 				Func<IDatabaseUpgradeDetector> upgradeDetector,
 				Func<ISettingsProvider> settingsProvider,
-				Func<ISession> sessionFactory)
+				Func<ISession> sessionFactory,
+				IFederatedAuthenticationService federatedAuthenticationService)
 		{
 			this.formsAuthenticator = formsAuthenticator;
 			this.upgradeDetector = upgradeDetector;
 			this.settingsProvider = settingsProvider;
 			this.sessionFactory = sessionFactory;
+			this.federatedAuthenticationService = federatedAuthenticationService;
 		}
 
 		public string GetName()
@@ -37,7 +38,7 @@ namespace FunnelWeb.Authentication.Internal
 
 		private static string SqlGetName()
 		{
-			var username = ((FormsIdentity)HttpContext.Current.User.Identity).Name;
+			var username = ClaimsSessionHelper.CurrentPrincipal.GetUserName();
 
 			var session = DependencyResolver.Current.GetService<ISession>();
 			var user = session.QueryOver<User>()
@@ -75,14 +76,14 @@ namespace FunnelWeb.Authentication.Internal
 				return false;
 			}
 
-			ClaimsSessionHelper.Login(user);
+			federatedAuthenticationService.Login(user);
 
 			return true;
 		}
 
 		public void Logout()
 		{
-			ClaimsSessionHelper.Logout();
+			federatedAuthenticationService.Logout();
 		}
 	}
 }

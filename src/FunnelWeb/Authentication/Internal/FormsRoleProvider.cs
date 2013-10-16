@@ -9,7 +9,7 @@
 
 		public string[] GetRolesForUser(string username)
 		{
-			return new[] { Authorization.Roles.Admin.Value, Authorization.Roles.Moderator.Value };
+			return new string[] { Authorization.Roles.Admin, Authorization.Roles.Moderator, Authorization.Roles.Guest };
 		}
 	}
 }

@@ -1,21 +1,22 @@
 ﻿@model dynamic
 @{
 	ViewBag.Title = "FunnelWeb Login";
-	Layout = "~/Areas/Admin/Views/Shared/_Private.cshtml";
+	Layout = "~/Views/Shared/_Public.cshtml";
+
+	Uri metaDataScript = ViewBag.MetaDataScript;
 }
 
-<!DOCTYPE html>
+<h1>Login using an external Identity Provider below:</h1>
+<div>
+	<div id="IPDiv" />
+</div>
 
-<html>
-<head>
-	<title>@ViewBag.Title</title>
-</head>
-<body>
-	<div>
-		<div id="IPDiv" />
-	</div>
-</body>
-</html>
+<br />
 
-@Scripts.Render("~/scripts/Account.js");
-<script src="@ViewBag.MetaDataScript" type="text/javascript"></script>
+<div><strong>Policy:</strong> No identifying data about you will be stored when you authenticate. If you choose to post data to this blog, like a comment, only that data will be stored. This authentication exists solely to make sure spam bots have a hard time posting to this site.</div>
+
+@section FedAuthScripts
+{
+	@Scripts.Render("~/scripts/Account.js")
+	<script src="@metaDataScript.AbsoluteUri" type="text/javascript"></script>
+}

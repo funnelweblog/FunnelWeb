@@ -11,7 +11,7 @@ namespace FunnelWeb.Settings
         [Description("Files you upload for blog posts will be stored here. Use ~/XYZ to indicate a file path under the website root.")]
         [SettingStorage(StorageLocation.Database, "upload-path")]
         public string UploadPath { get; set; }
-
+				
         [DisplayName("File Storage Provider")]
         [StringLength(20)]
         [DefaultValue("Filesystem")]

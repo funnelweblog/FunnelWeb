@@ -8,6 +8,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
+using FunnelWeb.Authentication.Internal;
 using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.Eventing;
 using FunnelWeb.Model.Repositories;
@@ -24,86 +25,99 @@ using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Application.Mvc.Binders;
 using FunnelWeb.Web.Application.Spam;
 using FunnelWeb.Web.Application.Themes;
+using Owin;
 using StackExchange.Profiling;
 
 namespace FunnelWeb.Web
 {
-    public class MvcApplication : HttpApplication
-    {
-        private static string extensionsPath;
+	public class Startup
+	{
+		public void ConfigureAuth(IAppBuilder appBuilder)
+		{
+			//appBuilder.Use()
+		}
+	}
 
-        public static void BeforeApplicationStart()
-        {
-            extensionsPath = HostingEnvironment.MapPath("~/bin/Extensions") ?? string.Empty;
-            if (Directory.Exists(extensionsPath))
-                Extensibility.EnableAspNetIntegration(extensionsPath);
-        }
+	public class MvcApplication : HttpApplication
+	{
+		private static string extensionsPath;
 
-        private static IContainer BuildContainer()
-        {
-            var builder = new ContainerBuilder();
-            builder.RegisterControllers(Assembly.GetExecutingAssembly()).PropertiesAutowired();
+		public static void BeforeApplicationStart()
+		{
+			extensionsPath = HostingEnvironment.MapPath("~/bin/Extensions") ?? string.Empty;
+			if (Directory.Exists(extensionsPath))
+				Extensibility.EnableAspNetIntegration(extensionsPath);
+		}
 
-            // FunnelWeb Database
-            builder.RegisterModule(new DatabaseModule());
+		internal static IContainer BuildContainer()
+		{
+			var builder = new ContainerBuilder();
+			builder.RegisterControllers(Assembly.GetExecutingAssembly()).PropertiesAutowired();
 
-            // FunnelWeb Core
-            builder.RegisterModule(new SettingsModule(HostingEnvironment.MapPath("~/My.config")));
-            builder.RegisterModule(new TasksModule());
-            builder.RegisterModule(new InternalProviderRegistrationModule());
-            builder.RegisterModule(new RepositoriesModule());
-            builder.RegisterModule(new EventingModule());
-            builder.RegisterModule(new ExtensionsModule(extensionsPath, RouteTable.Routes));
-            builder.RegisterType<MetaWeblog>().As<IMetaWeblog>().InstancePerLifetimeScope();
+			// FunnelWeb Database
+			builder.RegisterModule(new DatabaseModule());
 
-            // FunnelWeb Web
-            builder.RegisterModule(new WebAbstractionsModule());
-            builder.RegisterModule(new MarkupModule());
-            builder.RegisterModule(new AuthenticationModule());
-            builder.RegisterModule(new BindersModule(ModelBinders.Binders));
-            builder.RegisterModule(new MimeSupportModule());
-            builder.RegisterModule(new ThemesModule());
-            builder.RegisterModule(new SpamModule());
+			// FunnelWeb Core
+			builder.RegisterModule(new SettingsModule(HostingEnvironment.MapPath("~/My.config")));
+			builder.RegisterModule(new TasksModule());
+			builder.RegisterModule(new InternalProviderRegistrationModule());
+			builder.RegisterModule(new RepositoriesModule());
+			builder.RegisterModule(new EventingModule());
+			builder.RegisterModule(new ExtensionsModule(extensionsPath, RouteTable.Routes));
+			builder.RegisterType<MetaWeblog>().As<IMetaWeblog>().InstancePerLifetimeScope();
 
-            return builder.Build();
-        }
+			// FunnelWeb Web
+			builder.RegisterModule(new WebAbstractionsModule());
+			builder.RegisterModule(new MarkupModule());
+			builder.RegisterModule(new AuthenticationModule());
+			var modelBinderDictionary = ModelBinders.Binders;
+			builder.RegisterModule(new BindersModule(modelBinderDictionary));
+			builder.RegisterModule(new MimeSupportModule());
+			builder.RegisterModule(new ThemesModule());
+			builder.RegisterModule(new SpamModule());
 
-        protected void Application_BeginRequest()
-        {
-            MiniProfiler.Start();
-        }
+			return builder.Build();
+		}
 
-        protected void Application_AuthenticateRequest(Object sender, EventArgs e)
-        {
-            if (!Request.IsAuthenticated)
-            {
-                MiniProfiler.Stop(discardResults: true);
-            }
-        }
+		protected void Application_BeginRequest()
+		{
+			MiniProfiler.Start();
+		}
 
-        private void Application_Start()
-        {
-            MvcHandler.DisableMvcResponseHeader = true;
+		protected void Application_AuthenticateRequest(Object sender, EventArgs e)
+		{
+			if (!Request.IsAuthenticated)
+			{
+				MiniProfiler.Stop(discardResults: true);
+			}
+		}
 
-            AreaRegistration.RegisterAllAreas();
+		private void Application_Start()
+		{
+			MvcHandler.DisableMvcResponseHeader = true;
 
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
+			AreaRegistration.RegisterAllAreas();
 
-            var container = BuildContainer();
+			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+			RouteConfig.RegisterRoutes(RouteTable.Routes);
+			BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+			var container = BuildContainer();
 
-            ViewEngines.Engines.Clear();
-            ViewEngines.Engines.Add(new FunnelWebViewEngine());
+			DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
-            ControllerBuilder.Current.SetControllerFactory(new FunnelWebControllerFactory(container));
-        }
+			ViewEngines.Engines.Clear();
+			ViewEngines.Engines.Add(new FunnelWebViewEngine());
 
-        protected void Application_EndRequest()
-        {
-            MiniProfiler.Stop();
-        }
-    }
+			ControllerBuilder.Current.SetControllerFactory(new FunnelWebControllerFactory(container));
+
+			var federatedAuthenticationConfigurator = container.Resolve<IFederatedAuthenticationConfigurator>();
+			federatedAuthenticationConfigurator.InitiateFederatedAuthentication();
+		}
+
+		protected void Application_EndRequest()
+		{
+			MiniProfiler.Stop();
+		}
+	}
 }

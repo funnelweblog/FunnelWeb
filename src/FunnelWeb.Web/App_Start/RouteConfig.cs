@@ -15,12 +15,18 @@ namespace FunnelWeb.Web.App_Start
 			routes.IgnoreRoute("pingback");
 
 			// Login
-			//routes.MapRoute(
-			//	name: "Login",
-			//	url: "login",
-			//	defaults: new { controller = "Login", action = "Index" },
-			//	namespaces: new[] { typeof(LoginController).FullName }
-			//);
+			routes.MapRoute(
+				name: "Login",
+				url: "login",
+				defaults: new { controller = "Login", action = "Index" },
+				namespaces: new[] { typeof(LoginController).Namespace }
+			);
+			routes.MapRoute(
+				name: "Login.Return",
+				url: "login/return",
+				defaults: new { controller = "Login", action = "Return" },
+				namespaces: new[] { typeof(LoginController).Namespace }
+			);
 
 			// Feeds
 			routes.MapLowerCaseRoute("feed", new { controller = "Feed", action = "Feed", feedName = (string)null });

@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Security.Principal;
 using System.Web.Mvc;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
@@ -21,6 +20,7 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
 		public void SetUp()
 		{
 			TestAuthenticationAndAuthorization.SetTestUserToCurrentPrincipal();
+			CustomResolver.Initiate();
 
 			Controller = new AdminController
 											 {

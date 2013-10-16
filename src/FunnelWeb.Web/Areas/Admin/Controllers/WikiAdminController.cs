@@ -30,7 +30,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 		// ReSharper disable once UnusedAutoPropertyAccessor.Global
 		public IEventPublisher EventPublisher { get; set; }
 
-		[Authorize, ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operation.View, Resource = Authorization.Resource.WikiAdmin.Edit)]
+		[Authorize, ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operations.View, Resource = Authorization.Resources.WikiAdmin.Edit)]
 		public virtual ActionResult Edit(PageName page, int? revertToRevision)
 		{
 			var allTags = Repository.FindAll<Tag>();
@@ -66,7 +66,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 		}
 
 		[HttpPost]
-		[Authorize, ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operation.Update, Resource = Authorization.Resource.WikiAdmin.Edit)]
+		[Authorize, ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operations.Update, Resource = Authorization.Resources.WikiAdmin.Edit)]
 		public virtual ActionResult Edit(EntryRevision model)
 		{
 			model.AllTags = Repository.FindAll<Tag>();
@@ -159,7 +159,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 		}
 
 		[HttpPost]
-		[Authorize, ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operation.Delete, Resource = Authorization.Resource.WikiAdmin.Page)]
+		[Authorize, ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operations.Delete, Resource = Authorization.Resources.WikiAdmin.Page)]
 		public virtual ActionResult DeletePage(int id)
 		{
 			Repository.Remove(Repository.Get<Entry>(id));

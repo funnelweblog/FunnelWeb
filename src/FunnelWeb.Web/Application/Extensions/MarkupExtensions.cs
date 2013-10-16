@@ -264,6 +264,17 @@ namespace FunnelWeb.Web.Application.Extensions
 			return settingsProvider.GetSettings<FunnelWebSettings>();
 		}
 
+		public static AccessControlServiceSettings AcsSettings(this HtmlHelper helper)
+		{
+			var settingsProvider = DependencyResolver.Current.GetService<ISettingsProvider>();
+
+			return
+				DependencyResolver.Current.GetService<IDatabaseUpgradeDetector>().UpdateNeeded() ?
+				// A database upgrade is required, lets just use the default settings
+				settingsProvider.GetDefaultSettings<AccessControlServiceSettings>() :
+				settingsProvider.GetSettings<AccessControlServiceSettings>();
+		}
+
 		#endregion
 
 		private static void WhenEncountering<TAttribute>(LambdaExpression expression, Action<TAttribute> callback)

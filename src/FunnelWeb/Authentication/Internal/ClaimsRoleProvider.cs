@@ -52,7 +52,7 @@ namespace FunnelWeb.Authentication.Internal
 			foreach (var roleToAddTo in rolesToAdd)
 			{
 				Claim roleClaim = roleToAddTo;
-				var role = session.QueryOver<Role>().Where(r => r.Name == roleClaim.Value).SingleOrDefault();
+				var role = session.QueryOver<Model.Authentication.Role>().Where(r => r.Name == roleClaim.Value).SingleOrDefault();
 				role.Users.Add(user);
 				user.Roles.Add(role);
 				session.SaveOrUpdate(role);

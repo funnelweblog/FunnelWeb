@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Principal;
 using System.Web.Mvc;
 using FunnelWeb.Model;
 using FunnelWeb.Repositories;
@@ -20,18 +19,13 @@ namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
 		[SetUp]
 		public void Setup()
 		{
-			TestAuthenticationAndAuthorization.SetTestUserToCurrentPrincipal();
+			CustomResolver.Initiate();
 
 			AdminController = new WikiAdminController
-														{
-															Repository = Repository = Substitute.For<IRepository>(),
-															ControllerContext = ControllerContext = ControllerContext
-														};
-
-			Identity = Substitute.For<IIdentity>();
-			User = Substitute.For<IPrincipal>();
-			User.Identity.Returns(Identity);
-			ControllerContext.HttpContext.User.Returns(User);
+			{
+				Repository = Repository = Substitute.For<IRepository>(),
+				ControllerContext = ControllerContext = ControllerContext
+			};
 		}
 
 		[Test]

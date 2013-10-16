@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using FunnelWeb.Web.Areas.Admin.Controllers;
 
 namespace FunnelWeb.Web.Areas.Admin
@@ -15,14 +11,14 @@ namespace FunnelWeb.Web.Areas.Admin
 					"Admin_Logout",
 					"admin/logout",
 					new { controller = "Login", action = "Logout" },
-					new[] { typeof(LoginController).FullName }
+					new[] { typeof(LoginController).Namespace }
 					);
 
 			context.MapRoute(
 					"Admin_Login",
 					"admin/login/{action}",
 					new { controller = "Login", action = "Login" },
-				new[] { typeof(LoginController).FullName }
+				new[] { typeof(LoginController).Namespace }
 					);
 
 			context.MapRoute(
