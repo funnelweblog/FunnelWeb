@@ -36,9 +36,10 @@ namespace FunnelWeb.Authentication.Internal
 					Name = username,
 					Roles = new List<Model.Authentication.Role>
 					{
-						// Hard coded two roles for non-db login.
+						// Hard coded roles for non-db login.
 						new Model.Authentication.Role { Name = Authorization.Roles.Admin },
-						new Model.Authentication.Role { Name = Authorization.Roles.Moderator }
+						new Model.Authentication.Role { Name = Authorization.Roles.Moderator },
+						new Model.Authentication.Role { Name = Authorization.Roles.Guest }
 					}
 				});
 

@@ -8,7 +8,6 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
-using FunnelWeb.Authentication.Internal;
 using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.Eventing;
 using FunnelWeb.Model.Repositories;
@@ -25,19 +24,10 @@ using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Application.Mvc.Binders;
 using FunnelWeb.Web.Application.Spam;
 using FunnelWeb.Web.Application.Themes;
-using Owin;
 using StackExchange.Profiling;
 
 namespace FunnelWeb.Web
 {
-	public class Startup
-	{
-		public void ConfigureAuth(IAppBuilder appBuilder)
-		{
-			//appBuilder.Use()
-		}
-	}
-
 	public class MvcApplication : HttpApplication
 	{
 		private static string extensionsPath;
@@ -46,7 +36,9 @@ namespace FunnelWeb.Web
 		{
 			extensionsPath = HostingEnvironment.MapPath("~/bin/Extensions") ?? string.Empty;
 			if (Directory.Exists(extensionsPath))
+			{
 				Extensibility.EnableAspNetIntegration(extensionsPath);
+			}
 		}
 
 		internal static IContainer BuildContainer()
@@ -70,8 +62,7 @@ namespace FunnelWeb.Web
 			builder.RegisterModule(new WebAbstractionsModule());
 			builder.RegisterModule(new MarkupModule());
 			builder.RegisterModule(new AuthenticationModule());
-			var modelBinderDictionary = ModelBinders.Binders;
-			builder.RegisterModule(new BindersModule(modelBinderDictionary));
+			builder.RegisterModule(new BindersModule(ModelBinders.Binders));
 			builder.RegisterModule(new MimeSupportModule());
 			builder.RegisterModule(new ThemesModule());
 			builder.RegisterModule(new SpamModule());
@@ -88,7 +79,7 @@ namespace FunnelWeb.Web
 		{
 			if (!Request.IsAuthenticated)
 			{
-				MiniProfiler.Stop(discardResults: true);
+				MiniProfiler.Stop(true);
 			}
 		}
 
