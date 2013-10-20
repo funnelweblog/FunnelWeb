@@ -19,6 +19,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 	// ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
 	public class InstallController : Controller
 	{
+		private readonly IDatabaseProvider databaseProvider;
 		private readonly Func<IProviderInfo<IDatabaseProvider>> databaseProvidersInfo;
 		// ReSharper disable UnusedAutoPropertyAccessor.Global
 		public IApplicationDatabase Database { get; set; }
@@ -27,8 +28,10 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 		public IEnumerable<ScriptedExtension> Extensions { get; set; }
 		// ReSharper restore UnusedAutoPropertyAccessor.Global
 
-		public InstallController(Func<IProviderInfo<IDatabaseProvider>> databaseProvidersInfo)
+		//public InstallController(Func<IProviderInfo<IDatabaseProvider>> databaseProvidersInfo)
+		public InstallController(IDatabaseProvider databaseProvider, Func<IProviderInfo<IDatabaseProvider>> databaseProvidersInfo)
 		{
+			this.databaseProvider = databaseProvider;
 			this.databaseProvidersInfo = databaseProvidersInfo;
 		}
 
@@ -38,13 +41,12 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 			var connectionString = ConnectionStringSettings.ConnectionString;
 			var schema = ConnectionStringSettings.Schema;
 			var databaseProviderName = ConnectionStringSettings.DatabaseProvider;
-			var providerInfo = databaseProvidersInfo();
-			var databaseProvider = providerInfo.GetProviderByName(databaseProviderName);
 
 			string error;
 			var model = new IndexModel
 											{
-												DatabaseProviders = providerInfo.Keys,
+												DatabaseProviders = new[] { "sql", "sqlce" },
+												//DatabaseProviders = providerInfo.Keys,
 												DatabaseProvider = databaseProviderName,
 												CanConnect = databaseProvider.TryConnect(connectionString, out error),
 												ConnectionError = error,

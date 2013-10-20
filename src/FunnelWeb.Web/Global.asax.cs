@@ -32,6 +32,7 @@ namespace FunnelWeb.Web
 	{
 		private static string extensionsPath;
 
+		// ReSharper disable once UnusedMember.Global
 		public static void BeforeApplicationStart()
 		{
 			extensionsPath = HostingEnvironment.MapPath("~/bin/Extensions") ?? string.Empty;

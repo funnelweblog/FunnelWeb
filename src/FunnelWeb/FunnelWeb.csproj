@@ -435,7 +435,9 @@
   <ItemGroup>
     <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0032.sql" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0033.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <PropertyGroup>
