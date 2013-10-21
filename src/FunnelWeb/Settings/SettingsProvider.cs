@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
 using FunnelWeb.Model;
 using FunnelWeb.Model.Repositories;
+using NHibernate.Exceptions;
 
 namespace FunnelWeb.Settings
 {
@@ -19,21 +21,50 @@ namespace FunnelWeb.Settings
 			this.repository = repository;
 		}
 
-		public T GetSettings<T>() where T : ISettings
+		public bool TryGetSettings<T>(out T t) where T : ISettings
 		{
 			var settingsType = typeof(T);
-			if (!settingsStore.ContainsKey(settingsType))
+			if (settingsStore.ContainsKey(settingsType))
 			{
-				lock (@lock)
+				t = (T)settingsStore[settingsType];
+				return true;
+			}
+
+			lock (@lock)
+			{
+				if (!settingsStore.ContainsKey(settingsType))
 				{
-					if (!settingsStore.ContainsKey(settingsType))
+					try
 					{
 						LoadSettings<T>();
+						t = (T) settingsStore[settingsType];
+						return true;
+					}
+					catch (GenericADOException)
+					{
+						
+					}
+					catch (SqlException)
+					{
+						
 					}
 				}
 			}
 
-			return (T)settingsStore[settingsType];
+			t = default(T);
+			return false;
+		}
+
+		public T GetSettings<T>() where T : ISettings
+		{
+			T t;
+
+			if (!TryGetSettings(out t))
+			{
+				throw new ApplicationException(string.Format("Unable to load settings for '{0}'", typeof(T).Name));
+			}
+
+			return t;
 		}
 
 		public T GetDefaultSettings<T>() where T : ISettings

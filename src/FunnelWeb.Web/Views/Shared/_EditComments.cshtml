@@ -3,17 +3,23 @@
 @using Authorization = FunnelWeb.Authentication.Internal.Authorization
 @model FunnelWeb.Web.Views.Wiki.PageModel
 
+@{
+	const string anchorName = "yourComments";
+	var returnUrl = string.Format("{0}?#{1}", @Request.Path, anchorName);
+}
+
 @if (Html.Settings().EnableDisqusCommenting)
 {
 	Html.RenderPartial("_Disqus");
 }
 else if (Html.AcsSettings().RequireAuthenticationForComments && !User.CheckAccess(Authorization.Operations.View, Authorization.Resources.Blog.Comment))
 {
-	<div>@Html.ActionLink("Login in", "Index", "Login", new{ ReturnUrl = @Request.Path },new{}) to comment!</div>
+	<div>@Html.ActionLink("Login in", "Index", "Login", new { ReturnUrl = returnUrl }, new { }) to comment!</div>
 }
 else if (!Html.AcsSettings().RequireAuthenticationForComments || Thread.CurrentPrincipal.CheckAccess(Authorization.Operations.View, Authorization.Resources.Blog.Comment))
 {
-	<h2>Your Comments</h2>
+	<a id="@anchorName">&nbsp;</a>
+	<h2>Your Comments on "@Model.Entry.Title":</h2>
 
 	@Html.ValidationSummary("Comment unsuccessful. Please correct the errors below.")
 

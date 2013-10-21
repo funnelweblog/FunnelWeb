@@ -3,6 +3,7 @@ using System.IdentityModel.Services;
 using System.IdentityModel.Tokens;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading;
 using FunnelWeb.Model.Authentication;
 
 namespace FunnelWeb.Authentication.Internal
@@ -29,7 +30,12 @@ namespace FunnelWeb.Authentication.Internal
 
 			var sessionToken = new SessionSecurityToken(principal);
 			var authenticationModule = FederatedAuthentication.SessionAuthenticationModule;
+		
+			// Persist the authentication cookie.
 			authenticationModule.WriteSessionTokenToCookie(sessionToken);
+
+			// Set the current user for the current request
+			Thread.CurrentPrincipal = principal;
 		}
 
 		public void Logout()

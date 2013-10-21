@@ -3,31 +3,38 @@ using System.IdentityModel.Configuration;
 using System.IdentityModel.Services;
 using System.IdentityModel.Tokens;
 using System.Web;
+using FunnelWeb.DatabaseDeployer;
 
 namespace FunnelWeb.Settings
 {
 	public class FederatedAuthenticationConfigurator : IFederatedAuthenticationConfigurator
 	{
 		private readonly Func<ISettingsProvider> settingsProviderFactory;
+		private readonly Func<IDatabaseUpgradeDetector> databaseUpgradeDetectorFactory;
 		private ISettingsProvider settingsProvider;
 		private ISettingsProvider SettingsProvider { get { return settingsProvider ?? (settingsProvider = settingsProviderFactory()); } }
 
-		public FederatedAuthenticationConfigurator(Func<ISettingsProvider> settingsProviderFactory)
+		public FederatedAuthenticationConfigurator(
+			Func<ISettingsProvider> settingsProviderFactory,
+			Func<IDatabaseUpgradeDetector> databaseUpgradeDetectorFactory)
 		{
 			this.settingsProviderFactory = settingsProviderFactory;
+			this.databaseUpgradeDetectorFactory = databaseUpgradeDetectorFactory;
 		}
 
 		public void InitiateFederatedAuthentication(AccessControlServiceSettings accessControlServiceSettings = null)
 		{
 			if (accessControlServiceSettings == null)
 			{
-				try
+				if (!databaseUpgradeDetectorFactory().UpdateNeeded())
 				{
-					accessControlServiceSettings = SettingsProvider.GetSettings<AccessControlServiceSettings>();
+					// Database needs an upgrade or is not reachable. We cannot configure Fed Auth at this time.
+					return;
 				}
-				catch (Exception)
+
+				if (!SettingsProvider.TryGetSettings(out accessControlServiceSettings))
 				{
-					// If the database is not reachable we can't get any settings and thus cannot configure FederatedAuthentication. Just return!
+					// Unable to load the settings from the databse. We cannot configure Fed Auth at this time.
 					return;
 				}
 			}

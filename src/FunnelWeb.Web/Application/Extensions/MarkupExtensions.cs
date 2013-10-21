@@ -160,21 +160,31 @@ namespace FunnelWeb.Web.Application.Extensions
 
 		#region Text
 
-		public static IHtmlString Date(this HtmlHelper html, object value)
+		public static IHtmlString Date(this HtmlHelper html, DateTime value)
 		{
-			var date = (DateTime)value;
-			return MvcHtmlString.Create(string.Format("<span class=\"date\" title=\"{0}\">{1}</span>",
-					date.ToString("dd MMM, yyyy HH:mm"),
-					date.ToString("dd MMM, yyyy hh:mm tt")));
+			return MvcHtmlString.Create(value.ToString("yyyy-MM-dd hh:mm"));
 		}
 
-		public static IHtmlString DateWithoutTime(this HtmlHelper html, object value)
+		public static IHtmlString DateWithoutTime(this HtmlHelper html, DateTime value)
 		{
-			var date = (DateTime)value;
-			return MvcHtmlString.Create(string.Format("<span class=\"date\" title=\"{0}\">{1}</span>",
-					date.ToString("dd MMM, yyyy"),
-					date.ToString("dd MMM, yyyy")));
+			return MvcHtmlString.Create(value.ToString("yyyy-MM-dd"));
 		}
+
+		//public static IHtmlString Date(this HtmlHelper html, object value)
+		//{
+		//	var date = (DateTime)value;
+		//	return MvcHtmlString.Create(string.Format("<span class=\"date\" title=\"{0}\">{1}</span>",
+		//			date.ToString("dd MMM, yyyy HH:mm"),
+		//			date.ToString("dd MMM, yyyy hh:mm tt")));
+		//}
+
+		//public static IHtmlString DateWithoutTime(this HtmlHelper html, object value)
+		//{
+		//	var date = (DateTime)value;
+		//	return MvcHtmlString.Create(string.Format("<span class=\"date\" title=\"{0}\">{1}</span>",
+		//			date.ToString("dd MMM, yyyy"),
+		//			date.ToString("dd MMM, yyyy")));
+		//}
 
 		public static MvcHtmlString RenderTrusted(this HtmlHelper html, object content, string format)
 		{

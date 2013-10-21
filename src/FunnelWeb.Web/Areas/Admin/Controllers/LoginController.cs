@@ -2,6 +2,7 @@ using System;
 using System.Web.Mvc;
 using FunnelWeb.Authentication;
 using FunnelWeb.Authentication.Internal;
+using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.Settings;
 using FunnelWeb.Web.Areas.Admin.Views.Login;
 
@@ -12,12 +13,14 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 	public class LoginController : Controller
 	{
 		readonly Lazy<IConfigSettings> bootstrapSettings;
+		private readonly Lazy<IDatabaseConnectionDetector> lazyDatabaseConnectionDetector;
 
 		public IAuthenticator Authenticator { get; set; }
 
-		public LoginController(Lazy<IConfigSettings> bootstrapSettings)
+		public LoginController(Lazy<IConfigSettings> bootstrapSettings, Lazy<IDatabaseConnectionDetector> lazyDatabaseConnectionDetector)
 		{
 			this.bootstrapSettings = bootstrapSettings;
+			this.lazyDatabaseConnectionDetector = lazyDatabaseConnectionDetector;
 		}
 
 		[HttpGet]
@@ -28,6 +31,13 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 			if (model.DatabaseIssue == true)
 			{
 				model.ConfigFileMissing = bootstrapSettings.Value.ConfigFileMissing();
+			}
+
+			string error;
+			if (!lazyDatabaseConnectionDetector.Value.CanConnect(out error))
+			{
+				model.DatabaseConnectionIssue = true;
+				model.DatabaseError = error;
 			}
 
 			return View(model);

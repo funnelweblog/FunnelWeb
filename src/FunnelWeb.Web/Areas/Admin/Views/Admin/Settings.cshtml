@@ -139,11 +139,12 @@
 				@Html.HintFor(m => m.StorageConnectionString)
 
 				<dl>
-					<dt>Connection String Template</dt>
+					<dt>Connection String Template:</dt>
 					<dd>DefaultEndpointsProtocol=[http|https];AccountName=myAccountName;AccountKey=myAccountKey</dd>
+					<dt>Local Development Only:</dt>
+					<dd>@AzureBlobFileRepository.DevelopmentStorageAccountConnectionString</dd>
 				</dl>
 			</div>
-
 
 			<div class="editor-label">
 				@Html.LabelFor(m => m.BlobContainerName)

@@ -159,6 +159,8 @@
     <Compile Include="Authentication\Internal\IAuthorizationService.cs" />
     <Compile Include="Authentication\Internal\Resource.cs" />
     <Compile Include="Authentication\Internal\Role.cs" />
+    <Compile Include="DatabaseDeployer\DatabaseConnectionDetector.cs" />
+    <Compile Include="DatabaseDeployer\IDatabaseConnectionDetector.cs" />
     <Compile Include="Settings\FederatedAuthenticationConfigurator.cs" />
     <Compile Include="Authentication\Internal\FormsRoleProvider.cs" />
     <Compile Include="Settings\IFederatedAuthenticationConfigurator.cs" />

@@ -55,11 +55,11 @@
 	@if (!Model.Entry.HideChrome)
  {
 		@Html.DisplayFor(x => Html.Settings().FacebookLike)
-	
+
 		@Html.DisplayFor(x => x.Entry.TagsCommaSeparated)
-	
+
 	 Html.RenderPartial("_EntryTools", Model, ViewData);
-				
+
 		@Html.DisplayFor(x => x.Entry.Pingbacks, new { Model.Entry.PingbackCount, Model.Entry.Name })
  }
  else
