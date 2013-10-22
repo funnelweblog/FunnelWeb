@@ -139,6 +139,7 @@
     <Compile Include="..\Information\VersionInfo.cs">
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
+    <Compile Include="Authentication\Internal\SqlFunnelWebMembershipTests.cs" />
     <Compile Include="Core\Filters\FunnelWebRequestFilterTests.cs" />
     <Compile Include="Core\Utilities\HttpRequestExtensionsTest.cs" />
     <Compile Include="DatabaseDeployer\FunnelWebScriptProviderTests.cs" />

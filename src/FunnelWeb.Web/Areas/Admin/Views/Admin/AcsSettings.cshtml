@@ -37,14 +37,15 @@
 			@Html.ValidationMessageFor(m => m.Namespace)
 			@Html.HintFor(m => m.Namespace)
 		</div>
-
-		<div class="editor-label">
-			@Html.LabelFor(m => m.Realm)
-		</div>
 		<div class="editor-field">
 			@Html.TextBoxFor(m => m.Realm)
 			@Html.ValidationMessageFor(m => m.Realm)
 			@Html.HintFor(m => m.Realm)
+		</div>
+		<div class="editor-field">
+			@Html.TextAreaFor(m => m.AudienceUris, new { @class = "large" })
+			@Html.ValidationMessageFor(m => m.AudienceUris)
+			@Html.HintFor(m => m.AudienceUris)
 		</div>
 
 		<div class="editor-label">
@@ -54,6 +55,9 @@
 			@Html.TextBoxFor(m => m.IssuerThumbprint)
 			@Html.ValidationMessageFor(m => m.IssuerThumbprint)
 			@Html.HintFor(m => m.IssuerThumbprint)
+		</div>
+		<div class="editor-label">
+			@Html.LabelFor(m => m.Realm)
 		</div>
 
 		<div>

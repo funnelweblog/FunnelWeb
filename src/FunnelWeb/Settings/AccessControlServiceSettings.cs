@@ -33,5 +33,11 @@ namespace FunnelWeb.Settings
 		[Description("The thumbprint of the ACS Relying Party.")]
 		[SettingStorage(StorageLocation.Database, "acs-issuerthumbprint")]
 		public string IssuerThumbprint { get; set; }
+
+		[DisplayName("Audience Uris")]
+		[DefaultValue("{AudienceUris}")]
+		[Description("The Audience Uris of the ACS Relying Party.")]
+		[SettingStorage(StorageLocation.Database, "acs-audienceuris")]
+		public string AudienceUris { get; set; }
 	}
 }

@@ -388,6 +388,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\disqus-count.js" />
     <Content Include="Areas\Admin\Views\Admin\AcsSettings.cshtml" />
+    <None Include="Properties\PublishProfiles\magnusmartenssoncomdev.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -558,7 +559,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>8471</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:54871</IISUrl>
+          <IISUrl>http://localhost:54873</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

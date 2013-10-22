@@ -90,6 +90,15 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 				return View(acsSettings);
 			}
 
+			// Special validation that the AudienceUris are indeed Uris. Only save the ones that are.
+			acsSettings.AudienceUris = string.Join(
+				Constants.Strings.NewLine,
+				acsSettings
+					.AudienceUris
+					.Split(Constants.Chars.NewLine, Constants.Chars.Space)
+					.Where(a => { Uri uri; return Uri.TryCreate(a, UriKind.Absolute, out uri); })
+					.Select(a => new Uri(a)));
+
 			SettingsProvider.SaveSettings(acsSettings);
 
 			FederatedAuthenticationConfigurator.InitiateFederatedAuthentication(acsSettings);

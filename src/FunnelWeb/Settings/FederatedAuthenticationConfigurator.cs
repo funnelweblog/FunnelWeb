@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Configuration;
 using System.IdentityModel.Services;
 using System.IdentityModel.Tokens;
+using System.Linq;
 using System.Web;
 using FunnelWeb.DatabaseDeployer;
 
@@ -42,6 +44,11 @@ namespace FunnelWeb.Settings
 			string realm = accessControlServiceSettings.Realm;
 			string acsNamespace = accessControlServiceSettings.Namespace;
 			string thumbprint = accessControlServiceSettings.IssuerThumbprint;
+			IEnumerable<Uri> audienceUris = accessControlServiceSettings
+				.AudienceUris
+				.Split(Constants.Chars.NewLine, Constants.Chars.Space)
+				.Where(a => { Uri uri; return Uri.TryCreate(a, UriKind.Absolute, out uri); })
+				.Select(a => new Uri(a));
 
 			var defaultSettings = SettingsProvider.GetDefaultSettings<AccessControlServiceSettings>();
 			if (!accessControlServiceSettings.Enabled ||
@@ -53,7 +60,11 @@ namespace FunnelWeb.Settings
 			// system.identityModel -> identityConfiguration
 			IdentityConfiguration identityConfiguration = FederatedAuthentication.FederationConfiguration.IdentityConfiguration;
 			identityConfiguration.AudienceRestriction.AllowedAudienceUris.Clear();
-			identityConfiguration.AudienceRestriction.AllowedAudienceUris.Add(new Uri(realm));
+			foreach (var audienceUri in audienceUris)
+			{
+				identityConfiguration.AudienceRestriction.AllowedAudienceUris.Add(audienceUri);
+			}
+
 			var validatingIssuerNameRegistry = identityConfiguration.IssuerNameRegistry as ValidatingIssuerNameRegistry;
 			if (validatingIssuerNameRegistry != null)
 			{

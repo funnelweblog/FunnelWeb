@@ -42,7 +42,7 @@ namespace FunnelWeb.Authentication.Internal
 					.List();
 		}
 
-		internal static string HashPassword(string password)
+		public static string HashPassword(string password)
 		{
 			return FormsAuthentication.HashPasswordForStoringInConfigFile(password, FormsAuthPasswordFormat.SHA1.ToString());
 		}

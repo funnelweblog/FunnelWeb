@@ -159,6 +159,7 @@
     <Compile Include="Authentication\Internal\IAuthorizationService.cs" />
     <Compile Include="Authentication\Internal\Resource.cs" />
     <Compile Include="Authentication\Internal\Role.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="DatabaseDeployer\DatabaseConnectionDetector.cs" />
     <Compile Include="DatabaseDeployer\IDatabaseConnectionDetector.cs" />
     <Compile Include="Settings\FederatedAuthenticationConfigurator.cs" />
@@ -439,6 +440,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0033.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseDeployer\Scripts\Script0034.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
