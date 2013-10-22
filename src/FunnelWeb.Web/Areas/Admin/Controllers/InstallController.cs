@@ -10,6 +10,7 @@ using FunnelWeb.Authentication.Internal;
 using FunnelWeb.DatabaseDeployer;
 using FunnelWeb.Providers;
 using FunnelWeb.Providers.Database;
+using FunnelWeb.Settings;
 using FunnelWeb.Web.Areas.Admin.Views.Install;
 
 namespace FunnelWeb.Web.Areas.Admin.Controllers
@@ -21,18 +22,24 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 	{
 		private readonly IDatabaseProvider databaseProvider;
 		private readonly Func<IProviderInfo<IDatabaseProvider>> databaseProvidersInfo;
+		private readonly ISettingsProvider settingsProvider;
+		private readonly IFederatedAuthenticationService federatedAuthenticationService;
+
 		// ReSharper disable UnusedAutoPropertyAccessor.Global
 		public IApplicationDatabase Database { get; set; }
 		public IConnectionStringSettings ConnectionStringSettings { get; set; }
 		public IDatabaseUpgradeDetector UpgradeDetector { get; set; }
 		public IEnumerable<ScriptedExtension> Extensions { get; set; }
+
 		// ReSharper restore UnusedAutoPropertyAccessor.Global
 
 		//public InstallController(Func<IProviderInfo<IDatabaseProvider>> databaseProvidersInfo)
-		public InstallController(IDatabaseProvider databaseProvider, Func<IProviderInfo<IDatabaseProvider>> databaseProvidersInfo)
+		public InstallController(IDatabaseProvider databaseProvider, Func<IProviderInfo<IDatabaseProvider>> databaseProvidersInfo, ISettingsProvider settingsProvider, IFederatedAuthenticationService federatedAuthenticationService)
 		{
 			this.databaseProvider = databaseProvider;
 			this.databaseProvidersInfo = databaseProvidersInfo;
+			this.settingsProvider = settingsProvider;
+			this.federatedAuthenticationService = federatedAuthenticationService;
 		}
 
 		[ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operations.View, Resource = Authorization.Resources.Install.Index)]
@@ -78,14 +85,17 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 		}
 
 		[ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operations.Update, Resource = Authorization.Resources.Install.ChangeProvider)]
-		public ActionResult ChangeProvider(string databaseProvider)
+		public ActionResult ChangeProvider(string newDatabaseProvider)
 		{
-			var provider = databaseProvidersInfo().GetProviderByName(databaseProvider);
+			var provider = databaseProvidersInfo().GetProviderByName(newDatabaseProvider);
 
 			ConnectionStringSettings.ConnectionString = provider.DefaultConnectionString;
-			ConnectionStringSettings.DatabaseProvider = databaseProvider;
+			ConnectionStringSettings.DatabaseProvider = newDatabaseProvider;
 			if (!provider.SupportSchema)
-				ConnectionStringSettings.Schema = null;
+			{
+				ConnectionStringSettings.Schema = null;				
+			}
+
 			UpgradeDetector.Reset();
 
 			return RedirectToAction("Index");
@@ -112,7 +122,15 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 			var result = Database.PerformUpgrade(Extensions, log);
 			UpgradeDetector.Reset();
 
-			return View("UpgradeReport", new UpgradeModel(result, writer.ToString()));
+			var upgradeModel = new UpgradeModel(result, writer.ToString());
+
+			if (settingsProvider.GetSettings<SqlAuthSettings>().SqlAuthenticationEnabled && upgradeModel.Results.All(x => x.Successful))
+			{
+				// We have upgraded and now we must sign back in as as sql user!
+				federatedAuthenticationService.Logout();
+			}
+
+			return View("UpgradeReport", upgradeModel);
 		}
 
 		private class TextLog : IUpgradeLog
