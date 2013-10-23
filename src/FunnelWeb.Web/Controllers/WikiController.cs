@@ -3,7 +3,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Web.Mvc;
-using FluentNHibernate.Conventions;
 using FunnelWeb.Authentication.Internal;
 using FunnelWeb.Eventing;
 using FunnelWeb.Filters;
@@ -16,6 +15,7 @@ using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Application.Mvc.ActionResults;
 using FunnelWeb.Web.Application.Spam;
 using FunnelWeb.Web.Views.Wiki;
+using NHibernate.Linq;
 using ClaimTypes = System.IdentityModel.Claims.ClaimTypes;
 
 namespace FunnelWeb.Web.Controllers
@@ -23,15 +23,22 @@ namespace FunnelWeb.Web.Controllers
 	[FunnelWebRequest]
 	[HandleError]
 	[ValidateInput(false)]
-	public class WikiController : Controller
+	public sealed class WikiController : Controller
 	{
+		private readonly ISettingsProvider settingsProvider;
+
+		public WikiController(ISettingsProvider settingsProvider)
+		{
+			this.settingsProvider = settingsProvider;
+		}
+
 		private const int ItemsPerPage = 30;
 		public IRepository Repository { get; set; }
 		public ISpamChecker SpamChecker { get; set; }
 		public IEventPublisher EventPublisher { get; set; }
 		public ISettingsProvider SettingsProvider { get; set; }
 
-		public virtual ActionResult Home(int? pageNumber)
+		public ActionResult Home(int? pageNumber)
 		{
 			var settings = SettingsProvider.GetSettings<FunnelWebSettings>();
 			if (!string.IsNullOrWhiteSpace(settings.CustomHomePage))
@@ -50,20 +57,22 @@ namespace FunnelWeb.Web.Controllers
 			return Recent(pageNumber ?? 0);
 		}
 
-		public virtual ActionResult Recent(int pageNumber)
+		public ActionResult Recent(int pageNumber)
 		{
+			bool hideCommentCount = settingsProvider.GetSettings<FunnelWebSettings>().HideCommentCountOnRecentPage;
 			var result = Repository.Find(new GetEntriesQuery(EntryStatus.PublicBlog), pageNumber, ItemsPerPage);
+			result.ForEach(es => es.HideComments = hideCommentCount);
 			ViewData.Model = new RecentModel("Recent Posts", result, ControllerContext.RouteData.Values["action"].ToString());
 			return View("Recent");
 		}
 
-		public virtual ActionResult Search([Bind(Prefix = "q")] string searchText, bool? is404)
+		public ActionResult Search([Bind(Prefix = "q")] string searchText, bool? is404)
 		{
 			var results = Repository.Find(new SwitchingSearchEntriesQuery(searchText), 0, 30);
 			return View("Search", new SearchModel(searchText, is404 ?? false, results));
 		}
 
-		public virtual ActionResult Page(PageName page, int? revision)
+		public ActionResult Page(PageName page, int? revision)
 		{
 			if (revision != null && !SettingsProvider.GetSettings<FunnelWebSettings>().EnablePublicHistory)
 			{
@@ -107,7 +116,7 @@ namespace FunnelWeb.Web.Controllers
 
 		// Posting a comment
 		[HttpPost]
-		public virtual ActionResult Page(PageName page, PageModel model)
+		public ActionResult Page(PageName page, PageModel model)
 		{
 			var entry = Repository.FindFirstOrDefault(new EntryByNameQuery(page));
 			if (entry == null)
@@ -152,7 +161,7 @@ namespace FunnelWeb.Web.Controllers
 					.AndFlash("Thanks, your comment has been posted.");
 		}
 
-		public virtual ActionResult Revisions(PageName page)
+		public ActionResult Revisions(PageName page)
 		{
 			var settings = SettingsProvider.GetSettings<FunnelWebSettings>();
 			if (!settings.EnablePublicHistory)
@@ -170,14 +179,14 @@ namespace FunnelWeb.Web.Controllers
 			return View();
 		}
 
-		public virtual ActionResult SiteMap()
+		public ActionResult SiteMap()
 		{
 			var allPosts = Repository.Find(new GetFullEntriesQuery(true), 0, 500);
 			ViewData.Model = new SiteMapModel(allPosts);
 			return View();
 		}
 
-		public virtual ActionResult Pingbacks(PageName page)
+		public ActionResult Pingbacks(PageName page)
 		{
 			var entry = Repository.FindFirst(new GetEntryWithPingbacksQuery(page));
 			return View(entry);

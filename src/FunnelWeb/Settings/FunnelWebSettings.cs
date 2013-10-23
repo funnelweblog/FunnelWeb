@@ -92,6 +92,12 @@ namespace FunnelWeb.Settings
         [SettingStorage(StorageLocation.Database, "spam-blacklist")]
         public string SpamWords { get; set; }
 
+        [DisplayName("Hide comment counts")]
+        [DefaultValue(false)]
+        [Description("Hide comment count on the recent posts page.")]
+        [SettingStorage(StorageLocation.Database, "spam-comment-hide-count")]
+        public bool HideCommentCountOnRecentPage { get; set; }
+
         [DisplayName("Disable comments after")]
         [DefaultValue(0)]
         [Description("If a post is older than this many days, comments will be disabled. Use 0 to allow comments indefinitely.")]

@@ -180,6 +180,15 @@
 		<h3>Comments</h3>
 
 		<div class="editor-label">
+			@Html.LabelFor(m => m.HideCommentCountOnRecentPage)
+		</div>
+		<div class="editor-field">
+			@Html.CheckBoxFor(m => m.HideCommentCountOnRecentPage, new { @class = "small" })
+			@Html.ValidationMessageFor(m => m.HideCommentCountOnRecentPage)
+			@Html.HintFor(m => m.HideCommentCountOnRecentPage)
+		</div>
+
+		<div class="editor-label">
 			@Html.LabelFor(m => m.DisableCommentsOlderThan)
 		</div>
 		<div class="editor-field">
