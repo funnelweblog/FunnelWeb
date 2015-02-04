@@ -47,7 +47,8 @@
       <td class="numeric">@item.FileSize</td>
       <td class="date">@item.Modified</td>
       <td>
-        @Html.ActionLink("Delete", "Delete", new { Area = "Admin", path = Model.PathString, filePath = item.Path, })
+        @Html.ActionLink("Delete", "Delete", new { Area = "Admin", path = Model.PathString, filePath = item.Path, }, 
+                                             new { onclick = "return confirm('Delete " + @item.Name + "?');"})
       </td>
     </tr>
     }

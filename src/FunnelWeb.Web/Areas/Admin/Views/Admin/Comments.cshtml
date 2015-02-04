@@ -36,7 +36,8 @@
         <strong>Email: </strong> @comment.AuthorEmail
       </td>
       <td width="25%">
-        @Html.ActionLink("Delete", "DeleteComment", "Admin", new { Area = "Admin", id = comment.Id }, null)
+        @Html.ActionLink("Delete", "DeleteComment", "Admin", new { Area = "Admin", id = comment.Id },
+                                                             new { onclick = "return confirm('Delete comment?');"})
         @Html.ActionLink(comment.IsSpam ? "Unspam" : "Spam", "ToggleSpam", "Admin", new { Area = "Admin", id = comment.Id }, null)
       </td>
     </tr>

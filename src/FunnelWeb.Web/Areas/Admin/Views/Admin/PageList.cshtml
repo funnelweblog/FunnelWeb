@@ -50,7 +50,7 @@
         <td>
             @using(Html.BeginForm("DeletePage", "WikiAdmin", new { Area = "Admin", id = entry.Id }, FormMethod.Post, null))
              {
-                 <button type="submit">Delete</button>
+                 <button type="submit" onclick="return confirm('Delete \'@entry.Title\'?');">Delete</button>
              }
         </td>
       </tr>
