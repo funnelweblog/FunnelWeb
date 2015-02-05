@@ -38,7 +38,7 @@
   <div class='search-line'>
     <h2>@Html.Qualify(Html.ActionLink(entry.Title, "Page", new { page = entry.Name }))</h2>
     @if (!string.IsNullOrEmpty(entry.MetaDescription)) {
-    <p>@entry.MetaDescription)</p>
+    <p>@entry.MetaDescription</p>
     }
     <div class='revised'>
       <span class='month'>@entry.Published.ToString("MMM d")</span> 
