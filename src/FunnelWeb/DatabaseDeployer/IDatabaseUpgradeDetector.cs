@@ -1,8 +1,8 @@
 ﻿namespace FunnelWeb.DatabaseDeployer
 {
-    public interface IDatabaseUpgradeDetector
-    {
-        bool UpdateNeeded();
-        void Reset();
-    }
+	public interface IDatabaseUpgradeDetector
+	{
+		bool UpdateNeeded();
+		void Reset();
+	}
 }

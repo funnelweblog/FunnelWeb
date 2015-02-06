@@ -1,4 +1,5 @@
-﻿<!doctype html>
+﻿@using FunnelWeb.Authentication.Internal
+<!doctype html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
@@ -21,7 +22,7 @@
         <div>
             <nav>
                 <ul>
-                    @if (ViewData.IsLoggedIn())
+                    @if (User.Identity.IsAuthenticated)
                     {
                         <li>@Html.AdminActionLink("New Post", "Edit", "WikiAdmin")</li>
                         <li>@Html.AdminActionLink("Admin", "Index", "Admin")</li>

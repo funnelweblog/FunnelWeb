@@ -5,35 +5,40 @@ using FunnelWeb.DatabaseDeployer;
 
 namespace FunnelWeb.Web.Application
 {
-    public class RequireUpdatedDatabaseHttpModule : IHttpModule
-    {
-        public void Init(HttpApplication context)
-        {
-            context.BeginRequest += ApplicationBeginRequest;
-            context.Error += ApplicationError;
-        }
+	public class RequireUpdatedDatabaseHttpModule : IHttpModule
+	{
+		private HttpApplication httpApplication;
 
-        private static void ApplicationBeginRequest(object sender, EventArgs e)
-        {
-            if (!DependencyResolver.Current.GetService<IDatabaseUpgradeDetector>().UpdateNeeded()) return;
+		public void Init(HttpApplication httpApplication)
+		{
+			this.httpApplication = httpApplication;
+			httpApplication.BeginRequest += ApplicationBeginRequest;
+			httpApplication.Error += ApplicationError;
+		}
 
-            var path = HttpContext.Current.Request.Path;
-            path = path.ToLowerInvariant();
-            if (path.Contains("/login") || path.Contains("/install") || path.Contains("/content"))
-            {
-                return;
-            }
+		private static void ApplicationBeginRequest(object sender, EventArgs e)
+		{
+			if (!DependencyResolver.Current.GetService<IDatabaseUpgradeDetector>().UpdateNeeded()) return;
 
-            HttpContext.Current.Response.Redirect("~/admin/login?databaseIssue=true");
-        }
+			var path = HttpContext.Current.Request.Path;
+			path = path.ToLowerInvariant();
+			if (path.EndsWith(".js") ||
+				path.EndsWith(".css") ||
+				path.Contains("/login") ||
+				path.Contains("/install") ||
+				path.Contains("/content"))
+			{
+				return;
+			}
 
-        private static void ApplicationError(object sender, EventArgs e)
-        {
-            DependencyResolver.Current.GetService<IDatabaseUpgradeDetector>().Reset();
-        }
+			HttpContext.Current.Response.Redirect("~/admin/login?databaseIssue=true");
+		}
 
-        public void Dispose()
-        {
-        }
-    }
+		private static void ApplicationError(object sender, EventArgs e)
+		{
+			DependencyResolver.Current.GetService<IDatabaseUpgradeDetector>().Reset();
+		}
+
+		public void Dispose() { }
+	}
 }

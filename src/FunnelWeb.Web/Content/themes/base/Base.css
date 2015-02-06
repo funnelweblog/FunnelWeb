@@ -138,15 +138,20 @@ header div.search
 	width: 200px;
 	-moz-background-clip: border;
 	-moz-background-inline-policy: continuous;
+	/* ReSharper disable once InvalidValue */
 	-moz-background-origin: padding;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	-webkit-background-clip: border;
 	-webkit-background-inline-policy: continuous;
+	/* ReSharper disable once InvalidValue */
 	-webkit-background-origin: padding;
 	border-radius: 5px;
+	/* ReSharper disable once InvalidValue */
 	background-clip: border;
+	/* ReSharper disable once CssNotResolved */
 	background-inline-policy: continuous;
+	/* ReSharper disable once InvalidValue */
 	background-origin: padding;
 }
 .intro h1

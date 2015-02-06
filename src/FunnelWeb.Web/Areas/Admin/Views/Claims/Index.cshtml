@@ -1,0 +1,67 @@
+﻿@using System.Security.Claims
+@using System.Security.Principal
+@using System.Threading
+@model dynamic
+
+@{
+	IPrincipal currentPrincipal = Thread.CurrentPrincipal;
+	IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
+
+	var claimsPrincipal = currentPrincipal as ClaimsPrincipal;
+	if (claimsPrincipal != null)
+	{
+		claims = claimsPrincipal.Claims;
+	}
+
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Show current claims</title>
+	<style>
+		table.claims td {
+			border: 1px solid black;
+			padding: 5px;
+		}
+		.header {
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<p><span class="header">Principal:</span> @currentPrincipal.GetType().FullName</p>
+		<p><span class="header">Identity:</span> @currentPrincipal.Identity.GetType().FullName</p>
+
+		@if (claims.Any())
+	{
+			<div class="header">User Claims:</div>
+			<div>
+				<table class="claims">
+					<thead>
+						<tr>
+							<td><span class="header">Claim Type</span></td>
+							<td><span class="header">Claim Value</span></td>
+							<td><span class="header">Claim ValueType</span></td>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var claim in claims)
+			{
+							<tr>
+								<td>@claim.Type</td>
+								<td>@claim.Value</td>
+								<td>@claim.ValueType</td>
+							</tr>
+			}
+					</tbody>
+				</table>
+			</div>
+	}
+
+	</div>
+</body>
+</html>

@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using FunnelWeb.Providers.File;
 using FunnelWeb.Settings;
 using FunnelWeb.Tests.Web.Controllers;
-using FunnelWeb.Utilities;
 using FunnelWeb.Web.Application.Mvc;
 using FunnelWeb.Web.Areas.Admin.Controllers;
 using NSubstitute;
@@ -12,111 +11,112 @@ using NUnit.Framework;
 
 namespace FunnelWeb.Tests.Web.Areas.Admin.Controllers
 {
-    [TestFixture]
-    public class UploadControllerTests : ControllerTests
-    {
-        protected UploadController Controller { get; set; }
-        protected IFileRepository FileRepository { get; set; }
-        protected IMimeTypeLookup MimeTypeLookup { get; set; }
+	[TestFixture]
+	public class UploadControllerTests : ControllerTests
+	{
+		protected UploadController Controller { get; set; }
+		protected IFileRepository FileRepository { get; set; }
 
-        [SetUp]
-        public void SetUp()
-        {
-            var settingsProvider = Substitute.For<ISettingsProvider>();
-            settingsProvider.GetSettings<FunnelWebSettings>().Returns(new FunnelWebSettings());
-            Controller = new UploadController
-                             {
-                                 FileRepository = FileRepository = Substitute.For<IFileRepository>(),
-                                 MimeHelper = MimeTypeLookup = Substitute.For<IMimeTypeLookup>(),
-                                 ControllerContext = ControllerContext,
-                                 SettingsProvider = settingsProvider
-                             };
-        }
+		[SetUp]
+		public void SetUp()
+		{
+			TestAuthenticationAndAuthorization.SetTestUserToCurrentPrincipal();
+			CustomResolver.Initiate();
 
-        [Test]
-        public void IndexForExistingFile()
-        {
-            FileRepository.IsFile(Arg.Any<string>()).Returns(true);
+			var settingsProvider = Substitute.For<ISettingsProvider>();
+			settingsProvider.GetSettings<FunnelWebSettings>().Returns(new FunnelWebSettings());
+			Controller = new UploadController
+											 {
+												 FileRepository = FileRepository = Substitute.For<IFileRepository>(),
+												 ControllerContext = ControllerContext,
+												 SettingsProvider = settingsProvider
+											 };
+		}
 
-            var result = (RedirectToRouteResult)Controller.Index("test");
+		[Test]
+		public void IndexForExistingFile()
+		{
+			FileRepository.IsFile(Arg.Any<string>()).Returns(true);
 
-            FileRepository.Received().IsFile(Arg.Any<string>());
-            Assert.That(result.RouteValues["Action"], Is.EqualTo("Index"));
-        }
+			var result = (RedirectToRouteResult)Controller.Index("test");
 
-        [Test]
-        public void IndexForMissingFile()
-        {
-            FileRepository.IsFile(Arg.Any<string>()).Returns(false);
+			FileRepository.Received().IsFile(Arg.Any<string>());
+			Assert.That(result.RouteValues["Action"], Is.EqualTo("Index"));
+		}
 
-            var result = (ViewResult)Controller.Index("test");
+		[Test]
+		public void IndexForMissingFile()
+		{
+			FileRepository.IsFile(Arg.Any<string>()).Returns(false);
 
-            FileRepository.Received().IsFile(Arg.Any<string>());
-            Assert.That(result.View, Is.EqualTo(null));
-        }
+			var result = (ViewResult)Controller.Index("test");
 
-        [Test]
-        public void Upload()
-        {
-            var stream = new MemoryStream();
+			FileRepository.Received().IsFile(Arg.Any<string>());
+			Assert.That(result.View, Is.EqualTo(null));
+		}
 
-            var file = Substitute.For<HttpPostedFileBase>();
-            file.InputStream.Returns(stream);
+		[Test]
+		public void Upload()
+		{
+			var stream = new MemoryStream();
 
-            var upload = new FileUpload(file);
+			var file = Substitute.For<HttpPostedFileBase>();
+			file.InputStream.Returns(stream);
 
-            var result = (RedirectToRouteResult)Controller.Upload("path", false, upload);
+			var upload = new FileUpload(file);
 
-            FileRepository.Received().Save(Arg.Is<Stream>(stream), Arg.Is("path"), Arg.Is(false));
+			var result = (RedirectToRouteResult)Controller.Upload("path", false, upload);
 
-            Assert.That(result.RouteValues["Action"], Is.EqualTo("Index"));
-        }
+			FileRepository.Received().Save(Arg.Is<Stream>(stream), Arg.Is("path"), Arg.Is(false));
 
-        [Test]
-        public void UploadAndUnzip()
-        {
-            var stream = new MemoryStream();
+			Assert.That(result.RouteValues["Action"], Is.EqualTo("Index"));
+		}
 
-            var file = Substitute.For<HttpPostedFileBase>();
-            file.InputStream.Returns(stream);
+		[Test]
+		public void UploadAndUnzip()
+		{
+			var stream = new MemoryStream();
 
-            var upload = new FileUpload(file);
+			var file = Substitute.For<HttpPostedFileBase>();
+			file.InputStream.Returns(stream);
 
-            var result = (RedirectToRouteResult)Controller.Upload("path", true, upload);
+			var upload = new FileUpload(file);
 
-            FileRepository.Received().Save(Arg.Is<Stream>(stream), Arg.Is("path"), Arg.Is(true));
+			var result = (RedirectToRouteResult)Controller.Upload("path", true, upload);
 
-            Assert.That(result.RouteValues["Action"], Is.EqualTo("Index"));
-        }
+			FileRepository.Received().Save(Arg.Is<Stream>(stream), Arg.Is("path"), Arg.Is(true));
 
-        [Test]
-        public void CreateDirectory()
-        {
-            var result = (RedirectToRouteResult)Controller.CreateDirectory("path", string.Empty);
+			Assert.That(result.RouteValues["Action"], Is.EqualTo("Index"));
+		}
 
-            FileRepository.Received().CreateDirectory(Arg.Is("path"), Arg.Any<string>());
-            Assert.That(result.RouteValues["Action"], Is.EqualTo("Index"));
-            Assert.That(result.RouteValues["path"], Is.EqualTo("path"));
-        }
+		[Test]
+		public void CreateDirectory()
+		{
+			var result = (RedirectToRouteResult)Controller.CreateDirectory("path", string.Empty);
 
-        [Test]
-        public void Delete()
-        {
-            var result = (RedirectToRouteResult)Controller.Delete("path", "file");
+			FileRepository.Received().CreateDirectory(Arg.Is("path"), Arg.Any<string>());
+			Assert.That(result.RouteValues["Action"], Is.EqualTo("Index"));
+			Assert.That(result.RouteValues["path"], Is.EqualTo("path"));
+		}
 
-            FileRepository.Received().Delete(Arg.Is("file"));
-            Assert.That(result.RouteValues["Action"], Is.EqualTo("Index"));
-            Assert.That(result.RouteValues["path"], Is.EqualTo("path"));
-        }
+		[Test]
+		public void Delete()
+		{
+			var result = (RedirectToRouteResult)Controller.Delete("path", "file");
 
-        [Test]
-        public void RenderExistingFile()
-        {
-            FileRepository.IsFile(Arg.Is("file")).Returns(true);
+			FileRepository.Received().Delete(Arg.Is("file"));
+			Assert.That(result.RouteValues["Action"], Is.EqualTo("Index"));
+			Assert.That(result.RouteValues["path"], Is.EqualTo("path"));
+		}
 
-            Controller.Render("file");
+		[Test]
+		public void RenderExistingFile()
+		{
+			FileRepository.IsFile(Arg.Is("file")).Returns(true);
 
-            FileRepository.Received().Render("file");
-        }
-    }
+			Controller.Render("file");
+
+			FileRepository.Received().Render("file");
+		}
+	}
 }

@@ -10,7 +10,7 @@
     <div class="comment-body">
         <div class="comment-date">@Html.Date(Model.Posted)
             @Html.CommentedAtRevision(Model, (EntryRevision)ViewBag.Entry)
-            @if (ViewData.IsLoggedIn())
+            @if (User.Identity.IsAuthenticated)
             {
                 @Html.ActionLink(Model.IsSpam ? "Unspam" : "Spam", "ToggleSpam", "Admin", new { Area = "Admin", id = Model.Id }, null)
             }

@@ -11,7 +11,7 @@ namespace FunnelWeb.Settings
         [Description("Files you upload for blog posts will be stored here. Use ~/XYZ to indicate a file path under the website root.")]
         [SettingStorage(StorageLocation.Database, "upload-path")]
         public string UploadPath { get; set; }
-
+				
         [DisplayName("File Storage Provider")]
         [StringLength(20)]
         [DefaultValue("Filesystem")]
@@ -91,6 +91,12 @@ namespace FunnelWeb.Settings
         [Description("Comments with these words (case-insensitive) will automatically be marked as spam, in addition to Akismet. Seperate using spaces or newlines.")]
         [SettingStorage(StorageLocation.Database, "spam-blacklist")]
         public string SpamWords { get; set; }
+
+        [DisplayName("Hide comment counts")]
+        [DefaultValue(false)]
+        [Description("Hide comment count on the recent posts page.")]
+        [SettingStorage(StorageLocation.Database, "spam-comment-hide-count")]
+        public bool HideCommentCountOnRecentPage { get; set; }
 
         [DisplayName("Disable comments after")]
         [DefaultValue(0)]
