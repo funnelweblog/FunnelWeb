@@ -34,11 +34,15 @@ namespace FunnelWeb.Model.Repositories.Internal
 
         public void Save(IEnumerable<Setting> settings)
         {
-            foreach (var setting in settings)
+            using (var transaction = session.BeginTransaction())
             {
-                session.SaveOrUpdate(setting);               
+                foreach (var setting in settings)
+                {
+                    session.SaveOrUpdate(setting);
+                }
+                transaction.Commit();
+                session.Flush();
             }
-            session.Flush();
         }
     }
 }
