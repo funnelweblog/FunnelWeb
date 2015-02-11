@@ -118,7 +118,7 @@ namespace FunnelWeb.Model
         [DataType("Tags")]
         public virtual IList<Tag> Tags { get; set; }
 
-        [DisplayName("Page Template")]
+        [DisplayName("Page template")]
         [StringLength(20)]
         [Description("This will change how your page looks.")]
         [RegularExpression("[a-zA-Z0-9\\-]+", ErrorMessage = "Page templates can only include lowercase alpha characters, numbers and dashes")]
@@ -126,7 +126,7 @@ namespace FunnelWeb.Model
         public virtual string PageTemplate { get; set; }
 
 
-        [DisplayName("Disable Comments")]
+        [DisplayName("Disable comments")]
         [Description("If checked, users will not be able to post comments on this page")]
         public virtual bool DisableComments
         {
@@ -136,7 +136,7 @@ namespace FunnelWeb.Model
 
         public virtual bool IsDiscussionEnabled { get; set; }
 
-        [DisplayName("Meta-Title")]
+        [DisplayName("Meta-title")]
         [StringLength(255)]
         [Description("This appears at the top of the browser tab and is used by search engines.")]
         [HintSize(HintSize.Medium)]
@@ -177,6 +177,7 @@ namespace FunnelWeb.Model
             }
         }
 
+        [DisplayName("Selected tags")]
         [Description("Comma-separated tags that will appear in the &lt;meta&gt; tags of the page.")]
         [HintSize(HintSize.Large)]
         [DataType("Tags")]
