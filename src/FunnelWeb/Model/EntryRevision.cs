@@ -60,7 +60,7 @@ namespace FunnelWeb.Model
         [DisplayName("Change summary")]
         [StringLength(300)]
         [Description("A brief overview of what was changed and why. This will appear on the page history.")]
-        [HintSize(HintSize.Large)]
+        [HintSize(HintSize.Scaled)]
         public string ChangeSummary { get; set; }
 
         public virtual bool IsPriorVersion 
@@ -76,20 +76,20 @@ namespace FunnelWeb.Model
         [EnforcedStringLength(200)] //StringLength throws a cast exception for PageName
         [Description("This will form the URL to your page.")]
         [RegularExpression("[a-z0-9\\-\\/]+", ErrorMessage = "Page names can only include lowercase alpha characters, numbers, dashes and forward slashes (/)")]
-        [HintSize(HintSize.Medium)]
+        [HintSize(HintSize.Scaled)]
         public virtual PageName Name { get; set; }
 
         [Required]
         [DisplayName("Title")]
         [StringLength(200)]
         [Description("This appears at the top of this page and on the home page.")]
-        [HintSize(HintSize.Medium)]
+        [HintSize(HintSize.Scaled)]
         public virtual string Title { get; set; }
 
         [DisplayName("Introduction")]
         [StringLength(1000)]
         [Description("An introduction that will appear at the top or right of the page. Use markdown or HTML.")]
-        [HintSize(HintSize.Large)]
+        [HintSize(HintSize.Scaled)]
         public virtual string Summary { get; set; }
         
         public virtual int CommentCount { get; set; }
@@ -97,7 +97,7 @@ namespace FunnelWeb.Model
         [DisplayName("Summary")]
         [StringLength(150)]
         [Description("A short description that will appear on the home page, and in the meta-description shown to search engines.")]
-        [HintSize(HintSize.Large)]
+        [HintSize(HintSize.Scaled)]
         public virtual string MetaDescription { get; set; }
 
         [Required]
@@ -139,7 +139,7 @@ namespace FunnelWeb.Model
         [DisplayName("Meta-title")]
         [StringLength(255)]
         [Description("This appears at the top of the browser tab and is used by search engines.")]
-        [HintSize(HintSize.Medium)]
+        [HintSize(HintSize.Scaled)]
         public virtual string MetaTitle { get; set; }
 
         [DisplayName("Hide chrome")]
@@ -163,7 +163,7 @@ namespace FunnelWeb.Model
         [DisplayName("Tags")]
         [StringLength(100)]
         [Description("Comma-separated tags that will appear in the &lt;meta&gt; tags of the page.")]
-        [HintSize(HintSize.Large)]
+        [HintSize(HintSize.Scaled)]
         [DataType("TagsList")]
         public virtual string TagsCommaSeparated
         {
@@ -179,7 +179,7 @@ namespace FunnelWeb.Model
 
         [DisplayName("Selected tags")]
         [Description("Comma-separated tags that will appear in the &lt;meta&gt; tags of the page.")]
-        [HintSize(HintSize.Large)]
+        [HintSize(HintSize.Scaled)]
         [DataType("Tags")]
         public virtual IEnumerable<Tag> SelectedTags
         {

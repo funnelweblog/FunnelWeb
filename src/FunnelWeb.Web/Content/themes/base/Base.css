@@ -443,6 +443,7 @@ input, textarea
 	padding: 4px;
 	font-size: 100%;
 	width: auto;
+    float: left;
 }
 textarea
 {
@@ -467,6 +468,12 @@ input.large
 {
 	width: 300px;
 }
+
+.scaled
+{
+	width: 100%;
+}
+
 #wmd-preview
 {
 	background-color: #E0EAF1;
@@ -1222,7 +1229,6 @@ a.tag
 #tags .tagLines
 {
 	overflow: hidden;
-	width: 332px;
 	background: white;
 	border: 1px solid #B9C1CA;
 	padding: 2px 5px 0 5px;
