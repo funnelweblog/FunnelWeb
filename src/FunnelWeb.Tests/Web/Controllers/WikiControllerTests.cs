@@ -21,7 +21,7 @@ namespace FunnelWeb.Tests.Web.Controllers
 		[SetUp]
 		public void SetUp()
 		{
-			Controller = new WikiController
+            Controller = new WikiController(SettingsProvider)
 											 {
 												 Repository = Repository,
 												 SpamChecker = Substitute.For<ISpamChecker>(),
