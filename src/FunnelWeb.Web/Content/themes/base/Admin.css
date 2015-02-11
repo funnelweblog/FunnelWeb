@@ -335,3 +335,7 @@ footer
 {
     background: #fdd0d0;
 }
+
+input[type="radio"]+span {
+    float: left;
+}

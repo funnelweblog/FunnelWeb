@@ -125,8 +125,9 @@
     @Html.LabelFor(m => m.Format)
   </div>
   <div class="editor-field">
-    @Html.RadioButtonFor(m => m.Format, @FunnelWeb.Model.Formats.Markdown) Markdown
-    @Html.RadioButtonFor(m => m.Format, @FunnelWeb.Model.Formats.Html) HTML
+    @Html.RadioButtonFor(m => m.Format, @FunnelWeb.Model.Formats.Markdown)<span>Markdown</span>
+    @Html.RadioButtonFor(m => m.Format, @FunnelWeb.Model.Formats.Html)<span>HTML</span>
+      <br />
     @Html.ValidationMessageFor(m => m.Format)
     @Html.HintFor(m => m.Format)
     <span class="hint">You may find <a href="http://milianw.de/projects/markdownify/">Markdownify</a> useful for converting between formats.</span>
