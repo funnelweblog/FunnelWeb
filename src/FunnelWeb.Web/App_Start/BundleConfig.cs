@@ -20,11 +20,16 @@ namespace FunnelWeb.Web.App_Start
 
             bundles.Add(new ScriptBundle("~/bundles/disqus-count").Include("~/Scripts/disqus-count.js"));
             bundles.Add(new ScriptBundle("~/bundles/jsdate").Include("~/Scripts/jsdate.js"));
-            bundles.Add(new ScriptBundle("~/bundles/showdown").Include("~/Scripts/showdown.js"));
+            
+            // Get the latest version from here: https://code.google.com/p/pagedown/source/browse/
+            bundles.Add(new ScriptBundle("~/bundles/pagedown").Include(
+                        "~/Scripts/Markdown.Converter.js",
+                        "~/Scripts/Markdown.Editor.js",
+                        "~/Scripts/Markdown.Sanitizer.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/taggy").Include("~/Scripts/taggy.js"));
             bundles.Add(new       Bundle("~/bundles/prettify").Include("~/Scripts/Prettify/prettify.js", "~/Scripts/Prettify/lang-*"));
             bundles.Add(new ScriptBundle("~/bundles/site").Include("~/Scripts/site.js"));
-            bundles.Add(new ScriptBundle("~/bundles/wmd").Include("~/Scripts/wmd.js"));
             
             bundles.Add(new StyleBundle("~/Content/themes/base/baseCss").Include("~/Content/themes/base/Base.css"));
             bundles.Add(new StyleBundle("~/Content/themes/base/adminCss").Include("~/Content/themes/base/Base.css", "~/Content/themes/base/Admin.css"));

@@ -398,6 +398,9 @@
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jsdate.js" />
+    <Content Include="Scripts\Markdown.Converter.js" />
+    <Content Include="Scripts\Markdown.Editor.js" />
+    <Content Include="Scripts\Markdown.Sanitizer.js" />
     <Content Include="Scripts\Prettify\lang-apollo.js" />
     <Content Include="Scripts\Prettify\lang-clj.js" />
     <Content Include="Scripts\Prettify\lang-css.js" />
@@ -417,11 +420,8 @@
     <Content Include="Scripts\Prettify\lang-xq.js" />
     <Content Include="Scripts\Prettify\lang-yaml.js" />
     <Content Include="Scripts\Prettify\prettify.js" />
-    <Content Include="Scripts\showdown.js" />
-    <Content Include="Scripts\showdown.min.js" />
     <Content Include="Scripts\site.js" />
     <Content Include="Scripts\taggy.js" />
-    <Content Include="Scripts\wmd.js" />
     <Content Include="Themes\AaronPowell\Content\Styles\Theme.css" />
     <Content Include="Themes\Clean\Content\Styles\Theme.css" />
     <Content Include="Themes\Default\Content\Styles\Theme.css" />
