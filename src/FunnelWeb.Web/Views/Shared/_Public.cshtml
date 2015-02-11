@@ -95,15 +95,15 @@
 	@Scripts.Render("~/bundles/showdown")
 	@Scripts.Render("~/bundles/prettify")
 
-	@MiniProfiler.RenderIncludes()
-	@MvcHtmlString.Create(Html.Settings().HtmlFooter)
-	@if (IsSectionDefined("Scripts"))
- {
-		@RenderSection("Scripts")
- }
-	@if (IsSectionDefined("FedAuthScripts"))
- {
-		@RenderSection("FedAuthScripts")
- }
+    @*@MiniProfiler.RenderIncludes()*@
+    @MvcHtmlString.Create(Html.Settings().HtmlFooter)
+    @if (IsSectionDefined("Scripts"))
+    {
+        @RenderSection("Scripts")
+    }
+    @if (IsSectionDefined("FedAuthScripts"))
+    {
+        @RenderSection("FedAuthScripts")
+    }
 </body>
 </html>
