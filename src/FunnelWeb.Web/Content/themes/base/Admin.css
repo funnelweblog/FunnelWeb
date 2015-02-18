@@ -98,6 +98,10 @@ header nav ul li a:hover
 	background: #A0C390;
 }
 
+.post-line .revised .day
+{
+}
+
 .post-line .revised .month
 {
 }
@@ -179,7 +183,7 @@ pre
 	width: auto;
 	text-align: left;
 }
-.entry-date .month, .entry-date .year
+.entry-date .day, .entry-date .month, .entry-date .year
 {
 	font-size: 10pt;
 	font-family: Segoe UI, Arial, Verdana, sans-serif;

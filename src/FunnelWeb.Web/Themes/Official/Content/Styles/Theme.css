@@ -63,6 +63,11 @@ p
     font-family: Arial;
     font-weight: normal;
 }
+.entry-date span.day 
+{
+    font-size: 12pt;
+    font-weight: normal;
+}
 .entry-date span.month 
 {
     font-size: 12pt;

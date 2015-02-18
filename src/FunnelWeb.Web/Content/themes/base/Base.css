@@ -199,6 +199,10 @@ header div.search
 	padding: 2px;
 	text-align: center;
 }
+.post-line .revised .day
+{
+	font-size: 14pt;
+}
 .post-line .revised .month
 {
 	font-size: 14pt;
@@ -627,6 +631,10 @@ pre code
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
+}
+.entry-date .day
+{
+	font-size: 14pt;
 }
 .entry-date .month
 {
