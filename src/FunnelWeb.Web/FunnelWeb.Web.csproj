@@ -279,6 +279,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <EmbeddedResource Include="Application\MetaWeblog\wlwmanifest.xml" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\themes\Evolve\images\background.png" />
+    <Content Include="Content\themes\MattHamilton\images\Title.png" />
+    <Content Include="Content\themes\Official\images\header.png" />
+    <Content Include="Content\themes\Pastel\images\Bar.png" />
+    <Content Include="Content\themes\RainbowAfro\images\Bar.png" />
+    <Content Include="Content\themes\RainbowAfro\images\Header.jpg" />
+    <Content Include="Content\themes\twitter\images\Background.png" />
+    <Content Include="Content\themes\twitter\images\Bar.png" />
     <Content Include="Scripts\Account.js" />
     <Content Include="Areas\Admin\Scripts\Views\WikiAdmin\Edit.js" />
     <Content Include="Content\Images\Busy.gif" />
@@ -430,19 +438,11 @@
     <Content Include="Themes\AaronPowell\Content\Styles\Theme.css" />
     <Content Include="Themes\Clean\Content\Styles\Theme.css" />
     <Content Include="Themes\Default\Content\Styles\Theme.css" />
-    <Content Include="Themes\Evolve\Content\Images\background.png" />
     <Content Include="Themes\Evolve\Content\Styles\Theme.css" />
     <Content Include="Themes\MattHamilton\Content\Styles\Theme.css" />
-    <Content Include="Themes\MattHamilton\Content\Styles\Title.png" />
-    <Content Include="Themes\Official\Content\Images\header.png" />
     <Content Include="Themes\Official\Content\Styles\Theme.css" />
-    <Content Include="Themes\Pastel\Content\Styles\Bar.png" />
     <Content Include="Themes\Pastel\Content\Styles\Theme.css" />
-    <Content Include="Themes\RainbowAfro\Content\Styles\Bar.png" />
-    <Content Include="Themes\RainbowAfro\Content\Styles\Header.jpg" />
     <Content Include="Themes\RainbowAfro\Content\Styles\Theme.css" />
-    <Content Include="Themes\Twitter\Content\Styles\Background.png" />
-    <Content Include="Themes\Twitter\Content\Styles\Bar.png" />
     <Content Include="Themes\Twitter\Content\Styles\Theme.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -529,6 +529,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\Views\" />
+    <Folder Include="Themes\Official\Content\Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -82,7 +82,7 @@ h5
 {
     text-decoration: none;
     display: block;
-    background: transparent url(title.png) no-repeat scroll 0 0;
+    background: transparent url('themes/MattHamilton/images/title.png') no-repeat scroll 0 0;
     text-indent: -700em;
     margin-left: 0px;
     height: 80px;
@@ -186,6 +186,7 @@ h5
 {
     position: relative;
     top: -0.5em;
+    float: left;
 }
 
 .content h1 a
