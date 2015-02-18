@@ -1,6 +1,6 @@
 ﻿@model EntrySummary
 
-<div class='post-line @String.Join(" ", Html.CssKeywordsFor(Model))'>
+<article class='post-line @String.Join(" ", Html.CssKeywordsFor(Model))'>
 	@Html.DisplayFor(x => x.Published, new { @class = "revised" })
 	<div class='comments'>
 		@if (!Model.HideComments)
@@ -20,11 +20,18 @@
 		}
 	</div>
 	<div class='summary'>
-		<h2>@Html.ActionLink(Model.Title, "Page", "Wiki", new { page = Model.Name }, null)</h2>
+        <header>
+            <h2 class="post-title">@Html.ActionLink(Model.Title, "Page", "Wiki", new { page = Model.Name }, null)</h2>
+            <ul class="post-meta">
+                <li class="post-pubdate"><span class="icon-calendar icon-large"/></li>
+                <li class="post-comments"><span class="icon-comment icon-large"/></li>
+                <li class="post-tags"><span class="icon-tag icon-large"/></li>
+            </ul>
+        </header>
 		@if (!string.IsNullOrEmpty(Model.MetaDescription))
 		{
 			<p>@Html.RenderTrusted(Model.MetaDescription, Formats.Markdown)</p>
 		}
 		@Html.DisplayFor(x => Model.TagsCommaSeparated)
 	</div>
-</div>
+</article>

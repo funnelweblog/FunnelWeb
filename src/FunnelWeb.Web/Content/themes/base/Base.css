@@ -184,6 +184,16 @@ header div.search
     overflow: hidden;
     width: 100%;
 }
+.post-meta {
+    display: none;
+    overflow: hidden;
+    margin-left: 0;
+}
+.post-meta li {
+    float: left;
+    margin-right: 15px;
+    list-style: none;
+}
 .post-line .revised
 {
 	float: left;
