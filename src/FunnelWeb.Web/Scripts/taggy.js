@@ -1,4 +1,6 @@
-﻿/// <reference path="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.4.4-vsdoc.js" />
+﻿/// original file: https://code.google.com/r/ahmedovais-2/source/browse/src/FunnelWeb.Web/Content/Scripts/Site/taggy.js?spec=svne31178f3e7846ce616ed8c32dda9936dd59494d7&r=e31178f3e7846ce616ed8c32dda9936dd59494d7
+
+/// <reference path="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.4.4-vsdoc.js" />
 $(function () {
 
     var tagCache = {};
