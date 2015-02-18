@@ -185,15 +185,41 @@ header div.search
     width: 100%;
 }
 .post-meta {
-    display: none;
     overflow: hidden;
-    margin-left: 0;
+    margin: 5px 0 5px 0;
+    padding: 0;
 }
 .post-meta li {
     float: left;
     margin-right: 15px;
     list-style: none;
 }
+.post-meta .glyphicon {
+    font-size: 18px;
+    margin-right: 5px;
+}
+.post-meta .text {
+    margin-right: 5px;
+}
+header .post-meta .text {
+    display: none;
+}
+header .post-meta .post-tags {
+    display: none;
+}
+footer .post-meta .glyphicon {
+    display: none;
+}
+footer .post-meta .post-pubdate {
+    display: none;
+}
+footer .post-meta .post-author {
+    display: none;
+}
+footer .post-meta .post-comments {
+    display: none;
+}
+
 .post-line .revised
 {
 	float: left;
@@ -253,6 +279,7 @@ header div.search
 	border-bottom: 0;
 	margin: 5px 0 2px 0;
 	padding: 0;
+    max-width: 499px;
 }
 .post-line h2 a
 {
@@ -260,7 +287,8 @@ header div.search
 }
 .post-line .summary
 {
-	margin-left: 185px;
+	margin-left: 15px;
+    float: left;
 }
 .post-line p
 {

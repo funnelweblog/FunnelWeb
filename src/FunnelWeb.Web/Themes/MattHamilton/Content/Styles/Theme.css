@@ -20,7 +20,6 @@ a:hover
 
 span.tags
 {
-    display: block;
     margin: 10px 0;
 }
 
@@ -31,6 +30,7 @@ a.tag
     text-decoration: none;
     padding: 1px 4px;
     width: 60px;
+    margin-right: 3px;
 }
 
 a.tag:hover

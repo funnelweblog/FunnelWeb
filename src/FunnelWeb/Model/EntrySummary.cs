@@ -26,6 +26,8 @@ namespace FunnelWeb.Model
 		[DataType("PublishedDate")]
 		public DateTime Published { get; set; }
 
+        public string Author { get; set; }
+
 		public DateTime LastRevised { get; set; }
 
 		[DataType("TagsList")]

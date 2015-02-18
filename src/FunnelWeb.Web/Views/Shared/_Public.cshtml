@@ -18,7 +18,8 @@
 	<link href="@Html.Qualify(Html.ActionUrl("CommentFeed", "Feed", null))" type="application/atom+xml" rel="alternate" title="Comments Feed" />
 	<link title="RSD" href="@Html.Qualify(Href("~/rsd.xml"))" type="application/rsd+xml" rel="EditURI" />
 	<link rel="icon" type="image/png" href="@Url.Content("~/Content/Resources/favicon.png")" />
-	@Styles.Render("~/Content/themes/base/baseCss")
+	@Styles.Render("~/Content/bootstrap")
+    @Styles.Render("~/Content/themes/base/baseCss")
 	@Styles.Render("~/Content/themes/base/css")
 	<link href="@Html.Qualify(Href("~/content/theme.css"))" rel="stylesheet"/>
 	@RenderSection("Meta", required: false)

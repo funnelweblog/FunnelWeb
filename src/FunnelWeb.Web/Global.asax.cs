@@ -103,8 +103,8 @@ namespace FunnelWeb.Web
 
 			ControllerBuilder.Current.SetControllerFactory(new FunnelWebControllerFactory(container));
 
-			var federatedAuthenticationConfigurator = container.Resolve<IFederatedAuthenticationConfigurator>();
-			federatedAuthenticationConfigurator.InitiateFederatedAuthentication();
+            var federatedAuthenticationConfigurator = container.Resolve<IFederatedAuthenticationConfigurator>();
+            federatedAuthenticationConfigurator.InitiateFederatedAuthentication();
 		}
 
 		protected void Application_EndRequest()

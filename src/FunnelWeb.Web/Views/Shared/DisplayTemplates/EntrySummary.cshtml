@@ -23,15 +23,23 @@
         <header>
             <h2 class="post-title">@Html.ActionLink(Model.Title, "Page", "Wiki", new { page = Model.Name }, null)</h2>
             <ul class="post-meta">
-                <li class="post-pubdate"><span class="icon-calendar icon-large"/></li>
-                <li class="post-comments"><span class="icon-comment icon-large"/></li>
-                <li class="post-tags"><span class="icon-tag icon-large"/></li>
+                <li class="post-pubdate"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span><span class="text">Published:</span><span class="data">@Model.Published.ToString("yyyy-MM-dd")</span></li>
+                <li class="post-author"><span class="glyphicon glyphicon-user" aria-hidden="true"></span><span class="text">Author:</span><span class="data">@Model.Author</span></li>
+                <li class="post-comments"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span><span class="text">Comments:</span><span class="data">@Model.CommentCount</span></li>
+                <li class="post-tags"><span class="glyphicon glyphicon-tags" aria-hidden="true"></span><span class="text">Tags:</span><span class="data">@Html.DisplayFor(x => Model.TagsCommaSeparated)</span></li>
             </ul>
         </header>
 		@if (!string.IsNullOrEmpty(Model.MetaDescription))
 		{
 			<p>@Html.RenderTrusted(Model.MetaDescription, Formats.Markdown)</p>
 		}
-		@Html.DisplayFor(x => Model.TagsCommaSeparated)
+        <footer>
+            <ul class="post-meta">
+                <li class="post-pubdate"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span><span class="text">Published:</span><span class="data">@Model.Published.ToString("yyyy-MM-dd")</span></li>
+                <li class="post-author"><span class="glyphicon glyphicon-user" aria-hidden="true"></span><span class="text">Author:</span><span class="data">@Model.Author</span></li>
+                <li class="post-comments"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span><span class="text">Comments:</span><span class="data">@Model.CommentCount</span></li>
+                <li class="post-tags"><span class="glyphicon glyphicon-tags" aria-hidden="true"></span><span class="text">Tags:</span><span class="data">@Html.DisplayFor(x => Model.TagsCommaSeparated)</span></li>
+            </ul>
+        </footer>
 	</div>
 </article>

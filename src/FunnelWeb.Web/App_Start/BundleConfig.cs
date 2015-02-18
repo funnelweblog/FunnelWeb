@@ -8,6 +8,8 @@ namespace FunnelWeb.Web.App_Start
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725
         public static void RegisterBundles(BundleCollection bundles)
         {
+            /* SCRIPTS */
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -30,7 +32,11 @@ namespace FunnelWeb.Web.App_Start
             bundles.Add(new ScriptBundle("~/bundles/taggy").Include("~/Scripts/taggy.js"));
             bundles.Add(new       Bundle("~/bundles/prettify").Include("~/Scripts/Prettify/prettify.js", "~/Scripts/Prettify/lang-*"));
             bundles.Add(new ScriptBundle("~/bundles/site").Include("~/Scripts/site.js"));
-            
+
+            /* STYLES */
+            bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
+                        "~/Content/bootstrap/glyphicons.css"));
+
             bundles.Add(new StyleBundle("~/Content/themes/base/baseCss").Include("~/Content/themes/base/Base.css"));
             bundles.Add(new StyleBundle("~/Content/themes/base/adminCss").Include("~/Content/themes/base/Base.css", "~/Content/themes/base/Admin.css"));
 

@@ -16,6 +16,7 @@ namespace FunnelWeb.Repositories.Projections
                                .Select(e => e.MetaDescription).WithAlias(() => entrySummaryAlias.MetaDescription)
                                .Select(e => e.Name).WithAlias(() => entrySummaryAlias.Name)
                                .Select(e => e.Published).WithAlias(() => entrySummaryAlias.Published)
+                               .Select(e => e.Author).WithAlias(() => entrySummaryAlias.Author)
                                .Select(e => e.Summary).WithAlias(() => entrySummaryAlias.Summary)
                                .Select(e => e.Title).WithAlias(() => entrySummaryAlias.Title)
                                .Select(e=>e.Status).WithAlias(()=>entrySummaryAlias.Status)

@@ -278,6 +278,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <EmbeddedResource Include="Application\MetaWeblog\wlwmanifest.xml" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\Account.js" />
     <Content Include="Areas\Admin\Scripts\Views\WikiAdmin\Edit.js" />
     <Content Include="Content\Images\Busy.gif" />
@@ -388,6 +389,10 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\disqus-count.js" />
     <Content Include="Areas\Admin\Views\Admin\AcsSettings.cshtml" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\bootstrap\glyphicons.css" />
     <None Include="Properties\PublishProfiles\magnusmartenssoncomdev.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
