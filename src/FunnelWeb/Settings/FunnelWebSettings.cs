@@ -211,6 +211,12 @@ namespace FunnelWeb.Settings
         [SettingStorage(StorageLocation.Database, "disqus-shortname")]
         public string DisqusShortname { get; set; }
 
+        [DisplayName("API Key for Disqus")]
+        [DefaultValue("")]
+        [Description("The API key of your Disqus comments, configured on the Disqus website. (Get one at https://disqus.com/api/applications/)")]
+        [SettingStorage(StorageLocation.Database, "disqus-apikey")]
+        public string DisqusAPIKey { get; set; }
+
         [DisplayName("Blob Storage Connection String")]
         [Description("The connection string to use for blob storage.")]
         [SettingStorage(StorageLocation.Database, "blob-storage-connection-string")]

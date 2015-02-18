@@ -58,5 +58,26 @@
     {
         @RenderSection("Scripts")
     }
+    
+    @if (Html.Settings().EnableDisqusCommenting)
+    {
+        <script type="text/javascript">
+            $(function () {
+                $("[data-disqus-identifier]").each(function (index, element) {
+                    $.ajax({
+                        type: 'GET',
+                        url: "https://disqus.com/api/3.0/threads/listPosts.json",
+                        data: { api_key: '@Html.Settings().DisqusAPIKey', forum: '@Html.Settings().DisqusShortname', thread: 'ident:' + $(element).attr("data-disqus-identifier") },
+                        cache: false,
+                        dataType: 'json',
+                        success: function (result) {
+                            element.innerHTML = result.response.length;
+                        }
+                    });
+                });
+            });
+        </script>
+    }
+
 </body>
 </html>
