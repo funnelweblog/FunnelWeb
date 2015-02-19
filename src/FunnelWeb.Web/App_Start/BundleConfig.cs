@@ -1,5 +1,8 @@
 ﻿using System.Web.Optimization;
 using FunnelWeb.Web.Application.Mvc;
+using System.Collections.Generic;
+using System.IO;
+using System.Web;
 
 namespace FunnelWeb.Web.App_Start
 {
@@ -27,25 +30,53 @@ namespace FunnelWeb.Web.App_Start
             bundles.Add(new ScriptBundle("~/bundles/site").Include("~/Scripts/site.js"));
 
             /* STYLES */
-            bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
-                        "~/Content/bootstrap/glyphicons.css"));
+            bundles.Add(new StyleBundle("~/Content/bootstrap").Include("~/Content/bootstrap/glyphicons.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/baseCss").Include("~/Content/themes/base/Base.css"));
             bundles.Add(new StyleBundle("~/Content/themes/base/adminCss").Include("~/Content/themes/base/Base.css", "~/Content/themes/base/Admin.css"));
 
-            bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
-                        "~/Content/themes/base/jquery.ui.core.css",
-                        "~/Content/themes/base/jquery.ui.resizable.css",
-                        "~/Content/themes/base/jquery.ui.selectable.css",
-                        "~/Content/themes/base/jquery.ui.accordion.css",
-                        "~/Content/themes/base/jquery.ui.autocomplete.css",
-                        "~/Content/themes/base/jquery.ui.button.css",
-                        "~/Content/themes/base/jquery.ui.dialog.css",
-                        "~/Content/themes/base/jquery.ui.slider.css",
-                        "~/Content/themes/base/jquery.ui.tabs.css",
-                        "~/Content/themes/base/jquery.ui.datepicker.css",
-                        "~/Content/themes/base/jquery.ui.progressbar.css",
-                        "~/Content/themes/base/jquery.ui.theme.css"));
+            /* THEME STYLES */
+            FunnelWeb.Web.Application.Themes.ThemeProvider tp = new Application.Themes.ThemeProvider();
+            string[] themes = tp.GetThemes();
+
+            List<string> cssFiles = new List<string>();
+            foreach (string theme in themes)
+            {
+                cssFiles.Clear();
+                
+                string themePath = "~/Themes/" + theme + "/";
+                DirectoryInfo themeDir = new DirectoryInfo(HttpContext.Current.Server.MapPath(themePath));
+
+                if (File.Exists(themeDir.FullName + "\\Content\\Styles\\Theme.css"))
+                {
+                    /* FunnelWeb theme */
+                    cssFiles.Add(themePath + "\\Content\\Styles\\Theme.css");
+                }
+                else if (File.Exists(themeDir.FullName + "\\bootstrap.css"))
+                {
+                    /* Bootstrap theme */
+                    cssFiles.Add(themePath + "bootstrap.css");
+                }
+                else if (File.Exists(themeDir.FullName + "\\style.css"))
+                {
+                    /* WordPress theme */
+                    if (Directory.Exists(themeDir.FullName + "\\css"))
+                    {
+                        foreach (string cssFile in Directory.GetFiles(themeDir.FullName + "\\css"))
+                        {
+                            cssFiles.Add(themePath + "css/" + Path.GetFileName(cssFile));
+                        }
+                    }
+
+                    cssFiles.Add(themePath + "style.css");
+                    cssFiles.Add(themePath + "editor-style.css");
+                }
+
+                if (cssFiles.Count > 0)
+                {
+                    bundles.Add(new StyleBundle("~/Themes/"+theme).Include(cssFiles.ToArray()));
+                }
+            }
 
             ViewBundleRegistrar.RegisterViewBundles(bundles);
         }

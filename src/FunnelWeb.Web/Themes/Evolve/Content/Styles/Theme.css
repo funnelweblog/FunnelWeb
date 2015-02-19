@@ -1,6 +1,6 @@
 ﻿body
 {
-	background: #cdcdcd url('themes/Evolve/images/background.png') repeat-x scroll top left;
+	background: #cdcdcd url('../Images/background.png') repeat-x scroll top left;
 	font-size: 62.5%;
 }
 

@@ -8,8 +8,7 @@
     <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/Content/bootstrap")
     @Styles.Render("~/Content/themes/base/baseCss")
-    @Styles.Render("~/Content/themes/base/css")
-    <link href="@Html.Qualify(Href("~/content/theme.css"))" rel="stylesheet"/> 
+    @Styles.Render("~/Themes/" + @Html.Settings().Theme)
     @RenderSection("Meta", required: false)
     @MvcHtmlString.Create(Html.Settings().HtmlHead)
 </head>

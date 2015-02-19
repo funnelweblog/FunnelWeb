@@ -4,7 +4,7 @@
     font-family: Segoe UI;
     color: #111;
     max-width: none;
-    background: #ddd5b1 url('themes/Official/images/header.png') repeat-x;
+    background: #ddd5b1 url('../Images/header.png') repeat-x;
 }
 
 .body

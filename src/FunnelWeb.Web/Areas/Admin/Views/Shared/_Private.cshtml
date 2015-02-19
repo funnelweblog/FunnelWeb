@@ -11,7 +11,7 @@
     </title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     @Styles.Render("~/Content/themes/base/adminCss")
-    @Styles.Render("~/Content/themes/base/css")
+    @Styles.Render("~/Themes/" + @Html.Settings().Theme)
     @Scripts.Render("~/bundles/jquery")
     
     @RenderSection("Meta", required: false)
