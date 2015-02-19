@@ -6,7 +6,8 @@ using FunnelWeb.Model;
 using FunnelWeb.Settings;
 using FunnelWeb.Utilities;
 using Microsoft.WindowsAzure;
-using Microsoft.WindowsAzure.StorageClient;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace FunnelWeb.Providers.File
 {
@@ -73,7 +74,7 @@ namespace FunnelWeb.Providers.File
 
 					var containerReference = Client.GetContainerReference(ContainerName);
 
-					containerReference.CreateIfNotExist();
+					containerReference.CreateIfNotExists();
 					containerReference.SetPermissions(new BlobContainerPermissions
 					{
 						PublicAccess = BlobContainerPublicAccessType.Blob
@@ -101,14 +102,14 @@ namespace FunnelWeb.Providers.File
 
 		public override bool IsFile(string path)
 		{
-			var reference = Container.GetBlobReference(path);
+			var reference = Container.GetBlobReferenceFromServer(path);
 			try
 			{
 				//Uses a HEAD request, so this won't use a transaction
 				reference.FetchAttributes();
 
 			}
-			catch (StorageClientException)
+			catch (StorageException)
 			{
 				return false;
 			}
@@ -125,7 +126,7 @@ namespace FunnelWeb.Providers.File
 			return listBlobItems
 					.OfType<CloudBlobDirectory>()
 					.Select(ToFileItem)
-					.Union(listBlobItems.OfType<CloudBlob>().Select(ToFileItem))
+                    .Union(listBlobItems.OfType<CloudBlobContainer>().Select(ToFileItem))
 					.ToArray();
 		}
 
@@ -146,7 +147,7 @@ namespace FunnelWeb.Providers.File
 								 };
 		}
 
-		private FileItem ToFileItem(CloudBlob blob)
+        private FileItem ToFileItem(CloudBlobContainer blob)
 		{
 			var extension = Path.GetExtension(blob.Name);
 
@@ -157,9 +158,10 @@ namespace FunnelWeb.Providers.File
 									 Name = Path.GetFileName(blob.Name),
 									 Path = blob.Uri.ToString().Replace(baseUrl, string.Empty),
 									 IsPathAbsolute = false,
-									 FileSize = blob.Properties.Length.ToFileSizeString(),
+                                     FileSize = "N/A", 
+                                     //blob.Properties.Length.ToFileSizeString(),
 									 Image = GetImage(blob.Name, extension),
-									 Modified = blob.Properties.LastModifiedUtc.ToLocalTime().ToString("dd-MMM-yyyy")
+									 Modified = blob.Properties.LastModified.Value.ToLocalTime().ToString("dd-MMM-yyyy")
 								 };
 		}
 
@@ -170,17 +172,17 @@ namespace FunnelWeb.Providers.File
 
 		public override void Delete(string filePath)
 		{
-			var blob = Container.GetBlobReference(filePath);
+			var blob = Container.GetBlobReferenceFromServer(filePath);
 			try
 			{
 				blob.Delete();
 			}
-			catch (StorageClientException)
+			catch (StorageException)
 			{
 				//File doesn't exist, might be a folder
 				var dir = Container.GetDirectoryReference(filePath);
 				// If it isn't a directory this will simply be an empty list
-				foreach (var childBlob in dir.ListBlobs().OfType<CloudBlob>())
+                foreach (var childBlob in dir.ListBlobs().OfType<CloudBlobContainer>())
 				{
 					childBlob.Delete();
 				}
@@ -190,7 +192,7 @@ namespace FunnelWeb.Providers.File
 		public override void CreateDirectory(string path, string name)
 		{
 			var dir = Container.GetDirectoryReference(Path.Combine(path, name).Trim('/'));
-			var placeholderFile = dir.GetBlobReference("Placeholder.txt");
+			var placeholderFile = dir.GetBlockBlobReference("Placeholder.txt");
 			placeholderFile.UploadText("Azure does not support directories without files, so this placeholder allows us to create one");
 		}
 
@@ -204,7 +206,7 @@ namespace FunnelWeb.Providers.File
 			}
 			else
 			{
-				var file = Container.GetBlobReference(fullPath);
+                var file = Container.GetBlockBlobReference(fullPath);
 				file.UploadFromStream(inputStream);
 			}
 		}
@@ -228,7 +230,7 @@ namespace FunnelWeb.Providers.File
 
 		public override ActionResult Render(string path)
 		{
-			string url = Container.GetBlobReference(path).Uri.ToString();
+            string url = Container.GetBlockBlobReference(path).Uri.ToString();
 			return new RedirectResult(url);
 		}
 	}

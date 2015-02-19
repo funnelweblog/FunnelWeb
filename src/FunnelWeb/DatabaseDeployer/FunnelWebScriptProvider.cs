@@ -26,7 +26,7 @@ namespace FunnelWeb.DatabaseDeployer
         /// Gets all scripts that should be executed. 
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<SqlScript> GetScripts(Func<IDbConnection> connectionFactory)
+        public IEnumerable<SqlScript> GetScripts(DbUp.Engine.Transactions.IConnectionManager connectionManager)
         {
             var providerRegex = new Regex(@"_(?<Provider>.*?)\.");
             return assembly

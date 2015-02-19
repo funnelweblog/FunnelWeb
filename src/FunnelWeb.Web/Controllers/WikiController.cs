@@ -61,8 +61,13 @@ namespace FunnelWeb.Web.Controllers
 		{
 			bool hideCommentCount = settingsProvider.GetSettings<FunnelWebSettings>().HideCommentCountOnRecentPage;
 			var result = Repository.Find(new GetEntriesQuery(EntryStatus.PublicBlog), pageNumber, ItemsPerPage);
-			result.ForEach(es => es.HideComments = hideCommentCount);
-			ViewData.Model = new RecentModel("Recent Posts", result, ControllerContext.RouteData.Values["action"].ToString());
+            
+            foreach (EntrySummary es in result)
+            {
+                es.HideComments = hideCommentCount;
+            }
+			
+            ViewData.Model = new RecentModel("Recent Posts", result, ControllerContext.RouteData.Values["action"].ToString());
 			return View("Recent");
 		}
 
