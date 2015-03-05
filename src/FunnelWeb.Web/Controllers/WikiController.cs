@@ -59,14 +59,8 @@ namespace FunnelWeb.Web.Controllers
 
 		public ActionResult Recent(int pageNumber)
 		{
-			bool hideCommentCount = settingsProvider.GetSettings<FunnelWebSettings>().HideCommentCountOnRecentPage;
 			var result = Repository.Find(new GetEntriesQuery(EntryStatus.PublicBlog), pageNumber, ItemsPerPage);
-            
-            foreach (EntrySummary es in result)
-            {
-                es.HideComments = hideCommentCount;
-            }
-			
+            			
             ViewData.Model = new RecentModel("Recent Posts", result, ControllerContext.RouteData.Values["action"].ToString());
 			return View("Recent");
 		}
@@ -120,51 +114,51 @@ namespace FunnelWeb.Web.Controllers
 		}
 
 		// Posting a comment
-		[HttpPost]
-		public ActionResult Page(PageName page, PageModel model)
-		{
-			var entry = Repository.FindFirstOrDefault(new EntryByNameQuery(page));
-			if (entry == null)
-				return RedirectToAction("Recent");
+        [HttpPost]
+        public ActionResult Page(PageName page, PageModel model)
+        {
+            var entry = Repository.FindFirstOrDefault(new EntryByNameQuery(page));
+            if (entry == null)
+                return RedirectToAction("Recent");
 
-			if (!ModelState.IsValid)
-			{
-				model.Entry = entry;
-				model.Page = page;
-				ViewData.Model = model;
-				return new PageTemplateActionResult(entry.PageTemplate, "Page");
-			}
+            if (!ModelState.IsValid)
+            {
+                model.Entry = entry;
+                model.Page = page;
+                ViewData.Model = model;
+                return new PageTemplateActionResult(entry.PageTemplate, "Page");
+            }
 
-			var comment = entry.Entry.Value.Comment();
-			comment.AuthorEmail = model.CommenterEmail ?? string.Empty;
-			comment.AuthorName = model.CommenterName ?? string.Empty;
-			comment.AuthorUrl = model.CommenterBlog ?? string.Empty;
-			comment.AuthorIp = Request.UserHostAddress;
-			comment.EntryRevisionNumber = entry.LatestRevisionNumber;
-			comment.Body = model.Comments;
+            var comment = entry.Entry.Value.Comment();
+            comment.AuthorEmail = model.CommenterEmail ?? string.Empty;
+            comment.AuthorName = model.CommenterName ?? string.Empty;
+            comment.AuthorUrl = model.CommenterBlog ?? string.Empty;
+            comment.AuthorIp = Request.UserHostAddress;
+            comment.EntryRevisionNumber = entry.LatestRevisionNumber;
+            comment.Body = model.Comments;
 
-			try
-			{
-				SpamChecker.Verify(comment);
-			}
-			catch (Exception ex)
-			{
-				HttpContext.Trace.Warn("Akismet is offline, comment cannot be validated: " + ex);
-			}
+            try
+            {
+                SpamChecker.Verify(comment);
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Trace.Warn("Akismet is offline, comment cannot be validated: " + ex);
+            }
 
-			// Anything posted after the disable date is considered spam (the comment box shouldn't be visible anyway)
-			var settings = SettingsProvider.GetSettings<FunnelWebSettings>();
-			if (settings.DisableCommentsOlderThan > 0 && DateTime.UtcNow.AddDays(settings.DisableCommentsOlderThan) > entry.Published)
-			{
-				comment.IsSpam = true;
-				entry.Entry.Value.CommentCount = entry.Entry.Value.Comments.Count(c => !c.IsSpam);
-			}
+            // Anything posted after the disable date is considered spam (the comment box shouldn't be visible anyway)
+            var settings = SettingsProvider.GetSettings<FunnelWebSettings>();
+            if (settings.DisableCommentsOlderThan > 0 && DateTime.UtcNow.AddDays(settings.DisableCommentsOlderThan) > entry.Published)
+            {
+                comment.IsSpam = true;
+                entry.Entry.Value.CommentCount = entry.Entry.Value.Comments.Count(c => !c.IsSpam);
+            }
 
-			EventPublisher.Publish(new CommentPostedEvent(entry.Entry.Value, comment));
+            EventPublisher.Publish(new CommentPostedEvent(entry.Entry.Value, comment));
 
-			return RedirectToAction("Page", new { page })
-					.AndFlash("Thanks, your comment has been posted.");
-		}
+            return RedirectToAction("Page", new { page })
+                    .AndFlash("Thanks, your comment has been posted.");
+        }
 
 		public ActionResult Revisions(PageName page)
 		{

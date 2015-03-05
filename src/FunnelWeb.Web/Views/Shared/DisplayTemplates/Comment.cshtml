@@ -1,22 +1,23 @@
 ﻿@model Comment
 
-<div class="comment">
-    <a name="comment-@Model.Id"></a>
-    <div class="comment-author vcard">
-        <img class="gravatar photo" src="@Html.Gravatar(Model.AuthorEmail)" alt="@Html.Encode(Model.AuthorName)" />
-        <br />
-        @Html.UrlLink(Model.AuthorUrl, Model.AuthorName, "fn url")
-    </div>
-    <div class="comment-body">
-        <div class="comment-date">@Html.Date(Model.Posted)
-            @Html.CommentedAtRevision(Model, (EntryRevision)ViewBag.Entry)
-            @if (User.Identity.IsAuthenticated)
-            {
-                @Html.ActionLink(Model.IsSpam ? "Unspam" : "Spam", "ToggleSpam", "Admin", new { Area = "Admin", id = Model.Id }, null)
-            }
-        </div>
-        @Html.RenderUntrusted(Model.Body, Formats.Markdown)
-    </div>
-    <div class="clear">
-    </div>
-</div>
+<li class="comment even thread-even depth-1" id="li-comment-@Model.Id">
+    <article id="comment-@Model.Id" class="comment">
+        <header class="comment-meta comment-author vcard">
+            <img class="avatar avatar-44 photo avatar-default" src="@Html.Gravatar(Model.AuthorEmail)?s=44" alt="@Html.Encode(Model.AuthorName)" width="44" height="44" />
+            <cite class="fn"><a href="@Model.AuthorUrl" rel="external nofollow" class="url">@Model.AuthorName</a></cite>
+            <a href="@Request.Url.AbsoluteUri?comment-@Model.Id" title="Posted @Model.Posted.ToString("MMMM dd, yyyy @ HH:mm")">
+                <time itemprop="datePublished" datetime="@Model.Posted.ToString("yyyy-MM-ddTHH:mm:ssK")">@Model.Posted.ToString("MMMM dd, yyyy @ HH:mm")</time>
+            </a>
+        </header>
+        <section class="comment-content comment">
+            <div class="comment-date">
+                @Html.CommentedAtRevision(Model, (EntryRevision)ViewBag.Model)
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @Html.ActionLink(Model.IsSpam ? "Unspam" : "Spam", "ToggleSpam", "Admin", new { Area = "Admin", id = Model.Id }, null)
+                }
+            </div>
+            @Html.RenderUntrusted(Model.Body, Formats.Markdown)
+        </section>
+    </article>
+</li>

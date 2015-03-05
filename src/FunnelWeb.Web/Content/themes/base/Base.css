@@ -7,13 +7,6 @@ body, div, span, p, a, img, table, th, tr, td, form, fieldset, legend, dl, dt, d
 }
 body
 {
-	background: #fff;
-	color: #333;
-	font: 80% "Segoe UI" , Sans-Serif;
-	margin: 20px;
-	padding: 0;
-	max-width: 950px;
-	margin: 0 auto;
 }
 a
 {
@@ -22,7 +15,6 @@ a
 
 a.new-window
 {
-	background: transparent url('../../Images/external.png') no-repeat scroll right center;
 	padding: 0 13px 0 0;
 }
 p
@@ -34,7 +26,6 @@ h1, h2, h3, h4, h5, h6
 {
 	margin: 15px 0 10px 0;
 	font-weight: bold;
-	font-family: "Trebuchet MS";
 }
 h1
 {
@@ -63,7 +54,6 @@ h5
 
 header
 {
-	font-weight: bold;
 	padding: 3px;
 	width: 100%;
     overflow: hidden;
@@ -79,17 +69,11 @@ header a.logo
 
 /* Navigation */
 
-header > div {
-    float: right;
-}
-
 header nav
 {
     overflow: hidden;
     width: 100%;
 	margin-bottom: 10px;
-	font-family: "Trebuchet MS";
-	text-align: right;
 }
 header nav ul
 {
@@ -101,13 +85,11 @@ header nav ul
 }
 header nav ul li
 {
-	font-weight: bold;
-	font-size: 12pt;
 	display: block;
 	float: left;
 	margin: 0;
 	padding: 0;
-	margin-right: 0px;
+	margin-right: 0;
 	margin-top: 5px;
 }
 header nav ul li a
@@ -172,17 +154,6 @@ header div.search
 	float: left;
 	width: 680px;
 	margin-bottom: 20px;
-}
-.post-line
-{
-	display: block;
-	border-bottom: 1px dotted #999;
-	color: #777;
-	min-height: 70px;
-	padding-top: 7px;
-	padding-bottom: 7px;
-    overflow: hidden;
-    width: 100%;
 }
 .post-meta {
     overflow: hidden;
@@ -273,20 +244,9 @@ footer .post-meta .post-comments {
 	color: #555;
 	text-decoration: none;
 }
-.post-list .post-line h2
-{
-	border-bottom: 0;
-	margin: 5px 0 2px 0;
-	padding: 0;
-    max-width: 499px;
-}
 .post-line h2 a
 {
 	color: #555;
-}
-.post-line .summary
-{
-	margin-left: 15px;
 }
 .post-line p
 {
@@ -343,18 +303,7 @@ footer .post-meta .post-comments {
 .comment .comment-author
 {
 	float: left;
-	background: #E4E4E4;
-	width: 76px;
 	padding: 2px;
-	font-weight: bold;
-	color: #555;
-	text-align: center;
-	margin-top: 00px;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	border-radius: 5px;
 }
 .comment .comment-author .fn
 {
@@ -369,20 +318,6 @@ footer .post-meta .post-comments {
 {
 	margin-top: 20px;
 	max-width: 700px;
-}
-.form-body .editor-label
-{
-	float: left;
-	font-weight: bold;
-	padding-top: 6px;
-	display: inline-block;
-	width: 120px;
-}
-.form-body .editor-field
-{
-	margin-left: 140px;
-	margin-bottom: 10px;
-	min-height: 30px;
 }
 .form-body span.hint
 {
@@ -428,7 +363,6 @@ th
 th, td
 {
 	padding: 3px 20px 3px 7px;
-	border: 1px solid #d1d1d1;
 }
 td.numeric
 {
@@ -459,61 +393,7 @@ td.firstcolumn
 	font-size: 120%;
 }
 
-/* Definitions */
-
-dl
-{
-	margin: 15px 0;
-}
-dt
-{
-	font-weight: bold;
-}
-dd
-{
-	margin-left: 30px;
-}
-
 /* Input */
-input, textarea
-{
-	font-family: Consolas;
-	background: #EAECED;
-	border: 1px solid #cfcfcf;
-	padding: 4px;
-	font-size: 100%;
-	width: auto;
-    float: left;
-}
-textarea
-{
-	width: 500px;
-}
-input:focus, textarea:focus
-{
-	background: #EAECED;
-	border: 1px solid #8f8f8f;
-	padding: 4px;
-	font-size: 100%;
-}
-input.small
-{
-	width: 50px;
-}
-input.medium
-{
-	width: 200px;
-}
-input.large
-{
-	width: 300px;
-}
-
-.scaled
-{
-	width: 100%;
-}
-
 #wmd-preview
 {
 	background-color: #E0EAF1;
@@ -523,59 +403,6 @@ input.large
 	padding: 3px;
 	padding-left: 15px;
 	padding-left: 15px;
-}
-
-/* vCard */
-
-.vcard
-{
-	padding: 10px;
-	border: 1px solid #d1d1d1;
-	background: #e8e9ec;
-	width: 400px;
-}
-
-.vcard .fn
-{
-	font-size: 160%;
-	font-weight: normal;
-	border-bottom: 1px solid #888;
-	margin: 0 0 2px 0;
-	padding: 0 0 2px 0;
-}
-
-.vcard .vcard-in
-{
-	background: url('../../Images/hCard.png') no-repeat right top;
-	padding-left: 90px;
-}
-
-.vcard ul, .vcard ul li
-{
-	margin: 0;
-	padding: 0;
-	list-style-type: none;
-}
-
-.vcard ul span, .vcard ul a
-{
-	font-weight: bold;
-}
-.vcard ul label
-{
-	font-weight: normal;
-	width: 60px;
-	display: inline-block;
-	text-align: left;
-}
-.entry .vcard img.photo
-{
-	float: left;
-	border: 1px solid #d1d1d1;
-	padding: 3px;
-	margin: 3px;
-	background: #ffffff;
-	vertical-align: middle;
 }
 
 /* Misc formatting */
@@ -615,70 +442,15 @@ code, kbd, samp
 pre
 {
 	padding: 7px 12px;
-	margin: 10px 0px 10px 0px;
+	margin: 10px 0 10px 0;
 	font-family: Consolas;
 	width: auto;
 	overflow: auto;
-	max-height: 500px;
 }
 pre code
 {
 	font-weight: normal;
 	font-family: Consolas;
-}
-.entry h1
-{
-	font-size: 17pt;
-}
-.entry h2
-{
-	font-size: 17pt;
-}
-.entry h3
-{
-	font-size: 15pt;
-}
-.entry h4
-{
-	font-size: 14pt;
-}
-.entry h1, .entry h2, .entry h3, .entry h4, .entry h5, .entry h6
-{
-	border: 0;
-}
-.entry
-{
-}
-.entry img
-{
-	margin-left: 30px;
-}
-.entry-date
-{
-	float: left;
-	width: 80px;
-	font-weight: bold;
-	color: #fff;
-	text-align: center;
-	margin-top: 10px;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	font-family: "Trebuchet MS" , Sans-Serif;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	border-radius: 5px;
-}
-.entry-date .day
-{
-	font-size: 14pt;
-}
-.entry-date .month
-{
-	font-size: 14pt;
-}
-.entry-date .year
-{
-	font-size: 11pt;
 }
 .entry-tools
 {
@@ -686,11 +458,6 @@ pre code
 	padding: 5px 5px 5px 5px;
 	font-weight: bold;
 	color: #555;
-}
-.entry-container
-{
-	margin-left: 90px;
-    margin-right: 230px;
 }
 .entry-tools span
 {
@@ -848,7 +615,6 @@ footer
 	color: #898989;
 	line-height: 23px;
 	margin: 10px 0 30px 0;
-	text-align: center;
 }
 footer a
 {
@@ -1359,7 +1125,13 @@ a.tag
 .clear 
 {
 	clear:both;
-	height:0px;
-	margin:0px;
-	width:0px;
+	height:0;
+	margin:0;
+	width:0;
+}
+
+.requiredasterix:after 
+{
+    content: "*";
+    color: #bb0504; 
 }

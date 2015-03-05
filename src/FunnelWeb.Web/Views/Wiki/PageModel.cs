@@ -28,7 +28,7 @@ namespace FunnelWeb.Web.Views.Wiki
 		public string CommenterName { get; set; }
 
 		[StringLength(200)]
-		[DisplayName("Blog URL")]
+		[DisplayName("Website")]
 		[HintSize(HintSize.Medium)]
 		[ValidUrl(ErrorMessage = "Please enter a valid URL that starts with http:// or https://. Not required.")]
 		public string CommenterBlog { get; set; }

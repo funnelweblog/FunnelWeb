@@ -12,10 +12,8 @@ using NHibernate.Validator.Constraints;
 
 namespace FunnelWeb.Model
 {
-    public class EntryRevision
+    public class EntryRevision : EntryBase
     {
-        private string tagsString;
-
         public EntryRevision()
         {
             Title = string.Empty;
@@ -36,8 +34,6 @@ namespace FunnelWeb.Model
             Pingbacks = new List<Pingback>();
             Tags = new List<Tag>();
         }
-
-        public virtual int Id { get; set; }
 
         public virtual bool IsNew { get { return Id == 0; } }
 
@@ -72,35 +68,6 @@ namespace FunnelWeb.Model
         }
 
         [Required]
-        [DisplayName("SLUG")]
-        [EnforcedStringLength(200)] //StringLength throws a cast exception for PageName
-        [Description("This will form the URL to your page.")]
-        [RegularExpression("[a-z0-9\\-\\/]+", ErrorMessage = "Page names can only include lowercase alpha characters, numbers, dashes and forward slashes (/)")]
-        [HintSize(HintSize.Scaled)]
-        public virtual PageName Name { get; set; }
-
-        [Required]
-        [DisplayName("Title")]
-        [StringLength(200)]
-        [Description("This appears at the top of this page and on the home page.")]
-        [HintSize(HintSize.Scaled)]
-        public virtual string Title { get; set; }
-
-        [DisplayName("Introduction")]
-        [StringLength(1000)]
-        [Description("An introduction that will appear at the top or right of the page. Use markdown or HTML.")]
-        [HintSize(HintSize.Scaled)]
-        public virtual string Summary { get; set; }
-        
-        public virtual int CommentCount { get; set; }
-
-        [DisplayName("Summary")]
-        [StringLength(150)]
-        [Description("A short description that will appear on the home page, and in the meta-description shown to search engines.")]
-        [HintSize(HintSize.Scaled)]
-        public virtual string MetaDescription { get; set; }
-
-        [Required]
         [DisplayName("Publish date")]
         [Description("This page will not appear in any feeds until after the date above.")]
         [HintSize(HintSize.Medium)]
@@ -111,12 +78,6 @@ namespace FunnelWeb.Model
             get { return Published.ToLocalTime().ToString("yyyy-MM-dd"); }
             set { Published = DateTime.Parse(value, CultureInfo.InvariantCulture).ToUniversalTime(); }
         }
-
-        [DataType("PublishedDate")]
-        public virtual DateTime Published { get; set; }
-        
-        [DataType("Tags")]
-        public virtual IList<Tag> Tags { get; set; }
 
         [DisplayName("Page template")]
         [StringLength(20)]
@@ -146,10 +107,6 @@ namespace FunnelWeb.Model
         [Description("If checked, the page title, date, history and so on will be hidden.")]
         public virtual bool HideChrome { get; set; }
 
-        [Required]
-        [DisplayName("Status")]
-        public virtual string Status { get; set; }
-        public virtual string Author { get; set; }
         public virtual string RevisionAuthor { get; set; }
         
         [DataType("Comments")]
@@ -159,23 +116,6 @@ namespace FunnelWeb.Model
         public virtual int PingbackCount { get; set; }
 
         public virtual IFutureValue<Entry> Entry { get; internal set; }
-
-        [DisplayName("Tags")]
-        [StringLength(100)]
-        [Description("Comma-separated tags that will appear in the &lt;meta&gt; tags of the page.")]
-        [HintSize(HintSize.Scaled)]
-        [DataType("TagsList")]
-        public virtual string TagsCommaSeparated
-        {
-            get
-            {
-                return tagsString ?? string.Join(",", Tags.Select(x => x.Name));
-            }
-            set
-            {
-                tagsString = value;
-            }
-        }
 
         [DisplayName("Selected tags")]
         [Description("Comma-separated tags that will appear in the &lt;meta&gt; tags of the page.")]

@@ -20,17 +20,32 @@ namespace FunnelWeb.Web.App_Start
             bundles.Add(new ScriptBundle("~/bundles/jsdate").Include("~/Scripts/jsdate.js"));
             
             // Get the latest version from here: https://code.google.com/p/pagedown/source/browse/
-            bundles.Add(new ScriptBundle("~/bundles/pagedown").Include(
-                        "~/Scripts/Markdown.Converter.js",
-                        "~/Scripts/Markdown.Editor.js",
-                        "~/Scripts/Markdown.Sanitizer.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/pagedown").Include(
+            //            "~/Scripts/Markdown.Converter.js",
+            //            "~/Scripts/Markdown.Editor.js",
+            //            "~/Scripts/Markdown.Sanitizer.js"));
+
+            // Get the latest version from here: https://github.com/showdownjs/showdown
+            bundles.Add(new ScriptBundle("~/bundles/showdown").Include(
+                        "~/Scripts/showdown-0.4.0-20150301/compressed/Showdown.min.js",
+                        "~/Scripts/showdown-0.4.0-20150301/compressed/extensions/github.min.js",
+                        "~/Scripts/showdown-0.4.0-20150301/compressed/extensions/prettify.min.js",
+                        "~/Scripts/showdown-0.4.0-20150301/compressed/extensions/table.min.js",
+                        "~/Scripts/showdown-0.4.0-20150301/compressed/extensions/twitter.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/taggy").Include("~/Scripts/taggy.js"));
-            bundles.Add(new       Bundle("~/bundles/prettify").Include("~/Scripts/Prettify/prettify.js", "~/Scripts/Prettify/lang-*"));
+
+            // Get the latest version from here: https://code.google.com/p/google-code-prettify/source/browse/#svn%2Fbranches
+            bundles.Add(new Bundle("~/bundles/prettify").Include("~/Scripts/prettify-20130304/prettify.js", "~/Scripts/prettify-20130304/lang-*"));
+            
             bundles.Add(new ScriptBundle("~/bundles/site").Include("~/Scripts/site.js"));
 
+
+
             /* STYLES */
-            bundles.Add(new StyleBundle("~/Content/bootstrap").Include("~/Content/bootstrap/glyphicons.css"));
+            bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
+                "~/Content/bootstrap/glyphicons.css",
+                "~/Content/bootstrap/grid.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/baseCss").Include("~/Content/themes/base/Base.css"));
             bundles.Add(new StyleBundle("~/Content/themes/base/adminCss").Include("~/Content/themes/base/Base.css", "~/Content/themes/base/Admin.css"));
@@ -69,11 +84,12 @@ namespace FunnelWeb.Web.App_Start
                     }
 
                     cssFiles.Add(themePath + "style.css");
-                    cssFiles.Add(themePath + "editor-style.css");
+                    //cssFiles.Add(themePath + "editor-style.css");
                 }
 
                 if (cssFiles.Count > 0)
                 {
+                    cssFiles.Add(themePath + "custom.css");
                     bundles.Add(new StyleBundle("~/Themes/"+theme).Include(cssFiles.ToArray()));
                 }
             }

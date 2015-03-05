@@ -14,7 +14,9 @@
 </head>
 <body>
     <header>
-        <a class="logo" href="@Html.Qualify("/")" title="@Html.Settings().SiteTitle">@Html.Settings().SiteTitle</a>
+        <a class="logo" href="@Url.Content("~/")" title="@Html.Settings().SiteTitle" rel="home">
+            <img src="/Content/Images/dot.png" alt="@Html.Settings().SiteTitle" />
+        </a>
         <nav>
             <ul>
                 @MvcHtmlString.Create(Html.Settings().MainLinks)
@@ -27,7 +29,7 @@
             </ul>
         </nav>
     </header>
-    <div class="body" role="main">
+    <div class="body site-content row" role="main">
         @if (TempData.ContainsKey("Flash"))
         {
             <div class="flash">
@@ -49,7 +51,7 @@
     </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jsdate")
-    @Scripts.Render("~/bundles/pagedown")
+    @Scripts.Render("~/bundles/showdown")
     @Scripts.Render("~/bundles/prettify")
 
     @MvcHtmlString.Create(Html.Settings().HtmlFooter)

@@ -3,8 +3,8 @@
 
 @if (!Model.Entry.HideChrome)
 {
-    <div class='entry-tools'>
-        <span>
+    <div class='entry-tools entry-meta'>
+        @*<span>
             Posted by: @Model.Entry.Author@{if (@Model.Entry.RevisionAuthor != Model.Entry.Author) { Write(string.Format(", Last edit by: {0}", @Model.Entry.RevisionAuthor)); }}
         </span>
         <br />
@@ -12,11 +12,7 @@
         @if (Html.Settings().EnablePublicHistory)
         {
             <span>@Html.ActionLink("History", "Revisions", "Wiki", new { page = Model.Page }, null)</span>
-        }
-        @if (User.Identity.IsAuthenticated)
-        { 
-            <span>@Html.ActionLink("Edit", "Edit", "WikiAdmin", new { Area = "Admin", page = Model.Page }, new { })</span>
-        }
+        }*@
         @if (Model.Entry.IsPriorVersion)
         {
             <div>
