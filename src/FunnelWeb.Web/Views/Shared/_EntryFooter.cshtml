@@ -10,12 +10,15 @@
         }
     </ul>
 
-    <div class="edit-link">
-        @if (User.Identity.IsAuthenticated)
-        {
-            <div class="edit-link">
-                @Html.ActionLink("Edit >", "Edit", "WikiAdmin", new { Area = "Admin", page = Model.Name }, new { @class="post-edit-link" })
-            </div>
-        }
+    <div class="readmore-link blogpost-readmore">
+        @Html.ActionLink("Read more >", "Page", "Wiki", new { page = Model.Name }, new { title = Model.Title, rel = "readmore" })
     </div>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="edit-link">
+            @Html.ActionLink("Edit >", "Edit", "WikiAdmin", new { Area = "Admin", page = Model.Name }, new { @class = "post-edit-link" })
+        </div>
+    }
+
 </footer>

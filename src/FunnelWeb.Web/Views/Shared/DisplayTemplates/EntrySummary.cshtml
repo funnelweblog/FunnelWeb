@@ -1,6 +1,6 @@
 ﻿@model EntrySummary
 
-<article class='post-line @String.Join(" ", Html.CssKeywordsFor(Model))'>
+<article class='post-line blogpost @String.Join(" ", Html.CssKeywordsFor(Model))'>
     @{
         <div class='summary'>
             <article>
@@ -15,7 +15,6 @@
 
                 @{ Html.RenderPartial("_EntryFooter", Model); }
             </article>
-
         </div>
     }
 </article>

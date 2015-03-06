@@ -26,7 +26,7 @@
 
     <article class="post type-post status-publish format-standard hentry">
         @if (!Model.Entry.HideChrome) { Html.RenderPartial("_EntryHeader", Model.Entry); }
-        <div class="entry-content@{if (Model.Entry.HideChrome)
+        <div class="entry-content singleblog-contan@{if (Model.Entry.HideChrome)
 														 {<text> hidechrome</text>}}">
             @if (!Model.Entry.HideChrome && Model.Entry.IsPriorVersion)
             {

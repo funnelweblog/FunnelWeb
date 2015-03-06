@@ -34,7 +34,7 @@
 </head>
 <body class="home blog logged-in admin-bar custom-background customize-support">
     <div id="wrapper" class="hfeed site">
-        <div id="headercontainer">
+        <div id="headercontainer" class="container container-magzemine">
             <header id="masthead" class="site-header row" role="banner">
                 <div id="inner-header" class="clearfix">
                     <div id="site-title" class="col grid_5_of_12 site-title">
@@ -50,7 +50,7 @@
                         <nav id="site-navigation" class="main-navigation" role="navigation">
                             <h3 class="menu-toggle assistive-text">Menu</h3>
                             <div class="menu">
-                                <ul>
+                                <ul class="nav navbar-nav">
                                     @Html.QualifyLinks(Html.Settings().MainLinks)
                                     @if (User.Identity.IsAuthenticated)
                                     {
@@ -64,14 +64,15 @@
             </header>
 
         </div>
-        <div id="bannercontainer">
+        <div id="bannercontainer" class="container container-magzemine no-padding">
             <div class="banner row"></div>
         </div>
-        <div id="maincontentcontainer">
+        <div id="maincontentcontainer" class="container container-magzemine no-padding">
             <div id="content">
                 <div id="main" role="main" class="site-content row">
                     @RenderBody()
-                    <div id="sidebar" class="col grid_4_of_12 widget-area col300"> @*id="_summary"*@
+                    <div id="sidebar" class="col grid_4_of_12 widget-area col300 main-sidebar">
+                        @*id="_summary"*@
                         <div id="secondary" class="widget-area" role="complementary">
                             <aside id="search-2" class="widget widget_search">
                                 <div class="search">
