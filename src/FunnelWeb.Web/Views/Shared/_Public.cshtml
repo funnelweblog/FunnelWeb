@@ -37,7 +37,7 @@
         <div id="headercontainer" class="container container-magzemine">
             <header id="masthead" class="site-header row" role="banner">
                 <div id="inner-header" class="clearfix">
-                    <div id="site-title" class="col grid_5_of_12 site-title">
+                    <div id="site-title" class="col-lg-5 site-title">
                         <h1>
                             <a class="logo" href="@Url.Content("~/")" title="@Html.Settings().SiteTitle" rel="home">
                                 <span class="site-title-text">@Html.Settings().SiteTitle</span>
@@ -45,7 +45,7 @@
                             </a>
                         </h1>
                     </div>
-                    <div class="col grid_7_of_12">
+                    <div class="col-lg-7">
                         <div class="social-media-icons"></div>
                         <nav id="site-navigation" class="main-navigation" role="navigation">
                             <h3 class="menu-toggle assistive-text">Menu</h3>
@@ -71,7 +71,7 @@
             <div id="content">
                 <div id="main" role="main" class="site-content row">
                     @RenderBody()
-                    <div id="sidebar" class="col grid_4_of_12 widget-area col300 main-sidebar">
+                    <div id="sidebar" class="col-lg-4 widget-area col300 main-sidebar">
                         @*id="_summary"*@
                         <div id="secondary" class="widget-area" role="complementary">
                             <aside id="search-2" class="widget widget_search">
@@ -111,11 +111,13 @@
                 </div>
             </div>
             <div id="footercontainer">
-                <div class="row smallprint">
-                    <p>
-                        @MvcHtmlString.Create(Html.Settings().Footer.Replace("{version}", Html.Version().ToString()))
-                    </p>
-                </div>
+                <footer class="text-center">
+                    <div class="row smallprint">
+                        <p>
+                            @MvcHtmlString.Create(Html.Settings().Footer.Replace("{version}", Html.Version().ToString()))
+                        </p>
+                    </div>
+                </footer>
             </div>
         </div>
     </div>

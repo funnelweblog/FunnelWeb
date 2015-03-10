@@ -18,7 +18,7 @@
     @Html.RenderTrusted(Model.Entry.Summary, Formats.Markdown)
 }
 
-<div class="col grid_8_of_12">
+<div class="col col-lg-8">
 
     @if (!Html.Settings().EnableDisqusCommenting)
     { @Html.ValidationSummary("Comment unsuccessful. Please correct the errors below.")  }
