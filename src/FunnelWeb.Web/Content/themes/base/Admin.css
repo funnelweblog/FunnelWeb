@@ -36,8 +36,12 @@ footer {
     margin-top: 1.5em;
 }
 
-input[type=submit] {
+input[type=submit].btn-primary {
     float: right;
     min-width: 5em;
     margin-top: 30px;
+}
+
+input[type=file] {
+    margin: 10px 0 10px 0;
 }

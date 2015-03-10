@@ -63,6 +63,17 @@
 
                 <div class="control-group">
                     <div class="editor-label">
+                        @Html.LabelFor(m => m.Theme)
+                    </div>
+                    <div class="editor-field controls">
+                        @Html.DropDownList("Theme", ((string[])ViewBag.Themes).Select(x => new SelectListItem { Text = x, Selected = Model.Theme == x }))
+                        @Html.ValidationMessageFor(m => m.Theme)
+                        @Html.HintFor(m => m.Theme)
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="editor-label">
                         @Html.LabelFor(m => m.MainLinks)
                     </div>
                     <div class="editor-field controls">
@@ -82,21 +93,6 @@
                         @Html.HintFor(m => m.Footer)
                     </div>
                 </div>
-
-
-
-                <h3>Appearance</h3>
-                <div class="control-group">
-                    <div class="editor-label">
-                        @Html.LabelFor(m => m.Theme)
-                    </div>
-                    <div class="editor-field controls">
-                        @Html.DropDownList("Theme", ((string[])ViewBag.Themes).Select(x => new SelectListItem { Text = x, Selected = Model.Theme == x }))
-                        @Html.ValidationMessageFor(m => m.Theme)
-                        @Html.HintFor(m => m.Theme)
-                    </div>
-                </div>
-
 
 
                 <h3>Metadata</h3>
