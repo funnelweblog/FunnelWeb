@@ -17,18 +17,19 @@
 
 <h1>Pingbacks</h1>
 			
-@foreach (var pingback in Model.Pingbacks) {
-<table class="width90" style="margin: 5px;background:@(pingback.IsSpam ? "#fff0f0;" : "#f0f0f0;")">
-<tr>
-		<td class="width75">
-				<strong>@Html.Encode(pingback.Entry.Title)</strong><br />
-				<em>@Html.Encode(pingback.TargetTitle)</em> | 
-				<a href="@Html.Encode(pingback.TargetUri)">@Html.Encode(pingback.TargetUri)</a>
-		</td>
-		<td class="width25">
-				@Html.ActionLink("Delete", "DeletePingback", "Admin", new { Area = "Admin", pingback.Id }, null)
-				@Html.ActionLink(pingback.IsSpam ? "Unspam" : "Spam", "TogglePingbackSpam", "Admin", new { Area = "Admin", pingback.Id }, null)
-		</td>
-</tr>
-</table>
+@foreach (var pingback in Model.Pingbacks)
+{
+    <table class="table table-striped width90" style="margin: 5px;background:@(pingback.IsSpam ? "#fff0f0;" : "#f0f0f0;")">
+        <tr>
+            <td class="width75">
+                <strong>@Html.Encode(pingback.Entry.Title)</strong><br />
+                <em>@Html.Encode(pingback.TargetTitle)</em> |
+                <a href="@Html.Encode(pingback.TargetUri)">@Html.Encode(pingback.TargetUri)</a>
+            </td>
+            <td class="width25">
+                @Html.ActionLink("Delete", "DeletePingback", "Admin", new { Area = "Admin", pingback.Id }, null)
+                @Html.ActionLink(pingback.IsSpam ? "Unspam" : "Spam", "TogglePingbackSpam", "Admin", new { Area = "Admin", pingback.Id }, null)
+            </td>
+        </tr>
+    </table>
 }

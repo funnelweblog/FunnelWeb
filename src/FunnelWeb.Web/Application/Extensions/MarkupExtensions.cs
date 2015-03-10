@@ -321,10 +321,17 @@ namespace FunnelWeb.Web.Application.Extensions
 		/// <summary>
 		/// Create an action link to an action in the Admin area.
 		/// </summary>
-		public static MvcHtmlString AdminActionLink(this HtmlHelper htmlHelper, string linkText, string actionName, string adminControllerName)
+		public static MvcHtmlString AdminActionLink(this HtmlHelper htmlHelper, string linkText, string actionName, string adminControllerName, string title = null, string bootstrapIcon = null)
 		{
+            var htmlAttributes = new { title = title };
+
+            if (!String.IsNullOrEmpty(bootstrapIcon))
+            {
+                linkText = new MvcHtmlString("<i class=\"glyphicon glyphicon-" + bootstrapIcon + "\"></i>").ToHtmlString() + linkText;
+            }
+
 			// http://stackoverflow.com/questions/2036305/how-to-specify-an-area-name-in-an-action-link
-			return htmlHelper.ActionLink(linkText, actionName, adminControllerName, new { Area = "Admin" }, new { });
+			return htmlHelper.ActionLink(linkText, actionName, adminControllerName, new { Area = "Admin" }, htmlAttributes);
 		}
 
 		public static string ThemePath(this HtmlHelper helper)

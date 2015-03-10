@@ -1,14 +1,14 @@
 ﻿@model EntryBase
-<footer class="entry-mate">
-    <ul class="post-meta">
-        <li class="post-pubdate"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span><span class="text">Published:</span><span class="data">@Model.Published.ToString("yyyy-MM-dd")</span></li>
-        <li class="post-author"><span class="glyphicon glyphicon-user" aria-hidden="true"></span><span class="text">Author:</span><span class="data">@Model.Author</span></li>
-        <li class="post-comments"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span><span class="text">Comments:</span><span class="data" data-disqus-identifier="@Model.DisqusIdentifier">@Model.CommentCount</span></li>
+<footer class="entry-footer">
+    <div class="post-meta footer-meta">
+        <span class="post-pubdate"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span><span class="text">Published:</span><span class="data">@Model.Published.ToString("yyyy-MM-dd")</span></span>
+        <span class="post-author"><span class="glyphicon glyphicon-user" aria-hidden="true"></span><span class="text">Author:</span><span class="data">@Model.Author</span></span>
+        <span class="post-comments"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span><span class="text">Comments:</span><span class="data" data-disqus-identifier="@Model.DisqusIdentifier">@Model.CommentCount</span></span>
         @if ((Model.Tags != null) && (Model.Tags.Count > 0))
         {
-            <li class="post-tags"><span class="glyphicon glyphicon-tags" aria-hidden="true"></span><span class="text">Tags:</span><span class="data post-tags">@Html.DisplayFor(x => Model.TagsCommaSeparated)</span></li>
+            <span class="post-tags"><span class="glyphicon glyphicon-tags" aria-hidden="true"></span><span class="text">Tags:</span><span class="data post-tags">@Html.DisplayFor(x => Model.TagsCommaSeparated)</span></span>
         }
-    </ul>
+    </div>
 
     <div class="readmore-link blogpost-readmore">
         @Html.ActionLink("Read more >", "Page", "Wiki", new { page = Model.Name }, new { title = Model.Title, rel = "readmore" })

@@ -81,7 +81,7 @@
                                         <div>
                                             <label class="screen-reader-text" for="search">Search for:</label>
                                             @Html.TextBox("q", Request.QueryString["q"], new { alt = "Search", @class = "medium" })
-                                            <input type="submit" id="search" class="submit" value="Search" />
+                                            <input type="submit" id="search" class="btn btn-default submit" value="Search" />
                                         </div>
                                     }
                                 </div>
@@ -122,8 +122,8 @@
     <!-- Powered by FunnelWeb, the blog engine of real developers -->
     <!-- FunnelWeb version: @Html.Version() -->
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jsdate")
-
     @Scripts.Render("~/bundles/showdown")
     @Scripts.Render("~/bundles/prettify")
     @*@MiniScripts.Render("~/bundles/prettify")

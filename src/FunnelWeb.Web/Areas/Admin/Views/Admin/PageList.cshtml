@@ -7,54 +7,54 @@
 <h1>Page List</h1>
 
 <p>
-  Here is a list of all of the pages in your site
+    Here is a list of all of the pages in your site
 </p>
 
 @foreach (var group in Model.Entries.GroupBy(x => x.Status).OrderBy(g => g.Key))
 {
-  <h3>@group.Key</h3>
-  
-  if (group.Key == FunnelWeb.Model.EntryStatus.Private) 
-  {
-    <p>Only logged in users can see these pages.</p>
-  }
-  else if (group.Key == FunnelWeb.Model.EntryStatus.PublicPage) 
-  {
-    <p>Anyone can see these pages, but you'll need to link to them yourself. They won't appear in the main RSS feed.</p>
-  }
-  else if (group.Key == FunnelWeb.Model.EntryStatus.PublicBlog) 
-  {
-    <p>Anyone can see these pages, and they will appear in the main RSS feed as well as on the home page.</p>
-  }
-  
-  <table>
-    <thead>
-      <tr>
-        <td>@Html.ActionLink("SLUG", "PageList", "Admin", new { Area = "Admin", sort = "Slug", asc = !Model.SortAscending }, null)</td>
-        <td>@Html.ActionLink("Title", "PageList", "Admin", new { Area = "Admin", sort = "Title", asc = !Model.SortAscending }, null)</td>
-        <td>@Html.ActionLink("Comments", "PageList", "Admin", new { Area = "Admin", sort = "Comments", asc = !Model.SortAscending }, null)</td>
-        <td>@Html.ActionLink("Published", "PageList", "Admin", new { Area = "Admin", sort = "Published", asc = !Model.SortAscending }, null)</td>
-        <td>Last revision</td>
-        <td>Delete</td>
-      </tr>
-    </thead>
-    <tbody>
-  @foreach (var entry in group)
-  {
-      <tr>
-        <td>@Html.ActionLink(entry.Name, "Page", "Wiki", new { Area = "", page = entry.Name }, new { title = "View this page" })</td>
-        <td>@Html.ActionLink(entry.Title, "Edit", "WikiAdmin", new { Area = "Admin", page = entry.Name }, new { title = "Edit this page" })</td>
-        <td>@entry.CommentCount</td>
-        <td>@Html.Date(entry.Published)</td>
-        <td>@Html.Date(entry.LastRevised) (@Html.ActionLink("History", "Revisions", "Wiki", new { Area = "", page = entry.Name }, new { }))</td>
-        <td>
-            @using(Html.BeginForm("DeletePage", "WikiAdmin", new { Area = "Admin", id = entry.Id }, FormMethod.Post, null))
-             {
-                 <button type="submit">Delete</button>
-             }
-        </td>
-      </tr>
-  }
-    </tbody>
-  </table>
+    <h3>@group.Key</h3>
+
+    if (group.Key == FunnelWeb.Model.EntryStatus.Private)
+    {
+        <p>Only logged in users can see these pages.</p>
+    }
+    else if (group.Key == FunnelWeb.Model.EntryStatus.PublicPage)
+    {
+        <p>Anyone can see these pages, but you'll need to link to them yourself. They won't appear in the main RSS feed.</p>
+    }
+    else if (group.Key == FunnelWeb.Model.EntryStatus.PublicBlog)
+    {
+        <p>Anyone can see these pages, and they will appear in the main RSS feed as well as on the home page.</p>
+    }
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>@Html.ActionLink("SLUG", "PageList", "Admin", new { Area = "Admin", sort = "Slug", asc = !Model.SortAscending }, null)</td>
+                <td>@Html.ActionLink("Title", "PageList", "Admin", new { Area = "Admin", sort = "Title", asc = !Model.SortAscending }, null)</td>
+                <td>@Html.ActionLink("Comments", "PageList", "Admin", new { Area = "Admin", sort = "Comments", asc = !Model.SortAscending }, null)</td>
+                <td>@Html.ActionLink("Published", "PageList", "Admin", new { Area = "Admin", sort = "Published", asc = !Model.SortAscending }, null)</td>
+                <td>Last revision</td>
+                <td>Delete</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var entry in group)
+            {
+                <tr>
+                    <td>@Html.ActionLink(entry.Name, "Page", "Wiki", new { Area = "", page = entry.Name }, new { title = "View this page" })</td>
+                    <td>@Html.ActionLink(entry.Title, "Edit", "WikiAdmin", new { Area = "Admin", page = entry.Name }, new { title = "Edit this page" })</td>
+                    <td>@entry.CommentCount</td>
+                    <td>@Html.Date(entry.Published)</td>
+                    <td>@Html.Date(entry.LastRevised) (@Html.ActionLink("History", "Revisions", "Wiki", new { Area = "", page = entry.Name }, new { }))</td>
+                    <td>
+                        @using (Html.BeginForm("DeletePage", "WikiAdmin", new { Area = "Admin", id = entry.Id }, FormMethod.Post, null))
+                        {
+                            <button type="submit" class="btn btn-default">Delete</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }

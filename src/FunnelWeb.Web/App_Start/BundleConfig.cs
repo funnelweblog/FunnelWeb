@@ -12,7 +12,6 @@ namespace FunnelWeb.Web.App_Start
         public static void RegisterBundles(BundleCollection bundles)
         {
             /* SCRIPTS */
-
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -37,6 +36,11 @@ namespace FunnelWeb.Web.App_Start
 
             // Get the latest version from here: https://code.google.com/p/google-code-prettify/source/browse/#svn%2Fbranches
             bundles.Add(new Bundle("~/bundles/prettify").Include("~/Scripts/prettify-20130304/prettify.js", "~/Scripts/prettify-20130304/lang-*"));
+
+            // Bootstrap
+            bundles.Add(new StyleBundle("~/bundles/bootstrap").Include(
+                        "~/Scripts/bootstrap-3.3.2/bootstrap.js"));
+
             
             bundles.Add(new ScriptBundle("~/bundles/site").Include("~/Scripts/site.js"));
 
@@ -44,11 +48,12 @@ namespace FunnelWeb.Web.App_Start
 
             /* STYLES */
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
-                "~/Content/bootstrap/glyphicons.css",
-                "~/Content/bootstrap/grid.css"));
+                "~/Content/bootstrap-3.3.2/bootstrap.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/baseCss").Include("~/Content/themes/base/Base.css"));
-            bundles.Add(new StyleBundle("~/Content/themes/base/adminCss").Include("~/Content/themes/base/Base.css", "~/Content/themes/base/Admin.css"));
+            bundles.Add(new StyleBundle("~/Content/themes/base/adminCss").Include(
+                "~/Content/themes/base/Base.css", 
+                "~/Content/themes/base/Admin.css"));
 
             /* THEME STYLES */
             FunnelWeb.Web.Application.Themes.ThemeProvider tp = new Application.Themes.ThemeProvider();

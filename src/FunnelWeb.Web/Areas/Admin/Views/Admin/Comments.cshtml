@@ -34,27 +34,27 @@
 @foreach (var comment in Model.Comments)
 {
 	<div class='comment-admin'>
-		<table class="comment width90 @(comment.IsSpam ? "spam" : "")">
-			<tr>
-				<td colspan="2" class="width90">
-					<strong><a href="@Url.Content("~/" + @comment.Entry.Name)/#comment-@comment.Id">@comment.Entry.Title</a></strong><br />
-					@Html.RenderUntrusted(comment.Body, Formats.Markdown)
-				</td>
-			</tr>
-			<tr>
-				<td class="width75">
-					<strong>Author: </strong>@comment.AuthorName
-					<br />
-					<strong>URL: </strong>@comment.AuthorUrl
-					<br />
-					<strong>Email: </strong>@comment.AuthorEmail
-				</td>
-				<td class="width25">
-					@Html.ActionLink("Delete", "DeleteComment", "Admin", new { Area = "Admin", id = comment.Id }, null)
-					@Html.ActionLink(comment.IsSpam ? "Unspam" : "Spam", "ToggleSpam", "Admin", new { Area = "Admin", id = comment.Id }, null)
-				</td>
-			</tr>
-		</table>
+        <table class="table table-striped comment width90 @(comment.IsSpam ? "spam" : "")">
+            <tr>
+                <td colspan="2" class="width90">
+                    <strong><a href="@Url.Content("~/" + @comment.Entry.Name)/#comment-@comment.Id">@comment.Entry.Title</a></strong><br />
+                    @Html.RenderUntrusted(comment.Body, Formats.Markdown)
+                </td>
+            </tr>
+            <tr>
+                <td class="width75">
+                    <strong>Author: </strong>@comment.AuthorName
+                    <br />
+                    <strong>URL: </strong>@comment.AuthorUrl
+                    <br />
+                    <strong>Email: </strong>@comment.AuthorEmail
+                </td>
+                <td class="width25">
+                    @Html.ActionLink("Delete", "DeleteComment", "Admin", new { Area = "Admin", id = comment.Id }, null)
+                    @Html.ActionLink(comment.IsSpam ? "Unspam" : "Spam", "ToggleSpam", "Admin", new { Area = "Admin", id = comment.Id }, null)
+                </td>
+            </tr>
+        </table>
 	</div>
 }
 

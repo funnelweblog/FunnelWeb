@@ -40,25 +40,25 @@
 	{
 			<div class="header">User Claims:</div>
 			<div>
-				<table class="claims">
-					<thead>
-						<tr>
-							<td><span class="header">Claim Type</span></td>
-							<td><span class="header">Claim Value</span></td>
-							<td><span class="header">Claim ValueType</span></td>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach (var claim in claims)
-			{
-							<tr>
-								<td>@claim.Type</td>
-								<td>@claim.Value</td>
-								<td>@claim.ValueType</td>
-							</tr>
-			}
-					</tbody>
-				</table>
+                <table class="table table-striped claims">
+                    <thead>
+                        <tr>
+                            <td><span class="header">Claim Type</span></td>
+                            <td><span class="header">Claim Value</span></td>
+                            <td><span class="header">Claim ValueType</span></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var claim in claims)
+                        {
+                            <tr>
+                                <td>@claim.Type</td>
+                                <td>@claim.Value</td>
+                                <td>@claim.ValueType</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
 			</div>
 	}
 
