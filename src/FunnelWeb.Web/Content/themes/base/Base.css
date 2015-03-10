@@ -22,3 +22,17 @@ textarea {
 .post-meta>span {
     margin-right: 1.5em;
 }
+
+a.spam i {
+    color: #eb9316;
+}
+
+a.notspam i {
+    color: #3e8f3e;
+}
+
+.comment-actions {
+    float: right;
+    display: inline-block;
+    margin-right: 20px;
+}

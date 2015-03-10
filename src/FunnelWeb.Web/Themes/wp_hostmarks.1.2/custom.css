@@ -389,3 +389,11 @@
 {
     display: none;
 }
+
+nav[role=navigation] {
+    width: auto;
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+    background: none;
+}

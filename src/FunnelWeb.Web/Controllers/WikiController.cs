@@ -65,7 +65,7 @@ namespace FunnelWeb.Web.Controllers
 			return View("Recent");
 		}
 
-		public ActionResult Search([Bind(Prefix = "q")] string searchText, bool? is404)
+		public ActionResult Search([Bind(Prefix = "s")] string searchText, bool? is404)
 		{
 			var results = Repository.Find(new SwitchingSearchEntriesQuery(searchText), 0, 30);
 			return View("Search", new SearchModel(searchText, is404 ?? false, results));

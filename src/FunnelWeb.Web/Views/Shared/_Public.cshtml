@@ -37,24 +37,24 @@
         <div id="headercontainer" class="container container-magzemine">
             <header id="masthead" class="site-header row" role="banner">
                 <div id="inner-header" class="clearfix">
-                    <div id="site-title" class="col-lg-5 site-title">
+                    <div id="site-title" class="col-lg-4 site-title">
                         <h1>
                             <a class="logo" href="@Url.Content("~/")" title="@Html.Settings().SiteTitle" rel="home">
-                                <span class="site-title-text">@Html.Settings().SiteTitle</span>
+                                <span class="site-title-text top-mag-site-name">@Html.Settings().SiteTitle</span>
                                 <img src="/Content/Images/dot.png" alt="@Html.Settings().SiteTitle" />
                             </a>
                         </h1>
                     </div>
-                    <div class="col-lg-7">
+                    <div class="col-lg-8">
                         <div class="social-media-icons"></div>
                         <nav id="site-navigation" class="main-navigation" role="navigation">
                             <h3 class="menu-toggle assistive-text">Menu</h3>
-                            <div class="menu">
+                            <div class="menu nav-menu">
                                 <ul class="nav navbar-nav">
                                     @Html.QualifyLinks(Html.Settings().MainLinks)
                                     @if (User.Identity.IsAuthenticated)
                                     {
-                                        <li>@Html.AdminActionLink("New Post", "Edit", "WikiAdmin")</li>
+                                        <li>@Html.AdminActionLink("+", "Edit", "WikiAdmin", "New Post")</li>
                                     }
                                 </ul>
                             </div>
@@ -76,23 +76,23 @@
                         <div id="secondary" class="widget-area" role="complementary">
                             <aside id="search-2" class="widget widget_search">
                                 <div class="search">
-                                    @using (Html.BeginForm("Search", "Wiki", FormMethod.Get))
+                                    @using (Html.BeginForm("Search", "Wiki", FormMethod.Get, new { @id = "searchform", @class = "searchform" }))
                                     {
                                         <div>
                                             <label class="screen-reader-text" for="search">Search for:</label>
-                                            @Html.TextBox("q", Request.QueryString["q"], new { alt = "Search", @class = "medium" })
+                                            @Html.TextBox("s", Request.QueryString["s"], new { alt = "Search", @class = "medium" })
                                             <input type="submit" id="search" class="btn btn-default submit" value="Search" />
                                         </div>
                                     }
                                 </div>
                             </aside>
                             @RenderSection("Summary", required: false)
-                            <aside id="meta-2" class="widget widget_search">
+                            <aside id="meta-2" class="widget widget_meta">
                                 <h3 class="widget-title">Meta</h3>
                                 <ul>
                                     @if (User.Identity.IsAuthenticated)
                                     {
-                                        <li>@Html.AdminActionLink("Admin", "Index", "Admin")</li>
+                                        <li>@Html.AdminActionLink("Site Admin", "Index", "Admin")</li>
                                         <li>@Html.AdminActionLink("Logout", "Logout", "Login")</li>
                                     }
                                     else

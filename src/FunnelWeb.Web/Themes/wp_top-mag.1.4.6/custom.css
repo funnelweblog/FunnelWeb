@@ -36,3 +36,8 @@ header .menu li a {
      border: none; 
      float: none; 
 }
+
+.commentlist li {
+    list-style: none;
+    border: 1px solid #CBCBCB;
+}

@@ -2,9 +2,11 @@
 
 <section id="comments" class="comments-area">
     @if (Model.Comments.Count > 0)
-    { 
-    <h2 class="comments-title">@Model.Comments.Count response(s) on "@Model.Title"</h2>
-    @Html.DisplayFor(x => x.Comments, new { Model })
+    {
+        <div id="comments-title" class="clearfix">
+            <h2 class="comments-title comment-reply-title">@Model.Comments.Count response(s) on "@Model.Title"</h2>
+        </div>
+        @Html.DisplayFor(x => x.Comments, new { Model })
     }
     
     @if (Model.IsDiscussionEnabled)
