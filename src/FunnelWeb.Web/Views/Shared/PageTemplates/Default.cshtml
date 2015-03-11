@@ -66,6 +66,16 @@
     @{ Html.RenderPartial("_EntryComments", Model.Entry); }
 </div>
 
-@section Scripts{
+@section Scripts {
     @Scripts.Render("~/bundles/site")
+
+    <script type="text/javascript">
+        $(function () {
+            var converter = new Showdown.converter({ extensions: ['prettify'] });
+
+            $('textarea#wmd-input').bind('input propertychange', function () {
+                $("#wmd-preview").html(converter.makeHtml(this.value));
+            });
+        });
+    </script>
 }

@@ -1,21 +1,9 @@
 ﻿$(function () {
-    
-    var preview = $("#wmd-preview");
-    
-    if (preview.length) {
+    var converter = new Showdown.converter({ extensions: ['prettify'] });
 
-        function enablePrettyPrinting() {
+    $("#wmd-preview").html(converter.makeHtml($('textarea#wmd-input')[0].value));
 
-            var doPrettyPrint = false;
-            
-            preview.children("pre").each(function () {
-                $(this).attr("class", "prettyprint");
-                doPrettyPrint = true;
-            });
-            
-            if (doPrettyPrint) prettyPrint();
-        }
-
-        $('#apply-pretty-print').click(enablePrettyPrinting);
-    }
+    $('textarea#wmd-input').bind('input propertychange', function () {
+        $("#wmd-preview").html(converter.makeHtml(this.value));
+    });
 });

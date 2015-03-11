@@ -7,7 +7,8 @@
     <meta name="language" content="english" />
     <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/Content/bootstrap")
-    @Styles.Render("~/Content/themes/base/baseCss")
+    @Styles.Render("~/Content/prettify")
+    @Styles.Render("~/Content/mobile")
     @Styles.Render("~/Themes/" + @Html.Settings().Theme)
     @RenderSection("Meta", required: false)
     @MvcHtmlString.Create(Html.Settings().HtmlHead)

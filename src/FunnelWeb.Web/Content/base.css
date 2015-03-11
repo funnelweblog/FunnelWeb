@@ -36,3 +36,12 @@ a.notspam i {
     display: inline-block;
     margin-right: 20px;
 }
+
+.facebook {
+    height: 0;
+    margin: 10px 0 10px 0;
+}
+
+.bootstrap-tagsinput {
+    width: 100%;
+}

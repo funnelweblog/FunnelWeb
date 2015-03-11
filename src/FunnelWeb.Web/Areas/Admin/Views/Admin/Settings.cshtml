@@ -139,17 +139,17 @@
                     </div>
                     <div class="editor-field controls">
                         @{
-            var storageProviders = (IEnumerable<string>)ViewBag.FileRepositories;
+                            var storageProviders = (IEnumerable<string>)ViewBag.FileRepositories;
                         }
                         @Html.DropDownListFor(
                                 m => m.StorageProvider,
                                 storageProviders.Select(provider => new SelectListItem
-                                                                                                                {
-                                                                                                                    Text = provider,
-                                                                                                                    Value = provider,
-                                                                                                                    Selected = provider == Model.StorageProvider
-                                                                                                                }),
-                                                                                                                new { id = "storageProviders" })
+                                                            {
+                                                                Text = provider,
+                                                                Value = provider,
+                                                                Selected = provider == Model.StorageProvider
+                                                            }),
+                                                            new { id = "storageProviders" })
                         @Html.ValidationMessageFor(m => m.StorageProvider)
                         @Html.HintFor(m => m.StorageProvider)
                     </div>

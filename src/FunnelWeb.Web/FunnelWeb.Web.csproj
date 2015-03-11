@@ -307,17 +307,22 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <EmbeddedResource Include="Application\MetaWeblog\wlwmanifest.xml" />
+    <Content Include="Content\admin.css" />
+    <Content Include="Content\base.css" />
+    <Content Include="Content\bootstrap-3.3.2\bootstrap-tagsinput.css" />
     <Content Include="Content\bootstrap-3.3.2\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-3.3.2\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap-3.3.2\bootstrap.css" />
     <Content Include="Content\bootstrap-3.3.2\bootstrap.min.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\Images\del_sprite_tagComplete.png" />
     <Content Include="Content\Images\dot.png" />
-    <Content Include="Content\Prettify\prettify.css" />
-    <Content Include="Content\Prettify\Themes\desert.css" />
-    <Content Include="Content\Prettify\Themes\doxy.css" />
-    <Content Include="Content\Prettify\Themes\sons-of-obsidian.css" />
-    <Content Include="Content\Prettify\Themes\sunburst.css" />
+    <Content Include="Content\mobile.css" />
+    <Content Include="Content\prettify-20130304\prettify.css" />
+    <Content Include="Content\prettify-20130304\styles\desert.css" />
+    <Content Include="Content\prettify-20130304\styles\doxy.css" />
+    <Content Include="Content\prettify-20130304\styles\sons-of-obsidian.css" />
+    <Content Include="Content\prettify-20130304\styles\sunburst.css" />
     <Content Include="Scripts\Account.js" />
     <Content Include="Areas\Admin\Scripts\Views\WikiAdmin\Edit.js" />
     <Content Include="Content\Images\Busy.gif" />
@@ -355,24 +360,6 @@
     <Content Include="Content\Resources\Humans.txt" />
     <Content Include="Content\Resources\Robots.txt" />
     <Content Include="Content\Resources\Status.html" />
-    <Content Include="Content\themes\base\Admin.css" />
-    <Content Include="Content\themes\base\Base.css" />
-    <Content Include="Content\themes\base\images\del_sprite_tagComplete.png" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\base\Mobile.css" />
-    <Content Include="Content\themes\base\TagEditor.css" />
     <Content Include="FederationMetadata\2007-06\FederationMetadata.xml" />
     <Content Include="Global.asax" />
     <Content Include="Areas\Admin\Views\Admin\AcsSettings.cshtml" />
@@ -383,7 +370,10 @@
     <Content Include="Content\bootstrap-3.3.2\bootstrap.css.map" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Properties\PublishProfiles\magnusmartenssoncomdev.pubxml" />
+    <Content Include="Scripts\bootstrap-3.3.2\bootstrap-tagsinput.min.js.map" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
+    <Content Include="Scripts\bootstrap-3.3.2\bootstrap-tagsinput.js" />
+    <Content Include="Scripts\bootstrap-3.3.2\bootstrap-tagsinput.min.js" />
     <Content Include="Scripts\bootstrap-3.3.2\bootstrap.js" />
     <Content Include="Scripts\bootstrap-3.3.2\bootstrap.min.js" />
     <Content Include="Scripts\bootstrap-3.3.2\npm.js" />
@@ -428,7 +418,7 @@
     <Content Include="Scripts\showdown-0.4.0-20150301\compressed\Showdown.js" />
     <Content Include="Scripts\showdown-0.4.0-20150301\compressed\Showdown.min.js" />
     <Content Include="Scripts\site.js" />
-    <Content Include="Scripts\taggy.js" />
+    <Content Include="Scripts\typeahead.bundle.js" />
     <Content Include="Themes\Default\Content\Styles\Theme.css" />
     <Content Include="Themes\wp_flower.1.2.1\admin\redux-extensions\extensions\readme.txt" />
     <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\codestyles\PHPStorm.xml" />
@@ -1198,6 +1188,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\themes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

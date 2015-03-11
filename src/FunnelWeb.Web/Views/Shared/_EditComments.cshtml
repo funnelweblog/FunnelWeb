@@ -3,16 +3,16 @@
 @using Authorization = FunnelWeb.Authentication.Internal.Authorization
 @model FunnelWeb.Web.Views.Wiki.PageModel
 
-    @if (Html.Settings().EnableDisqusCommenting)
-    {
-        Html.RenderPartial("_Disqus");
-    }
-    else if (Html.AcsSettings().RequireAuthenticationForComments && !User.CheckAccess(Authorization.Operations.View, Authorization.Resources.Blog.Comment))
-    {
-        <div>@Html.ActionLink("Login in", "Index", "Login", new { ReturnUrl = Request.Path }, new { }) to comment!</div>
-    }
-    else if (!Html.AcsSettings().RequireAuthenticationForComments || Thread.CurrentPrincipal.CheckAccess(Authorization.Operations.View, Authorization.Resources.Blog.Comment))
-    {
+@if (Html.Settings().EnableDisqusCommenting)
+{
+    Html.RenderPartial("_Disqus");
+}
+else if (Html.AcsSettings().RequireAuthenticationForComments && !User.CheckAccess(Authorization.Operations.View, Authorization.Resources.Blog.Comment))
+{
+    <div>@Html.ActionLink("Login in", "Index", "Login", new { ReturnUrl = Request.Path }, new { }) to comment!</div>
+}
+else if (!Html.AcsSettings().RequireAuthenticationForComments || Thread.CurrentPrincipal.CheckAccess(Authorization.Operations.View, Authorization.Resources.Blog.Comment))
+{
 
     <div id="respond" class="comment-respond">
         <h3 id="reply-title" class="comment-reply-title">Leave a Reply</h3>
@@ -73,7 +73,16 @@
             }
         </span>
         <h3>Preview</h3>
-        <div id="wmd-preview" class="wmd-panel">
-        </div>
-    </div>
-    }
+        
+        <ol class="commentlist">
+            <li class="comment post-comments" id="li-comment-0">
+                <article id="comment-0" class="comment">
+                    <section class="comment-content comment">
+                        <div id="wmd-preview" class="wmd-panel">
+                        </div>
+                    </section>
+                </article>
+            </li>
+        </ol>
+</div>
+}

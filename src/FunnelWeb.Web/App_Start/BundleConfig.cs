@@ -15,6 +15,9 @@ namespace FunnelWeb.Web.App_Start
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
+            //bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+            //            "~/Scripts/jquery-ui-{version}.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/disqus-count").Include("~/Scripts/disqus-count.js"));
             bundles.Add(new ScriptBundle("~/bundles/jsdate").Include("~/Scripts/jsdate.js"));
             
@@ -35,25 +38,51 @@ namespace FunnelWeb.Web.App_Start
             bundles.Add(new ScriptBundle("~/bundles/taggy").Include("~/Scripts/taggy.js"));
 
             // Get the latest version from here: https://code.google.com/p/google-code-prettify/source/browse/#svn%2Fbranches
-            bundles.Add(new Bundle("~/bundles/prettify").Include("~/Scripts/prettify-20130304/prettify.js", "~/Scripts/prettify-20130304/lang-*"));
+            bundles.Add(new Bundle("~/bundles/prettify").Include(
+                "~/Scripts/prettify-20130304/prettify.js", "~/Scripts/prettify-20130304/lang-*"));
 
             // Bootstrap
             bundles.Add(new StyleBundle("~/bundles/bootstrap").Include(
-                        "~/Scripts/bootstrap-3.3.2/bootstrap.js"));
+                "~/Scripts/bootstrap-3.3.2/bootstrap.js",
+                "~/Scripts/bootstrap-3.3.2/bootstrap-tagsinput.js",
+                "~/Scripts/typeahead.bundle.js"));
 
             
-            bundles.Add(new ScriptBundle("~/bundles/site").Include("~/Scripts/site.js"));
+            bundles.Add(new ScriptBundle("~/bundles/site").Include(
+                "~/Scripts/site.js"));
 
 
 
             /* STYLES */
-            bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
-                "~/Content/bootstrap-3.3.2/bootstrap.css"));
+            //bundles.Add(new StyleBundle("~/Content/jqueryui/base").Include(
+            //    "~/Content/themes/base/base.css"));
 
-            bundles.Add(new StyleBundle("~/Content/themes/base/baseCss").Include("~/Content/themes/base/Base.css"));
-            bundles.Add(new StyleBundle("~/Content/themes/base/adminCss").Include(
-                "~/Content/themes/base/Base.css", 
-                "~/Content/themes/base/Admin.css"));
+            bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
+                "~/Content/bootstrap-3.3.2/bootstrap.css",
+                "~/Content/bootstrap-3.3.2/bootstrap-tagsinput.css"));
+
+            /* More prettify code syntax coloring styles here: http://jmblog.github.io/color-themes-for-google-code-prettify/ */
+            /* only choose one of the following below */
+            bundles.Add(new StyleBundle("~/Content/prettify").Include(
+                //"~/Content/prettify-20130304/styles/desert.css",
+                //"~/Content/prettify-20130304/styles/doxy.css",
+                //"~/Content/prettify-20130304/styles/sons-of-obsidian.css",
+                //"~/Content/prettify-20130304/styles/sunburst.css",
+                "~/Content/prettify-20130304/prettify.css"));
+
+            bundles.Add(new StyleBundle("~/Content/tageditor").Include(
+                "~/Content/tageditor.css"));
+
+
+            bundles.Add(new StyleBundle("~/Content/base").Include(
+                "~/Content/base.css"));
+
+            bundles.Add(new StyleBundle("~/Content/mobile").Include(
+                "~/Content/mobile.css"));
+
+            bundles.Add(new StyleBundle("~/Content/admin").Include(
+                "~/Content/base.css", 
+                "~/Content/admin.css"));
 
             /* THEME STYLES */
             FunnelWeb.Web.Application.Themes.ThemeProvider tp = new Application.Themes.ThemeProvider();

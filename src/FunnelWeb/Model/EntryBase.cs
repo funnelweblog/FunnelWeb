@@ -80,12 +80,15 @@ namespace FunnelWeb.Model
 
             set
             {
-                string[] tagStrings = value.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                
-                Tags = new List<Tag>();
-                foreach (string tagString in tagStrings)
+                if (value != null)
                 {
-                    Tags.Add(new Tag() { Name = tagString });
+                    string[] tagStrings = value.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    Tags = new List<Tag>();
+                    foreach (string tagString in tagStrings)
+                    {
+                        Tags.Add(new Tag() { Name = tagString });
+                    }
                 }
             }
         }

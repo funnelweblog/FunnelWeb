@@ -20,7 +20,8 @@
     <link title="RSD" href="@Html.Qualify(Href("~/rsd.xml"))" type="application/rsd+xml" rel="EditURI" />
     <link rel="icon" type="image/png" href="@Url.Content("~/Content/Resources/favicon.png")" />
     @Styles.Render("~/Content/bootstrap")
-    @Styles.Render("~/Content/themes/base/baseCss")
+    @Styles.Render("~/Content/prettify")
+    @Styles.Render("~/Content/base")
     @Styles.Render("~/Themes/" + @Html.Settings().Theme)
     @RenderSection("Meta", required: false)
     @MvcHtmlString.Create(Html.Settings().HtmlHead)
@@ -132,10 +133,11 @@
 
         Profiler.RenderIncludes()*@
     @MvcHtmlString.Create(Html.Settings().HtmlFooter)
-    @if (IsSectionDefined("Scripts"))
-    {
-        @RenderSection("Scripts")
-    }
+
+    <!-- Scripts section start -->
+    @RenderSection("Scripts", false)
+    <!-- Scripts section end -->
+
     @if (IsSectionDefined("FedAuthScripts"))
     {
         @RenderSection("FedAuthScripts")

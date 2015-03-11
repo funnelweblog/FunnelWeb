@@ -12,7 +12,8 @@
     </title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     @Styles.Render("~/Content/bootstrap")
-    @Styles.Render("~/Content/themes/base/adminCss")
+    @Styles.Render("~/Content/prettify")
+    @Styles.Render("~/Content/admin")
     @Scripts.Render("~/bundles/jquery")
 
     @RenderSection("Meta", required: false)
@@ -102,10 +103,7 @@
         @Scripts.Render("~/bundles/showdown")
         @Scripts.Render("~/bundles/site")
 
-        @if (IsSectionDefined("Scripts"))
-        {
-            @RenderSection("Scripts")
-        }
+        @RenderSection("Scripts", false)
 
         @*@MiniProfiler.RenderIncludes()*@
 </body>
