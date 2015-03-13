@@ -73,7 +73,7 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 
 			if (!ModelState.IsValid)
 			{
-				model.SelectedTags = GetEditTags(model);
+				//model.SelectedTags = GetEditTags(model);
 				return View(model);
 			}
 
@@ -81,14 +81,14 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 			var entry = Repository.Get<Entry>(model.Id);
 			if (entry == null && CurrentEntryExistsWithName(model.Name))
 			{
-				model.SelectedTags = GetEditTags(model);
+				//model.SelectedTags = GetEditTags(model);
 				ModelState.AddModelError("PageExists", string.Format("A page with SLUG '{0}' already exists. You should edit that page instead", model.Name));
 				return View(model);
 			}
 
 			if (entry == null && CurrentEntryExistsWithName(model.Title) && model.Name == "")
 			{
-				model.SelectedTags = GetEditTags(model);
+				//model.SelectedTags = GetEditTags(model);
 				ModelState.AddModelError("PageExists", string.Format("A page with SLUG '{0}' already exists. Please add a unique SLUG here.", model.Title));
 				return View(model);
 			}
@@ -150,8 +150,9 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 			var tagList = new List<Tag>();
 			foreach (var tagName in model.TagsCommaSeparated.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Where(s => s != "0"))
 			{
-				int id;
-				var tag = int.TryParse(tagName, out id) ? Repository.Get<Tag>(id) : new Tag { Name = tagName };
+                Tag tagDb = Repository.FindAll<Tag>().FirstOrDefault<Tag>(t => t.Name == tagName);
+				
+                Tag tag = tagDb ?? new Tag { Name = tagName };
 				tagList.Add(tag);
 			}
 

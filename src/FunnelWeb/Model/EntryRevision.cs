@@ -130,11 +130,8 @@ namespace FunnelWeb.Model
                     .Where(x => x.Length > 0);
                 return tagStrings.Select(s => AllTags.FirstOrDefault(t => t.Name.Trim() == s.Trim()) ?? new Tag { Name = s });
             }
-            set
-            {
-                TagsCommaSeparated = string.Join(",", value.Select(x => x.Name));
-            }
         }
+
         [DataType("Tags")]
         public virtual IEnumerable<Tag> AllTags { get; set; }
 

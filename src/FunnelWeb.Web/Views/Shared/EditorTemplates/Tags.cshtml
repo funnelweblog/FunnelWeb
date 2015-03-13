@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Tag>
+﻿@model string
 
 @{
     @Scripts.Render("~/bundles/jquery")
@@ -25,4 +25,5 @@
     }
 </select>*@
 
-<input type="text" value="@String.Join(",", Model.Select(m => m.Name).ToArray())" data-role="tagsinput">
+@*<input type="text" value="@Model" data-role="tagsinput">*@
+<input type="text" value="@Model">

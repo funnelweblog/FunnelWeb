@@ -70,7 +70,7 @@ namespace FunnelWeb.Model
         [StringLength(100)]
         [Description("Comma-separated tags that will appear in the &lt;meta&gt; tags of the page.")]
         [HintSize(HintSize.Scaled)]
-        [DataType("TagsList")]
+        //[DataType("Tags")]
         public virtual string TagsCommaSeparated
         {
             get
@@ -84,11 +84,11 @@ namespace FunnelWeb.Model
                 {
                     string[] tagStrings = value.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
-                    Tags = new List<Tag>();
-                    foreach (string tagString in tagStrings)
-                    {
-                        Tags.Add(new Tag() { Name = tagString });
-                    }
+                    //Tags = new List<Tag>();
+                    //foreach (string tagString in tagStrings)
+                    //{
+                    //    Tags.Add(new Tag() { Name = tagString });
+                    //}
                 }
             }
         }
