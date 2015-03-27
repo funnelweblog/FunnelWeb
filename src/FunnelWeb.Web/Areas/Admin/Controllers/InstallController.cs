@@ -85,12 +85,12 @@ namespace FunnelWeb.Web.Areas.Admin.Controllers
 		}
 
 		[ClaimsPrincipalPermission(SecurityAction.Demand, Operation = Authorization.Operations.Update, Resource = Authorization.Resources.Install.ChangeProvider)]
-		public ActionResult ChangeProvider(string newDatabaseProvider)
+		public ActionResult ChangeProvider(string databaseProvider)
 		{
-			var provider = databaseProvidersInfo().GetProviderByName(newDatabaseProvider);
+			var provider = databaseProvidersInfo().GetProviderByName(databaseProvider);
 
 			ConnectionStringSettings.ConnectionString = provider.DefaultConnectionString;
-			ConnectionStringSettings.DatabaseProvider = newDatabaseProvider;
+			ConnectionStringSettings.DatabaseProvider = databaseProvider;
 			if (!provider.SupportSchema)
 			{
 				ConnectionStringSettings.Schema = null;				
