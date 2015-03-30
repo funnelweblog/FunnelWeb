@@ -6,19 +6,22 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="language" content="english" />
     <meta name="viewport" content="width=device-width" />
-    @Styles.Render("~/Content/themes/base/baseCss")
-    @Styles.Render("~/Content/themes/base/css")
-    <link href="@Html.Qualify(Href("~/content/theme.css"))" rel="stylesheet"/> 
+    @Styles.Render("~/Content/bootstrap")
+    @Styles.Render("~/Content/prettify")
+    @Styles.Render("~/Content/mobile")
+    @Styles.Render("~/Themes/" + @Html.Settings().Theme)
     @RenderSection("Meta", required: false)
     @MvcHtmlString.Create(Html.Settings().HtmlHead)
 </head>
 <body>
     <header>
-        <a class="logo" href="@Html.Qualify("/")" title="@Html.Settings().SiteTitle">@Html.Settings().SiteTitle</a>
+        <a class="logo" href="@Url.Content("~/")" title="@Html.Settings().SiteTitle" rel="home">
+            <img src="/Content/Images/dot.png" alt="@Html.Settings().SiteTitle" />
+        </a>
         <nav>
             <ul>
                 @MvcHtmlString.Create(Html.Settings().MainLinks)
-                @if (ViewData.IsLoggedIn())
+                @if (User.Identity.IsAuthenticated)
                 {
                     <li>@Html.AdminActionLink("New Post", "Edit", "WikiAdmin")</li>
                     <li>@Html.AdminActionLink("Admin", "Index", "Admin")</li>
@@ -27,7 +30,7 @@
             </ul>
         </nav>
     </header>
-    <div class="body" role="main">
+    <div class="body site-content row" role="main">
         @if (TempData.ContainsKey("Flash"))
         {
             <div class="flash">
@@ -48,6 +51,7 @@
         @MvcHtmlString.Create(Html.Settings().Footer)
     </footer>
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jsdate")
     @Scripts.Render("~/bundles/showdown")
     @Scripts.Render("~/bundles/prettify")
@@ -57,5 +61,26 @@
     {
         @RenderSection("Scripts")
     }
+    
+    @if (Html.Settings().EnableDisqusCommenting)
+    {
+        <script type="text/javascript">
+            $(function () {
+                $("[data-disqus-identifier]").each(function (index, element) {
+                    $.ajax({
+                        type: 'GET',
+                        url: "https://disqus.com/api/3.0/threads/listPosts.json",
+                        data: { api_key: '@Html.Settings().DisqusAPIKey', forum: '@Html.Settings().DisqusShortname', thread: 'ident:' + $(element).attr("data-disqus-identifier") },
+                        cache: false,
+                        dataType: 'json',
+                        success: function (result) {
+                            element.innerHTML = result.response.length;
+                        }
+                    });
+                });
+            });
+        </script>
+    }
+
 </body>
 </html>

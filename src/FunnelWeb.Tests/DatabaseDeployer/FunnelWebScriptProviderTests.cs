@@ -27,7 +27,7 @@ namespace FunnelWeb.Tests.DatabaseDeployer
                                                             });
             var scriptProvider = new FunnelWebScriptProvider(assembly, s=>s.StartsWith("Script"), "sqlce");
 
-            var scripts = scriptProvider.GetScripts(()=>null).ToList();
+            var scripts = scriptProvider.GetScripts(null).ToList();
 
             Assert.AreEqual("Script0001_sqlce.sql", scripts.Single(s => s.Name == "Script0001_sqlce.sql").Name);
             Assert.AreEqual("Script0002.sql", scripts.Single(s => s.Name == "Script0002.sql").Name);

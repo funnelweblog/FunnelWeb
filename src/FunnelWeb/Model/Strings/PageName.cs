@@ -4,6 +4,9 @@ using System.Text.RegularExpressions;
 
 namespace FunnelWeb.Model.Strings
 {
+    /// <summary>
+    /// PageName class is an all-lowercase string which does not have any special characters (except - and /)
+    /// </summary>
     [Serializable]
     public sealed class PageName : EnforcedString, IEquatable<PageName>
     {

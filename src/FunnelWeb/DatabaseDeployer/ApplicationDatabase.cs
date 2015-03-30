@@ -34,7 +34,7 @@ namespace FunnelWeb.DatabaseDeployer
 
         public string[] GetCoreRequiredScripts(Func<IDbConnection> connectionFactory)
         {
-            return CreateScriptProvider(connectionStringSettings.DatabaseProvider).GetScripts(connectionFactory).Select(x => x.Name).ToArray();
+            return CreateScriptProvider(connectionStringSettings.DatabaseProvider).GetScripts(null).Select(x => x.Name).ToArray();
         }
 
         public string[] GetExtensionExecutedScripts(Func<IDbConnection> connectionFactory, ScriptedExtension extension)
@@ -44,7 +44,7 @@ namespace FunnelWeb.DatabaseDeployer
 
         public string[] GetExtensionRequiredScripts(Func<IDbConnection> connectionFactory, ScriptedExtension extension)
         {
-            return extension.ScriptProvider.GetScripts(connectionFactory).Select(x => x.Name).ToArray();
+            return extension.ScriptProvider.GetScripts(null).Select(x => x.Name).ToArray();
         }
 
         /// <summary>

@@ -3,10 +3,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using FunnelWeb.Tests.Helpers;
-using FunnelWeb.Web.App_Start;
 using FunnelWeb.Web.Areas.Admin;
 using NSubstitute;
 using NUnit.Framework;
+using RouteConfig = FunnelWeb.Web.App_Start.RouteConfig;
 
 namespace FunnelWeb.Tests.Web
 {

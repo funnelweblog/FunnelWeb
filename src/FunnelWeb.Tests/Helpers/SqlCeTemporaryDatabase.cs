@@ -31,7 +31,7 @@ namespace FunnelWeb.Tests.Helpers
             databaseFile = Path.Combine(Path.GetTempPath(), "FunnelWeb.sdf");
             connectionString = string.Format("Data Source={0}; Persist Security Info=False", databaseFile);
 
-            database = new AdHocSqlRunner(() => new SqlCeConnection(connectionString), null);
+            database = new AdHocSqlRunner(() => new SqlCeConnection(connectionString).CreateCommand(), null);
 
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterInstance(this).As<IConnectionStringSettings>();

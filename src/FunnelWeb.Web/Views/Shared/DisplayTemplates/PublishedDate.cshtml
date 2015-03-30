@@ -1,6 +1,7 @@
 ﻿@model DateTime
 
-<div class="@ViewData["class"]">
-    <span class='month'>@Model.ToLocalTime().ToString("MMM d")</span>
+<time class="@ViewData["class"] entry-date" datetime="@Model.ToString("yyyy-MM-ddTHH:mm:ssK")" pubdate itemprop="datePublished">
+    <span class='month'>@Model.ToLocalTime().ToString("MMM")</span>
+    <span class='day'>@Model.ToLocalTime().ToString("dd")</span>,
     <span class='year'>@Model.ToLocalTime().ToString("yyyy")</span>
-</div>
+</time>

@@ -1,0 +1,19 @@
+/*
+Theme Name: Flower
+Theme URI: http://burak-aydin.com/flower-page/
+Author: Burak Aydin
+Author URI: http://burak-aydin.com/
+Description: Flower is a clean and modern magazine, news or blog WordPress theme for magazines, news websites, blogs and other editorial related websites. It is will make your website adaptable with any type of mobile devices. It is sleek and powerful mobile first front-end framework for faster web development. Your site will be beautiful when viewed on a smartphone or tablet. Fully Responsive, Customizable and Search Engine ( SEO ) Friendly Friendly WordPress Theme using Twitter Bootstrap 3 and Font Awesome which will be a good choice to build your news/magazine or blog site. Flower is a theme based on Redux Framework, has many easy to use theme options and build-in Google Fonts support. It Offers Widgetized Sidebar, three column Footer Widgets, four column Featured Category. You can add unlimted Widgets in each Sidebar and Footer Column. Theme Features: Advanced Custom Fields, Custom Homepage Settings, Custom Background Support, Custom Menu ( 3 Level ), Custom Colors, Dynamic Widgets, Featured Category, Top Slider. To learn more about the theme, please open the file readme.txt which is included in the download package.
+Version: 1.2.1
+Tags: black, blavatar, custom-menu, custom-background, custom-colors, featured-images, pink, right-sidebar, responsive-layout, translation-ready, theme-options, threaded-comments, two-columns, three-columns, white
+Text Domain: flower
+License: GNU General Public License version 3.0
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
+This theme is licensed under the GPL.
+*/
+
+@import url('css/bootstrap.css');
+@import url('css/bootstrap-theme.css');
+@import url('css/font-awesome.css');
+@import url('css/flexslider.css');
+@import url('css/style.css');

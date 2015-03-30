@@ -1,0 +1,828 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: quark\n"
+"POT-Creation-Date: 2013-10-27 18:47+1000\n"
+"PO-Revision-Date: 2014-02-12 13:36+0100\n"
+"Last-Translator: Jesús Amieiro Becerra <amieiro@gmail.com>\n"
+"Language-Team: Maddison Designs <support@maddisondesigns.com>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.4\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;"
+"esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ..\n"
+
+#: ../404.php:17
+msgid "Uh Oh! This is somewhat embarrassing!"
+msgstr "Uh Oh! Esto es algo vergonzoso!"
+
+#: ../404.php:20 ../no-results.php:32
+msgid ""
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
+"searching can help."
+msgstr ""
+"Parece que no podemos encontrar lo que estás buscando. Quizás una búsqueda "
+"te pueda ayudar."
+
+#: ../author-bio.php:15
+#, php-format
+msgid "About %s"
+msgstr "Acerca de %s"
+
+#: ../author-bio.php:33
+#, php-format
+msgid "View all posts by %s <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Ver todas las entradas por %s <span class=\"meta-nav\">&rarr;</span>"
+
+#: ../author.php:24
+#, php-format
+msgid "Author Archives: %s"
+msgstr "Archivos del Autor: %s"
+
+#: ../category.php:18
+#, php-format
+msgid "Category Archives: %s"
+msgstr "Archivos de la categoría: %s"
+
+#: ../comments.php:30
+#, php-format
+msgid "One response on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s responses on &ldquo;%2$s&rdquo;"
+msgstr[0] "Una respuesta en &ldquo;%2$s&rdquo;"
+msgstr[1] "%1$s respuestas en &ldquo;%2$s&rdquo;"
+
+#: ../comments.php:41
+msgid "Comment navigation"
+msgstr "Navegación de comentarios"
+
+#: ../comments.php:42
+msgid "&larr; Older Comments"
+msgstr "&larr; Comentarios más antiguos"
+
+#: ../comments.php:43
+msgid "Newer Comments &rarr;"
+msgstr "Comentarios más recientes &rarr;"
+
+#: ../comments.php:49
+msgid "Comments are closed."
+msgstr "Los comentarios están cerrados."
+
+#: ../content-aside.php:15 ../content-audio.php:24 ../content-chat.php:15
+#: ../content-gallery.php:23 ../content-image.php:15 ../content-link.php:15
+#: ../content-quote.php:16 ../content-status.php:15 ../content-video.php:23
+#: ../content.php:40 ../functions.php:772
+msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Continuar leyendo <span class=\"meta-nav\">&rarr;</span>"
+
+#: ../content-aside.php:20 ../content-audio.php:29 ../content-chat.php:20
+#: ../content-gallery.php:28 ../content-image.php:20 ../content-link.php:20
+#: ../content-page.php:22 ../content-postarchives.php:33
+#: ../content-quote.php:23 ../content-status.php:19 ../content-video.php:28
+#: ../content.php:44
+msgid "Pages:"
+msgstr "Páginas:"
+
+#: ../content-aside.php:32 ../content-audio.php:42 ../content-chat.php:32
+#: ../content-gallery.php:40 ../content-image.php:32 ../content-link.php:32
+#: ../content-page.php:29 ../content-postarchives.php:36
+#: ../content-quote.php:35 ../content-status.php:31 ../content-video.php:40
+#: ../content.php:57 ../functions.php:561
+msgid "Edit"
+msgstr "Editar"
+
+#: ../content-audio.php:17 ../content-gallery.php:17 ../content-video.php:17
+#: ../content.php:22 ../content.php:27
+#, php-format
+msgid "Permalink to %s"
+msgstr "Enlace permanente a %s"
+
+#: ../content-postarchives.php:19
+msgid "Archives by Category"
+msgstr "Archivos por Categoría"
+
+#: ../content-postarchives.php:28
+msgid "Archives by Month"
+msgstr "Archivos por Mes"
+
+#: ../content.php:13
+msgid "Featured post"
+msgstr "Artículo destacado"
+
+#: ../functions.php:55
+msgid "Primary Menu"
+msgstr "Menú Principal"
+
+#: ../functions.php:116
+msgctxt "PT Sans font: on or off"
+msgid "on"
+msgstr "Activada"
+
+#: ../functions.php:121
+msgctxt "PT Sans font: add new subset (cyrillic)"
+msgid "no-subset"
+msgstr "Sin subconjunto"
+
+#: ../functions.php:129
+msgctxt "Arvo font: on or off"
+msgid "on"
+msgstr "Activada"
+
+#: ../functions.php:187
+msgid "Main Sidebar"
+msgstr "Barra Lateral Principal"
+
+#: ../functions.php:189
+msgid ""
+"Appears in the sidebar on posts and pages except the optional Front Page "
+"template, which has its own widgets"
+msgstr ""
+"Se muestra en la barra lateral en las entradas y en las páginas excepto en "
+"la plantilla opcional de la Portada, que tiene sus widgets propios"
+
+#: ../functions.php:197
+msgid "Blog Sidebar"
+msgstr "Barra Lateral del Blog"
+
+#: ../functions.php:199
+msgid "Appears in the sidebar on the blog and archive pages only"
+msgstr ""
+"Se muestra en la barra lateral solo en el blog y en las páginas de archivo"
+
+#: ../functions.php:207
+msgid "Single Post Sidebar"
+msgstr "Barra Lateral para Entrada Individual"
+
+#: ../functions.php:209
+msgid "Appears in the sidebar on single posts only"
+msgstr "Se muestra en la barra lateral solo en las entradas individuales"
+
+#: ../functions.php:217
+msgid "Page Sidebar"
+msgstr "Barra lateral de Página"
+
+#: ../functions.php:219
+msgid "Appears in the sidebar on pages only"
+msgstr "Se muestra en la barra lateral solo en las páginas"
+
+#: ../functions.php:227
+msgid "First Front Page Banner Widget"
+msgstr "Primer Widget de Banners de Portada"
+
+#: ../functions.php:229 ../functions.php:239
+msgid "Appears in the banner area on the Front Page"
+msgstr "Se muestra en el área del banner en la Portada"
+
+#: ../functions.php:237
+msgid "Second Front Page Banner Widget"
+msgstr "Segundo Widget de Banners de Portada"
+
+#: ../functions.php:247
+msgid "First Front Page Widget Area"
+msgstr "Primera Área de Widgets de Portada"
+
+#: ../functions.php:249 ../functions.php:259 ../functions.php:269
+#: ../functions.php:279
+msgid ""
+"Appears when using the optional Front Page template with a page set as "
+"Static Front Page"
+msgstr ""
+"Se muestra cuando se usa la plantilla opcional de la Portada con una página "
+"configurada como Portada Estática"
+
+#: ../functions.php:257
+msgid "Second Front Page Widget Area"
+msgstr "Segunda Área de Widgets de Portada"
+
+#: ../functions.php:267
+msgid "Third Front Page Widget Area"
+msgstr "Tercera Área de Widgets de Portada"
+
+#: ../functions.php:277
+msgid "Fourth Front Page Widget Area"
+msgstr "Cuarta Área de Widgets de Portada"
+
+#: ../functions.php:287
+msgid "First Footer Widget Area"
+msgstr "Primera Área de Widgets del Pie de Página"
+
+#: ../functions.php:289 ../functions.php:299 ../functions.php:309
+#: ../functions.php:319
+msgid "Appears in the footer sidebar"
+msgstr "Se muestra en el pie de la barra lateral"
+
+#: ../functions.php:297
+msgid "Second Footer Widget Area"
+msgstr "Segunda Área de Widgets del Pie de Página"
+
+#: ../functions.php:307
+msgid "Third Footer Widget Area"
+msgstr "Tercera Área de Widgets del Pie de Página"
+
+#: ../functions.php:317
+msgid "Fourth Footer Widget Area"
+msgstr "Cuarta Área de Widgets del Pie de Página"
+
+#: ../functions.php:397
+msgid "Please enter your name"
+msgstr "Por favor, introduce tu nombre"
+
+#: ../functions.php:398
+msgid "Please enter a valid email address"
+msgstr "Por favor, introduce una dirección de correo electrónico válida"
+
+#: ../functions.php:399
+msgid "Please add a comment"
+msgstr "Por favor, añade un comentario"
+
+#: ../functions.php:447
+#, php-format
+msgid "Page %s"
+msgstr "Página %s"
+
+#: ../functions.php:474
+msgid "Post navigation"
+msgstr "Navegación de entradas"
+
+#: ../functions.php:478
+msgctxt "Previous post link"
+msgid "<i class=\"fa fa-angle-left\"></i>"
+msgstr "<i class=\"fa fa-angle-left\"></i>"
+
+#: ../functions.php:479
+msgctxt "Next post link"
+msgid "<i class=\"fa fa-angle-right\"></i>"
+msgstr "<i class=\"fa fa-angle-right\"></i>"
+
+#: ../functions.php:490
+msgid "<i class=\"fa fa-angle-left\"></i> Previous"
+msgstr "<i class=\"fa fa-angle-left\"></i> Anterior"
+
+#: ../functions.php:492
+msgid "Next <i class=\"fa fa-angle-right\"></i>"
+msgstr "Siguiente <i class=\"fa fa-angle-right\"></i>"
+
+#: ../functions.php:529
+msgid "Pingback:"
+msgstr "Pingback:"
+
+#: ../functions.php:529
+msgid "(Edit)"
+msgstr "(Editar)"
+
+#: ../functions.php:544
+msgid "Post author"
+msgstr "Autor de la entrada"
+
+#: ../functions.php:547 ../functions.php:667
+#, php-format
+msgid "%1$s @ %2$s"
+msgstr "%1$s @ %2$s"
+
+#: ../functions.php:550
+#, php-format
+msgid "%1$s at %2$s"
+msgstr "%1$s a las %2$s"
+
+#: ../functions.php:556
+msgid "Your comment is awaiting moderation."
+msgstr "Tu comentario está pendiente de moderación."
+
+#: ../functions.php:565
+msgid "Reply <span>&darr;</span>"
+msgstr "Responder <span>&darr;</span>"
+
+#: ../functions.php:589
+msgid "Name"
+msgstr "Nombre"
+
+#: ../functions.php:591
+msgid "Email"
+msgstr "Correo electrónico"
+
+#: ../functions.php:593
+msgid "Website"
+msgstr "Sitio web"
+
+#: ../functions.php:612
+msgctxt "noun"
+msgid "Comment"
+msgstr "Comentario"
+
+#: ../functions.php:675
+#, php-format
+msgid "View all posts by %s"
+msgstr "Ver todas las entradas por %s"
+
+#: ../functions.php:680 ../functions.php:716
+msgid " "
+msgstr " "
+
+#: ../functions.php:685
+msgid "Comment on "
+msgstr "Comentarios habilitados"
+
+#: ../functions.php:686
+#, php-format
+msgid "%1$s Comment"
+msgid_plural "%1$s Comments"
+msgstr[0] "%1$s Comentario"
+msgstr[1] "%1$s Comentarios"
+
+#: ../functions.php:686
+msgid "No Comments"
+msgstr "No hay comentarios"
+
+#: ../functions.php:690
+#, php-format
+msgid ""
+"<div class=\"header-meta\">%1$s%2$s<span class=\"post-categories\">%3$s</"
+"span>%4$s</div>"
+msgstr ""
+"<div class=\"header-meta\">%1$s%2$s<span class=\"post-categories\">%3$s</"
+"span>%4$s</div>"
+
+#: ../functions.php:721
+#, php-format
+msgid "<i class=\"fa fa-tag\"></i> %1$s"
+msgstr "<i class=\"fa fa-tag\"></i> %1$s"
+
+#: ../functions.php:772
+msgid "Continue reading"
+msgstr "Continuar leyendo"
+
+#: ../functions.php:862
+msgid "Follow me on Twitter"
+msgstr "Sígueme en Twitter"
+
+#: ../functions.php:863
+msgid "Friend me on Facebook"
+msgstr "Hazte amigo mío en Facebook"
+
+#: ../functions.php:864
+msgid "Connect with me on Google+"
+msgstr "Conecta conmigo en Google+"
+
+#: ../functions.php:865
+msgid "Connect with me on LinkedIn"
+msgstr "Conecta conmigo en LinkedIn"
+
+#: ../functions.php:866
+msgid "Follow me on Dribbble"
+msgstr "Sígueme en Dribbble"
+
+#: ../functions.php:867
+msgid "Follow me on Tumblr"
+msgstr "Sígueme en Tumblr"
+
+#: ../functions.php:868
+msgid "Fork me on GitHub"
+msgstr "Bifúrcame en GitHub"
+
+#: ../functions.php:869
+msgid "Fork me on Bitbucket"
+msgstr "Bifúrcame en Bitbucket"
+
+#: ../functions.php:870
+msgid "Follow me on Foursquare"
+msgstr "Sígueme en Foursquare"
+
+#: ../functions.php:871
+msgid "Subscribe to me on YouTube"
+msgstr "Suscríbete a mi en Youtube."
+
+#: ../functions.php:872
+msgid "Follow me on Instagram"
+msgstr "Sígueme en Instagram"
+
+#: ../functions.php:873
+msgid "Connect with me on Flickr"
+msgstr "Conecta conmigo en Flickr"
+
+#: ../functions.php:874
+msgid "Follow me on Pinterest"
+msgstr "Sígueme en Pinterest"
+
+#: ../functions.php:909
+msgid "Proudly powered by"
+msgstr "Con la tecnología de"
+
+#: ../functions.php:910
+msgid "http://wordpress.org/"
+msgstr "http://wordpress.org/"
+
+#: ../functions.php:911
+msgid "Semantic Personal Publishing Platform"
+msgstr "Plataforma de Publicación Personal Semántica"
+
+#: ../functions.php:912
+msgid "WordPress"
+msgstr "WordPress"
+
+#: ../header.php:42
+msgid "Skip to main content"
+msgstr "Saltar al contenido principal"
+
+#: ../header.php:67
+msgid "Menu"
+msgstr "Menú"
+
+#: ../header.php:68
+msgid "Skip to content"
+msgstr "Saltar al contenido"
+
+#: ../no-results.php:14
+msgid "Nothing Found"
+msgstr "Nada Encontrado"
+
+#: ../no-results.php:20
+#, php-format
+msgid ""
+"Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr ""
+"¿Listo para publicar tu primera entrada? <a href=\"%1$s\">Empieza aquí</a>."
+
+#: ../no-results.php:27
+msgid ""
+"Sorry, but nothing matched your search terms. Please try again with some "
+"different keywords."
+msgstr ""
+"Lo siento, pero nada coincide con los términos de búsqueda. Por favor, "
+"inténtalo de nuevo con otras palabras clave diferentes."
+
+#: ../options.php:50
+msgid "Left aligned"
+msgstr "Alineado a la izquierda"
+
+#: ../options.php:51
+msgid "Center aligned"
+msgstr "Alineado al centro"
+
+#: ../options.php:52
+msgid "Right aligned"
+msgstr "Alineado a la derecha"
+
+#: ../options.php:58
+msgid "Basic Settings"
+msgstr "Opciones básicas"
+
+#: ../options.php:62
+msgid "Background"
+msgstr "Fondo"
+
+#: ../options.php:63
+#, php-format
+msgid ""
+"If you&rsquo;d like to replace or remove the default background image, use "
+"the <a href=\"%1$s\" title=\"Custom background\">Appearance &gt; Background</"
+"a> menu option."
+msgstr ""
+"Si quieres reemplazar o eliminar la imagen de fondo por defecto, usa la "
+"opción del menú <a href=\"%1$s\" title=\"Fondo personalizado\">Apariencia "
+"&gt; Fondo</a>."
+
+#: ../options.php:71
+msgid "Logo"
+msgstr "Logotipo"
+
+#: ../options.php:72
+#, php-format
+msgid ""
+"If you&rsquo;d like to replace or remove the default logo, use the <a href="
+"\"%1$s\" title=\"Custom header\">Appearance &gt; Header</a> menu option."
+msgstr ""
+"Si quieres reemplazar o eliminar el logotipo por defecto, usa la opción del "
+"menú <a href=\"%1$s\" title=\"Cabecera personalizada\">Apariencia &gt; "
+"Cabecera</a>."
+
+#: ../options.php:80
+msgid "Social Media Settings"
+msgstr "Configuración de las Redes Sociales"
+
+#: ../options.php:81
+msgid ""
+"Enter the URLs for your Social Media platforms. You can also optionally "
+"specify whether you want these links opened in a new browser tab/window."
+msgstr ""
+"Introduce las URL de tus Redes Sociales. También puedes, de forma opcional, "
+"especificar si deseas que estos enlaces se abran en una nueva pestaña/"
+"ventana del navegador."
+
+#: ../options.php:85
+msgid "Open links in new Window/Tab"
+msgstr "Abrir los enlaces en una nueva Ventana/Pestaña"
+
+#: ../options.php:86
+msgid "Open the social media links in a new browser tab/window"
+msgstr ""
+"Abrir los enlaces a redes sociales en una nueva pestaña/ventana del navegador"
+
+#: ../options.php:92
+msgid "Twitter"
+msgstr "Twitter"
+
+#: ../options.php:93
+msgid "Enter your Twitter URL."
+msgstr "Introduce tu URL de Twitter."
+
+#: ../options.php:99
+msgid "Facebook"
+msgstr "Facebook"
+
+#: ../options.php:100
+msgid "Enter your Facebook URL."
+msgstr "Introduce tu URL de Facebook."
+
+#: ../options.php:106
+msgid "Google+"
+msgstr "Google+"
+
+#: ../options.php:107
+msgid "Enter your Google+ URL."
+msgstr "Introduce tu URL de Google+."
+
+#: ../options.php:113
+msgid "LinkedIn"
+msgstr "LinkedIn"
+
+#: ../options.php:114
+msgid "Enter your LinkedIn URL."
+msgstr "Introduce tu URL de LinkedIn."
+
+#: ../options.php:120
+msgid "Dribbble"
+msgstr "Dribbble"
+
+#: ../options.php:121
+msgid "Enter your Dribbble URL."
+msgstr "Introduce tu URL de Dribbble."
+
+#: ../options.php:127
+msgid "Tumblr"
+msgstr "Tumblr"
+
+#: ../options.php:128
+msgid "Enter your Tumblr URL."
+msgstr "Introduce tu URL de Tumblr."
+
+#: ../options.php:134
+msgid "GitHub"
+msgstr "GitHub"
+
+#: ../options.php:135
+msgid "Enter your GitHub URL."
+msgstr "Introduce tu URL de GitHub."
+
+#: ../options.php:141
+msgid "Bitbucket"
+msgstr "Bitbucket"
+
+#: ../options.php:142
+msgid "Enter your Bitbucket URL."
+msgstr "Introduce tu URL de Bitbucket."
+
+#: ../options.php:148
+msgid "Foursquare"
+msgstr "Foursquare"
+
+#: ../options.php:149
+msgid "Enter your Foursquare URL."
+msgstr "Introduce tu URL de Foursquare."
+
+#: ../options.php:155
+msgid "YouTube"
+msgstr "YouTube"
+
+#: ../options.php:156
+msgid "Enter your YouTube URL."
+msgstr "Introduce tu URL de YouTube."
+
+#: ../options.php:162
+msgid "Instagram"
+msgstr "Instagram"
+
+#: ../options.php:163
+msgid "Enter your Instagram URL."
+msgstr "Introduce tu URL de Instagram."
+
+#: ../options.php:169
+msgid "Flickr"
+msgstr "Flickr"
+
+#: ../options.php:170
+msgid "Enter your Flickr URL."
+msgstr "Introduce tu URL de Flickr."
+
+#: ../options.php:176
+msgid "Pinterest"
+msgstr "Pinterest"
+
+#: ../options.php:177
+msgid "Enter your Pinterest URL."
+msgstr "Introduce tu URL de Pinterest."
+
+#: ../options.php:183
+msgid "Advanced settings"
+msgstr "Configuración avanzada"
+
+#: ../options.php:187
+msgid "Banner Background"
+msgstr "Banner de fondo"
+
+#: ../options.php:188
+msgid "Select an image and background color for the homepage banner."
+msgstr ""
+"Selecciona una imagen y un color de fondo para el banner de la portada."
+
+#: ../options.php:194
+msgid "Footer Background Color"
+msgstr "Color de Fondo del Pie de Página"
+
+#: ../options.php:195
+msgid "Select the background color for the footer."
+msgstr "Selecciona el color de fondo para el pie de página."
+
+#: ../options.php:201
+msgid "Footer Content"
+msgstr "Contenido del Pie de Página"
+
+#: ../options.php:202
+msgid ""
+"Enter the text you&lsquo;d like to display in the footer. This content will "
+"be displayed just below the footer widgets. It&lsquo;s ideal for displaying "
+"your copyright message or credits."
+msgstr ""
+"Introduce el texto que quieres mostrar en el pie de página. Este contenido "
+"será mostrado justo debajo de los widgets del pie de página. Es ideal para "
+"mostrar tu mensaje de derechos de autor o los créditos."
+
+#: ../options.php:209
+msgid "Footer Content Position"
+msgstr "Posición del Contenido del Pie de Página"
+
+#: ../options.php:210
+msgid "Select what position you would like the footer content aligned to."
+msgstr ""
+"Selecciona a qué posición te gustaría alinear el contenido del pie de página."
+
+#: ../options.php:218
+msgid "Google Analytics"
+msgstr "Google Analytics"
+
+#: ../options.php:219
+msgid ""
+"Enter your Google Analytics Tracking ID. The Tracking ID will be in the form "
+"of UA-1234567-1."
+msgstr ""
+"Introduce tu ID de seguimiento de Google Analytics. El ID de seguimiento "
+"tiene un formato del estilo de UA-1234567-1."
+
+#: ../search.php:19
+#, php-format
+msgid "Search Results for: %s"
+msgstr "Resultados de la búsqueda de: %s"
+
+#: ../tag.php:18
+#, php-format
+msgid "Tag Archives: %s"
+msgstr "Archivado con la Etiqueta: %s"
+
+#: ../inc/options-framework.php:163 ../inc/options-framework.php:378
+msgid "Theme Options"
+msgstr "Opciones del tema"
+
+#: ../inc/options-framework.php:194
+msgid "Clear"
+msgstr "Limpiar"
+
+#: ../inc/options-framework.php:195
+msgid "Default"
+msgstr "Predeterminado"
+
+#: ../inc/options-framework.php:196
+msgid "Select Color"
+msgstr "Seleccionar Color"
+
+#: ../inc/options-framework.php:241
+msgid "Save Options"
+msgstr "Guardar Opciones"
+
+#: ../inc/options-framework.php:242
+msgid "Restore Defaults"
+msgstr "Reestablecer los Valores Predeterminados"
+
+#: ../inc/options-framework.php:242
+msgid "Click OK to reset. Any theme settings will be lost!"
+msgstr ""
+"Haz clic en OK para reestablecerlo. ¡Se perderá toda la configuración del "
+"tema!"
+
+#: ../inc/options-framework.php:274
+msgid "Default options restored."
+msgstr "Restauradas las opciones por defecto."
+
+#: ../inc/options-framework.php:328
+msgid "Options saved."
+msgstr "Opciones guardadas."
+
+#: ../inc/options-media-uploader.php:51
+msgid "No file chosen"
+msgstr "No has seleccionado ningún archivo"
+
+#: ../inc/options-media-uploader.php:54 ../inc/options-media-uploader.php:107
+msgid "Upload"
+msgstr "Subir"
+
+#: ../inc/options-media-uploader.php:56 ../inc/options-media-uploader.php:108
+msgid "Remove"
+msgstr "Eliminar"
+
+#: ../inc/options-media-uploader.php:59
+msgid "Upgrade your version of WordPress for full media support."
+msgstr "Actualiza tu versión de WordPress para un soporte multimedia completo."
+
+#: ../inc/options-media-uploader.php:83
+msgid "View File"
+msgstr "Ver Archivo"
+
+#: ../inc/options-sanitize.php:232
+msgid "No Repeat"
+msgstr "No Repetir"
+
+#: ../inc/options-sanitize.php:233
+msgid "Repeat Horizontally"
+msgstr "Repetir Horizontalmente"
+
+#: ../inc/options-sanitize.php:234
+msgid "Repeat Vertically"
+msgstr "Repetir Verticalmente"
+
+#: ../inc/options-sanitize.php:235
+msgid "Repeat All"
+msgstr "Repetir todo"
+
+#: ../inc/options-sanitize.php:248
+msgid "Top Left"
+msgstr "Arriba a la Izquierda"
+
+#: ../inc/options-sanitize.php:249
+msgid "Top Center"
+msgstr "Arriba Centrado"
+
+#: ../inc/options-sanitize.php:250
+msgid "Top Right"
+msgstr "Arriba a la Derecha"
+
+#: ../inc/options-sanitize.php:251
+msgid "Middle Left"
+msgstr "Centrado a la Izquierda"
+
+#: ../inc/options-sanitize.php:252
+msgid "Middle Center"
+msgstr "Centrado al Medio"
+
+#: ../inc/options-sanitize.php:253
+msgid "Middle Right"
+msgstr "Centrado a la Derecha"
+
+#: ../inc/options-sanitize.php:254
+msgid "Bottom Left"
+msgstr "Abajo a la Izquierda"
+
+#: ../inc/options-sanitize.php:255
+msgid "Bottom Center"
+msgstr "Abajo Centrado"
+
+#: ../inc/options-sanitize.php:256
+msgid "Bottom Right"
+msgstr "Abajo a la Derecha"
+
+#: ../inc/options-sanitize.php:269
+msgid "Scroll Normally"
+msgstr "Desplazarse Normalmente"
+
+#: ../inc/options-sanitize.php:270
+msgid "Fixed in Place"
+msgstr "Fijo en su Lugar"
+
+#: ../inc/options-sanitize.php:344
+msgid "Normal"
+msgstr "Normal"
+
+#: ../inc/options-sanitize.php:345
+msgid "Italic"
+msgstr "Cursiva"
+
+#: ../inc/options-sanitize.php:346
+msgid "Bold"
+msgstr "Negrita"
+
+#: ../inc/options-sanitize.php:347
+msgid "Bold Italic"
+msgstr "Negrita Cursiva"

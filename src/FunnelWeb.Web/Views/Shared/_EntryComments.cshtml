@@ -1,0 +1,23 @@
+﻿@model EntryRevision
+
+<section id="comments" class="comments-area">
+    @if (Model.Comments.Count > 0)
+    {
+        <div id="comments-title" class="clearfix">
+            <h2 class="comments-title comment-reply-title">@Model.Comments.Count response(s) on "@Model.Title"</h2>
+        </div>
+        @Html.DisplayFor(x => x.Comments, new { Model })
+    }
+    
+    @if (Model.IsDiscussionEnabled)
+    {
+        if (Html.Settings().DisableCommentsOlderThan > 0 && DateTime.UtcNow.AddDays(-Html.Settings().DisableCommentsOlderThan) > Model.Published && !Html.Settings().EnableDisqusCommenting)
+        {
+            <p>No new comments are allowed on this post.</p>
+        }
+        else
+        {
+            Html.RenderPartial("_EditComments", new FunnelWeb.Web.Views.Wiki.PageModel(Model.Name, Model));
+        }
+    }
+</section>

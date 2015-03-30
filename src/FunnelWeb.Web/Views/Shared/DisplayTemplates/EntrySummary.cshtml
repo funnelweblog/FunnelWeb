@@ -1,27 +1,21 @@
 ﻿@model EntrySummary
 
-<div class='post-line @String.Join(" ", Html.CssKeywordsFor(Model))'>
-    @Html.DisplayFor(x => x.Published, new { @class = "revised" })
-    <div class='comments'>
-            @if (Html.Settings().EnableDisqusCommenting)
-            {
-                @Scripts.Render("~/bundles/disqus-count")
-                <a href="@Url.Action("Page", "Wiki", new { page = Model.Name })#disqus_thread" data-disqus-identifier="@(Model.Title == null ? "" : (Model.Title + " - "))@Html.Settings().SiteTitle">Comment(s)</a>
-            }
-            else
-            {
-                <a href='@Url.Action("Page", "Wiki", new { page = Model.Name })#comments'>
-                    <span class='comment-count'>@Model.CommentCount</span>
-                    <span>comment@(Model.CommentCount == 1 ? "" : "s")</span>
-                </a>
-            }
-    </div>
-    <div class='summary'>
-        <h2>@Html.ActionLink(Model.Title, "Page", "Wiki", new { page = Model.Name }, null)</h2>
-        @if (!string.IsNullOrEmpty(Model.MetaDescription))
-        {
-        <p>@Html.RenderTrusted(Model.MetaDescription, Formats.Markdown)</p>
-        }
-        @Html.DisplayFor(x => Model.TagsCommaSeparated)
-    </div>
-</div>
+<article class='post-line blogpost @String.Join(" ", Html.CssKeywordsFor(Model))'>
+    @{
+        <div class='summary'>
+            <article>
+                @{ Html.RenderPartial("_EntryHeader", Model); }
+
+                <div class="entry-content post-content">
+                    @if (!string.IsNullOrEmpty(Model.MetaDescription))
+                    {
+                        <p>@Html.RenderTrusted(Model.MetaDescription, Formats.Markdown)</p>
+                    }
+                </div>
+
+                @{ Html.RenderPartial("_EntryFooter", Model); }
+            </article>
+        </div>
+    }
+</article>
+

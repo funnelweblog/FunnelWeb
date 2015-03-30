@@ -2,6 +2,9 @@ using System;
 
 namespace FunnelWeb.Model.Strings
 {
+    /// <summary>
+    /// A string type which will be always corrented when it's value it set (the Correct method of the class will be called)
+    /// </summary>
     public abstract class EnforcedString : IEquatable<EnforcedString>, IEquatable<string>
     {
         private readonly string value;
