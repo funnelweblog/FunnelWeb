@@ -534,3 +534,7 @@ header .menu li a {
     header .menu li a:hover {
         background: #707070 !important;
     }
+
+div.footer-meta {
+    display: none;
+}
