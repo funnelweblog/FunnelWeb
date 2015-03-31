@@ -1,0 +1,200 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Flower Wordpress Theme\n"
+"POT-Creation-Date: 2014-04-27 09:23+0200\n"
+"PO-Revision-Date: 2014-04-27 09:27+0200\n"
+"Last-Translator: Burak Aydın <burak_sdu@outlook.com>\n"
+"Language-Team: Burak Aydın <burak_sdu@outlook.com>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.4\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../404.php:18
+msgid "Page not found."
+msgstr ""
+
+#: ../404.php:18
+msgid "Go Homepage"
+msgstr ""
+
+#: ../archive.php:16
+msgid "Monthly Archives"
+msgstr ""
+
+#: ../archive.php:18
+msgid "Daily Archives"
+msgstr ""
+
+#: ../archive.php:20
+msgid "Yearly Archives"
+msgstr ""
+
+#: ../archive.php:22
+msgid "Archives"
+msgstr ""
+
+#: ../author-bio.php:17
+#, php-format
+msgid "View all posts by %s <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#: ../author.php:15
+msgid "Posts by "
+msgstr ""
+
+#: ../category-featured.php:43 ../category-featured.php:101
+#: ../category-featured.php:158 ../category-featured.php:215 ../comments.php:9
+#: ../content.php:24 ../page.php:32 ../single.php:35
+msgid "No Comments"
+msgstr ""
+
+#: ../category-featured.php:43 ../category-featured.php:101
+#: ../category-featured.php:158 ../category-featured.php:215 ../content.php:24
+#: ../page.php:32 ../single.php:35
+msgid "1 Comment"
+msgstr ""
+
+#: ../category-featured.php:43 ../category-featured.php:101
+#: ../category-featured.php:158 ../category-featured.php:215 ../content.php:24
+#: ../page.php:32 ../single.php:35
+msgid "% Comments"
+msgstr ""
+
+#: ../category.php:15
+msgid "Category Posts for"
+msgstr ""
+
+#: ../comments.php:9
+msgid "Comment ( 1 )"
+msgstr ""
+
+#: ../comments.php:9
+msgid "Comments ( % )"
+msgstr ""
+
+#: ../comments.php:27
+msgid "Comment navigation"
+msgstr ""
+
+#: ../comments.php:28
+msgid "&larr; Older Comments"
+msgstr ""
+
+#: ../comments.php:29
+msgid "Newer Comments &rarr;"
+msgstr ""
+
+#: ../comments.php:34
+msgid "Comments are closed."
+msgstr ""
+
+#: ../footer.php:42
+msgid "Theme by"
+msgstr ""
+
+#: ../footer.php:42
+msgid "Powered by"
+msgstr ""
+
+#: ../functions.php:22
+msgid "Top Menu"
+msgstr ""
+
+#: ../functions.php:23
+msgid "Top Menu Mobile"
+msgstr ""
+
+#: ../functions.php:24
+msgid "Middle Menu"
+msgstr ""
+
+#: ../functions.php:25
+msgid "Footer Menu"
+msgstr ""
+
+#: ../functions.php:39
+msgid "Right Sidebar"
+msgstr ""
+
+#: ../functions.php:40 ../functions.php:73
+msgid "This widget is located right side."
+msgstr ""
+
+#: ../functions.php:50
+msgid "Left Footer"
+msgstr ""
+
+#: ../functions.php:51
+msgid "This widget is located left side."
+msgstr ""
+
+#: ../functions.php:61
+msgid "Middle Footer"
+msgstr ""
+
+#: ../functions.php:62
+msgid "This widget is located middle."
+msgstr ""
+
+#: ../functions.php:72
+msgid "Right Footer"
+msgstr ""
+
+#: ../functions.php:243
+msgid "Top Slider Options"
+msgstr ""
+
+#: ../functions.php:247
+msgid "Slider Options"
+msgstr ""
+
+#: ../functions.php:250
+msgid "Featued Slider Post ?"
+msgstr ""
+
+#: ../functions.php:251
+msgid "Featured Slider for this post ?"
+msgstr ""
+
+#: ../functions.php:256
+msgid "Slider Image"
+msgstr ""
+
+#: ../functions.php:259
+msgid ""
+"Ideal slider size should be\t750 x 400. ( for retina screens : 1500 x 800 )."
+msgstr ""
+
+#: ../page.php:35 ../single.php:38
+msgid "Edit"
+msgstr ""
+
+#: ../page.php:43 ../single.php:46
+msgid "Pages : "
+msgstr ""
+
+#: ../page.php:50 ../single.php:53
+msgid "Tags : "
+msgstr ""
+
+#: ../search.php:15
+msgid "Search results for "
+msgstr ""
+
+#: ../searchform.php:5
+msgid "Search..."
+msgstr ""
+
+#: ../slider.php:38
+msgid "Read More"
+msgstr ""
+
+#: ../tag.php:15
+msgid "Tags Posts for "
+msgstr ""

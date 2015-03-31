@@ -18,71 +18,64 @@
     @Html.RenderTrusted(Model.Entry.Summary, Formats.Markdown)
 }
 
-@if (!Html.Settings().EnableDisqusCommenting)
-{
-    @Html.ValidationSummary("Comment unsuccessful. Please correct the errors below.")
-}
+<div class="col col-lg-8">
 
-@if (Model.Entry.Status == FunnelWeb.Model.EntryStatus.Private)
-{
-    Html.RenderPartial("_PrivateEntryNotification", Model.Page);
-}
-@if (!Model.Entry.HideChrome)
-{
-    <h1>
-        @Html.ActionLink(Model.Entry.Title, "Page", "Wiki", new { page = Model.Entry.Name }, null)
-    </h1>
-    @Html.DisplayFor(x => x.Entry.Published, new { @class = "entry-date" })
-}
-<div class="entry-container@{if (Model.Entry.HideChrome) {<text> hidechrome</text>}}">
-    @if (!Model.Entry.HideChrome && Model.Entry.IsPriorVersion)
-    {
-        <div class='entry-tools'>
-            <div>
-                <span>
-                    You are looking at revision @Model.Entry.RevisionNumber of this page, which may be out of date. @Html.ActionLink("View the latest version.", "Page", "Wiki", new { page = Model.Entry.Name }, null)
-                </span>
-                @if (ViewData.IsLoggedIn())
-                {
-                    <span>@Html.ActionLink("Revert to this version.", "Revert", "WikiAdmin", new { Area = "Admin", page = Model.Page, revision = Model.Entry.RevisionNumber }, new { })</span>
-                }
-                <span>&nbsp;</span>
-            </div>
+    @if (!Html.Settings().EnableDisqusCommenting)
+    { @Html.ValidationSummary("Comment unsuccessful. Please correct the errors below.")  }
+    @if (Model.Entry.Status == FunnelWeb.Model.EntryStatus.Private) { Html.RenderPartial("_PrivateEntryNotification", Model.Page); }
+
+    <article class="post type-post status-publish format-standard hentry">
+        @if (!Model.Entry.HideChrome) { Html.RenderPartial("_EntryHeader", Model.Entry); }
+        <div class="entry-content singleblog-contan@{if (Model.Entry.HideChrome)
+														 {<text> hidechrome</text>}}">
+            @if (!Model.Entry.HideChrome && Model.Entry.IsPriorVersion)
+            {
+                <div class='entry-tools'>
+                    <div>
+                        <span>
+                            You are looking at revision @Model.Entry.RevisionNumber of this page, which may be out of date. @Html.ActionLink("View the latest version.", "Page", "Wiki", new { page = Model.Entry.Name }, null)
+                        </span>
+                        @* ReSharper disable once Mvc.ActionNotResolved *@
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <span>@Html.ActionLink("Revert to this version.", "Revert", "WikiAdmin", new { Area = "Admin", page = Model.Page, revision = Model.Entry.RevisionNumber }, new { })</span>
+                        }
+                        <span>&nbsp;</span>
+                    </div>
+                </div>
+            }
+            @RenderBody()
+            @if (!Model.Entry.HideChrome)
+            {
+                @Html.DisplayFor(x => Html.Settings().FacebookLike)
+
+                @Html.DisplayFor(x => x.Entry.TagsCommaSeparated)
+
+                Html.RenderPartial("_EntryTools", Model, ViewData);
+
+                @Html.DisplayFor(x => x.Entry.Pingbacks, new { Model.Entry.PingbackCount, Model.Entry.Name })
+            }
+            else
+            {
+                Html.RenderPartial("_EntryTools", Model, ViewData);
+            }
         </div>
-    }
-    @RenderBody()
-    @if (!Model.Entry.HideChrome)
-    {
-        @Html.DisplayFor(x => Html.Settings().FacebookLike)
-  
-        @Html.DisplayFor(x => x.Entry.TagsCommaSeparated)
-  
-        Html.RenderPartial("_EntryTools", Model, ViewData);
-        
-        @Html.DisplayFor(x => x.Entry.Pingbacks, new { Model.Entry.PingbackCount, Model.Entry.Name })
-    }
-    else
-    {
-        Html.RenderPartial("_EntryTools", Model, ViewData);
-    }
-</div>
-<div class="clear">
+        @{ Html.RenderPartial("_EntryFooter", Model.Entry); }
+    </article>
+
+    @{ Html.RenderPartial("_EntryComments", Model.Entry); }
 </div>
 
-@Html.DisplayFor(x => x.Entry.Comments, new { Model.Entry })
-@if (Model.Entry.IsDiscussionEnabled)
-{
-    if (Html.Settings().DisableCommentsOlderThan > 0 && DateTime.UtcNow.AddDays(-Html.Settings().DisableCommentsOlderThan) > Model.Entry.Published && !Html.Settings().EnableDisqusCommenting)
-    {
-        <p>No new comments are allowed on this post.</p>
-    }
-    else
-    {
-        Html.RenderPartial("_EditComments", Model);
-    }
-}
-
-@section Scripts{                    
-    @Scripts.Render("~/bundles/wmd")
+@section Scripts {
     @Scripts.Render("~/bundles/site")
+
+    <script type="text/javascript">
+        $(function () {
+            var converter = new Showdown.converter({ extensions: ['prettify'] });
+
+            $('textarea#wmd-input').bind('input propertychange', function () {
+                $("#wmd-preview").html(converter.makeHtml(this.value));
+            });
+        });
+    </script>
 }

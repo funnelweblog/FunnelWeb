@@ -6,10 +6,11 @@
 }
 @section Summary 
 {
+    <aside class="widget">
+        <h3 class="widget-title">Welcome</h3>
     @Html.RenderTrusted(Html.Settings().Introduction, Formats.Markdown)
+    </aside>
 }
-
-<h1>@Model.Title</h1>
 
 @Html.DisplayFor(x => x.Results)
 

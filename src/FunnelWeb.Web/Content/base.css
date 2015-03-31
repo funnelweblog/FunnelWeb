@@ -1,0 +1,47 @@
+html {
+    font-size: 16px;
+}
+
+input[type=text],
+select {
+    min-width: 33%;
+}
+
+textarea {
+    width: 100%;
+    line-height: 1.5em;
+    min-height: 4.5em;
+}
+
+.form-body span.hint
+{
+	color: #666;
+	display: block;
+}
+
+.post-meta>span {
+    margin-right: 1.5em;
+}
+
+a.spam i {
+    color: #eb9316;
+}
+
+a.notspam i {
+    color: #3e8f3e;
+}
+
+.comment-actions {
+    float: right;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.facebook {
+    height: 0;
+    margin: 10px 0 10px 0;
+}
+
+.bootstrap-tagsinput {
+    width: 100%;
+}

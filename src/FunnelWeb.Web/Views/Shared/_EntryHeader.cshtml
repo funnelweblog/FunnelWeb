@@ -1,0 +1,29 @@
+﻿@model EntryBase
+<header class="entry-header">
+    <h1 class="post-title entry-title">@Html.ActionLink(Model.Title, "Page", "Wiki", new { page = Model.Name }, new { title = Model.Title, rel = "bookmark" })</h1>
+    <div class="post-meta header-meta">
+        <span class="post-pubdate">
+            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+            <a href="@Url.Action("Page", "Wiki")@Model.Name" title="Posted @Model.Published.ToString("MMMM d, yyyy @ hh:mm")" rel="bookmark">
+                <span class="text">Published:</span>
+                <span class="data">@Html.Partial("DisplayTemplates/PublishedDate", Model.Published)</span>
+            </a>
+        </span>
+        <span class="post-author">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            <span class="text">Author:</span><span class="data">
+                @Model.Author
+            </span>
+        </span>
+        <span class="post-comments comments-link">
+            <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+            <a href="@Url.Action("Page", "Wiki")@Model.Name" title="Comment on @Model.Title">
+                <span class="text">Comments:</span><span class="data" data-disqus-identifier="@Model.DisqusIdentifier">@Model.CommentCount</span>
+            </a>
+        </span>
+        @if ((Model.Tags != null) && (Model.Tags.Count > 0))
+        { 
+            <span class="post-tags"><span class="glyphicon glyphicon-tags" aria-hidden="true"></span><span class="text">Tags:</span><span class="data">@Html.DisplayFor(x => Model.TagsCommaSeparated)</span></span>
+        }
+    </div>
+</header>

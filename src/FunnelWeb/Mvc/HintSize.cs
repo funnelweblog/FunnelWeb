@@ -6,6 +6,7 @@ namespace FunnelWeb.Mvc
     {
         Small, 
         Medium, 
-        Large
+        Large,
+        Scaled
     }
 }

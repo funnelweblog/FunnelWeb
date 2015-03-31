@@ -58,6 +58,7 @@
     };
 
     function enableNewWindowLinks() {
+// ReSharper disable once CssNotResolved
         $(".content a:external")
         .not(".comment-author a")
         .addClass("new-window");
@@ -69,9 +70,18 @@
     }
     
     function enableMarkdown() {
-        if ($("#wmd-input").size() > 0) {
-            initializeWmd();
-        }
+        //if ($("#wmd-input").size() > 0) {
+        //    var converter1 = Markdown.getSanitizingConverter();
+
+        //    converter1.hooks.chain("preBlockGamut", function (text, rbg) {
+        //        return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
+        //            return "<blockquote>" + rbg(inner) + "</blockquote>\n";
+        //        });
+        //    });
+
+        //    var editor1 = new Markdown.Editor(converter1);
+        //    editor1.run();
+        //}
     }
 
     enablePrettyPrinting();

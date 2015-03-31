@@ -16,25 +16,25 @@
   @Html.AdminActionLink("Back to Task List", "Tasks", "Admin")
 </p>
 
-<table>
-  <thead>
-    <tr>
-      <td>Task</td>
-      <td>Arguments</td>
-      <td>Started</td>
-      <td>Progress</td>
-      <td>Status</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>@Model.State.TaskName</td>
-      <td>@Model.State.Arguments</td>
-      <td>@Html.Date(Model.State.Started)</td>
-      <td>@Model.State.ProgressEstimate%</td>
-      <td>@Model.State.Status</td>
-    </tr>
-  </tbody>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Task</td>
+            <td>Arguments</td>
+            <td>Started</td>
+            <td>Progress</td>
+            <td>Status</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.State.TaskName</td>
+            <td>@Model.State.Arguments</td>
+            <td>@Html.Date(Model.State.Started)</td>
+            <td>@Model.State.ProgressEstimate%</td>
+            <td>@Model.State.Status</td>
+        </tr>
+    </tbody>
 </table>
 
 <p>

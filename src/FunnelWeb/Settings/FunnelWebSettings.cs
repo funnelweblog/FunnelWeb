@@ -11,7 +11,7 @@ namespace FunnelWeb.Settings
         [Description("Files you upload for blog posts will be stored here. Use ~/XYZ to indicate a file path under the website root.")]
         [SettingStorage(StorageLocation.Database, "upload-path")]
         public string UploadPath { get; set; }
-
+				
         [DisplayName("File Storage Provider")]
         [StringLength(20)]
         [DefaultValue("Filesystem")]
@@ -204,6 +204,12 @@ namespace FunnelWeb.Settings
         [Description("The shortname of your Disqus comments, configured on the Disqus website.")]
         [SettingStorage(StorageLocation.Database, "disqus-shortname")]
         public string DisqusShortname { get; set; }
+
+        [DisplayName("API Key for Disqus")]
+        [DefaultValue("")]
+        [Description("The API key of your Disqus comments, configured on the Disqus website. (Get one at https://disqus.com/api/applications/)")]
+        [SettingStorage(StorageLocation.Database, "disqus-apikey")]
+        public string DisqusAPIKey { get; set; }
 
         [DisplayName("Blob Storage Connection String")]
         [Description("The connection string to use for blob storage.")]

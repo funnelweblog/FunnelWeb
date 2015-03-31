@@ -8,12 +8,12 @@
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{64FAABD6-F45B-4ED1-A3AD-6989C1934405}</ProjectGuid>
-    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FunnelWeb.Web</RootNamespace>
     <AssemblyName>FunnelWeb.Web</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -32,6 +32,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -40,19 +41,20 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antlr3.Runtime">
-      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac">
-      <HintPath>..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.dll</HintPath>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac.Configuration">
-      <HintPath>..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Autofac.Integration.Mvc">
-      <HintPath>..\packages\Autofac.Mvc4.2.6.2.859\lib\NET40\Autofac.Integration.Mvc.dll</HintPath>
+    <Reference Include="Autofac.Integration.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.Mvc5.3.3.3\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="CookComputing.XmlRpcServerV2">
       <HintPath>..\packages\xmlrpcnet-server.3.0.0.266\lib\net20\CookComputing.XmlRpcServerV2.dll</HintPath>
@@ -60,38 +62,60 @@
     <Reference Include="CookComputing.XmlRpcV2">
       <HintPath>..\packages\xmlrpcnet.3.0.0.266\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
     </Reference>
-    <Reference Include="DbUp">
-      <HintPath>..\packages\dbup.2.0.113\lib\NET35\DbUp.dll</HintPath>
+    <Reference Include="DbUp, Version=0.0.0.40695, Culture=neutral, PublicKeyToken=4b419c53bdfd4cbf, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\dbup.3.2.1\lib\NET35\DbUp.dll</HintPath>
     </Reference>
-    <Reference Include="DbUp.SqlCe">
-      <HintPath>..\packages\dbup-sqlce.2.0.113\lib\NET35\DbUp.SqlCe.dll</HintPath>
+    <Reference Include="DbUp.SqlCe, Version=3.2.0.0, Culture=neutral, PublicKeyToken=4b419c53bdfd4cbf, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\dbup-sqlce.3.2.1\lib\NET35\DbUp.SqlCe.dll</HintPath>
     </Reference>
-    <Reference Include="FluentNHibernate">
-      <HintPath>..\packages\FluentNHibernate.1.3.0.733\lib\FluentNHibernate.dll</HintPath>
+    <Reference Include="FluentNHibernate, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\FluentNHibernate.2.0.1.0\lib\net40\FluentNHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="Iesi.Collections">
-      <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
+    <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Iesi.Collections.4.0.1.4000\lib\net40\Iesi.Collections.dll</HintPath>
     </Reference>
     <Reference Include="Joel.Net.Akismet">
       <HintPath>..\..\lib\Akismet\Joel.Net.Akismet.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Data.Edm, Version=5.6.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.1.7.0.3\lib\net35-full\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Data.Edm.5.6.3\lib\net40\Microsoft.Data.Edm.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\WindowsAzure.Storage.1.7.0.0\lib\net35-full\Microsoft.WindowsAzure.StorageClient.dll</HintPath>
-    </Reference>
-    <Reference Include="MiniProfiler, Version=2.0.2.0, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Data.OData, Version=5.6.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MiniProfiler.2.0.2\lib\net40\MiniProfiler.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Data.OData.5.6.3\lib\net40\Microsoft.Data.OData.dll</HintPath>
     </Reference>
-    <Reference Include="NHibernate">
-      <HintPath>..\packages\NHibernate.3.3.2.4000\lib\Net35\NHibernate.dll</HintPath>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.6.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.6.3\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
     </Reference>
-    <Reference Include="NHibernate.SqlAzure">
-      <HintPath>..\packages\NHibernate.SqlAzure.0.9.11\lib\NET40\NHibernate.SqlAzure.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.2.0.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage">
+      <HintPath>..\packages\WindowsAzure.Storage.4.3.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="MiniProfiler, Version=3.1.1.140, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MiniProfiler.3.1.1.140\lib\net40\MiniProfiler.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NHibernate.4.0.3.4000\lib\net40\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.SqlAzure, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NHibernate.SqlAzure.2.1.0\lib\NET45\NHibernate.SqlAzure.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -103,18 +127,52 @@
       <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.identitymodel.services" />
+    <Reference Include="System.IdentityModel.Tokens.ValidatingIssuerNameRegistry">
+      <HintPath>..\packages\System.IdentityModel.Tokens.ValidatingIssuerNameRegistry.4.5.1\lib\net45\System.IdentityModel.Tokens.ValidatingIssuerNameRegistry.dll</HintPath>
+    </Reference>
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Spatial, Version=5.6.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\System.Spatial.5.6.3\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
-    <Reference Include="System.Web.Optimization">
-      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
@@ -127,33 +185,10 @@
     </Reference>
     <Reference Include="System.Net.Http.WebRequest">
     </Reference>
-    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="WebGrease">
-      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -164,13 +199,11 @@
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
     <Compile Include="Application\Authentication\AuthenticationModule.cs" />
-    <Compile Include="Application\Authentication\FunnelWebRoleProvider.cs" />
     <Compile Include="Application\CacheStaticFilesHttpModule.cs" />
     <Compile Include="Application\Extensibility.cs" />
     <Compile Include="Application\Extensions\WebViewPageExtensions.cs" />
     <Compile Include="Application\Extensions\MarkupExtensions.cs" />
     <Compile Include="Application\Extensions\MobileExtensions.cs" />
-    <Compile Include="Application\Extensions\ViewDataDictionaryExtensions.cs" />
     <Compile Include="Application\ForceLowercaseUrlHttpModule.cs" />
     <Compile Include="Application\Markup\ContentRenderer.cs" />
     <Compile Include="Application\Markup\HtmlFormatter.cs" />
@@ -251,7 +284,9 @@
     <Compile Include="Areas\Admin\Views\SqlAuthentication\NewUser.cs" />
     <Compile Include="Areas\Admin\Views\SqlAuthentication\SetupModel.cs" />
     <Compile Include="Areas\Admin\Views\Upload\IndexModel.cs" />
+    <Compile Include="Areas\Admin\Controllers\ClaimsController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MetaWeblogController.cs" />
     <Compile Include="Controllers\ResourceController.cs" />
     <Compile Include="Controllers\TagController.cs" />
@@ -272,6 +307,23 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <EmbeddedResource Include="Application\MetaWeblog\wlwmanifest.xml" />
+    <Content Include="Content\admin.css" />
+    <Content Include="Content\base.css" />
+    <Content Include="Content\bootstrap-3.3.2\bootstrap-tagsinput.css" />
+    <Content Include="Content\bootstrap-3.3.2\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-3.3.2\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap-3.3.2\bootstrap.css" />
+    <Content Include="Content\bootstrap-3.3.2\bootstrap.min.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\Images\del_sprite_tagComplete.png" />
+    <Content Include="Content\Images\dot.png" />
+    <Content Include="Content\mobile.css" />
+    <Content Include="Content\prettify-20130304\prettify.css" />
+    <Content Include="Content\prettify-20130304\styles\desert.css" />
+    <Content Include="Content\prettify-20130304\styles\doxy.css" />
+    <Content Include="Content\prettify-20130304\styles\sons-of-obsidian.css" />
+    <Content Include="Content\prettify-20130304\styles\sunburst.css" />
+    <Content Include="Scripts\Account.js" />
     <Content Include="Areas\Admin\Scripts\Views\WikiAdmin\Edit.js" />
     <Content Include="Content\Images\Busy.gif" />
     <Content Include="Content\Images\editorbuttons.png" />
@@ -303,133 +355,423 @@
     <Content Include="Content\Images\success.png" />
     <Content Include="Content\Images\title.png" />
     <Content Include="Content\Images\transparent.gif" />
-    <Content Include="Content\Prettify\prettify.css" />
-    <Content Include="Content\Prettify\Themes\desert.css" />
-    <Content Include="Content\Prettify\Themes\sons-of-obsidian.css" />
-    <Content Include="Content\Prettify\Themes\sunburst.css" />
     <Content Include="Content\Resources\favicon.ico" />
     <Content Include="Content\Resources\favicon.png" />
     <Content Include="Content\Resources\Humans.txt" />
     <Content Include="Content\Resources\Robots.txt" />
     <Content Include="Content\Resources\Status.html" />
-    <Content Include="Content\themes\base\Admin.css" />
-    <Content Include="Content\themes\base\Base.css" />
-    <Content Include="Content\themes\base\images\del_sprite_tagComplete.png" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\base\jquery-ui.css" />
-    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
-    <Content Include="Content\themes\base\jquery.ui.all.css" />
-    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
-    <Content Include="Content\themes\base\jquery.ui.base.css" />
-    <Content Include="Content\themes\base\jquery.ui.button.css" />
-    <Content Include="Content\themes\base\jquery.ui.core.css" />
-    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
-    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
-    <Content Include="Content\themes\base\jquery.ui.menu.css" />
-    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
-    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
-    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
-    <Content Include="Content\themes\base\jquery.ui.slider.css" />
-    <Content Include="Content\themes\base\jquery.ui.spinner.css" />
-    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
-    <Content Include="Content\themes\base\jquery.ui.theme.css" />
-    <Content Include="Content\themes\base\jquery.ui.tooltip.css" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.menu.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.spinner.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
-    <Content Include="Content\themes\base\Mobile.css" />
-    <Content Include="Content\themes\base\TagEditor.css" />
+    <Content Include="FederationMetadata\2007-06\FederationMetadata.xml" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\disqus-count.js" />
-    <None Include="Scripts\jquery-1.8.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.8.2.js" />
-    <Content Include="Scripts\jquery-1.8.2.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery-ui-1.9.0.js" />
-    <Content Include="Scripts\jquery-ui-1.9.0.min.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Areas\Admin\Views\Admin\AcsSettings.cshtml" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\bootstrap-3.3.2\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap-3.3.2\bootstrap.css.map" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="Properties\PublishProfiles\magnusmartenssoncomdev.pubxml" />
+    <Content Include="Scripts\bootstrap-3.3.2\bootstrap-tagsinput.min.js.map" />
+    <None Include="Scripts\jquery-2.1.3.intellisense.js" />
+    <Content Include="Scripts\bootstrap-3.3.2\bootstrap-tagsinput.js" />
+    <Content Include="Scripts\bootstrap-3.3.2\bootstrap-tagsinput.min.js" />
+    <Content Include="Scripts\bootstrap-3.3.2\bootstrap.js" />
+    <Content Include="Scripts\bootstrap-3.3.2\bootstrap.min.js" />
+    <Content Include="Scripts\bootstrap-3.3.2\npm.js" />
+    <Content Include="Scripts\jquery-2.1.3.js" />
+    <Content Include="Scripts\jquery-2.1.3.min.js" />
     <Content Include="Scripts\jsdate.js" />
-    <Content Include="Scripts\Prettify\lang-apollo.js" />
-    <Content Include="Scripts\Prettify\lang-clj.js" />
-    <Content Include="Scripts\Prettify\lang-css.js" />
-    <Content Include="Scripts\Prettify\lang-go.js" />
-    <Content Include="Scripts\Prettify\lang-hs.js" />
-    <Content Include="Scripts\Prettify\lang-lisp.js" />
-    <Content Include="Scripts\Prettify\lang-lua.js" />
-    <Content Include="Scripts\Prettify\lang-ml.js" />
-    <Content Include="Scripts\Prettify\lang-n.js" />
-    <Content Include="Scripts\Prettify\lang-proto.js" />
-    <Content Include="Scripts\Prettify\lang-scala.js" />
-    <Content Include="Scripts\Prettify\lang-sql.js" />
-    <Content Include="Scripts\Prettify\lang-tex.js" />
-    <Content Include="Scripts\Prettify\lang-vb.js" />
-    <Content Include="Scripts\Prettify\lang-vhdl.js" />
-    <Content Include="Scripts\Prettify\lang-wiki.js" />
-    <Content Include="Scripts\Prettify\lang-xq.js" />
-    <Content Include="Scripts\Prettify\lang-yaml.js" />
-    <Content Include="Scripts\Prettify\prettify.js" />
-    <Content Include="Scripts\showdown.js" />
-    <Content Include="Scripts\showdown.min.js" />
+    <Content Include="Scripts\prettify-20130304\lang-apollo.js" />
+    <Content Include="Scripts\prettify-20130304\lang-basic.js" />
+    <Content Include="Scripts\prettify-20130304\lang-clj.js" />
+    <Content Include="Scripts\prettify-20130304\lang-css.js" />
+    <Content Include="Scripts\prettify-20130304\lang-dart.js" />
+    <Content Include="Scripts\prettify-20130304\lang-erlang.js" />
+    <Content Include="Scripts\prettify-20130304\lang-go.js" />
+    <Content Include="Scripts\prettify-20130304\lang-hs.js" />
+    <Content Include="Scripts\prettify-20130304\lang-lisp.js" />
+    <Content Include="Scripts\prettify-20130304\lang-llvm.js" />
+    <Content Include="Scripts\prettify-20130304\lang-lua.js" />
+    <Content Include="Scripts\prettify-20130304\lang-matlab.js" />
+    <Content Include="Scripts\prettify-20130304\lang-ml.js" />
+    <Content Include="Scripts\prettify-20130304\lang-mumps.js" />
+    <Content Include="Scripts\prettify-20130304\lang-n.js" />
+    <Content Include="Scripts\prettify-20130304\lang-pascal.js" />
+    <Content Include="Scripts\prettify-20130304\lang-proto.js" />
+    <Content Include="Scripts\prettify-20130304\lang-r.js" />
+    <Content Include="Scripts\prettify-20130304\lang-rd.js" />
+    <Content Include="Scripts\prettify-20130304\lang-scala.js" />
+    <Content Include="Scripts\prettify-20130304\lang-sql.js" />
+    <Content Include="Scripts\prettify-20130304\lang-tcl.js" />
+    <Content Include="Scripts\prettify-20130304\lang-tex.js" />
+    <Content Include="Scripts\prettify-20130304\lang-vb.js" />
+    <Content Include="Scripts\prettify-20130304\lang-vhdl.js" />
+    <Content Include="Scripts\prettify-20130304\lang-wiki.js" />
+    <Content Include="Scripts\prettify-20130304\lang-xq.js" />
+    <Content Include="Scripts\prettify-20130304\lang-yaml.js" />
+    <Content Include="Scripts\prettify-20130304\prettify.css" />
+    <Content Include="Scripts\prettify-20130304\prettify.js" />
+    <Content Include="Scripts\prettify-20130304\run_prettify.js" />
+    <Content Include="Scripts\showdown-0.4.0-20150301\compressed\extensions\github.min.js" />
+    <Content Include="Scripts\showdown-0.4.0-20150301\compressed\extensions\prettify.min.js" />
+    <Content Include="Scripts\showdown-0.4.0-20150301\compressed\extensions\table.min.js" />
+    <Content Include="Scripts\showdown-0.4.0-20150301\compressed\extensions\twitter.min.js" />
+    <Content Include="Scripts\showdown-0.4.0-20150301\compressed\Showdown.js" />
+    <Content Include="Scripts\showdown-0.4.0-20150301\compressed\Showdown.min.js" />
     <Content Include="Scripts\site.js" />
-    <Content Include="Scripts\taggy.js" />
-    <Content Include="Scripts\wmd.js" />
-    <Content Include="Themes\AaronPowell\Content\Styles\Theme.css" />
-    <Content Include="Themes\Clean\Content\Styles\Theme.css" />
+    <Content Include="Scripts\typeahead.bundle.js" />
     <Content Include="Themes\Default\Content\Styles\Theme.css" />
-    <Content Include="Themes\Evolve\Content\Images\background.png" />
-    <Content Include="Themes\Evolve\Content\Styles\Theme.css" />
-    <Content Include="Themes\MattHamilton\Content\Styles\Theme.css" />
-    <Content Include="Themes\MattHamilton\Content\Styles\Title.png" />
-    <Content Include="Themes\Official\Content\Images\header.png" />
-    <Content Include="Themes\Official\Content\Styles\Theme.css" />
-    <Content Include="Themes\Pastel\Content\Styles\Bar.png" />
-    <Content Include="Themes\Pastel\Content\Styles\Theme.css" />
-    <Content Include="Themes\RainbowAfro\Content\Styles\Bar.png" />
-    <Content Include="Themes\RainbowAfro\Content\Styles\Header.jpg" />
-    <Content Include="Themes\RainbowAfro\Content\Styles\Theme.css" />
-    <Content Include="Themes\Twitter\Content\Styles\Background.png" />
-    <Content Include="Themes\Twitter\Content\Styles\Bar.png" />
-    <Content Include="Themes\Twitter\Content\Styles\Theme.css" />
-    <Content Include="Web.config" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-extensions\extensions\readme.txt" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\codestyles\PHPStorm.xml" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\Gruntfile.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\license.txt" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\README.txt" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\admin.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\color-picker\color-picker.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\import_export\import_export.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\redux.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\rtl.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\vendor\elusive-icons\elusive-webfont-ie7.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\vendor\elusive-icons\elusive-webfont.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\vendor\elusive-icons\font\Elusive-Icons.svg" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\vendor\jquery-ui-bootstrap\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\vendor\jquery-ui-bootstrap\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\vendor\jquery-ui-bootstrap\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\vendor\jquery-ui-bootstrap\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\vendor\jquery-ui-bootstrap\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\vendor\jquery-ui-bootstrap\images\ui-bg_glass_75_ffffff_1x400.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\vendor\jquery-ui-bootstrap\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\vendor\jquery-ui-bootstrap\images\ui-bg_inset-soft_95_fef1ec_1x100.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\vendor\jquery-ui-bootstrap\images\ui-icons_222222_256x240.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\vendor\jquery-ui-bootstrap\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\vendor\jquery-ui-bootstrap\images\ui-icons_454545_256x240.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\vendor\jquery-ui-bootstrap\images\ui-icons_888888_256x240.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\vendor\jquery-ui-bootstrap\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\vendor\jquery-ui-bootstrap\images\ui-icons_f6cf3b_256x240.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\vendor\jquery-ui-bootstrap\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\vendor\jquery-ui-bootstrap\jquery-ui-1.10.0.custom.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\vendor\qtip\jquery.qtip.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\vendor\qtip\jquery.qtip.min.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\img\1c.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\img\1col.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\img\2-col-portfolio.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\img\2cl.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\img\2cr.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\img\3-col-portfolio.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\img\3cl.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\img\3cm.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\img\3cr.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\img\4-col-portfolio.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\img\ajax.gif" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\img\menu_icon.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\img\toggle_tabs.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\import_export\import_export.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\import_export\import_export.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\media\media.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\media\media.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\redux.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\redux.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\cookie.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\jquery.alphanum.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\jquery.serializeForm.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\jquery.typewatch.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\jsonview.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\jsonview.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\lte-ie7.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\qtip\jquery.qtip.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\qtip\jquery.qtip.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2.sortable.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2.sortable.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2-bootstrap.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2-spinner.gif" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2x2.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_ar.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_bg.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_ca.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_cs.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_da.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_de.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_el.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_es.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_et.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_eu.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_fa.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_fi.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_fr.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_gl.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_he.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_hr.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_hu.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_id.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_is.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_it.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_ja.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_ka.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_ko.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_lt.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_lv.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_mk.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_ms.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_nl.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_no.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_pl.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_pt-BR.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_pt-PT.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_ro.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_rs.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_ru.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_sk.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_sv.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_th.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_tr.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_uk.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_vi.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_zh-CN.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_zh-TW.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\extensions\README.txt" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\field_ace_editor.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\field_ace_editor.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\field_ace_editor.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\ace.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\mode-css.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\mode-html.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\mode-javascript.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\mode-json.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\mode-less.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\mode-markdown.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\mode-mysql.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\mode-php.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\mode-plain_text.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\mode-sass.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\mode-scss.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\mode-text.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\mode-xml.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\snippets\css.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\snippets\html.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\snippets\javascript.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\snippets\json.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\snippets\less.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\snippets\markdown.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\snippets\mysql.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\snippets\php.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\snippets\plain_text.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\snippets\sass.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\snippets\scss.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\snippets\text.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\snippets\xml.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\theme-chrome.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\theme-monokai.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\worker-css.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\worker-html.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\worker-javascript.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\worker-json.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\vendor\worker-php.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\background\field_background.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\background\field_background.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\background\field_background.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\border\field_border.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\border\field_border.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\border\field_border.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\button_set\field_button_set.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\button_set\field_button_set.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\checkbox\field_checkbox.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\checkbox\field_checkbox.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\checkbox\field_checkbox.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\color\field_color.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\color\field_color.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\color_gradient\field_color_gradient.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\color_gradient\field_color_gradient.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\color_gradient\field_color_gradient.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\color_rgba\field_color_rgba.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\color_rgba\field_color_rgba.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\color_rgba\field_color_rgba.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\color_rgba\vendor\minicolors\jquery.minicolors.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\color_rgba\vendor\minicolors\jquery.minicolors.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\color_rgba\vendor\minicolors\jquery.minicolors.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\color_rgba\vendor\minicolors\jquery.minicolors.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\date\field_date.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\date\field_date.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\date\field_date.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\dimensions\field_dimensions.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\dimensions\field_dimensions.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\dimensions\field_dimensions.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\editor\field_editor.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\editor\field_editor.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\editor\field_editor.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\gallery\field_gallery.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\gallery\field_gallery.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\image_select\field_image_select.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\image_select\field_image_select.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\image_select\field_image_select.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\info\field_info.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\link_color\field_link_color.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\link_color\field_link_color.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\link_color\field_link_color.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\media\field_media.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\multi_text\field_multi_text.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\multi_text\field_multi_text.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\multi_text\field_multi_text.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\section\field_section.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\select\field_select.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\select\field_select.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\select\field_select.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\select_image\field_select_image.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\select_image\field_select_image.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\select_image\field_select_image.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\slider\field_slider.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\slider\field_slider.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\slider\field_slider.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\slider\vendor\nouislider\redux.jquery.nouislider.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\slider\vendor\nouislider\redux.jquery.nouislider.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\slider\vendor\nouislider\redux.jquery.nouislider.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\slides\field_slides.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\slides\field_slides.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\slides\field_slides.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\sortable\field_sortable.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\sortable\field_sortable.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\sortable\field_sortable.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\sorter\field_sorter-works.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\sorter\field_sorter.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\sorter\field_sorter.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\sorter\field_sorter.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\spacing\field_spacing.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\spacing\field_spacing.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\spacing\field_spacing.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\spinner\arrow_left.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\spinner\arrow_right.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\spinner\field_spinner.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\spinner\field_spinner.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\spinner\field_spinner.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\spinner\vendor\spinner_custom.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\switch\field_switch.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\switch\field_switch.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\switch\field_switch.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\switch\slider-control.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\switch\switch.gif" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\text\field_text.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\typography\field_typography.css" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\typography\field_typography.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\typography\field_typography.min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\README.txt" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\sample\info-html.html" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\sample\patterns\tree_bark.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\sample\patterns\triangular.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\sample\patterns\triangular_%402X.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\sample\patterns\wild_flowers.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\sample\presets\preset1.png" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\sample\presets\preset2.png" />
+    <Content Include="Themes\wp_flower.1.2.1\css\bootstrap-theme.css" />
+    <Content Include="Themes\wp_flower.1.2.1\css\bootstrap.css" />
+    <Content Include="Themes\wp_flower.1.2.1\css\flexslider.css" />
+    <Content Include="Themes\wp_flower.1.2.1\css\font-awesome.css" />
+    <Content Include="Themes\wp_flower.1.2.1\css\style.css" />
+    <Content Include="Themes\wp_flower.1.2.1\custom.css" />
+    <Content Include="Themes\wp_flower.1.2.1\fonts\fontawesome-webfont.svg" />
+    <Content Include="Themes\wp_flower.1.2.1\js\flower-custom.js" />
+    <Content Include="Themes\wp_flower.1.2.1\js\html5.js" />
+    <Content Include="Themes\wp_flower.1.2.1\js\jquery.fitvids.js" />
+    <Content Include="Themes\wp_flower.1.2.1\js\jquery.flexslider-min.js" />
+    <Content Include="Themes\wp_flower.1.2.1\js\SmoothScroll.js" />
+    <Content Include="Themes\wp_flower.1.2.1\Look-At-Me.png" />
+    <Content Include="Themes\wp_flower.1.2.1\readme.txt" />
+    <Content Include="Themes\wp_flower.1.2.1\screenshot.png" />
+    <Content Include="Themes\wp_flower.1.2.1\style.css" />
+    <Content Include="Themes\wp_hostmarks.1.2\custom.css" />
+    <Content Include="Themes\wp_hostmarks.1.2\editor-style.css" />
+    <Content Include="Themes\wp_hostmarks.1.2\library\images\bg.jpg" />
+    <Content Include="Themes\wp_hostmarks.1.2\library\images\bullet.png" />
+    <Content Include="Themes\wp_hostmarks.1.2\library\images\cat-meta-icon.png" />
+    <Content Include="Themes\wp_hostmarks.1.2\library\images\com-arr.png" />
+    <Content Include="Themes\wp_hostmarks.1.2\library\images\custom-post-icon.png" />
+    <Content Include="Themes\wp_hostmarks.1.2\library\images\favicon.png" />
+    <Content Include="Themes\wp_hostmarks.1.2\library\images\icon-search.png" />
+    <Content Include="Themes\wp_hostmarks.1.2\library\images\loading.gif" />
+    <Content Include="Themes\wp_hostmarks.1.2\library\images\nav-arr.png" />
+    <Content Include="Themes\wp_hostmarks.1.2\library\images\nothumb.gif" />
+    <Content Include="Themes\wp_hostmarks.1.2\library\images\reply-arr.png" />
+    <Content Include="Themes\wp_hostmarks.1.2\library\images\tag-meta-icon.png" />
+    <Content Include="Themes\wp_hostmarks.1.2\library\images\trans.png" />
+    <Content Include="Themes\wp_hostmarks.1.2\library\js\imagesloaded.pkgd.js" />
+    <Content Include="Themes\wp_hostmarks.1.2\library\js\imagesloaded.pkgd.min.js" />
+    <Content Include="Themes\wp_hostmarks.1.2\library\js\modernizr-2.6.2.min.js" />
+    <Content Include="Themes\wp_hostmarks.1.2\library\js\modernizr.js" />
+    <Content Include="Themes\wp_hostmarks.1.2\library\js\scripts.js" />
+    <Content Include="Themes\wp_hostmarks.1.2\license.txt" />
+    <Content Include="Themes\wp_hostmarks.1.2\readme.txt" />
+    <Content Include="Themes\wp_hostmarks.1.2\rtl.css" />
+    <Content Include="Themes\wp_hostmarks.1.2\screenshot.png" />
+    <Content Include="Themes\wp_hostmarks.1.2\style.css" />
+    <Content Include="Themes\wp_quark.1.3\css\font-awesome.min.css" />
+    <Content Include="Themes\wp_quark.1.3\css\grid.css" />
+    <Content Include="Themes\wp_quark.1.3\css\normalize.css" />
+    <Content Include="Themes\wp_quark.1.3\custom.css" />
+    <Content Include="Themes\wp_quark.1.3\editor-style.css" />
+    <Content Include="Themes\wp_quark.1.3\fonts\fontawesome-webfont.svg" />
+    <Content Include="Themes\wp_quark.1.3\images\1col.png" />
+    <Content Include="Themes\wp_quark.1.3\images\2cl.png" />
+    <Content Include="Themes\wp_quark.1.3\images\2cr.png" />
+    <Content Include="Themes\wp_quark.1.3\images\dark-noise.jpg" />
+    <Content Include="Themes\wp_quark.1.3\images\faint-squares.jpg" />
+    <Content Include="Themes\wp_quark.1.3\images\logo.png" />
+    <Content Include="Themes\wp_quark.1.3\inc\css\optionsframework.css" />
+    <Content Include="Themes\wp_quark.1.3\inc\images\ico-delete.png" />
+    <Content Include="Themes\wp_quark.1.3\inc\js\media-uploader.js" />
+    <Content Include="Themes\wp_quark.1.3\inc\js\options-custom.js" />
+    <Content Include="Themes\wp_quark.1.3\js\comment-form-validation.js" />
+    <Content Include="Themes\wp_quark.1.3\js\jquery.validate.min.1.13.0.js" />
+    <Content Include="Themes\wp_quark.1.3\js\modernizr-2.8.3-min.js" />
+    <Content Include="Themes\wp_quark.1.3\js\small-menu.js" />
+    <Content Include="Themes\wp_quark.1.3\readme.txt" />
+    <Content Include="Themes\wp_quark.1.3\screenshot.png" />
+    <Content Include="Themes\wp_quark.1.3\style.css" />
+    <Content Include="Themes\wp_quark.1.3\wpml-config.xml" />
+    <Content Include="Themes\wp_top-mag.1.4.6\change_log.txt" />
+    <Content Include="Themes\wp_top-mag.1.4.6\css\bootstrap.css" />
+    <Content Include="Themes\wp_top-mag.1.4.6\css\editor-style.css" />
+    <Content Include="Themes\wp_top-mag.1.4.6\css\font-awesome.css" />
+    <Content Include="Themes\wp_top-mag.1.4.6\css\owl.carousel.css" />
+    <Content Include="Themes\wp_top-mag.1.4.6\css\ticker-style.css" />
+    <Content Include="Themes\wp_top-mag.1.4.6\custom.css" />
+    <Content Include="Themes\wp_top-mag.1.4.6\fonts\fontawesome-webfont.svg" />
+    <Content Include="Themes\wp_top-mag.1.4.6\images\home.png" />
+    <Content Include="Themes\wp_top-mag.1.4.6\images\left-arrow.png" />
+    <Content Include="Themes\wp_top-mag.1.4.6\images\loading.gif" />
+    <Content Include="Themes\wp_top-mag.1.4.6\images\no-image.png" />
+    <Content Include="Themes\wp_top-mag.1.4.6\images\right-arrow.png" />
+    <Content Include="Themes\wp_top-mag.1.4.6\images\search.png" />
+    <Content Include="Themes\wp_top-mag.1.4.6\js\bootstrap.js" />
+    <Content Include="Themes\wp_top-mag.1.4.6\js\default.js" />
+    <Content Include="Themes\wp_top-mag.1.4.6\js\jquery.ticker.js" />
+    <Content Include="Themes\wp_top-mag.1.4.6\js\jssor.core.js" />
+    <Content Include="Themes\wp_top-mag.1.4.6\js\jssor.slider.js" />
+    <Content Include="Themes\wp_top-mag.1.4.6\js\jssor.utils.js" />
+    <Content Include="Themes\wp_top-mag.1.4.6\js\owl.carousel.min.js" />
+    <Content Include="Themes\wp_top-mag.1.4.6\js\respond.min.js" />
+    <Content Include="Themes\wp_top-mag.1.4.6\readme.txt" />
+    <Content Include="Themes\wp_top-mag.1.4.6\screenshot.png" />
+    <Content Include="Themes\wp_top-mag.1.4.6\style.css" />
+    <Content Include="Themes\wp_top-mag.1.4.6\theme-options\css\topmagtheme_framework.css" />
+    <Content Include="Themes\wp_top-mag.1.4.6\theme-options\images\buy-now.png" />
+    <Content Include="Themes\wp_top-mag.1.4.6\theme-options\images\checkbox.png" />
+    <Content Include="Themes\wp_top-mag.1.4.6\theme-options\images\color-shape-select.png" />
+    <Content Include="Themes\wp_top-mag.1.4.6\theme-options\images\color-shape.png" />
+    <Content Include="Themes\wp_top-mag.1.4.6\theme-options\images\fb.png" />
+    <Content Include="Themes\wp_top-mag.1.4.6\theme-options\images\footer_bg.png" />
+    <Content Include="Themes\wp_top-mag.1.4.6\theme-options\images\header-bg.png" />
+    <Content Include="Themes\wp_top-mag.1.4.6\theme-options\images\ico-delete.png" />
+    <Content Include="Themes\wp_top-mag.1.4.6\theme-options\images\logo.png" />
+    <Content Include="Themes\wp_top-mag.1.4.6\theme-options\images\pro_features.jpg" />
+    <Content Include="Themes\wp_top-mag.1.4.6\theme-options\images\theme-logo.png" />
+    <Content Include="Themes\wp_top-mag.1.4.6\theme-options\images\tw.png" />
+    <Content Include="Themes\wp_top-mag.1.4.6\theme-options\js\media-uploader.js" />
+    <Content Include="Themes\wp_top-mag.1.4.6\theme-options\js\topmagtheme-custom.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Macros\TwitterStream.cshtml" />
     <Content Include="Views\Shared\_Disqus.cshtml" />
@@ -459,7 +801,7 @@
     <Content Include="Views\Wiki\SiteMap.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Admin\Views\Admin\BlogMLImport.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\BlogMlImport.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Comments.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\PageList.cshtml" />
@@ -483,6 +825,343 @@
     <Content Include="My.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Areas\Admin\Views\Claims\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Scripts\jquery-2.1.3.min.map" />
+    <Content Include="Views\Shared\_EntryHeader.cshtml" />
+    <Content Include="Views\Shared\_EntryFooter.cshtml" />
+    <Content Include="Views\Shared\_EntryComments.cshtml" />
+    <Content Include="Scripts\showdown-0.4.0-20150301\compressed\extensions\github.min.js.map" />
+    <Content Include="Scripts\showdown-0.4.0-20150301\compressed\extensions\prettify.min.js.map" />
+    <Content Include="Scripts\showdown-0.4.0-20150301\compressed\extensions\table.min.js.map" />
+    <Content Include="Scripts\showdown-0.4.0-20150301\compressed\extensions\twitter.min.js.map" />
+    <Content Include="Scripts\showdown-0.4.0-20150301\compressed\Showdown.js.map" />
+    <Content Include="Themes\wp_hostmarks.1.2\404.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\alt_blog_mason.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\alt_blog_template.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\alt_full_with_template.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\archive.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\author.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\category.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\comments.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\content-alt_blog.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\content-aside.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\content-gallery.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\content-image.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\content-intro.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\content-mason.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\content-page.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\content-single.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\content.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\footer.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\full-width-page.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\functions.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\header.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\image.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\index.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\languages\default.mo" />
+    <Content Include="Themes\wp_hostmarks.1.2\languages\default.po" />
+    <Content Include="Themes\wp_hostmarks.1.2\page.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\search.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\sidebar-footer.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\sidebar-page.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\sidebar.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\single.php" />
+    <Content Include="Themes\wp_hostmarks.1.2\tag.php" />
+    <Content Include="Themes\wp_quark.1.3\404.php" />
+    <Content Include="Themes\wp_quark.1.3\author-bio.php" />
+    <Content Include="Themes\wp_quark.1.3\author.php" />
+    <Content Include="Themes\wp_quark.1.3\category.php" />
+    <Content Include="Themes\wp_quark.1.3\comments.php" />
+    <Content Include="Themes\wp_quark.1.3\content-aside.php" />
+    <Content Include="Themes\wp_quark.1.3\content-audio.php" />
+    <Content Include="Themes\wp_quark.1.3\content-chat.php" />
+    <Content Include="Themes\wp_quark.1.3\content-gallery.php" />
+    <Content Include="Themes\wp_quark.1.3\content-image.php" />
+    <Content Include="Themes\wp_quark.1.3\content-link.php" />
+    <Content Include="Themes\wp_quark.1.3\content-page.php" />
+    <Content Include="Themes\wp_quark.1.3\content-postarchives.php" />
+    <Content Include="Themes\wp_quark.1.3\content-quote.php" />
+    <Content Include="Themes\wp_quark.1.3\content-status.php" />
+    <Content Include="Themes\wp_quark.1.3\content-video.php" />
+    <Content Include="Themes\wp_quark.1.3\content.php" />
+    <Content Include="Themes\wp_quark.1.3\fonts\fontawesome-webfont.eot" />
+    <Content Include="Themes\wp_quark.1.3\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Themes\wp_quark.1.3\fonts\fontawesome-webfont.woff" />
+    <Content Include="Themes\wp_quark.1.3\fonts\FontAwesome.otf" />
+    <Content Include="Themes\wp_quark.1.3\footer.php" />
+    <Content Include="Themes\wp_quark.1.3\functions.php" />
+    <Content Include="Themes\wp_quark.1.3\header.php" />
+    <Content Include="Themes\wp_quark.1.3\inc\includes\class-options-framework-admin.php" />
+    <Content Include="Themes\wp_quark.1.3\inc\includes\class-options-framework.php" />
+    <Content Include="Themes\wp_quark.1.3\inc\includes\class-options-interface.php" />
+    <Content Include="Themes\wp_quark.1.3\inc\includes\class-options-media-uploader.php" />
+    <Content Include="Themes\wp_quark.1.3\inc\includes\class-options-sanitization.php" />
+    <Content Include="Themes\wp_quark.1.3\inc\options-framework.php" />
+    <Content Include="Themes\wp_quark.1.3\index.php" />
+    <Content Include="Themes\wp_quark.1.3\languages\de_DE.mo" />
+    <Content Include="Themes\wp_quark.1.3\languages\de_DE.po" />
+    <Content Include="Themes\wp_quark.1.3\languages\es_ES.mo" />
+    <Content Include="Themes\wp_quark.1.3\languages\es_ES.po" />
+    <Content Include="Themes\wp_quark.1.3\languages\fr_FR.mo" />
+    <Content Include="Themes\wp_quark.1.3\languages\fr_FR.po" />
+    <Content Include="Themes\wp_quark.1.3\languages\quark.pot" />
+    <Content Include="Themes\wp_quark.1.3\no-results.php" />
+    <Content Include="Themes\wp_quark.1.3\options.php" />
+    <Content Include="Themes\wp_quark.1.3\page-templates\front-page.php" />
+    <Content Include="Themes\wp_quark.1.3\page-templates\full-width.php" />
+    <Content Include="Themes\wp_quark.1.3\page-templates\left-sidebar.php" />
+    <Content Include="Themes\wp_quark.1.3\page-templates\post-archives.php" />
+    <Content Include="Themes\wp_quark.1.3\page.php" />
+    <Content Include="Themes\wp_quark.1.3\search.php" />
+    <Content Include="Themes\wp_quark.1.3\sidebar-front.php" />
+    <Content Include="Themes\wp_quark.1.3\sidebar.php" />
+    <Content Include="Themes\wp_quark.1.3\single.php" />
+    <Content Include="Themes\wp_quark.1.3\tag.php" />
+    <Content Include="Themes\wp_top-mag.1.4.6\404.php" />
+    <Content Include="Themes\wp_top-mag.1.4.6\archive.php" />
+    <Content Include="Themes\wp_top-mag.1.4.6\attachment.php" />
+    <Content Include="Themes\wp_top-mag.1.4.6\author.php" />
+    <Content Include="Themes\wp_top-mag.1.4.6\category.php" />
+    <Content Include="Themes\wp_top-mag.1.4.6\comments.php" />
+    <Content Include="Themes\wp_top-mag.1.4.6\fonts\fontawesome-webfont.eot" />
+    <Content Include="Themes\wp_top-mag.1.4.6\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Themes\wp_top-mag.1.4.6\fonts\fontawesome-webfont.woff" />
+    <Content Include="Themes\wp_top-mag.1.4.6\fonts\FontAwesome.otf" />
+    <Content Include="Themes\wp_top-mag.1.4.6\footer.php" />
+    <Content Include="Themes\wp_top-mag.1.4.6\functions.php" />
+    <Content Include="Themes\wp_top-mag.1.4.6\functions\class-tgm-plugin-activation.php" />
+    <Content Include="Themes\wp_top-mag.1.4.6\functions\enqueue-files.php" />
+    <Content Include="Themes\wp_top-mag.1.4.6\functions\tgm-plugins.php" />
+    <Content Include="Themes\wp_top-mag.1.4.6\functions\theme-default-setup.php" />
+    <Content Include="Themes\wp_top-mag.1.4.6\header.php" />
+    <Content Include="Themes\wp_top-mag.1.4.6\index.php" />
+    <Content Include="Themes\wp_top-mag.1.4.6\languages\top-mag.pot" />
+    <Content Include="Themes\wp_top-mag.1.4.6\page-templates\full-width.php" />
+    <Content Include="Themes\wp_top-mag.1.4.6\page-templates\home-slider.php" />
+    <Content Include="Themes\wp_top-mag.1.4.6\page.php" />
+    <Content Include="Themes\wp_top-mag.1.4.6\search.php" />
+    <Content Include="Themes\wp_top-mag.1.4.6\sidebar.php" />
+    <Content Include="Themes\wp_top-mag.1.4.6\single.php" />
+    <Content Include="Themes\wp_top-mag.1.4.6\tag.php" />
+    <Content Include="Themes\wp_top-mag.1.4.6\theme-options\topmagtheme.php" />
+    <Content Include="Themes\wp_flower.1.2.1\404.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\admin-init.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\options-init.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-extensions\extensions-init.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-extensions\LICENSE" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-extensions\loader.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-extensions\README.md" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\CHANGELOG.md" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\class.redux-plugin.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\codestyles\README.md" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\composer.json" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\CONTRIBUTING.md" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\index.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\package.json" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\README.md" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\redux-framework.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\admin.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\color-picker\color-picker.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\import_export\import_export.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\vendor\elusive-icons\elusive-webfont.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\vendor\elusive-icons\font\Elusive-Icons.eot" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\vendor\elusive-icons\font\Elusive-Icons.ttf" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\vendor\elusive-icons\font\Elusive-Icons.woff" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\css\vendor\jquery-ui-bootstrap\jquery-ui-1.10.0.custom.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\LICENSE" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\README.md" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\release.sh" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2.jquery.json" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\assets\js\vendor\select2\select2_locale_en.js.template" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\extensions\customizer\extension_customizer.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\framework.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\browser.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\class.p.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\class.redux_filesystem.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\class.redux_functions.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\class.redux_helpers.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\class.redux_instances.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\class.redux_themecheck.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\debug.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\field_ace_editor.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\field_ace_editor.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\ace_editor\field_ace_editor.scss" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\background\field_background.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\background\field_background.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\background\field_background.scss" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\border\field_border.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\border\field_border.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\border\field_border.scss" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\button_set\field_button_set.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\checkbox\field_checkbox.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\checkbox\field_checkbox.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\checkbox\field_checkbox.scss" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\color\field_color.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\color\field_color.scss" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\color_gradient\field_color_gradient.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\color_gradient\field_color_gradient.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\color_rgba\field_color_rgba.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\color_rgba\field_color_rgba.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\color_rgba\field_color_rgba.scss" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\color_rgba\vendor\minicolors\readme.md" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\date\field_date.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\date\field_date.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\dimensions\field_dimensions.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\dimensions\field_dimensions.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\dimensions\field_dimensions.scss" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\divide\field_divide.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\editor\field_editor.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\editor\field_editor.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\editor\field_editor.scss" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\gallery\field_gallery.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\image_select\field_image_select.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\image_select\field_image_select.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\image_select\field_image_select.scss" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\import_export\field_import_export.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\info\field_info.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\info\field_info.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\info\field_info.scss" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\link_color\field_link_color.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\link_color\field_link_color.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\media\field_media.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\media\field_media.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\media\field_media.scss" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\multi_text\field_multi_text.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\multi_text\field_multi_text.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\multi_text\field_multi_text.scss" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\password\field_password.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\radio\field_radio.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\raw\field_raw.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\raw\parsedown.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\section\field_section.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\section\field_section.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\section\field_section.scss" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\select\elusive-icons.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\select\field_select.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\select\field_select.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\select\field_select.scss" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\select_image\field_select_image.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\select_image\field_select_image.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\select_image\select_image.scss" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\slider\field_slider.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\slider\field_slider.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\slider\field_slider.scss" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\slides\field_slides.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\slides\field_slides.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\slides\field_slides.scss" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\sortable\field_sortable.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\sortable\field_sortable.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\sortable\field_sortable.scss" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\sorter\field_sorter.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\sorter\field_sorter.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\sorter\field_sorter.scss" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\spacing\field_spacing.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\spacing\field_spacing.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\spacing\field_spacing.scss" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\spinner\field_spinner.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\spinner\field_spinner.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\spinner\field_spinner.scss" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\switch\field_switch.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\switch\field_switch.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\switch\field_switch.scss" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\textarea\field_textarea.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\text\field_text.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\text\field_text.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\text\field_text.scss" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\typography\field_typography.less" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\typography\field_typography.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\typography\field_typography.scss" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\fields\typography\googlefonts.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\import_export.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\lib.redux_instances.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\p.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\sysinfo.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\tracking.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\validation\colorrgba\validation_colorrgba.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\validation\color\validation_color.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\validation\color_rgba\validation_color_rgba.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\validation\comma_numeric\validation_comma_numeric.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\validation\css\validation_css.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\validation\date\validation_date.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\validation\email\validation_email.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\validation\email_not_empty\validation_email_not_empty.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\validation\html\validation_html.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\validation\html_custom\validation_html_custom.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\validation\js\validation_js.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\validation\not_empty\validation_not_empty.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\validation\no_html\validation_no_html.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\validation\no_special_chars\validation_no_special_chars.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\validation\numeric\validation_numeric.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\validation\numeric_not_empty\validation_numeric_not_empty.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\validation\preg_replace\validation_preg_replace.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\validation\str_replace\validation_str_replace.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\validation\url\validation_url.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\inc\welcome.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\ar.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\bg_BG.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\bn_BD.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\de_DE.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\el.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\es_ES.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\es_MX.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\fa_IR.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\fi.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\fr_FR.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\he_IL.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\hi_IN.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\hr.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\hu_HU.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\id_ID.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\it_IT.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\ja.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\km.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\lt_LT.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\nb_NO.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\ne_NP.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\nl_NL.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\pl_PL.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\pt_BR.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\pt_PT.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\redux-framework.pot" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\ro_RO.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\ru_RU.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\sk_SK.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\sl_SI.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\sv_SE.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\th.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\tr_TR.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\zh_CN.mo" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\ReduxCore\languages\zh_CN.po" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\sample\barebones-config.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\sample\sample-config.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\redux-framework\uninstall.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\tgm\class-tgm-plugin-activation.php" />
+    <Content Include="Themes\wp_flower.1.2.1\admin\tgm\tgm-init.php" />
+    <Content Include="Themes\wp_flower.1.2.1\archive.php" />
+    <Content Include="Themes\wp_flower.1.2.1\author-bio.php" />
+    <Content Include="Themes\wp_flower.1.2.1\author.php" />
+    <Content Include="Themes\wp_flower.1.2.1\category-featured.php" />
+    <Content Include="Themes\wp_flower.1.2.1\category.php" />
+    <Content Include="Themes\wp_flower.1.2.1\comments.php" />
+    <Content Include="Themes\wp_flower.1.2.1\content.php" />
+    <Content Include="Themes\wp_flower.1.2.1\fonts\fontawesome-webfont.eot" />
+    <Content Include="Themes\wp_flower.1.2.1\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Themes\wp_flower.1.2.1\fonts\fontawesome-webfont.woff" />
+    <Content Include="Themes\wp_flower.1.2.1\fonts\FontAwesome.otf" />
+    <Content Include="Themes\wp_flower.1.2.1\footer-main.php" />
+    <Content Include="Themes\wp_flower.1.2.1\footer.php" />
+    <Content Include="Themes\wp_flower.1.2.1\functions.php" />
+    <Content Include="Themes\wp_flower.1.2.1\header.php" />
+    <Content Include="Themes\wp_flower.1.2.1\index.php" />
+    <Content Include="Themes\wp_flower.1.2.1\lang\flower.pot" />
+    <Content Include="Themes\wp_flower.1.2.1\page.php" />
+    <Content Include="Themes\wp_flower.1.2.1\search.php" />
+    <Content Include="Themes\wp_flower.1.2.1\searchform.php" />
+    <Content Include="Themes\wp_flower.1.2.1\sidebar.php" />
+    <Content Include="Themes\wp_flower.1.2.1\single.php" />
+    <Content Include="Themes\wp_flower.1.2.1\slider.php" />
+    <Content Include="Themes\wp_flower.1.2.1\tag.php" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -509,7 +1188,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Scripts\Views\" />
+    <Folder Include="Content\themes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -545,7 +1224,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>8471</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:54860/</IISUrl>
+          <IISUrl>http://localhost:54873</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

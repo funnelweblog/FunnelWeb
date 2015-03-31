@@ -1,0 +1,845 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: quark\n"
+"POT-Creation-Date: 2014-05-19 23:28+0100\n"
+"PO-Revision-Date: 2014-05-20 17:49+0100\n"
+"Last-Translator: Tino Groteloh\n"
+"Language-Team: Maddison Designs <support@maddisondesigns.com>\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.5\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;"
+"esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ..\n"
+
+#: ../404.php:17
+msgid "Uh Oh! This is somewhat embarrassing!"
+msgstr "Oh Oh! Das ist jetz irgendwie peinlich."
+
+#: ../404.php:20 ../no-results.php:32
+msgid ""
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
+"searching can help."
+msgstr "Das haben wir wohl nicht gefunden. Vielleicht hilft dir suchen weiter."
+
+#: ../author-bio.php:15
+#, php-format
+msgid "About %s"
+msgstr "Über %s"
+
+#: ../author-bio.php:33
+#, php-format
+msgid "View all posts by %s <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Alle Beiträge von %s <span class=\"meta-nav\">&rarr;</span>"
+
+#: ../author.php:24
+#, php-format
+msgid "Author Archives: %s"
+msgstr "Autorarchive: %s"
+
+#: ../category.php:18
+#, php-format
+msgid "Category Archives: %s"
+msgstr "Kategoriearchive: %s"
+
+#: ../comments.php:30
+#, php-format
+msgid "One response on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s responses on &ldquo;%2$s&rdquo;"
+msgstr[0] "Eine Antwort auf &ldquo;%2$s&rdquo;"
+msgstr[1] "%1$s Antworten auf &ldquo;%2$s&rdquo;"
+
+#: ../comments.php:41
+msgid "Comment navigation"
+msgstr "Kommentar Navigation"
+
+#: ../comments.php:42
+msgid "&larr; Older Comments"
+msgstr "&larr; Ältere Kommentare"
+
+#: ../comments.php:43
+msgid "Newer Comments &rarr;"
+msgstr "Neuere Kommentare &rarr;"
+
+#: ../comments.php:49
+msgid "Comments are closed."
+msgstr "Kommentarfunktion gesperrt."
+
+#: ../content-aside.php:15 ../content-audio.php:24 ../content-chat.php:15
+#: ../content-gallery.php:23 ../content-image.php:15 ../content-link.php:15
+#: ../content-quote.php:16 ../content-status.php:15 ../content-video.php:23
+#: ../content.php:40 ../functions.php:762
+msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Weiterlesen <span class=\"meta-nav\">&rarr;</span>"
+
+#: ../content-aside.php:20 ../content-audio.php:29 ../content-chat.php:20
+#: ../content-gallery.php:28 ../content-image.php:20 ../content-link.php:20
+#: ../content-page.php:22 ../content-postarchives.php:33
+#: ../content-quote.php:23 ../content-status.php:19 ../content-video.php:28
+#: ../content.php:44
+msgid "Pages:"
+msgstr "Seiten:"
+
+#: ../content-aside.php:32 ../content-audio.php:42 ../content-chat.php:32
+#: ../content-gallery.php:40 ../content-image.php:32 ../content-link.php:32
+#: ../content-page.php:29 ../content-postarchives.php:36
+#: ../content-quote.php:35 ../content-status.php:31 ../content-video.php:40
+#: ../content.php:57 ../functions.php:551
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: ../content-audio.php:17 ../content-gallery.php:17 ../content-video.php:17
+#: ../content.php:22 ../content.php:27
+#, php-format
+msgid "Permalink to %s"
+msgstr "Permalink zu %s"
+
+#: ../content-postarchives.php:19
+msgid "Archives by Category"
+msgstr "Archive nach Kategorie"
+
+#: ../content-postarchives.php:28
+msgid "Archives by Month"
+msgstr "Archive nach Monat"
+
+#: ../content.php:13
+msgid "Featured post"
+msgstr "Featured post"
+
+#: ../functions.php:55
+msgid "Primary Menu"
+msgstr "Hauptmenü"
+
+#: ../functions.php:113
+msgctxt "Annie Use Your Telescope font: on or off"
+msgid "on"
+msgstr "Ein"
+
+#: ../functions.php:115
+msgctxt "Cookie font: on or off"
+msgid "on"
+msgstr "Ein"
+
+#: ../functions.php:116
+msgctxt "Amatic font: on or off"
+msgid "on"
+msgstr "Ein"
+
+#: ../functions.php:118
+msgctxt "PT Sans font: on or off"
+msgid "on"
+msgstr "Ein"
+
+#: ../functions.php:185
+msgid "Main Sidebar"
+msgstr "Haupt-Sidebar"
+
+#: ../functions.php:187
+msgid ""
+"Appears in the sidebar on posts and pages except the optional Front Page "
+"template, which has its own widgets"
+msgstr ""
+"Erscheint in der Sidebar auf Beiträgen und Seiten außer dem optionalen "
+"Startseiten-Template, welches sein eigenes Widget besitzt"
+
+#: ../functions.php:195
+msgid "Blog Sidebar"
+msgstr "Blog Sidebar"
+
+#: ../functions.php:197
+msgid "Appears in the sidebar on the blog and archive pages only"
+msgstr "Erscheint nur auf der Sidebar und auf Archivseiten des Blogs"
+
+#: ../functions.php:205
+msgid "Single Post Sidebar"
+msgstr "Einzelbeitrag Sidebar"
+
+#: ../functions.php:207
+msgid "Appears in the sidebar on single posts only"
+msgstr "Erscheint nur auf der Sidebar der Einzelbeiträge"
+
+#: ../functions.php:215
+msgid "Page Sidebar"
+msgstr "Seiten-Sidebar"
+
+#: ../functions.php:217
+msgid "Appears in the sidebar on pages only"
+msgstr "Ercheint nur auf der Sidebar der Seiten"
+
+#: ../functions.php:225
+msgid "First Front Page Banner Widget"
+msgstr "Erstes Banner-Widget der Startseite"
+
+#: ../functions.php:227 ../functions.php:237
+msgid "Appears in the banner area on the Front Page"
+msgstr "Erscheint auf der Bannerfläche der Startseite"
+
+#: ../functions.php:235
+msgid "Second Front Page Banner Widget"
+msgstr "Zweites Banner-Widget der Startseite"
+
+#: ../functions.php:245
+msgid "First Front Page Widget Area"
+msgstr "Erster Widget-Bereich der Startseite"
+
+#: ../functions.php:247 ../functions.php:257 ../functions.php:267
+#: ../functions.php:277
+msgid ""
+"Appears when using the optional Front Page template with a page set as "
+"Static Front Page"
+msgstr ""
+"Erscheint, wenn das optionale Startseiten-Template mit einer statischen "
+"Startseite genutzt wird"
+
+#: ../functions.php:255
+msgid "Second Front Page Widget Area"
+msgstr "Zweiter Widget-Bereich der Startseite"
+
+#: ../functions.php:265
+msgid "Third Front Page Widget Area"
+msgstr "Dritter Widget-Bereich der Startseite"
+
+#: ../functions.php:275
+msgid "Fourth Front Page Widget Area"
+msgstr "Vierter Widget-Bereich der Startseite"
+
+#: ../functions.php:285
+msgid "First Footer Widget Area"
+msgstr "Erster Widget-Bereich des Footers"
+
+#: ../functions.php:287 ../functions.php:297 ../functions.php:307
+#: ../functions.php:317
+msgid "Appears in the footer sidebar"
+msgstr "Erscheint im Footer-Sidebar"
+
+#: ../functions.php:295
+msgid "Second Footer Widget Area"
+msgstr "Zweiter Widget-Bereich des Footers"
+
+#: ../functions.php:305
+msgid "Third Footer Widget Area"
+msgstr "Dritter Widget-Bereich des Footers"
+
+#: ../functions.php:315
+msgid "Fourth Footer Widget Area"
+msgstr "Vierter  Widget-Bereich des Footers"
+
+#: ../functions.php:395
+msgid "Please enter your name"
+msgstr "Bitte Namen eingeben"
+
+#: ../functions.php:396
+msgid "Please enter a valid email address"
+msgstr "Bitte gültige Emailadresse eingeben"
+
+#: ../functions.php:397
+msgid "Please add a comment"
+msgstr "Bitte Kommentar hunzufügen"
+
+#: ../functions.php:437
+#, php-format
+msgid "Page %s"
+msgstr "Seite %s"
+
+#: ../functions.php:464
+msgid "Post navigation"
+msgstr "Beitragsnavigation"
+
+#: ../functions.php:468
+msgctxt "Previous post link"
+msgid "<i class=\"fa fa-angle-left\"></i>"
+msgstr "<i class=\"fa fa-angle-left\"></i>"
+
+#: ../functions.php:469
+msgctxt "Next post link"
+msgid "<i class=\"fa fa-angle-right\"></i>"
+msgstr "<i class=\"fa fa-angle-right\"></i>"
+
+#: ../functions.php:480
+msgid "<i class=\"fa fa-angle-left\"></i> Previous"
+msgstr "<i class=\"fa fa-angle-left\"></i> Previous"
+
+#: ../functions.php:482
+msgid "Next <i class=\"fa fa-angle-right\"></i>"
+msgstr "Nächster <i class=\"fa fa-angle-right\"></i>"
+
+#: ../functions.php:519
+msgid "Pingback:"
+msgstr "Pingback:"
+
+#: ../functions.php:519
+msgid "(Edit)"
+msgstr "(Bearbeiten)"
+
+#: ../functions.php:534
+msgid "Post author"
+msgstr "Autor"
+
+#: ../functions.php:537 ../functions.php:657
+#, php-format
+msgid "%1$s @ %2$s"
+msgstr "%1$s @ %2$s"
+
+#: ../functions.php:540
+#, php-format
+msgid "%1$s at %2$s"
+msgstr "%1$s um %2$s"
+
+#: ../functions.php:546
+msgid "Your comment is awaiting moderation."
+msgstr "Dein Kommentar muss freigeschaltet werden."
+
+#: ../functions.php:555
+msgid "Reply <span>&darr;</span>"
+msgstr "Antworten <span>&darr;</span>"
+
+#: ../functions.php:579
+msgid "Name"
+msgstr "Name"
+
+#: ../functions.php:581
+msgid "Email"
+msgstr "Email"
+
+#: ../functions.php:583
+msgid "Website"
+msgstr "Website"
+
+#: ../functions.php:602
+msgctxt "noun"
+msgid "Comment"
+msgstr "Kommentar"
+
+#: ../functions.php:665
+#, php-format
+msgid "View all posts by %s"
+msgstr "Alle Beiträge von %s"
+
+#: ../functions.php:670 ../functions.php:706
+msgid " "
+msgstr " "
+
+#: ../functions.php:675
+msgid "Comment on "
+msgstr "Kommentar zu"
+
+#: ../functions.php:676
+#, php-format
+msgid "%1$s Comment"
+msgid_plural "%1$s Comments"
+msgstr[0] "%1$s Kommentar"
+msgstr[1] "%1$s Kommentare"
+
+#: ../functions.php:676
+msgid "No Comments"
+msgstr "Keine Kommentare"
+
+#: ../functions.php:680
+#, php-format
+msgid ""
+"<div class=\"header-meta\">%1$s%2$s<span class=\"post-categories\">%3$s</"
+"span>%4$s</div>"
+msgstr ""
+"<div class=\"header-meta\">%1$s%2$s<span class=\"post-categories\">%3$s</"
+"span>%4$s</div>"
+
+#: ../functions.php:711
+#, php-format
+msgid "<i class=\"fa fa-tag\"></i> %1$s"
+msgstr "<i class=\"fa fa-tag\"></i> %1$s"
+
+#: ../functions.php:762
+msgid "Continue reading"
+msgstr "Weiterlesen"
+
+#: ../functions.php:852
+msgid "Follow me on Twitter"
+msgstr "Folge mir bei Twitter"
+
+#: ../functions.php:853
+msgid "Friend me on Facebook"
+msgstr "Lass uns Freunde auf Facebook werden"
+
+#: ../functions.php:854
+msgid "Connect with me on Google+"
+msgstr "Folge mir bei Google+"
+
+#: ../functions.php:855
+msgid "Connect with me on LinkedIn"
+msgstr "Folge mir bei LinkedIn"
+
+#: ../functions.php:856
+msgid "Follow me on Dribbble"
+msgstr "Folge mir bei Dribbble"
+
+#: ../functions.php:857
+msgid "Follow me on Tumblr"
+msgstr "Folge mir bei Tumblr"
+
+#: ../functions.php:858
+msgid "Fork me on GitHub"
+msgstr "Fork me on GitHub"
+
+#: ../functions.php:859
+msgid "Fork me on Bitbucket"
+msgstr "Fork me on Bitbucket"
+
+#: ../functions.php:860
+msgid "Follow me on Foursquare"
+msgstr "Folge mir auf Foursquare"
+
+#: ../functions.php:861
+msgid "Subscribe to me on YouTube"
+msgstr "Abonniere meinen YouTube-Kanal"
+
+#: ../functions.php:862
+msgid "Follow me on Instagram"
+msgstr "Folge mir bei Instagram"
+
+#: ../functions.php:863
+msgid "Connect with me on Flickr"
+msgstr "Folge mir bei Flickr"
+
+#: ../functions.php:864
+msgid "Follow me on Pinterest"
+msgstr "Folge mir bei Pinterest"
+
+#: ../functions.php:865
+msgid "Subscribe to my RSS Feed"
+msgstr "Abonniere meinen YouTube-Kanal"
+
+#: ../functions.php:900
+msgid "Proudly powered by"
+msgstr "Proudly powered by"
+
+#: ../functions.php:901
+msgid "http://wordpress.org/"
+msgstr "http://wordpress.org/"
+
+#: ../functions.php:902
+msgid "Semantic Personal Publishing Platform"
+msgstr "Semantic Personal Publishing Platform"
+
+#: ../functions.php:903
+msgid "WordPress"
+msgstr "WordPress"
+
+#: ../header.php:42
+msgid "Skip to main content"
+msgstr "Zum Artikel Springen"
+
+#: ../header.php:65
+msgid "Menu"
+msgstr "Menü"
+
+#: ../header.php:66
+msgid "Skip to content"
+msgstr "Zum Inhalt Springen"
+
+#: ../inc/includes/class-options-framework-admin.php:85
+#: ../inc/includes/class-options-framework-admin.php:86
+#: ../inc/includes/class-options-framework-admin.php:305
+msgid "Theme Options"
+msgstr "Themenoptionen"
+
+#: ../inc/includes/class-options-framework-admin.php:171
+msgid "Save Options"
+msgstr "Optionen Speichern"
+
+#: ../inc/includes/class-options-framework-admin.php:172
+msgid "Restore Defaults"
+msgstr "Standard wiederherstellen"
+
+#: ../inc/includes/class-options-framework-admin.php:172
+msgid "Click OK to reset. Any theme settings will be lost!"
+msgstr ""
+"Klicke OK zum zurücksetzen. Alle Themeneinstellungen werden verloren gehen."
+
+#: ../inc/includes/class-options-framework-admin.php:203
+msgid "Default options restored."
+msgstr "Standardeinstellungen wiederhergestellt."
+
+#: ../inc/includes/class-options-framework-admin.php:257
+msgid "Options saved."
+msgstr "Einstellungen gespeichert."
+
+#: ../inc/includes/class-options-media-uploader.php:63
+msgid "No file chosen"
+msgstr "Keine Datei ausgewählt"
+
+#: ../inc/includes/class-options-media-uploader.php:66
+#: ../inc/includes/class-options-media-uploader.php:119
+msgid "Upload"
+msgstr "Upload"
+
+#: ../inc/includes/class-options-media-uploader.php:68
+#: ../inc/includes/class-options-media-uploader.php:120
+msgid "Remove"
+msgstr "Entfernen"
+
+#: ../inc/includes/class-options-media-uploader.php:71
+msgid "Upgrade your version of WordPress for full media support."
+msgstr "Upgrade Wordpress für die gesamte Medienunterstützung"
+
+#: ../inc/includes/class-options-media-uploader.php:95
+msgid "View File"
+msgstr "Datei ansehen"
+
+#: ../inc/includes/class-options-sanitization.php:241
+msgid "No Repeat"
+msgstr "Nicht wiederholen"
+
+#: ../inc/includes/class-options-sanitization.php:242
+msgid "Repeat Horizontally"
+msgstr "Horizontal wiederholen"
+
+#: ../inc/includes/class-options-sanitization.php:243
+msgid "Repeat Vertically"
+msgstr "Vertikal wiederholen"
+
+#: ../inc/includes/class-options-sanitization.php:244
+msgid "Repeat All"
+msgstr "Alle wiederholen"
+
+#: ../inc/includes/class-options-sanitization.php:257
+msgid "Top Left"
+msgstr "Oben links"
+
+#: ../inc/includes/class-options-sanitization.php:258
+msgid "Top Center"
+msgstr "Oben Mitte"
+
+#: ../inc/includes/class-options-sanitization.php:259
+msgid "Top Right"
+msgstr "Oben rechts"
+
+#: ../inc/includes/class-options-sanitization.php:260
+msgid "Middle Left"
+msgstr "Mitte links"
+
+#: ../inc/includes/class-options-sanitization.php:261
+msgid "Middle Center"
+msgstr "Mitte"
+
+#: ../inc/includes/class-options-sanitization.php:262
+msgid "Middle Right"
+msgstr "Mitte rechts"
+
+#: ../inc/includes/class-options-sanitization.php:263
+msgid "Bottom Left"
+msgstr "Unten links"
+
+#: ../inc/includes/class-options-sanitization.php:264
+msgid "Bottom Center"
+msgstr "Unten Mitte"
+
+#: ../inc/includes/class-options-sanitization.php:265
+msgid "Bottom Right"
+msgstr "Unten rechts"
+
+#: ../inc/includes/class-options-sanitization.php:278
+msgid "Scroll Normally"
+msgstr "normal scrollen"
+
+#: ../inc/includes/class-options-sanitization.php:279
+msgid "Fixed in Place"
+msgstr "Feste Position"
+
+#: ../inc/includes/class-options-sanitization.php:353
+msgid "Normal"
+msgstr "Normal"
+
+#: ../inc/includes/class-options-sanitization.php:354
+msgid "Italic"
+msgstr "Kursiv"
+
+#: ../inc/includes/class-options-sanitization.php:355
+msgid "Bold"
+msgstr "Fett"
+
+#: ../inc/includes/class-options-sanitization.php:356
+msgid "Bold Italic"
+msgstr "Kursiv Fett"
+
+#: ../no-results.php:14
+msgid "Nothing Found"
+msgstr "Nichts gefunden"
+
+#: ../no-results.php:20
+#, php-format
+msgid ""
+"Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr ""
+"Bereit deinen ersten Beitrag zu veröffentlichen? <a href=\"%1$s\">Starte "
+"hier</a>."
+
+#: ../no-results.php:27
+msgid ""
+"Sorry, but nothing matched your search terms. Please try again with some "
+"different keywords."
+msgstr ""
+"Entschuldigung, aber nichts hat zu deinen Suchbegriffen gepasst. Versuchs "
+"mit anderen."
+
+#: ../options.php:50
+msgid "Left aligned"
+msgstr "Linksbündig"
+
+#: ../options.php:51
+msgid "Center aligned"
+msgstr "Zentriert"
+
+#: ../options.php:52
+msgid "Right aligned"
+msgstr "Rechtsbündig"
+
+#: ../options.php:58
+msgid "Basic Settings"
+msgstr "Grundeinstellungen"
+
+#: ../options.php:62
+msgid "Background"
+msgstr "Hintergrund"
+
+#: ../options.php:63
+#, php-format
+msgid ""
+"If you&rsquo;d like to replace or remove the default background image, use "
+"the <a href=\"%1$s\" title=\"Custom background\">Appearance &gt; Background</"
+"a> menu option."
+msgstr ""
+"Wenn du das Standardhintergrundbild ändern oder entfernen möchtest, benutze "
+"die <a href=\"%1$s\" title=\"Custom background\">Erscheinung &gt; "
+"Hintergrund</a> Menüoption."
+
+#: ../options.php:71
+msgid "Logo"
+msgstr "Logo"
+
+#: ../options.php:72
+#, php-format
+msgid ""
+"If you&rsquo;d like to replace or remove the default logo, use the <a href="
+"\"%1$s\" title=\"Custom header\">Appearance &gt; Header</a> menu option."
+msgstr ""
+"Wenn du das Standardlogo ändern oder entfernen möchtest, benutze die <a href="
+"\"%1$s\" title=\"Custom background\">Erscheinung &gt; Header</a> Menüoption."
+
+#: ../options.php:80
+msgid "Social Media Settings"
+msgstr "Social Media Einstellungen"
+
+#: ../options.php:81
+msgid ""
+"Enter the URLs for your Social Media platforms. You can also optionally "
+"specify whether you want these links opened in a new browser tab/window."
+msgstr ""
+"Gib die URLs für deine sozialen Netzwerke ein. Es kann außerdem ausgewählt "
+"werden, ob diese Links in einem neuen Tab/Fenster geöffnet werden sollen."
+
+#: ../options.php:85
+msgid "Open links in new Window/Tab"
+msgstr "Öffne Links im neuen Fenster/Tab"
+
+#: ../options.php:86
+msgid "Open the social media links in a new browser tab/window"
+msgstr "Öffne die Links in einem neuen Tab/Fenster"
+
+#: ../options.php:92
+msgid "Twitter"
+msgstr "Twitter"
+
+#: ../options.php:93
+msgid "Enter your Twitter URL."
+msgstr "Gib deine Twitter-URL ein!"
+
+#: ../options.php:99
+msgid "Facebook"
+msgstr "Facebook"
+
+#: ../options.php:100
+msgid "Enter your Facebook URL."
+msgstr "Gib deine Facebook-URL ein!"
+
+#: ../options.php:106
+msgid "Google+"
+msgstr "Google+"
+
+#: ../options.php:107
+msgid "Enter your Google+ URL."
+msgstr "Gib deine Google+-URL ein!"
+
+#: ../options.php:113
+msgid "LinkedIn"
+msgstr "LinkedIn"
+
+#: ../options.php:114
+msgid "Enter your LinkedIn URL."
+msgstr "Gib deine LinkedIn-URL ein!"
+
+#: ../options.php:120
+msgid "Dribbble"
+msgstr "Dribbble"
+
+#: ../options.php:121
+msgid "Enter your Dribbble URL."
+msgstr "Gib deine Dribbble-URL ein."
+
+#: ../options.php:127
+msgid "Tumblr"
+msgstr "Tumblr"
+
+#: ../options.php:128
+msgid "Enter your Tumblr URL."
+msgstr "Gib deine Tumblr-URL ein."
+
+#: ../options.php:134
+msgid "GitHub"
+msgstr "GitHub"
+
+#: ../options.php:135
+msgid "Enter your GitHub URL."
+msgstr "Gib deine GitHub-URL ein."
+
+#: ../options.php:141
+msgid "Bitbucket"
+msgstr "Bitbucket"
+
+#: ../options.php:142
+msgid "Enter your Bitbucket URL."
+msgstr "Gib deine BitBucket-URL ein."
+
+#: ../options.php:148
+msgid "Foursquare"
+msgstr "Foursquare"
+
+#: ../options.php:149
+msgid "Enter your Foursquare URL."
+msgstr "Gib deine Foursquare-URL ein."
+
+#: ../options.php:155
+msgid "YouTube"
+msgstr "YouTube"
+
+#: ../options.php:156
+msgid "Enter your YouTube URL."
+msgstr "Gib deine YouTube-URL ein."
+
+#: ../options.php:162
+msgid "Instagram"
+msgstr "Instagram"
+
+#: ../options.php:163
+msgid "Enter your Instagram URL."
+msgstr "Gib deine Instagram-URL ein."
+
+#: ../options.php:169
+msgid "Flickr"
+msgstr "Flickr"
+
+#: ../options.php:170
+msgid "Enter your Flickr URL."
+msgstr "Gib deine Flickr-URL ein."
+
+#: ../options.php:176
+msgid "Pinterest"
+msgstr "Pinterest"
+
+#: ../options.php:177
+msgid "Enter your Pinterest URL."
+msgstr "Gib deine Pinterest-URL ein!"
+
+#: ../options.php:183
+msgid "RSS"
+msgstr "RSS"
+
+#: ../options.php:184
+msgid "Enter your RSS Feed URL."
+msgstr "Gib deine Facebook-URL ein!"
+
+#: ../options.php:190
+msgid "Advanced settings"
+msgstr "Erweiterte Einstellungen"
+
+#: ../options.php:194
+msgid "Banner Background"
+msgstr "Bannerhintergrund"
+
+#: ../options.php:195
+msgid "Select an image and background color for the homepage banner."
+msgstr ""
+"Wähle ein Bild oder eine Hintergrundfarbe für den Startseitenbanner aus!"
+
+#: ../options.php:201
+msgid "Footer Background Color"
+msgstr "Hintergrundfarbe Footer"
+
+#: ../options.php:202
+msgid "Select the background color for the footer."
+msgstr "Wähle eine Hintergrundfarbe für den Footer aus."
+
+#: ../options.php:208
+msgid "Footer Content"
+msgstr "Footer-Inhalt"
+
+#: ../options.php:209
+msgid ""
+"Enter the text you&lsquo;d like to display in the footer. This content will "
+"be displayed just below the footer widgets. It&lsquo;s ideal for displaying "
+"your copyright message or credits."
+msgstr ""
+"Gib den Text ein, der im Footer erscheinen soll. Er wird direkt unter den "
+"Footer-Widgets angezeigt. Es eignen sich z.B. Urheberrechtsinformationen für "
+"diesen Bereich."
+
+#: ../options.php:216
+msgid "Footer Content Position"
+msgstr "Position Footerinhalt"
+
+#: ../options.php:217
+msgid "Select what position you would like the footer content aligned to."
+msgstr ""
+"Wähle aus, an wecher Position sich der Inhalt deines Footers befinden soll!"
+
+#: ../search.php:19
+#, php-format
+msgid "Search Results for: %s"
+msgstr "Suchergebnisse für: %s"
+
+#: ../tag.php:18
+#, php-format
+msgid "Tag Archives: %s"
+msgstr "Tag Archive: %s"
+
+#~ msgctxt "PT Sans font: add new subset (cyrillic)"
+#~ msgid "no-subset"
+#~ msgstr "no-subset"
+
+#~ msgctxt "Arvo font: on or off"
+#~ msgid "on"
+#~ msgstr "Ein"
+
+#~ msgid "Google Analytics"
+#~ msgstr "Google Analytics"
+
+#~ msgid ""
+#~ "Enter your Google Analytics Tracking ID. The Tracking ID will be in the "
+#~ "form of UA-1234567-1."
+#~ msgstr ""
+#~ "Gib deine Google Analytics Tracking ID ein. Sie hat die Form UA-1234567-1."
+
+#~ msgid "Clear"
+#~ msgstr "Leeren"
+
+#~ msgid "Default"
+#~ msgstr "Standard"
+
+#~ msgid "Select Color"
+#~ msgstr "Farbe auswählen"

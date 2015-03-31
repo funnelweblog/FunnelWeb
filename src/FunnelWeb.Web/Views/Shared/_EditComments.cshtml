@@ -1,58 +1,88 @@
-﻿@model FunnelWeb.Web.Views.Wiki.PageModel
+﻿@using System.Threading
+@using FunnelWeb.Authentication.Internal
+@using Authorization = FunnelWeb.Authentication.Internal.Authorization
+@model FunnelWeb.Web.Views.Wiki.PageModel
 
 @if (Html.Settings().EnableDisqusCommenting)
 {
     Html.RenderPartial("_Disqus");
 }
-else
+else if (Html.AcsSettings().RequireAuthenticationForComments && !User.CheckAccess(Authorization.Operations.View, Authorization.Resources.Blog.Comment))
 {
-    <h2>Your Comments</h2>
+    <div>@Html.ActionLink("Login in", "Index", "Login", new { ReturnUrl = Request.Path }, new { }) to comment!</div>
+}
+else if (!Html.AcsSettings().RequireAuthenticationForComments || Thread.CurrentPrincipal.CheckAccess(Authorization.Operations.View, Authorization.Resources.Blog.Comment))
+{
 
-    @Html.ValidationSummary("Comment unsuccessful. Please correct the errors below.")
+    <div id="respond" class="comment-respond">
+        <h3 id="reply-title" class="comment-reply-title">Leave a Reply</h3>
 
-    <div class='entry-comment'>
-        @using (Html.BeginForm("Page", "Wiki", new { page = Model.Page }, FormMethod.Post, new { @class = "promptBeforeUnload" }))
-        {
-            <div class="form-body">
-                <div class="editor-label">
-                    @Html.LabelFor(m => m.CommenterName)
-                </div>
-                <div class="editor-field">
-                    @Html.TextBoxFor(m => m.CommenterName, Html.AttributesFor(m => m.CommenterName))
-                    @Html.ValidationMessageFor(m => m.CommenterName)
-                    @Html.HintFor(m => m.CommenterName)
-                </div>
-                <div class="editor-label">
-                    @Html.LabelFor(m => m.CommenterBlog)
-                </div>
-                <div class="editor-field">
-                    @Html.TextBoxFor(m => m.CommenterBlog, Html.AttributesFor(m => m.CommenterBlog))
-                    @Html.ValidationMessageFor(m => m.CommenterBlog)
-                    @Html.HintFor(m => m.CommenterBlog)
-                </div>
-                <div class="editor-label">
-                    @Html.LabelFor(m => m.CommenterEmail)
-                </div>
-                <div class="editor-field">
-                    @Html.TextBoxFor(m => m.CommenterEmail, Html.AttributesFor(m => m.CommenterEmail))
-                    @Html.ValidationMessageFor(m => m.CommenterEmail)
-                    @Html.HintFor(m => m.CommenterEmail)
-                </div>
-                <div class="editor-label">
-                    @Html.LabelFor(m => m.Comments)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(m => m.Comments, Html.AttributesFor(m => m.Comments))
-                    @Html.ValidationMessageFor(m => m.Comments)
-                    @Html.HintFor(m => m.Comments)
-                </div>
-                <div class="editor-field">
-                    <input type="submit" id="submit" class="submit" value="Submit" />
-                </div>
-            </div>
-        }
-    </div>
-    <h3>Preview</h3>
-    <div id="wmd-preview" class="wmd-panel">
-    </div>
+        @Html.ValidationSummary("Comment unsuccessful. Please correct the errors below.")
+
+        <span class='entry-comment'>
+            @using (Html.BeginForm("Page", "Wiki", new { page = Model.Page }, FormMethod.Post, new { @class = "promptBeforeUnload comment-form" }))
+            {
+                <span class="form-body">
+                    <p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="requiredasterix" aria-required="true"></span></p>
+                    <p class="comment-form-author">
+                        <span class="editor-label">
+                            @Html.LabelFor(m => m.CommenterName, new { @class = "requiredasterix" })
+                        </span>
+                        <span class="editor-field">
+                            @Html.TextBoxFor(m => m.CommenterName, Html.AttributesFor(m => m.CommenterName))
+                            @Html.ValidationMessageFor(m => m.CommenterName)
+                            @Html.HintFor(m => m.CommenterName)
+                        </span>
+                    </p>
+                    <p class="comment-form-email">
+                        <span class="editor-label">
+                            @Html.LabelFor(m => m.CommenterEmail, new { @class = "requiredasterix" })
+                        </span>
+                        <span class="editor-field">
+                            @Html.TextBoxFor(m => m.CommenterEmail, Html.AttributesFor(m => m.CommenterEmail))
+                            @Html.ValidationMessageFor(m => m.CommenterEmail)
+                            @Html.HintFor(m => m.CommenterEmail)
+                        </span>
+                    </p>
+                    <p class="comment-form-url">
+                        <span class="editor-label">
+                            @Html.LabelFor(m => m.CommenterBlog)
+                        </span>
+                        <span class="editor-field">
+                            @Html.TextBoxFor(m => m.CommenterBlog, Html.AttributesFor(m => m.CommenterBlog))
+                            @Html.ValidationMessageFor(m => m.CommenterBlog)
+                            @Html.HintFor(m => m.CommenterBlog)
+                        </span>
+                    </p>
+                    <p class="comment-form-comment">
+                        <span class="editor-label">
+                            @Html.LabelFor(m => m.Comments, new { @class = "requiredasterix" })
+                        </span>
+                        <span class="editor-field">
+                            @Html.EditorFor(m => m.Comments, Html.AttributesFor(m => m.Comments))
+                            @Html.ValidationMessageFor(m => m.Comments)
+                            @Html.HintFor(m => m.Comments)
+                        </span>
+                    </p>
+                    <p class="comment-form-submit">
+                        <span class="editor-field">
+                            <input type="submit" id="submit" class="btn btn-default submit" value="Post Comment" />
+                        </span>
+                    </p>
+                </span>
+            }
+        </span>
+        <h3>Preview</h3>
+        
+        <ol class="commentlist">
+            <li class="comment post-comments" id="li-comment-0">
+                <article id="comment-0" class="comment">
+                    <section class="comment-content comment">
+                        <div id="wmd-preview" class="wmd-panel">
+                        </div>
+                    </section>
+                </article>
+            </li>
+        </ol>
+</div>
 }

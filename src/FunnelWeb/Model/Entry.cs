@@ -7,7 +7,7 @@ using NHibernate.Validator.Constraints;
 
 namespace FunnelWeb.Model
 {
-    public class Entry
+    public class Entry : EntryBase
     {
         public Entry()
         {
@@ -28,34 +28,11 @@ namespace FunnelWeb.Model
             IsDiscussionEnabled = true;
         }
 
-        public virtual int Id { get; protected set; }
 		public virtual string PageTemplate { get; set; }
-
-
-        public virtual PageName Name { get; set; }
-        public virtual string Title { get; set; }
-
-        [DataType("Markdown")]
-        public virtual string Summary { get; set; }
-
-        public virtual int CommentCount { get; set; }
-        public virtual string MetaDescription { get; set; }
-        public virtual DateTime Published { get; set; }
-
-        [DataType("Tags")]
-        public virtual IList<Tag> Tags { get; set; }
-
-        public virtual string TagsCommaSeparated
-        {
-            get { return string.Join(",", Tags.Select(t=>t.Name)); }
-            set {}
-        }
 
         public virtual bool IsDiscussionEnabled { get; set; }
         public virtual string MetaTitle { get; set; }
         public virtual bool HideChrome { get; set; }
-        public virtual string Status { get; set; }
-        public virtual string Author { get; set; }
 
         [Valid]
         public virtual Revision LatestRevision { get; set; }

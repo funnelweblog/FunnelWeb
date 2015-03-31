@@ -1,0 +1,23 @@
+<wpml-config>
+	<admin-texts>
+		<key name="quark">
+			<key name="footer_content" />
+		</key>
+	</admin-texts>
+	<language-switcher-settings>
+		<key name="icl_lang_sel_footer_config">
+			<key name="font-current-normal">#fff</key>
+			<key name="font-current-hover">#2997AB</key>
+			<key name="background-current-normal">#222</key>
+			<key name="background-current-hover">#222</key>
+			<key name="font-other-normal">#fff</key>
+			<key name="font-other-hover">#2997AB</key>
+			<key name="background-other-normal">#222</key>
+			<key name="background-other-hover">#222</key>
+			<key name="background">#222</key>
+			<key name="border">#222</key>
+		</key>    
+	</language-switcher-settings>    
+</wpml-config>
+
+

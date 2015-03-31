@@ -1,4 +1,5 @@
-﻿<!doctype html>
+﻿@using FunnelWeb.Authentication.Internal
+<!doctype html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
@@ -6,70 +7,104 @@
 <html class="no-js" lang="en">
 <!--<![endif]-->
 <head>
-    <title>@(ViewBag.Title == null ? "" : (ViewBag.Title + " - "))@Html.Settings().SiteTitle
+    <title>
+        @(ViewBag.Title == null ? "" : (ViewBag.Title + " - "))@Html.Settings().SiteTitle
     </title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    @Styles.Render("~/Content/themes/base/adminCss")
-    @Styles.Render("~/Content/themes/base/css")
+    @Styles.Render("~/Content/bootstrap")
+    @Styles.Render("~/Content/prettify")
+    @Styles.Render("~/Content/admin")
     @Scripts.Render("~/bundles/jquery")
-    
+
     @RenderSection("Meta", required: false)
 </head>
 <body>
     <header>
-        <a class="logo" href="@Url.Content("~/")" title="Administration">Administration</a>
-        <div>
-            <nav>
-                <ul>
-                    @if (ViewData.IsLoggedIn())
-                    {
-                        <li>@Html.AdminActionLink("New Post", "Edit", "WikiAdmin")</li>
-                        <li>@Html.AdminActionLink("Admin", "Index", "Admin")</li>
-                        <li>@Html.AdminActionLink("Logout", "Logout", "Login")</li>
-                    }
-                </ul>
-            </nav>
-        </div>
-    </header>
-    <div class="body" role="main">
-        @if (TempData.ContainsKey("Flash"))
-        {
-            <div class="flash">
-                <p>@TempData["Flash"]</p>
-            </div>
-        }
-        @if (IsSectionDefined("Summary"))
-        {
-            <div class="intro" id="_summary">
-                <div class="intro-in">
-                    @RenderSection("Summary", required: false)
+
+        <div class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Blog Administration</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
+                                <i class="glyphicon glyphicon-user"></i> Admin <span class="caret"></span>
+                            </a>
+                            <ul id="g-account-menu" class="dropdown-menu" role="menu">
+                                <li><a href="@Url.Content("~/")" rel="home">Visit Site</a></li>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <li>@Html.AdminActionLink("New Post", "Edit", "WikiAdmin")</li>
+                                    <li>@Html.AdminActionLink("Admin", "Index", "Admin")</li>
+                                    <li>@Html.AdminActionLink("Logout", "Logout", "Login")</li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        }
-        <div class="content">
-            @RenderBody()
         </div>
-    </div>
-    <footer>
-        <p>
-            This is an admin page, so you won't see the standard header, footer and styles being
-            applied. It's for your own protection.</p>
-        <p>
-            Powered by <a href="http://www.funnelweblog.com/">FunnelWeb</a> @Html.Version()</p>
-    </footer>
-    
-    @Scripts.Render("~/bundles/jqueryui")
-    @Scripts.Render("~/bundles/jsdate")
-    @Scripts.Render("~/bundles/prettify")
-    @Scripts.Render("~/bundles/showdown")
-    @Scripts.Render("~/bundles/wmd")
-    @Scripts.Render("~/bundles/site")
-    
-    @if (IsSectionDefined("Scripts"))
-    {
-        @RenderSection("Scripts")
-    }
+    </header>
+    <div class="body container" role="main">
+        <div class="row">
+            @if (TempData.ContainsKey("Flash"))
+            {
+                <div class="flash alert alert-info">
+                    <p>@TempData["Flash"]</p>
+                </div>
+            }
+            @if (IsSectionDefined("Summary"))
+            {
+                <div class="intro" id="_summary well">
+                    <div class="intro-in">
+                        @RenderSection("Summary", required: false)
+                    </div>
+                </div>
+            }
 
-    @MiniProfiler.RenderIncludes()
+            <div class="col-sm-3">
+                <!-- left -->
+                <h3><i class="glyphicon glyphicon-briefcase"></i> Toolbox</h3>
+                <hr>
+
+                <ul class="nav nav-stacked">
+                    <li>@Html.AdminActionLink("All Posts", "PageList", "Admin", "A list of all published and unpublished pages on your site, for quick access.")</li>
+                    <li>@Html.AdminActionLink("General", "Settings", "Admin", "Configure site-wide settings, such as the blog title and introduction text, page headers and footers, and so on.")</li>
+                    <li>@Html.AdminActionLink("Comments", "Comments", "Admin", "This page allows you to delete and mark comments as spam.")</li>
+                    <li>@Html.AdminActionLink("Pingbacks", "Pingbacks", "Admin", "Pingbacks are created when other blogs link to your blog. This page allows to you delete pingbacks if they are spam.")</li>
+                    <li>@Html.AdminActionLink("Database", "Index", "Install", "Use this tool to change your connection string, and to upgrade your database.")</li>
+                    <li>@Html.AdminActionLink("File Uploads", "Index", "Upload", "This area allows you to upload files.")</li>
+                    <li>@Html.AdminActionLink("Tasks", "Tasks", "Admin", "Maintenance tasks that have been run in the background.")</li>
+                    <li>@Html.AdminActionLink("BlogML Import", "BlogMlImport", "Admin", "Import blog content from another blog engine.")</li>
+                    <li>@Html.AdminActionLink("Sql Authentication", "Index", "SqlAuthentication", "Enable or disable Sql Authentication.")</li>
+                    <li>@Html.AdminActionLink("External Authentication", "AcsSettings", "Admin", "Configure external authentication using the Windows Azure Access Control Service (ACS).")</li>
+                </ul>
+            </div>
+            <div class="col-sm-9">
+                @RenderBody()
+            </div>
+        </div>
+        <footer class="text-center">
+            <p>
+                This is an admin page, so you won't see the standard header, footer and styles being
+                applied. It's for your own protection.
+            </p>
+            <p>
+                Powered by <a href="http://www.funnelweblog.com/">FunnelWeb</a> @Html.Version()
+            </p>
+        </footer>
+
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/jsdate")
+        @Scripts.Render("~/bundles/prettify")
+        @Scripts.Render("~/bundles/showdown")
+        @Scripts.Render("~/bundles/site")
+
+        @RenderSection("Scripts", false)
+
+        @*@MiniProfiler.RenderIncludes()*@
 </body>
 </html>
